@@ -1,0 +1,189 @@
+{
+  "name": "deterministic_heavy_v0",
+  "version": "0.1",
+  "description": "Small deterministic-heavy workload draft for future direct baseline vs KORA-controlled benchmarks.",
+  "status": "draft",
+  "task_count": 20,
+  "tasks": [
+    {
+      "id": "arith_001",
+      "category": "arithmetic",
+      "input": {"operation": "add", "values": [12, 30]},
+      "expected_path": "deterministic",
+      "expected_output": {"result": 42},
+      "requires_model": false,
+      "notes": "Simple arithmetic should never require inference."
+    },
+    {
+      "id": "arith_002",
+      "category": "arithmetic",
+      "input": {"operation": "multiply", "values": [7, 8]},
+      "expected_path": "deterministic",
+      "expected_output": {"result": 56},
+      "requires_model": false,
+      "notes": "Direct model invocation would be unnecessary."
+    },
+    {
+      "id": "arith_003",
+      "category": "arithmetic",
+      "input": {"operation": "percent_change", "old": 80, "new": 100},
+      "expected_path": "deterministic",
+      "expected_output": {"result": 25.0, "unit": "percent"},
+      "requires_model": false,
+      "notes": "Structured numeric calculation with an exact expected output."
+    },
+    {
+      "id": "arith_004",
+      "category": "arithmetic",
+      "input": {"operation": "divide", "numerator": 9, "denominator": 0},
+      "expected_path": "deterministic_error",
+      "expected_output": {"error": "division_by_zero"},
+      "requires_model": false,
+      "notes": "Expected deterministic error handling, not fallback."
+    },
+    {
+      "id": "string_001",
+      "category": "string_normalization",
+      "input": {"text": "  KORA   Benchmark  Skeleton  "},
+      "expected_path": "deterministic",
+      "expected_output": {"text": "kora benchmark skeleton"},
+      "requires_model": false,
+      "notes": "Whitespace and case normalization should be deterministic."
+    },
+    {
+      "id": "string_002",
+      "category": "string_normalization",
+      "input": {"text": "Release_0.1.1 Alpha", "style": "slug"},
+      "expected_path": "deterministic",
+      "expected_output": {"text": "release-0-1-1-alpha"},
+      "requires_model": false,
+      "notes": "Slug generation is a non-model task."
+    },
+    {
+      "id": "string_003",
+      "category": "string_normalization",
+      "input": {"text": "user@example.com", "style": "email_domain"},
+      "expected_path": "deterministic",
+      "expected_output": {"domain": "example.com"},
+      "requires_model": false,
+      "notes": "Useful for measuring unnecessary model calls on parsing tasks."
+    },
+    {
+      "id": "json_001",
+      "category": "json_validation",
+      "input": {"payload": {"status": "ok", "count": 3}, "required_keys": ["status", "count"]},
+      "expected_path": "deterministic",
+      "expected_output": {"valid": true, "missing_keys": []},
+      "requires_model": false,
+      "notes": "Schema-like key validation should be deterministic."
+    },
+    {
+      "id": "json_002",
+      "category": "json_validation",
+      "input": {"payload": {"status": "ok"}, "required_keys": ["status", "count"]},
+      "expected_path": "deterministic",
+      "expected_output": {"valid": false, "missing_keys": ["count"]},
+      "requires_model": false,
+      "notes": "Invalid JSON shape should be caught before fallback."
+    },
+    {
+      "id": "json_003",
+      "category": "json_validation",
+      "input": {"payload": "{\"status\":\"ok\",\"count\":3}", "parse": true},
+      "expected_path": "deterministic",
+      "expected_output": {"valid_json": true, "status": "ok", "count": 3},
+      "requires_model": false,
+      "notes": "Parsing valid JSON text is not an inference task."
+    },
+    {
+      "id": "routing_001",
+      "category": "routing_decision",
+      "input": {"request_type": "telemetry_summary", "has_run_json": true},
+      "expected_path": "deterministic",
+      "expected_output": {"route": "telemetry"},
+      "requires_model": false,
+      "notes": "Known request type should route without inference."
+    },
+    {
+      "id": "routing_002",
+      "category": "routing_decision",
+      "input": {"request_type": "run_example", "example": "hello_kora"},
+      "expected_path": "deterministic",
+      "expected_output": {"route": "examples.run", "example": "hello_kora"},
+      "requires_model": false,
+      "notes": "CLI-style routing should be deterministic."
+    },
+    {
+      "id": "routing_003",
+      "category": "routing_decision",
+      "input": {"request_type": "ambiguous_analysis", "text": "make this better"},
+      "expected_path": "fallback_candidate",
+      "expected_output": {"route": "model_fallback_candidate"},
+      "requires_model": true,
+      "notes": "Ambiguous natural-language request may require fallback in later runners."
+    },
+    {
+      "id": "cache_001",
+      "category": "cache_lookup",
+      "input": {"key": "release:v0.1.0-alpha", "cache": {"release:v0.1.0-alpha": "public_alpha"}},
+      "expected_path": "deterministic",
+      "expected_output": {"hit": true, "value": "public_alpha"},
+      "requires_model": false,
+      "notes": "Cache hits should avoid model calls."
+    },
+    {
+      "id": "cache_002",
+      "category": "cache_lookup",
+      "input": {"key": "release:v0.2.0-alpha", "cache": {"release:v0.1.0-alpha": "public_alpha"}},
+      "expected_path": "deterministic_miss",
+      "expected_output": {"hit": false, "value": null},
+      "requires_model": false,
+      "notes": "Cache miss should be explicit before any fallback decision."
+    },
+    {
+      "id": "cache_003",
+      "category": "cache_lookup",
+      "input": {"key": "policy:unknown", "cache": {}},
+      "expected_path": "fallback_candidate",
+      "expected_output": {"hit": false, "fallback_reason": "unknown_policy"},
+      "requires_model": true,
+      "notes": "Missing policy may become a controlled fallback case."
+    },
+    {
+      "id": "schema_001",
+      "category": "schema_check",
+      "input": {"object": {"task_id": "task_echo", "stage": "DETERMINISTIC"}, "schema": "task_event_minimal"},
+      "expected_path": "deterministic",
+      "expected_output": {"valid": true},
+      "requires_model": false,
+      "notes": "Valid event shape should pass without inference."
+    },
+    {
+      "id": "schema_002",
+      "category": "schema_check",
+      "input": {"object": {"task_id": 123, "stage": "DETERMINISTIC"}, "schema": "task_event_minimal"},
+      "expected_path": "deterministic",
+      "expected_output": {"valid": false, "errors": ["task_id_type"]},
+      "requires_model": false,
+      "notes": "Type mismatch should be caught by deterministic validation."
+    },
+    {
+      "id": "schema_003",
+      "category": "schema_check",
+      "input": {"object": {"answer": "maybe", "confidence": 0.42}, "schema": "answer_with_confidence"},
+      "expected_path": "fallback_candidate",
+      "expected_output": {"valid": true, "confidence_below_threshold": true},
+      "requires_model": true,
+      "notes": "Low-confidence answer shape is useful for later verifier/fallback experiments."
+    },
+    {
+      "id": "routing_004",
+      "category": "routing_decision",
+      "input": {"request_type": "summarize_free_text", "text_length": 1200, "has_cached_summary": false},
+      "expected_path": "fallback_candidate",
+      "expected_output": {"route": "model_fallback_candidate", "reason": "semantic_summary_required"},
+      "requires_model": true,
+      "notes": "Included to separate true fallback needs from avoidable direct model calls."
+    }
+  ]
+}
