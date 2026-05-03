@@ -4,12 +4,13 @@ This directory holds benchmark workloads, generated results, and future experime
 
 ## Current Status
 
-The benchmark surface is currently a skeleton. It defines the directory layout and an initial deterministic-heavy workload draft, but it does not include a benchmark runner yet.
+The benchmark surface is currently a skeleton. It defines the directory layout, an initial deterministic-heavy workload draft, and a minimal dry-run runner, but it does not include direct baseline or KORA-controlled execution yet.
 
 Current contents:
 
 - `workloads/`: versioned workload definitions used by future runners.
 - `results/`: generated benchmark outputs. This directory is intentionally kept empty except for `.gitkeep`.
+- `run_benchmark.py`: minimal benchmark runner skeleton.
 
 ## Deterministic-Heavy Workloads
 
@@ -26,6 +27,18 @@ The first workload draft is:
 ```text
 experiments/workloads/deterministic_heavy_v0.json
 ```
+
+## Dry-Run Runner
+
+The current runner supports only `dry-run` mode. It loads a workload, validates that it contains a task list, counts tasks by category, counts `requires_model` values, and writes a result JSON artifact.
+
+Example:
+
+```bash
+python3 experiments/run_benchmark.py --mode dry-run --workload experiments/workloads/deterministic_heavy_v0.json --output experiments/results/deterministic_heavy_v0.dry_run.json
+```
+
+This is not yet a direct baseline versus KORA-controlled comparison. It is only the first executable skeleton for validating workload shape and result artifact structure.
 
 ## Future Runner
 
