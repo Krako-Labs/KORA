@@ -4,7 +4,7 @@ This directory holds benchmark workloads, generated results, and future experime
 
 ## Current Status
 
-The benchmark surface is currently a skeleton. It defines the directory layout, an initial deterministic-heavy workload draft, and a minimal dry-run runner, but it does not include direct baseline or KORA-controlled execution yet.
+The benchmark surface is currently a skeleton. It defines the directory layout, an initial deterministic-heavy workload draft, a minimal dry-run runner, and a simulated direct baseline mode, but it does not include KORA-controlled execution yet.
 
 Current contents:
 
@@ -30,7 +30,7 @@ experiments/workloads/deterministic_heavy_v0.json
 
 ## Dry-Run Runner
 
-The current runner supports only `dry-run` mode. It loads a workload, validates that it contains a task list, counts tasks by category, counts `requires_model` values, and writes a result JSON artifact.
+The runner supports `dry-run` mode for workload shape validation. It loads a workload, validates that it contains a task list, counts tasks by category, counts `requires_model` values, and writes a result JSON artifact.
 
 Example:
 
@@ -39,6 +39,18 @@ python3 experiments/run_benchmark.py --mode dry-run --workload experiments/workl
 ```
 
 This is not yet a direct baseline versus KORA-controlled comparison. It is only the first executable skeleton for validating workload shape and result artifact structure.
+
+## Direct Baseline Runner
+
+The runner also supports `direct-baseline` mode. This mode simulates a naive baseline where every task is counted as one model invocation. It does not call a real model, use external APIs, or measure actual API cost.
+
+Example:
+
+```bash
+python3 experiments/run_benchmark.py --mode direct-baseline --workload experiments/workloads/deterministic_heavy_v0.json --output experiments/results/deterministic_heavy_v0.direct_baseline.json
+```
+
+This gives the future benchmark a baseline model-invocation count to compare against. KORA-controlled execution will be added next.
 
 ## Future Runner
 
