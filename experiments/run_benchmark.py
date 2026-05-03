@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-SUPPORTED_MODES = {"direct-baseline", "dry-run"}
+SUPPORTED_MODES = {"direct-baseline", "dry-run", "kora-controlled"}
 
 
 def load_workload(path: Path) -> dict[str, Any]:
@@ -88,6 +88,33 @@ def build_direct_baseline_result(workload: dict[str, Any], workload_path: Path) 
     }
 
 
+def build_kora_controlled_result(workload: dict[str, Any], workload_path: Path) -> dict[str, Any]:
+    summary = summarize_workload(workload)
+    direct_baseline_invocations = summary["total_tasks"]
+    simulated_model_invocations = summary["requires_model_true"]
+    avoided_invocations = direct_baseline_invocations - simulated_model_invocations
+    avoided_rate = avoided_invocations / direct_baseline_invocations if direct_baseline_invocations else 0.0
+
+    return {
+        "benchmark_name": workload.get("name", workload_path.stem),
+        "mode": "kora-controlled",
+        "workload_path": str(workload_path),
+        **summary,
+        "deterministic_resolutions": summary["requires_model_false"],
+        "fallback_candidates": summary["requires_model_true"],
+        "simulated_model_invocations": simulated_model_invocations,
+        "avoided_model_invocations_vs_direct_baseline": avoided_invocations,
+        "avoided_model_invocation_rate": avoided_rate,
+        "status": "ok",
+        "notes": [
+            "Simulated deterministic-first KORA-controlled mode based on workload metadata.",
+            "Tasks with requires_model=false are counted as deterministic resolutions.",
+            "Tasks with requires_model=true are counted as fallback/model-invocation candidates.",
+            "No real model calls, external APIs, or full KORA runtime integration were used.",
+        ],
+    }
+
+
 def write_result(result: dict[str, Any], output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as handle:
@@ -109,6 +136,13 @@ def run_direct_baseline(workload_path: Path, output_path: Path) -> dict[str, Any
     return result
 
 
+def run_kora_controlled(workload_path: Path, output_path: Path) -> dict[str, Any]:
+    workload = load_workload(workload_path)
+    result = build_kora_controlled_result(workload, workload_path)
+    write_result(result, output_path)
+    return result
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run KORA benchmark skeleton modes.")
     parser.add_argument("--workload", required=True, help="Path to workload JSON")
@@ -126,6 +160,8 @@ def main(argv: list[str] | None = None) -> int:
         result = run_dry_run(workload_path, output_path)
     elif args.mode == "direct-baseline":
         result = run_direct_baseline(workload_path, output_path)
+    elif args.mode == "kora-controlled":
+        result = run_kora_controlled(workload_path, output_path)
     else:
         raise ValueError(f"unsupported mode: {args.mode}")
 

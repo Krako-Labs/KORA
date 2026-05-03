@@ -1,7 +1,12 @@
 import json
 from pathlib import Path
 
-from experiments.run_benchmark import load_workload, run_direct_baseline, run_dry_run
+from experiments.run_benchmark import (
+    load_workload,
+    run_direct_baseline,
+    run_dry_run,
+    run_kora_controlled,
+)
 
 
 WORKLOAD_PATH = Path("experiments/workloads/deterministic_heavy_v0.json")
@@ -69,3 +74,30 @@ def test_direct_baseline_writes_output_json(tmp_path: Path) -> None:
     assert saved["status"] == "ok"
     assert saved["mode"] == "direct-baseline"
     assert saved["simulated_model_invocations"] == 20
+
+
+def test_kora_controlled_result_counts_avoided_model_invocations(tmp_path: Path) -> None:
+    output_path = tmp_path / "deterministic_heavy_v0.kora_controlled.json"
+
+    result = run_kora_controlled(WORKLOAD_PATH, output_path)
+
+    assert result["benchmark_name"] == "deterministic_heavy_v0"
+    assert result["mode"] == "kora-controlled"
+    assert result["total_tasks"] == 20
+    assert result["deterministic_resolutions"] == 16
+    assert result["fallback_candidates"] == 4
+    assert result["simulated_model_invocations"] == 4
+    assert result["avoided_model_invocations_vs_direct_baseline"] == 16
+    assert result["avoided_model_invocation_rate"] == 0.8
+
+
+def test_kora_controlled_writes_output_json(tmp_path: Path) -> None:
+    output_path = tmp_path / "kora_controlled.json"
+
+    run_kora_controlled(WORKLOAD_PATH, output_path)
+
+    assert output_path.exists()
+    saved = json.loads(output_path.read_text(encoding="utf-8"))
+    assert saved["status"] == "ok"
+    assert saved["mode"] == "kora-controlled"
+    assert saved["simulated_model_invocations"] == 4

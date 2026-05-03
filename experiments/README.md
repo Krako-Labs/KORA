@@ -4,7 +4,7 @@ This directory holds benchmark workloads, generated results, and future experime
 
 ## Current Status
 
-The benchmark surface is currently a skeleton. It defines the directory layout, an initial deterministic-heavy workload draft, a minimal dry-run runner, and a simulated direct baseline mode, but it does not include KORA-controlled execution yet.
+The benchmark surface is currently a skeleton. It defines the directory layout, an initial deterministic-heavy workload draft, a minimal dry-run runner, a simulated direct baseline mode, and a simulated KORA-controlled mode.
 
 Current contents:
 
@@ -50,7 +50,29 @@ Example:
 python3 experiments/run_benchmark.py --mode direct-baseline --workload experiments/workloads/deterministic_heavy_v0.json --output experiments/results/deterministic_heavy_v0.direct_baseline.json
 ```
 
-This gives the future benchmark a baseline model-invocation count to compare against. KORA-controlled execution will be added next.
+This gives the benchmark a baseline model-invocation count to compare against the simulated KORA-controlled mode.
+
+## KORA-Controlled Runner
+
+The runner also supports `kora-controlled` mode. This mode simulates deterministic-first KORA execution using workload metadata:
+
+- tasks with `requires_model: false` are counted as deterministic resolutions
+- tasks with `requires_model: true` are counted as fallback/model-invocation candidates
+
+Example:
+
+```bash
+python3 experiments/run_benchmark.py --mode kora-controlled --workload experiments/workloads/deterministic_heavy_v0.json --output experiments/results/deterministic_heavy_v0.kora_controlled.json
+```
+
+For the current deterministic-heavy workload, the simulated comparison is:
+
+- direct-baseline simulated model invocations: 20
+- kora-controlled simulated model invocations: 4
+- avoided model invocations: 16
+- avoided invocation rate: 80%
+
+This is not production cost reduction, not a real API measurement, and not full KORA runtime integration.
 
 ## Future Runner
 
