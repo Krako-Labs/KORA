@@ -10,6 +10,7 @@ Current contents:
 
 - `workloads/`: versioned workload definitions used by future runners.
 - `results/`: generated benchmark outputs. This directory is intentionally kept empty except for `.gitkeep`.
+- `generate_workload.py`: deterministic-heavy workload generator.
 - `run_benchmark.py`: minimal benchmark runner skeleton.
 
 ## Deterministic-Heavy Workloads
@@ -27,6 +28,26 @@ The first workload draft is:
 ```text
 experiments/workloads/deterministic_heavy_v0.json
 ```
+
+The first generated near-term workload is:
+
+```text
+experiments/workloads/deterministic_heavy_v1_100.json
+```
+
+It contains 100 deterministic-heavy tasks generated from seed `42`, with approximately 80 deterministic/no-model tasks and 20 fallback/model-candidate tasks.
+
+## Workload Generator
+
+The workload generator creates reproducible deterministic-heavy workload JSON from a fixed seed.
+
+Example:
+
+```bash
+python3 experiments/generate_workload.py --count 100 --seed 42 --benchmark-name deterministic_heavy_v1 --output experiments/workloads/deterministic_heavy_v1_100.json
+```
+
+Generated workloads are reproducible from the same seed, count, and benchmark name. Generated tasks should still be reviewed for category balance, expected outputs, and fallback-candidate clarity before benchmark claims are made.
 
 ## Dry-Run Runner
 

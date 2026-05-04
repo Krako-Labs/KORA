@@ -1,0 +1,1601 @@
+{
+  "benchmark_name": "deterministic_heavy_v1",
+  "generated_by": "experiments/generate_workload.py",
+  "name": "deterministic_heavy_v1",
+  "seed": 42,
+  "task_count": 100,
+  "tasks": [
+    {
+      "category": "arithmetic",
+      "expected_output": 11609,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_001",
+      "input": {
+        "left": 247,
+        "operation": "multiply",
+        "right": 47
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "controlled benchmark deterministic",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_002",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": "CONTROLLED-Benchmark-  deterministic "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_003",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-3",
+          "kind": "alpha"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "route requires incomplete policy context"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "routing_decision_004",
+      "input": {
+        "kind": "security",
+        "priority": "low"
+      },
+      "notes": "Fallback candidate for incomplete routing rules.",
+      "requires_model": true
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "cache miss requires external answer"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "cache_lookup_005",
+      "input": {
+        "key": "gamma",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Fallback candidate after cache miss.",
+      "requires_model": true
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": false
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_006",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "invalid"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-11-02",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_007",
+      "input": {
+        "date": "11/2/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 13000
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_008",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 130
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": false
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_009",
+      "input": {
+        "config": {
+          "retries": 4,
+          "timeout_ms": 1000
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_010",
+      "input": {
+        "data_class": "internal",
+        "region": "us"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 195,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_011",
+      "input": {
+        "left": 180,
+        "operation": "add",
+        "right": 15
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "requires semantic rewrite beyond normalization"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "string_normalization_012",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": " KORA -CONTROLLED-  deterministic "
+      },
+      "notes": "Fallback candidate for semantic rewriting.",
+      "requires_model": true
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_013",
+      "input": {
+        "payload": {
+          "enabled": true,
+          "id": "item-13",
+          "kind": "gamma"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "route requires incomplete policy context"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "routing_decision_014",
+      "input": {
+        "kind": "support",
+        "priority": "high"
+      },
+      "notes": "Fallback candidate for incomplete routing rules.",
+      "requires_model": true
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "cache miss requires external answer"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "cache_lookup_015",
+      "input": {
+        "key": "gamma",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Fallback candidate after cache miss.",
+      "requires_model": true
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": false
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_016",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "invalid"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-01-10",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_017",
+      "input": {
+        "date": "1/10/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "unit target is ambiguous"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "unit_conversion_018",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 397
+      },
+      "notes": "Fallback candidate for ambiguous unit conversion.",
+      "requires_model": true
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": true
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_019",
+      "input": {
+        "config": {
+          "retries": 3,
+          "timeout_ms": 500
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_020",
+      "input": {
+        "data_class": "public",
+        "region": "us"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 156,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_021",
+      "input": {
+        "left": 76,
+        "operation": "add",
+        "right": 80
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "controlled kora deterministic",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_022",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": "CONTROLLED- KORA -  deterministic "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_023",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-23",
+          "kind": "beta"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_024",
+      "input": {
+        "kind": "security",
+        "priority": "low"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "hit": true,
+        "value": "cached-alpha"
+      },
+      "expected_path": "deterministic_cache_lookup",
+      "id": "cache_lookup_025",
+      "input": {
+        "key": "alpha",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Deterministic cache hit/miss lookup.",
+      "requires_model": false
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": true
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_026",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "archived"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-02-12",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_027",
+      "input": {
+        "date": "2/12/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "unit target is ambiguous"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "unit_conversion_028",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 362
+      },
+      "notes": "Fallback candidate for ambiguous unit conversion.",
+      "requires_model": true
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "config recommendation requires tradeoff judgment"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "config_validation_029",
+      "input": {
+        "config": {
+          "retries": 3,
+          "timeout_ms": 100
+        }
+      },
+      "notes": "Fallback candidate for config recommendation.",
+      "requires_model": true
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "policy text is incomplete"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "policy_rule_match_030",
+      "input": {
+        "data_class": "restricted",
+        "region": "eu"
+      },
+      "notes": "Fallback candidate for incomplete policy text.",
+      "requires_model": true
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 2583,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_031",
+      "input": {
+        "left": 123,
+        "operation": "multiply",
+        "right": 21
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "requires semantic rewrite beyond normalization"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "string_normalization_032",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": " Result  -  deterministic - KORA "
+      },
+      "notes": "Fallback candidate for semantic rewriting.",
+      "requires_model": true
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_033",
+      "input": {
+        "payload": {
+          "enabled": true,
+          "id": "item-33",
+          "kind": "gamma"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_034",
+      "input": {
+        "kind": "security",
+        "priority": "normal"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "hit": true,
+        "value": "cached-gamma"
+      },
+      "expected_path": "deterministic_cache_lookup",
+      "id": "cache_lookup_035",
+      "input": {
+        "key": "gamma",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Deterministic cache hit/miss lookup.",
+      "requires_model": false
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "schema repair requires human or model judgment"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "schema_check_036",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "invalid"
+        }
+      },
+      "notes": "Fallback candidate for schema repair.",
+      "requires_model": true
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-10-05",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_037",
+      "input": {
+        "date": "10/5/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 15000
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_038",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 150
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": true
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_039",
+      "input": {
+        "config": {
+          "retries": 3,
+          "timeout_ms": 500
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_040",
+      "input": {
+        "data_class": "internal",
+        "region": "apac"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 117,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_041",
+      "input": {
+        "left": 166,
+        "operation": "subtract",
+        "right": 49
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "result benchmark deterministic",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_042",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": " Result  -Benchmark-  deterministic "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [
+          "kind"
+        ],
+        "valid": false
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_043",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-43"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_044",
+      "input": {
+        "kind": "security",
+        "priority": "low"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "hit": true,
+        "value": "cached-alpha"
+      },
+      "expected_path": "deterministic_cache_lookup",
+      "id": "cache_lookup_045",
+      "input": {
+        "key": "alpha",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Deterministic cache hit/miss lookup.",
+      "requires_model": false
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": true
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_046",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "draft"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-09-02",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_047",
+      "input": {
+        "date": "9/2/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 48700
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_048",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 487
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": false
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_049",
+      "input": {
+        "config": {
+          "retries": 5,
+          "timeout_ms": 100
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_050",
+      "input": {
+        "data_class": "restricted",
+        "region": "apac"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 46,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_051",
+      "input": {
+        "left": 123,
+        "operation": "subtract",
+        "right": 77
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "benchmark kora deterministic",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_052",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": "Benchmark- KORA -  deterministic "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_053",
+      "input": {
+        "payload": {
+          "enabled": true,
+          "id": "item-53",
+          "kind": "alpha"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "support_queue"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_054",
+      "input": {
+        "kind": "support",
+        "priority": "normal"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "cache miss requires external answer"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "cache_lookup_055",
+      "input": {
+        "key": "beta",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Fallback candidate after cache miss.",
+      "requires_model": true
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": false
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_056",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "invalid"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-06-19",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_057",
+      "input": {
+        "date": "6/19/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 39900
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_058",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 399
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": false
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_059",
+      "input": {
+        "config": {
+          "retries": 4,
+          "timeout_ms": 5000
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_060",
+      "input": {
+        "data_class": "internal",
+        "region": "us"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 300,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_061",
+      "input": {
+        "left": 235,
+        "operation": "add",
+        "right": 65
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "benchmark result kora",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_062",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": "Benchmark- Result  - KORA "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_063",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-63",
+          "kind": "gamma"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "billing_queue"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_064",
+      "input": {
+        "kind": "billing",
+        "priority": "low"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "cache miss requires external answer"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "cache_lookup_065",
+      "input": {
+        "key": "beta",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Fallback candidate after cache miss.",
+      "requires_model": true
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": true
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_066",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "active"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-02-04",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_067",
+      "input": {
+        "date": "2/4/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 12400
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_068",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 124
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": true
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_069",
+      "input": {
+        "config": {
+          "retries": 0,
+          "timeout_ms": 100
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "policy text is incomplete"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "policy_rule_match_070",
+      "input": {
+        "data_class": "restricted",
+        "region": "apac"
+      },
+      "notes": "Fallback candidate for incomplete policy text.",
+      "requires_model": true
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 176,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_071",
+      "input": {
+        "left": 203,
+        "operation": "subtract",
+        "right": 27
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "requires semantic rewrite beyond normalization"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "string_normalization_072",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": " Result  -  deterministic -CONTROLLED"
+      },
+      "notes": "Fallback candidate for semantic rewriting.",
+      "requires_model": true
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_073",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-73",
+          "kind": "gamma"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_074",
+      "input": {
+        "kind": "security",
+        "priority": "high"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "hit": true,
+        "value": "cached-beta"
+      },
+      "expected_path": "deterministic_cache_lookup",
+      "id": "cache_lookup_075",
+      "input": {
+        "key": "beta",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Deterministic cache hit/miss lookup.",
+      "requires_model": false
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "schema repair requires human or model judgment"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "schema_check_076",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "active"
+        }
+      },
+      "notes": "Fallback candidate for schema repair.",
+      "requires_model": true
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-04-26",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_077",
+      "input": {
+        "date": "4/26/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "unit target is ambiguous"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "unit_conversion_078",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 35
+      },
+      "notes": "Fallback candidate for ambiguous unit conversion.",
+      "requires_model": true
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": true
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_079",
+      "input": {
+        "config": {
+          "retries": 3,
+          "timeout_ms": 100
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_080",
+      "input": {
+        "data_class": "internal",
+        "region": "apac"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 16,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_081",
+      "input": {
+        "left": 92,
+        "operation": "subtract",
+        "right": 76
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "requires semantic rewrite beyond normalization"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "string_normalization_082",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": "  deterministic - KORA -Benchmark"
+      },
+      "notes": "Fallback candidate for semantic rewriting.",
+      "requires_model": true
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_083",
+      "input": {
+        "payload": {
+          "enabled": false,
+          "id": "item-83",
+          "kind": "alpha"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_084",
+      "input": {
+        "kind": "security",
+        "priority": "high"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "hit": false,
+        "value": null
+      },
+      "expected_path": "deterministic_cache_lookup",
+      "id": "cache_lookup_085",
+      "input": {
+        "key": "missing",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Deterministic cache hit/miss lookup.",
+      "requires_model": false
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": true
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_086",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "active"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "date phrase is underspecified"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "date_normalization_087",
+      "input": {
+        "date": "10/3/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Fallback candidate for underspecified date phrase.",
+      "requires_model": true
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 27700
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_088",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 277
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": false
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_089",
+      "input": {
+        "config": {
+          "retries": 3,
+          "timeout_ms": 5000
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_090",
+      "input": {
+        "data_class": "public",
+        "region": "eu"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    },
+    {
+      "category": "arithmetic",
+      "expected_output": 140,
+      "expected_path": "deterministic_arithmetic",
+      "id": "arithmetic_091",
+      "input": {
+        "left": 68,
+        "operation": "add",
+        "right": 72
+      },
+      "notes": "Exact arithmetic case.",
+      "requires_model": false
+    },
+    {
+      "category": "string_normalization",
+      "expected_output": "result controlled deterministic",
+      "expected_path": "deterministic_string_normalization",
+      "id": "string_normalization_092",
+      "input": {
+        "normalization": "strip_lower_join_spaces",
+        "text": " Result  -CONTROLLED-  deterministic "
+      },
+      "notes": "Deterministic string normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "json_validation",
+      "expected_output": {
+        "missing": [],
+        "valid": true
+      },
+      "expected_path": "deterministic_json_validation",
+      "id": "json_validation_093",
+      "input": {
+        "payload": {
+          "enabled": true,
+          "id": "item-93",
+          "kind": "alpha"
+        },
+        "required_fields": [
+          "id",
+          "kind",
+          "enabled"
+        ]
+      },
+      "notes": "Structured JSON validation.",
+      "requires_model": false
+    },
+    {
+      "category": "routing_decision",
+      "expected_output": {
+        "route": "security_review"
+      },
+      "expected_path": "deterministic_routing",
+      "id": "routing_decision_094",
+      "input": {
+        "kind": "security",
+        "priority": "high"
+      },
+      "notes": "Rule-based routing decision.",
+      "requires_model": false
+    },
+    {
+      "category": "cache_lookup",
+      "expected_output": {
+        "fallback_required": true,
+        "reason": "cache miss requires external answer"
+      },
+      "expected_path": "fallback_candidate",
+      "id": "cache_lookup_095",
+      "input": {
+        "key": "alpha",
+        "namespace": "deterministic_heavy_v1"
+      },
+      "notes": "Fallback candidate after cache miss.",
+      "requires_model": true
+    },
+    {
+      "category": "schema_check",
+      "expected_output": {
+        "field": "status",
+        "valid": true
+      },
+      "expected_path": "deterministic_schema_check",
+      "id": "schema_check_096",
+      "input": {
+        "enum": [
+          "draft",
+          "active",
+          "archived"
+        ],
+        "object": {
+          "status": "archived"
+        }
+      },
+      "notes": "Enum schema check.",
+      "requires_model": false
+    },
+    {
+      "category": "date_normalization",
+      "expected_output": "2026-06-19",
+      "expected_path": "deterministic_date_normalization",
+      "id": "date_normalization_097",
+      "input": {
+        "date": "6/19/2026",
+        "input_format": "M/D/YYYY",
+        "output_format": "YYYY-MM-DD"
+      },
+      "notes": "Exact date normalization.",
+      "requires_model": false
+    },
+    {
+      "category": "unit_conversion",
+      "expected_output": {
+        "unit": "cm",
+        "value": 43600
+      },
+      "expected_path": "deterministic_unit_conversion",
+      "id": "unit_conversion_098",
+      "input": {
+        "from": "m",
+        "to": "cm",
+        "value": 436
+      },
+      "notes": "Exact metric unit conversion.",
+      "requires_model": false
+    },
+    {
+      "category": "config_validation",
+      "expected_output": {
+        "valid": false
+      },
+      "expected_path": "deterministic_config_validation",
+      "id": "config_validation_099",
+      "input": {
+        "config": {
+          "retries": 4,
+          "timeout_ms": 100
+        }
+      },
+      "notes": "Deterministic config bounds validation.",
+      "requires_model": false
+    },
+    {
+      "category": "policy_rule_match",
+      "expected_output": {
+        "allowed": true
+      },
+      "expected_path": "deterministic_policy_rule_match",
+      "id": "policy_rule_match_100",
+      "input": {
+        "data_class": "internal",
+        "region": "eu"
+      },
+      "notes": "Explicit policy table match.",
+      "requires_model": false
+    }
+  ],
+  "version": "1.0"
+}
