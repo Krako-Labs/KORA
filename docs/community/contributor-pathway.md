@@ -117,3 +117,11 @@ KORA Studio work should be decomposed into small issues before implementation. U
 - no real provider integration at first
 
 This is future planning. It is not a claim that KORA Studio already exists as a product.
+
+### What is a deterministic route?
+
+A deterministic route is a path where KORA can handle a request through structured logic, policy rules, validation, or templating — without calling a model.
+
+Examples include FAQ responses, policy lookups, structured validation, report formatting, and simple routing decisions.
+
+If a request cannot be safely handled through a deterministic path, KORA can escalate it to a model-call path.
