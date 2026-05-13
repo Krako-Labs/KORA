@@ -87,6 +87,8 @@ Normalization rules:
 - Artifact guidance style resolution v0.1 classifies `[R10]`, `[R17]`, and `[R18]` without adding BibTeX for those records.
 - Paper/preprint style resolution v0.1 classifies `[R02]`, `[R05]`, `[R12]`, `[R13]`, `[R16]`, `[R19]`, `[R20]`, `[R22]`, and `[R23]` without adding BibTeX for those records.
 - Final blocked metadata review v0.1 consolidates candidate, deferred, and still-blocked status without adding BibTeX for blocked records.
+- Expanded preliminary BibTeX v0.1 follows the stable `[Rxx]` strategy for candidate records `[R03]`, `[R04]`, `[R05]`, `[R07]`, `[R09]`, `[R10]`, `[R12]`, `[R13]`, and `[R16]`.
+- Venue-specific conversion remains deferred until the target venue or report format is chosen.
 - Stable `[Rxx]` labels remain canonical during audit.
 - Final venue-specific conversion remains deferred.
 

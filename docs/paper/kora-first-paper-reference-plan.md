@@ -371,6 +371,17 @@ Status:
 - No BibTeX was added for paper/preprint blocked records.
 - Next step: final metadata review for blocked records, or expanded BibTeX preparation only after author-list and venue/status fields are verified.
 
+## Expanded BibTeX Candidate Subset Status
+
+[KORA First Paper Expanded BibTeX Candidate Audit v0.1](kora-first-paper-expanded-bibtex-candidate-audit-v0-1.md) has been created.
+
+Status:
+
+- Expanded preliminary BibTeX is prepared for `[R03]`, `[R04]`, `[R05]`, `[R07]`, `[R09]`, `[R10]`, `[R12]`, `[R13]`, and `[R16]`.
+- Deferred and still-not-eligible records remain excluded from BibTeX.
+- No manuscript changes were made.
+- Final bibliography / claim audit remains the next bibliography step.
+
 ## Next Verification Procedure
 
 1. Search official sources first.

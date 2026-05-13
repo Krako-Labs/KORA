@@ -141,15 +141,100 @@ Status:
 }
 ```
 
+## Expanded Preliminary BibTeX Candidate Subset
+
+[KORA First Paper Expanded BibTeX Candidate Audit v0.1](kora-first-paper-expanded-bibtex-candidate-audit-v0-1.md) checked the candidate subset `[R03]`, `[R04]`, `[R05]`, `[R07]`, `[R09]`, `[R10]`, `[R12]`, `[R13]`, and `[R16]`.
+
+All nine candidates pass the final field check for preliminary BibTeX using existing repository metadata. The entries below remain preliminary. They do not complete full BibTeX, do not modify manuscript v0.3, and do not make the paper submission-ready.
+
+No candidate from this subset was excluded by the final field check.
+
+```bibtex
+@misc{onnxruntime_docs_accessed2026,
+  author = {{ONNX Runtime project / Microsoft}},
+  title = {ONNX Runtime},
+  howpublished = {ONNX Runtime official documentation},
+  url = {https://onnxruntime.ai/docs/},
+  note = {Accessed 2026-05-11}
+}
+
+@misc{langchain_langgraph_graph_api_accessed2026,
+  author = {{LangChain}},
+  title = {LangGraph Graph API overview},
+  howpublished = {LangGraph official documentation},
+  url = {https://docs.langchain.com/oss/python/langgraph/graph-api},
+  note = {Accessed 2026-05-11}
+}
+
+@misc{khattab2023dspy,
+  author = {Khattab, Omar and Singhvi, Arnav and Maheshwari, Paridhi and Zhang, Zhiyuan and Santhanam, Keshav and Vardhamanan, Sri and Haq, Saiful and Sharma, Ashutosh and Joshi, Thomas T. and Moazam, Hanna and Miller, Heather and Zaharia, Matei and Potts, Christopher},
+  title = {DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines},
+  howpublished = {arXiv:2310.03714},
+  year = {2023},
+  url = {https://arxiv.org/abs/2310.03714}
+}
+
+@misc{apacheairflow_dags_accessed2026,
+  author = {{Apache Software Foundation / Apache Airflow project}},
+  title = {Dags},
+  howpublished = {Apache Airflow 3.2.1 documentation},
+  url = {https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html},
+  note = {Accessed 2026-05-11}
+}
+
+@misc{ggmlorg_llamacpp_accessed2026,
+  author = {{ggml-org}},
+  title = {llama.cpp: LLM inference in C/C++},
+  howpublished = {GitHub repository},
+  url = {https://github.com/ggml-org/llama.cpp},
+  note = {Accessed 2026-05-11}
+}
+
+@misc{acm2020artifactreviewbadging,
+  author = {{Association for Computing Machinery}},
+  title = {Artifact Review and Badging - Current},
+  howpublished = {ACM policy page, Version 1.1},
+  year = {2020},
+  url = {https://www.acm.org/publications/policies/artifact-review-and-badging-current}
+}
+
+@misc{schick2023toolformer,
+  author = {Schick, Timo and Dwivedi-Yu, Jane and Dessi, Roberto and Raileanu, Roberta and Lomeli, Maria and Zettlemoyer, Luke and Cancedda, Nicola and Scialom, Thomas},
+  title = {Toolformer: Language Models Can Teach Themselves to Use Tools},
+  howpublished = {arXiv:2302.04761},
+  year = {2023},
+  doi = {10.48550/arXiv.2302.04761},
+  url = {https://arxiv.org/abs/2302.04761}
+}
+
+@misc{gao2022pal,
+  author = {Gao, Luyu and Madaan, Aman and Zhou, Shuyan and Alon, Uri and Liu, Pengfei and Yang, Yiming and Callan, Jamie and Neubig, Graham},
+  title = {PAL: Program-aided Language Models},
+  howpublished = {arXiv:2211.10435},
+  year = {2022},
+  doi = {10.48550/arXiv.2211.10435},
+  url = {https://arxiv.org/abs/2211.10435},
+  note = {Revised 2023}
+}
+
+@misc{pineau2020reproducibility,
+  author = {Pineau, Joelle and Vincent-Lamarre, Philippe and Sinha, Koustuv and Lariviere, Vincent and Beygelzimer, Alina and d'Alche-Buc, Florence and Fox, Emily and Larochelle, Hugo},
+  title = {Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)},
+  howpublished = {arXiv:2003.12206},
+  year = {2020},
+  doi = {10.48550/arXiv.2003.12206},
+  url = {https://arxiv.org/abs/2003.12206}
+}
+```
+
 ## Excluded Records
 
-Blocked records excluded from BibTeX:
+Records still excluded from BibTeX after this expanded candidate pass:
 
-- `[R02]`, `[R05]`, `[R12]`, `[R13]`, `[R16]`, `[R19]`, `[R20]`, `[R22]`, `[R23]`: blocked due to author-list handling, venue/status normalization, or both.
-- `[R03]`, `[R04]`, `[R07]`, `[R09]`, `[R15]`: blocked due to official docs/repo style and access-date decisions.
-- `[R10]`, `[R17]`, `[R18]`: blocked due to artifact, policy, or venue-guidance style decisions.
+- `[R17]`, `[R18]`: deferred until target-venue selection.
+- `[R02]`, `[R15]`, `[R19]`, `[R20]`, `[R22]`, `[R23]`: still not eligible because author-list, split, or venue/style decisions remain unresolved.
 
-These records should not receive BibTeX until their metadata/style blockers are resolved.
+No BibTeX is generated for deferred or still-not-eligible records in this document.
 
 ## Claim-Safety Note
 

@@ -38,6 +38,8 @@ Paper/preprint style resolution v0.1 exists for `[R02]`, `[R05]`, `[R12]`, `[R13
 
 Final blocked metadata review v0.1 exists. It consolidates remaining blocked records and identifies the later expanded-BibTeX candidate subset, deferred records, and still-not-eligible records. Full BibTeX and final bibliography review are still pending, and the paper remains not submission-ready.
 
+Expanded preliminary BibTeX candidate audit v0.1 exists for `[R03]`, `[R04]`, `[R05]`, `[R07]`, `[R09]`, `[R10]`, `[R12]`, `[R13]`, and `[R16]`. Final bibliography / claim audit is still pending, expanded BibTeX remains preliminary, and the paper remains not submission-ready.
+
 ## Ready
 
 - Thesis.
@@ -65,6 +67,7 @@ Final blocked metadata review v0.1 exists. It consolidates remaining blocked rec
 - Artifact guidance style resolution v0.1.
 - Paper/preprint style resolution v0.1.
 - Final blocked metadata review v0.1.
+- Expanded preliminary BibTeX candidate audit v0.1.
 - Citation audit v0.1.
 - Manuscript v0.3 reference integration plan.
 
@@ -73,7 +76,7 @@ Final blocked metadata review v0.1 exists. It consolidates remaining blocked rec
 - More references collected and verified.
 - Decide whether selected benchmark-construction references should be integrated if the evaluation-methodology section is expanded.
 - More direct deterministic-heavy synthetic workload construction references if needed.
-- Expanded BibTeX candidate subset final field check.
+- Final bibliography / claim audit for expanded preliminary BibTeX.
 - Final bibliography entries normalized.
 - Full BibTeX completion after blocked records are resolved.
 - Final citation audit review completed.
@@ -103,6 +106,6 @@ These are suggested formats only. This document does not claim acceptance, endor
 
 ## Reference Status
 
-The first verified reference pass is complete, manuscript v0.2 integrates the first-pass verified references as preliminary citation labels and a preliminary references section, citation audit v0.1 exists, additional reference verification pass 2 has added 8 verified tracker entries, manuscript v0.3 integrates [R11], [R12], and [R13] as preliminary related-work references, the benchmark-construction reference pass has added [R19] through [R24] as tracker/audit entries, the working citation style decision selects stable [Rxx] labels, metadata audit v0.1 exists, normalized bibliography v0.1 exists, metadata gap resolution v0.1 exists, preliminary BibTeX v0.1 exists for ready records only, and ready-subset BibTeX keys are normalized. The paper is still not submission-ready because [R14] through [R18] remain optional/deferred or tracker/audit-only, [R19] through [R24] are not yet integrated into manuscript methodology, more direct deterministic-heavy synthetic workload references may still be needed, production benchmark evidence is still not available, blocked records remain excluded from BibTeX, and final bibliography and claim audit are not complete.
+The first verified reference pass is complete, manuscript v0.2 integrates the first-pass verified references as preliminary citation labels and a preliminary references section, citation audit v0.1 exists, additional reference verification pass 2 has added 8 verified tracker entries, manuscript v0.3 integrates [R11], [R12], and [R13] as preliminary related-work references, the benchmark-construction reference pass has added [R19] through [R24] as tracker/audit entries, the working citation style decision selects stable [Rxx] labels, metadata audit v0.1 exists, normalized bibliography v0.1 exists, metadata gap resolution v0.1 exists, preliminary BibTeX v0.1 exists for ready records, ready-subset BibTeX keys are normalized, and expanded preliminary BibTeX exists for the candidate subset that passed final field check. The paper is still not submission-ready because [R17] and [R18] remain deferred, [R02], [R15], [R19], [R20], [R22], and [R23] remain excluded from BibTeX, [R19] through [R24] are not yet integrated into manuscript methodology, more direct deterministic-heavy synthetic workload references may still be needed, production benchmark evidence is still not available, and final bibliography and claim audit are not complete.
 
 No fake citations were added. Future citation work should use only verified tracker entries and should not support production, API-cost, energy, production-validation, broad superiority, or cited-system superiority claims.
