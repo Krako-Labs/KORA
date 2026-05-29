@@ -109,6 +109,7 @@ python3 scripts/check_kora_studio_preview.py
 ```
 
 The smoke check only accepts `http://127.0.0.1` or `http://localhost` URLs. It checks `/health`, `/status`, and `/` without starting external services, calling providers, downloading models, executing models, scanning private model directories, or running runtime model list commands.
+
 ## Local Server Troubleshooting
 
 If you encounter issues launching the local KORA Studio server, try the following steps:
