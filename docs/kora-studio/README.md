@@ -109,6 +109,15 @@ python3 scripts/check_kora_studio_preview.py
 ```
 
 The smoke check only accepts `http://127.0.0.1` or `http://localhost` URLs. It checks `/health`, `/status`, and `/` without starting external services, calling providers, downloading models, executing models, scanning private model directories, or running runtime model list commands.
+## Local Server Troubleshooting
+
+If you encounter issues launching the local KORA Studio server, try the following steps:
+
+- Confirm the CLI is available by running `python3 -m kora studio --help`.
+- Start the server without opening a browser automatically by running `python3 -m kora studio --no-browser`.
+- The default local URL is `http://127.0.0.1:8765/`.
+- If port `8765` is busy, you can use another local port. For example: `python3 -m kora studio --no-browser --port 8766`.
+- Note: This preview is localhost-only and does not call providers, download models, run models, enable cloud sync, or require API keys.
 
 ## Local Server Skeleton
 
