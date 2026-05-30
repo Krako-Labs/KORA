@@ -243,6 +243,8 @@ Status: Connected in the local preview. The UI tracks browser-local loading/erro
 
 Add page-memory run history, selected `run_id` switching, and clear local state behavior. Do not persist state beyond browser memory.
 
+Status: Connected in the local preview. Successful local harness run responses are stored in bounded browser page memory only, the UI can switch selected runs from recent browser-local history, and Clear Local Run History clears browser preview state only without persistence, file writes, cloud sync, backend deletion, model execution, provider calls, or downloads.
+
 ### Task 452 - Optional Generated-event SSE UI Connection
 
 If still small and safe, add UI connection to `/api/harness/sse?run_id=<id>` for generated harness events only. Include disconnect/error handling and fallback to `/api/harness/events`.

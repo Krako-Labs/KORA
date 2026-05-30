@@ -783,6 +783,25 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "runError" in html
     assert "runLoading" in html
     assert "await runLocalHarness(lastApprovedRequestId)" in html
+    assert "Local Run History" in html
+    assert "Browser-local run history" in html
+    assert "Page-memory only" in html
+    assert "Clears on refresh" in html
+    assert "id=\"kora-local-run-history\"" in html
+    assert "id=\"kora-run-history-count\"" in html
+    assert "id=\"kora-run-history-status\"" in html
+    assert "Clear Local Run History" in html
+    assert "id=\"kora-clear-run-history-button\"" in html
+    assert "Cleared browser-local preview state only" in html
+    assert "let runHistory = []" in html
+    assert "const runHistoryLimit = 5" in html
+    assert "renderRunHistory" in html
+    assert "selectRunFromHistory" in html
+    assert "addRunToHistory" in html
+    assert "clearLocalRunHistory" in html
+    assert "data-kora-history-run-id" in html
+    assert "get run_history()" in html
+    assert "get selected_run_record()" in html
     assert "Generated local harness output only" in html
     assert "Selected Run Event Timeline" in html
     assert "id=\"kora-selected-run-events\"" in html
@@ -933,6 +952,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "https://" not in html.lower()
     assert "localstorage" not in html.lower()
     assert "sessionstorage" not in html.lower()
+    assert "indexeddb" not in html.lower()
+    assert "fetch(\"/api/delete" not in html
+    assert "fetch(\"/api/harness/delete" not in html
     assert "fetch(\"/api/harness/events" not in html
     assert "fetch(\"/api/harness/sse" not in html
     assert "fetch(\"/api/model" not in html

@@ -981,6 +981,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Selected Run Error State</h3><p id=\"kora-run-error-state\">No selected-run error.</p><p>Retry uses the last approved request only.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads are connected.</p></div>
           <div class=\"card\"><h3>Retry Last Approved Request</h3><p>Last approved request: <code id=\"kora-last-approved-request-id\">{selector_preview_id}</code></p><p>Retry available: <span id=\"kora-retry-available\">false</span></p><button class=\"action-button\" type=\"button\" id=\"kora-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button><p>Retry calls only <code>POST /api/harness/run</code> with the last approved <code>request_id</code>.</p><p>No arbitrary prompt execution.</p></div>
         </div>
+        <div class=\"grid\" style=\"margin-top: 16px;\">
+          <div class=\"card\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
+          <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Does not remove server run records, reports, files, or backend records.</p><p>No persistence, no cloud sync, no file export.</p></div>
+        </div>
+        <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
         <div class=\"card\" style=\"margin-top: 16px;\"><h3>Selected Run Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider calls. No downloads.</p><p>Events are fetched from <code>GET /api/harness/events?run_id=&lt;id&gt;</code> after a successful approved local harness run.</p><p id=\"kora-selected-events-status\">No selected run events loaded yet.</p></div>
         <div class=\"grid\" id=\"kora-selected-run-events\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
@@ -1102,6 +1107,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       let runError = "";
       let lastApprovedRequestId = selectedRequestId;
       let retryAvailable = false;
+      let runHistory = [];
+      const runHistoryLimit = 5;
 
       const text = (id, value) => {{
         const element = document.getElementById(id);
@@ -1377,6 +1384,107 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }});
       }};
 
+      const renderRunHistory = () => {{
+        const container = document.getElementById("kora-local-run-history");
+        text("kora-run-history-count", runHistory.length);
+        if (!container) {{
+          return;
+        }}
+        container.replaceChildren();
+        if (!runHistory.length) {{
+          text("kora-run-history-status", "No browser-local run history yet. Page-memory only. Clears on refresh.");
+          return;
+        }}
+        text("kora-run-history-status", "Browser-local run history loaded. Page-memory only. Not production evidence.");
+        runHistory.forEach((record) => {{
+          const card = document.createElement("div");
+          card.className = "card";
+          const title = document.createElement("h3");
+          title.textContent = record.run_id === selectedRunId ? "Selected local run" : "Recent local run";
+          const runId = document.createElement("p");
+          runId.textContent = `Run id: ${{record.run_id || "unknown"}}`;
+          const requestId = document.createElement("p");
+          requestId.textContent = `Request id: ${{record.request_id || "unknown"}}`;
+          const status = document.createElement("p");
+          status.textContent = `Status: ${{record.run_status || "unknown"}}`;
+          const eventCount = document.createElement("p");
+          eventCount.textContent = `Event count: ${{record.event_count || 0}}`;
+          const modelStatus = document.createElement("p");
+          modelStatus.textContent = `Model execution status: ${{record.model_execution_status || "execution_not_connected"}}`;
+          const createdAt = document.createElement("p");
+          createdAt.textContent = `Created at: ${{record.created_at || "unknown"}}`;
+          const completedAt = document.createElement("p");
+          completedAt.textContent = `Completed at: ${{record.completed_at || "unknown"}}`;
+          const boundary = document.createElement("p");
+          boundary.textContent = "Browser-local history item. Local deterministic harness output only. No model execution, provider calls, downloads, persistence, or cloud sync.";
+          const selectButton = document.createElement("button");
+          selectButton.className = "action-button";
+          selectButton.type = "button";
+          selectButton.textContent = "Select run";
+          selectButton.setAttribute("data-kora-history-run-id", record.run_id || "");
+          selectButton.addEventListener("click", () => {{
+            selectRunFromHistory(record.run_id || "");
+          }});
+          card.appendChild(title);
+          card.appendChild(runId);
+          card.appendChild(requestId);
+          card.appendChild(status);
+          card.appendChild(eventCount);
+          card.appendChild(modelStatus);
+          card.appendChild(createdAt);
+          card.appendChild(completedAt);
+          card.appendChild(boundary);
+          card.appendChild(selectButton);
+          container.appendChild(card);
+        }});
+      }};
+
+      const selectRunFromHistory = (runId) => {{
+        const record = runHistory.find((item) => item.run_id === runId);
+        if (!record) {{
+          renderRunError("Selected browser-local run was not found.");
+          return;
+        }}
+        renderRunResponse(record, {{updateHistory: false}});
+        renderSelectedEvents(record.generated_events || []);
+        setRetryState(false, "Selected run restored from browser-local page memory.");
+        text("kora-run-history-status", "Selected run restored from browser-local page memory. Not production evidence.");
+      }};
+
+      const addRunToHistory = (run) => {{
+        if (!run || !run.run_id || run.run_status !== "completed") {{
+          return;
+        }}
+        runHistory = [run].concat(runHistory.filter((record) => record.run_id !== run.run_id)).slice(0, runHistoryLimit);
+        renderRunHistory();
+      }};
+
+      const clearLocalRunHistory = () => {{
+        runHistory = [];
+        selectedRunId = "";
+        selectedRunEvents = [];
+        selectedRunCounters = {{}};
+        selectedRunComparison = {{}};
+        selectedRunReportMetadata = {{}};
+        runError = "";
+        text("kora-selected-run-id", "not run yet");
+        text("kora-run-request-id", "not run yet");
+        text("kora-run-status", "not_started");
+        text("kora-run-event-count", "0");
+        text("kora-run-model-execution-status", "not_connected");
+        text("kora-run-provider-calls-enabled", "false");
+        text("kora-run-cloud-sync-enabled", "false");
+        text("kora-run-file-export-enabled", "false");
+        text("kora-run-claim-boundary", "Cleared browser-local preview state only.");
+        text("kora-selected-events-status", "No selected run events loaded yet.");
+        renderCountersUnavailable("Run an approved local harness request to view selected-run counters.");
+        renderComparisonUnavailable("Run an approved local harness request to view selected-run comparison.");
+        renderReportMetadataUnavailable("Run an approved local harness request to view selected-run report metadata.");
+        clearSelectedCards("kora-selected-run-events");
+        setRetryState(false, "Cleared browser-local preview state only.");
+        renderRunHistory();
+      }};
+
       const fetchSelectedEvents = async () => {{
         if (!selectedRunId) {{
           renderEventError("Generated events unavailable for this local run.");
@@ -1401,7 +1509,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }}
       }};
 
-      const renderRunResponse = (run) => {{
+      const renderRunResponse = (run, options) => {{
+        const shouldUpdateHistory = !options || options.updateHistory !== false;
         selectedRunId = run.run_id || "";
         const report = run.report_metadata_summary || {{}};
         text("kora-selected-run-id", selectedRunId || "not returned");
@@ -1418,6 +1527,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         renderSelectedCounters(run.generated_counters, run.event_count || 0);
         renderSelectedComparison(run.comparison_summary, run.model_execution_status || "execution_not_connected");
         renderSelectedReportMetadata(run.report_metadata_summary);
+        if (shouldUpdateHistory) {{
+          addRunToHistory(run);
+        }} else {{
+          renderRunHistory();
+        }}
       }};
 
       const runLocalHarness = async (requestId) => {{
@@ -1488,15 +1602,26 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }});
       }}
 
+      const clearHistoryButton = document.getElementById("kora-clear-run-history-button");
+      if (clearHistoryButton) {{
+        clearHistoryButton.addEventListener("click", () => {{
+          clearLocalRunHistory();
+        }});
+      }}
+
       renderSelectedRequest();
       setRetryState(false, "No selected-run error.");
+      renderRunHistory();
       window.koraStudioSelectedRunState = {{
         get selected_request_id() {{ return selectedRequestId; }},
         get selected_run_id() {{ return selectedRunId; }},
+        get selected_run_record() {{ return runHistory.find((record) => record.run_id === selectedRunId) || null; }},
         get run_loading() {{ return runLoading; }},
         get run_error() {{ return runError; }},
         get last_approved_request_id() {{ return lastApprovedRequestId; }},
         get retry_available() {{ return retryAvailable; }},
+        get run_history() {{ return runHistory.slice(); }},
+        get run_history_limit() {{ return runHistoryLimit; }},
         get selected_run_events() {{ return selectedRunEvents.slice(); }},
         get selected_run_counters() {{ return Object.assign({{}}, selectedRunCounters); }},
         get selected_run_comparison() {{ return Object.assign({{}}, selectedRunComparison); }},

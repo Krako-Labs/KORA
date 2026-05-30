@@ -200,6 +200,15 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Retry uses the last approved request only
             The local harness endpoint was unavailable
             The local response could not be parsed
+            Local Run History
+            kora-local-run-history
+            kora-run-history-count
+            Clear Local Run History
+            kora-clear-run-history-button
+            Browser-local run history
+            Page-memory only
+            Clears on refresh
+            Cleared browser-local preview state only
             Selected Run Event Timeline
             kora-selected-run-events
             kora-selected-events-status
