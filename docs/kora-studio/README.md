@@ -196,6 +196,7 @@ The v0.6 history UI marks the active selected run, shows compact generated-count
 - [KORA Studio v0.6 frontend interaction hardening plan](kora-studio-v0-6-frontend-interaction-hardening-plan.md)
 - [KORA Studio v0.6 readiness report](kora-studio-v0-6-readiness-report.md)
 - [KORA Studio v0.6 goal report](kora-studio-v0-6-goal-report.md)
+- [KORA Studio v0.7 UI/UX board](kora-studio-v0-7-ui-ux-board.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

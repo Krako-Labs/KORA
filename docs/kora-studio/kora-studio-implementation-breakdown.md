@@ -537,6 +537,37 @@ Acceptance criteria:
 - local preview smoke checks cover v0.6 interaction markers
 - no production cost, energy, provider, model execution, or unsupported larger-model claim is introduced
 
+## Phase 3.18 — v0.7 UI/UX Board
+
+Status: Approval board created. Implementation should wait for review before changing the local preview layout. See `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md`.
+
+Goal: Align the next KORA Studio local preview layout with a familiar desktop AI-workbench pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
+
+Scope:
+
+- approval board before implementation
+- left navigation
+- top local status bar
+- main local harness workspace
+- right execution inspector
+- selected-run event timeline placement
+- counters/comparison/report metadata placement
+- model/runtime/catalog boundary placement
+- no arbitrary prompt input
+- no model execution
+- no provider calls
+- no downloads
+- no cloud sync
+- no report export
+
+Acceptance criteria:
+
+- UI direction is reviewed before implementation
+- LM Studio-like desktop workbench patterns are treated as layout inspiration, not product positioning
+- KORA Studio remains framed as a local-first AI Task Execution Router workspace
+- claim boundaries remain visible near affected surfaces
+- implementation tasks do not start until the board is approved or revised
+
 ## Phase 4 — Report Viewer
 
 Goal: Render existing local Markdown validation reports.
