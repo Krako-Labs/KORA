@@ -149,6 +149,18 @@ Good first issues usually:
 
 Avoid starting with large runtime changes, new public commands, broad refactors, or changes that alter model-routing semantics.
 
+## Claiming good first issues
+
+Before starting work on a good first issue, leave a short comment on the issue so others know you are working on it.
+
+When preparing a contribution:
+
+- Keep the pull request focused on the issue being addressed.
+- Avoid combining unrelated changes into the same PR.
+- If the scope or requirements are unclear, ask for clarification before implementing a solution.
+
+This helps reduce duplicate work and makes reviews easier for maintainers.
+
 ## Finding a first contribution
 
 Use the [contributor pathway](docs/community/contributor-pathway.md) to choose the right route for questions, bugs, PRs, and workload proposals.
