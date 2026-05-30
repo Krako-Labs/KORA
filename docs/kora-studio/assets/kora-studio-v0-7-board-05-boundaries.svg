@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">KORA Studio v0.7 Minimal Board 05 - Boundaries</title>
+  <desc id="desc">Minimal claim boundary placement board.</desc>
+  <defs><style>.bg{fill:#0b0f14}.panel{fill:#10161f;stroke:#2b3544;stroke-width:2;rx:16}.card{fill:#151d28;stroke:#334155;stroke-width:2;rx:12}.danger{fill:#2a1416;stroke:#ef4444;stroke-width:2;rx:12}.ok{fill:#10251f;stroke:#22c55e;stroke-width:2;rx:12}.text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#d8e0eb}.h1{font-size:38px;font-weight:760;fill:#f8fafc}.h2{font-size:24px;font-weight:720}.small{font-size:16px;fill:#aeb8c6}.tiny{font-size:13px;fill:#8d9bae}</style></defs>
+  <rect class="bg" width="1200" height="800"/>
+  <text class="text h1" x="56" y="70">05. Boundary Placement</text>
+  <text class="text small" x="56" y="104">Put boundaries near actions, not in a wall of disclaimers.</text>
+  <rect class="panel" x="56" y="150" width="1088" height="470"/>
+  <rect class="ok" x="100" y="220" width="300" height="260"/>
+  <text class="text h2" x="128" y="260">Always Visible</text>
+  <text class="text small" x="128" y="310">Local preview</text>
+  <text class="text small" x="128" y="346">Provider disabled</text>
+  <text class="text small" x="128" y="382">Cloud disabled</text>
+  <text class="text small" x="128" y="418">No model execution</text>
+  <rect class="card" x="450" y="220" width="300" height="260"/>
+  <text class="text h2" x="478" y="260">Near Run Button</text>
+  <text class="text small" x="478" y="310">Approved request only</text>
+  <text class="text small" x="478" y="346">No arbitrary prompt</text>
+  <text class="text small" x="478" y="382">No downloads</text>
+  <rect class="danger" x="800" y="220" width="300" height="260"/>
+  <text class="text h2" x="828" y="260">Never Say</text>
+  <text class="text small" x="828" y="310">Run model</text>
+  <text class="text small" x="828" y="346">Download now</text>
+  <text class="text small" x="828" y="382">Cost reduction proven</text>
+  <text class="text small" x="828" y="418">LM Studio replacement</text>
+  <text class="text h2" x="56" y="698">Decision</text>
+  <text class="text small" x="56" y="730">Boundary text should be short, persistent, and attached to the relevant control.</text>
+</svg>

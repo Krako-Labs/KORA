@@ -1,5 +1,9 @@
 # KORA Studio v0.7 UI/UX Board
 
+> Superseded for implementation approval by the split minimal boards:
+> `docs/kora-studio/kora-studio-v0-7-minimal-ui-ux-boards.md`.
+> Keep this comprehensive board as background context only.
+
 ![KORA Studio v0.7 UI/UX source-of-truth board](assets/kora-studio-v0-7-ui-ux-board.png)
 
 ## Status

@@ -539,13 +539,14 @@ Acceptance criteria:
 
 ## Phase 3.18 — v0.7 UI/UX Board
 
-Status: Approval board created. Implementation should wait for review before changing the local preview layout. See `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md`.
+Status: Minimal approval boards created. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-minimal-ui-ux-boards.md` as the preferred source of truth. Keep `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md` as background context only.
 
 Goal: Align the next KORA Studio local preview layout with a familiar desktop AI-workbench pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
 
 Scope:
 
 - approval board before implementation
+- split minimal boards before implementation
 - left navigation
 - top local status bar
 - main local harness workspace

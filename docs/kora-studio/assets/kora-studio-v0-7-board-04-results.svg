@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">KORA Studio v0.7 Minimal Board 04 - Results</title>
+  <desc id="desc">Minimal comparison, counters, and report metadata board.</desc>
+  <defs><style>.bg{fill:#0b0f14}.panel{fill:#10161f;stroke:#2b3544;stroke-width:2;rx:16}.card{fill:#151d28;stroke:#334155;stroke-width:2;rx:12}.active{fill:#172637;stroke:#38bdf8;stroke-width:2;rx:12}.text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#d8e0eb}.h1{font-size:38px;font-weight:760;fill:#f8fafc}.h2{font-size:24px;font-weight:720}.num{font-size:44px;font-weight:760;fill:#f8fafc}.small{font-size:16px;fill:#aeb8c6}.tiny{font-size:13px;fill:#8d9bae}</style></defs>
+  <rect class="bg" width="1200" height="800"/>
+  <text class="text h1" x="56" y="70">04. Results</text>
+  <text class="text small" x="56" y="104">Only three result blocks: counters, comparison, report boundary.</text>
+  <rect class="panel" x="56" y="150" width="1088" height="470"/>
+  <rect class="active" x="100" y="220" width="280" height="220"/>
+  <text class="text h2" x="128" y="260">Counters</text>
+  <text class="text num" x="128" y="330">0</text><text class="text small" x="188" y="326">model calls</text>
+  <text class="text tiny" x="128" y="374">local harness output only</text>
+  <rect class="card" x="460" y="220" width="280" height="220"/>
+  <text class="text h2" x="488" y="260">Comparison</text>
+  <text class="text small" x="488" y="312">Standard vs KORA Boost</text>
+  <text class="text tiny" x="488" y="354">not production cost evidence</text>
+  <rect class="card" x="820" y="220" width="280" height="220"/>
+  <text class="text h2" x="848" y="260">Report</text>
+  <text class="text small" x="848" y="312">metadata preview</text>
+  <text class="text tiny" x="848" y="354">no file export</text>
+  <text class="text tiny" x="848" y="382">no file writing</text>
+  <rect class="card" x="100" y="482" width="1000" height="78"/>
+  <text class="text small" x="128" y="526">Show less. Keep result proof small and bounded. No cost, energy, or production claim.</text>
+  <text class="text h2" x="56" y="698">Decision</text>
+  <text class="text small" x="56" y="730">Do not create a metrics dashboard. Results are secondary to the route explanation.</text>
+</svg>

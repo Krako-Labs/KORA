@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">KORA Studio v0.7 Minimal Board 01 - Shell</title>
+  <desc id="desc">Minimal app shell board for KORA Studio v0.7 approval.</desc>
+  <defs>
+    <style>
+      .bg{fill:#0b0f14}.frame{fill:#10161f;stroke:#2b3544;stroke-width:2;rx:16}.panel{fill:#151d28;stroke:#334155;stroke-width:2;rx:12}.active{fill:#172637;stroke:#38bdf8;stroke-width:2;rx:12}.text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#d8e0eb}.h1{font-size:38px;font-weight:760;fill:#f8fafc}.h2{font-size:24px;font-weight:720}.small{font-size:16px;fill:#aeb8c6}.tiny{font-size:13px;fill:#8d9bae}.pill{fill:#10251f;stroke:#22c55e;stroke-width:1.5;rx:13}.pill2{fill:#2a1416;stroke:#ef4444;stroke-width:1.5;rx:13}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="800"/>
+  <text class="text h1" x="56" y="70">01. Minimal App Shell</text>
+  <text class="text small" x="56" y="104">One desktop workbench, not a dashboard collage.</text>
+  <rect class="pill" x="780" y="42" width="132" height="34"/><text class="text tiny" x="808" y="64">LOCAL</text>
+  <rect class="pill2" x="928" y="42" width="178" height="34"/><text class="text tiny" x="956" y="64">NO MODEL RUN</text>
+
+  <rect class="frame" x="56" y="142" width="1088" height="500"/>
+  <rect class="panel" x="86" y="190" width="210" height="390"/>
+  <text class="text h2" x="112" y="230">Nav</text>
+  <rect class="active" x="112" y="268" width="150" height="46"/><text class="text small" x="132" y="297">Harness</text>
+  <rect class="panel" x="112" y="332" width="150" height="42"/><text class="text small" x="132" y="359">Models</text>
+  <rect class="panel" x="112" y="390" width="150" height="42"/><text class="text small" x="132" y="417">Reports</text>
+
+  <rect class="active" x="324" y="190" width="500" height="390"/>
+  <text class="text h2" x="354" y="230">Workspace</text>
+  <rect class="panel" x="354" y="270" width="190" height="72"/><text class="text small" x="376" y="312">Request</text>
+  <rect class="panel" x="566" y="270" width="228" height="72"/><text class="text small" x="588" y="312">Run summary</text>
+  <rect class="panel" x="354" y="368" width="440" height="92"/><text class="text small" x="376" y="420">Timeline</text>
+  <rect class="panel" x="354" y="486" width="210" height="54"/><text class="text small" x="376" y="520">Counters</text>
+  <rect class="panel" x="584" y="486" width="210" height="54"/><text class="text small" x="606" y="520">Compare</text>
+
+  <rect class="panel" x="852" y="190" width="262" height="390"/>
+  <text class="text h2" x="882" y="230">Inspector</text>
+  <rect class="panel" x="882" y="270" width="202" height="52"/><text class="text small" x="904" y="303">Status</text>
+  <rect class="panel" x="882" y="342" width="202" height="52"/><text class="text small" x="904" y="375">Route</text>
+  <rect class="panel" x="882" y="414" width="202" height="52"/><text class="text small" x="904" y="447">Boundary</text>
+
+  <text class="text h2" x="56" y="698">Decision</text>
+  <text class="text small" x="56" y="730">Use this shell. Keep only three zones: nav, workspace, inspector.</text>
+</svg>
