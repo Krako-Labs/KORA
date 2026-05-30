@@ -196,6 +196,7 @@ The v0.6 history UI marks the active selected run, shows compact generated-count
 - [KORA Studio v0.6 frontend interaction hardening plan](kora-studio-v0-6-frontend-interaction-hardening-plan.md)
 - [KORA Studio v0.6 readiness report](kora-studio-v0-6-readiness-report.md)
 - [KORA Studio v0.6 goal report](kora-studio-v0-6-goal-report.md)
+- [KORA Studio v0.7 Claude Design source of truth](kora-studio-v0-7-claude-design-source-of-truth.md)
 - [KORA Studio v0.7 chat-first minimal UI/UX boards](kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md)
 - [KORA Studio v0.7 minimal UI/UX boards](kora-studio-v0-7-minimal-ui-ux-boards.md)
 - [KORA Studio v0.7 UI/UX board](kora-studio-v0-7-ui-ux-board.md)

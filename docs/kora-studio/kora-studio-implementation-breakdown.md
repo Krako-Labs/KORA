@@ -539,7 +539,7 @@ Acceptance criteria:
 
 ## Phase 3.18 — v0.7 UI/UX Board
 
-Status: Chat-first minimal approval boards created. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md` as the preferred source of truth. Keep `docs/kora-studio/kora-studio-v0-7-minimal-ui-ux-boards.md` and `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md` as background context only.
+Status: Claude Design source of truth captured. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-claude-design-source-of-truth.md` as the preferred source of truth, with `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md` as supporting context. Keep older v0.7 boards as background only.
 
 Goal: Align the next KORA Studio local preview layout with a minimal chat-first web app pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
 
@@ -553,6 +553,7 @@ Scope:
 - centered main work surface
 - right-side collapsible detail drawer
 - model/runtime/catalog boundary placement inside the drawer or near risky actions
+- no external CDN or font dependency copied from the reference prototype
 - no arbitrary prompt input
 - no model execution
 - no provider calls
