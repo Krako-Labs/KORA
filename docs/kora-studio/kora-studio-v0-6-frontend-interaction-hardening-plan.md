@@ -261,9 +261,13 @@ Status: Connected in the local preview. Browser-local history cards now mark the
 
 Extend the smoke check for v0.6 markers and create `docs/kora-studio/kora-studio-v0-6-readiness-report.md` after validation.
 
+Status: Complete. The readiness report records passing `git diff --check`, full pytest, Studio-focused pytest, and the live local preview smoke check.
+
 ### Task 455 - Consolidated v0.6 Goal Report
 
 Create `docs/kora-studio/kora-studio-v0-6-goal-report.md` with task summaries, commits, validation results, live smoke check results, known limitations, and next recommended milestone.
+
+Status: Complete. The consolidated v0.6 goal report summarizes Tasks 449-455, commits, changed artifacts, validation, live smoke coverage, claim boundaries, known limitations, and the next recommended v0.7 goal.
 
 ## Acceptance Criteria
 
