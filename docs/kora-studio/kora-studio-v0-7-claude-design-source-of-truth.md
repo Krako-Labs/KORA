@@ -12,6 +12,7 @@ This is a design source of truth, not an implementation commit. Product code sho
 
 Screenshots:
 
+- [final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
 - [01 empty state](design/claude-v0-7/01-empty.png)
 - [02 empty state variant](design/claude-v0-7/02-empty.png)
 - [03 empty state variant](design/claude-v0-7/03-empty.png)
@@ -34,9 +35,11 @@ Important implementation note:
 
 ## Visual Direction
 
-Use the Claude Design screenshots as the visual target:
+Use the final UI/UX board as the primary visual target:
 
-![KORA Studio Claude Design empty state](design/claude-v0-7/01-empty.png)
+![KORA Studio final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
+
+Use the Claude Design screenshots as supporting state references.
 
 Core visual qualities:
 
