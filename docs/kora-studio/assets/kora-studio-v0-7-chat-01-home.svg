@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">KORA Studio v0.7 Chat-First Board 01 - Home</title>
+  <desc id="desc">Minimal ChatGPT-like home surface for KORA Studio.</desc>
+  <defs>
+    <style>
+      .bg{fill:#0f1115}.panel{fill:#171a21;stroke:#2b313c;stroke-width:1.5;rx:18}.soft{fill:#1b1f28;stroke:#343b48;stroke-width:1.5;rx:16}.input{fill:#20242d;stroke:#424a58;stroke-width:1.5;rx:24}.text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#e8edf5}.h1{font-size:34px;font-weight:720}.h2{font-size:24px;font-weight:680}.small{font-size:16px;fill:#b5bfcd}.tiny{font-size:13px;fill:#8f9aaa}.pill{fill:#20242d;stroke:#3b4452;stroke-width:1.2;rx:15}.green{fill:#10251f;stroke:#22c55e;stroke-width:1.5;rx:14}.accent{fill:#38bdf8}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="800"/>
+  <rect class="pill" x="42" y="28" width="138" height="34"/><text class="text small" x="64" y="51">KORA Studio</text>
+  <rect class="pill" x="432" y="28" width="336" height="34"/><text class="text small" x="456" y="51">Search or select open-source LLM</text>
+  <rect class="green" x="786" y="28" width="178" height="34"/><text class="text tiny" x="812" y="50">Selected: none</text>
+  <rect class="pill" x="1020" y="28" width="132" height="34"/><text class="text tiny" x="1048" y="50">Details</text>
+
+  <text class="text h1" x="430" y="250">What do you want to work on?</text>
+  <text class="text small" x="424" y="288">Simple first. Routing details stay out of the way.</text>
+
+  <rect class="input" x="300" y="420" width="600" height="72"/>
+  <text class="text small" x="332" y="464">Ask KORA or run an approved local harness task...</text>
+  <circle cx="856" cy="456" r="22" fill="#2b3441"/>
+  <text class="text small" x="850" y="462">↵</text>
+
+  <rect class="soft" x="300" y="526" width="184" height="70"/><text class="text tiny" x="326" y="556">Local preview</text><text class="text tiny" x="326" y="580">No provider calls</text>
+  <rect class="soft" x="508" y="526" width="184" height="70"/><text class="text tiny" x="534" y="556">Model execution</text><text class="text tiny" x="534" y="580">not connected yet</text>
+  <rect class="soft" x="716" y="526" width="184" height="70"/><text class="text tiny" x="742" y="556">Downloads</text><text class="text tiny" x="742" y="580">disabled</text>
+
+  <text class="text h2" x="54" y="720">Decision</text>
+  <text class="text small" x="54" y="752">Default UI should feel closer to ChatGPT: quiet top bar, centered work input, hidden details.</text>
+</svg>

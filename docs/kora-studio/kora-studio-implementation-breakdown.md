@@ -539,21 +539,20 @@ Acceptance criteria:
 
 ## Phase 3.18 — v0.7 UI/UX Board
 
-Status: Minimal approval boards created. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-minimal-ui-ux-boards.md` as the preferred source of truth. Keep `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md` as background context only.
+Status: Chat-first minimal approval boards created. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md` as the preferred source of truth. Keep `docs/kora-studio/kora-studio-v0-7-minimal-ui-ux-boards.md` and `docs/kora-studio/kora-studio-v0-7-ui-ux-board.md` as background context only.
 
-Goal: Align the next KORA Studio local preview layout with a familiar desktop AI-workbench pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
+Goal: Align the next KORA Studio local preview layout with a minimal chat-first web app pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
 
 Scope:
 
 - approval board before implementation
 - split minimal boards before implementation
-- left navigation
-- top local status bar
-- main local harness workspace
-- right execution inspector
-- selected-run event timeline placement
-- counters/comparison/report metadata placement
-- model/runtime/catalog boundary placement
+- quiet top bar
+- open-source LLM search and selection
+- compact selected-model label
+- centered main work surface
+- right-side collapsible detail drawer
+- model/runtime/catalog boundary placement inside the drawer or near risky actions
 - no arbitrary prompt input
 - no model execution
 - no provider calls

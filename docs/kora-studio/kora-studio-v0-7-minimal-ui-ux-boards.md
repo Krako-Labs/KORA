@@ -1,5 +1,9 @@
 # KORA Studio v0.7 Minimal UI/UX Boards
 
+> Superseded for implementation approval by the chat-first minimal boards:
+> `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md`.
+> Keep these split workbench boards as background context only.
+
 ## Status
 
 These boards replace the previous one-page comprehensive board as the preferred approval artifact.
