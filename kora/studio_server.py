@@ -986,6 +986,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Does not remove server run records, reports, files, or backend records.</p><p>No persistence, no cloud sync, no file export.</p></div>
         </div>
         <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
+        <div class=\"grid\" style=\"margin-top: 16px;\">
+          <div class=\"card\"><h3>Generated Event Stream</h3><p>Generated harness events only.</p><p>Not model token streaming.</p><p>No provider streaming.</p><p>No model execution.</p><p>Fallback to local events endpoint available.</p><p>Status: <span id=\"kora-sse-status\">idle</span></p><p>Fallback used: <span id=\"kora-sse-fallback-used\">false</span></p><p id=\"kora-sse-error\">No generated event stream error.</p></div>
+        </div>
         <div class=\"card\" style=\"margin-top: 16px;\"><h3>Selected Run Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider calls. No downloads.</p><p>Events are fetched from <code>GET /api/harness/events?run_id=&lt;id&gt;</code> after a successful approved local harness run.</p><p id=\"kora-selected-events-status\">No selected run events loaded yet.</p></div>
         <div class=\"grid\" id=\"kora-selected-run-events\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
@@ -1109,6 +1112,12 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       let retryAvailable = false;
       let runHistory = [];
       const runHistoryLimit = 5;
+      let sseAvailable = typeof EventSource !== "undefined";
+      let sseStatus = "idle";
+      let sseError = "";
+      let sseEvents = [];
+      let sseFallbackUsed = false;
+      let activeEventSource = null;
 
       const text = (id, value) => {{
         const element = document.getElementById(id);
@@ -1143,6 +1152,24 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }}
         if (retryButton) {{
           retryButton.disabled = runLoading || !retryAvailable;
+        }}
+      }};
+
+      const setSseState = (status, error, fallbackUsed) => {{
+        sseStatus = status || "idle";
+        sseError = error || "";
+        if (fallbackUsed !== undefined) {{
+          sseFallbackUsed = fallbackUsed === true;
+        }}
+        text("kora-sse-status", sseStatus);
+        text("kora-sse-error", sseError || "No generated event stream error.");
+        text("kora-sse-fallback-used", sseFallbackUsed ? "true" : "false");
+      }};
+
+      const closeActiveEventSource = () => {{
+        if (activeEventSource) {{
+          activeEventSource.close();
+          activeEventSource = null;
         }}
       }};
 
@@ -1384,6 +1411,33 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }});
       }};
 
+      const eventFromSsePayload = (payload) => {{
+        if (payload && payload.event && typeof payload.event === "object") {{
+          return payload.event;
+        }}
+        if (!payload || !payload.stage_id) {{
+          return null;
+        }}
+        return {{
+          run_id: payload.run_id || selectedRunId,
+          request_id: payload.request_id || selectedRequestId,
+          stage_id: payload.stage_id,
+          stage_name: payload.stage_name || payload.stage_id,
+          route_class: payload.route_class || "unknown",
+          status: payload.status || "unknown",
+          model_called: false,
+          deterministic_route_used: false,
+          validation_result: "not_applicable",
+          latency_ms: 0,
+          model_execution_status: "execution_not_connected"
+        }};
+      }};
+
+      const renderSseEvents = () => {{
+        renderSelectedEvents(sseEvents);
+        text("kora-selected-events-status", `Loaded ${{sseEvents.length}} generated harness events from the generated event stream. Not model token streaming. No provider streaming.`);
+      }};
+
       const renderRunHistory = () => {{
         const container = document.getElementById("kora-local-run-history");
         text("kora-run-history-count", runHistory.length);
@@ -1440,6 +1494,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       }};
 
       const selectRunFromHistory = (runId) => {{
+        closeActiveEventSource();
         const record = runHistory.find((item) => item.run_id === runId);
         if (!record) {{
           renderRunError("Selected browser-local run was not found.");
@@ -1447,6 +1502,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }}
         renderRunResponse(record, {{updateHistory: false}});
         renderSelectedEvents(record.generated_events || []);
+        setSseState("idle", "Selected run restored from browser-local history. Generated stream not connected for restored history item.", false);
         setRetryState(false, "Selected run restored from browser-local page memory.");
         text("kora-run-history-status", "Selected run restored from browser-local page memory. Not production evidence.");
       }};
@@ -1460,6 +1516,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       }};
 
       const clearLocalRunHistory = () => {{
+        closeActiveEventSource();
         runHistory = [];
         selectedRunId = "";
         selectedRunEvents = [];
@@ -1482,6 +1539,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         renderReportMetadataUnavailable("Run an approved local harness request to view selected-run report metadata.");
         clearSelectedCards("kora-selected-run-events");
         setRetryState(false, "Cleared browser-local preview state only.");
+        sseEvents = [];
+        setSseState("idle", "Cleared browser-local preview state only.", false);
         renderRunHistory();
       }};
 
@@ -1506,6 +1565,75 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }} catch (error) {{
           const message = error instanceof TypeError ? "The local harness endpoint was unavailable." : (error && error.message ? error.message : "Generated events unavailable for this local run.");
           renderEventError(message);
+        }}
+      }};
+
+      const fetchSelectedEventsFallback = async (message) => {{
+        sseFallbackUsed = true;
+        setSseState("fallback", message || "Generated event stream unavailable; using local events endpoint fallback.", true);
+        await fetchSelectedEvents();
+      }};
+
+      const connectGeneratedEventStream = async () => {{
+        closeActiveEventSource();
+        sseEvents = [];
+        sseFallbackUsed = false;
+        if (!selectedRunId) {{
+          await fetchSelectedEventsFallback("Generated event stream unavailable; using local events endpoint fallback.");
+          return;
+        }}
+        if (!sseAvailable) {{
+          await fetchSelectedEventsFallback("Generated EventSource is unavailable; using local events endpoint fallback.");
+          return;
+        }}
+        setSseState("connecting", "Generated harness events only. No model execution was attempted. Provider calls remain disabled.", false);
+        try {{
+          const eventSource = new EventSource(`/api/harness/sse?run_id=${{encodeURIComponent(selectedRunId)}}`);
+          activeEventSource = eventSource;
+          eventSource.addEventListener("stream_started", () => {{
+            if (eventSource !== activeEventSource) {{
+              return;
+            }}
+            sseEvents = [];
+            setSseState("streaming", "Generated harness events only. Not model token streaming. No provider streaming.", false);
+          }});
+          eventSource.addEventListener("harness_stage", (event) => {{
+            if (eventSource !== activeEventSource) {{
+              return;
+            }}
+            try {{
+              const payload = JSON.parse(event.data || "{{}}");
+              const stageEvent = eventFromSsePayload(payload);
+              if (!stageEvent) {{
+                throw new Error("Malformed generated stream event.");
+              }}
+              sseEvents.push(stageEvent);
+              renderSseEvents();
+            }} catch (parseError) {{
+              closeActiveEventSource();
+              fetchSelectedEventsFallback("Generated event stream returned malformed data; using local events endpoint fallback.");
+            }}
+          }});
+          eventSource.addEventListener("stream_completed", () => {{
+            if (eventSource !== activeEventSource) {{
+              return;
+            }}
+            closeActiveEventSource();
+            setSseState("completed", "Generated event stream completed. No model execution was attempted. Provider calls remain disabled.", false);
+            if (sseEvents.length) {{
+              renderSseEvents();
+            }}
+          }});
+          eventSource.onerror = () => {{
+            if (eventSource !== activeEventSource) {{
+              return;
+            }}
+            closeActiveEventSource();
+            fetchSelectedEventsFallback("Generated event stream unavailable; using local events endpoint fallback.");
+          }};
+        }} catch (error) {{
+          closeActiveEventSource();
+          await fetchSelectedEventsFallback("Generated event stream unavailable; using local events endpoint fallback.");
         }}
       }};
 
@@ -1565,7 +1693,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             throw new Error("The local response was missing selected-run fields.");
           }}
           renderRunResponse(payload);
-          await fetchSelectedEvents();
+          await connectGeneratedEventStream();
         }} catch (error) {{
           const message = error instanceof TypeError ? "The local harness endpoint was unavailable." : (error && error.message ? error.message : "Local harness run failed.");
           renderRunError(message);
@@ -1622,6 +1750,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         get retry_available() {{ return retryAvailable; }},
         get run_history() {{ return runHistory.slice(); }},
         get run_history_limit() {{ return runHistoryLimit; }},
+        get sse_available() {{ return sseAvailable; }},
+        get sse_status() {{ return sseStatus; }},
+        get sse_error() {{ return sseError; }},
+        get sse_events() {{ return sseEvents.slice(); }},
+        get sse_fallback_used() {{ return sseFallbackUsed; }},
         get selected_run_events() {{ return selectedRunEvents.slice(); }},
         get selected_run_counters() {{ return Object.assign({{}}, selectedRunCounters); }},
         get selected_run_comparison() {{ return Object.assign({{}}, selectedRunComparison); }},

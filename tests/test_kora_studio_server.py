@@ -802,6 +802,24 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "data-kora-history-run-id" in html
     assert "get run_history()" in html
     assert "get selected_run_record()" in html
+    assert "Generated Event Stream" in html
+    assert "id=\"kora-sse-status\"" in html
+    assert "id=\"kora-sse-fallback-used\"" in html
+    assert "id=\"kora-sse-error\"" in html
+    assert "Generated harness events only" in html
+    assert "Not model token streaming" in html
+    assert "No provider streaming" in html
+    assert "Fallback to local events endpoint available" in html
+    assert "let sseAvailable = typeof EventSource !== \"undefined\"" in html
+    assert "let activeEventSource = null" in html
+    assert "closeActiveEventSource" in html
+    assert "connectGeneratedEventStream" in html
+    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in html
+    assert "fetchSelectedEventsFallback" in html
+    assert "eventSource.addEventListener(\"harness_stage\"" in html
+    assert "eventSource.addEventListener(\"stream_completed\"" in html
+    assert "get sse_status()" in html
+    assert "get sse_fallback_used()" in html
     assert "Generated local harness output only" in html
     assert "Selected Run Event Timeline" in html
     assert "id=\"kora-selected-run-events\"" in html
@@ -940,7 +958,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "type=\"application/json\" id=\"kora-approved-requests-data\"" in html
     assert "fetch(\"/api/harness/run\"" in html
     assert "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)" in html
-    assert html.index("renderRunResponse(payload);") < html.index("await fetchSelectedEvents();")
+    assert html.index("renderRunResponse(payload);") < html.index("await connectGeneratedEventStream();")
     assert "renderSelectedCounters(run.generated_counters" in html
     assert "renderSelectedComparison(run.comparison_summary" in html
     assert "renderSelectedReportMetadata(run.report_metadata_summary)" in html
@@ -957,6 +975,10 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "fetch(\"/api/harness/delete" not in html
     assert "fetch(\"/api/harness/events" not in html
     assert "fetch(\"/api/harness/sse" not in html
+    assert "new EventSource(\"http" not in html
+    assert "new EventSource(\"/api/model" not in html
+    assert "new EventSource(\"/api/provider" not in html
+    assert "new EventSource(\"/api/download" not in html
     assert "fetch(\"/api/model" not in html
     assert "fetch(\"/api/provider" not in html
     assert "fetch(\"/api/download" not in html

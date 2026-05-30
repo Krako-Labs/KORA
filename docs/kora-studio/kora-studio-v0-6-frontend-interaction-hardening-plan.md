@@ -249,6 +249,8 @@ Status: Connected in the local preview. Successful local harness run responses a
 
 If still small and safe, add UI connection to `/api/harness/sse?run_id=<id>` for generated harness events only. Include disconnect/error handling and fallback to `/api/harness/events`.
 
+Status: Connected in the local preview. The selected-run UI can open an `EventSource` for `/api/harness/sse?run_id=<id>`, renders generated harness stages only, closes the stream on completion/error/history switch, and falls back to `GET /api/harness/events?run_id=<id>` if EventSource is unavailable or the generated stream fails. It is not model token streaming, provider streaming, model output streaming, or arbitrary prompt execution.
+
 ### Task 453 - Selected-run History UI Hardening
 
 Polish the browser-local history list, selected-run switching copy, empty states, and boundary text. Keep all outputs local deterministic harness output only.

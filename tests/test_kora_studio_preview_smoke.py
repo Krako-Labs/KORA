@@ -209,6 +209,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Page-memory only
             Clears on refresh
             Cleared browser-local preview state only
+            Generated Event Stream
+            kora-sse-status
+            kora-sse-fallback-used
+            kora-sse-error
+            Fallback to local events endpoint available
+            No provider streaming
+            new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)
             Selected Run Event Timeline
             kora-selected-run-events
             kora-selected-events-status
