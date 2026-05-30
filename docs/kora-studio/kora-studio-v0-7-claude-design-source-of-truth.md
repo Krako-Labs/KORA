@@ -15,6 +15,9 @@ Screenshots:
 - [01 empty state](design/claude-v0-7/01-empty.png)
 - [02 empty state variant](design/claude-v0-7/02-empty.png)
 - [03 empty state variant](design/claude-v0-7/03-empty.png)
+- [mobile main composer](design/claude-v0-7/mobile-main-composer.jpg)
+- [mobile left rail](design/claude-v0-7/mobile-left-rail.jpg)
+- [mobile details drawer](design/claude-v0-7/mobile-details-drawer.jpg)
 
 Reference source files:
 
@@ -39,6 +42,7 @@ Core visual qualities:
 
 - sparse dark surface
 - quiet top bar
+- thin left rail available as a secondary workspace/task surface
 - centered work prompt
 - one large composer
 - small boundary pills below the composer
@@ -48,6 +52,35 @@ Core visual qualities:
 - very low panel count on first load
 
 ## Required App Structure
+
+### Left Rail
+
+Required:
+
+- visible as a small secondary section on desktop and larger mobile/tablet previews
+- follows the ChatGPT-style app pattern: workspace identity, new task, search tasks, lightweight project/task history
+- remains visually quiet and narrower than the main work surface
+- never becomes the primary model-management or runtime surface
+- may collapse behind a simple icon on constrained widths
+- keeps cloud sync and workspace state claim-safe
+
+The left rail may include:
+
+- `KORA Studio`
+- `New task`
+- `Search tasks`
+- project/task labels
+- `Local workspace`
+- `Cloud sync disabled`
+
+The left rail must not include:
+
+- dense runtime diagnostics
+- full route trace
+- generated counters
+- report metadata tables
+- model installation controls
+- provider or cloud controls
 
 ### Top Bar
 
@@ -138,6 +171,7 @@ The drawer may use accordion sections.
 When adapting this design into KORA Studio:
 
 - keep the first screen sparse
+- allow the left rail as a small workspace/task aid, not as a dashboard
 - do not show a dense dashboard on load
 - do not show route trace by default
 - do not show counters by default
@@ -183,6 +217,7 @@ The implementation must preserve:
 Accepted:
 
 - ChatGPT-like minimal first screen
+- small ChatGPT-style left rail for workspace/task navigation
 - top model selector
 - compact selected model label
 - centered composer
@@ -196,7 +231,7 @@ Rejected for v0.7 implementation:
 - always-visible route trace
 - always-visible counters
 - always-visible report metadata
-- left navigation as the primary layout
+- left navigation as the primary layout or diagnostic dashboard
 - full model-management dashboard on first load
 
 ## Next Implementation Task
