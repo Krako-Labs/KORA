@@ -1,12 +1,12 @@
 # KORA Studio v0.7 UI/UX Board
 
-![KORA Studio v0.7 UI/UX source-of-truth board](assets/kora-studio-v0-7-ui-ux-board.svg)
+![KORA Studio v0.7 UI/UX source-of-truth board](assets/kora-studio-v0-7-ui-ux-board.png)
 
 ## Status
 
 This is an approval board for the next KORA Studio UI direction. It is not an implementation spec until reviewed and approved.
 
-The SVG above is the visual source of truth for this approval pass. The sections below explain the same layout, boundaries, and implementation gates in text form.
+The PNG above is the visual review artifact for this approval pass. The editable SVG source is stored next to it at `assets/kora-studio-v0-7-ui-ux-board.svg`. The sections below explain the same layout, boundaries, and implementation gates in text form.
 
 KORA Studio v0.7 should move the local preview toward a more coherent desktop workspace layout. The preferred visual direction may borrow familiar desktop AI-workbench patterns from tools such as LM Studio, but KORA Studio must remain positioned as a local-first AI Task Execution Router workspace, not an LM Studio replacement and not a generic local chatbot.
 
