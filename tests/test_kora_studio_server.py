@@ -787,12 +787,16 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Browser-local run history" in html
     assert "Page-memory only" in html
     assert "Clears on refresh" in html
+    assert "Active selected run: <code id=\"kora-active-history-run-id\">none</code>" in html
+    assert "History cards show compact counters from generated harness output only" in html
     assert "id=\"kora-local-run-history\"" in html
     assert "id=\"kora-run-history-count\"" in html
     assert "id=\"kora-run-history-status\"" in html
     assert "Clear Local Run History" in html
     assert "id=\"kora-clear-run-history-button\"" in html
     assert "Cleared browser-local preview state only" in html
+    assert "Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history" in html
+    assert "No persistence, no cloud sync, no file export, no file writing, and no backend delete call" in html
     assert "let runHistory = []" in html
     assert "const runHistoryLimit = 5" in html
     assert "renderRunHistory" in html
@@ -800,6 +804,12 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "addRunToHistory" in html
     assert "clearLocalRunHistory" in html
     assert "data-kora-history-run-id" in html
+    assert "Active selected local run" in html
+    assert "Recent local run" in html
+    assert "Compact counters: avoided_model_calls=" in html
+    assert "aria-current" in html
+    assert "Selected in page" in html
+    assert "No backend records, files, report exports, or server endpoints were deleted" in html
     assert "get run_history()" in html
     assert "get selected_run_record()" in html
     assert "Generated Event Stream" in html

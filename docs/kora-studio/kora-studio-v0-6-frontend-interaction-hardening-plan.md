@@ -255,6 +255,8 @@ Status: Connected in the local preview. The selected-run UI can open an `EventSo
 
 Polish the browser-local history list, selected-run switching copy, empty states, and boundary text. Keep all outputs local deterministic harness output only.
 
+Status: Connected in the local preview. Browser-local history cards now mark the active selected run, show compact generated-counter summaries, and keep clear-history copy explicit that only page-memory UI state is reset. Clear history does not delete server run records, backend records, report files, generated endpoints, or any persisted data.
+
 ### Task 454 - v0.6 Smoke Check and Readiness Report
 
 Extend the smoke check for v0.6 markers and create `docs/kora-studio/kora-studio-v0-6-readiness-report.md` after validation.

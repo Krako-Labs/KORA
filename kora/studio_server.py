@@ -982,8 +982,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Retry Last Approved Request</h3><p>Last approved request: <code id=\"kora-last-approved-request-id\">{selector_preview_id}</code></p><p>Retry available: <span id=\"kora-retry-available\">false</span></p><button class=\"action-button\" type=\"button\" id=\"kora-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button><p>Retry calls only <code>POST /api/harness/run</code> with the last approved <code>request_id</code>.</p><p>No arbitrary prompt execution.</p></div>
         </div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
-          <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Does not remove server run records, reports, files, or backend records.</p><p>No persistence, no cloud sync, no file export.</p></div>
+          <div class=\"card\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Active selected run: <code id=\"kora-active-history-run-id\">none</code></p><p>History cards show compact counters from generated harness output only.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
+          <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history.</p><p>Does not remove server run records, reports, files, backend records, or generated harness endpoints.</p><p>No persistence, no cloud sync, no file export, no file writing, and no backend delete call.</p></div>
         </div>
         <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
@@ -1441,20 +1441,28 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       const renderRunHistory = () => {{
         const container = document.getElementById("kora-local-run-history");
         text("kora-run-history-count", runHistory.length);
+        text("kora-active-history-run-id", selectedRunId || "none");
         if (!container) {{
           return;
         }}
         container.replaceChildren();
         if (!runHistory.length) {{
-          text("kora-run-history-status", "No browser-local run history yet. Page-memory only. Clears on refresh.");
+          text("kora-run-history-status", "No browser-local run history yet. Page-memory only. Clears on refresh. No backend records or files are deleted.");
           return;
         }}
-        text("kora-run-history-status", "Browser-local run history loaded. Page-memory only. Not production evidence.");
+        text("kora-run-history-status", "Browser-local run history loaded. Active selected run is marked in page memory only. Not production evidence.");
         runHistory.forEach((record) => {{
+          const isActive = record.run_id === selectedRunId;
+          const counters = record.generated_counters || {{}};
           const card = document.createElement("div");
           card.className = "card";
+          if (isActive) {{
+            card.setAttribute("aria-current", "true");
+          }}
           const title = document.createElement("h3");
-          title.textContent = record.run_id === selectedRunId ? "Selected local run" : "Recent local run";
+          title.textContent = isActive ? "Active selected local run" : "Recent local run";
+          const activeState = document.createElement("p");
+          activeState.textContent = `Active selected run: ${{isActive ? "true" : "false"}}`;
           const runId = document.createElement("p");
           runId.textContent = `Run id: ${{record.run_id || "unknown"}}`;
           const requestId = document.createElement("p");
@@ -1463,6 +1471,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           status.textContent = `Status: ${{record.run_status || "unknown"}}`;
           const eventCount = document.createElement("p");
           eventCount.textContent = `Event count: ${{record.event_count || 0}}`;
+          const compactCounters = document.createElement("p");
+          compactCounters.textContent = `Compact counters: avoided_model_calls=${{counters.avoided_model_calls || 0}}, kora_model_calls=${{counters.kora_model_calls || 0}}, deterministic_routes=${{counters.deterministic_routes || 0}}, model_escalations=${{counters.model_escalations || 0}}, validation_pass_count=${{counters.validation_pass_count || 0}}`;
           const modelStatus = document.createElement("p");
           modelStatus.textContent = `Model execution status: ${{record.model_execution_status || "execution_not_connected"}}`;
           const createdAt = document.createElement("p");
@@ -1476,14 +1486,19 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           selectButton.type = "button";
           selectButton.textContent = "Select run";
           selectButton.setAttribute("data-kora-history-run-id", record.run_id || "");
+          if (isActive) {{
+            selectButton.textContent = "Selected in page";
+          }}
           selectButton.addEventListener("click", () => {{
             selectRunFromHistory(record.run_id || "");
           }});
           card.appendChild(title);
+          card.appendChild(activeState);
           card.appendChild(runId);
           card.appendChild(requestId);
           card.appendChild(status);
           card.appendChild(eventCount);
+          card.appendChild(compactCounters);
           card.appendChild(modelStatus);
           card.appendChild(createdAt);
           card.appendChild(completedAt);
@@ -1533,6 +1548,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         text("kora-run-cloud-sync-enabled", "false");
         text("kora-run-file-export-enabled", "false");
         text("kora-run-claim-boundary", "Cleared browser-local preview state only.");
+        text("kora-active-history-run-id", "none");
         text("kora-selected-events-status", "No selected run events loaded yet.");
         renderCountersUnavailable("Run an approved local harness request to view selected-run counters.");
         renderComparisonUnavailable("Run an approved local harness request to view selected-run comparison.");
@@ -1540,7 +1556,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         clearSelectedCards("kora-selected-run-events");
         setRetryState(false, "Cleared browser-local preview state only.");
         sseEvents = [];
-        setSseState("idle", "Cleared browser-local preview state only.", false);
+        setSseState("idle", "Cleared browser-local preview state only. No backend records, files, report exports, or server endpoints were deleted.", false);
         renderRunHistory();
       }};
 

@@ -208,7 +208,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Browser-local run history
             Page-memory only
             Clears on refresh
+            kora-active-history-run-id
+            History cards show compact counters from generated harness output only
+            Compact counters: avoided_model_calls=
+            Active selected local run
+            Selected in page
             Cleared browser-local preview state only
+            No backend records, files, report exports, or server endpoints were deleted
             Generated Event Stream
             kora-sse-status
             kora-sse-fallback-used

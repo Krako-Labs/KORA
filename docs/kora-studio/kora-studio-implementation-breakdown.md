@@ -502,7 +502,7 @@ Acceptance criteria:
 
 ## Phase 3.17 — v0.6 Frontend Interaction Hardening Plan
 
-Status: v0.6 frontend interaction hardening is underway. The local preview includes selected-run error state, Retry Last Approved Request behavior, browser-local run history, and optional generated-event SSE UI with fallback to the local events endpoint. See `docs/kora-studio/kora-studio-v0-6-frontend-interaction-hardening-plan.md`.
+Status: v0.6 frontend interaction hardening is underway. The local preview includes selected-run error state, Retry Last Approved Request behavior, browser-local run history with active-run cards and compact counters, and optional generated-event SSE UI with fallback to the local events endpoint. See `docs/kora-studio/kora-studio-v0-6-frontend-interaction-hardening-plan.md`.
 
 Goal: Harden the local preview interaction layer around selected-run errors, retry behavior, browser-local history, optional generated-event SSE display, and local preview reliability.
 
@@ -514,6 +514,7 @@ Scope:
 - malformed local response messages
 - browser-local run history state
 - selected-run history list
+- active selected-run history card and compact counter summary
 - selected `run_id` switching in browser memory
 - clear local state action
 - optional generated-event SSE UI for existing local harness runs
