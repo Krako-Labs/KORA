@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1280" viewBox="0 0 1800 1280" role="img" aria-labelledby="title desc">
+  <title id="title">KORA Studio v0.7 UI/UX Source-of-Truth Board</title>
+  <desc id="desc">Approval board for a local-first AI Task Execution Router desktop workbench layout inspired by familiar local AI workbench patterns while preserving KORA-specific boundaries.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0b0f14; }
+      .panel { fill: #121821; stroke: #2a3442; stroke-width: 2; rx: 10; }
+      .panel-soft { fill: #151d28; stroke: #2f3b4a; stroke-width: 2; rx: 10; }
+      .nav { fill: #0f151d; stroke: #2a3442; stroke-width: 2; rx: 10; }
+      .main { fill: #101923; stroke: #3a4656; stroke-width: 2; rx: 10; }
+      .inspector { fill: #111721; stroke: #384456; stroke-width: 2; rx: 10; }
+      .card { fill: #182331; stroke: #334155; stroke-width: 1.5; rx: 8; }
+      .card-active { fill: #1b2d3a; stroke: #38bdf8; stroke-width: 2; rx: 8; }
+      .pill { fill: #1d2836; stroke: #3b4758; stroke-width: 1; rx: 12; }
+      .pill-green { fill: #10251f; stroke: #22c55e; stroke-width: 1.5; rx: 12; }
+      .pill-amber { fill: #2a2110; stroke: #f59e0b; stroke-width: 1.5; rx: 12; }
+      .pill-red { fill: #2a1416; stroke: #ef4444; stroke-width: 1.5; rx: 12; }
+      .line { stroke: #3a4656; stroke-width: 2; fill: none; }
+      .line-blue { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .line-amber { stroke: #f59e0b; stroke-width: 2.5; fill: none; }
+      .text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #d7dee9; font-size: 22px; }
+      .small { font-size: 16px; fill: #aeb8c6; }
+      .tiny { font-size: 13px; fill: #91a0b3; }
+      .muted { fill: #94a3b8; }
+      .h1 { font-size: 40px; font-weight: 750; fill: #f8fafc; }
+      .h2 { font-size: 26px; font-weight: 700; fill: #f1f5f9; }
+      .h3 { font-size: 20px; font-weight: 700; fill: #e5edf7; }
+      .mono { font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace; }
+      .accent { fill: #38bdf8; }
+      .amber { fill: #f59e0b; }
+      .green { fill: #22c55e; }
+      .red { fill: #ef4444; }
+      .tag { font-size: 14px; font-weight: 650; fill: #cbd5e1; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1800" height="1280"/>
+
+  <text class="h1" x="48" y="62">KORA Studio v0.7 UI/UX Board</text>
+  <text class="text muted" x="48" y="98">Source-of-truth visual board for approval before implementation</text>
+  <text class="small" x="48" y="126">Direction: familiar local AI workbench layout, KORA-specific execution-router product model.</text>
+
+  <rect class="pill-green" x="1270" y="38" width="156" height="34"/>
+  <text class="tag" x="1290" y="61">LOCAL PREVIEW</text>
+  <rect class="pill-red" x="1440" y="38" width="145" height="34"/>
+  <text class="tag" x="1459" y="61">NO MODEL RUN</text>
+  <rect class="pill-red" x="1600" y="38" width="145" height="34"/>
+  <text class="tag" x="1620" y="61">NO PROVIDER</text>
+
+  <rect class="panel" x="48" y="158" width="1704" height="480"/>
+  <text class="h2" x="78" y="202">Primary App Shell</text>
+  <text class="small" x="78" y="230">Approve this structure before changing the local preview implementation.</text>
+
+  <rect class="nav" x="78" y="262" width="250" height="336"/>
+  <text class="h3" x="104" y="300">Left Navigation</text>
+  <rect class="card-active" x="100" y="326" width="204" height="42"/>
+  <text class="small" x="122" y="353">Local Harness</text>
+  <rect class="card" x="100" y="378" width="204" height="36"/>
+  <text class="small" x="122" y="402">Overview</text>
+  <rect class="card" x="100" y="424" width="204" height="36"/>
+  <text class="small" x="122" y="448">Your Computer</text>
+  <rect class="card" x="100" y="470" width="204" height="36"/>
+  <text class="small" x="122" y="494">Models</text>
+  <rect class="card" x="100" y="516" width="204" height="36"/>
+  <text class="small" x="122" y="540">Reports</text>
+  <text class="tiny" x="100" y="580">Static anchors acceptable in first pass.</text>
+
+  <rect class="main" x="354" y="262" width="906" height="336"/>
+  <text class="h3" x="384" y="300">Main Workspace</text>
+  <rect class="card-active" x="384" y="326" width="390" height="86"/>
+  <text class="small" x="406" y="352">Approved Request Selector</text>
+  <text class="tiny" x="406" y="378">approved request_id only, no arbitrary prompt</text>
+  <rect class="pill-green" x="590" y="382" width="154" height="24"/>
+  <text class="tiny" x="606" y="399">Run Local Harness</text>
+  <rect class="card" x="794" y="326" width="430" height="86"/>
+  <text class="small" x="816" y="352">Selected Run Summary</text>
+  <text class="tiny" x="816" y="378">run_id, status, event_count, disabled states</text>
+  <rect class="card" x="384" y="428" width="840" height="72"/>
+  <text class="small" x="406" y="454">Selected Run Event Timeline</text>
+  <text class="tiny" x="406" y="480">request_received -> route_selected -> deterministic_check -> validation -> final_counters</text>
+  <rect class="card" x="384" y="516" width="410" height="54"/>
+  <text class="small" x="406" y="548">Selected Run Counters</text>
+  <rect class="card" x="814" y="516" width="410" height="54"/>
+  <text class="small" x="836" y="548">Standard Mode vs KORA Boost</text>
+
+  <rect class="inspector" x="1288" y="262" width="434" height="336"/>
+  <text class="h3" x="1316" y="300">Right Inspector</text>
+  <rect class="pill" x="1316" y="326" width="174" height="30"/>
+  <text class="tiny" x="1332" y="346">Runtime status</text>
+  <rect class="pill-amber" x="1504" y="326" width="174" height="30"/>
+  <text class="tiny" x="1520" y="346">Model boundary</text>
+  <rect class="card" x="1316" y="372" width="362" height="54"/>
+  <text class="small" x="1336" y="405">Generated Event Stream</text>
+  <rect class="card" x="1316" y="440" width="362" height="54"/>
+  <text class="small" x="1336" y="473">Compact Counters</text>
+  <rect class="card" x="1316" y="508" width="362" height="54"/>
+  <text class="small" x="1336" y="541">Report Boundary</text>
+  <text class="tiny" x="1316" y="584">Keep inspector visible on desktop.</text>
+
+  <path class="line-blue" d="M328 430 C350 430 350 430 354 430"/>
+  <path class="line-blue" d="M1260 430 C1280 430 1280 430 1288 430"/>
+
+  <rect class="panel-soft" x="48" y="674" width="830" height="372"/>
+  <text class="h2" x="78" y="716">Screen Board A/B</text>
+  <text class="small" x="78" y="742">First-run overview and local harness trigger</text>
+
+  <rect class="card" x="78" y="770" width="360" height="226"/>
+  <text class="h3" x="102" y="806">A. First-Run Overview</text>
+  <text class="small" x="102" y="838">Your Computer</text>
+  <text class="tiny" x="122" y="864">OS / CPU / memory estimate</text>
+  <text class="small" x="102" y="896">Model Capability Estimate</text>
+  <text class="tiny" x="122" y="922">estimate only, validation required</text>
+  <text class="small" x="102" y="954">Catalog vs Installed</text>
+  <text class="tiny" x="122" y="980">catalog examples are not installed models</text>
+
+  <rect class="card-active" x="470" y="770" width="360" height="226"/>
+  <text class="h3" x="494" y="806">B. Local Harness Run</text>
+  <text class="small" x="494" y="838">Approved Request Selector</text>
+  <text class="tiny" x="514" y="864">request_id only</text>
+  <text class="small" x="494" y="896">Run Local Harness</text>
+  <text class="tiny" x="514" y="922">POST /api/harness/run</text>
+  <text class="small" x="494" y="954">Selected Run Summary</text>
+  <text class="tiny" x="514" y="980">browser-local selected-run state</text>
+
+  <rect class="panel-soft" x="922" y="674" width="830" height="372"/>
+  <text class="h2" x="952" y="716">Screen Board C/D</text>
+  <text class="small" x="952" y="742">Execution visibility and report boundary</text>
+
+  <rect class="card-active" x="952" y="770" width="360" height="226"/>
+  <text class="h3" x="976" y="806">C. Execution Timeline</text>
+  <text class="small" x="976" y="838">Generated harness events only</text>
+  <text class="tiny" x="996" y="864">not model token streaming</text>
+  <text class="small" x="976" y="896">Visible route stages</text>
+  <text class="tiny" x="996" y="922">deterministic path before model boundary</text>
+  <text class="small" x="976" y="954">SSE fallback boundary</text>
+  <text class="tiny" x="996" y="980">fallback to local events endpoint</text>
+
+  <rect class="card" x="1344" y="770" width="360" height="226"/>
+  <text class="h3" x="1368" y="806">D. Comparison + Report</text>
+  <text class="small" x="1368" y="838">Standard vs KORA Boost</text>
+  <text class="tiny" x="1388" y="864">not production cost evidence</text>
+  <text class="small" x="1368" y="896">Selected Run Counters</text>
+  <text class="tiny" x="1388" y="922">not production telemetry</text>
+  <text class="small" x="1368" y="954">Report Metadata Preview</text>
+  <text class="tiny" x="1388" y="980">no file export, no file writing</text>
+
+  <rect class="panel" x="48" y="1080" width="540" height="150"/>
+  <text class="h2" x="78" y="1120">Approval Checklist</text>
+  <text class="small" x="78" y="1152">1. Approve left-nav / main / inspector shell</text>
+  <text class="small" x="78" y="1180">2. Approve Local Harness as default first screen</text>
+  <text class="small" x="78" y="1208">3. Approve claim boundary placement before code changes</text>
+
+  <rect class="panel" x="630" y="1080" width="540" height="150"/>
+  <text class="h2" x="660" y="1120">Implementation Gate</text>
+  <text class="small" x="660" y="1152">Do not implement layout changes until reviewed.</text>
+  <text class="small" x="660" y="1180">Initial routing can be static anchors.</text>
+  <text class="small" x="660" y="1208">No new model/provider/download behavior.</text>
+
+  <rect class="panel" x="1212" y="1080" width="540" height="150"/>
+  <text class="h2" x="1242" y="1120">Claim Boundary</text>
+  <text class="small" x="1242" y="1152">Local deterministic harness preview only.</text>
+  <text class="small" x="1242" y="1180">No arbitrary prompt execution or model execution.</text>
+  <text class="small" x="1242" y="1208">Not production evidence or LM Studio replacement.</text>
+</svg>
