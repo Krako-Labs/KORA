@@ -31,7 +31,7 @@ The marker contract is:
 | `composer` | Centered composer stage | Composer render helper | Approved harness request action only |
 | `selected-run-summary` | Composer selected-run summary | Selected-run summary render helper | Browser-local selected-run state only |
 | `boundary-strip` | Shell boundary strip | Boundary/status render helper | Provider, cloud, download, model execution, and report export remain disabled |
-| `right-details-drawer` | Right details drawer `<aside>` | Drawer render helper | Diagnostics only; not a provider/runtime/model control panel |
+| `right-details-drawer` | Right details drawer `<aside>` rendered by `kora/studio_drawer_render.py` | Drawer render helper | Diagnostics only; not a provider/runtime/model control panel |
 | `approved-request-selector` | Approved request selector panel | Harness selector render helper | Approved request IDs only; no arbitrary prompt input |
 | `retry-error-state` | Selected-run error/retry panel | Retry/error render helper | Retry last approved request only |
 | `run-history` | Browser-local history panel | Run history render helper | Page memory only; no persistence or backend deletion |
@@ -46,11 +46,14 @@ The marker contract is:
 
 Task 483 started shell extraction by adding `kora/studio_shell_render.py` with `render_shell_layout(...)`.
 
+Task 484 continued extraction by adding `kora/studio_drawer_render.py` with `render_right_details_drawer(...)`.
+
 Current split:
 
 - `kora/studio_server.py` still owns endpoint routing, status assembly, harness data, and preview data preparation.
 - `kora/studio_shell_render.py` owns the outer shell layout, left rail, top model selector, workspace frame, and slot placement for composer, details drawer, and legacy reference content.
-- Composer, selected-run panels, right drawer details, legacy content, CSS, and JavaScript remain in `kora/studio_server.py` until later v1.2 tasks.
+- `kora/studio_drawer_render.py` owns the right details drawer diagnostic markup and marker contract.
+- Composer, selected-run panels, legacy content, CSS, and JavaScript remain in `kora/studio_server.py` until later v1.2 tasks.
 - Behavior, endpoints, smoke markers, and claim boundaries are intended to remain unchanged.
 
 ## No-behavior-change Rule

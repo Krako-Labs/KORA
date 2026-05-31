@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
 
+from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_execution_fixture import get_execution_viewer_fixture_summary, get_standard_vs_kora_status_fields
 from kora.studio_harness_comparison import get_local_harness_comparison_status_fields
 from kora.studio_harness_events import LOCAL_HARNESS_EVENT_CLAIM_BOUNDARY, build_local_harness_events
@@ -730,23 +731,26 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
         </div>
       </section>"""
-    details_drawer_html = f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
-        <div class=\"drawer-header\">
-          <div>
-            <h2>Details</h2>
-            <p class=\"subtitle\">Inspector · local preview</p>
-          </div>
-          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-drawer-close=\"true\">x</button>
-        </div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-run-surfaces\" data-kora-drawer-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-drawer-selected-run-polish=\"primary-diagnostics\"><h3>Selected run surfaces</h3><p>Run id: <code id=\"kora-drawer-selected-run-id\">not run yet</code></p><p>Timeline: <span id=\"kora-drawer-selected-timeline-status\">not loaded</span></p><p>Counters: <span id=\"kora-drawer-selected-counters-status\">not loaded</span></p><p>Comparison: <span id=\"kora-drawer-selected-comparison-status\">not loaded</span></p><p>Report metadata: <span id=\"kora-drawer-selected-report-status\">not loaded</span></p><p>Drawer selected-run diagnostics mirror shell state for normal inspection: timeline availability, generated counters, local harness comparison, and report metadata preview.</p><p>Generated local harness output only. Not model token streaming. Not production telemetry. Not production cost evidence. Report metadata preview only. No file export or writing.</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
-        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\" data-kora-drawer-boundary-coverage=\"provider,cloud,download,model-execution,report-export,private-scan,runtime-list\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p><p>No report file export or writing.</p><p>No private model directory scanning.</p><p>No runtime model list commands.</p></div>
-      </aside>"""
+    details_drawer_html = render_right_details_drawer(
+        runtime_name=runtime_name,
+        runtime_detected=runtime_detected,
+        service_status=service_status,
+        local_candidate_name=local_candidate_name,
+        catalog_status=catalog_status,
+        installed_status=installed_status,
+        installed_count=installed_count,
+        sample_request_id=sample_request_id,
+        sample_route=sample_route,
+        sample_validation=sample_validation,
+        total_requests=total_requests,
+        baseline_model_calls=baseline_model_calls,
+        kora_model_calls=kora_model_calls,
+        avoided_model_calls=avoided_model_calls,
+        report_viewer_status=report_viewer_status,
+        report_source=report_source,
+        report_file_export_enabled=report_file_export_enabled,
+        report_file_written=report_file_written,
+    )
     legacy_preview_html = """  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-component=\"legacy-compatibility-reference\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\" data-kora-v1-1-legacy-secondary=\"developer-reference-only\" data-kora-v1-1-legacy-first-run-required=\"false\">
     <summary aria-label=\"Open legacy detailed preview compatibility scaffold\">
       <div class=\"legacy-preview-summary\">

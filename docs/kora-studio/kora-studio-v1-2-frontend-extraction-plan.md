@@ -146,6 +146,8 @@ This path avoids a framework migration and keeps the server local-only while mak
 
 Task 483 started this path by adding a shell layout render helper for the outer shell frame, left rail, top model selector, workspace wrapper, and content slots. Runtime behavior, endpoint behavior, dependencies, and claim boundaries remain unchanged.
 
+Task 484 continued this path by adding a right details drawer render helper for the drawer diagnostics markup. Runtime behavior, endpoint behavior, dependencies, smoke markers, and claim boundaries remain unchanged.
+
 ## Test Strategy
 
 Validation should continue to include:

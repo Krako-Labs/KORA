@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 from http.server import ThreadingHTTPServer
 
+from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -58,6 +59,53 @@ def test_shell_layout_render_helper_preserves_shell_markers() -> None:
     assert 'data-kora-component="right-details-drawer"' in html
     assert 'data-kora-component="legacy-compatibility-reference"' in html
     assert "Selection does not install, download, or execute this model." in html
+
+
+def test_right_details_drawer_render_helper_preserves_drawer_markers() -> None:
+    html = render_right_details_drawer(
+        runtime_name="local runtime",
+        runtime_detected="false",
+        service_status="not connected",
+        local_candidate_name="Example mini local model",
+        catalog_status="static",
+        installed_status="not scanned",
+        installed_count="0",
+        sample_request_id="faq_lookup_v1",
+        sample_route="structured_lookup",
+        sample_validation="passed",
+        total_requests="1",
+        baseline_model_calls="1",
+        kora_model_calls="0",
+        avoided_model_calls="1",
+        report_viewer_status="preview",
+        report_source="local_harness_summary",
+        report_file_export_enabled="false",
+        report_file_written="false",
+    )
+
+    assert 'data-kora-component="right-details-drawer"' in html
+    assert 'data-kora-mobile-drawer="right-overlay"' in html
+    assert 'data-kora-drawer-section="runtime-status"' in html
+    assert 'data-kora-drawer-section="selected-model"' in html
+    assert 'data-kora-drawer-section="catalog-vs-installed"' in html
+    assert 'data-kora-drawer-section="route-trace"' in html
+    assert 'data-kora-drawer-section="generated-counters"' in html
+    assert 'data-kora-drawer-section="selected-run-surfaces"' in html
+    assert 'data-kora-drawer-section="report-metadata"' in html
+    assert 'data-kora-drawer-section="claim-boundaries"' in html
+    assert 'data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
+    assert 'data-kora-v1-1-drawer-selected-run-polish="primary-diagnostics"' in html
+    assert 'data-kora-drawer-boundary-coverage="provider,cloud,download,model-execution,report-export,private-scan,runtime-list"' in html
+    assert 'id="kora-drawer-selected-run-id"' in html
+    assert "Drawer selected-run diagnostics mirror shell state for normal inspection" in html
+    assert "Generated harness events only." in html
+    assert "No arbitrary prompt execution." in html
+    assert "No model execution." in html
+    assert "No provider calls." in html
+    assert "No downloads." in html
+    assert "No report file export or writing." in html
+    assert "No private model directory scanning." in html
+    assert "No runtime model list commands." in html
 
 
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:
