@@ -54,6 +54,8 @@ Task 486 continued extraction by adding `kora/studio_style_render.py` and `kora/
 
 Task 487 validated the extracted helper split in the [KORA Studio v1.2 extraction smoke check](kora-studio-v1-2-extraction-smoke-check.md).
 
+Goal 488G closed the milestone with the [KORA Studio v1.2 readiness report](kora-studio-v1-2-readiness-report.md) and [KORA Studio v1.2 goal report](kora-studio-v1-2-goal-report.md).
+
 Current split:
 
 - `kora/studio_server.py` still owns endpoint routing, status assembly, harness data, and preview data preparation.

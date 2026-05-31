@@ -154,6 +154,8 @@ Task 486 continued this path by adding embedded CSS and vanilla JavaScript templ
 
 Task 487 validated the extracted helper split with a dedicated [v1.2 extraction smoke check](kora-studio-v1-2-extraction-smoke-check.md). Validation and live smoke checks confirmed that endpoints, component markers, smoke markers, inline CSS/JavaScript behavior, and claim boundaries remain unchanged.
 
+Goal 488G closed the v1.2 milestone with the [v1.2 readiness report](kora-studio-v1-2-readiness-report.md) and [v1.2 goal report](kora-studio-v1-2-goal-report.md).
+
 ## Test Strategy
 
 Validation should continue to include:
