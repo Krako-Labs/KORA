@@ -743,12 +743,23 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Search or select open-source LLM" in html
     assert 'data-kora-model-selector="local-catalog-scaffold"' in html
     assert 'data-kora-mobile-selector="compact-overlay-menu"' in html
+    assert 'data-kora-model-selection-state="catalog-estimate-only"' in html
+    assert 'aria-describedby="kora-model-selector-boundary"' in html
+    assert 'id="kora-model-selector-boundary"' in html
     assert 'data-kora-model-selector-menu="true"' in html
     assert 'data-kora-model-selected-estimate="true"' in html
+    assert 'data-kora-model-selected-label="catalog-estimate-only"' in html
+    assert 'data-kora-model-selection-status="selected-estimate"' in html
+    assert 'aria-selected="true"' in html
+    assert 'data-kora-model-option-state="catalog-estimate-only"' in html
+    assert "Catalog-only estimate selected" in html
+    assert "Selected local fit estimate; catalog-only state" in html
+    assert "Catalog estimate option; not installed or executed by selection" in html
     assert 'data-kora-model-option="true"' in html
-    assert "Suggested estimate: Example mini local model" in html
+    assert "Selected estimate: Example mini local model" in html
     assert "Catalog suggestions are local static examples, not installed models" in html
     assert "Selecting a model here does not install, download, or execute it" in html
+    assert "Selection does not install, download, or execute this model" in html
     assert "Recommended local catalog options shown:" in html
     assert "KORA Studio top bar" in html
     assert "KORA Studio centered composer" in html

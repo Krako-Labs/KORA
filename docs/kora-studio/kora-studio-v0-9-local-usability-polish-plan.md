@@ -173,6 +173,8 @@ Status: implemented. The mobile rail control opens and closes the left rail in l
 
 Improve selected estimate state, focus styling, static catalog boundary copy, and tests.
 
+Status: implemented. The compact model selector now labels the active estimate as a catalog-only selected estimate, exposes selected-state markers and `aria-selected` state, adds focus styling for the selector and catalog options, and keeps installed-vs-catalog copy visible. The selector still uses local static catalog data only and does not install, download, or execute models.
+
 ### Task 468: keyboard/focus accessibility pass
 
 Add predictable focus styles, keyboard state checks, and accessibility-oriented smoke markers.

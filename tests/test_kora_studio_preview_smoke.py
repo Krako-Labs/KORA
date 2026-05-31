@@ -182,12 +182,23 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Search or select open-source LLM
             data-kora-model-selector="local-catalog-scaffold"
             data-kora-mobile-selector="compact-overlay-menu"
+            data-kora-model-selection-state="catalog-estimate-only"
+            aria-describedby="kora-model-selector-boundary"
+            kora-model-selector-boundary
             data-kora-model-selector-menu="true"
             data-kora-model-selected-estimate="true"
+            data-kora-model-selected-label="catalog-estimate-only"
+            data-kora-model-selection-status="selected-estimate"
+            aria-selected="true"
+            data-kora-model-option-state="catalog-estimate-only"
+            Catalog-only estimate selected
+            Selected local fit estimate; catalog-only state
+            Catalog estimate option; not installed or executed by selection
             data-kora-model-option="true"
-            Suggested estimate: Example mini local model
+            Selected estimate: Example mini local model
             Catalog suggestions are local static examples, not installed models
             Selecting a model here does not install, download, or execute it
+            Selection does not install, download, or execute this model
             Recommended local catalog options shown:
             KORA Studio top bar
             KORA Studio centered composer

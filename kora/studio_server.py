@@ -372,8 +372,10 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     local_candidate_installed = "true" if local_candidate.get("installed_locally") is True else "false"
     local_candidate_installed = html.escape(local_candidate_installed, quote=True)
     model_selector_items = "".join(
-        "<div class=\"model-selector-option\" data-kora-model-option=\"true\">"
+        "<div class=\"model-selector-option\" data-kora-model-option=\"true\" "
+        "data-kora-model-option-state=\"catalog-estimate-only\" aria-selected=\"false\" tabindex=\"0\">"
         f"<strong>{html.escape(str(model.get('display_name', 'Unknown model')), quote=True)}</strong>"
+        "<span>Catalog estimate option; not installed or executed by selection.</span>"
         f"<span>{html.escape(str(model.get('model_id', 'unknown')), quote=True)}</span>"
         f"<span>{html.escape(str(model.get('candidate_type', 'needs_validation')), quote=True)}</span>"
         f"<span>{html.escape(str(model.get('estimated_memory_gb', 'unknown')), quote=True)} GB estimate</span>"
@@ -1024,6 +1026,10 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
       position: relative;
     }}
+    .model-selector-shell:focus-within {{
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(117, 190, 255, 0.12), inset 0 1px 0 rgba(255,255,255,0.02);
+    }}
     .model-selector-shell summary {{
       list-style: none;
       cursor: default;
@@ -1032,6 +1038,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       align-items: center;
       gap: 10px;
       padding: 10px 18px;
+    }}
+    .model-selector-shell summary:focus-visible,
+    .model-selector-option:focus-visible {{
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
     }}
     .model-selector-shell summary::-webkit-details-marker {{
       display: none;
@@ -1058,6 +1069,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       color: var(--muted);
       font-size: 16px;
     }}
+    .model-selector-selected-label {{
+      color: var(--cyan);
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }}
     .model-selector-menu {{
       position: absolute;
       top: calc(100% + 10px);
@@ -1078,6 +1097,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       padding: 10px 12px;
       margin-top: 8px;
       background: #171d27;
+    }}
+    .model-selector-option[aria-selected="true"] {{
+      border-color: var(--cyan);
+      background: #14202a;
+      box-shadow: inset 3px 0 0 var(--cyan);
     }}
     .model-selector-option:first-child {{
       margin-top: 0;
@@ -1437,14 +1461,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     <div class=\"studio-workspace\">
       <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
         <button class=\"rail-shell-button\" type=\"button\" id=\"kora-left-rail-toggle\" aria-label=\"Open left rail\" aria-controls=\"kora-left-rail\" aria-expanded=\"false\" data-kora-rail-toggle=\"true\">Menu</button>
-        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\">
-          <summary>
-            <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Suggested estimate: {local_candidate_name}</span></span>
+        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\" data-kora-model-selection-state=\"catalog-estimate-only\">
+          <summary aria-describedby=\"kora-model-selector-boundary\">
+            <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Selected estimate: {local_candidate_name}</span><span class=\"model-selector-selected-label\" data-kora-model-selected-label=\"catalog-estimate-only\">Catalog-only estimate selected</span></span>
             <span class=\"model-selector-chevron\">⌄</span>
           </summary>
           <div class=\"model-selector-menu\" data-kora-model-selector-menu=\"true\">
-            <p class=\"model-selector-boundary\">Catalog suggestions are local static examples, not installed models. Selecting a model here does not install, download, or execute it.</p>
-            <div class=\"model-selector-option\" data-kora-model-selected-estimate=\"true\"><strong>{local_candidate_name}</strong><span>{local_candidate_id}</span><span>{local_candidate_type}</span><span>{local_candidate_memory} GB estimate</span><span>Installed: {local_candidate_installed}</span></div>
+            <p class=\"model-selector-boundary\" id=\"kora-model-selector-boundary\">Catalog suggestions are local static examples, not installed models. Selecting a model here does not install, download, or execute it.</p>
+            <div class=\"model-selector-option\" data-kora-model-selected-estimate=\"true\" data-kora-model-selection-status=\"selected-estimate\" aria-selected=\"true\" tabindex=\"0\"><strong>{local_candidate_name}</strong><span>Selected local fit estimate; catalog-only state.</span><span>{local_candidate_id}</span><span>{local_candidate_type}</span><span>{local_candidate_memory} GB estimate</span><span>Installed: {local_candidate_installed}</span><span>Selection does not install, download, or execute this model.</span></div>
             <p class=\"model-selector-boundary\">Recommended local catalog options shown: {model_selector_count}</p>
             {model_selector_items}
           </div>
