@@ -64,6 +64,8 @@ The repository-level preview now includes the v0.8 final UI shell scaffold: a sm
 
 The v1.0 preview readiness pass now adds shell-first local-only boundary markers and a compact boundary strip covering provider calls disabled, cloud sync disabled, downloads disabled, model execution not connected, and report export disabled. The legacy detailed panels remain compatibility scaffolding while shell and drawer coverage is completed.
 
+The shell now also mirrors selected-run timeline, counters, comparison, and report metadata status into the final shell and right drawer. These are generated local harness surfaces only; they do not execute models, call providers, download models, sync cloud state, export reports, or write report files.
+
 The separate FastAPI/React demo scaffold can still be run manually:
 
 From repo root:

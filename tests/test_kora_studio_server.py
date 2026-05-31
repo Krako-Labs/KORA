@@ -781,6 +781,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-request-id"' in html
     assert 'id="kora-composer-run-status"' in html
     assert 'id="kora-composer-run-id"' in html
+    assert 'data-kora-shell-selected-run-surface="v1.0"' in html
+    assert 'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
+    assert "Selected run details" in html
+    assert 'id="kora-shell-selected-timeline-status"' in html
+    assert 'id="kora-shell-selected-counters-status"' in html
+    assert 'id="kora-shell-selected-comparison-status"' in html
+    assert 'id="kora-shell-selected-report-status"' in html
+    assert "Shell selected-run surface mirrors generated local harness output only" in html
     assert "Provider calls disabled" in html
     assert "Cloud sync disabled" in html
     assert "Downloads disabled" in html
@@ -810,6 +818,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-drawer-section="catalog-vs-installed"' in html
     assert 'data-kora-drawer-section="route-trace"' in html
     assert 'data-kora-drawer-section="generated-counters"' in html
+    assert 'data-kora-drawer-section="selected-run-surfaces"' in html
+    assert 'data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
+    assert 'id="kora-drawer-selected-run-id"' in html
+    assert 'id="kora-drawer-selected-timeline-status"' in html
+    assert 'id="kora-drawer-selected-counters-status"' in html
+    assert 'id="kora-drawer-selected-comparison-status"' in html
+    assert 'id="kora-drawer-selected-report-status"' in html
     assert 'data-kora-drawer-section="report-metadata"' in html
     assert 'data-kora-drawer-section="claim-boundaries"' in html
     assert (
@@ -819,6 +834,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Selection does not install or run a model" in html
     assert "Route trace" in html
     assert "Generated harness events only." in html
+    assert "Not production telemetry" in html
+    assert "Not production cost evidence" in html
+    assert "Report metadata preview only" in html
     assert "Report metadata" in html
     assert "File export:" in html
     assert "File written:" in html
@@ -915,6 +933,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "addRunToHistory" in html
     assert "clearLocalRunHistory" in html
     assert "getShellAccessibilityState" in html
+    assert "setShellSelectedRunSurfaceState" in html
+    assert "kora-drawer-selected-run-id" in html
     assert "window.koraStudioAccessibilityState" in html
     assert "window.koraStudioScriptStatus" in html
     assert 'status: "ready"' in html

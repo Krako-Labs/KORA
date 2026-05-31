@@ -217,6 +217,8 @@ Status: implemented. The final shell now exposes v1.0 shell-first boundary marke
 
 Ensure selected-run timeline, counters, comparison, and report metadata are visible through shell/drawer surfaces without requiring the legacy preview.
 
+Status: implemented. The shell now exposes a v1.0 selected-run detail strip for timeline, counters, comparison, and report metadata state, and the right drawer mirrors selected-run surface status while preserving local harness, no-model, no-provider, no-download, no-cloud, and no-report-export boundaries.
+
 ### Task 476: legacy preview compatibility reduction
 
 Collapse, relabel, or otherwise reduce the legacy detailed preview while preserving safe fallback access and smoke-test coverage.

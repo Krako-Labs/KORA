@@ -180,6 +180,8 @@ The v0.8 preview shell now scaffolds the final UI/UX board structure above the d
 
 The v1.0 preview readiness work is moving the final shell toward the primary local preview experience. The shell now includes v1.0 local-only boundary markers and a compact boundary strip for provider calls disabled, cloud sync disabled, downloads disabled, model execution not connected, and report export disabled. The detailed legacy preview remains below for compatibility while shell and drawer coverage is completed.
 
+The shell also includes a v1.0 selected-run detail strip for generated timeline, counters, comparison, and report metadata status, with matching status mirrored in the right drawer. These surfaces remain generated local harness output only and do not add model execution, provider calls, downloads, cloud sync, report export, or report writing.
+
 ## Implementation Planning
 
 - [KORA Studio final development report](kora-studio-final-development-report.md)

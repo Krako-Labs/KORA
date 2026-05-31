@@ -1220,6 +1220,40 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     .composer-run-summary span {{
       color: var(--text);
     }}
+    .shell-selected-run-strip {{
+      border: 1px solid #293447;
+      background: rgba(12, 16, 22, 0.64);
+      border-radius: 16px;
+      display: grid;
+      gap: 8px;
+      margin: -10px auto 20px;
+      max-width: 620px;
+      padding: 12px 14px;
+      text-align: left;
+    }}
+    .shell-selected-run-strip h2 {{
+      color: var(--text);
+      font-size: 14px;
+      margin: 0;
+    }}
+    .shell-selected-run-grid {{
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }}
+    .shell-selected-run-grid span {{
+      border: 1px solid #293447;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 10px;
+    }}
+    .shell-selected-run-strip p {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0;
+    }}
     .shell-boundary-pills {{
       display: flex;
       flex-wrap: wrap;
@@ -1427,6 +1461,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       .composer-run-summary {{
         font-size: 12px;
       }}
+      .shell-selected-run-grid {{
+        grid-template-columns: 1fr 1fr;
+      }}
       .details-drawer-shell {{
         position: fixed;
         top: 72px;
@@ -1513,6 +1550,16 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
             <span>Boundary: approved local harness request only</span>
           </div>
+          <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" aria-live=\"polite\">
+            <h2>Selected run details</h2>
+            <div class=\"shell-selected-run-grid\">
+              <span>Timeline: <code id=\"kora-shell-selected-timeline-status\">not loaded</code></span>
+              <span>Counters: <code id=\"kora-shell-selected-counters-status\">not loaded</code></span>
+              <span>Comparison: <code id=\"kora-shell-selected-comparison-status\">not loaded</code></span>
+              <span>Report: <code id=\"kora-shell-selected-report-status\">not loaded</code></span>
+            </div>
+            <p>Shell selected-run surface mirrors generated local harness output only. Open Details for route, counters, comparison, report metadata, and claim boundaries. No model execution, provider calls, downloads, cloud sync, or report export is connected.</p>
+          </div>
           <div class=\"shell-boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
             <div class=\"shell-boundary-pills\">
               <span class=\"shell-pill cyan\">Local preview only</span>
@@ -1539,6 +1586,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-run-surfaces\" data-kora-drawer-selected-run-coverage=\"timeline,counters,comparison,report-metadata\"><h3>Selected run surfaces</h3><p>Run id: <code id=\"kora-drawer-selected-run-id\">not run yet</code></p><p>Timeline: <span id=\"kora-drawer-selected-timeline-status\">not loaded</span></p><p>Counters: <span id=\"kora-drawer-selected-counters-status\">not loaded</span></p><p>Comparison: <span id=\"kora-drawer-selected-comparison-status\">not loaded</span></p><p>Report metadata: <span id=\"kora-drawer-selected-report-status\">not loaded</span></p><p>Generated local harness output only. Not model token streaming. Not production telemetry. Not production cost evidence. Report metadata preview only.</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
         <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\" data-kora-drawer-boundary-coverage=\"provider,cloud,download,model-execution,report-export,private-scan,runtime-list\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p><p>No report file export or writing.</p><p>No private model directory scanning.</p><p>No runtime model list commands.</p></div>
       </aside>
@@ -1956,6 +2004,29 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }}
       }};
 
+      const setShellSelectedRunSurfaceState = (updates) => {{
+        const state = updates || {{}};
+        if (state.run_id !== undefined) {{
+          text("kora-drawer-selected-run-id", state.run_id || "not run yet");
+        }}
+        if (state.timeline !== undefined) {{
+          text("kora-shell-selected-timeline-status", state.timeline);
+          text("kora-drawer-selected-timeline-status", state.timeline);
+        }}
+        if (state.counters !== undefined) {{
+          text("kora-shell-selected-counters-status", state.counters);
+          text("kora-drawer-selected-counters-status", state.counters);
+        }}
+        if (state.comparison !== undefined) {{
+          text("kora-shell-selected-comparison-status", state.comparison);
+          text("kora-drawer-selected-comparison-status", state.comparison);
+        }}
+        if (state.report !== undefined) {{
+          text("kora-shell-selected-report-status", state.report);
+          text("kora-drawer-selected-report-status", state.report);
+        }}
+      }};
+
       const getShellAccessibilityState = () => {{
         return {{
           left_rail_state: leftRail ? leftRail.getAttribute("data-kora-rail-state") : "missing",
@@ -1996,6 +2067,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         renderCountersUnavailable("Selected-run counters unavailable.");
         renderComparisonUnavailable("Selected-run comparison unavailable.");
         renderReportMetadataUnavailable("Selected-run report metadata unavailable.");
+        setShellSelectedRunSurfaceState({{
+          run_id: "not available",
+          timeline: "unavailable",
+          counters: "unavailable",
+          comparison: "unavailable",
+          report: "unavailable"
+        }});
       }};
 
       const renderEventError = (message) => {{
@@ -2007,6 +2085,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         if (container) {{
           container.replaceChildren();
         }}
+        setShellSelectedRunSurfaceState({{timeline: "unavailable"}});
       }};
 
       const clearSelectedCards = (id) => {{
@@ -2020,18 +2099,21 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         selectedRunCounters = {{}};
         text("kora-selected-counters-status", `${{message}} Generated local harness output only. No model execution. No provider calls.`);
         clearSelectedCards("kora-selected-run-counters");
+        setShellSelectedRunSurfaceState({{counters: "unavailable"}});
       }};
 
       const renderComparisonUnavailable = (message) => {{
         selectedRunComparison = {{}};
         text("kora-selected-comparison-status", `${{message}} This is not production cost evidence. No model execution. No provider calls.`);
         clearSelectedCards("kora-selected-run-comparison");
+        setShellSelectedRunSurfaceState({{comparison: "unavailable"}});
       }};
 
       const renderReportMetadataUnavailable = (message) => {{
         selectedRunReportMetadata = {{}};
         text("kora-selected-report-status", `${{message}} Report metadata preview only. No file export. No file writing.`);
         clearSelectedCards("kora-selected-run-report-metadata");
+        setShellSelectedRunSurfaceState({{report: "unavailable"}});
       }};
 
       const renderSelectedCounters = (counters, eventCount) => {{
@@ -2056,6 +2138,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           return;
         }}
         text("kora-selected-counters-status", "Selected-run counters loaded from generated local harness output. Not production telemetry.");
+        setShellSelectedRunSurfaceState({{counters: "loaded"}});
         counterKeys.concat(["event_count"]).forEach((key) => {{
           const value = key === "event_count" ? eventCount : selectedRunCounters[key];
           const card = document.createElement("div");
@@ -2096,6 +2179,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           return;
         }}
         text("kora-selected-comparison-status", "Selected-run comparison loaded from approved local harness output. Not production cost evidence.");
+        setShellSelectedRunSurfaceState({{comparison: "loaded"}});
         comparisonFields.forEach(([label, value]) => {{
           const card = document.createElement("div");
           card.className = "card";
@@ -2125,6 +2209,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           return;
         }}
         text("kora-selected-report-status", "Selected-run report metadata loaded. Report metadata preview only. Not production evidence.");
+        setShellSelectedRunSurfaceState({{report: "loaded"}});
         const fields = [
           ["report_status", selectedRunReportMetadata.report_status || selectedRunReportMetadata.report_viewer_status || "unknown"],
           ["report_source", selectedRunReportMetadata.report_source || "local_harness_summary"],
@@ -2178,9 +2263,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         container.replaceChildren();
         if (!selectedRunEvents.length) {{
           text("kora-selected-events-status", "Generated events unavailable for this local run. No model execution was attempted. Provider calls remain disabled.");
+          setShellSelectedRunSurfaceState({{timeline: "unavailable"}});
           return;
         }}
         text("kora-selected-events-status", `Loaded ${{selectedRunEvents.length}} generated local harness events for the selected run.`);
+        setShellSelectedRunSurfaceState({{timeline: `loaded ${{selectedRunEvents.length}} events`}});
         selectedRunEvents.forEach((event) => {{
           const card = document.createElement("div");
           card.className = "card";
@@ -2235,6 +2322,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       const renderSseEvents = () => {{
         renderSelectedEvents(sseEvents);
         text("kora-selected-events-status", `Loaded ${{sseEvents.length}} generated harness events from the generated event stream. Not model token streaming. No provider streaming.`);
+        setShellSelectedRunSurfaceState({{timeline: `streamed ${{sseEvents.length}} events`}});
       }};
 
       const renderRunHistory = () => {{
@@ -2356,6 +2444,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         renderComparisonUnavailable("Run an approved local harness request to view selected-run comparison.");
         renderReportMetadataUnavailable("Run an approved local harness request to view selected-run report metadata.");
         clearSelectedCards("kora-selected-run-events");
+        setShellSelectedRunSurfaceState({{
+          run_id: "not run yet",
+          timeline: "not loaded",
+          counters: "not loaded",
+          comparison: "not loaded",
+          report: "not loaded"
+        }});
         setRetryState(false, "Cleared browser-local preview state only.");
         sseEvents = [];
         setSseState("idle", "Cleared browser-local preview state only. No backend records, files, report exports, or server endpoints were deleted.", false);
@@ -2459,6 +2554,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         const shouldUpdateHistory = !options || options.updateHistory !== false;
         selectedRunId = run.run_id || "";
         const report = run.report_metadata_summary || {{}};
+        setShellSelectedRunSurfaceState({{run_id: selectedRunId || "not returned"}});
         text("kora-selected-run-id", selectedRunId || "not returned");
         text("kora-composer-run-id", selectedRunId || "not returned");
         text("kora-run-request-id", run.request_id || selectedRequestId);
@@ -2498,6 +2594,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         text("kora-composer-request-id", requestId);
         text("kora-composer-run-id", "pending local harness response");
         text("kora-run-claim-boundary", "Local harness run requested for an approved request id only.");
+        setShellSelectedRunSurfaceState({{
+          run_id: "pending local harness response",
+          timeline: "pending",
+          counters: "pending",
+          comparison: "pending",
+          report: "pending"
+        }});
         try {{
           const response = await fetch("/api/harness/run", {{
             method: "POST",
@@ -2570,6 +2673,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
 
       renderSelectedRequest();
       setRetryState(false, "No selected-run error.");
+      setShellSelectedRunSurfaceState({{
+        run_id: "not run yet",
+        timeline: "not loaded",
+        counters: "not loaded",
+        comparison: "not loaded",
+        report: "not loaded"
+      }});
       renderRunHistory();
       window.koraStudioAccessibilityState = {{
         get shell_state() {{ return getShellAccessibilityState(); }}

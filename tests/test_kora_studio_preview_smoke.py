@@ -220,6 +220,14 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-request-id
             kora-composer-run-status
             kora-composer-run-id
+            data-kora-shell-selected-run-surface="v1.0"
+            data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"
+            Selected run details
+            kora-shell-selected-timeline-status
+            kora-shell-selected-counters-status
+            kora-shell-selected-comparison-status
+            kora-shell-selected-report-status
+            Shell selected-run surface mirrors generated local harness output only
             Provider calls disabled
             Model execution not connected yet
             data-kora-shell-local-only-boundary="v1.0"
@@ -237,12 +245,21 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-drawer-section="catalog-vs-installed"
             data-kora-drawer-section="route-trace"
             data-kora-drawer-section="generated-counters"
+            data-kora-drawer-section="selected-run-surfaces"
+            data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"
+            kora-drawer-selected-run-id
+            kora-drawer-selected-timeline-status
+            kora-drawer-selected-counters-status
+            kora-drawer-selected-comparison-status
+            kora-drawer-selected-report-status
             data-kora-drawer-section="report-metadata"
             data-kora-drawer-section="claim-boundaries"
             data-kora-drawer-boundary-coverage="provider,cloud,download,model-execution,report-export,private-scan,runtime-list"
             Selection does not install or run a model
             Route trace
             Generated harness events only.
+            Not production telemetry
+            Not production cost evidence
             Report metadata
             File export:
             File written:
@@ -310,6 +327,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Cleared browser-local preview state only
             No backend records, files, report exports, or server endpoints were deleted
             getShellAccessibilityState
+            setShellSelectedRunSurfaceState
             window.koraStudioAccessibilityState
             window.koraStudioScriptStatus
             status: "ready"
