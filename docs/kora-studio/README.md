@@ -233,6 +233,7 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v1.3 render fragment inventory](kora-studio-v1-3-render-fragment-inventory.md)
 - [KORA Studio v1.3 render helper API contracts](kora-studio-v1-3-render-helper-api-contracts.md)
 - [KORA Studio v1.3 static asset serving tradeoff](kora-studio-v1-3-static-asset-serving-tradeoff.md)
+- [KORA Studio v1.3 readiness report](kora-studio-v1-3-readiness-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

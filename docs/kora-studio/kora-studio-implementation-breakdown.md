@@ -870,7 +870,7 @@ Acceptance criteria:
 
 ## Phase 16 — v1.3 Local Frontend Extraction Hardening
 
-Status: planned. See [KORA Studio v1.3 frontend extraction hardening plan](kora-studio-v1-3-frontend-extraction-hardening-plan.md), [KORA Studio v1.3 render fragment inventory](kora-studio-v1-3-render-fragment-inventory.md), [KORA Studio v1.3 render helper API contracts](kora-studio-v1-3-render-helper-api-contracts.md), and [KORA Studio v1.3 static asset serving tradeoff](kora-studio-v1-3-static-asset-serving-tradeoff.md). v1.3 should continue local frontend extraction hardening by documenting remaining render fragments, clarifying render/data assembly boundaries, and stabilizing helper API contracts without changing behavior, adding dependencies, adding external assets, or weakening local-only claim boundaries.
+Status: readiness complete. See [KORA Studio v1.3 frontend extraction hardening plan](kora-studio-v1-3-frontend-extraction-hardening-plan.md), [KORA Studio v1.3 render fragment inventory](kora-studio-v1-3-render-fragment-inventory.md), [KORA Studio v1.3 render helper API contracts](kora-studio-v1-3-render-helper-api-contracts.md), [KORA Studio v1.3 static asset serving tradeoff](kora-studio-v1-3-static-asset-serving-tradeoff.md), and [KORA Studio v1.3 readiness report](kora-studio-v1-3-readiness-report.md). v1.3 continues local frontend extraction hardening by documenting remaining render fragments, clarifying render/data assembly boundaries, and stabilizing helper API contracts without changing behavior, adding dependencies, adding external assets, or weakening local-only claim boundaries.
 
 Goal: Improve maintainability of remaining local preview render fragments after v1.2 helper extraction.
 
