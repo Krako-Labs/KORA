@@ -58,7 +58,7 @@ Preferred v1.4 extraction sequence:
 2. Extract approved request selector and local harness trigger panels if tests can lock markers and boundary copy. Task 498 extracted these panels into `kora/studio_harness_request_render.py`.
 3. Extract retry/error state and browser-local run history panels if ids and JavaScript expectations remain stable. Task 499 extracted these panels into `kora/studio_run_state_render.py`.
 4. Reassess the legacy compatibility/reference wrapper; extract only if it can be done without altering final page assembly. Task 500 extracted only the static collapsed legacy opening wrapper into `kora/studio_legacy_render.py`; detailed body and closing assembly remain server-owned.
-5. Harden helper contract and marker coverage after any extraction.
+5. Harden helper contract and marker coverage after any extraction. Task 501 hardening is documented in [KORA Studio v1.4 render helper contracts](kora-studio-v1-4-render-helper-contracts.md).
 6. Run full validation and live smoke checks.
 7. Create readiness and consolidated goal reports.
 

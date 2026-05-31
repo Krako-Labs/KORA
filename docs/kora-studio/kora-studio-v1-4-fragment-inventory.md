@@ -162,6 +162,8 @@ For v1.4, `kora/studio_server.py` should continue to own:
 
 Render helpers should own only deterministic HTML strings from supplied arguments. They should preserve stable markers, ids, accessibility labels, and local-only boundary text.
 
+Task 501 helper contract and marker coverage hardening is documented in [KORA Studio v1.4 render helper contracts](kora-studio-v1-4-render-helper-contracts.md).
+
 ## Validation Expectations
 
 Task 497 is docs-only, but subsequent extraction tasks should preserve:

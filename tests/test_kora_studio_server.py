@@ -83,6 +83,47 @@ RENDER_HELPER_FUNCTIONS = [
     studio_script_render.render_studio_javascript,
 ]
 
+RENDER_HELPER_MODULES = [
+    studio_shell_render,
+    studio_drawer_render,
+    studio_selected_run_render,
+    studio_harness_request_render,
+    studio_legacy_render,
+    studio_run_state_render,
+    studio_reference_render,
+    studio_style_render,
+    studio_script_render,
+]
+
+EXPECTED_RENDER_HELPER_NAMES = {
+    "kora.studio_shell_render.render_shell_layout",
+    "kora.studio_drawer_render.render_right_details_drawer",
+    "kora.studio_selected_run_render.render_selected_run_summary_panel",
+    "kora.studio_selected_run_render.render_selected_run_state_panel",
+    "kora.studio_selected_run_render.render_selected_run_detail_panels",
+    "kora.studio_selected_run_render.render_selected_run_panels",
+    "kora.studio_harness_request_render.render_local_harness_selector_item",
+    "kora.studio_harness_request_render.render_local_harness_trigger_item",
+    "kora.studio_harness_request_render.render_local_harness_request_selector_panels",
+    "kora.studio_harness_request_render.render_local_harness_trigger_reference_panels",
+    "kora.studio_legacy_render.render_legacy_preview_opening",
+    "kora.studio_run_state_render.render_retry_error_state_panels",
+    "kora.studio_run_state_render.render_local_run_history_panels",
+    "kora.studio_run_state_render.render_run_state_history_panels",
+    "kora.studio_reference_render.render_endpoint_panel",
+    "kora.studio_reference_render.render_limitations_panel",
+    "kora.studio_reference_render.render_local_references_panel",
+    "kora.studio_reference_render.render_reference_panels",
+    "kora.studio_style_render.render_studio_css",
+    "kora.studio_script_render.render_studio_javascript",
+}
+
+
+def _qualified_name(function: object) -> str:
+    assert hasattr(function, "__module__")
+    assert hasattr(function, "__name__")
+    return f"{function.__module__}.{function.__name__}"
+
 
 def test_render_helper_api_contracts_are_string_only_and_keyword_stable() -> None:
     for helper in RENDER_HELPER_FUNCTIONS:
@@ -92,6 +133,19 @@ def test_render_helper_api_contracts_are_string_only_and_keyword_stable() -> Non
             assert parameter.annotation in (str, int, "str", "int")
             assert parameter.default is inspect.Parameter.empty
             assert parameter.kind is inspect.Parameter.KEYWORD_ONLY
+
+
+def test_render_helper_contract_covers_all_public_render_functions() -> None:
+    contracted_helpers = {_qualified_name(helper) for helper in RENDER_HELPER_FUNCTIONS}
+    discovered_helpers = {
+        f"{module.__name__}.{name}"
+        for module in RENDER_HELPER_MODULES
+        for name, value in inspect.getmembers(module, inspect.isfunction)
+        if name.startswith("render_") and value.__module__ == module.__name__
+    }
+
+    assert contracted_helpers == EXPECTED_RENDER_HELPER_NAMES
+    assert discovered_helpers == EXPECTED_RENDER_HELPER_NAMES
 
 
 def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependencies() -> None:
@@ -109,20 +163,33 @@ def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependenci
         "BaseHTTPRequestHandler",
     ]
 
-    for module in [
-        studio_shell_render,
-        studio_drawer_render,
-        studio_selected_run_render,
-        studio_harness_request_render,
-        studio_legacy_render,
-        studio_run_state_render,
-        studio_reference_render,
-        studio_style_render,
-        studio_script_render,
-    ]:
+    for module in RENDER_HELPER_MODULES:
         source = inspect.getsource(module)
         for token in forbidden_tokens:
             assert token not in source, f"{module.__name__} must stay render-only; found {token!r}"
+
+
+def test_rendered_preview_preserves_helper_owned_component_markers() -> None:
+    html = render_studio_placeholder_html(get_studio_server_status())
+    helper_owned_markers = {
+        "shell-layout": "kora.studio_shell_render",
+        "left-rail": "kora.studio_shell_render",
+        "top-model-selector": "kora.studio_shell_render",
+        "right-details-drawer": "kora.studio_drawer_render",
+        "selected-run-summary": "kora.studio_selected_run_render",
+        "generated-event-stream-status": "kora.studio_selected_run_render",
+        "selected-run-event-timeline": "kora.studio_selected_run_render",
+        "selected-run-counters": "kora.studio_selected_run_render",
+        "selected-run-comparison": "kora.studio_selected_run_render",
+        "selected-run-report-metadata": "kora.studio_selected_run_render",
+        "approved-request-selector": "kora.studio_harness_request_render",
+        "retry-error-state": "kora.studio_run_state_render",
+        "run-history": "kora.studio_run_state_render",
+        "legacy-compatibility-reference": "kora.studio_legacy_render",
+    }
+
+    for marker, owner in helper_owned_markers.items():
+        assert f'data-kora-component="{marker}"' in html, f"{marker} missing from rendered preview; owner {owner}"
 
 
 def test_shell_layout_render_helper_preserves_shell_markers() -> None:
