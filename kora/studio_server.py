@@ -25,6 +25,11 @@ from kora.studio_harness_runs import (
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_report_viewer import get_report_viewer_status_fields
 from kora.studio_runtime_status import get_runtime_status, summarize_installed_models
+from kora.studio_selected_run_render import (
+    render_selected_run_detail_panels,
+    render_selected_run_state_panel,
+    render_selected_run_summary_panel,
+)
 from kora.studio_shell_render import render_shell_layout
 from kora.studio_status import get_studio_status
 from kora.studio_system_profile import estimate_model_capability, get_system_profile
@@ -691,6 +696,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             "validation_pass_count",
         ]
     )
+    selected_run_summary_html = render_selected_run_summary_panel(selector_preview_id=selector_preview_id)
+    selected_run_state_html = render_selected_run_state_panel()
+    selected_run_detail_panels_html = render_selected_run_detail_panels()
 
     composer_html = f"""      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
         <div class=\"composer-panel\">
@@ -701,13 +709,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>
           </div>
           <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
-          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" data-kora-component=\"selected-run-summary\" aria-live=\"polite\">
-            <strong>Composer selected-run summary</strong>
-            <span>Request: <code id=\"kora-composer-request-id\">{selector_preview_id}</code></span>
-            <span>Status: <code id=\"kora-composer-run-status\">not_started</code></span>
-            <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
-            <span>Boundary: approved local harness request only</span>
-          </div>
+{selected_run_summary_html}
           <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-live=\"polite\">
             <h2>Selected run details</h2>
             <div class=\"shell-selected-run-grid\">
@@ -1708,10 +1710,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Run Local Harness</h3><p><span class=\"badge\">Approved request only</span></p><button class=\"action-button\" type=\"button\" id=\"kora-run-local-harness-button\">Run Local Harness</button><p>Calls <code>POST /api/harness/run</code> with the selected approved <code>request_id</code> only.</p><p>No arbitrary prompt text is sent.</p></div>
         </div>
         <div class=\"grid\" style=\"margin-top: 16px;\">{local_harness_selector_items}</div>
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Selected run state</h3><p>Generated local harness output only.</p><div class=\"run-state\" id=\"kora-selected-run-state\" aria-live=\"polite\"><p>Status: <span id=\"kora-run-status\">not_started</span></p><p>Run id: <code id=\"kora-selected-run-id\">not run yet</code></p><p>Request id: <code id=\"kora-run-request-id\">not run yet</code></p><p>Event count: <span id=\"kora-run-event-count\">0</span></p><p>Model execution status: <span id=\"kora-run-model-execution-status\">not_connected</span></p><p>Provider calls: <span id=\"kora-run-provider-calls-enabled\">false</span></p><p>Cloud sync: <span id=\"kora-run-cloud-sync-enabled\">false</span></p><p>File export: <span id=\"kora-run-file-export-enabled\">false</span></p><p>Claim boundary: <span id=\"kora-run-claim-boundary\">No run has been generated yet.</span></p></div></div>
-          <div class=\"card\"><h3>Interactive run boundary</h3><p>Model-needed boundary returns <code>execution_not_connected</code>.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads.</p><p>Selected run state is local browser memory only.</p></div>
-        </div>
+{selected_run_state_html}
         <div class=\"grid\" style=\"margin-top: 16px;\">
           <div class=\"card\" data-kora-component=\"retry-error-state\"><h3>Selected Run Error State</h3><p id=\"kora-run-error-state\">No selected-run error.</p><p>Retry uses the last approved request only.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads are connected.</p></div>
           <div class=\"card\"><h3>Retry Last Approved Request</h3><p>Last approved request: <code id=\"kora-last-approved-request-id\">{selector_preview_id}</code></p><p>Retry available: <span id=\"kora-retry-available\">false</span></p><button class=\"action-button\" type=\"button\" id=\"kora-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button><p>Retry calls only <code>POST /api/harness/run</code> with the last approved <code>request_id</code>.</p><p>No arbitrary prompt execution.</p></div>
@@ -1721,19 +1720,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history.</p><p>Does not remove server run records, reports, files, backend records, or generated harness endpoints.</p><p>No persistence, no cloud sync, no file export, no file writing, and no backend delete call.</p></div>
         </div>
         <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\" data-kora-component=\"generated-event-stream-status\"><h3>Generated Event Stream</h3><p>Generated harness events only.</p><p>Not model token streaming.</p><p>No provider streaming.</p><p>No model execution.</p><p>Fallback to local events endpoint available.</p><p>Status: <span id=\"kora-sse-status\">idle</span></p><p>Fallback used: <span id=\"kora-sse-fallback-used\">false</span></p><p id=\"kora-sse-error\">No generated event stream error.</p></div>
-        </div>
-        <div class=\"card\" style=\"margin-top: 16px;\" data-kora-component=\"selected-run-event-timeline\"><h3>Selected Run Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider calls. No downloads.</p><p>Events are fetched from <code>GET /api/harness/events?run_id=&lt;id&gt;</code> after a successful approved local harness run.</p><p id=\"kora-selected-events-status\">No selected run events loaded yet.</p></div>
-        <div class=\"grid\" id=\"kora-selected-run-events\" aria-live=\"polite\"></div>
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\" data-kora-component=\"selected-run-counters\"><h3>Selected Run Counters</h3><p>Generated local harness counters only. Not production telemetry. No model execution. No provider calls. No cost or energy claim.</p><p id=\"kora-selected-counters-status\">Run an approved local harness request to view selected-run counters.</p></div>
-          <div class=\"card\" data-kora-component=\"selected-run-comparison\"><h3>Selected Run: Standard Mode vs KORA Boost</h3><p>Comparison is generated from approved local harness output. This is not production cost evidence. This does not execute a model.</p><p>Model-needed boundaries remain <code>execution_not_connected</code>.</p><p id=\"kora-selected-comparison-status\">Run an approved local harness request to view selected-run comparison.</p></div>
-        </div>
-        <div class=\"grid\" id=\"kora-selected-run-counters\" aria-live=\"polite\"></div>
-        <div class=\"grid\" id=\"kora-selected-run-comparison\" aria-live=\"polite\"></div>
-        <div class=\"card\" style=\"margin-top: 16px;\" data-kora-component=\"selected-run-report-metadata\"><h3>Selected Run Report Metadata</h3><p>Report metadata preview only. No file export. No file writing. Generated local harness output only.</p><p>No model execution. No provider calls. No cloud sync. Not production evidence.</p><p id=\"kora-selected-report-status\">Run an approved local harness request to view selected-run report metadata.</p></div>
-        <div class=\"grid\" id=\"kora-selected-run-report-metadata\" aria-live=\"polite\"></div>
+{selected_run_detail_panels_html}
         <div class=\"grid\" style=\"margin-top: 16px;\">
           <div class=\"card\"><h3>Run Local Harness action state</h3><p><span class=\"badge\">Run Local Harness</span></p><p>The browser button calls only the local harness run endpoint for an approved request id.</p><p>Use <code>POST /api/harness/run</code> with an approved <code>request_id</code>.</p><p>Generated harness events only.</p></div>
           <div class=\"card\"><h3>Trigger boundary</h3><p>Approved deterministic sample requests only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>This is local preview/demo data, not production evidence.</p></div>

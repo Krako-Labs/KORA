@@ -26,6 +26,7 @@ from kora.studio_server import (
     run_studio_server,
 )
 from kora.studio_harness_runs import clear_local_harness_run_records
+from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
 
 APPROVED_BOOST_MESSAGE = "Less waiting. Better answers. No hardware upgrade."
@@ -106,6 +107,37 @@ def test_right_details_drawer_render_helper_preserves_drawer_markers() -> None:
     assert "No report file export or writing." in html
     assert "No private model directory scanning." in html
     assert "No runtime model list commands." in html
+
+
+def test_selected_run_render_helpers_preserve_selected_run_markers() -> None:
+    summary_html = render_selected_run_summary_panel(selector_preview_id="faq_lookup_v1")
+    panels_html = render_selected_run_panels()
+    html = f"{summary_html}\n{panels_html}"
+
+    assert 'data-kora-component="selected-run-summary"' in html
+    assert 'id="kora-composer-selected-run-summary"' in html
+    assert 'id="kora-composer-request-id">faq_lookup_v1</code>' in html
+    assert 'id="kora-selected-run-state"' in html
+    assert 'data-kora-component="generated-event-stream-status"' in html
+    assert 'data-kora-component="selected-run-event-timeline"' in html
+    assert 'data-kora-component="selected-run-counters"' in html
+    assert 'data-kora-component="selected-run-comparison"' in html
+    assert 'data-kora-component="selected-run-report-metadata"' in html
+    assert 'id="kora-selected-run-events"' in html
+    assert 'id="kora-selected-run-counters"' in html
+    assert 'id="kora-selected-run-comparison"' in html
+    assert 'id="kora-selected-run-report-metadata"' in html
+    assert "Generated local harness output only" in html
+    assert "Not model token streaming" in html
+    assert "No provider streaming" in html
+    assert "No model execution" in html
+    assert "No provider calls" in html
+    assert "No downloads" in html
+    assert "Not production telemetry" in html
+    assert "not production cost evidence" in html
+    assert "Report metadata preview only" in html
+    assert "No file export" in html
+    assert "No file writing" in html
 
 
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:
