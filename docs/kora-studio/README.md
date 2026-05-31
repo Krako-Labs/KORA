@@ -201,6 +201,7 @@ The v0.6 history UI marks the active selected run, shows compact generated-count
 - [KORA Studio v0.7 chat-first minimal UI/UX boards](kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md)
 - [KORA Studio v0.7 minimal UI/UX boards](kora-studio-v0-7-minimal-ui-ux-boards.md)
 - [KORA Studio v0.7 UI/UX board](kora-studio-v0-7-ui-ux-board.md)
+- [KORA Studio v0.8 final UI implementation plan](kora-studio-v0-8-final-ui-implementation-plan.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

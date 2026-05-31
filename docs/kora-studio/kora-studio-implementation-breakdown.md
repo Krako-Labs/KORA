@@ -704,6 +704,42 @@ Acceptance criteria:
 - user can see when model was used
 - no unsupported cost/energy conversion
 
+## Phase 11 — v0.8 Final UI Board Implementation
+
+Status: planned in [KORA Studio v0.8 final UI implementation plan](kora-studio-v0-8-final-ui-implementation-plan.md).
+
+Goal: Implement the final v0.7 UI/UX board into the local preview while preserving all local-only harness behavior and claim boundaries.
+
+Target structure:
+
+- ChatGPT-like sparse default workspace
+- small left mini rail for workspace/task navigation only
+- compact top model selector
+- centered composer as the primary surface
+- hidden right details drawer for runtime, catalog, route, counters, report metadata, and claim boundaries
+- mobile overlay behavior for the left rail and right drawer
+
+Scope:
+
+- local preview HTML/CSS/vanilla JavaScript only
+- no new frontend dependency unless explicitly approved
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- default preview screen is sparse and composer-centered
+- left rail remains a workspace/task aid, not a diagnostics dashboard
+- dense harness/runtime/report details move into the right drawer
+- approved local harness run behavior still works
+- selected-run state/history remain browser-local only
+- validation and smoke checks pass
+
 ## Recommended First 10 Implementation Issues
 
 These are future issue candidates. Do not create the issues from this document without maintainer approval.
