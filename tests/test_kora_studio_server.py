@@ -28,6 +28,8 @@ from kora.studio_server import (
 from kora.studio_harness_runs import clear_local_harness_run_records
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
+from kora.studio_script_render import render_studio_javascript
+from kora.studio_style_render import render_studio_css
 
 APPROVED_BOOST_MESSAGE = "Less waiting. Better answers. No hardware upgrade."
 TECHNICAL_EXPLANATION = (
@@ -138,6 +140,39 @@ def test_selected_run_render_helpers_preserve_selected_run_markers() -> None:
     assert "Report metadata preview only" in html
     assert "No file export" in html
     assert "No file writing" in html
+
+
+def test_style_and_script_render_helpers_preserve_embedded_preview_contract() -> None:
+    css = render_studio_css()
+    javascript = render_studio_javascript()
+
+    assert ".studio-shell" in css
+    assert ".studio-left-rail" in css
+    assert ".model-selector-shell" in css
+    assert ".composer-stage" in css
+    assert ".details-drawer-shell" in css
+    assert "@media (max-width: 760px)" in css
+    assert "<script" not in css.lower()
+    assert "http://" not in css
+    assert "https://" not in css
+
+    assert "window.koraStudioScriptStatus" in javascript
+    assert "setLeftRailOpen" in javascript
+    assert "setDetailsDrawerOpen" in javascript
+    assert "renderRunResponse" in javascript
+    assert "fetch(\"/api/harness/run\"" in javascript
+    assert "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
+    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
+    assert "fetch(\"/api/provider" not in javascript
+    assert "fetch(\"/api/download" not in javascript
+    assert "fetch(\"/api/model" not in javascript
+    assert "fetch(\"/api/report" not in javascript
+    assert "fetch(\"/api/export" not in javascript
+    assert "new EventSource(\"http" not in javascript
+    assert "new EventSource(\"/api/provider" not in javascript
+    assert "localStorage" not in javascript
+    assert "sessionStorage" not in javascript
+    assert "indexedDB" not in javascript
 
 
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:

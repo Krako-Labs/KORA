@@ -150,6 +150,8 @@ Task 484 continued this path by adding a right details drawer render helper for 
 
 Task 485 continued this path by adding selected-run render helpers for the composer selected-run summary and selected-run state, generated event stream status, timeline, counters, comparison, and report metadata panels. Runtime behavior, endpoint behavior, dependencies, smoke markers, and claim boundaries remain unchanged.
 
+Task 486 continued this path by adding embedded CSS and vanilla JavaScript template helpers. CSS and JavaScript remain inline in the rendered local preview, no external assets or static routes were added, and runtime behavior, endpoint behavior, dependencies, smoke markers, and claim boundaries remain unchanged.
+
 ## Test Strategy
 
 Validation should continue to include:

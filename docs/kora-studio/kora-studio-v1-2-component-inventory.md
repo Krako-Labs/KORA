@@ -50,13 +50,17 @@ Task 484 continued extraction by adding `kora/studio_drawer_render.py` with `ren
 
 Task 485 continued extraction by adding `kora/studio_selected_run_render.py` with selected-run summary, state, event stream, timeline, counters, comparison, and report metadata render helpers.
 
+Task 486 continued extraction by adding `kora/studio_style_render.py` and `kora/studio_script_render.py` for embedded CSS and vanilla JavaScript template helpers.
+
 Current split:
 
 - `kora/studio_server.py` still owns endpoint routing, status assembly, harness data, and preview data preparation.
 - `kora/studio_shell_render.py` owns the outer shell layout, left rail, top model selector, workspace frame, and slot placement for composer, details drawer, and legacy reference content.
 - `kora/studio_drawer_render.py` owns the right details drawer diagnostic markup and marker contract.
 - `kora/studio_selected_run_render.py` owns selected-run summary/state/detail panel markup and selected-run marker contracts.
-- Composer container, legacy content, CSS, and JavaScript remain in `kora/studio_server.py` until later v1.2 tasks.
+- `kora/studio_style_render.py` owns the embedded local preview CSS template.
+- `kora/studio_script_render.py` owns the embedded local preview vanilla JavaScript template.
+- Composer container and legacy content remain in `kora/studio_server.py` until later v1.2 tasks.
 - Behavior, endpoints, smoke markers, and claim boundaries are intended to remain unchanged.
 
 ## No-behavior-change Rule
