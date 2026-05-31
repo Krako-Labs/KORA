@@ -904,7 +904,7 @@ Acceptance criteria:
 
 ## Phase 17 — v1.4 Local Preview Fragment Extraction
 
-Status: planned. See [KORA Studio v1.4 local preview fragment extraction plan](kora-studio-v1-4-local-preview-fragment-extraction-plan.md). v1.4 should continue conservative local preview fragment extraction by targeting the next safe server-owned generated local harness preview fragments while preserving helper contracts, marker coverage, local-only boundaries, inline CSS/JavaScript, and behavior.
+Status: planned. See [KORA Studio v1.4 local preview fragment extraction plan](kora-studio-v1-4-local-preview-fragment-extraction-plan.md) and [KORA Studio v1.4 fragment inventory](kora-studio-v1-4-fragment-inventory.md). v1.4 should continue conservative local preview fragment extraction by targeting the next safe server-owned generated local harness preview fragments while preserving helper contracts, marker coverage, local-only boundaries, inline CSS/JavaScript, and behavior.
 
 Goal: Extract the next safe group of server-owned local preview fragments without product behavior change.
 

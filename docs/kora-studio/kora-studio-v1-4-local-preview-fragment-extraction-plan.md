@@ -33,6 +33,8 @@ Current extracted render helpers:
 
 ## Next Candidate Server-Owned Fragments
 
+Task 497 inventory is documented in [KORA Studio v1.4 fragment inventory](kora-studio-v1-4-fragment-inventory.md).
+
 The next candidate fragments in `kora/studio_server.py` are:
 
 | Fragment | Current owner | v1.4 direction | Boundary to preserve |
