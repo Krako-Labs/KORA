@@ -937,6 +937,43 @@ Acceptance criteria:
 - full validation and live smoke checks pass
 - readiness and consolidated goal reports are created
 
+## Phase 18 — v1.5 Local Preview Server Slimming
+
+Status: planned. See [KORA Studio v1.5 server slimming plan](kora-studio-v1-5-server-slimming-plan.md). v1.5 continues conservative maintainability work by identifying remaining server-owned UI/data-display fragments in `kora/studio_server.py`, extracting only safe low-risk display fragments, and preserving endpoint behavior, helper contracts, smoke markers, inline CSS/JavaScript, and local-only claim boundaries.
+
+Goal: Slim `kora/studio_server.py` without product behavior change.
+
+Scope:
+
+- remaining server-owned UI/data-display fragment inventory
+- status/boundary display extraction candidates
+- model/catalog/runtime display extraction candidates
+- harness endpoint guidance/display extraction candidates
+- server responsibility audit
+- helper contract and marker coverage hardening
+- no product behavior change
+- no endpoint behavior change
+- no frontend framework migration
+- no dependency addition
+- no external static asset serving
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- remaining server-owned UI/data-display fragments are inventoried and classified
+- safe extractions preserve behavior and markers
+- server-owned and helper-owned responsibilities are documented
+- static asset serving remains a future decision
+- full validation and live smoke checks pass
+- readiness and consolidated goal reports are created
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
