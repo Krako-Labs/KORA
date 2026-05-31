@@ -329,6 +329,8 @@ Status: implemented in [KORA Studio v0.8 readiness report](kora-studio-v0-8-read
 
 Create a consolidated goal report covering Tasks 456-463, commits, changed files, validations, claim boundaries, known limitations, and next recommended goal.
 
+Status: implemented in [KORA Studio v0.8 goal report](kora-studio-v0-8-goal-report.md).
+
 ## Validation Expectations
 
 After each implementation task:

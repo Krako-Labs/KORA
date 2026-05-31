@@ -706,7 +706,7 @@ Acceptance criteria:
 
 ## Phase 11 — v0.8 Final UI Board Implementation
 
-Status: readiness documented in [KORA Studio v0.8 readiness report](kora-studio-v0-8-readiness-report.md). The shell scaffold, right details drawer migration, compact local catalog model selector, composer-approved-harness action alignment, and responsive/mobile layout pass are implemented in the local preview. Consolidated v0.8 goal reporting remains the next reporting step.
+Status: complete as a local preview/demo milestone. See [KORA Studio v0.8 readiness report](kora-studio-v0-8-readiness-report.md) and [KORA Studio v0.8 goal report](kora-studio-v0-8-goal-report.md). The shell scaffold, right details drawer migration, compact local catalog model selector, composer-approved-harness action alignment, and responsive/mobile layout pass are implemented in the local preview.
 
 Goal: Implement the final v0.7 UI/UX board into the local preview while preserving all local-only harness behavior and claim boundaries.
 
