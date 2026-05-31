@@ -939,7 +939,7 @@ Acceptance criteria:
 
 ## Phase 18 — v1.5 Local Preview Server Slimming
 
-Status: planned. See [KORA Studio v1.5 server slimming plan](kora-studio-v1-5-server-slimming-plan.md). v1.5 continues conservative maintainability work by identifying remaining server-owned UI/data-display fragments in `kora/studio_server.py`, extracting only safe low-risk display fragments, and preserving endpoint behavior, helper contracts, smoke markers, inline CSS/JavaScript, and local-only claim boundaries.
+Status: inventory complete; extraction not started. See [KORA Studio v1.5 server slimming plan](kora-studio-v1-5-server-slimming-plan.md) and [KORA Studio v1.5 server-owned fragment inventory](kora-studio-v1-5-server-owned-fragment-inventory.md). v1.5 continues conservative maintainability work by identifying remaining server-owned UI/data-display fragments in `kora/studio_server.py`, extracting only safe low-risk display fragments, and preserving endpoint behavior, helper contracts, smoke markers, inline CSS/JavaScript, and local-only claim boundaries.
 
 Goal: Slim `kora/studio_server.py` without product behavior change.
 

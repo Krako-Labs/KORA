@@ -188,7 +188,7 @@ v1.5 preserves:
 
 Task 505: v1.5 server slimming plan and cross-links.
 
-Task 506: inventory remaining server-owned UI/data-display fragments.
+Task 506: inventory remaining server-owned UI/data-display fragments. See [KORA Studio v1.5 server-owned fragment inventory](kora-studio-v1-5-server-owned-fragment-inventory.md).
 
 Task 507: extract status/boundary display fragment if safe.
 
