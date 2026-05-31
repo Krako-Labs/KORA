@@ -808,7 +808,7 @@ Acceptance criteria:
 
 ## Phase 14 — v1.1 Shell-only Preview Hardening
 
-Status: planned. See [KORA Studio v1.1 shell-only hardening plan](kora-studio-v1-1-shell-only-hardening-plan.md). v1.1 should harden the shell and right drawer so normal local preview inspection no longer depends on the collapsed legacy detailed preview.
+Status: in progress. See [KORA Studio v1.1 shell-only hardening plan](kora-studio-v1-1-shell-only-hardening-plan.md) and [KORA Studio v1.1 shell diagnostics coverage map](kora-studio-v1-1-shell-diagnostics-coverage-map.md). v1.1 should harden the shell and right drawer so normal local preview inspection no longer depends on the collapsed legacy detailed preview.
 
 Goal: Reduce remaining legacy detailed preview dependence and make shell/drawer surfaces sufficient for local preview inspection while preserving local-only claim boundaries.
 

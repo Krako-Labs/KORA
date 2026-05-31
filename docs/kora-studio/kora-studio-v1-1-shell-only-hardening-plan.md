@@ -185,6 +185,8 @@ Create this plan and link it from Studio docs.
 
 Document which current legacy diagnostics are already covered by the shell/drawer and which remaining pieces need shell/drawer destinations before legacy removal.
 
+Status: implemented. See [KORA Studio v1.1 shell diagnostics coverage map](kora-studio-v1-1-shell-diagnostics-coverage-map.md).
+
 ### Task 482: legacy preview secondary/collapsed tightening
 
 Tighten the compatibility/developer scaffold state and smoke markers without removing safe reference coverage.
