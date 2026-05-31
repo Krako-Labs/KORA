@@ -861,8 +861,252 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       padding-top: 16px;
       font-size: 14px;
     }}
+    .studio-shell {{
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      background: #080b10;
+      border-bottom: 1px solid #1d2732;
+      overflow: hidden;
+    }}
+    .studio-left-rail {{
+      border-right: 1px solid #1d2732;
+      background: #0c1016;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }}
+    .rail-brand,
+    .rail-action,
+    .rail-item,
+    .rail-footer {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }}
+    .rail-brand {{
+      color: var(--text);
+      font-weight: 700;
+    }}
+    .rail-icon {{
+      width: 18px;
+      height: 18px;
+      border: 1px solid #5a6678;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      flex: 0 0 auto;
+    }}
+    .rail-section-title {{
+      color: #6d7788;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 8px 0 10px;
+    }}
+    .rail-list {{
+      display: grid;
+      gap: 14px;
+    }}
+    .rail-footer {{
+      margin-top: auto;
+      border-top: 1px solid #1d2732;
+      padding-top: 18px;
+      align-items: flex-start;
+    }}
+    .rail-footer strong {{
+      color: var(--text);
+      display: block;
+      font-size: 14px;
+    }}
+    .rail-footer span {{
+      color: #6d7788;
+      display: block;
+      font-size: 13px;
+      margin-top: 2px;
+    }}
+    .studio-workspace {{
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }}
+    .studio-topbar {{
+      height: 82px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 36px;
+    }}
+    .model-selector-shell {{
+      justify-self: center;
+      min-width: min(430px, 54vw);
+      border: 1px solid #334052;
+      background: #151a22;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 15px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }}
+    .details-shell-button {{
+      justify-self: end;
+      border: 1px solid #334052;
+      background: #151a22;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-weight: 700;
+    }}
+    .composer-stage {{
+      flex: 1;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px;
+    }}
+    .composer-panel {{
+      width: min(720px, 100%);
+      text-align: center;
+    }}
+    .composer-panel h1 {{
+      font-size: clamp(40px, 5vw, 64px);
+      margin-bottom: 18px;
+    }}
+    .composer-panel .subtitle {{
+      margin: 0 auto;
+      max-width: 560px;
+    }}
+    .composer-box {{
+      margin: 64px auto 24px;
+      border: 1px solid #334052;
+      background: #171c25;
+      border-radius: 30px;
+      min-height: 92px;
+      padding: 26px 76px 24px 30px;
+      text-align: left;
+      color: var(--muted);
+      position: relative;
+    }}
+    .composer-submit {{
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 0;
+      background: #252d3a;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }}
+    .shell-boundary-pills {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }}
+    .shell-pill {{
+      border: 1px solid #293447;
+      color: var(--muted);
+      background: rgba(17, 22, 30, 0.72);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+    }}
+    .shell-pill.cyan::before,
+    .shell-pill.amber::before {{
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+      background: var(--cyan);
+    }}
+    .shell-pill.amber::before {{
+      background: var(--amber);
+    }}
+    .details-drawer-shell {{
+      position: absolute;
+      top: 88px;
+      right: 24px;
+      width: 320px;
+      border: 1px solid var(--cyan);
+      background: #11161e;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.42);
+      transform: translateX(calc(100% + 48px));
+      opacity: 0.02;
+      pointer-events: none;
+    }}
+    .details-drawer-shell h2 {{
+      margin-bottom: 4px;
+    }}
+    .drawer-section-chip {{
+      border: 1px solid #303a4a;
+      background: #1a202a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+    .legacy-preview {{
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0 34px;
+    }}
     @media (max-width: 760px) {{
       main {{ width: min(100% - 24px, 1120px); padding-top: 24px; }}
+      .studio-shell {{ grid-template-columns: 1fr; }}
+      .studio-left-rail {{
+        position: absolute;
+        z-index: 3;
+        width: min(76vw, 280px);
+        min-height: 100vh;
+        transform: translateX(-100%);
+        opacity: 0.16;
+      }}
+      .studio-topbar {{
+        grid-template-columns: auto 1fr auto;
+        padding: 20px 18px;
+      }}
+      .model-selector-shell {{
+        min-width: 0;
+        width: 100%;
+        font-size: 13px;
+        padding: 10px 12px;
+      }}
+      .details-shell-button {{
+        padding: 10px 14px;
+      }}
+      .composer-stage {{
+        min-height: 680px;
+        padding: 24px;
+      }}
+      .composer-box {{
+        margin-top: 48px;
+      }}
+      .details-drawer-shell {{
+        right: 12px;
+        width: min(88vw, 320px);
+      }}
       header {{ padding: 20px; }}
       .topline {{ align-items: flex-start; flex-direction: column; }}
       .workflow {{ grid-template-columns: 1fr; }}
@@ -870,7 +1114,73 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <main>
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\">
+    <aside class=\"studio-left-rail\" aria-label=\"KORA Studio left mini rail\">
+      <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
+      <div class=\"rail-list\">
+        <div class=\"rail-action\"><span class=\"rail-icon\">+</span>New task</div>
+        <div class=\"rail-action\"><span class=\"rail-icon\">⌕</span>Search tasks</div>
+      </div>
+      <div>
+        <p class=\"rail-section-title\">Projects</p>
+        <div class=\"rail-list\">
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Local routing demo</div>
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Catalog fit notes</div>
+        </div>
+      </div>
+      <div>
+        <p class=\"rail-section-title\">Today</p>
+        <div class=\"rail-list\">
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Qwen 2.5 fit estimate</div>
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Deterministic route draft</div>
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Report metadata preview</div>
+        </div>
+      </div>
+      <div>
+        <p class=\"rail-section-title\">Earlier</p>
+        <div class=\"rail-list\">
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Claim boundary checklist</div>
+          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Picker taxonomy review</div>
+        </div>
+      </div>
+      <div class=\"rail-footer\"><span class=\"rail-icon\">K</span><div><strong>Local workspace</strong><span>Cloud sync disabled</span></div></div>
+    </aside>
+    <div class=\"studio-workspace\">
+      <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
+        <div></div>
+        <div class=\"model-selector-shell\" aria-label=\"Top model selector\">Search or select open-source LLM</div>
+        <button class=\"details-shell-button\" type=\"button\" aria-label=\"Open details drawer\">Details</button>
+      </div>
+      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\">
+        <div class=\"composer-panel\">
+          <h1>What do you want to work on?</h1>
+          <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
+          <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\">
+            <span>Ask KORA...</span>
+            <button class=\"composer-submit\" type=\"button\" aria-label=\"Local harness action scaffold\">↑</button>
+          </div>
+          <div class=\"shell-boundary-pills\">
+            <span class=\"shell-pill cyan\">Local preview</span>
+            <span class=\"shell-pill\">Provider calls disabled</span>
+            <span class=\"shell-pill amber\">Model execution not connected yet</span>
+          </div>
+        </div>
+      </section>
+      <aside class=\"details-drawer-shell\" aria-label=\"KORA Studio right details drawer scaffold\">
+        <h2>Details</h2>
+        <p class=\"subtitle\">Inspector · local preview</p>
+        <div class=\"drawer-section-chip\">Runtime status</div>
+        <div class=\"drawer-section-chip\">Selected model</div>
+        <div class=\"drawer-section-chip\">Catalog vs installed</div>
+        <div class=\"drawer-section-chip\">Route trace</div>
+        <div class=\"drawer-section-chip\">Generated counters</div>
+        <div class=\"drawer-section-chip\">Report metadata</div>
+        <div class=\"drawer-section-chip\">Claim boundaries</div>
+      </aside>
+    </div>
+  </div>
+
+  <main class=\"legacy-preview\" aria-label=\"Detailed local preview scaffolds\">
     <header>
       <div class=\"topline\">
         <strong>Local Preview Scaffold</strong>

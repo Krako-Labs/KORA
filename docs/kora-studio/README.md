@@ -176,6 +176,8 @@ The page shows a first-run flow ordered around launch/local-only status, Your Co
 
 The v0.6 history UI marks the active selected run, shows compact generated-counter summaries on history cards, and keeps Clear Local Run History limited to page-memory UI reset. Clearing history does not delete server run records, backend records, report files, generated endpoints, or persisted data.
 
+The v0.8 preview shell now scaffolds the final UI/UX board structure above the detailed local preview: a small ChatGPT-style left mini rail, compact top model selector, centered composer, boundary pills, and hidden right details drawer scaffold. Dense runtime, catalog, route, counter, report, and claim information remains preserved in the detailed preview for now; migrating that information into the drawer is the next v0.8 implementation step. The shell does not add arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or new frontend dependencies.
+
 ## Implementation Planning
 
 - [KORA Studio final development report](kora-studio-final-development-report.md)

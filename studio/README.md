@@ -60,6 +60,8 @@ The repository-level preview also includes an approved request selector and Run 
 
 The v0.6 history UI marks the active selected run, shows compact generated-counter summaries on history cards, and keeps Clear Local Run History limited to browser page-memory UI reset. Clearing history does not delete server run records, backend records, report files, generated endpoints, or persisted data.
 
+The repository-level preview now includes the v0.8 final UI shell scaffold: a small ChatGPT-style left mini rail, compact top model selector, centered composer, boundary pills, and hidden right details drawer scaffold. The detailed local harness/runtime/report panels are still preserved below the new shell until the next v0.8 drawer migration task. This shell does not add arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or new frontend dependencies.
+
 The separate FastAPI/React demo scaffold can still be run manually:
 
 From repo root:

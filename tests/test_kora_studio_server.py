@@ -719,6 +719,26 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
 
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
+    assert "data-kora-final-ui-shell=\"true\"" in html
+    assert "KORA Studio left mini rail" in html
+    assert "New task" in html
+    assert "Search tasks" in html
+    assert "Local workspace" in html
+    assert "Cloud sync disabled" in html
+    assert "Search or select open-source LLM" in html
+    assert "KORA Studio top bar" in html
+    assert "KORA Studio centered composer" in html
+    assert "What do you want to work on?" in html
+    assert "Choose a local model once. KORA keeps routing details out of the way." in html
+    assert "Ask KORA..." in html
+    assert "Provider calls disabled" in html
+    assert "Model execution not connected yet" in html
+    assert "KORA Studio right details drawer scaffold" in html
+    assert "Inspector · local preview" in html
+    assert "Route trace" in html
+    assert "Report metadata" in html
+    assert "Claim boundaries" in html
+    assert "legacy-preview" in html
     assert "Local Preview Scaffold" in html
     assert "Preview / Local-only" in html
     assert APPROVED_BOOST_MESSAGE in html

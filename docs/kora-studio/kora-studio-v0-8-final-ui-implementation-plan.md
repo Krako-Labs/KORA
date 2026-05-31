@@ -281,6 +281,8 @@ Rework the local preview shell around:
 
 Keep existing harness functionality reachable and keep all existing endpoints intact.
 
+Status: implemented as the first v0.8 code step. The preview now includes the shell scaffold above the existing detailed local preview. Dense information migration remains Task 458.
+
 ### Task 458: Right details drawer migration
 
 Move dense runtime, catalog, setup guidance, route, counters, comparison, report, and claim sections into the right drawer.
@@ -363,4 +365,3 @@ KORA Studio v0.9 should focus on local usability polish after the final layout i
 - clearer model picker search behavior
 - no arbitrary prompt execution unless separately scoped
 - no model execution/provider/download/cloud behavior
-

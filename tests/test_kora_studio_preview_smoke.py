@@ -159,6 +159,26 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             status=200,
             content_type="text/html; charset=utf-8",
             body="""
+            data-kora-final-ui-shell="true"
+            KORA Studio left mini rail
+            New task
+            Search tasks
+            Local workspace
+            Cloud sync disabled
+            Search or select open-source LLM
+            KORA Studio top bar
+            KORA Studio centered composer
+            What do you want to work on?
+            Choose a local model once. KORA keeps routing details out of the way.
+            Ask KORA...
+            Provider calls disabled
+            Model execution not connected yet
+            KORA Studio right details drawer scaffold
+            Inspector · local preview
+            Route trace
+            Report metadata
+            Claim boundaries
+            legacy-preview
             Launch / Local-only Status
             Your Computer
             Model Capability Estimate
