@@ -323,6 +323,8 @@ Status: implemented. The local preview now includes mobile-ready markers and CSS
 
 Run validation and live local smoke check. Add a v0.8 readiness report.
 
+Status: implemented in [KORA Studio v0.8 readiness report](kora-studio-v0-8-readiness-report.md). Full pytest, Studio-focused pytest, live local smoke check, live UI marker check, and browser snapshot review passed for the v0.8 local preview.
+
 ### Task 463: consolidated v0.8 goal report
 
 Create a consolidated goal report covering Tasks 456-463, commits, changed files, validations, claim boundaries, known limitations, and next recommended goal.
