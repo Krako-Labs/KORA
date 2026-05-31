@@ -16,6 +16,7 @@ This document classifies the next server-owned generated local harness preview f
 | `kora/studio_selected_run_render.py` | selected-run summary/state/detail containers for event stream status, selected timeline, counters, comparison, and report metadata | pure string render helper; owns stable selected-run ids and markers |
 | `kora/studio_reference_render.py` | endpoint panel, limitations panel, and local references panel | pure string render helper; accepts escaped local path strings |
 | `kora/studio_harness_request_render.py` | approved request selector cards, selected request preview card, Run Local Harness action card, selector option cards, and local harness trigger reference cards | pure string render helper; accepts escaped display strings and slot HTML |
+| `kora/studio_run_state_render.py` | selected-run retry/error panels, Retry Last Approved Request panel, browser-local run history panel, clear history panel, and dynamic history container | pure string render helper; accepts escaped approved request id |
 | `kora/studio_style_render.py` | inline CSS template | pure string render helper; no external CSS path or CDN |
 | `kora/studio_script_render.py` | inline vanilla JavaScript template | pure string render helper; local harness endpoints only |
 
@@ -55,6 +56,8 @@ This document classifies the next server-owned generated local harness preview f
 
 Task 498 update: the approved request selector intro card, selected request preview card, Run Local Harness action card, local harness selector option cards, and local harness trigger reference cards are now extracted into `kora/studio_harness_request_render.py`. `kora/studio_server.py` still owns status payload assembly, local harness request data selection, HTML escaping, `local_harness_requests_json`, and final helper placement.
 
+Task 499 update: the selected-run retry/error state card, Retry Last Approved Request card, Local Run History card, Clear Local Run History card, and empty local run history dynamic container are now extracted into `kora/studio_run_state_render.py`. `kora/studio_server.py` still owns the escaped selector preview id and final helper placement. Browser-local run history behavior remains in inline JavaScript through `kora/studio_script_render.py`.
+
 ## Recommended Task 498 Target
 
 Task 498 extracted only the request selector and local harness trigger markup that was low-risk and marker-bound.
@@ -87,13 +90,13 @@ The helper does not accept arbitrary prompt text, call endpoints, read files, ex
 
 ## Recommended Task 499 Target
 
-Task 499 should extract browser-local retry, error, and run history markup after Task 498 stabilizes the request/trigger helper.
+Task 499 extracted browser-local retry, error, and run history markup after Task 498 stabilized the request/trigger helper.
 
-Recommended helper module:
+Helper module:
 
 - `kora/studio_run_state_render.py`
 
-Recommended helper responsibilities:
+Helper responsibilities:
 
 - render selected-run error state panel
 - render retry last approved request panel from an escaped preview request id
@@ -115,7 +118,7 @@ Required markers and ids to preserve:
 - `kora-clear-run-history-button`
 - `kora-local-run-history`
 
-The helper must preserve browser-local page-memory semantics. It must not add persistence, backend delete calls, file writing, report export, cloud sync, provider calls, model execution, downloads, or arbitrary prompt handling.
+The helper preserves browser-local page-memory semantics. It does not add persistence, backend delete calls, file writing, report export, cloud sync, provider calls, model execution, downloads, or arbitrary prompt handling.
 
 ## Data Assembly Boundary
 

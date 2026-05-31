@@ -34,6 +34,7 @@ from kora.studio_report_viewer import get_report_viewer_status_fields
 from kora.studio_runtime_status import get_runtime_status, summarize_installed_models
 from kora.studio_script_render import render_studio_javascript
 from kora.studio_style_render import render_studio_css
+from kora.studio_run_state_render import render_run_state_history_panels
 from kora.studio_selected_run_render import (
     render_selected_run_detail_panels,
     render_selected_run_state_panel,
@@ -712,6 +713,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     selected_run_summary_html = render_selected_run_summary_panel(selector_preview_id=selector_preview_id)
     selected_run_state_html = render_selected_run_state_panel()
     selected_run_detail_panels_html = render_selected_run_detail_panels()
+    run_state_history_html = render_run_state_history_panels(selector_preview_id=selector_preview_id)
 
     composer_html = f"""      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
         <div class=\"composer-panel\">
@@ -898,15 +900,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         </div>
 {local_harness_request_selector_html}
 {selected_run_state_html}
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\" data-kora-component=\"retry-error-state\"><h3>Selected Run Error State</h3><p id=\"kora-run-error-state\">No selected-run error.</p><p>Retry uses the last approved request only.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads are connected.</p></div>
-          <div class=\"card\"><h3>Retry Last Approved Request</h3><p>Last approved request: <code id=\"kora-last-approved-request-id\">{selector_preview_id}</code></p><p>Retry available: <span id=\"kora-retry-available\">false</span></p><button class=\"action-button\" type=\"button\" id=\"kora-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button><p>Retry calls only <code>POST /api/harness/run</code> with the last approved <code>request_id</code>.</p><p>No arbitrary prompt execution.</p></div>
-        </div>
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\" data-kora-component=\"run-history\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Active selected run: <code id=\"kora-active-history-run-id\">none</code></p><p>History cards show compact counters from generated harness output only.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
-          <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history.</p><p>Does not remove server run records, reports, files, backend records, or generated harness endpoints.</p><p>No persistence, no cloud sync, no file export, no file writing, and no backend delete call.</p></div>
-        </div>
-        <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
+{run_state_history_html}
 {selected_run_detail_panels_html}
 {local_harness_trigger_reference_html}
         <div class=\"grid\" style=\"margin-top: 16px;\">

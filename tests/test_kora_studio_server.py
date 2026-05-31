@@ -14,6 +14,7 @@ from http.server import ThreadingHTTPServer
 import kora.studio_drawer_render as studio_drawer_render
 import kora.studio_harness_request_render as studio_harness_request_render
 import kora.studio_reference_render as studio_reference_render
+import kora.studio_run_state_render as studio_run_state_render
 import kora.studio_script_render as studio_script_render
 import kora.studio_selected_run_render as studio_selected_run_render
 import kora.studio_shell_render as studio_shell_render
@@ -41,6 +42,11 @@ from kora.studio_harness_request_render import (
     render_local_harness_trigger_reference_panels,
 )
 from kora.studio_reference_render import render_reference_panels
+from kora.studio_run_state_render import (
+    render_local_run_history_panels,
+    render_retry_error_state_panels,
+    render_run_state_history_panels,
+)
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
 from kora.studio_script_render import render_studio_javascript
@@ -63,6 +69,9 @@ RENDER_HELPER_FUNCTIONS = [
     studio_harness_request_render.render_local_harness_trigger_item,
     studio_harness_request_render.render_local_harness_request_selector_panels,
     studio_harness_request_render.render_local_harness_trigger_reference_panels,
+    studio_run_state_render.render_retry_error_state_panels,
+    studio_run_state_render.render_local_run_history_panels,
+    studio_run_state_render.render_run_state_history_panels,
     studio_reference_render.render_endpoint_panel,
     studio_reference_render.render_limitations_panel,
     studio_reference_render.render_local_references_panel,
@@ -102,6 +111,7 @@ def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependenci
         studio_drawer_render,
         studio_selected_run_render,
         studio_harness_request_render,
+        studio_run_state_render,
         studio_reference_render,
         studio_style_render,
         studio_script_render,
@@ -285,6 +295,43 @@ def test_harness_request_render_helper_preserves_selector_and_trigger_markers() 
     assert "No downloads" in html
     assert "This is local preview/demo data, not production evidence" in html
     assert "Model-needed boundary returns <code>execution_not_connected</code>" in html
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
+
+
+def test_run_state_render_helper_preserves_retry_and_history_markers() -> None:
+    retry_html = render_retry_error_state_panels(selector_preview_id="local-harness-json-required-fields-001")
+    history_html = render_local_run_history_panels()
+    combined_html = render_run_state_history_panels(selector_preview_id="local-harness-json-required-fields-001")
+    html = f"{retry_html}\n{history_html}\n{combined_html}"
+
+    assert 'data-kora-component="retry-error-state"' in html
+    assert 'id="kora-run-error-state"' in html
+    assert "Selected Run Error State" in html
+    assert "Retry uses the last approved request only" in html
+    assert "No model execution was attempted" in html
+    assert "Provider calls remain disabled" in html
+    assert "No downloads are connected" in html
+    assert "Retry Last Approved Request" in html
+    assert 'id="kora-last-approved-request-id">local-harness-json-required-fields-001</code>' in html
+    assert 'id="kora-retry-available">false</span>' in html
+    assert 'id="kora-retry-last-approved-request-button"' in html
+    assert "Retry calls only <code>POST /api/harness/run</code> with the last approved" in html
+    assert 'data-kora-component="run-history"' in html
+    assert "Local Run History" in html
+    assert "Browser-local run history" in html
+    assert "Page-memory only" in html
+    assert "Clears on refresh" in html
+    assert 'id="kora-active-history-run-id">none</code>' in html
+    assert "History cards show compact counters from generated harness output only" in html
+    assert 'id="kora-run-history-count">0</span>' in html
+    assert 'id="kora-run-history-status"' in html
+    assert "Clear Local Run History" in html
+    assert 'id="kora-clear-run-history-button"' in html
+    assert "Clears browser-local preview state only" in html
+    assert "No persistence, no cloud sync, no file export, no file writing, and no backend delete call" in html
+    assert 'id="kora-local-run-history"' in html
     assert "<script" not in html.lower()
     assert "https://" not in html
     assert "fetch(" not in html
