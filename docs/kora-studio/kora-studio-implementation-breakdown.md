@@ -1010,6 +1010,46 @@ Acceptance criteria:
 - claim boundaries remain unchanged
 - validation passes
 
+## Phase 20 — v1.7 Local Static Asset Serving Plan
+
+Status: complete as a docs-only static asset serving plan. See [KORA Studio v1.7 static asset serving plan](kora-studio-v1-7-static-asset-serving-plan.md) and [KORA Studio v1.7 goal report](kora-studio-v1-7-goal-report.md). v1.7 defines the constraints for any future local CSS/JavaScript static asset serving work without implementing routes, moving inline assets, adding dependencies, changing endpoint behavior, or changing UI behavior.
+
+Goal: Define the future local static asset serving boundary before implementation.
+
+Scope:
+
+- current inline CSS/JavaScript state review
+- static asset route namespace planning
+- asset allowlist planning
+- path traversal rejection requirements
+- MIME and cache behavior requirements
+- no-external-assets/CDN policy
+- smoke marker and test expectations
+- migration option comparison
+- no product behavior change
+- no endpoint behavior change
+- no static asset serving implementation
+- no CSS/JavaScript migration out of inline helpers
+- no frontend tooling or dependency addition
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- future static asset serving requirements are documented
+- security constraints are explicit
+- testing and smoke expectations are defined
+- migration options are compared
+- CSS-only first implementation is recommended only for a future approved goal
+- claim boundaries remain unchanged
+- validation passes
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
