@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import json
 import os
 import threading
@@ -10,6 +11,12 @@ from pathlib import Path
 import pytest
 from http.server import ThreadingHTTPServer
 
+import kora.studio_drawer_render as studio_drawer_render
+import kora.studio_reference_render as studio_reference_render
+import kora.studio_script_render as studio_script_render
+import kora.studio_selected_run_render as studio_selected_run_render
+import kora.studio_shell_render as studio_shell_render
+import kora.studio_style_render as studio_style_render
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
@@ -37,6 +44,59 @@ TECHNICAL_EXPLANATION = (
     "KORA Boost handles simple work through fast paths and saves model power "
     "for the tasks that need it."
 )
+
+RENDER_HELPER_FUNCTIONS = [
+    studio_shell_render.render_shell_layout,
+    studio_drawer_render.render_right_details_drawer,
+    studio_selected_run_render.render_selected_run_summary_panel,
+    studio_selected_run_render.render_selected_run_state_panel,
+    studio_selected_run_render.render_selected_run_detail_panels,
+    studio_selected_run_render.render_selected_run_panels,
+    studio_reference_render.render_endpoint_panel,
+    studio_reference_render.render_limitations_panel,
+    studio_reference_render.render_local_references_panel,
+    studio_reference_render.render_reference_panels,
+    studio_style_render.render_studio_css,
+    studio_script_render.render_studio_javascript,
+]
+
+
+def test_render_helper_api_contracts_are_string_only_and_keyword_stable() -> None:
+    for helper in RENDER_HELPER_FUNCTIONS:
+        signature = inspect.signature(helper)
+        assert signature.return_annotation in (str, "str")
+        for parameter in signature.parameters.values():
+            assert parameter.annotation in (str, int, "str", "int")
+            assert parameter.default is inspect.Parameter.empty
+            assert parameter.kind is inspect.Parameter.KEYWORD_ONLY
+
+
+def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependencies() -> None:
+    forbidden_tokens = [
+        "import os",
+        "import pathlib",
+        "from pathlib",
+        "import subprocess",
+        "import requests",
+        "urllib",
+        "webbrowser",
+        "open(",
+        "Path(",
+        "ThreadingHTTPServer",
+        "BaseHTTPRequestHandler",
+    ]
+
+    for module in [
+        studio_shell_render,
+        studio_drawer_render,
+        studio_selected_run_render,
+        studio_reference_render,
+        studio_style_render,
+        studio_script_render,
+    ]:
+        source = inspect.getsource(module)
+        for token in forbidden_tokens:
+            assert token not in source, f"{module.__name__} must stay render-only; found {token!r}"
 
 
 def test_shell_layout_render_helper_preserves_shell_markers() -> None:

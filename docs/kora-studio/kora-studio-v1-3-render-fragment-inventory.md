@@ -39,6 +39,8 @@ This document records the current local preview render fragments, their owners, 
 
 Task 491 update: the low-risk endpoint panel, limitations panel, and local references sections are now extracted into `kora/studio_reference_render.py`. `kora/studio_server.py` still owns escaped `docs_path` and `fixtures_path` display values and final page assembly.
 
+Task 492 update: helper API contracts are documented in [KORA Studio v1.3 render helper API contracts](kora-studio-v1-3-render-helper-api-contracts.md), and tests now verify string-returning keyword-only helper signatures plus render-only module dependency boundaries.
+
 ## Data Assembly Boundary
 
 `kora/studio_server.py` remains the authoritative data assembly boundary for v1.3.
@@ -127,6 +129,7 @@ These markers must remain visible in the preview HTML and smoke checks:
 Task 490 is docs-only, but future extraction tasks should preserve:
 
 - helper-level marker tests in `tests/test_kora_studio_server.py`
+- helper API contract tests in `tests/test_kora_studio_server.py`
 - full preview marker checks in `tests/test_kora_studio_preview_smoke.py`
 - no external script, CDN, external CSS, provider endpoint, model endpoint, download endpoint, report export endpoint, or arbitrary prompt input checks
 - selected-run JavaScript endpoint limits: local harness run, events, and generated SSE only
