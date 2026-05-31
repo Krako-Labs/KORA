@@ -209,6 +209,8 @@ Status: implemented. The preview now includes v1.1 shell-only hardening markers 
 
 Run validation and live local smoke check, then add a public-safe readiness report.
 
+Status: implemented. See [KORA Studio v1.1 readiness report](kora-studio-v1-1-readiness-report.md).
+
 ### Task 486: consolidated v1.1 goal report
 
 Add a consolidated goal report covering Tasks 480-486, commits, files changed, validations, smoke check results, boundaries, known limitations, and next recommended goal.
