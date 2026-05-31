@@ -229,6 +229,7 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v1.2 extraction smoke check](kora-studio-v1-2-extraction-smoke-check.md)
 - [KORA Studio v1.2 readiness report](kora-studio-v1-2-readiness-report.md)
 - [KORA Studio v1.2 goal report](kora-studio-v1-2-goal-report.md)
+- [KORA Studio v1.3 frontend extraction hardening plan](kora-studio-v1-3-frontend-extraction-hardening-plan.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

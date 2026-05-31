@@ -868,6 +868,40 @@ Acceptance criteria:
 - smoke markers and endpoint contracts remain stable
 - local-only and claim-safe boundaries remain unchanged
 
+## Phase 16 — v1.3 Local Frontend Extraction Hardening
+
+Status: planned. See [KORA Studio v1.3 frontend extraction hardening plan](kora-studio-v1-3-frontend-extraction-hardening-plan.md). v1.3 should continue local frontend extraction hardening by documenting remaining render fragments, clarifying render/data assembly boundaries, and stabilizing helper API contracts without changing behavior, adding dependencies, adding external assets, or weakening local-only claim boundaries.
+
+Goal: Improve maintainability of remaining local preview render fragments after v1.2 helper extraction.
+
+Scope:
+
+- remaining render fragment inventory
+- helper API stabilization
+- render/data assembly boundary documentation
+- static asset serving tradeoff documentation only
+- behavior-preserving extraction only when low-risk and test-covered
+- no product behavior change
+- no frontend framework migration
+- no dependency addition
+- no external static asset serving unless explicitly approved later
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- remaining render fragments and data assembly boundaries are documented
+- helper API contracts are clearer and test-covered
+- any extraction preserves behavior and markers
+- validation and live smoke checks pass
+- readiness and consolidated goal reports are created
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
