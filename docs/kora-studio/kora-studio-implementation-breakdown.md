@@ -974,6 +974,42 @@ Acceptance criteria:
 - full validation and live smoke checks pass
 - readiness and consolidated goal reports are created
 
+## Phase 19 — v1.6 Local Preview Architecture Review
+
+Status: complete as a docs-only architecture decision milestone. See [KORA Studio v1.6 architecture review](kora-studio-v1-6-architecture-review.md) and [KORA Studio v1.6 goal report](kora-studio-v1-6-goal-report.md). v1.6 reviews the post-v1.5 local preview architecture, compares continuing Python helper extraction, planning local static asset serving, preparing a future frontend framework extraction, and pausing refactor work for product capability scaffolding. It recommends a v1.7 local static asset serving plan before any CSS or JavaScript file serving is implemented.
+
+Goal: Decide the next architecture direction after v1.5 without changing product behavior.
+
+Scope:
+
+- local preview server responsibility review
+- render helper ownership review
+- inline CSS/JavaScript tradeoff review
+- static asset serving risk and benefit review
+- frontend framework timing review
+- product capability scaffolding sequencing review
+- no product behavior change
+- no endpoint behavior change
+- no static asset serving implementation
+- no frontend tooling or dependency addition
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- current server/helper responsibilities are documented
+- architecture options are compared with risk and test implications
+- static asset serving is recommended only as a future planning goal
+- frontend framework extraction remains deferred
+- claim boundaries remain unchanged
+- validation passes
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
