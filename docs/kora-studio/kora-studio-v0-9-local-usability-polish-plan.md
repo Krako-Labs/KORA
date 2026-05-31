@@ -167,6 +167,8 @@ Status: implemented. The Details control opens and closes the right drawer in lo
 
 Add mobile left rail open/close behavior, Escape close, ARIA state, and tests.
 
+Status: implemented. The mobile rail control opens and closes the left rail in local browser state, exposes `aria-controls` / `aria-expanded` and rail state markers, includes an explicit close button, closes on Escape, and keeps desktop rail content visible to assistive technology. The rail remains workspace/task navigation only and does not add diagnostics, provider calls, model execution, downloads, cloud sync, or file export behavior.
+
 ### Task 467: model selector selected-state polish
 
 Improve selected estimate state, focus styling, static catalog boundary copy, and tests.

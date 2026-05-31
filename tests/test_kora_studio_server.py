@@ -723,7 +723,19 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
     assert "KORA Studio left mini rail" in html
     assert 'data-kora-mobile-rail="collapsed-overlay"' in html
-    assert "Collapsed left rail scaffold" in html
+    assert 'data-kora-rail-open="false"' in html
+    assert 'id="kora-left-rail"' in html
+    assert 'data-kora-rail-state="closed"' in html
+    assert 'id="kora-left-rail-toggle"' in html
+    assert 'aria-controls="kora-left-rail"' in html
+    assert 'data-kora-rail-toggle="true"' in html
+    assert 'id="kora-left-rail-close"' in html
+    assert 'data-kora-rail-close="true"' in html
+    assert "setLeftRailOpen" in html
+    assert "isSmallRailViewport" in html
+    assert 'data-kora-rail-state") === "open"' in html
+    assert "Open left rail" in html
+    assert "Close left rail" in html
     assert "New task" in html
     assert "Search tasks" in html
     assert "Local workspace" in html

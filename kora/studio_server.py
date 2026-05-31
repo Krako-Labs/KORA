@@ -903,6 +903,12 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       flex-direction: column;
       gap: 22px;
     }}
+    .rail-header {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }}
     .rail-brand,
     .rail-action,
     .rail-item,
@@ -981,6 +987,30 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       border-radius: 999px;
       padding: 10px 16px;
       font-weight: 700;
+    }}
+    .rail-shell-button[aria-expanded="true"] {{
+      border-color: var(--cyan);
+      color: var(--text);
+    }}
+    .rail-close-button {{
+      visibility: hidden;
+      border: 1px solid #334052;
+      background: #151a22;
+      color: var(--muted);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }}
+    .rail-shell-button:focus-visible,
+    .rail-close-button:focus-visible {{
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
     }}
     .model-selector-shell {{
       justify-self: center;
@@ -1283,6 +1313,12 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         transform: translateX(-100%);
         opacity: 0.16;
         pointer-events: none;
+        transition: transform 180ms ease, opacity 180ms ease;
+      }}
+      .studio-shell[data-kora-rail-open="true"] .studio-left-rail {{
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
       }}
       .studio-topbar {{
         grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1295,6 +1331,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         visibility: visible;
         padding: 9px 12px;
         font-size: 12px;
+      }}
+      .rail-close-button {{
+        visibility: visible;
       }}
       .model-selector-shell {{
         min-width: 0;
@@ -1361,9 +1400,12 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\">
-    <aside class=\"studio-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\">
-      <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-rail-open=\"false\">
+    <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
+      <div class=\"rail-header\">
+        <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
+        <button class=\"rail-close-button\" type=\"button\" id=\"kora-left-rail-close\" aria-label=\"Close left rail\" data-kora-rail-close=\"true\">x</button>
+      </div>
       <div class=\"rail-list\">
         <div class=\"rail-action\"><span class=\"rail-icon\">+</span>New task</div>
         <div class=\"rail-action\"><span class=\"rail-icon\">⌕</span>Search tasks</div>
@@ -1394,7 +1436,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </aside>
     <div class=\"studio-workspace\">
       <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
-        <button class=\"rail-shell-button\" type=\"button\" aria-label=\"Collapsed left rail scaffold\">Menu</button>
+        <button class=\"rail-shell-button\" type=\"button\" id=\"kora-left-rail-toggle\" aria-label=\"Open left rail\" aria-controls=\"kora-left-rail\" aria-expanded=\"false\" data-kora-rail-toggle=\"true\">Menu</button>
         <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\">
           <summary>
             <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Suggested estimate: {local_candidate_name}</span></span>
@@ -1707,10 +1749,61 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }}
       }};
 
+      const studioShell = document.querySelector(".studio-shell");
+      const leftRail = document.getElementById("kora-left-rail");
+      const leftRailToggle = document.getElementById("kora-left-rail-toggle");
+      const leftRailClose = document.getElementById("kora-left-rail-close");
       const workspace = document.querySelector(".studio-workspace");
       const detailsDrawer = document.getElementById("kora-details-drawer");
       const detailsDrawerToggle = document.getElementById("kora-details-drawer-toggle");
       const detailsDrawerClose = document.getElementById("kora-details-drawer-close");
+
+      const isSmallRailViewport = () => {{
+        if (typeof window === "undefined" || typeof window.matchMedia !== "function") {{
+          return false;
+        }}
+        return window.matchMedia("(max-width: 760px)").matches;
+      }};
+
+      const setLeftRailOpen = (open, options) => {{
+        const shouldOpen = open === true;
+        if (studioShell) {{
+          studioShell.setAttribute("data-kora-rail-open", shouldOpen ? "true" : "false");
+        }}
+        if (leftRail) {{
+          leftRail.setAttribute("data-kora-rail-state", shouldOpen ? "open" : "closed");
+          leftRail.setAttribute("aria-hidden", !shouldOpen && isSmallRailViewport() ? "true" : "false");
+        }}
+        if (leftRailToggle) {{
+          leftRailToggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+          leftRailToggle.setAttribute("aria-label", shouldOpen ? "Close left rail" : "Open left rail");
+        }}
+        const shouldManageFocus = !options || options.manageFocus !== false;
+        if (shouldManageFocus && shouldOpen && leftRailClose) {{
+          leftRailClose.focus();
+        }}
+        if (shouldManageFocus && !shouldOpen && leftRailToggle) {{
+          leftRailToggle.focus();
+        }}
+      }};
+
+      if (leftRailToggle) {{
+        leftRailToggle.addEventListener("click", () => {{
+          const isOpen = leftRailToggle.getAttribute("aria-expanded") === "true";
+          setLeftRailOpen(!isOpen);
+        }});
+      }}
+      if (leftRailClose) {{
+        leftRailClose.addEventListener("click", () => {{
+          setLeftRailOpen(false);
+        }});
+      }}
+      if (typeof window !== "undefined") {{
+        window.addEventListener("resize", () => {{
+          const isOpen = leftRailToggle && leftRailToggle.getAttribute("aria-expanded") === "true";
+          setLeftRailOpen(isOpen, {{manageFocus: false}});
+        }});
+      }}
 
       const setDetailsDrawerOpen = (open, options) => {{
         const shouldOpen = open === true;
@@ -1746,10 +1839,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         }});
       }}
       document.addEventListener("keydown", (event) => {{
+        if (event.key === "Escape" && leftRail && leftRail.getAttribute("data-kora-rail-state") === "open") {{
+          setLeftRailOpen(false);
+        }}
         if (event.key === "Escape" && detailsDrawer && detailsDrawer.getAttribute("data-kora-drawer-state") === "open") {{
           setDetailsDrawerOpen(false);
         }}
       }});
+      setLeftRailOpen(false, {{manageFocus: false}});
       setDetailsDrawerOpen(false, {{manageFocus: false}});
 
       const setButtonState = () => {{

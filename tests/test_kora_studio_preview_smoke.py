@@ -163,7 +163,18 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-responsive-shell="mobile-overlay-ready"
             KORA Studio left mini rail
             data-kora-mobile-rail="collapsed-overlay"
-            Collapsed left rail scaffold
+            data-kora-rail-open="false"
+            kora-left-rail
+            data-kora-rail-state
+            kora-left-rail-toggle
+            aria-controls="kora-left-rail"
+            data-kora-rail-toggle
+            kora-left-rail-close
+            data-kora-rail-close
+            setLeftRailOpen
+            isSmallRailViewport
+            Open left rail
+            Close left rail
             New task
             Search tasks
             Local workspace
