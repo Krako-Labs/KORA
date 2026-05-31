@@ -197,6 +197,8 @@ Status: implemented. See [KORA Studio v0.9 readiness report](kora-studio-v0-9-re
 
 Create a consolidated v0.9 goal report covering Tasks 464-471, commits, validations, claim boundaries, known limitations, and next recommended goal.
 
+Status: implemented. See [KORA Studio v0.9 goal report](kora-studio-v0-9-goal-report.md).
+
 ## Validation Expectations
 
 After each implementation task:
