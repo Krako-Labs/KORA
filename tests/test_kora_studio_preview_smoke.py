@@ -267,6 +267,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             No private model directory scanning
             No runtime model list commands
             legacy-preview
+            data-kora-legacy-preview-mode="compatibility-collapsed"
+            data-kora-legacy-preview-default="collapsed"
+            data-kora-legacy-preview-role="developer-compatibility-scaffold"
+            Legacy detailed preview compatibility scaffold
+            Collapsed by default
+            The final shell above is the primary local preview
+            Compatibility detail
             Launch / Local-only Status
             Your Computer
             Model Capability Estimate

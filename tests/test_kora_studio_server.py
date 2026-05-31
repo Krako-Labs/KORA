@@ -844,6 +844,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "No private model directory scanning" in html
     assert "No runtime model list commands" in html
     assert "legacy-preview" in html
+    assert 'data-kora-legacy-preview-mode="compatibility-collapsed"' in html
+    assert 'data-kora-legacy-preview-default="collapsed"' in html
+    assert 'data-kora-legacy-preview-role="developer-compatibility-scaffold"' in html
+    assert "Legacy detailed preview compatibility scaffold" in html
+    assert "Collapsed by default" in html
+    assert "The final shell above is the primary local preview" in html
+    assert "Compatibility detail" in html
     assert "Local Preview Scaffold" in html
     assert "Preview / Local-only" in html
     assert APPROVED_BOOST_MESSAGE in html

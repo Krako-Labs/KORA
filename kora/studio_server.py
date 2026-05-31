@@ -1382,6 +1382,45 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       margin: 0 auto;
       padding: 42px 0 34px;
     }}
+    .legacy-preview summary {{
+      border: 1px solid #293447;
+      background: rgba(12, 16, 22, 0.86);
+      border-radius: 18px;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 20px;
+    }}
+    .legacy-preview summary::-webkit-details-marker {{
+      display: none;
+    }}
+    .legacy-preview-summary {{
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }}
+    .legacy-preview-summary strong {{
+      display: block;
+      margin-bottom: 4px;
+    }}
+    .legacy-preview-summary span {{
+      color: var(--muted);
+      display: block;
+      font-size: 13px;
+      line-height: 1.5;
+    }}
+    .legacy-preview-summary-badge {{
+      border: 1px solid #293447;
+      border-radius: 999px;
+      color: var(--muted);
+      flex: 0 0 auto;
+      font-size: 12px;
+      padding: 6px 10px;
+    }}
+    .legacy-preview-content {{
+      padding-top: 22px;
+    }}
     @media (max-width: 760px) {{
       main {{ width: min(100% - 24px, 1120px); padding-top: 24px; }}
       .studio-shell {{ grid-template-columns: 1fr; }}
@@ -1593,7 +1632,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </div>
   </div>
 
-  <main class=\"legacy-preview\" aria-label=\"Detailed local preview scaffolds\">
+  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\">
+    <summary aria-label=\"Open legacy detailed preview compatibility scaffold\">
+      <div class=\"legacy-preview-summary\">
+        <div><strong>Legacy detailed preview compatibility scaffold</strong><span>Collapsed by default. The final shell above is the primary local preview; this section remains for developer/reference coverage while v1.0 shell readiness is completed.</span></div>
+        <span class=\"legacy-preview-summary-badge\">Compatibility detail</span>
+      </div>
+    </summary>
+    <div class=\"legacy-preview-content\">
     <header>
       <div class=\"topline\">
         <strong>Local Preview Scaffold</strong>
@@ -1816,7 +1862,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </div>
 
     <p class=\"footer\">Local-only skeleton. Claim-safe AI Task Execution Router preview; KORA does not make large models smaller or remove memory requirements.</p>
-  </main>
+    </div>
+  </details>
   <script type=\"application/json\" id=\"kora-approved-requests-data\">{local_harness_requests_json}</script>
   <script>
     (function () {{

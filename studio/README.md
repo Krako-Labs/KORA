@@ -66,6 +66,8 @@ The v1.0 preview readiness pass now adds shell-first local-only boundary markers
 
 The shell now also mirrors selected-run timeline, counters, comparison, and report metadata status into the final shell and right drawer. These are generated local harness surfaces only; they do not execute models, call providers, download models, sync cloud state, export reports, or write report files.
 
+The legacy detailed panels are collapsed by default and labelled as compatibility/developer scaffolding. They remain available for local reference and smoke coverage while the final shell becomes the primary local preview surface.
+
 The separate FastAPI/React demo scaffold can still be run manually:
 
 From repo root:

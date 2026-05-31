@@ -223,6 +223,8 @@ Status: implemented. The shell now exposes a v1.0 selected-run detail strip for 
 
 Collapse, relabel, or otherwise reduce the legacy detailed preview while preserving safe fallback access and smoke-test coverage.
 
+Status: implemented. The legacy detailed preview is now a collapsed compatibility/developer scaffold by default, while the final shell remains the primary local preview surface. Existing legacy detail markers remain available for compatibility and smoke coverage.
+
 ### Task 477: v1.0 shell-first smoke check
 
 Update smoke checks and tests for v1.0 shell-first readiness markers, legacy compatibility markers, and claim boundaries.

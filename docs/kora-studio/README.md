@@ -182,6 +182,8 @@ The v1.0 preview readiness work is moving the final shell toward the primary loc
 
 The shell also includes a v1.0 selected-run detail strip for generated timeline, counters, comparison, and report metadata status, with matching status mirrored in the right drawer. These surfaces remain generated local harness output only and do not add model execution, provider calls, downloads, cloud sync, report export, or report writing.
 
+The legacy detailed preview is now collapsed by default and labelled as compatibility/developer scaffolding. It remains available for reference and smoke coverage while the final shell becomes the primary local preview surface.
+
 ## Implementation Planning
 
 - [KORA Studio final development report](kora-studio-final-development-report.md)
