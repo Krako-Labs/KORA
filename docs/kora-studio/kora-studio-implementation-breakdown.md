@@ -744,6 +744,34 @@ Acceptance criteria:
 
 These are future issue candidates. Do not create the issues from this document without maintainer approval.
 
+## Phase 12 — v0.9 Local Usability Polish
+
+Status: planned in [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md).
+
+Goal: Polish the v0.8 local preview shell with keyboard/focus accessibility, explicit drawer and rail interactions, clearer model selector selected state, stronger mobile QA, and less reliance on the legacy detailed preview.
+
+Scope:
+
+- local preview HTML/CSS/vanilla JavaScript only
+- no new frontend dependency unless explicitly approved
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- right drawer can open and close locally
+- left rail can open and close locally on small-screen scaffolds
+- Escape closes shell overlays
+- model selector selected state remains catalog-only and claim-safe
+- composer remains approved-harness-only
+- validation and smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
