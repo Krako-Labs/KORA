@@ -37,6 +37,8 @@ This document records the current local preview render fragments, their owners, 
 | Limitations and local references sections | `kora/studio_server.py` | `h2>Limitations Panel`, `h2>Local References` | static claim boundary copy and docs/fixtures paths | Candidate for legacy reference helper | limitations remain explicit; no production claims |
 | Legacy compatibility wrapper | `kora/studio_server.py` | `legacy_preview_html` opening details wrapper and closing body later in page template | wrapper string plus all detailed reference sections | inventory before extraction; high coupling to final page assembly | secondary developer/reference scaffold only |
 
+Task 491 update: the low-risk endpoint panel, limitations panel, and local references sections are now extracted into `kora/studio_reference_render.py`. `kora/studio_server.py` still owns escaped `docs_path` and `fixtures_path` display values and final page assembly.
+
 ## Data Assembly Boundary
 
 `kora/studio_server.py` remains the authoritative data assembly boundary for v1.3.
@@ -81,7 +83,7 @@ The preferred v1.3 rule is to pass pre-escaped display values or named slot HTML
 
 | Risk level | Fragments | Reason |
 |---|---|---|
-| Low | Endpoint panel, limitations panel, static local references | mostly static copy and stable local-only boundaries |
+| Low | Endpoint panel, limitations panel, static local references | extracted in Task 491 into `kora/studio_reference_render.py`; mostly static copy and stable local-only boundaries |
 | Medium | Approved request selector cards, generated timeline cards, generated counters, report metadata reference cards | generated lists need escaping and marker/id preservation |
 | Medium | Composer container and boundary strip | central shell layout and selected-run ids make the slot boundary important |
 | High | Legacy compatibility wrapper/body split | wrapper opens before the detailed preview body and closes near the final page footer/script assembly |

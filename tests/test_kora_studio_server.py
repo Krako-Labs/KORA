@@ -26,6 +26,7 @@ from kora.studio_server import (
     run_studio_server,
 )
 from kora.studio_harness_runs import clear_local_harness_run_records
+from kora.studio_reference_render import render_reference_panels
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
 from kora.studio_script_render import render_studio_javascript
@@ -140,6 +141,34 @@ def test_selected_run_render_helpers_preserve_selected_run_markers() -> None:
     assert "Report metadata preview only" in html
     assert "No file export" in html
     assert "No file writing" in html
+
+
+def test_reference_render_helper_preserves_static_local_boundaries() -> None:
+    html = render_reference_panels(
+        docs_path="/tmp/kora-docs",
+        fixtures_path="/tmp/kora-fixtures",
+    )
+
+    assert "<h2>Endpoint Panel</h2>" in html
+    assert '<a href="/health">/health</a>' in html
+    assert '<a href="/status">/status</a>' in html
+    assert "/api/harness/run" in html
+    assert "/api/harness/events?run_id=&lt;id&gt;" in html
+    assert "/api/harness/sse?run_id=&lt;id&gt;" in html
+    assert "Arbitrary prompt execution is not connected." in html
+    assert "No persistence, provider call, download, or model execution is connected." in html
+    assert "It streams no model tokens, provider output, or model output." in html
+    assert "<h2>Limitations Panel</h2>" in html
+    assert "No provider calls" in html
+    assert "No model/runtime integration yet" in html
+    assert "No production/API-cost/energy claims" in html
+    assert "No claim that KORA removes model memory requirements" in html
+    assert "<h2>Local References</h2>" in html
+    assert "<code>/tmp/kora-docs</code>" in html
+    assert "<code>/tmp/kora-fixtures</code>" in html
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
 
 
 def test_style_and_script_render_helpers_preserve_embedded_preview_contract() -> None:
