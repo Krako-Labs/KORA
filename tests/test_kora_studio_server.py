@@ -850,10 +850,15 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-legacy-preview-mode="compatibility-collapsed"' in html
     assert 'data-kora-legacy-preview-default="collapsed"' in html
     assert 'data-kora-legacy-preview-role="developer-compatibility-scaffold"' in html
+    assert 'data-kora-v1-1-legacy-secondary="developer-reference-only"' in html
+    assert 'data-kora-v1-1-legacy-first-run-required="false"' in html
+    assert 'data-kora-v1-1-legacy-boundary="secondary-reference-only"' in html
     assert "Legacy detailed preview compatibility scaffold" in html
     assert "Collapsed by default" in html
-    assert "The final shell above is the primary local preview" in html
-    assert "Compatibility detail" in html
+    assert "The final shell and Details drawer above are the primary local preview" in html
+    assert "not required for first-run understanding" in html
+    assert "Developer reference only" in html
+    assert "This compatibility scaffold remains local-only and secondary" in html
     assert "Local Preview Scaffold" in html
     assert "Preview / Local-only" in html
     assert APPROVED_BOOST_MESSAGE in html

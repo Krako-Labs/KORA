@@ -271,10 +271,15 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-legacy-preview-mode="compatibility-collapsed"
             data-kora-legacy-preview-default="collapsed"
             data-kora-legacy-preview-role="developer-compatibility-scaffold"
+            data-kora-v1-1-legacy-secondary="developer-reference-only"
+            data-kora-v1-1-legacy-first-run-required="false"
+            data-kora-v1-1-legacy-boundary="secondary-reference-only"
             Legacy detailed preview compatibility scaffold
             Collapsed by default
-            The final shell above is the primary local preview
-            Compatibility detail
+            The final shell and Details drawer above are the primary local preview
+            not required for first-run understanding
+            Developer reference only
+            This compatibility scaffold remains local-only and secondary
             Launch / Local-only Status
             Your Computer
             Model Capability Estimate

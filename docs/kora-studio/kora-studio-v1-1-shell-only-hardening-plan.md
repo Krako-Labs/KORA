@@ -191,6 +191,8 @@ Status: implemented. See [KORA Studio v1.1 shell diagnostics coverage map](kora-
 
 Tighten the compatibility/developer scaffold state and smoke markers without removing safe reference coverage.
 
+Status: implemented. The legacy preview now carries v1.1 secondary/developer-reference markers and copy stating that it is not required for first-run understanding.
+
 ### Task 483: shell selected-run drawer polish
 
 Polish selected-run shell/drawer status so timeline, counters, comparison, and report metadata are clear without opening the legacy preview.

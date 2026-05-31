@@ -36,6 +36,9 @@ Current smoke-checkable shell/drawer markers include:
 - `data-kora-legacy-preview-mode="compatibility-collapsed"`
 - `data-kora-legacy-preview-default="collapsed"`
 - `data-kora-legacy-preview-role="developer-compatibility-scaffold"`
+- `data-kora-v1-1-legacy-secondary="developer-reference-only"`
+- `data-kora-v1-1-legacy-first-run-required="false"`
+- `data-kora-v1-1-legacy-boundary="secondary-reference-only"`
 
 These markers are covered by the local preview smoke check and server tests.
 
@@ -107,6 +110,8 @@ Recommended Task 482 checks:
 - shell/drawer coverage is not weakened
 - no legacy content becomes the primary first-run experience
 - no provider/model/download/cloud/report export behavior is introduced
+
+Status: implemented. The legacy scaffold remains collapsed and now has explicit v1.1 secondary/developer-reference markers, first-run-not-required state, and local-only secondary boundary copy.
 
 ## Task 483 Inputs
 
