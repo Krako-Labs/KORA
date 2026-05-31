@@ -839,6 +839,35 @@ Acceptance criteria:
 - model selector remains catalog-estimate-only
 - validation and live local smoke checks pass
 
+## Phase 15 — v1.2 Frontend Extraction / Componentization Planning
+
+Status: planned. See [KORA Studio v1.2 frontend extraction plan](kora-studio-v1-2-frontend-extraction-plan.md). v1.2 is a maintainability milestone for extracting the current embedded shell preview into safer render sections or template fragments without changing behavior.
+
+Goal: Improve maintainability of the shell-first local preview by planning component boundaries for shell layout, left rail, model selector, composer, selected-run panels, right drawer, run history, event stream status, boundary strip, and legacy compatibility reference.
+
+Scope:
+
+- documentation/planning first
+- local preview HTML/CSS/vanilla JavaScript structure
+- no new product behavior
+- no frontend framework migration yet
+- no new dependency unless explicitly approved later
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- current embedded shell sections are mapped into component/render responsibilities
+- recommended extraction path keeps behavior unchanged
+- smoke markers and endpoint contracts remain stable
+- local-only and claim-safe boundaries remain unchanged
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
