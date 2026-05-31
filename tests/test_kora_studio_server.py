@@ -721,6 +721,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "KORA Studio" in html
     assert "data-kora-final-ui-shell=\"true\"" in html
     assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
+    assert 'data-kora-keyboard-focus-pass="true"' in html
+    assert 'data-kora-focus-visible-controls="shell-and-harness"' in html
     assert "KORA Studio left mini rail" in html
     assert 'data-kora-mobile-rail="collapsed-overlay"' in html
     assert 'data-kora-rail-open="false"' in html
@@ -853,6 +855,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Approved request only" in html
     assert "Selected request preview" in html
     assert "Selector state is browser-local in-memory page state only" in html
+    assert 'data-kora-keyboard-selectable-request="true"' in html
+    assert 'aria-label="Select approved local harness request local-harness-json-required-fields-001"' in html
+    assert 'aria-pressed="false"' in html
     assert "id=\"kora-run-local-harness-button\"" in html
     assert "kora-composer-run-local-harness-button" in html
     assert "id=\"kora-selected-run-state\"" in html
@@ -890,6 +895,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "selectRunFromHistory" in html
     assert "addRunToHistory" in html
     assert "clearLocalRunHistory" in html
+    assert "getShellAccessibilityState" in html
+    assert "window.koraStudioAccessibilityState" in html
+    assert "window.koraStudioScriptStatus" in html
+    assert 'status: "ready"' in html
+    assert "keyboard_focus_pass" in html
+    assert "left_rail_expanded" in html
+    assert "details_drawer_expanded" in html
     assert "data-kora-history-run-id" in html
     assert "Active selected local run" in html
     assert "Recent local run" in html

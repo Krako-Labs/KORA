@@ -161,6 +161,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             body="""
             data-kora-final-ui-shell="true"
             data-kora-responsive-shell="mobile-overlay-ready"
+            data-kora-keyboard-focus-pass="true"
+            data-kora-focus-visible-controls="shell-and-harness"
             KORA Studio left mini rail
             data-kora-mobile-rail="collapsed-overlay"
             data-kora-rail-open="false"
@@ -263,6 +265,9 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Approved request only
             Selected request preview
             Selector state is browser-local in-memory page state only
+            data-kora-keyboard-selectable-request="true"
+            Select approved local harness request local-harness-json-required-fields-001
+            aria-pressed="false"
             Selected run state
             Generated local harness output only
             Selected Run Error State
@@ -288,6 +293,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Selected in page
             Cleared browser-local preview state only
             No backend records, files, report exports, or server endpoints were deleted
+            getShellAccessibilityState
+            window.koraStudioAccessibilityState
+            window.koraStudioScriptStatus
+            status: "ready"
+            keyboard_focus_pass
+            left_rail_expanded
+            details_drawer_expanded
             Generated Event Stream
             kora-sse-status
             kora-sse-fallback-used

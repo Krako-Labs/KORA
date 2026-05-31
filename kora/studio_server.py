@@ -640,7 +640,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     local_harness_selector_items = "".join(
         "<div class=\"card\">"
         "<h3>Selector option</h3>"
-        f"<button class=\"request-option\" type=\"button\" data-kora-request-id=\"{html.escape(str(request.get('request_id', 'unknown')), quote=True)}\">"
+        f"<button class=\"request-option\" type=\"button\" data-kora-keyboard-selectable-request=\"true\" aria-pressed=\"false\" aria-label=\"Select approved local harness request {html.escape(str(request.get('request_id', 'unknown')), quote=True)}\" data-kora-request-id=\"{html.escape(str(request.get('request_id', 'unknown')), quote=True)}\">"
         f"{html.escape(str(request.get('request_id', 'unknown')), quote=True)}"
         "</button>"
         f"<p>{html.escape(str(request.get('input_text', 'Approved local sample request.')), quote=True)}</p>"
@@ -835,6 +835,12 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     .request-option:hover, .request-option[aria-pressed="true"], .action-button:hover {{
       border-color: var(--green);
       color: var(--green);
+    }}
+    .request-option:focus-visible,
+    .action-button:focus-visible,
+    .composer-submit:focus-visible {{
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
     }}
     .action-button {{
       margin-top: 10px;
@@ -1424,7 +1430,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-rail-open=\"false\">
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
     <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
       <div class=\"rail-header\">
         <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
@@ -1744,6 +1750,10 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   <script type=\"application/json\" id=\"kora-approved-requests-data\">{local_harness_requests_json}</script>
   <script>
     (function () {{
+      window.koraStudioScriptStatus = {{status: "booting", error: ""}};
+      window.addEventListener("error", (event) => {{
+        window.koraStudioScriptStatus = {{status: "failed", error: event.message || "Unknown local preview script error."}};
+      }});
       const dataElement = document.getElementById("kora-approved-requests-data");
       const approvedRequests = JSON.parse(dataElement ? dataElement.textContent || "[]" : "[]");
       const requestById = new Map(approvedRequests.map((request) => [request.request_id, request]));
@@ -1922,6 +1932,18 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           activeEventSource.close();
           activeEventSource = null;
         }}
+      }};
+
+      const getShellAccessibilityState = () => {{
+        return {{
+          left_rail_state: leftRail ? leftRail.getAttribute("data-kora-rail-state") : "missing",
+          left_rail_expanded: leftRailToggle ? leftRailToggle.getAttribute("aria-expanded") : "missing",
+          details_drawer_state: detailsDrawer ? detailsDrawer.getAttribute("data-kora-drawer-state") : "missing",
+          details_drawer_expanded: detailsDrawerToggle ? detailsDrawerToggle.getAttribute("aria-expanded") : "missing",
+          model_selector_state: document.querySelector("[data-kora-model-selector]") ? document.querySelector("[data-kora-model-selector]").getAttribute("data-kora-model-selection-state") : "missing",
+          selected_request_id: selectedRequestId || "none",
+          keyboard_focus_pass: studioShell ? studioShell.getAttribute("data-kora-keyboard-focus-pass") : "missing"
+        }};
       }};
 
       const renderSelectedRequest = () => {{
@@ -2527,6 +2549,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       renderSelectedRequest();
       setRetryState(false, "No selected-run error.");
       renderRunHistory();
+      window.koraStudioAccessibilityState = {{
+        get shell_state() {{ return getShellAccessibilityState(); }}
+      }};
       window.koraStudioSelectedRunState = {{
         get selected_request_id() {{ return selectedRequestId; }},
         get selected_run_id() {{ return selectedRunId; }},
@@ -2547,6 +2572,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         get selected_run_comparison() {{ return Object.assign({{}}, selectedRunComparison); }},
         get selected_run_report_metadata() {{ return Object.assign({{}}, selectedRunReportMetadata); }}
       }};
+      window.koraStudioScriptStatus = {{status: "ready", error: ""}};
     }})();
   </script>
 </body>

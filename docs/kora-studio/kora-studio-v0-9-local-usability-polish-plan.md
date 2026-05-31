@@ -179,6 +179,8 @@ Status: implemented. The compact model selector now labels the active estimate a
 
 Add predictable focus styles, keyboard state checks, and accessibility-oriented smoke markers.
 
+Status: implemented. Shell and harness controls now expose a v0.9 keyboard/focus pass marker, visible focus styles cover request buttons, action buttons, composer action, rail controls, drawer controls, and model selector options, approved request buttons include keyboard/accessibility selection markers, and the page exposes local shell accessibility state for smoke checks. No new runtime, provider, model, download, cloud, or file-export behavior was added.
+
 ### Task 469: mobile visual QA checklist and smoke check update
 
 Add or update mobile QA checklist and smoke check markers for v0.9 shell interactions.
