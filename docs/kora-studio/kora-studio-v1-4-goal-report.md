@@ -27,7 +27,7 @@ v1.4 is a maintainability/refactor milestone. It improves local preview render o
 | Task 500 | `7efec16` | Extracted the static collapsed legacy compatibility opening wrapper into `kora/studio_legacy_render.py`. |
 | Task 501 | `2a0d576` | Hardened render helper contract and marker coverage tests; added v1.4 helper contract documentation. |
 | Task 502 | `1e21e88` | Added v1.4 readiness report with validation and live smoke results. |
-| Task 503 | pending in this report commit | Added consolidated v1.4 goal report. |
+| Task 503 | this report commit | Added consolidated v1.4 goal report. |
 
 ## Commit List
 
@@ -38,6 +38,7 @@ v1.4 is a maintainability/refactor milestone. It improves local preview render o
 - `50f74df refactor: extract kora studio harness request panels`
 - `8730f3b docs: inventory kora studio v1.4 fragments`
 - `fb7a412 docs: plan kora studio v1.4 fragment extraction`
+- This report commit: `docs: add kora studio v1.4 goal report`
 
 ## Files Added
 
