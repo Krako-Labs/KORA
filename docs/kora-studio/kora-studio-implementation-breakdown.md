@@ -774,7 +774,7 @@ Acceptance criteria:
 
 ## Phase 13 — v1.0 Preview Readiness
 
-Status: planned. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md).
+Status: planned. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md) and [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md).
 
 Goal: Reduce legacy detailed preview dependence and make the final minimal shell the primary local preview experience while preserving local-only claim boundaries.
 

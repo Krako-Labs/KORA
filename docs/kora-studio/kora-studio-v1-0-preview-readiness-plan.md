@@ -205,6 +205,8 @@ Create this plan and link it from Studio docs.
 
 Document and/or mark which legacy preview content must move into the shell, right drawer, or compatibility section before legacy dependence can be reduced.
 
+Status: implemented. See [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md).
+
 ### Task 474: shell local-only status and boundary consolidation
 
 Move or duplicate critical launch, local-only, provider/cloud-disabled, model-download-disabled, and model-execution-disabled status into shell-first surfaces.
