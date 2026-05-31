@@ -197,7 +197,7 @@ Task 508: extract model/catalog/runtime display fragment if safe. Extracted mode
 
 Task 509: extract local harness/report display fragments into `kora/studio_harness_display_render.py` while keeping harness data assembly, comparison/report metadata assembly, escaping, and endpoint behavior server-owned.
 
-Task 510: server responsibility audit and helper contract hardening.
+Task 510: server responsibility audit and helper contract hardening. See [KORA Studio v1.5 server responsibility audit](kora-studio-v1-5-server-responsibility-audit.md).
 
 Task 511: v1.5 smoke check and readiness report.
 

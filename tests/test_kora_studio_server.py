@@ -20,6 +20,7 @@ import kora.studio_reference_render as studio_reference_render
 import kora.studio_run_state_render as studio_run_state_render
 import kora.studio_script_render as studio_script_render
 import kora.studio_selected_run_render as studio_selected_run_render
+import kora.studio_server as studio_server
 import kora.studio_shell_render as studio_shell_render
 import kora.studio_status_boundary_render as studio_status_boundary_render
 import kora.studio_style_render as studio_style_render
@@ -221,6 +222,53 @@ def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependenci
         source = inspect.getsource(module)
         for token in forbidden_tokens:
             assert token not in source, f"{module.__name__} must stay render-only; found {token!r}"
+
+
+def test_render_helper_modules_do_not_own_server_or_payload_assembly() -> None:
+    forbidden_tokens = [
+        "studio_server",
+        "get_studio_server_status",
+        "create_studio_request_handler",
+        "BaseHTTPRequestHandler",
+        "ThreadingHTTPServer",
+        "send_response",
+        "send_header",
+        "end_headers",
+        "wfile",
+        "rfile",
+        "do_GET",
+        "do_POST",
+        "trigger_local_harness_run",
+        "get_local_harness_run_record",
+        "get_local_harness_run_events",
+        "format_local_harness_sse",
+        "json.dumps",
+        "json.loads",
+        "html.escape",
+    ]
+
+    for module in RENDER_HELPER_MODULES:
+        source = inspect.getsource(module)
+        for token in forbidden_tokens:
+            assert token not in source, f"{module.__name__} must not own server/data assembly; found {token!r}"
+
+
+def test_server_retains_endpoint_status_escaping_and_document_assembly() -> None:
+    server_source = inspect.getsource(studio_server)
+    placeholder_source = inspect.getsource(render_studio_placeholder_html)
+    handler_source = inspect.getsource(create_studio_request_handler)
+
+    assert "def get_studio_server_status" in server_source
+    assert "html.escape" in placeholder_source
+    assert "json.dumps(local_harness_requests" in placeholder_source
+    assert "<!doctype html>" in placeholder_source
+    assert "render_studio_css" in placeholder_source
+    assert "render_studio_javascript" in placeholder_source
+    assert 'id=\\"kora-approved-requests-data\\"' in placeholder_source
+    assert "def do_GET" in handler_source
+    assert "def do_POST" in handler_source
+    assert "trigger_local_harness_run" in handler_source
+    assert "format_local_harness_sse" in handler_source
 
 
 def test_rendered_preview_preserves_helper_owned_component_markers() -> None:

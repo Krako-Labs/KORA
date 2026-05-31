@@ -97,10 +97,10 @@ Relevant verification files:
 | Fragment | Current location | Classification | Extraction notes |
 |---|---|---|---|
 | Model selector item rows | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Filtering and escaping remain server-owned. |
-| Composer container | `render_studio_placeholder_html()` | safe to extract now | Display-only shell slot markup with selected-run summary slot. Preserve `data-kora-component="composer"` and shell selected-run surface markers. Candidate for status/boundary helper or shell-adjacent helper. |
-| Shell selected-run strip | `render_studio_placeholder_html()` | safe to extract now | Display-only status strip. Preserve v1.0/v1.1 markers and local-only copy. Could be extracted with composer container. |
+| Composer container | `render_studio_placeholder_html()` | defer | Display-only shell slot markup, but still coupled to shell composition and final-page assembly. Keep server-owned until a later explicit shell composition decision. |
+| Shell selected-run strip | `render_studio_placeholder_html()` | defer | Display-only status strip, but embedded inside the composer shell slot. Keep server-owned with the composer container for now. |
 | Shell boundary strip | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Preserve provider/cloud/download/model/report-export coverage marker and copy. |
-| Header hero copy | `render_studio_placeholder_html()` | safe to extract now | Display-only local preview header. Keep dynamic `boost_message` and technical explanation escaped by server. Low priority because it has fewer markers. |
+| Header hero copy | `render_studio_placeholder_html()` | defer | Display-only local preview header, but low-risk to leave server-owned until final document/header composition is addressed. Dynamic escaping remains server-owned. |
 | Launch/local-only status cards | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only status/boundary cards. |
 | First-run order card | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only list from server-prepared `section_order_items`. |
 | Your Computer section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. System-profile data preparation and escaping remain server-owned. |
@@ -164,6 +164,8 @@ Local harness request/run/event/comparison/report metadata assembly remains in `
 
 Defer these areas until a later explicit goal:
 
+- extracting the composer container and shell selected-run strip
+- extracting the header hero copy
 - external static asset serving
 - CSS or JavaScript file routing
 - frontend framework migration
@@ -188,6 +190,8 @@ Any v1.5 helper added in Task 507, Task 508, or Task 509 should be added to:
 - `RENDER_HELPER_MODULES`
 - `EXPECTED_RENDER_HELPER_NAMES`
 - helper-owned marker/copy tests where a stable marker exists
+
+Task 510 adds a separate [server responsibility audit](kora-studio-v1-5-server-responsibility-audit.md) and hardens helper contract tests so helpers do not own endpoint routing, request parsing, response writing, raw payload assembly, local harness run dispatch, generated event/SSE retrieval, JSON serialization/deserialization, HTML escaping, or final document assembly.
 
 ## Claim Boundaries
 
