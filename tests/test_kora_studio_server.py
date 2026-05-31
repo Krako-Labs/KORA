@@ -722,6 +722,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "data-kora-final-ui-shell=\"true\"" in html
     assert 'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"' in html
     assert 'data-kora-v1-shell-local-only-status="visible"' in html
+    assert 'data-kora-v1-1-shell-only-hardening="active"' in html
+    assert 'data-kora-v1-1-shell-only-coverage="boundaries,drawer-diagnostics,selected-run,legacy-secondary"' in html
     assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
     assert 'data-kora-mobile-visual-qa="v0.9"' in html
     assert 'data-kora-mobile-breakpoint="max-width-760"' in html

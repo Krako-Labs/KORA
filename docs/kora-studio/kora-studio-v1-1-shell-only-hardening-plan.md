@@ -203,6 +203,8 @@ Status: implemented. The shell selected-run strip and right drawer now carry v1.
 
 Expand smoke checks for v1.1 shell-only hardening markers and legacy-secondary guarantees.
 
+Status: implemented. The preview now includes v1.1 shell-only hardening markers and the local smoke check reports a dedicated `/ v1.1 shell-only ok` result.
+
 ### Task 485: v1.1 readiness report
 
 Run validation and live local smoke check, then add a public-safe readiness report.

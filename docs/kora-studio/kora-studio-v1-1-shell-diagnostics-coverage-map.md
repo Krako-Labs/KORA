@@ -27,6 +27,8 @@ Current smoke-checkable shell/drawer markers include:
 
 - `data-kora-v1-preview-readiness="shell-first-boundary-consolidation"`
 - `data-kora-v1-shell-local-only-status="visible"`
+- `data-kora-v1-1-shell-only-hardening="active"`
+- `data-kora-v1-1-shell-only-coverage="boundaries,drawer-diagnostics,selected-run,legacy-secondary"`
 - `data-kora-shell-local-only-boundary="v1.0"`
 - `data-kora-shell-boundary-coverage="provider,cloud,download,model-execution,report-export"`
 - `data-kora-shell-selected-run-surface="v1.0"`
@@ -137,6 +139,8 @@ Task 484 should expand smoke checks for:
 - no arbitrary prompt input
 - no enabled model run/download action
 - no provider/cloud/report export behavior
+
+Status: implemented. The preview now has v1.1 shell-only hardening markers and the smoke check reports `/ v1.1 shell-only ok` after verifying shell boundary coverage, drawer diagnostics coverage, selected-run shell/drawer coverage, and legacy secondary state.
 
 ## Claim Boundaries
 

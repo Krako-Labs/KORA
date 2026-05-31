@@ -162,6 +162,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-final-ui-shell="true"
             data-kora-v1-preview-readiness="shell-first-boundary-consolidation"
             data-kora-v1-shell-local-only-status="visible"
+            data-kora-v1-1-shell-only-hardening="active"
+            data-kora-v1-1-shell-only-coverage="boundaries,drawer-diagnostics,selected-run,legacy-secondary"
             <details class="legacy-preview"
             data-kora-responsive-shell="mobile-overlay-ready"
             data-kora-mobile-visual-qa="v0.9"
@@ -425,6 +427,7 @@ def test_check_preview_uses_local_endpoints_only() -> None:
         "/api/harness/events ok",
         "/api/harness/sse ok",
         "/ v1.0 shell-first ok",
+        "/ v1.1 shell-only ok",
         "/ ok",
     ]
 

@@ -286,10 +286,28 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     _require("<details class=\"legacy-preview\" open" not in root_body, "/ legacy preview is open by default")
     results.append("/ v1.0 shell-first ok")
 
+    required_v1_1_shell_only_markers = [
+        'data-kora-v1-1-shell-only-hardening="active"',
+        'data-kora-v1-1-shell-only-coverage="boundaries,drawer-diagnostics,selected-run,legacy-secondary"',
+        'data-kora-v1-1-selected-run-polish="shell-drawer-status"',
+        'data-kora-v1-1-drawer-selected-run-polish="primary-diagnostics"',
+        'data-kora-v1-1-legacy-secondary="developer-reference-only"',
+        'data-kora-v1-1-legacy-first-run-required="false"',
+        'data-kora-v1-1-legacy-boundary="secondary-reference-only"',
+        "Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection",
+        "Drawer selected-run diagnostics mirror shell state for normal inspection",
+        "This compatibility scaffold remains local-only and secondary",
+    ]
+    missing_v1_1_markers = [marker for marker in required_v1_1_shell_only_markers if marker not in root_body]
+    _require(not missing_v1_1_markers, f"/ missing v1.1 shell-only markers: {', '.join(missing_v1_1_markers)}")
+    results.append("/ v1.1 shell-only ok")
+
     required_html_markers = [
         'data-kora-final-ui-shell="true"',
         'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"',
         'data-kora-v1-shell-local-only-status="visible"',
+        'data-kora-v1-1-shell-only-hardening="active"',
+        'data-kora-v1-1-shell-only-coverage="boundaries,drawer-diagnostics,selected-run,legacy-secondary"',
         'data-kora-responsive-shell="mobile-overlay-ready"',
         'data-kora-mobile-visual-qa="v0.9"',
         'data-kora-mobile-breakpoint="max-width-760"',
