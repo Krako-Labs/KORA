@@ -772,6 +772,40 @@ Acceptance criteria:
 - composer remains approved-harness-only
 - validation and smoke checks pass
 
+## Phase 13 — v1.0 Preview Readiness
+
+Status: planned. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md).
+
+Goal: Reduce legacy detailed preview dependence and make the final minimal shell the primary local preview experience while preserving local-only claim boundaries.
+
+Scope:
+
+- local preview HTML/CSS/vanilla JavaScript only
+- shell-first information architecture
+- local-only status and boundary consolidation in shell surfaces
+- selected-run timeline, counters, comparison, and report metadata available through shell/drawer surfaces
+- right drawer as the primary place for detailed runtime, route, counter, report, and claim details
+- legacy preview collapsed, relabelled, or clearly secondary once required shell coverage exists
+- no new frontend dependency unless explicitly approved
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- final shell is the primary local preview surface
+- first-run local-only status is understandable without relying on the legacy preview
+- selected-run details remain available in shell/drawer surfaces
+- legacy detailed preview is reduced or clearly marked as compatibility scaffolding
+- composer remains approved-harness-only
+- model selector remains catalog-estimate-only
+- validation and live local smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
