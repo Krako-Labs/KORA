@@ -1091,6 +1091,49 @@ Acceptance criteria:
 - claim boundaries remain unchanged
 - validation passes
 
+## Phase 22 — v1.8 CSS-only Static Asset Route
+
+Status: complete as a narrow local static asset implementation. See [KORA Studio v1.8 readiness report](kora-studio-v1-8-readiness-report.md) and [KORA Studio v1.8 goal report](kora-studio-v1-8-goal-report.md). Goal 517G implements the approved CSS-only route `/studio-assets/studio.css` using the existing `render_studio_css()` output as the source, updates the root preview to reference that local stylesheet, and keeps JavaScript inline through `render_studio_javascript()`.
+
+Goal: Implement the single allowlisted CSS asset route while preserving endpoint behavior, local-only boundaries, smoke markers, and claim safety.
+
+Scope:
+
+- `/studio-assets/studio.css` route implementation
+- CSS source remains `render_studio_css()`
+- `Content-Type: text/css; charset=utf-8`
+- `Cache-Control: no-store`
+- exact CSS allowlist only
+- unknown asset rejection
+- directory request rejection
+- traversal and encoded traversal rejection
+- root preview references only the local CSS asset
+- JavaScript remains inline
+- no JavaScript static serving
+- no wildcard static route
+- no directory listing
+- no arbitrary filesystem serving
+- no external assets or CDN
+- no frontend framework or dependency addition
+- no product behavior change
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- approved CSS asset route returns CSS with expected MIME/cache headers
+- unsafe/unknown asset paths fail without exposing local filesystem details
+- root preview references `/studio-assets/studio.css`
+- root preview keeps inline JavaScript
+- endpoint and smoke marker coverage remains stable
+- full validation and live smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

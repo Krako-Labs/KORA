@@ -2,11 +2,11 @@
 
 ## Status and Goal
 
-This is a design and test plan for a future CSS-only local static asset route. It does not implement asset serving.
+This started as a design and test plan for a future CSS-only local static asset route. Goal 517G implements the planned CSS-only route after this plan defined the allowlist and rejection boundary.
 
 The goal is to define the allowlist, rejection rules, MIME/header behavior, security boundary, and test coverage required before KORA Studio can safely serve a first-party local CSS asset from the localhost-only Studio preview server.
 
-This document prepares the next implementation goal. It does not add a route, move CSS or JavaScript out of inline helper output, add dependencies, add frontend framework tooling, add external assets or CDNs, change endpoint behavior, change UI behavior, or change model/provider/download/cloud/report boundaries.
+This document remains the reference boundary for the CSS-only static route. It does not approve JavaScript static serving, dependencies, frontend framework tooling, external assets or CDNs, product behavior changes, or model/provider/download/cloud/report boundary changes.
 
 ## Proposed First Asset
 

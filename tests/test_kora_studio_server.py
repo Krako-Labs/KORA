@@ -29,6 +29,7 @@ from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
     create_studio_request_handler,
+    get_studio_css_asset_path_status,
     get_studio_url,
     get_studio_health_payload,
     get_studio_server_status,
@@ -262,7 +263,8 @@ def test_server_retains_endpoint_status_escaping_and_document_assembly() -> None
     assert "html.escape" in placeholder_source
     assert "json.dumps(local_harness_requests" in placeholder_source
     assert "<!doctype html>" in placeholder_source
-    assert "render_studio_css" in placeholder_source
+    assert "STUDIO_CSS_ASSET_PATH" in placeholder_source
+    assert "render_studio_css" in handler_source
     assert "render_studio_javascript" in placeholder_source
     assert 'id=\\"kora-approved-requests-data\\"' in placeholder_source
     assert "def do_GET" in handler_source
@@ -804,6 +806,20 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "indexedDB" not in javascript
 
 
+def test_css_static_asset_path_allowlist_rejects_unsafe_paths() -> None:
+    assert get_studio_css_asset_path_status("/studio-assets/studio.css") == ("studio.css", 200)
+    assert get_studio_css_asset_path_status("/studio-assets") == (None, 404)
+    assert get_studio_css_asset_path_status("/studio-assets/") == (None, 404)
+    assert get_studio_css_asset_path_status("/studio-assets/studio.js") == (None, 404)
+    assert get_studio_css_asset_path_status("/studio-assets/unknown.css") == (None, 404)
+    assert get_studio_css_asset_path_status("/studio-assets/../studio.css") == (None, 400)
+    assert get_studio_css_asset_path_status("/studio-assets/%2e%2e/studio.css") == (None, 400)
+    assert get_studio_css_asset_path_status("/studio-assets/%252e%252e/studio.css") == (None, 400)
+    assert get_studio_css_asset_path_status("/studio-assets/..%2fsecret") == (None, 400)
+    assert get_studio_css_asset_path_status("/studio-assets/..\\secret") == (None, 400)
+    assert get_studio_css_asset_path_status("/studio-assets//etc/passwd") == (None, 400)
+
+
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
@@ -1233,8 +1249,13 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
             health = json.loads(response.read().decode("utf-8"))
         with urllib.request.urlopen(f"{base_url}/status", timeout=2) as response:
             status = json.loads(response.read().decode("utf-8"))
+        with urllib.request.urlopen(f"{base_url}/studio-assets/studio.css", timeout=2) as response:
+            css_content_type = response.headers.get("Content-Type", "")
+            css_cache_control = response.headers.get("Cache-Control", "")
+            css = response.read().decode("utf-8")
         with urllib.request.urlopen(f"{base_url}/", timeout=2) as response:
             html = response.read().decode("utf-8")
+            content_type = response.headers.get("Content-Type", "")
     finally:
         server.shutdown()
         thread.join(timeout=2)
@@ -1252,10 +1273,19 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     assert "runtime_status" in status
     assert status["installed_models_summary"]["installed_models_detected"] is False
     assert status["ollama_calls_enabled"] is False
-    content_type = response.headers.get("Content-Type", "")
+    assert "text/css" in css_content_type
+    assert "charset=utf-8" in css_content_type
+    assert css_cache_control == "no-store"
+    assert ".studio-shell" in css
+    assert ".details-drawer-shell" in css
+    assert "<script" not in css.lower()
+    assert "http://" not in css
+    assert "https://" not in css
 
     assert "text/html" in content_type
     assert "KORA Studio" in html
+    assert '<link rel="stylesheet" href="/studio-assets/studio.css">' in html
+    assert "<style>" not in html.lower()
     assert APPROVED_BOOST_MESSAGE in html
     assert "Preview / Local-only" in html
     assert "Local Preview Scaffold" in html
@@ -1487,6 +1517,7 @@ def test_request_handler_rejects_invalid_local_harness_run_request() -> None:
 
 def test_static_preview_html_content_is_safe_and_complete() -> None:
     html = render_studio_placeholder_html(get_studio_server_status())
+    css = render_studio_css()
 
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
@@ -1602,7 +1633,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'aria-hidden="true"' in html
     assert 'id="kora-details-drawer-close"' in html
     assert 'data-kora-drawer-close="true"' in html
-    assert 'data-kora-drawer-open="true"' in html
+    assert 'data-kora-drawer-open="true"' in css
     assert "setDetailsDrawerOpen" in html
     assert 'event.key === "Escape"' in html
     assert "KORA Studio right details drawer scaffold" in html
@@ -1971,6 +2002,53 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     positions = [html.index(f"<h2>{section}</h2>") for section in ordered_sections]
     assert positions == sorted(positions)
 
+
+def test_request_handler_rejects_unsafe_static_asset_paths() -> None:
+    handler = create_studio_request_handler(lambda: get_studio_server_status(port=0))
+    try:
+        server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    except PermissionError:
+        pytest.skip("localhost binding is not available in this sandbox")
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    base_url = f"http://127.0.0.1:{server.server_port}"
+    try:
+        with pytest.raises(urllib.error.HTTPError) as unknown_exc:
+            urllib.request.urlopen(f"{base_url}/studio-assets/unknown.css", timeout=2)
+        unknown_body = unknown_exc.value.read().decode("utf-8")
+
+        with pytest.raises(urllib.error.HTTPError) as directory_exc:
+            urllib.request.urlopen(f"{base_url}/studio-assets/", timeout=2)
+        directory_body = directory_exc.value.read().decode("utf-8")
+
+        unsafe_paths = [
+            "/studio-assets/../studio.css",
+            "/studio-assets/%2e%2e/studio.css",
+            "/studio-assets/..%5csecret",
+            "/studio-assets//etc/passwd",
+        ]
+        unsafe_errors: list[tuple[int, str]] = []
+        for path in unsafe_paths:
+            with pytest.raises(urllib.error.HTTPError) as exc_info:
+                urllib.request.urlopen(f"{base_url}{path}", timeout=2)
+            unsafe_errors.append((exc_info.value.code, exc_info.value.read().decode("utf-8")))
+    finally:
+        server.shutdown()
+        thread.join(timeout=2)
+        server.server_close()
+
+    assert unknown_exc.value.code == 404
+    assert directory_exc.value.code == 404
+    assert "asset_not_found" in unknown_body
+    assert "asset_not_found" in directory_body
+    assert "passwd" not in unknown_body
+    assert "passwd" not in directory_body
+    for code, body in unsafe_errors:
+        assert code in {400, 404}
+        assert "asset_not_found" in body
+        assert "/Users/" not in body
+        assert "02_PROJECTS" not in body
+        assert "passwd" not in body
 
 def test_runtime_setup_guidance_doc_is_claim_safe() -> None:
     doc = Path("docs/kora-studio/kora-studio-runtime-setup-guidance.md").read_text()

@@ -21,9 +21,12 @@ class FakeHeaders(dict[str, str]):
 
 
 class FakeResponse:
-    def __init__(self, *, status: int, content_type: str, body: str) -> None:
+    def __init__(self, *, status: int, content_type: str, body: str, headers: dict[str, str] | None = None) -> None:
         self.status = status
-        self.headers = FakeHeaders({"Content-Type": content_type})
+        response_headers = {"Content-Type": content_type}
+        if headers:
+            response_headers.update(headers)
+        self.headers = FakeHeaders(response_headers)
         self._body = body.encode("utf-8")
 
     def __enter__(self) -> FakeResponse:
@@ -154,11 +157,22 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
                 'data: {"run_id":"local-harness-trigger-test","model_token_streaming_connected":false}\n\n'
             ),
         )
+    if url.endswith("/studio-assets/studio.css"):
+        return FakeResponse(
+            status=200,
+            content_type="text/css; charset=utf-8",
+            headers={"Cache-Control": "no-store"},
+            body="""
+            .studio-shell { display: grid; }
+            .details-drawer-shell { display: block; }
+            """,
+        )
     if url.endswith("/"):
         return FakeResponse(
             status=200,
             content_type="text/html; charset=utf-8",
             body="""
+            <link rel="stylesheet" href="/studio-assets/studio.css">
             data-kora-component="shell-layout"
             data-kora-component="left-rail"
             data-kora-component="boundary-strip"
@@ -442,6 +456,7 @@ def test_check_preview_uses_local_endpoints_only() -> None:
         "/api/harness/run/<run_id> ok",
         "/api/harness/events ok",
         "/api/harness/sse ok",
+        "/studio-assets/studio.css ok",
         "/ v1.0 shell-first ok",
         "/ v1.1 shell-only ok",
         "/ v1.2 component markers ok",

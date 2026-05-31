@@ -249,6 +249,20 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     _require("provider output" not in sse_body.lower(), "/api/harness/sse appears to stream provider output")
     results.append("/api/harness/sse ok")
 
+    css_status, css_content_type, css_body = _read_url(
+        base_url,
+        "/studio-assets/studio.css",
+        timeout=timeout,
+        opener=opener,
+    )
+    _require(css_status == 200, f"/studio-assets/studio.css returned HTTP {css_status}")
+    _require("text/css" in css_content_type, "/studio-assets/studio.css did not return CSS")
+    _require(".studio-shell" in css_body, "/studio-assets/studio.css missing shell CSS")
+    _require(".details-drawer-shell" in css_body, "/studio-assets/studio.css missing drawer CSS")
+    _require("<script" not in css_body.lower(), "/studio-assets/studio.css contains script markup")
+    _require("http://" not in css_body and "https://" not in css_body, "/studio-assets/studio.css references external assets")
+    results.append("/studio-assets/studio.css ok")
+
     root_status, root_content_type, root_body = _read_url(base_url, "/", timeout=timeout, opener=opener)
     _require(root_status == 200, f"/ returned HTTP {root_status}")
     _require("text/html" in root_content_type, "/ did not return HTML")
@@ -534,6 +548,7 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "kora-sse-error",
         "Fallback to local events endpoint available",
         "No provider streaming",
+        '<link rel="stylesheet" href="/studio-assets/studio.css">',
         "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)",
         "Selected Run Event Timeline",
         "kora-selected-run-events",

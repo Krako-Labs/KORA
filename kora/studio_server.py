@@ -7,7 +7,7 @@ import json
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Callable
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_execution_fixture import get_execution_viewer_fixture_summary, get_standard_vs_kora_status_fields
@@ -68,6 +68,7 @@ from kora.studio_system_profile import estimate_model_capability, get_system_pro
 DEFAULT_STUDIO_HOST = "127.0.0.1"
 DEFAULT_STUDIO_PORT = 8765
 ALLOWED_STUDIO_HOSTS = {"127.0.0.1", "localhost"}
+STUDIO_CSS_ASSET_PATH = "/studio-assets/studio.css"
 SETUP_GUIDANCE_CLAIM_BOUNDARY = (
     "Setup guidance is informational in this scaffold. Disabled actions point to guidance, not to an active "
     "installer. No model is downloaded, no model is executed, no provider call is made, and cloud routes remain "
@@ -76,6 +77,30 @@ SETUP_GUIDANCE_CLAIM_BOUNDARY = (
 
 StatusProvider = Callable[[], dict[str, Any]]
 BrowserOpener = Callable[[str], bool]
+
+
+def get_studio_css_asset_path_status(path: str) -> tuple[str | None, int]:
+    """Return the allowed CSS asset key and status code for a Studio asset path."""
+
+    decoded_path = unquote(path)
+    decoded_twice_path = unquote(decoded_path)
+    if (
+        ".." in decoded_path
+        or ".." in decoded_twice_path
+        or "\\" in decoded_path
+        or "\\" in decoded_twice_path
+        or path.startswith("/studio-assets//")
+        or decoded_path.startswith("/studio-assets//")
+        or decoded_twice_path.startswith("/studio-assets//")
+    ):
+        return None, 400
+    if decoded_path in {"/studio-assets", "/studio-assets/"}:
+        return None, 404
+    if decoded_path == STUDIO_CSS_ASSET_PATH:
+        return "studio.css", 200
+    if decoded_path.startswith("/studio-assets/"):
+        return None, 404
+    return None, 404
 
 
 def is_allowed_studio_host(host: str) -> bool:
@@ -904,8 +929,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
   <title>KORA Studio</title>
   <link rel=\"icon\" href=\"data:,\">
-  <style>{render_studio_css().rstrip("\n")}
-  </style>
+  <link rel=\"stylesheet\" href=\"{STUDIO_CSS_ASSET_PATH}\">
 </head>
 <body>
 {shell_layout_html}
@@ -982,6 +1006,15 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             self.end_headers()
             self.wfile.write(body)
 
+        def _write_css(self, css: str, status_code: int = 200) -> None:
+            body = css.encode("utf-8")
+            self.send_response(status_code)
+            self.send_header("Content-Type", "text/css; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
         def _write_sse(self, stream: str, status_code: int = 200) -> None:
             body = stream.encode("utf-8")
             self.send_response(status_code)
@@ -1010,6 +1043,13 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             parsed_path = urlparse(self.path)
             path = parsed_path.path
             status = provider()
+            if path.startswith("/studio-assets"):
+                asset_key, asset_status = get_studio_css_asset_path_status(path)
+                if asset_key == "studio.css":
+                    self._write_css(render_studio_css())
+                    return
+                self._write_json({"ok": False, "error": "asset_not_found"}, status_code=asset_status)
+                return
             if path == "/health":
                 self._write_json(get_studio_health_payload())
                 return
