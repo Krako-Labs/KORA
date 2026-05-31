@@ -806,6 +806,39 @@ Acceptance criteria:
 - model selector remains catalog-estimate-only
 - validation and live local smoke checks pass
 
+## Phase 14 — v1.1 Shell-only Preview Hardening
+
+Status: planned. See [KORA Studio v1.1 shell-only hardening plan](kora-studio-v1-1-shell-only-hardening-plan.md). v1.1 should harden the shell and right drawer so normal local preview inspection no longer depends on the collapsed legacy detailed preview.
+
+Goal: Reduce remaining legacy detailed preview dependence and make shell/drawer surfaces sufficient for local preview inspection while preserving local-only claim boundaries.
+
+Scope:
+
+- local preview HTML/CSS/vanilla JavaScript only
+- shell/drawer diagnostics coverage
+- shell-visible selected-run state
+- shell-visible local-only boundaries
+- legacy preview retained only as collapsed compatibility/developer scaffold
+- shell-only smoke markers
+- no new frontend dependency unless explicitly approved
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- shell/drawer surfaces cover core local preview information without requiring the legacy preview
+- legacy preview remains collapsed and clearly secondary
+- selected-run details remain visible through shell/drawer surfaces
+- composer remains approved-harness-only
+- model selector remains catalog-estimate-only
+- validation and live local smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
