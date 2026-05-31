@@ -746,7 +746,7 @@ These are future issue candidates. Do not create the issues from this document w
 
 ## Phase 12 — v0.9 Local Usability Polish
 
-Status: in progress in [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md). The right details drawer and mobile left rail now have local open/close controls, ARIA state, close buttons, and Escape close behavior. The compact model selector now marks the active estimate as catalog-only selected state without implying installation, download, or execution. The shell also includes broader keyboard/focus markers, focus-visible styling, and smoke-checkable accessibility state.
+Status: in progress in [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md). The right details drawer and mobile left rail now have local open/close controls, ARIA state, close buttons, and Escape close behavior. The compact model selector now marks the active estimate as catalog-only selected state without implying installation, download, or execution. The shell also includes broader keyboard/focus markers, focus-visible styling, smoke-checkable accessibility state, and a [v0.9 mobile visual QA checklist](kora-studio-v0-9-mobile-visual-qa-checklist.md).
 
 Goal: Polish the v0.8 local preview shell with keyboard/focus accessibility, explicit drawer and rail interactions, clearer model selector selected state, stronger mobile QA, and less reliance on the legacy detailed preview.
 

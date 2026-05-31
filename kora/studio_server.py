@@ -1430,7 +1430,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
     <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
       <div class=\"rail-header\">
         <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>

@@ -721,6 +721,10 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "KORA Studio" in html
     assert "data-kora-final-ui-shell=\"true\"" in html
     assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
+    assert 'data-kora-mobile-visual-qa="v0.9"' in html
+    assert 'data-kora-mobile-breakpoint="max-width-760"' in html
+    assert 'data-kora-mobile-qa-surfaces="left-rail,model-selector,composer,right-drawer,boundary-pills"' in html
+    assert 'data-kora-mobile-no-overlap-contract="true"' in html
     assert 'data-kora-keyboard-focus-pass="true"' in html
     assert 'data-kora-focus-visible-controls="shell-and-harness"' in html
     assert "KORA Studio left mini rail" in html

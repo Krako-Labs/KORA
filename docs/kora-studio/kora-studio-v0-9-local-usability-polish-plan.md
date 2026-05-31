@@ -185,6 +185,8 @@ Status: implemented. Shell and harness controls now expose a v0.9 keyboard/focus
 
 Add or update mobile QA checklist and smoke check markers for v0.9 shell interactions.
 
+Status: implemented. Added the v0.9 mobile visual QA checklist and smoke-check markers for the mobile shell breakpoint, left rail overlay, compact model selector, centered composer, right drawer overlay, boundary pills, and no-overlap contract. This remains local preview QA only and does not add model execution, provider calls, downloads, cloud sync, or report export behavior.
+
 ### Task 470: v0.9 readiness report
 
 Run validation, live local smoke check, and add v0.9 readiness report.

@@ -255,6 +255,10 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     required_html_markers = [
         'data-kora-final-ui-shell="true"',
         'data-kora-responsive-shell="mobile-overlay-ready"',
+        'data-kora-mobile-visual-qa="v0.9"',
+        'data-kora-mobile-breakpoint="max-width-760"',
+        'data-kora-mobile-qa-surfaces="left-rail,model-selector,composer,right-drawer,boundary-pills"',
+        'data-kora-mobile-no-overlap-contract="true"',
         'data-kora-keyboard-focus-pass="true"',
         'data-kora-focus-visible-controls="shell-and-harness"',
         "KORA Studio left mini rail",

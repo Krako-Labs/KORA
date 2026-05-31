@@ -161,6 +161,10 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             body="""
             data-kora-final-ui-shell="true"
             data-kora-responsive-shell="mobile-overlay-ready"
+            data-kora-mobile-visual-qa="v0.9"
+            data-kora-mobile-breakpoint="max-width-760"
+            data-kora-mobile-qa-surfaces="left-rail,model-selector,composer,right-drawer,boundary-pills"
+            data-kora-mobile-no-overlap-contract="true"
             data-kora-keyboard-focus-pass="true"
             data-kora-focus-visible-controls="shell-and-harness"
             KORA Studio left mini rail
