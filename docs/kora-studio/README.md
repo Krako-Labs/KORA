@@ -208,6 +208,7 @@ The v0.8 preview shell now scaffolds the final UI/UX board structure above the d
 - [KORA Studio v0.8 goal report](kora-studio-v0-8-goal-report.md)
 - [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md)
 - [KORA Studio v0.9 mobile visual QA checklist](kora-studio-v0-9-mobile-visual-qa-checklist.md)
+- [KORA Studio v0.9 readiness report](kora-studio-v0-9-readiness-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

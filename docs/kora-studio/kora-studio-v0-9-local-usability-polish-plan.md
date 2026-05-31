@@ -191,6 +191,8 @@ Status: implemented. Added the v0.9 mobile visual QA checklist and smoke-check m
 
 Run validation, live local smoke check, and add v0.9 readiness report.
 
+Status: implemented. See [KORA Studio v0.9 readiness report](kora-studio-v0-9-readiness-report.md).
+
 ### Task 471: consolidated v0.9 goal report
 
 Create a consolidated v0.9 goal report covering Tasks 464-471, commits, validations, claim boundaries, known limitations, and next recommended goal.
