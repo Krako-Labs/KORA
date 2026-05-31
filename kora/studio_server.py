@@ -42,6 +42,11 @@ from kora.studio_selected_run_render import (
     render_selected_run_summary_panel,
 )
 from kora.studio_shell_render import render_shell_layout
+from kora.studio_status_boundary_render import (
+    render_kora_boost_boundary_section,
+    render_launch_local_status_section,
+    render_shell_boundary_strip,
+)
 from kora.studio_status import get_studio_status
 from kora.studio_system_profile import estimate_model_capability, get_system_profile
 
@@ -715,6 +720,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     selected_run_state_html = render_selected_run_state_panel()
     selected_run_detail_panels_html = render_selected_run_detail_panels()
     run_state_history_html = render_run_state_history_panels(selector_preview_id=selector_preview_id)
+    shell_boundary_strip_html = render_shell_boundary_strip()
+    launch_local_status_html = render_launch_local_status_section(section_order_items=section_order_items)
+    kora_boost_boundary_html = render_kora_boost_boundary_section()
 
     composer_html = f"""      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
         <div class=\"composer-panel\">
@@ -736,17 +744,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             </div>
             <p>Shell selected-run surface mirrors generated local harness output only. Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection. No model execution, provider calls, downloads, cloud sync, or report export is connected.</p>
           </div>
-          <div class=\"shell-boundary-strip\" data-kora-component=\"boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
-            <div class=\"shell-boundary-pills\">
-              <span class=\"shell-pill cyan\">Local preview only</span>
-              <span class=\"shell-pill\">Provider calls disabled</span>
-              <span class=\"shell-pill\">Cloud sync disabled</span>
-              <span class=\"shell-pill\">Downloads disabled</span>
-              <span class=\"shell-pill amber\">Model execution not connected yet</span>
-              <span class=\"shell-pill\">Report export disabled</span>
-            </div>
-            <p>Shell-first boundary: approved local harness requests only. No arbitrary prompt execution, no provider calls, no cloud sync, no downloads, no model execution, and no report file export or writing.</p>
-          </div>
+{shell_boundary_strip_html}
         </div>
       </section>"""
     details_drawer_html = render_right_details_drawer(
@@ -807,18 +805,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       <p class=\"technical\">Standard Mode sends every step to the model. KORA Boost routes deterministic and structured tasks to CPU/local fast paths first, so the model becomes one execution path, not the default path.</p>
     </header>
 
-    <section aria-label=\"Launch Local-only Status\" style=\"margin-top: 18px;\">
-      <h2>Launch / Local-only Status</h2>
-      <div class=\"grid\">
-        <div class=\"status-card card\"><h3>Server</h3><p class=\"status-value\">Server: local</p><p>Bound to the local Studio skeleton.</p></div>
-        <div class=\"status-card card\"><h3>Provider Calls</h3><p class=\"status-value disabled\">Provider calls: disabled</p><p>No remote provider requests are made.</p></div>
-        <div class=\"status-card card\"><h3>Cloud Sync</h3><p class=\"status-value disabled\">Cloud sync: disabled</p><p>No cloud sync is performed.</p></div>
-        <div class=\"status-card card\"><h3>Model Runtime</h3><p class=\"status-value disabled\">Model/runtime integration: not connected</p><p>Future runtime work must distinguish physically runnable local models from workflow-usable models.</p></div>
-        <div class=\"status-card card\"><h3>Browser Launch</h3><p class=\"status-value\">Browser launch: available</p><p>The CLI opens the local page by default; use <code>--no-browser</code> to suppress it.</p></div>
-        <div class=\"status-card card\"><h3>Ollama</h3><p class=\"status-value disabled\">Ollama integration: not connected</p><p>No Ollama model calls happen here.</p></div>
-      </div>
-      <div class=\"card\" style=\"margin-top: 16px;\"><h3>First-run order</h3><ol>{section_order_items}</ol></div>
-    </section>
+{launch_local_status_html}
 
     <div class=\"section-stack\">
       <section>
@@ -875,14 +862,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         </div>
       </section>
 
-      <section>
-        <h2>KORA Boost Boundary</h2>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Standard Mode</h3><p>Standard Mode sends every step to the model.</p><p>In this preview, model execution is not connected.</p></div>
-          <div class=\"card\"><h3>KORA Boost</h3><p>KORA Boost routes deterministic and structured tasks to CPU/local fast paths first.</p><p>Larger-model workflows may become more practical when deterministic work avoids the model path.</p></div>
-          <div class=\"card\"><h3>Boundary</h3><p>KORA does not remove model memory requirements.</p><p>Provider/cloud routes are disabled by default.</p></div>
-        </div>
-      </section>
+{kora_boost_boundary_html}
 
       <section>
         <h2>Local Harness Preview</h2>

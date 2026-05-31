@@ -19,6 +19,7 @@ import kora.studio_run_state_render as studio_run_state_render
 import kora.studio_script_render as studio_script_render
 import kora.studio_selected_run_render as studio_selected_run_render
 import kora.studio_shell_render as studio_shell_render
+import kora.studio_status_boundary_render as studio_status_boundary_render
 import kora.studio_style_render as studio_style_render
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_server import (
@@ -52,6 +53,11 @@ from kora.studio_run_state_render import (
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
 from kora.studio_script_render import render_studio_javascript
+from kora.studio_status_boundary_render import (
+    render_kora_boost_boundary_section,
+    render_launch_local_status_section,
+    render_shell_boundary_strip,
+)
 from kora.studio_style_render import render_studio_css
 
 APPROVED_BOOST_MESSAGE = "Less waiting. Better answers. No hardware upgrade."
@@ -79,6 +85,9 @@ RENDER_HELPER_FUNCTIONS = [
     studio_reference_render.render_limitations_panel,
     studio_reference_render.render_local_references_panel,
     studio_reference_render.render_reference_panels,
+    studio_status_boundary_render.render_shell_boundary_strip,
+    studio_status_boundary_render.render_launch_local_status_section,
+    studio_status_boundary_render.render_kora_boost_boundary_section,
     studio_style_render.render_studio_css,
     studio_script_render.render_studio_javascript,
 ]
@@ -91,6 +100,7 @@ RENDER_HELPER_MODULES = [
     studio_legacy_render,
     studio_run_state_render,
     studio_reference_render,
+    studio_status_boundary_render,
     studio_style_render,
     studio_script_render,
 ]
@@ -114,6 +124,9 @@ EXPECTED_RENDER_HELPER_NAMES = {
     "kora.studio_reference_render.render_limitations_panel",
     "kora.studio_reference_render.render_local_references_panel",
     "kora.studio_reference_render.render_reference_panels",
+    "kora.studio_status_boundary_render.render_shell_boundary_strip",
+    "kora.studio_status_boundary_render.render_launch_local_status_section",
+    "kora.studio_status_boundary_render.render_kora_boost_boundary_section",
     "kora.studio_style_render.render_studio_css",
     "kora.studio_script_render.render_studio_javascript",
 }
@@ -186,6 +199,7 @@ def test_rendered_preview_preserves_helper_owned_component_markers() -> None:
         "retry-error-state": "kora.studio_run_state_render",
         "run-history": "kora.studio_run_state_render",
         "legacy-compatibility-reference": "kora.studio_legacy_render",
+        "boundary-strip": "kora.studio_status_boundary_render",
     }
 
     for marker, owner in helper_owned_markers.items():
@@ -319,6 +333,46 @@ def test_reference_render_helper_preserves_static_local_boundaries() -> None:
     assert "<h2>Local References</h2>" in html
     assert "<code>/tmp/kora-docs</code>" in html
     assert "<code>/tmp/kora-fixtures</code>" in html
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
+
+
+def test_status_boundary_render_helpers_preserve_local_only_boundaries() -> None:
+    shell_boundary_html = render_shell_boundary_strip()
+    launch_html = render_launch_local_status_section(
+        section_order_items="<li>Launch/local-only status</li><li>Your Computer</li>",
+    )
+    boost_html = render_kora_boost_boundary_section()
+    html = f"{shell_boundary_html}\n{launch_html}\n{boost_html}"
+
+    assert 'data-kora-component="boundary-strip"' in shell_boundary_html
+    assert 'data-kora-shell-local-only-boundary="v1.0"' in shell_boundary_html
+    assert 'data-kora-shell-boundary-coverage="provider,cloud,download,model-execution,report-export"' in shell_boundary_html
+    assert "Local preview only" in shell_boundary_html
+    assert "Provider calls disabled" in shell_boundary_html
+    assert "Cloud sync disabled" in shell_boundary_html
+    assert "Downloads disabled" in shell_boundary_html
+    assert "Model execution not connected yet" in shell_boundary_html
+    assert "Report export disabled" in shell_boundary_html
+    assert "No arbitrary prompt execution" in shell_boundary_html
+    assert "no report file export or writing" in shell_boundary_html
+
+    assert 'aria-label="Launch Local-only Status"' in launch_html
+    assert "<h2>Launch / Local-only Status</h2>" in launch_html
+    assert "Server: local" in launch_html
+    assert "No remote provider requests are made" in launch_html
+    assert "No cloud sync is performed" in launch_html
+    assert "Model/runtime integration: not connected" in launch_html
+    assert "No Ollama model calls happen here" in launch_html
+    assert "Launch/local-only status" in launch_html
+
+    assert "<h2>KORA Boost Boundary</h2>" in boost_html
+    assert "Standard Mode sends every step to the model" in boost_html
+    assert "KORA Boost routes deterministic and structured tasks to CPU/local fast paths first" in boost_html
+    assert "KORA does not remove model memory requirements" in boost_html
+    assert "Provider/cloud routes are disabled by default" in boost_html
+
     assert "<script" not in html.lower()
     assert "https://" not in html
     assert "fetch(" not in html

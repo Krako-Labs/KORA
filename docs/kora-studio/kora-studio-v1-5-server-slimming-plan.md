@@ -190,7 +190,7 @@ Task 505: v1.5 server slimming plan and cross-links.
 
 Task 506: inventory remaining server-owned UI/data-display fragments. See [KORA Studio v1.5 server-owned fragment inventory](kora-studio-v1-5-server-owned-fragment-inventory.md).
 
-Task 507: extract status/boundary display fragment if safe.
+Task 507: extract status/boundary display fragment if safe. Extracted shell boundary, launch/local-only status, and KORA Boost boundary display fragments into `kora/studio_status_boundary_render.py`.
 
 Task 508: extract model/catalog/runtime display fragment if safe.
 
