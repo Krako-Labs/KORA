@@ -357,7 +357,7 @@ Expected next implementation candidate:
 ## Task Breakdown
 
 - Task 515: v1.7 static asset serving plan and cross-links.
-- Task 516: static asset allowlist/design tests planning.
+- Task 516: [static asset allowlist/design tests planning](kora-studio-v1-8-static-asset-allowlist-test-plan.md).
 - Task 517: optional CSS-only static asset route implementation if approved.
 - Task 518: smoke check for CSS static route.
 - Task 519: readiness/goal report.

@@ -1050,6 +1050,47 @@ Acceptance criteria:
 - claim boundaries remain unchanged
 - validation passes
 
+## Phase 21 — v1.8 Static Asset Allowlist Test Planning
+
+Status: complete as a docs-only design/test plan. See [KORA Studio v1.8 static asset allowlist test plan](kora-studio-v1-8-static-asset-allowlist-test-plan.md). Task 516 prepares the next implementation goal by specifying the future CSS-only asset allowlist, rejection rules, MIME/header expectations, security boundary, test plan, and migration sequence. It does not implement static asset serving, add routes, move CSS or JavaScript out of inline helpers, add dependencies, or change endpoint/UI behavior.
+
+Goal: Define tests and boundaries for a future CSS-only local static asset route.
+
+Scope:
+
+- first asset proposal for `/studio-assets/studio.css`
+- explicit allowlist definition
+- path traversal and private-file rejection rules
+- MIME and cache behavior expectations
+- local-only and no-CDN policy
+- future unit/smoke test coverage
+- conservative CSS-only migration sequence
+- no static asset route implementation
+- no CSS/JavaScript migration out of inline helpers
+- no JavaScript static serving
+- no frontend framework or dependency addition
+- no product behavior change
+- no endpoint behavior change
+- no UI behavior change
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- future CSS asset route is defined as a single allowlisted candidate
+- rejection rules cover traversal, unknown assets, directories, and private paths
+- MIME/cache expectations are documented
+- tests are specified before implementation
+- migration keeps JavaScript inline
+- claim boundaries remain unchanged
+- validation passes
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
