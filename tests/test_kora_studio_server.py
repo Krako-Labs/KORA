@@ -783,12 +783,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-run-id"' in html
     assert 'data-kora-shell-selected-run-surface="v1.0"' in html
     assert 'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
+    assert 'data-kora-v1-1-selected-run-polish="shell-drawer-status"' in html
     assert "Selected run details" in html
     assert 'id="kora-shell-selected-timeline-status"' in html
     assert 'id="kora-shell-selected-counters-status"' in html
     assert 'id="kora-shell-selected-comparison-status"' in html
     assert 'id="kora-shell-selected-report-status"' in html
     assert "Shell selected-run surface mirrors generated local harness output only" in html
+    assert "Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection" in html
     assert "Provider calls disabled" in html
     assert "Cloud sync disabled" in html
     assert "Downloads disabled" in html
@@ -820,11 +822,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-drawer-section="generated-counters"' in html
     assert 'data-kora-drawer-section="selected-run-surfaces"' in html
     assert 'data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
+    assert 'data-kora-v1-1-drawer-selected-run-polish="primary-diagnostics"' in html
     assert 'id="kora-drawer-selected-run-id"' in html
     assert 'id="kora-drawer-selected-timeline-status"' in html
     assert 'id="kora-drawer-selected-counters-status"' in html
     assert 'id="kora-drawer-selected-comparison-status"' in html
     assert 'id="kora-drawer-selected-report-status"' in html
+    assert "Drawer selected-run diagnostics mirror shell state for normal inspection" in html
     assert 'data-kora-drawer-section="report-metadata"' in html
     assert 'data-kora-drawer-section="claim-boundaries"' in html
     assert (

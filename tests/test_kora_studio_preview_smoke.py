@@ -223,12 +223,14 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-run-id
             data-kora-shell-selected-run-surface="v1.0"
             data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"
+            data-kora-v1-1-selected-run-polish="shell-drawer-status"
             Selected run details
             kora-shell-selected-timeline-status
             kora-shell-selected-counters-status
             kora-shell-selected-comparison-status
             kora-shell-selected-report-status
             Shell selected-run surface mirrors generated local harness output only
+            Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection
             Provider calls disabled
             Model execution not connected yet
             data-kora-shell-local-only-boundary="v1.0"
@@ -248,11 +250,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-drawer-section="generated-counters"
             data-kora-drawer-section="selected-run-surfaces"
             data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"
+            data-kora-v1-1-drawer-selected-run-polish="primary-diagnostics"
             kora-drawer-selected-run-id
             kora-drawer-selected-timeline-status
             kora-drawer-selected-counters-status
             kora-drawer-selected-comparison-status
             kora-drawer-selected-report-status
+            Drawer selected-run diagnostics mirror shell state for normal inspection
             data-kora-drawer-section="report-metadata"
             data-kora-drawer-section="claim-boundaries"
             data-kora-drawer-boundary-coverage="provider,cloud,download,model-execution,report-export,private-scan,runtime-list"

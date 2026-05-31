@@ -197,6 +197,8 @@ Status: implemented. The legacy preview now carries v1.1 secondary/developer-ref
 
 Polish selected-run shell/drawer status so timeline, counters, comparison, and report metadata are clear without opening the legacy preview.
 
+Status: implemented. The shell selected-run strip and right drawer now carry v1.1 selected-run polish markers and explicit copy that drawer diagnostics mirror shell state without requiring the legacy preview.
+
 ### Task 484: shell-only smoke check expansion
 
 Expand smoke checks for v1.1 shell-only hardening markers and legacy-secondary guarantees.

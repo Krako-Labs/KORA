@@ -123,6 +123,8 @@ Task 483 should polish selected-run shell/drawer state where this map marks part
 - generated local harness output boundary
 - not production telemetry/cost evidence wording
 
+Status: implemented. The shell selected-run strip and drawer selected-run diagnostics now include v1.1 polish markers and copy that identifies the drawer as a normal selected-run diagnostics surface for timeline, counters, comparison, and report metadata without requiring the legacy scaffold.
+
 ## Task 484 Inputs
 
 Task 484 should expand smoke checks for:
