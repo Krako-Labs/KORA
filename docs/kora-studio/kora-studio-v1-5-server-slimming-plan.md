@@ -192,7 +192,7 @@ Task 506: inventory remaining server-owned UI/data-display fragments. See [KORA 
 
 Task 507: extract status/boundary display fragment if safe. Extracted shell boundary, launch/local-only status, and KORA Boost boundary display fragments into `kora/studio_status_boundary_render.py`.
 
-Task 508: extract model/catalog/runtime display fragment if safe.
+Task 508: extract model/catalog/runtime display fragment if safe. Extracted model selector option rows, system profile, model capability, runtime status, catalog versus installed, setup guidance, and disabled download/run action display fragments into `kora/studio_model_runtime_render.py`.
 
 Task 509: extract harness endpoint guidance/display fragment if safe.
 

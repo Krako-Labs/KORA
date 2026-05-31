@@ -28,6 +28,7 @@ Relevant implementation files:
 - `kora/studio_run_state_render.py`
 - `kora/studio_legacy_render.py`
 - `kora/studio_status_boundary_render.py`
+- `kora/studio_model_runtime_render.py`
 - `kora/studio_style_render.py`
 - `kora/studio_script_render.py`
 
@@ -76,6 +77,13 @@ Relevant verification files:
 | Shell boundary strip | `kora/studio_status_boundary_render.py` | `render_shell_boundary_strip()` |
 | Launch/local-only status section | `kora/studio_status_boundary_render.py` | `render_launch_local_status_section()` |
 | KORA Boost Boundary section | `kora/studio_status_boundary_render.py` | `render_kora_boost_boundary_section()` |
+| Model selector option rows | `kora/studio_model_runtime_render.py` | `render_model_selector_option()` |
+| Your Computer section | `kora/studio_model_runtime_render.py` | `render_system_profile_section()` |
+| Model Capability Estimate section | `kora/studio_model_runtime_render.py` | `render_model_capability_section()` |
+| Runtime Status section | `kora/studio_model_runtime_render.py` | `render_runtime_status_section()` |
+| Catalog vs Installed section | `kora/studio_model_runtime_render.py` | `render_catalog_installed_section()` |
+| Setup Guidance section | `kora/studio_model_runtime_render.py` | `render_setup_guidance_section()` |
+| Disabled Download/Run Actions section | `kora/studio_model_runtime_render.py` | `render_disabled_actions_section()` |
 | Inline CSS template | `kora/studio_style_render.py` | `render_studio_css()` |
 | Inline vanilla JavaScript template | `kora/studio_script_render.py` | `render_studio_javascript()` |
 
@@ -83,19 +91,19 @@ Relevant verification files:
 
 | Fragment | Current location | Classification | Extraction notes |
 |---|---|---|---|
-| Model selector item rows | `render_studio_placeholder_html()` | safe to extract now | Display-only repeated row markup. Keep filtering and escaping server-owned; helper should accept pre-escaped primitive display fields or pre-rendered rows. Candidate for model/catalog/runtime helper. |
+| Model selector item rows | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Filtering and escaping remain server-owned. |
 | Composer container | `render_studio_placeholder_html()` | safe to extract now | Display-only shell slot markup with selected-run summary slot. Preserve `data-kora-component="composer"` and shell selected-run surface markers. Candidate for status/boundary helper or shell-adjacent helper. |
 | Shell selected-run strip | `render_studio_placeholder_html()` | safe to extract now | Display-only status strip. Preserve v1.0/v1.1 markers and local-only copy. Could be extracted with composer container. |
 | Shell boundary strip | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Preserve provider/cloud/download/model/report-export coverage marker and copy. |
 | Header hero copy | `render_studio_placeholder_html()` | safe to extract now | Display-only local preview header. Keep dynamic `boost_message` and technical explanation escaped by server. Low priority because it has fewer markers. |
 | Launch/local-only status cards | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only status/boundary cards. |
 | First-run order card | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only list from server-prepared `section_order_items`. |
-| Your Computer section | `render_studio_placeholder_html()` | safe to extract now | Display-only system profile cards. Candidate for Task 508 if server retains system-profile data preparation and escaping. |
-| Model Capability Estimate section | `render_studio_placeholder_html()` | safe to extract now | Display-only model capability cards. Candidate for Task 508. Preserve memory requirement claim boundary. |
-| Runtime Status section | `render_studio_placeholder_html()` | safe to extract now | Display-only runtime/service/installed-detection cards. Candidate for Task 508. Preserve localhost-only and no-model-execution copy. |
-| Catalog vs Installed section | `render_studio_placeholder_html()` | safe to extract now | Display-only catalog/runtime distinction cards. Candidate for Task 508. Server should keep recommendation filtering and escaping. |
-| Setup Guidance section | `render_studio_placeholder_html()` | safe to extract now | Display-only status/boundary cards. Can join Task 508 or Task 507 depending grouping. |
-| Disabled Download/Run Actions section | `render_studio_placeholder_html()` | safe to extract now | Display-only disabled action copy. Preserve disabled download/run wording. Candidate for Task 507 or Task 508. |
+| Your Computer section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. System-profile data preparation and escaping remain server-owned. |
+| Model Capability Estimate section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Memory requirement claim boundary preserved. |
+| Runtime Status section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Localhost-only and no-model-execution copy preserved. |
+| Catalog vs Installed section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Recommendation filtering and escaping remain server-owned. |
+| Setup Guidance section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Setup boundary copy preserved. |
+| Disabled Download/Run Actions section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Disabled download/run wording preserved. |
 | KORA Boost Boundary section | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only claim boundary cards preserve no memory-removal and provider/cloud-disabled copy. |
 | Local Harness Preview status/sample/boundary cards | `render_studio_placeholder_html()` | safe to extract now | Display-only local harness summary cards. Candidate for Task 509. Keep local harness data assembly server-owned. |
 | Available sample requests and harness event stages lists | `render_studio_placeholder_html()` | safe to extract now | Display-only lists assembled from server-prepared escaped list items. Candidate for Task 509. |
@@ -121,17 +129,17 @@ Task 507 added `kora/studio_status_boundary_render.py`. Status payload assembly,
 
 ## Recommended Task 508 Candidate
 
-Task 508 should extract model/catalog/runtime display fragments only if Task 507 passes cleanly:
+Task 508 extracted model/catalog/runtime display fragments:
 
 - Your Computer section
 - Model Capability Estimate section
 - Runtime Status section
 - Catalog vs Installed section
 - Setup Guidance section
-- Disabled Download/Run Actions section if not already extracted
-- model selector item rows if a compact helper contract is clear
+- Disabled Download/Run Actions section
+- model selector item rows
 
-Keep model recommendation filtering, runtime status selection, installed-summary interpretation, and escaping in `kora/studio_server.py`.
+Task 508 added `kora/studio_model_runtime_render.py`. Model recommendation filtering, runtime status selection, installed-summary interpretation, and escaping remain in `kora/studio_server.py`.
 
 ## Recommended Task 509 Candidate
 

@@ -14,6 +14,7 @@ from http.server import ThreadingHTTPServer
 import kora.studio_drawer_render as studio_drawer_render
 import kora.studio_harness_request_render as studio_harness_request_render
 import kora.studio_legacy_render as studio_legacy_render
+import kora.studio_model_runtime_render as studio_model_runtime_render
 import kora.studio_reference_render as studio_reference_render
 import kora.studio_run_state_render as studio_run_state_render
 import kora.studio_script_render as studio_script_render
@@ -42,6 +43,15 @@ from kora.studio_harness_request_render import (
     render_local_harness_selector_item,
     render_local_harness_trigger_item,
     render_local_harness_trigger_reference_panels,
+)
+from kora.studio_model_runtime_render import (
+    render_catalog_installed_section,
+    render_disabled_actions_section,
+    render_model_capability_section,
+    render_model_selector_option,
+    render_runtime_status_section,
+    render_setup_guidance_section,
+    render_system_profile_section,
 )
 from kora.studio_reference_render import render_reference_panels
 from kora.studio_legacy_render import render_legacy_preview_opening
@@ -78,6 +88,13 @@ RENDER_HELPER_FUNCTIONS = [
     studio_harness_request_render.render_local_harness_request_selector_panels,
     studio_harness_request_render.render_local_harness_trigger_reference_panels,
     studio_legacy_render.render_legacy_preview_opening,
+    studio_model_runtime_render.render_model_selector_option,
+    studio_model_runtime_render.render_system_profile_section,
+    studio_model_runtime_render.render_model_capability_section,
+    studio_model_runtime_render.render_runtime_status_section,
+    studio_model_runtime_render.render_catalog_installed_section,
+    studio_model_runtime_render.render_setup_guidance_section,
+    studio_model_runtime_render.render_disabled_actions_section,
     studio_run_state_render.render_retry_error_state_panels,
     studio_run_state_render.render_local_run_history_panels,
     studio_run_state_render.render_run_state_history_panels,
@@ -98,6 +115,7 @@ RENDER_HELPER_MODULES = [
     studio_selected_run_render,
     studio_harness_request_render,
     studio_legacy_render,
+    studio_model_runtime_render,
     studio_run_state_render,
     studio_reference_render,
     studio_status_boundary_render,
@@ -117,6 +135,13 @@ EXPECTED_RENDER_HELPER_NAMES = {
     "kora.studio_harness_request_render.render_local_harness_request_selector_panels",
     "kora.studio_harness_request_render.render_local_harness_trigger_reference_panels",
     "kora.studio_legacy_render.render_legacy_preview_opening",
+    "kora.studio_model_runtime_render.render_model_selector_option",
+    "kora.studio_model_runtime_render.render_system_profile_section",
+    "kora.studio_model_runtime_render.render_model_capability_section",
+    "kora.studio_model_runtime_render.render_runtime_status_section",
+    "kora.studio_model_runtime_render.render_catalog_installed_section",
+    "kora.studio_model_runtime_render.render_setup_guidance_section",
+    "kora.studio_model_runtime_render.render_disabled_actions_section",
     "kora.studio_run_state_render.render_retry_error_state_panels",
     "kora.studio_run_state_render.render_local_run_history_panels",
     "kora.studio_run_state_render.render_run_state_history_panels",
@@ -372,6 +397,93 @@ def test_status_boundary_render_helpers_preserve_local_only_boundaries() -> None
     assert "KORA Boost routes deterministic and structured tasks to CPU/local fast paths first" in boost_html
     assert "KORA does not remove model memory requirements" in boost_html
     assert "Provider/cloud routes are disabled by default" in boost_html
+
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
+
+
+def test_model_runtime_render_helpers_preserve_catalog_and_runtime_boundaries() -> None:
+    model_option = render_model_selector_option(
+        display_name="Example model",
+        model_id="example-model",
+        candidate_type="physically_runnable_local_candidate",
+        estimated_memory_gb="4",
+        installed_locally="false",
+    )
+    system_html = render_system_profile_section(
+        os_name="macOS",
+        machine="arm64",
+        memory_text="16 GB",
+        memory_status="detected",
+        ollama_status="not detected",
+        llama_cpp_status="not detected",
+    )
+    capability_html = render_model_capability_section(
+        recommended_tier="small local model",
+        physical_notes="Estimate only.",
+        workflow_notes="Workflow estimate only.",
+        claim_boundary="Recommendations are estimates until validated.",
+    )
+    runtime_html = render_runtime_status_section(
+        runtime_name="Ollama",
+        runtime_detected="not detected",
+        service_status="not_checked",
+        service_url="not configured",
+        service_boundary="Service reachability is a localhost-only check. It does not execute models.",
+        installed_enabled="disabled",
+        installed_method="not_connected",
+    )
+    catalog_html = render_catalog_installed_section(
+        catalog_status="static_local_scaffold",
+        local_candidate_name="Example model",
+        local_candidate_note="Catalog-only estimate.",
+        workflow_candidate_name="Larger workflow example",
+        workflow_candidate_note="Larger workflow estimate.",
+        installed_status="not_checked",
+        installed_count="0",
+        catalog_boundary="Catalog examples are not installed models.",
+        installed_boundary="No private model directories are scanned.",
+    )
+    setup_html = render_setup_guidance_section(
+        setup_guidance_status="informational_scaffold",
+        setup_guidance_url="docs/kora-studio/kora-studio-runtime-setup-guidance.md",
+        setup_guidance_boundary="No model is downloaded, no model is executed, no provider call is made.",
+    )
+    disabled_html = render_disabled_actions_section(
+        local_download_label="Download not connected yet",
+        local_download_reason="No download action is connected.",
+        local_run_label="Run not connected yet",
+        local_run_reason="No run action is connected.",
+        local_action_boundary="Model actions are disabled planning scaffolds.",
+    )
+    html = "\n".join([model_option, system_html, capability_html, runtime_html, catalog_html, setup_html, disabled_html])
+
+    assert 'data-kora-model-option="true"' in model_option
+    assert 'data-kora-model-option-state="catalog-estimate-only"' in model_option
+    assert "Catalog estimate option; not installed or executed by selection." in model_option
+    assert "Installed: false" in model_option
+
+    assert "<h2>Your Computer</h2>" in system_html
+    assert "No runtime APIs are called by this preview." in system_html
+    assert "<h2>Model Capability Estimate</h2>" in capability_html
+    assert "Recommendations are estimates until validated." in capability_html
+    assert "<h2>Runtime Status</h2>" in runtime_html
+    assert "Runtime executable detection is local-only." in runtime_html
+    assert "No model execution occurs during this check." in runtime_html
+    assert "Installed model detection is not connected yet." in runtime_html
+    assert "<h2>Catalog vs Installed</h2>" in catalog_html
+    assert "Catalog examples are curated examples, not installed models." in catalog_html
+    assert "No private model directories are scanned." in catalog_html
+    assert "No runtime model list command is called by default." in catalog_html
+    assert "<h2>Setup Guidance</h2>" in setup_html
+    assert "No model is downloaded." in setup_html
+    assert "No model is executed." in setup_html
+    assert "No provider call is made." in setup_html
+    assert "<h2>Disabled Download/Run Actions</h2>" in disabled_html
+    assert "Download remains disabled until explicitly connected." in disabled_html
+    assert "Run remains disabled until explicitly connected." in disabled_html
+    assert "No install, download, or model execution action is active in this preview." in disabled_html
 
     assert "<script" not in html.lower()
     assert "https://" not in html
