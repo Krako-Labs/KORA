@@ -235,9 +235,13 @@ Status: implemented. The local preview smoke check now has a dedicated v1.0 shel
 
 Run validation and live local smoke check, then add a public-safe readiness report.
 
+Status: implemented. See [KORA Studio v1.0 readiness report](kora-studio-v1-0-readiness-report.md).
+
 ### Task 479: consolidated v1.0 goal report
 
 Add a consolidated goal report covering Tasks 472-479, commits, files changed, validations, smoke check results, boundaries, known limitations, and next recommended goal.
+
+Status: implemented. See [KORA Studio v1.0 goal report](kora-studio-v1-0-goal-report.md).
 
 ## Validation Expectations
 

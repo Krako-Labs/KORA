@@ -218,6 +218,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v0.9 goal report](kora-studio-v0-9-goal-report.md)
 - [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md)
 - [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md)
+- [KORA Studio v1.0 readiness report](kora-studio-v1-0-readiness-report.md)
+- [KORA Studio v1.0 goal report](kora-studio-v1-0-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)
