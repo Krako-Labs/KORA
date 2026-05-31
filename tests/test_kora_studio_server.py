@@ -726,6 +726,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Local workspace" in html
     assert "Cloud sync disabled" in html
     assert "Search or select open-source LLM" in html
+    assert 'data-kora-model-selector="local-catalog-scaffold"' in html
+    assert 'data-kora-model-selector-menu="true"' in html
+    assert 'data-kora-model-selected-estimate="true"' in html
+    assert 'data-kora-model-option="true"' in html
+    assert "Suggested estimate: Example mini local model" in html
+    assert "Catalog suggestions are local static examples, not installed models" in html
+    assert "Selecting a model here does not install, download, or execute it" in html
+    assert "Recommended local catalog options shown:" in html
     assert "KORA Studio top bar" in html
     assert "KORA Studio centered composer" in html
     assert "What do you want to work on?" in html

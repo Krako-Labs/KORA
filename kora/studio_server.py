@@ -366,6 +366,23 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         str(local_candidate.get("recommendation_note", "Model recommendations are estimates until validated on this machine.")),
         quote=True,
     )
+    local_candidate_id = html.escape(str(local_candidate.get("model_id", "unknown")), quote=True)
+    local_candidate_type = html.escape(str(local_candidate.get("candidate_type", "unknown_needs_validation")), quote=True)
+    local_candidate_memory = html.escape(str(local_candidate.get("estimated_memory_gb", "unknown")), quote=True)
+    local_candidate_installed = "true" if local_candidate.get("installed_locally") is True else "false"
+    local_candidate_installed = html.escape(local_candidate_installed, quote=True)
+    model_selector_items = "".join(
+        "<div class=\"model-selector-option\" data-kora-model-option=\"true\">"
+        f"<strong>{html.escape(str(model.get('display_name', 'Unknown model')), quote=True)}</strong>"
+        f"<span>{html.escape(str(model.get('model_id', 'unknown')), quote=True)}</span>"
+        f"<span>{html.escape(str(model.get('candidate_type', 'needs_validation')), quote=True)}</span>"
+        f"<span>{html.escape(str(model.get('estimated_memory_gb', 'unknown')), quote=True)} GB estimate</span>"
+        f"<span>Installed: {html.escape('true' if model.get('installed_locally') is True else 'false', quote=True)}</span>"
+        "</div>"
+        for model in recommended_models
+        if isinstance(model, dict)
+    )
+    model_selector_count = html.escape(str(len([model for model in recommended_models if isinstance(model, dict)])), quote=True)
     local_download_label = html.escape(str(local_candidate.get("download_action_label", "Download not connected yet")), quote=True)
     local_run_label = html.escape(str(local_candidate.get("run_action_label", "Run not connected yet")), quote=True)
     local_download_reason = html.escape(str(local_candidate.get("download_action_reason", "")), quote=True)
@@ -958,10 +975,80 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       background: #151a22;
       color: var(--muted);
       border-radius: 999px;
-      padding: 12px 20px;
-      text-align: center;
+      padding: 0;
       font-size: 15px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      position: relative;
+    }}
+    .model-selector-shell summary {{
+      list-style: none;
+      cursor: default;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+    }}
+    .model-selector-shell summary::-webkit-details-marker {{
+      display: none;
+    }}
+    .model-selector-title {{
+      color: var(--text);
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }}
+    .model-selector-subtitle {{
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }}
+    .model-selector-chevron {{
+      color: var(--muted);
+      font-size: 16px;
+    }}
+    .model-selector-menu {{
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      z-index: 4;
+      border: 1px solid #334052;
+      background: #11161e;
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 20px 55px rgba(0,0,0,0.45);
+    }}
+    .model-selector-option {{
+      border: 1px solid #293447;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      background: #171d27;
+    }}
+    .model-selector-option:first-child {{
+      margin-top: 0;
+    }}
+    .model-selector-option span {{
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      margin-top: 3px;
+    }}
+    .model-selector-boundary {{
+      border-top: 1px solid #293447;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 10px;
+      padding-top: 10px;
     }}
     .details-shell-button {{
       justify-self: end;
@@ -1179,7 +1266,18 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     <div class=\"studio-workspace\">
       <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
         <div></div>
-        <div class=\"model-selector-shell\" aria-label=\"Top model selector\">Search or select open-source LLM</div>
+        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\">
+          <summary>
+            <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Suggested estimate: {local_candidate_name}</span></span>
+            <span class=\"model-selector-chevron\">⌄</span>
+          </summary>
+          <div class=\"model-selector-menu\" data-kora-model-selector-menu=\"true\">
+            <p class=\"model-selector-boundary\">Catalog suggestions are local static examples, not installed models. Selecting a model here does not install, download, or execute it.</p>
+            <div class=\"model-selector-option\" data-kora-model-selected-estimate=\"true\"><strong>{local_candidate_name}</strong><span>{local_candidate_id}</span><span>{local_candidate_type}</span><span>{local_candidate_memory} GB estimate</span><span>Installed: {local_candidate_installed}</span></div>
+            <p class=\"model-selector-boundary\">Recommended local catalog options shown: {model_selector_count}</p>
+            {model_selector_items}
+          </div>
+        </details>
         <button class=\"details-shell-button\" type=\"button\" aria-label=\"Open details drawer\">Details</button>
       </div>
       <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\">
@@ -1201,7 +1299,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         <h2>Details</h2>
         <p class=\"subtitle\">Inspector · local preview</p>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>No model selected by default.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>

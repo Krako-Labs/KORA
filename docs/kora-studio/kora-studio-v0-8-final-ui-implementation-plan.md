@@ -297,6 +297,8 @@ Render the model selector from existing local catalog recommendation data.
 
 Preserve catalog vs installed vs estimated runnable vs execution-connected boundaries.
 
+Status: implemented. The compact top selector is now a local catalog scaffold that shows the suggested estimate and available static catalog options without installing, downloading, executing, or claiming the examples are installed models.
+
 ### Task 460: Composer and approved harness action alignment
 
 Align the existing approved local harness trigger with the new composer surface.
