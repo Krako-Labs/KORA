@@ -215,6 +215,8 @@ Status: implemented. See [KORA Studio v1.1 readiness report](kora-studio-v1-1-re
 
 Add a consolidated goal report covering Tasks 480-486, commits, files changed, validations, smoke check results, boundaries, known limitations, and next recommended goal.
 
+Status: implemented. See [KORA Studio v1.1 goal report](kora-studio-v1-1-goal-report.md).
+
 ## Next Recommended Direction After v1.1
 
 If v1.1 validates the shell/drawer as sufficient, the next goal can focus on local frontend extraction/componentization or safely removing the remaining legacy compatibility scaffold.
