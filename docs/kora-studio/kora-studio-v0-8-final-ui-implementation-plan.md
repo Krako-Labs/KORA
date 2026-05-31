@@ -317,6 +317,8 @@ Implement mobile behavior for:
 - wrapped boundary pills
 - centered composer
 
+Status: implemented. The local preview now includes mobile-ready markers and CSS for a collapsed left rail overlay, compact top selector overlay menu, wrapped boundary pills, centered composer scaling, and right details drawer overlay behavior. This remains a local preview scaffold and does not add provider calls, model execution, downloads, cloud sync, or new frontend dependencies.
+
 ### Task 462: v0.8 smoke check and readiness report
 
 Run validation and live local smoke check. Add a v0.8 readiness report.

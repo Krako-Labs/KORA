@@ -710,12 +710,16 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       --line: #24424d;
     }}
     * {{ box-sizing: border-box; }}
+    html {{
+      overflow-x: hidden;
+    }}
     body {{
       margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
+      overflow-x: hidden;
     }}
     main {{
       width: min(1120px, calc(100% - 40px));
@@ -968,6 +972,16 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       gap: 18px;
       padding: 20px 36px;
     }}
+    .rail-shell-button {{
+      justify-self: start;
+      visibility: hidden;
+      border: 1px solid #334052;
+      background: #151a22;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+    }}
     .model-selector-shell {{
       justify-self: center;
       min-width: min(430px, 54vw);
@@ -1025,6 +1039,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       border-radius: 18px;
       padding: 12px;
       box-shadow: 0 20px 55px rgba(0,0,0,0.45);
+      max-height: min(560px, calc(100vh - 130px));
+      overflow-y: auto;
     }}
     .model-selector-option {{
       border: 1px solid #293447;
@@ -1072,7 +1088,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       text-align: center;
     }}
     .composer-panel h1 {{
-      font-size: clamp(40px, 5vw, 64px);
+      font-size: 56px;
+      line-height: 1.12;
       margin-bottom: 18px;
     }}
     .composer-panel .subtitle {{
@@ -1229,30 +1246,77 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         min-height: 100vh;
         transform: translateX(-100%);
         opacity: 0.16;
+        pointer-events: none;
       }}
       .studio-topbar {{
-        grid-template-columns: auto 1fr auto;
-        padding: 20px 18px;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 8px;
+        height: auto;
+        min-height: 68px;
+        padding: 14px 12px;
+      }}
+      .rail-shell-button {{
+        visibility: visible;
+        padding: 9px 12px;
+        font-size: 12px;
       }}
       .model-selector-shell {{
         min-width: 0;
         width: 100%;
         font-size: 13px;
-        padding: 10px 12px;
+      }}
+      .model-selector-shell summary {{
+        padding: 9px 12px;
+      }}
+      .model-selector-title {{
+        font-size: 12px;
+      }}
+      .model-selector-subtitle {{
+        font-size: 11px;
+      }}
+      .model-selector-menu {{
+        position: fixed;
+        top: 72px;
+        left: 12px;
+        right: 12px;
+        max-height: min(66vh, 460px);
       }}
       .details-shell-button {{
-        padding: 10px 14px;
+        padding: 9px 12px;
+        font-size: 12px;
       }}
       .composer-stage {{
-        min-height: 680px;
-        padding: 24px;
+        min-height: calc(100vh - 68px);
+        padding: 20px 18px;
+      }}
+      .composer-panel h1 {{
+        font-size: 36px;
+        line-height: 1.15;
       }}
       .composer-box {{
-        margin-top: 48px;
+        border-radius: 24px;
+        margin-top: 36px;
+        min-height: 84px;
+        padding: 22px 66px 22px 22px;
+      }}
+      .composer-submit {{
+        right: 18px;
+        top: 20px;
+      }}
+      .composer-run-summary {{
+        font-size: 12px;
       }}
       .details-drawer-shell {{
+        position: fixed;
+        top: 72px;
         right: 12px;
         width: min(88vw, 380px);
+        max-height: calc(100vh - 96px);
+        transform: translateX(calc(100% + 24px));
+      }}
+      .shell-pill {{
+        max-width: 100%;
+        overflow-wrap: anywhere;
       }}
       header {{ padding: 20px; }}
       .topline {{ align-items: flex-start; flex-direction: column; }}
@@ -1261,8 +1325,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\">
-    <aside class=\"studio-left-rail\" aria-label=\"KORA Studio left mini rail\">
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\">
+    <aside class=\"studio-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\">
       <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
       <div class=\"rail-list\">
         <div class=\"rail-action\"><span class=\"rail-icon\">+</span>New task</div>
@@ -1294,8 +1358,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </aside>
     <div class=\"studio-workspace\">
       <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
-        <div></div>
-        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\">
+        <button class=\"rail-shell-button\" type=\"button\" aria-label=\"Collapsed left rail scaffold\">Menu</button>
+        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\">
           <summary>
             <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Suggested estimate: {local_candidate_name}</span></span>
             <span class=\"model-selector-chevron\">⌄</span>
@@ -1332,7 +1396,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
         </div>
       </section>
-      <aside class=\"details-drawer-shell\" aria-label=\"KORA Studio right details drawer scaffold\">
+      <aside class=\"details-drawer-shell\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-mobile-drawer=\"right-overlay\">
         <h2>Details</h2>
         <p class=\"subtitle\">Inspector · local preview</p>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>

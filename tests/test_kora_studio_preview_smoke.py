@@ -160,13 +160,17 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             content_type="text/html; charset=utf-8",
             body="""
             data-kora-final-ui-shell="true"
+            data-kora-responsive-shell="mobile-overlay-ready"
             KORA Studio left mini rail
+            data-kora-mobile-rail="collapsed-overlay"
+            Collapsed left rail scaffold
             New task
             Search tasks
             Local workspace
             Cloud sync disabled
             Search or select open-source LLM
             data-kora-model-selector="local-catalog-scaffold"
+            data-kora-mobile-selector="compact-overlay-menu"
             data-kora-model-selector-menu="true"
             data-kora-model-selected-estimate="true"
             data-kora-model-option="true"
@@ -189,6 +193,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Provider calls disabled
             Model execution not connected yet
             KORA Studio right details drawer scaffold
+            data-kora-mobile-drawer="right-overlay"
             Inspector · local preview
             data-kora-drawer-section="runtime-status"
             data-kora-drawer-section="selected-model"

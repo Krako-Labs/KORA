@@ -720,13 +720,17 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
     assert "data-kora-final-ui-shell=\"true\"" in html
+    assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
     assert "KORA Studio left mini rail" in html
+    assert 'data-kora-mobile-rail="collapsed-overlay"' in html
+    assert "Collapsed left rail scaffold" in html
     assert "New task" in html
     assert "Search tasks" in html
     assert "Local workspace" in html
     assert "Cloud sync disabled" in html
     assert "Search or select open-source LLM" in html
     assert 'data-kora-model-selector="local-catalog-scaffold"' in html
+    assert 'data-kora-mobile-selector="compact-overlay-menu"' in html
     assert 'data-kora-model-selector-menu="true"' in html
     assert 'data-kora-model-selected-estimate="true"' in html
     assert 'data-kora-model-option="true"' in html
@@ -749,6 +753,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Provider calls disabled" in html
     assert "Model execution not connected yet" in html
     assert "KORA Studio right details drawer scaffold" in html
+    assert 'data-kora-mobile-drawer="right-overlay"' in html
     assert "Inspector · local preview" in html
     assert 'data-kora-drawer-section="runtime-status"' in html
     assert 'data-kora-drawer-section="selected-model"' in html
