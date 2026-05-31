@@ -902,6 +902,41 @@ Acceptance criteria:
 - validation and live smoke checks pass
 - readiness and consolidated goal reports are created
 
+## Phase 17 — v1.4 Local Preview Fragment Extraction
+
+Status: planned. See [KORA Studio v1.4 local preview fragment extraction plan](kora-studio-v1-4-local-preview-fragment-extraction-plan.md). v1.4 should continue conservative local preview fragment extraction by targeting the next safe server-owned generated local harness preview fragments while preserving helper contracts, marker coverage, local-only boundaries, inline CSS/JavaScript, and behavior.
+
+Goal: Extract the next safe group of server-owned local preview fragments without product behavior change.
+
+Scope:
+
+- generated local harness request/trigger panel candidates
+- retry/error state and browser-local run history panel candidates
+- legacy compatibility/reference helper reassessment only if safe
+- helper contract and marker coverage hardening
+- no product behavior change
+- no endpoint behavior change
+- no frontend framework migration
+- no dependency addition
+- no external static asset serving
+- no arbitrary prompt execution
+- no provider calls
+- no model execution
+- no model downloads
+- no cloud sync
+- no private model directory scanning
+- no runtime model list commands
+- no report file export or writing
+
+Acceptance criteria:
+
+- next server-owned fragments are inventoried and classified
+- any extraction is behavior-preserving and test-covered
+- all component markers and local-only boundaries remain visible
+- inline CSS/JavaScript decision remains unchanged
+- full validation and live smoke checks pass
+- readiness and consolidated goal reports are created
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
