@@ -561,6 +561,10 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     ]
     local_harness_sample_run = status.get("local_harness_sample_run", {})
     local_harness_counters = status.get("local_harness_counters", {})
+    total_requests = html.escape(str(local_harness_counters.get("total_requests", 0)), quote=True)
+    baseline_model_calls = html.escape(str(local_harness_counters.get("baseline_model_calls", 0)), quote=True)
+    kora_model_calls = html.escape(str(local_harness_counters.get("kora_model_calls", 0)), quote=True)
+    avoided_model_calls = html.escape(str(local_harness_counters.get("avoided_model_calls", 0)), quote=True)
     local_harness_status_text = html.escape(str(local_harness_status.get("status", "not_connected")), quote=True)
     local_harness_event_source = html.escape(str(local_harness_status.get("event_source_status", "not_connected")), quote=True)
     local_harness_run_trigger = html.escape(str(local_harness_status.get("run_trigger_status", "not_connected")), quote=True)
@@ -673,6 +677,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   <meta charset=\"utf-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
   <title>KORA Studio</title>
+  <link rel=\"icon\" href=\"data:,\">
   <style>
     :root {{
       color-scheme: dark;
@@ -1045,7 +1050,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       position: absolute;
       top: 88px;
       right: 24px;
-      width: 320px;
+      width: 380px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
       border: 1px solid var(--cyan);
       background: #11161e;
       border-radius: 20px;
@@ -1066,6 +1073,30 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       margin-top: 10px;
       color: var(--muted);
       font-size: 13px;
+    }}
+    .drawer-section-block {{
+      border: 1px solid #303a4a;
+      background: #1a202a;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+    .drawer-section-block h3 {{
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 14px;
+    }}
+    .drawer-section-block p {{
+      margin-top: 6px;
+    }}
+    .drawer-section-block code {{
+      font-size: 12px;
+    }}
+    .drawer-boundary {{
+      border-color: #784634;
+      background: #1a1210;
     }}
     .legacy-preview {{
       width: min(1120px, calc(100% - 40px));
@@ -1105,7 +1136,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       }}
       .details-drawer-shell {{
         right: 12px;
-        width: min(88vw, 320px);
+        width: min(88vw, 380px);
       }}
       header {{ padding: 20px; }}
       .topline {{ align-items: flex-start; flex-direction: column; }}
@@ -1169,13 +1200,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       <aside class=\"details-drawer-shell\" aria-label=\"KORA Studio right details drawer scaffold\">
         <h2>Details</h2>
         <p class=\"subtitle\">Inspector · local preview</p>
-        <div class=\"drawer-section-chip\">Runtime status</div>
-        <div class=\"drawer-section-chip\">Selected model</div>
-        <div class=\"drawer-section-chip\">Catalog vs installed</div>
-        <div class=\"drawer-section-chip\">Route trace</div>
-        <div class=\"drawer-section-chip\">Generated counters</div>
-        <div class=\"drawer-section-chip\">Report metadata</div>
-        <div class=\"drawer-section-chip\">Claim boundaries</div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>No model selected by default.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
+        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p></div>
       </aside>
     </div>
   </div>

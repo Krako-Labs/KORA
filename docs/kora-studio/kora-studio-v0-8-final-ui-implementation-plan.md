@@ -289,6 +289,8 @@ Move dense runtime, catalog, setup guidance, route, counters, comparison, report
 
 Default page should remain sparse.
 
+Status: implemented. The right details drawer now contains runtime status, selected model boundary, catalog vs installed summary, route trace, generated counters, report metadata, and claim boundary sections. Existing detailed local preview content remains below the shell for compatibility while the default workspace stays sparse.
+
 ### Task 459: Compact model selector scaffold
 
 Render the model selector from existing local catalog recommendation data.

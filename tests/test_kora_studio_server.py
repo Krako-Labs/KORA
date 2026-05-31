@@ -735,8 +735,19 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Model execution not connected yet" in html
     assert "KORA Studio right details drawer scaffold" in html
     assert "Inspector · local preview" in html
+    assert 'data-kora-drawer-section="runtime-status"' in html
+    assert 'data-kora-drawer-section="selected-model"' in html
+    assert 'data-kora-drawer-section="catalog-vs-installed"' in html
+    assert 'data-kora-drawer-section="route-trace"' in html
+    assert 'data-kora-drawer-section="generated-counters"' in html
+    assert 'data-kora-drawer-section="report-metadata"' in html
+    assert 'data-kora-drawer-section="claim-boundaries"' in html
+    assert "Selection does not install or run a model" in html
     assert "Route trace" in html
+    assert "Generated harness events only." in html
     assert "Report metadata" in html
+    assert "File export:" in html
+    assert "File written:" in html
     assert "Claim boundaries" in html
     assert "legacy-preview" in html
     assert "Local Preview Scaffold" in html

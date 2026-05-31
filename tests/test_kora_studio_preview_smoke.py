@@ -175,8 +175,19 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Model execution not connected yet
             KORA Studio right details drawer scaffold
             Inspector · local preview
+            data-kora-drawer-section="runtime-status"
+            data-kora-drawer-section="selected-model"
+            data-kora-drawer-section="catalog-vs-installed"
+            data-kora-drawer-section="route-trace"
+            data-kora-drawer-section="generated-counters"
+            data-kora-drawer-section="report-metadata"
+            data-kora-drawer-section="claim-boundaries"
+            Selection does not install or run a model
             Route trace
+            Generated harness events only.
             Report metadata
+            File export:
+            File written:
             Claim boundaries
             legacy-preview
             Launch / Local-only Status
