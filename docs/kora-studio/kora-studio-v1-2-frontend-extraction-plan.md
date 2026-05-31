@@ -152,6 +152,8 @@ Task 485 continued this path by adding selected-run render helpers for the compo
 
 Task 486 continued this path by adding embedded CSS and vanilla JavaScript template helpers. CSS and JavaScript remain inline in the rendered local preview, no external assets or static routes were added, and runtime behavior, endpoint behavior, dependencies, smoke markers, and claim boundaries remain unchanged.
 
+Task 487 validated the extracted helper split with a dedicated [v1.2 extraction smoke check](kora-studio-v1-2-extraction-smoke-check.md). Validation and live smoke checks confirmed that endpoints, component markers, smoke markers, inline CSS/JavaScript behavior, and claim boundaries remain unchanged.
+
 ## Test Strategy
 
 Validation should continue to include:
