@@ -302,6 +302,31 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     _require(not missing_v1_1_markers, f"/ missing v1.1 shell-only markers: {', '.join(missing_v1_1_markers)}")
     results.append("/ v1.1 shell-only ok")
 
+    required_component_markers = [
+        'data-kora-component="shell-layout"',
+        'data-kora-component="left-rail"',
+        'data-kora-component="boundary-strip"',
+        'data-kora-component="top-model-selector"',
+        'data-kora-component="composer"',
+        'data-kora-component="approved-request-selector"',
+        'data-kora-component="selected-run-summary"',
+        'data-kora-component="selected-run-event-timeline"',
+        'data-kora-component="selected-run-counters"',
+        'data-kora-component="selected-run-comparison"',
+        'data-kora-component="selected-run-report-metadata"',
+        'data-kora-component="right-details-drawer"',
+        'data-kora-component="run-history"',
+        'data-kora-component="retry-error-state"',
+        'data-kora-component="generated-event-stream-status"',
+        'data-kora-component="legacy-compatibility-reference"',
+    ]
+    missing_component_markers = [marker for marker in required_component_markers if marker not in root_body]
+    _require(
+        not missing_component_markers,
+        f"/ missing v1.2 component markers: {', '.join(missing_component_markers)}",
+    )
+    results.append("/ v1.2 component markers ok")
+
     required_html_markers = [
         'data-kora-final-ui-shell="true"',
         'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"',

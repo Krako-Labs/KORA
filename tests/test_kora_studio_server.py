@@ -719,6 +719,26 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
 
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
+    required_component_markers = [
+        "shell-layout",
+        "left-rail",
+        "boundary-strip",
+        "top-model-selector",
+        "composer",
+        "approved-request-selector",
+        "selected-run-summary",
+        "selected-run-event-timeline",
+        "selected-run-counters",
+        "selected-run-comparison",
+        "selected-run-report-metadata",
+        "right-details-drawer",
+        "run-history",
+        "retry-error-state",
+        "generated-event-stream-status",
+        "legacy-compatibility-reference",
+    ]
+    for component in required_component_markers:
+        assert f'data-kora-component="{component}"' in html
     assert "data-kora-final-ui-shell=\"true\"" in html
     assert 'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"' in html
     assert 'data-kora-v1-shell-local-only-status="visible"' in html

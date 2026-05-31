@@ -62,6 +62,8 @@ v1.2 planning does not authorize:
 
 Current embedded UI should be mapped into the following maintainable components or render sections.
 
+The current marker inventory is tracked in [KORA Studio v1.2 component inventory](kora-studio-v1-2-component-inventory.md).
+
 | Proposed component | Current responsibility | Boundary to preserve |
 |---|---|---|
 | Shell layout | Main app frame, responsive shell markers, primary preview surface | Local preview/demo only |

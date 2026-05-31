@@ -1522,8 +1522,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-v1-preview-readiness=\"shell-first-boundary-consolidation\" data-kora-v1-shell-local-only-status=\"visible\" data-kora-v1-1-shell-only-hardening=\"active\" data-kora-v1-1-shell-only-coverage=\"boundaries,drawer-diagnostics,selected-run,legacy-secondary\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
-    <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
+  <div class=\"studio-shell\" data-kora-component=\"shell-layout\" data-kora-final-ui-shell=\"true\" data-kora-v1-preview-readiness=\"shell-first-boundary-consolidation\" data-kora-v1-shell-local-only-status=\"visible\" data-kora-v1-1-shell-only-hardening=\"active\" data-kora-v1-1-shell-only-coverage=\"boundaries,drawer-diagnostics,selected-run,legacy-secondary\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
+    <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-component=\"left-rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
       <div class=\"rail-header\">
         <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
         <button class=\"rail-close-button\" type=\"button\" id=\"kora-left-rail-close\" aria-label=\"Close left rail\" data-kora-rail-close=\"true\">x</button>
@@ -1559,7 +1559,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     <div class=\"studio-workspace\">
       <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
         <button class=\"rail-shell-button\" type=\"button\" id=\"kora-left-rail-toggle\" aria-label=\"Open left rail\" aria-controls=\"kora-left-rail\" aria-expanded=\"false\" data-kora-rail-toggle=\"true\">Menu</button>
-        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\" data-kora-model-selection-state=\"catalog-estimate-only\">
+        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-component=\"top-model-selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\" data-kora-model-selection-state=\"catalog-estimate-only\">
           <summary aria-describedby=\"kora-model-selector-boundary\">
             <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Selected estimate: {local_candidate_name}</span><span class=\"model-selector-selected-label\" data-kora-model-selected-label=\"catalog-estimate-only\">Catalog-only estimate selected</span></span>
             <span class=\"model-selector-chevron\">⌄</span>
@@ -1573,7 +1573,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         </details>
         <button class=\"details-shell-button\" type=\"button\" id=\"kora-details-drawer-toggle\" aria-label=\"Open details drawer\" aria-controls=\"kora-details-drawer\" aria-expanded=\"false\" data-kora-drawer-toggle=\"true\">Details</button>
       </div>
-      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\">
+      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
         <div class=\"composer-panel\">
           <h1>What do you want to work on?</h1>
           <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
@@ -1582,7 +1582,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>
           </div>
           <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
-          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" aria-live=\"polite\">
+          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" data-kora-component=\"selected-run-summary\" aria-live=\"polite\">
             <strong>Composer selected-run summary</strong>
             <span>Request: <code id=\"kora-composer-request-id\">{selector_preview_id}</code></span>
             <span>Status: <code id=\"kora-composer-run-status\">not_started</code></span>
@@ -1599,7 +1599,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             </div>
             <p>Shell selected-run surface mirrors generated local harness output only. Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection. No model execution, provider calls, downloads, cloud sync, or report export is connected.</p>
           </div>
-          <div class=\"shell-boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
+          <div class=\"shell-boundary-strip\" data-kora-component=\"boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
             <div class=\"shell-boundary-pills\">
               <span class=\"shell-pill cyan\">Local preview only</span>
               <span class=\"shell-pill\">Provider calls disabled</span>
@@ -1612,7 +1612,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
         </div>
       </section>
-      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
+      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
         <div class=\"drawer-header\">
           <div>
             <h2>Details</h2>
@@ -1632,7 +1632,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </div>
   </div>
 
-  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\" data-kora-v1-1-legacy-secondary=\"developer-reference-only\" data-kora-v1-1-legacy-first-run-required=\"false\">
+  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-component=\"legacy-compatibility-reference\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\" data-kora-v1-1-legacy-secondary=\"developer-reference-only\" data-kora-v1-1-legacy-first-run-required=\"false\">
     <summary aria-label=\"Open legacy detailed preview compatibility scaffold\">
       <div class=\"legacy-preview-summary\">
         <div><strong>Legacy detailed preview compatibility scaffold</strong><span>Collapsed by default. The final shell and Details drawer above are the primary local preview; this developer reference is not required for first-run understanding.</span></div>
@@ -1738,7 +1738,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Boundary</h3><p>{local_harness_boundary}</p><p>Model-needed boundaries do not execute models in this milestone.</p><p>No provider call, download, or cloud sync is connected.</p></div>
         </div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Approved Request Selector</h3><p>Interactive approved request selector.</p><p>Approved local harness requests only.</p><p>Approved request only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>Local deterministic harness data only.</p></div>
+          <div class=\"card\" data-kora-component=\"approved-request-selector\"><h3>Approved Request Selector</h3><p>Interactive approved request selector.</p><p>Approved local harness requests only.</p><p>Approved request only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>Local deterministic harness data only.</p></div>
           <div class=\"card\"><h3>Selected request preview</h3><p><code id=\"kora-selected-request-id\">{selector_preview_id}</code></p><p id=\"kora-selected-request-text\">{selector_preview_text}</p><p>Route class: <span id=\"kora-selected-request-route\">{selector_preview_route}</span></p><p>Model-needed boundary: <span id=\"kora-selected-request-model-needed\">{selector_preview_model_needed}</span></p><p>Selector state is browser-local in-memory page state only.</p></div>
           <div class=\"card\"><h3>Run Local Harness</h3><p><span class=\"badge\">Approved request only</span></p><button class=\"action-button\" type=\"button\" id=\"kora-run-local-harness-button\">Run Local Harness</button><p>Calls <code>POST /api/harness/run</code> with the selected approved <code>request_id</code> only.</p><p>No arbitrary prompt text is sent.</p></div>
         </div>
@@ -1748,26 +1748,26 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <div class=\"card\"><h3>Interactive run boundary</h3><p>Model-needed boundary returns <code>execution_not_connected</code>.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads.</p><p>Selected run state is local browser memory only.</p></div>
         </div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Selected Run Error State</h3><p id=\"kora-run-error-state\">No selected-run error.</p><p>Retry uses the last approved request only.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads are connected.</p></div>
+          <div class=\"card\" data-kora-component=\"retry-error-state\"><h3>Selected Run Error State</h3><p id=\"kora-run-error-state\">No selected-run error.</p><p>Retry uses the last approved request only.</p><p>No model execution was attempted.</p><p>Provider calls remain disabled.</p><p>No downloads are connected.</p></div>
           <div class=\"card\"><h3>Retry Last Approved Request</h3><p>Last approved request: <code id=\"kora-last-approved-request-id\">{selector_preview_id}</code></p><p>Retry available: <span id=\"kora-retry-available\">false</span></p><button class=\"action-button\" type=\"button\" id=\"kora-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button><p>Retry calls only <code>POST /api/harness/run</code> with the last approved <code>request_id</code>.</p><p>No arbitrary prompt execution.</p></div>
         </div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Active selected run: <code id=\"kora-active-history-run-id\">none</code></p><p>History cards show compact counters from generated harness output only.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
+          <div class=\"card\" data-kora-component=\"run-history\"><h3>Local Run History</h3><p>Browser-local run history.</p><p>Page-memory only.</p><p>Clears on refresh.</p><p>Active selected run: <code id=\"kora-active-history-run-id\">none</code></p><p>History cards show compact counters from generated harness output only.</p><p>Local deterministic harness output only.</p><p>No model execution. No provider calls. No downloads.</p><p>History count: <span id=\"kora-run-history-count\">0</span></p><p id=\"kora-run-history-status\">Run an approved local harness request to add browser-local history.</p></div>
           <div class=\"card\"><h3>Clear Local Run History</h3><button class=\"action-button\" type=\"button\" id=\"kora-clear-run-history-button\">Clear Local Run History</button><p>Clears browser-local preview state only.</p><p>Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history.</p><p>Does not remove server run records, reports, files, backend records, or generated harness endpoints.</p><p>No persistence, no cloud sync, no file export, no file writing, and no backend delete call.</p></div>
         </div>
         <div class=\"grid\" id=\"kora-local-run-history\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Generated Event Stream</h3><p>Generated harness events only.</p><p>Not model token streaming.</p><p>No provider streaming.</p><p>No model execution.</p><p>Fallback to local events endpoint available.</p><p>Status: <span id=\"kora-sse-status\">idle</span></p><p>Fallback used: <span id=\"kora-sse-fallback-used\">false</span></p><p id=\"kora-sse-error\">No generated event stream error.</p></div>
+          <div class=\"card\" data-kora-component=\"generated-event-stream-status\"><h3>Generated Event Stream</h3><p>Generated harness events only.</p><p>Not model token streaming.</p><p>No provider streaming.</p><p>No model execution.</p><p>Fallback to local events endpoint available.</p><p>Status: <span id=\"kora-sse-status\">idle</span></p><p>Fallback used: <span id=\"kora-sse-fallback-used\">false</span></p><p id=\"kora-sse-error\">No generated event stream error.</p></div>
         </div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Selected Run Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider calls. No downloads.</p><p>Events are fetched from <code>GET /api/harness/events?run_id=&lt;id&gt;</code> after a successful approved local harness run.</p><p id=\"kora-selected-events-status\">No selected run events loaded yet.</p></div>
+        <div class=\"card\" style=\"margin-top: 16px;\" data-kora-component=\"selected-run-event-timeline\"><h3>Selected Run Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider calls. No downloads.</p><p>Events are fetched from <code>GET /api/harness/events?run_id=&lt;id&gt;</code> after a successful approved local harness run.</p><p id=\"kora-selected-events-status\">No selected run events loaded yet.</p></div>
         <div class=\"grid\" id=\"kora-selected-run-events\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Selected Run Counters</h3><p>Generated local harness counters only. Not production telemetry. No model execution. No provider calls. No cost or energy claim.</p><p id=\"kora-selected-counters-status\">Run an approved local harness request to view selected-run counters.</p></div>
-          <div class=\"card\"><h3>Selected Run: Standard Mode vs KORA Boost</h3><p>Comparison is generated from approved local harness output. This is not production cost evidence. This does not execute a model.</p><p>Model-needed boundaries remain <code>execution_not_connected</code>.</p><p id=\"kora-selected-comparison-status\">Run an approved local harness request to view selected-run comparison.</p></div>
+          <div class=\"card\" data-kora-component=\"selected-run-counters\"><h3>Selected Run Counters</h3><p>Generated local harness counters only. Not production telemetry. No model execution. No provider calls. No cost or energy claim.</p><p id=\"kora-selected-counters-status\">Run an approved local harness request to view selected-run counters.</p></div>
+          <div class=\"card\" data-kora-component=\"selected-run-comparison\"><h3>Selected Run: Standard Mode vs KORA Boost</h3><p>Comparison is generated from approved local harness output. This is not production cost evidence. This does not execute a model.</p><p>Model-needed boundaries remain <code>execution_not_connected</code>.</p><p id=\"kora-selected-comparison-status\">Run an approved local harness request to view selected-run comparison.</p></div>
         </div>
         <div class=\"grid\" id=\"kora-selected-run-counters\" aria-live=\"polite\"></div>
         <div class=\"grid\" id=\"kora-selected-run-comparison\" aria-live=\"polite\"></div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Selected Run Report Metadata</h3><p>Report metadata preview only. No file export. No file writing. Generated local harness output only.</p><p>No model execution. No provider calls. No cloud sync. Not production evidence.</p><p id=\"kora-selected-report-status\">Run an approved local harness request to view selected-run report metadata.</p></div>
+        <div class=\"card\" style=\"margin-top: 16px;\" data-kora-component=\"selected-run-report-metadata\"><h3>Selected Run Report Metadata</h3><p>Report metadata preview only. No file export. No file writing. Generated local harness output only.</p><p>No model execution. No provider calls. No cloud sync. Not production evidence.</p><p id=\"kora-selected-report-status\">Run an approved local harness request to view selected-run report metadata.</p></div>
         <div class=\"grid\" id=\"kora-selected-run-report-metadata\" aria-live=\"polite\"></div>
         <div class=\"grid\" style=\"margin-top: 16px;\">
           <div class=\"card\"><h3>Run Local Harness action state</h3><p><span class=\"badge\">Run Local Harness</span></p><p>The browser button calls only the local harness run endpoint for an approved request id.</p><p>Use <code>POST /api/harness/run</code> with an approved <code>request_id</code>.</p><p>Generated harness events only.</p></div>

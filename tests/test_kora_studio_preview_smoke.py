@@ -159,6 +159,22 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             status=200,
             content_type="text/html; charset=utf-8",
             body="""
+            data-kora-component="shell-layout"
+            data-kora-component="left-rail"
+            data-kora-component="boundary-strip"
+            data-kora-component="top-model-selector"
+            data-kora-component="composer"
+            data-kora-component="approved-request-selector"
+            data-kora-component="selected-run-summary"
+            data-kora-component="selected-run-event-timeline"
+            data-kora-component="selected-run-counters"
+            data-kora-component="selected-run-comparison"
+            data-kora-component="selected-run-report-metadata"
+            data-kora-component="right-details-drawer"
+            data-kora-component="run-history"
+            data-kora-component="retry-error-state"
+            data-kora-component="generated-event-stream-status"
+            data-kora-component="legacy-compatibility-reference"
             data-kora-final-ui-shell="true"
             data-kora-v1-preview-readiness="shell-first-boundary-consolidation"
             data-kora-v1-shell-local-only-status="visible"
@@ -428,6 +444,7 @@ def test_check_preview_uses_local_endpoints_only() -> None:
         "/api/harness/sse ok",
         "/ v1.0 shell-first ok",
         "/ v1.1 shell-only ok",
+        "/ v1.2 component markers ok",
         "/ ok",
     ]
 
