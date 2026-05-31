@@ -178,6 +178,7 @@ The v0.6 history UI marks the active selected run, shows compact generated-count
 
 ## Implementation Planning
 
+- [KORA Studio final development report](kora-studio-final-development-report.md)
 - [KORA Studio implementation breakdown](kora-studio-implementation-breakdown.md)
 - [KORA Studio v0.1 readiness report](kora-studio-v0-1-readiness-report.md)
 - [KORA Studio v0.2 plan](kora-studio-v0-2-plan.md)
