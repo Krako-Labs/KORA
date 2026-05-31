@@ -36,6 +36,7 @@ Current render helper modules include:
 - `kora/studio_selected_run_render.py`
 - `kora/studio_reference_render.py`
 - `kora/studio_harness_request_render.py`
+- `kora/studio_harness_display_render.py`
 - `kora/studio_run_state_render.py`
 - `kora/studio_legacy_render.py`
 - `kora/studio_style_render.py`
@@ -194,7 +195,7 @@ Task 507: extract status/boundary display fragment if safe. Extracted shell boun
 
 Task 508: extract model/catalog/runtime display fragment if safe. Extracted model selector option rows, system profile, model capability, runtime status, catalog versus installed, setup guidance, and disabled download/run action display fragments into `kora/studio_model_runtime_render.py`.
 
-Task 509: extract harness endpoint guidance/display fragment if safe.
+Task 509: extract local harness/report display fragments into `kora/studio_harness_display_render.py` while keeping harness data assembly, comparison/report metadata assembly, escaping, and endpoint behavior server-owned.
 
 Task 510: server responsibility audit and helper contract hardening.
 

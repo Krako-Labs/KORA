@@ -12,6 +12,12 @@ from urllib.parse import parse_qs, urlparse
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_execution_fixture import get_execution_viewer_fixture_summary, get_standard_vs_kora_status_fields
 from kora.studio_harness_comparison import get_local_harness_comparison_status_fields
+from kora.studio_harness_display_render import (
+    render_execution_viewer_section,
+    render_local_harness_preview_section,
+    render_report_viewer_placeholder_section,
+    render_standard_vs_kora_section,
+)
 from kora.studio_harness_events import LOCAL_HARNESS_EVENT_CLAIM_BOUNDARY, build_local_harness_events
 from kora.studio_harness_requests import get_local_harness_request_summary, get_local_harness_requests
 from kora.studio_harness_request_render import (
@@ -776,6 +782,63 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         local_action_boundary=local_action_boundary,
     )
     kora_boost_boundary_html = render_kora_boost_boundary_section()
+    local_harness_preview_html = render_local_harness_preview_section(
+        local_harness_status_text=local_harness_status_text,
+        local_harness_event_source=local_harness_event_source,
+        local_harness_run_trigger=local_harness_run_trigger,
+        local_harness_request_count=local_harness_request_count,
+        sample_request_id=sample_request_id,
+        sample_input=sample_input,
+        sample_family=sample_family,
+        sample_route=sample_route,
+        sample_validation=sample_validation,
+        sample_model_needed=sample_model_needed,
+        local_harness_boundary=local_harness_boundary,
+        request_selector_html=local_harness_request_selector_html,
+        selected_run_state_html=selected_run_state_html,
+        run_state_history_html=run_state_history_html,
+        selected_run_detail_panels_html=selected_run_detail_panels_html,
+        trigger_reference_html=local_harness_trigger_reference_html,
+        local_harness_request_items=local_harness_request_items,
+        local_harness_event_items=local_harness_event_items,
+        local_harness_timeline_items=local_harness_timeline_items,
+        local_harness_counter_items=local_harness_counter_items,
+    )
+    execution_viewer_html = render_execution_viewer_section(
+        execution_status=execution_status,
+        execution_schema_count=execution_schema_count,
+        execution_event_count=execution_event_count,
+        execution_boundary=execution_boundary,
+        execution_event_items=execution_event_items,
+    )
+    standard_vs_kora_html = render_standard_vs_kora_section(
+        standard_vs_kora_status=standard_vs_kora_status,
+        standard_route_summary=standard_route_summary,
+        kora_route_summary=kora_route_summary,
+        standard_vs_kora_boundary=standard_vs_kora_boundary,
+        standard_vs_kora_metric_items=standard_vs_kora_metric_items,
+    )
+    report_viewer_html = render_report_viewer_placeholder_section(
+        report_viewer_status=report_viewer_status,
+        report_title=report_title,
+        report_source=report_source,
+        report_sample_run_id=report_sample_run_id,
+        report_sample_request_id=report_sample_request_id,
+        report_event_count=report_event_count,
+        report_comparison_status=report_comparison_status,
+        report_export_status=report_export_status,
+        report_export_label=report_export_label,
+        report_file_export_enabled=report_file_export_enabled,
+        report_file_written=report_file_written,
+        report_export_reason=report_export_reason,
+        report_export_boundary=report_export_boundary,
+        report_boundary=report_boundary,
+        report_path_display=report_path_display,
+        report_fixture_path=report_fixture_path,
+        report_sections=report_sections,
+        report_warnings=report_warnings,
+        report_counter_items=report_counter_items,
+    )
 
     composer_html = f"""      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
         <div class=\"composer-panel\">
@@ -870,69 +933,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
 
 {kora_boost_boundary_html}
 
-      <section>
-        <h2>Local Harness Preview</h2>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Harness status</h3><p>{local_harness_status_text}</p><p>Event source: {local_harness_event_source}</p><p>Run trigger: {local_harness_run_trigger}</p><p>Available sample requests: {local_harness_request_count}</p></div>
-          <div class=\"card\"><h3>Sample request</h3><p><code>{sample_request_id}</code></p><p>{sample_input}</p><p>Family: {sample_family}</p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Model needed: {sample_model_needed}</p></div>
-          <div class=\"card\"><h3>Boundary</h3><p>{local_harness_boundary}</p><p>Model-needed boundaries do not execute models in this milestone.</p><p>No provider call, download, or cloud sync is connected.</p></div>
-        </div>
-{local_harness_request_selector_html}
-{selected_run_state_html}
-{run_state_history_html}
-{selected_run_detail_panels_html}
-{local_harness_trigger_reference_html}
-        <div class=\"grid\" style=\"margin-top: 16px;\">
-          <div class=\"card\"><h3>Available local deterministic sample requests</h3><ul>{local_harness_request_items}</ul></div>
-          <div class=\"card\"><h3>Harness event stages</h3><ul>{local_harness_event_items}</ul></div>
-        </div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Generated Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider output.</p></div>
-        <div class=\"grid\">{local_harness_timeline_items}</div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Generated Counters</h3><p>Generated counters come from local deterministic harness output only. No cost or energy conversion is performed.</p></div>
-        <div class=\"grid\">{local_harness_counter_items}</div>
-      </section>
+{local_harness_preview_html}
 
-      <section>
-        <h2>Execution Viewer</h2>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Fixture status</h3><p>{execution_status}</p><p>Fixture/mock events only.</p><p>No real model execution.</p><p>No provider calls.</p><p>No model downloads.</p></div>
-          <div class=\"card\"><h3>Event schema</h3><p>Schema fields: {execution_schema_count}</p><p>Fixture events: {execution_event_count}</p><p>{execution_boundary}</p></div>
-          <div class=\"card\"><h3>Fixture stages</h3><ul>{execution_event_items}</ul></div>
-        </div>
-        <div class=\"workflow\" style=\"margin-top: 16px;\">
-          <div class=\"step\"><p class=\"step-number\">01</p><h3>Request received</h3><p>Local fixture request is received by the Execution Viewer scaffold.</p></div>
-          <div class=\"step\"><p class=\"step-number\">02</p><h3>Deterministic route check</h3><p>Fixture route selection checks deterministic code before the model path.</p></div>
-          <div class=\"step\"><p class=\"step-number\">03</p><h3>Structured lookup and validation pass</h3><p>Fixture structured lookup succeeds and validation passes.</p></div>
-          <div class=\"step\"><p class=\"step-number\">04</p><h3>Model fallback skipped / Final counters</h3><p>Fixture counters show the model path skipped after validation. No runtime execution occurs on this page.</p></div>
-        </div>
-      </section>
+{execution_viewer_html}
 
-      <section>
-        <h2>Standard Mode vs KORA Boost</h2>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Comparison status</h3><p>{standard_vs_kora_status}</p><p>Local deterministic harness comparison.</p><p>No model execution occurs.</p></div>
-          <div class=\"card\"><h3>Standard Mode</h3><p>{standard_route_summary}</p><p>Model call counted in fixture baseline: 1</p></div>
-          <div class=\"card\"><h3>KORA Boost</h3><p>{kora_route_summary}</p><p>Model call counted in fixture KORA path: 0</p></div>
-          <div class=\"card\"><h3>Local Harness Comparison boundary</h3><p>{standard_vs_kora_boundary}</p><p>Comparison is generated from local deterministic harness output.</p><p>This is not production cost evidence.</p><p>This does not execute a model.</p><p>No cost or energy claim is made.</p></div>
-        </div>
-        <div class=\"grid\">{standard_vs_kora_metric_items}</div>
-      </section>
+{standard_vs_kora_html}
 
-      <section>
-        <h2>Report Viewer Placeholder</h2>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Local Harness Report</h3><p>{report_viewer_status}</p><p>{report_title}</p><p>Source: {report_source}</p><p>Local deterministic harness output only.</p></div>
-          <div class=\"card\"><h3>Report Metadata Preview</h3><p>Report metadata preview only.</p><p>Run: <code>{report_sample_run_id}</code></p><p>Request: <code>{report_sample_request_id}</code></p><p>Event count: {report_event_count}</p><p>Comparison summary: {report_comparison_status}</p></div>
-          <div class=\"card\"><h3>File export status</h3><p>Export placeholder</p><p>{report_export_status}</p><p><span class=\"badge\">{report_export_label}</span></p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p><p>No file export in this preview.</p><p>{report_export_reason}</p><p>{report_export_boundary}</p></div>
-          <div class=\"card\"><h3>Report Boundary</h3><p>{report_boundary}</p><p>Not production evidence.</p><p>No model execution.</p><p>No provider calls.</p><p>No cloud sync.</p><p>No new benchmark evidence is created.</p></div>
-        </div>
-        <div class=\"grid\">
-          <div class=\"card\"><h3>Local-only boundary</h3><p>No arbitrary local file scan is performed.</p><p>No cloud upload is connected.</p><p>No provider calls are made.</p><p>Local harness summary only.</p><p>Report source path: <code>{report_path_display}</code></p><p>Fixture metadata path: <code>{report_fixture_path}</code></p></div>
-          <div class=\"card\"><h3>Report sections</h3><ul>{report_sections}</ul></div>
-          <div class=\"card\"><h3>Boundary warnings</h3><ul>{report_warnings}</ul></div>
-        </div>
-        <div class=\"grid\">{report_counter_items}</div>
-      </section>
+{report_viewer_html}
 
 {render_reference_panels(docs_path=docs_path, fixtures_path=fixtures_path)}
     </div>

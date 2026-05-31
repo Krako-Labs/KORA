@@ -12,6 +12,7 @@ import pytest
 from http.server import ThreadingHTTPServer
 
 import kora.studio_drawer_render as studio_drawer_render
+import kora.studio_harness_display_render as studio_harness_display_render
 import kora.studio_harness_request_render as studio_harness_request_render
 import kora.studio_legacy_render as studio_legacy_render
 import kora.studio_model_runtime_render as studio_model_runtime_render
@@ -43,6 +44,12 @@ from kora.studio_harness_request_render import (
     render_local_harness_selector_item,
     render_local_harness_trigger_item,
     render_local_harness_trigger_reference_panels,
+)
+from kora.studio_harness_display_render import (
+    render_execution_viewer_section,
+    render_local_harness_preview_section,
+    render_report_viewer_placeholder_section,
+    render_standard_vs_kora_section,
 )
 from kora.studio_model_runtime_render import (
     render_catalog_installed_section,
@@ -83,6 +90,10 @@ RENDER_HELPER_FUNCTIONS = [
     studio_selected_run_render.render_selected_run_state_panel,
     studio_selected_run_render.render_selected_run_detail_panels,
     studio_selected_run_render.render_selected_run_panels,
+    studio_harness_display_render.render_local_harness_preview_section,
+    studio_harness_display_render.render_execution_viewer_section,
+    studio_harness_display_render.render_standard_vs_kora_section,
+    studio_harness_display_render.render_report_viewer_placeholder_section,
     studio_harness_request_render.render_local_harness_selector_item,
     studio_harness_request_render.render_local_harness_trigger_item,
     studio_harness_request_render.render_local_harness_request_selector_panels,
@@ -113,6 +124,7 @@ RENDER_HELPER_MODULES = [
     studio_shell_render,
     studio_drawer_render,
     studio_selected_run_render,
+    studio_harness_display_render,
     studio_harness_request_render,
     studio_legacy_render,
     studio_model_runtime_render,
@@ -130,6 +142,10 @@ EXPECTED_RENDER_HELPER_NAMES = {
     "kora.studio_selected_run_render.render_selected_run_state_panel",
     "kora.studio_selected_run_render.render_selected_run_detail_panels",
     "kora.studio_selected_run_render.render_selected_run_panels",
+    "kora.studio_harness_display_render.render_local_harness_preview_section",
+    "kora.studio_harness_display_render.render_execution_viewer_section",
+    "kora.studio_harness_display_render.render_standard_vs_kora_section",
+    "kora.studio_harness_display_render.render_report_viewer_placeholder_section",
     "kora.studio_harness_request_render.render_local_harness_selector_item",
     "kora.studio_harness_request_render.render_local_harness_trigger_item",
     "kora.studio_harness_request_render.render_local_harness_request_selector_panels",
@@ -333,6 +349,114 @@ def test_selected_run_render_helpers_preserve_selected_run_markers() -> None:
     assert "Report metadata preview only" in html
     assert "No file export" in html
     assert "No file writing" in html
+
+
+def test_harness_display_render_helpers_preserve_local_harness_boundaries() -> None:
+    harness_html = render_local_harness_preview_section(
+        local_harness_status_text="local_deterministic_harness_available",
+        local_harness_event_source="generated_events_available",
+        local_harness_run_trigger="api_endpoint_connected",
+        local_harness_request_count="5",
+        sample_request_id="local-harness-json-required-fields-001",
+        sample_input="Validate required JSON fields.",
+        sample_family="json_validation",
+        sample_route="deterministic_code",
+        sample_validation="passed",
+        sample_model_needed="False",
+        local_harness_boundary="Local deterministic harness only.",
+        request_selector_html='<div data-kora-component="approved-request-selector">selector slot</div>',
+        selected_run_state_html='<div id="kora-selected-run-state">state slot</div>',
+        run_state_history_html='<div data-kora-component="run-history">history slot</div>',
+        selected_run_detail_panels_html='<div data-kora-component="selected-run-event-timeline">details slot</div>',
+        trigger_reference_html="<div>trigger slot</div>",
+        local_harness_request_items="<li>request slot</li>",
+        local_harness_event_items="<li>event slot</li>",
+        local_harness_timeline_items="<div>timeline slot</div>",
+        local_harness_counter_items="<div>counter slot</div>",
+    )
+    execution_html = render_execution_viewer_section(
+        execution_status="fixture_loaded",
+        execution_schema_count="8",
+        execution_event_count="6",
+        execution_boundary="Fixture boundary.",
+        execution_event_items="<li>execution slot</li>",
+    )
+    comparison_html = render_standard_vs_kora_section(
+        standard_vs_kora_status="local_deterministic_harness_generated",
+        standard_route_summary="Baseline counts one model call.",
+        kora_route_summary="KORA path avoids model call.",
+        standard_vs_kora_boundary="Local harness comparison only.",
+        standard_vs_kora_metric_items="<div>metric slot</div>",
+    )
+    report_html = render_report_viewer_placeholder_section(
+        report_viewer_status="metadata_preview_connected",
+        report_title="Local Harness Summary",
+        report_source="local_harness_summary",
+        report_sample_run_id="run-001",
+        report_sample_request_id="local-harness-json-required-fields-001",
+        report_event_count="6",
+        report_comparison_status="available",
+        report_export_status="disabled",
+        report_export_label="Export not connected yet",
+        report_file_export_enabled="disabled",
+        report_file_written="false",
+        report_export_reason="No file export is connected.",
+        report_export_boundary="No file writing.",
+        report_boundary="Local deterministic harness output only.",
+        report_path_display="not written",
+        report_fixture_path="docs/kora-studio/fixtures/report.sample.json",
+        report_sections="<li>Report section slot</li>",
+        report_warnings="<li>Boundary warning slot</li>",
+        report_counter_items="<div>report counter slot</div>",
+    )
+    html = "\n".join([harness_html, execution_html, comparison_html, report_html])
+
+    assert "<h2>Local Harness Preview</h2>" in harness_html
+    assert "Harness status" in harness_html
+    assert "Sample request" in harness_html
+    assert "Model-needed boundaries do not execute models in this milestone" in harness_html
+    assert "No provider call, download, or cloud sync is connected" in harness_html
+    assert "Generated Event Timeline" in harness_html
+    assert "Not model token streaming" in harness_html
+    assert "No model execution" in harness_html
+    assert "No provider output" in harness_html
+    assert "Generated Counters" in harness_html
+    assert "No cost or energy conversion is performed" in harness_html
+    assert "selector slot" in harness_html
+    assert "timeline slot" in harness_html
+    assert "counter slot" in harness_html
+
+    assert "<h2>Execution Viewer</h2>" in execution_html
+    assert "Fixture/mock events only" in execution_html
+    assert "No real model execution" in execution_html
+    assert "No provider calls" in execution_html
+    assert "No model downloads" in execution_html
+    assert "Request received" in execution_html
+    assert "Deterministic route check" in execution_html
+    assert "Structured lookup and validation pass" in execution_html
+    assert "Model fallback skipped / Final counters" in execution_html
+
+    assert "<h2>Standard Mode vs KORA Boost</h2>" in comparison_html
+    assert "Local deterministic harness comparison" in comparison_html
+    assert "This is not production cost evidence" in comparison_html
+    assert "This does not execute a model" in comparison_html
+    assert "No cost or energy claim is made" in comparison_html
+    assert "metric slot" in comparison_html
+
+    assert "<h2>Report Viewer Placeholder</h2>" in report_html
+    assert "Report metadata preview only" in report_html
+    assert "No file export in this preview" in report_html
+    assert "Not production evidence" in report_html
+    assert "No model execution" in report_html
+    assert "No provider calls" in report_html
+    assert "No cloud sync" in report_html
+    assert "No arbitrary local file scan is performed" in report_html
+    assert "Report section slot" in report_html
+    assert "report counter slot" in report_html
+
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
 
 
 def test_reference_render_helper_preserves_static_local_boundaries() -> None:

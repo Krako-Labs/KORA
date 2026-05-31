@@ -25,6 +25,7 @@ Relevant implementation files:
 - `kora/studio_selected_run_render.py`
 - `kora/studio_reference_render.py`
 - `kora/studio_harness_request_render.py`
+- `kora/studio_harness_display_render.py`
 - `kora/studio_run_state_render.py`
 - `kora/studio_legacy_render.py`
 - `kora/studio_status_boundary_render.py`
@@ -72,6 +73,10 @@ Relevant verification files:
 | Endpoint/limitations/local references panels | `kora/studio_reference_render.py` | `render_reference_panels()` |
 | Approved request selector and selected request preview | `kora/studio_harness_request_render.py` | `render_local_harness_request_selector_panels()` |
 | Local harness trigger reference panels | `kora/studio_harness_request_render.py` | `render_local_harness_trigger_reference_panels()` |
+| Local Harness Preview display section | `kora/studio_harness_display_render.py` | `render_local_harness_preview_section()` |
+| Execution Viewer fixture display section | `kora/studio_harness_display_render.py` | `render_execution_viewer_section()` |
+| Standard Mode vs KORA Boost display section | `kora/studio_harness_display_render.py` | `render_standard_vs_kora_section()` |
+| Report Viewer Placeholder display section | `kora/studio_harness_display_render.py` | `render_report_viewer_placeholder_section()` |
 | Retry/error state and browser-local run history panels | `kora/studio_run_state_render.py` | `render_run_state_history_panels()` |
 | Collapsed legacy preview opening wrapper | `kora/studio_legacy_render.py` | `render_legacy_preview_opening()` |
 | Shell boundary strip | `kora/studio_status_boundary_render.py` | `render_shell_boundary_strip()` |
@@ -105,14 +110,14 @@ Relevant verification files:
 | Setup Guidance section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Setup boundary copy preserved. |
 | Disabled Download/Run Actions section | `kora/studio_model_runtime_render.py` | already extracted | Extracted in Task 508. Disabled download/run wording preserved. |
 | KORA Boost Boundary section | `kora/studio_status_boundary_render.py` | already extracted | Extracted in Task 507. Display-only claim boundary cards preserve no memory-removal and provider/cloud-disabled copy. |
-| Local Harness Preview status/sample/boundary cards | `render_studio_placeholder_html()` | safe to extract now | Display-only local harness summary cards. Candidate for Task 509. Keep local harness data assembly server-owned. |
-| Available sample requests and harness event stages lists | `render_studio_placeholder_html()` | safe to extract now | Display-only lists assembled from server-prepared escaped list items. Candidate for Task 509. |
-| Generated Event Timeline static header and generated sample cards | `render_studio_placeholder_html()` | safe to extract now | Display-only generated harness sample timeline. Candidate for Task 509. Preserve not-token-streaming/no-model/no-provider wording. |
-| Generated Counters static header and generated counter cards | `render_studio_placeholder_html()` | safe to extract now | Display-only local harness counters. Candidate for Task 509. Preserve no cost/energy conversion wording. |
-| Execution Viewer fixture section | `render_studio_placeholder_html()` | safe to extract now | Display-only fixture/mock section. Candidate for Task 509 only if kept separate from live harness display. Preserve no real model execution/provider/download wording. |
-| Execution Viewer workflow steps | `render_studio_placeholder_html()` | safe to extract now | Static display-only workflow cards. Can be extracted with Execution Viewer fixture section. |
-| Standard Mode vs KORA Boost section | `render_studio_placeholder_html()` | safe to extract now | Display-only local harness comparison cards and metric card slot. Candidate for Task 509 or later comparison helper. Preserve not production cost evidence/no cost or energy claim wording. |
-| Report Viewer Placeholder section | `render_studio_placeholder_html()` | safe to extract now | Display-only report metadata and boundary cards. Candidate for Task 509 or later report helper. Preserve no file export/no file writing/not production evidence wording. |
+| Local Harness Preview status/sample/boundary cards | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. Local harness data assembly remains server-owned. |
+| Available sample requests and harness event stages lists | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. Server still prepares escaped list item slots. |
+| Generated Event Timeline static header and generated sample cards | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. Not-token-streaming/no-model/no-provider wording preserved. |
+| Generated Counters static header and generated counter cards | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. No cost/energy conversion wording preserved. |
+| Execution Viewer fixture section | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. No real model execution/provider/download wording preserved. |
+| Execution Viewer workflow steps | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509 with the fixture section. |
+| Standard Mode vs KORA Boost section | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. Not production cost evidence/no cost or energy claim wording preserved. |
+| Report Viewer Placeholder section | `kora/studio_harness_display_render.py` | already extracted | Extracted in Task 509. No file export/no file writing/not production evidence wording preserved. |
 | Legacy detailed preview body | `render_studio_placeholder_html()` | defer | Large compatibility scaffold body remains coupled to the final document and old section ordering. Extract only after safer smaller sections are complete. |
 | Closing legacy wrapper and page close | `render_studio_placeholder_html()` | defer | Closing `</details>`, approved request JSON, inline script, body/html close are final assembly concerns. |
 
@@ -141,9 +146,9 @@ Task 508 extracted model/catalog/runtime display fragments:
 
 Task 508 added `kora/studio_model_runtime_render.py`. Model recommendation filtering, runtime status selection, installed-summary interpretation, and escaping remain in `kora/studio_server.py`.
 
-## Recommended Task 509 Candidate
+## Task 509 Extraction
 
-Task 509 should extract local harness display fragments after status/model extraction:
+Task 509 extracts local harness/report display fragments after status/model extraction into `kora/studio_harness_display_render.py`:
 
 - Local Harness Preview status/sample/boundary cards
 - available request and event-stage lists
@@ -153,7 +158,7 @@ Task 509 should extract local harness display fragments after status/model extra
 - Standard Mode vs KORA Boost static/default comparison section
 - Report Viewer Placeholder section
 
-Keep local harness request/run/event/comparison/report metadata assembly in `kora/studio_server.py`.
+Local harness request/run/event/comparison/report metadata assembly remains in `kora/studio_server.py`. The helper receives only escaped primitive strings and pre-rendered slot HTML.
 
 ## Deferred Decisions
 
