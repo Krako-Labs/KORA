@@ -178,6 +178,8 @@ The v0.6 history UI marks the active selected run, shows compact generated-count
 
 The v0.8 preview shell now scaffolds the final UI/UX board structure above the detailed local preview: a small ChatGPT-style left mini rail, compact top model selector, centered composer, boundary pills, and hidden right details drawer. The top model selector now renders local static catalog recommendations as estimates only; opening it does not install, download, execute, or claim a model is installed. The centered composer action reuses the approved local harness request path and updates a compact selected-run summary without accepting arbitrary prompt text. The shell includes mobile-ready layout behavior for a collapsed left rail overlay, compact selector overlay menu, wrapped boundary pills, centered composer, and right details drawer overlay. The drawer carries runtime status, selected model boundary, catalog vs installed summary, route trace, generated counters, report metadata, and claim boundary sections while the detailed local preview remains below for compatibility. The shell does not add arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or new frontend dependencies.
 
+The v1.0 preview readiness work is moving the final shell toward the primary local preview experience. The shell now includes v1.0 local-only boundary markers and a compact boundary strip for provider calls disabled, cloud sync disabled, downloads disabled, model execution not connected, and report export disabled. The detailed legacy preview remains below for compatibility while shell and drawer coverage is completed.
+
 ## Implementation Planning
 
 - [KORA Studio final development report](kora-studio-final-development-report.md)

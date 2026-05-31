@@ -720,6 +720,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
     assert "data-kora-final-ui-shell=\"true\"" in html
+    assert 'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"' in html
+    assert 'data-kora-v1-shell-local-only-status="visible"' in html
     assert 'data-kora-responsive-shell="mobile-overlay-ready"' in html
     assert 'data-kora-mobile-visual-qa="v0.9"' in html
     assert 'data-kora-mobile-breakpoint="max-width-760"' in html
@@ -780,7 +782,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-run-status"' in html
     assert 'id="kora-composer-run-id"' in html
     assert "Provider calls disabled" in html
+    assert "Cloud sync disabled" in html
+    assert "Downloads disabled" in html
     assert "Model execution not connected yet" in html
+    assert "Report export disabled" in html
+    assert 'data-kora-shell-local-only-boundary="v1.0"' in html
+    assert 'data-kora-shell-boundary-coverage="provider,cloud,download,model-execution,report-export"' in html
+    assert "Shell-first boundary: approved local harness requests only" in html
+    assert "no report file export or writing" in html
     assert 'id="kora-details-drawer-toggle"' in html
     assert 'aria-controls="kora-details-drawer"' in html
     assert 'aria-expanded="false"' in html
@@ -803,6 +812,10 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-drawer-section="generated-counters"' in html
     assert 'data-kora-drawer-section="report-metadata"' in html
     assert 'data-kora-drawer-section="claim-boundaries"' in html
+    assert (
+        'data-kora-drawer-boundary-coverage="provider,cloud,download,model-execution,report-export,private-scan,runtime-list"'
+        in html
+    )
     assert "Selection does not install or run a model" in html
     assert "Route trace" in html
     assert "Generated harness events only." in html
@@ -810,6 +823,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "File export:" in html
     assert "File written:" in html
     assert "Claim boundaries" in html
+    assert "No private model directory scanning" in html
+    assert "No runtime model list commands" in html
     assert "legacy-preview" in html
     assert "Local Preview Scaffold" in html
     assert "Preview / Local-only" in html

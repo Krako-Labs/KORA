@@ -160,6 +160,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             content_type="text/html; charset=utf-8",
             body="""
             data-kora-final-ui-shell="true"
+            data-kora-v1-preview-readiness="shell-first-boundary-consolidation"
+            data-kora-v1-shell-local-only-status="visible"
             data-kora-responsive-shell="mobile-overlay-ready"
             data-kora-mobile-visual-qa="v0.9"
             data-kora-mobile-breakpoint="max-width-760"
@@ -220,6 +222,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-run-id
             Provider calls disabled
             Model execution not connected yet
+            data-kora-shell-local-only-boundary="v1.0"
+            data-kora-shell-boundary-coverage="provider,cloud,download,model-execution,report-export"
+            Cloud sync disabled
+            Downloads disabled
+            Report export disabled
+            Shell-first boundary: approved local harness requests only
+            no report file export or writing
             KORA Studio right details drawer scaffold
             data-kora-mobile-drawer="right-overlay"
             Inspector · local preview
@@ -230,6 +239,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-drawer-section="generated-counters"
             data-kora-drawer-section="report-metadata"
             data-kora-drawer-section="claim-boundaries"
+            data-kora-drawer-boundary-coverage="provider,cloud,download,model-execution,report-export,private-scan,runtime-list"
             Selection does not install or run a model
             Route trace
             Generated harness events only.
@@ -237,6 +247,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             File export:
             File written:
             Claim boundaries
+            No private model directory scanning
+            No runtime model list commands
             legacy-preview
             Launch / Local-only Status
             Your Computer

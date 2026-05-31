@@ -774,7 +774,7 @@ Acceptance criteria:
 
 ## Phase 13 — v1.0 Preview Readiness
 
-Status: planned. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md) and [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md).
+Status: in progress. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md) and [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md). The shell now has v1.0 local-only boundary markers and a compact boundary strip covering provider calls, cloud sync, downloads, model execution, and report export/write status.
 
 Goal: Reduce legacy detailed preview dependence and make the final minimal shell the primary local preview experience while preserving local-only claim boundaries.
 

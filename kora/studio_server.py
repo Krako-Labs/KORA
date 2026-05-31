@@ -1226,6 +1226,22 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       justify-content: center;
       gap: 10px;
     }}
+    .shell-boundary-strip {{
+      border: 1px solid #293447;
+      background: rgba(12, 16, 22, 0.72);
+      border-radius: 16px;
+      display: grid;
+      gap: 10px;
+      margin: 0 auto;
+      max-width: 620px;
+      padding: 12px 14px;
+    }}
+    .shell-boundary-strip p {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0;
+    }}
     .shell-pill {{
       border: 1px solid #293447;
       color: var(--muted);
@@ -1430,7 +1446,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
+  <div class=\"studio-shell\" data-kora-final-ui-shell=\"true\" data-kora-v1-preview-readiness=\"shell-first-boundary-consolidation\" data-kora-v1-shell-local-only-status=\"visible\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
     <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
       <div class=\"rail-header\">
         <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
@@ -1497,10 +1513,16 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
             <span>Boundary: approved local harness request only</span>
           </div>
-          <div class=\"shell-boundary-pills\">
-            <span class=\"shell-pill cyan\">Local preview</span>
-            <span class=\"shell-pill\">Provider calls disabled</span>
-            <span class=\"shell-pill amber\">Model execution not connected yet</span>
+          <div class=\"shell-boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
+            <div class=\"shell-boundary-pills\">
+              <span class=\"shell-pill cyan\">Local preview only</span>
+              <span class=\"shell-pill\">Provider calls disabled</span>
+              <span class=\"shell-pill\">Cloud sync disabled</span>
+              <span class=\"shell-pill\">Downloads disabled</span>
+              <span class=\"shell-pill amber\">Model execution not connected yet</span>
+              <span class=\"shell-pill\">Report export disabled</span>
+            </div>
+            <p>Shell-first boundary: approved local harness requests only. No arbitrary prompt execution, no provider calls, no cloud sync, no downloads, no model execution, and no report file export or writing.</p>
           </div>
         </div>
       </section>
@@ -1518,7 +1540,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
-        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p></div>
+        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\" data-kora-drawer-boundary-coverage=\"provider,cloud,download,model-execution,report-export,private-scan,runtime-list\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p><p>No report file export or writing.</p><p>No private model directory scanning.</p><p>No runtime model list commands.</p></div>
       </aside>
     </div>
   </div>

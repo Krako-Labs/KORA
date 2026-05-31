@@ -211,6 +211,8 @@ Status: implemented. See [KORA Studio v1.0 shell-first information architecture]
 
 Move or duplicate critical launch, local-only, provider/cloud-disabled, model-download-disabled, and model-execution-disabled status into shell-first surfaces.
 
+Status: implemented. The final shell now exposes v1.0 shell-first boundary markers and a compact local-only boundary strip covering provider calls, cloud sync, downloads, model execution, and report export/write status without relying on the legacy preview.
+
 ### Task 475: shell and drawer selected-run surface consolidation
 
 Ensure selected-run timeline, counters, comparison, and report metadata are visible through shell/drawer surfaces without requiring the legacy preview.
