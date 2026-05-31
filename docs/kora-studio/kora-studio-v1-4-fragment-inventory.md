@@ -16,6 +16,7 @@ This document classifies the next server-owned generated local harness preview f
 | `kora/studio_selected_run_render.py` | selected-run summary/state/detail containers for event stream status, selected timeline, counters, comparison, and report metadata | pure string render helper; owns stable selected-run ids and markers |
 | `kora/studio_reference_render.py` | endpoint panel, limitations panel, and local references panel | pure string render helper; accepts escaped local path strings |
 | `kora/studio_harness_request_render.py` | approved request selector cards, selected request preview card, Run Local Harness action card, selector option cards, and local harness trigger reference cards | pure string render helper; accepts escaped display strings and slot HTML |
+| `kora/studio_legacy_render.py` | collapsed legacy compatibility preview opening wrapper | pure string render helper; keeps detailed body and closing assembly server-owned |
 | `kora/studio_run_state_render.py` | selected-run retry/error panels, Retry Last Approved Request panel, browser-local run history panel, clear history panel, and dynamic history container | pure string render helper; accepts escaped approved request id |
 | `kora/studio_style_render.py` | inline CSS template | pure string render helper; no external CSS path or CDN |
 | `kora/studio_script_render.py` | inline vanilla JavaScript template | pure string render helper; local harness endpoints only |
@@ -44,7 +45,7 @@ This document classifies the next server-owned generated local harness preview f
 | Shell boundary strip | `kora/studio_server.py`, `data-kora-component="boundary-strip"` | static local-only boundary copy | Defer to future frontend/static asset decision | Keep inside composer slot for now | no provider calls, cloud sync, downloads, model execution, or report export |
 | Selected-run shell strip | `kora/studio_server.py`, `data-kora-shell-selected-run-surface="v1.0"` | fixed ids updated by local JS | Defer to future frontend/static asset decision | Keep inside composer slot for now | generated local harness output only |
 | Model selector item rows | `kora/studio_server.py`, `model_selector_items` slot into shell helper | recommended model catalog/status data | Defer to future frontend/static asset decision | Keep server-owned until catalog row escaping and selection behavior tests are expanded | catalog examples only; selection does not install, download, or execute |
-| Legacy compatibility wrapper/body | `kora/studio_server.py`, `legacy_preview_html` opening wrapper plus final page closing body | wrapper around detailed reference sections | Defer to future frontend/static asset decision | Reassess in Task 500 only if coupling is reduced | secondary developer/reference scaffold only |
+| Legacy compatibility wrapper/body | `kora/studio_legacy_render.py` opening wrapper; `kora/studio_server.py` detailed body and closing assembly | wrapper around detailed reference sections | Partially extracted | Task 500 extracted the static opening wrapper only; keep body/closing server-owned | secondary developer/reference scaffold only |
 | Launch/local status through setup/model boundary sections | `kora/studio_server.py`, detailed legacy section body | mixed status payload fields | Defer to future frontend/static asset decision | Keep server-owned; not a Task 498/499 target | local-only preview boundaries remain explicit |
 | Execution Viewer legacy section | `kora/studio_server.py`, `h2>Execution Viewer` and `execution_event_items` | fixture/mock execution events | Keep server-owned for data assembly | Defer; possible later legacy helper only | fixture/mock events only; no runtime execution |
 | Standard Mode vs KORA Boost legacy section | `kora/studio_server.py`, `standard_vs_kora_metric_items` | local comparison payload/metric cards | Keep server-owned for data assembly | Defer; possible later comparison reference helper | not production cost evidence; no model execution |
@@ -57,6 +58,34 @@ This document classifies the next server-owned generated local harness preview f
 Task 498 update: the approved request selector intro card, selected request preview card, Run Local Harness action card, local harness selector option cards, and local harness trigger reference cards are now extracted into `kora/studio_harness_request_render.py`. `kora/studio_server.py` still owns status payload assembly, local harness request data selection, HTML escaping, `local_harness_requests_json`, and final helper placement.
 
 Task 499 update: the selected-run retry/error state card, Retry Last Approved Request card, Local Run History card, Clear Local Run History card, and empty local run history dynamic container are now extracted into `kora/studio_run_state_render.py`. `kora/studio_server.py` still owns the escaped selector preview id and final helper placement. Browser-local run history behavior remains in inline JavaScript through `kora/studio_script_render.py`.
+
+Task 500 update: the collapsed legacy compatibility preview opening wrapper is now extracted into `kora/studio_legacy_render.py`. The detailed legacy body, reference panels, closing `</details>` placement, approved requests JSON script, inline JavaScript, and final document assembly remain server-owned because they are still coupled to the large generated preview body.
+
+## Task 500 Legacy Wrapper Decision
+
+Task 500 reassessed the legacy compatibility wrapper and extracted only the safe static opening wrapper.
+
+Helper module:
+
+- `kora/studio_legacy_render.py`
+
+Helper responsibility:
+
+- render the collapsed `<details class="legacy-preview">` opening wrapper
+- preserve `data-kora-component="legacy-compatibility-reference"`
+- preserve collapsed-by-default marker attributes
+- preserve secondary developer/reference scaffold copy and local-only boundary text
+
+Still server-owned:
+
+- detailed legacy preview body sections from Launch / Local-only Status through Report Viewer Placeholder
+- `render_reference_panels(...)` placement
+- closing `</details>` placement
+- approved request JSON script placement
+- inline JavaScript placement
+- final page assembly
+
+The helper does not add product behavior, endpoint behavior, frontend framework tooling, external static assets, provider calls, model execution, downloads, cloud sync, report export, file writing, or arbitrary prompt handling.
 
 ## Recommended Task 498 Target
 

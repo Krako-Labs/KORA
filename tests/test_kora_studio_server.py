@@ -13,6 +13,7 @@ from http.server import ThreadingHTTPServer
 
 import kora.studio_drawer_render as studio_drawer_render
 import kora.studio_harness_request_render as studio_harness_request_render
+import kora.studio_legacy_render as studio_legacy_render
 import kora.studio_reference_render as studio_reference_render
 import kora.studio_run_state_render as studio_run_state_render
 import kora.studio_script_render as studio_script_render
@@ -42,6 +43,7 @@ from kora.studio_harness_request_render import (
     render_local_harness_trigger_reference_panels,
 )
 from kora.studio_reference_render import render_reference_panels
+from kora.studio_legacy_render import render_legacy_preview_opening
 from kora.studio_run_state_render import (
     render_local_run_history_panels,
     render_retry_error_state_panels,
@@ -69,6 +71,7 @@ RENDER_HELPER_FUNCTIONS = [
     studio_harness_request_render.render_local_harness_trigger_item,
     studio_harness_request_render.render_local_harness_request_selector_panels,
     studio_harness_request_render.render_local_harness_trigger_reference_panels,
+    studio_legacy_render.render_legacy_preview_opening,
     studio_run_state_render.render_retry_error_state_panels,
     studio_run_state_render.render_local_run_history_panels,
     studio_run_state_render.render_run_state_history_panels,
@@ -111,6 +114,7 @@ def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependenci
         studio_drawer_render,
         studio_selected_run_render,
         studio_harness_request_render,
+        studio_legacy_render,
         studio_run_state_render,
         studio_reference_render,
         studio_style_render,
@@ -332,6 +336,31 @@ def test_run_state_render_helper_preserves_retry_and_history_markers() -> None:
     assert "Clears browser-local preview state only" in html
     assert "No persistence, no cloud sync, no file export, no file writing, and no backend delete call" in html
     assert 'id="kora-local-run-history"' in html
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
+
+
+def test_legacy_render_helper_preserves_collapsed_compatibility_wrapper() -> None:
+    html = render_legacy_preview_opening()
+
+    assert '<details class="legacy-preview"' in html
+    assert '<details class="legacy-preview" open' not in html
+    assert 'data-kora-component="legacy-compatibility-reference"' in html
+    assert 'data-kora-legacy-preview-mode="compatibility-collapsed"' in html
+    assert 'data-kora-legacy-preview-default="collapsed"' in html
+    assert 'data-kora-legacy-preview-role="developer-compatibility-scaffold"' in html
+    assert 'data-kora-v1-1-legacy-secondary="developer-reference-only"' in html
+    assert 'data-kora-v1-1-legacy-first-run-required="false"' in html
+    assert 'data-kora-v1-1-legacy-boundary="secondary-reference-only"' in html
+    assert "Legacy detailed preview compatibility scaffold" in html
+    assert "Collapsed by default" in html
+    assert "The final shell and Details drawer above are the primary local preview" in html
+    assert "Developer reference only" in html
+    assert "This compatibility scaffold remains local-only and secondary" in html
+    assert "does not enable model execution, provider calls, downloads, cloud sync, report export, or report writing" in html
+    assert 'class="legacy-preview-content"' in html
+    assert "</details>" not in html
     assert "<script" not in html.lower()
     assert "https://" not in html
     assert "fetch(" not in html
