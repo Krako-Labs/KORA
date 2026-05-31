@@ -244,6 +244,7 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v1.5 server-owned fragment inventory](kora-studio-v1-5-server-owned-fragment-inventory.md)
 - [KORA Studio v1.5 server responsibility audit](kora-studio-v1-5-server-responsibility-audit.md)
 - [KORA Studio v1.5 readiness report](kora-studio-v1-5-readiness-report.md)
+- [KORA Studio v1.5 goal report](kora-studio-v1-5-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)
