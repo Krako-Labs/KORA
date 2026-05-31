@@ -841,7 +841,7 @@ Acceptance criteria:
 
 ## Phase 15 — v1.2 Frontend Extraction / Componentization Planning
 
-Status: planned. See [KORA Studio v1.2 frontend extraction plan](kora-studio-v1-2-frontend-extraction-plan.md) and [KORA Studio v1.2 component inventory](kora-studio-v1-2-component-inventory.md). v1.2 is a maintainability milestone for extracting the current embedded shell preview into safer render sections or template fragments without changing behavior.
+Status: in progress. See [KORA Studio v1.2 frontend extraction plan](kora-studio-v1-2-frontend-extraction-plan.md) and [KORA Studio v1.2 component inventory](kora-studio-v1-2-component-inventory.md). v1.2 is a maintainability milestone for extracting the current embedded shell preview into safer render sections or template fragments without changing behavior. Shell layout rendering has started moving into a dedicated helper while behavior, endpoints, dependencies, smoke markers, and claim boundaries remain unchanged.
 
 Goal: Improve maintainability of the shell-first local preview by planning component boundaries for shell layout, left rail, model selector, composer, selected-run panels, right drawer, run history, event stream status, boundary strip, and legacy compatibility reference.
 

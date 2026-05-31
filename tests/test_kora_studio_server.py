@@ -25,12 +25,39 @@ from kora.studio_server import (
     run_studio_server,
 )
 from kora.studio_harness_runs import clear_local_harness_run_records
+from kora.studio_shell_render import render_shell_layout
 
 APPROVED_BOOST_MESSAGE = "Less waiting. Better answers. No hardware upgrade."
 TECHNICAL_EXPLANATION = (
     "KORA Boost handles simple work through fast paths and saves model power "
     "for the tasks that need it."
 )
+
+
+def test_shell_layout_render_helper_preserves_shell_markers() -> None:
+    html = render_shell_layout(
+        local_candidate_name="Example mini local model",
+        local_candidate_id="example-mini-local",
+        local_candidate_type="physically_runnable_local_candidate",
+        local_candidate_memory="4",
+        local_candidate_installed="false",
+        model_selector_count=1,
+        model_selector_items="<div>model option</div>",
+        composer_html='<section data-kora-component="composer">composer slot</section>',
+        details_drawer_html='<aside data-kora-component="right-details-drawer">drawer slot</aside>',
+        legacy_preview_html='<details data-kora-component="legacy-compatibility-reference"></details>',
+    )
+
+    assert 'data-kora-component="shell-layout"' in html
+    assert 'data-kora-component="left-rail"' in html
+    assert 'data-kora-component="top-model-selector"' in html
+    assert 'data-kora-final-ui-shell="true"' in html
+    assert 'data-kora-v1-1-shell-only-hardening="active"' in html
+    assert 'data-kora-model-selection-state="catalog-estimate-only"' in html
+    assert 'data-kora-component="composer"' in html
+    assert 'data-kora-component="right-details-drawer"' in html
+    assert 'data-kora-component="legacy-compatibility-reference"' in html
+    assert "Selection does not install, download, or execute this model." in html
 
 
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:

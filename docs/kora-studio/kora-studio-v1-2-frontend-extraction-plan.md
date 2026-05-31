@@ -144,6 +144,8 @@ Use a conservative extraction path:
 
 This path avoids a framework migration and keeps the server local-only while making the current preview easier to maintain.
 
+Task 483 started this path by adding a shell layout render helper for the outer shell frame, left rail, top model selector, workspace wrapper, and content slots. Runtime behavior, endpoint behavior, dependencies, and claim boundaries remain unchanged.
+
 ## Test Strategy
 
 Validation should continue to include:

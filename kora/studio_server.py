@@ -24,6 +24,7 @@ from kora.studio_harness_runs import (
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_report_viewer import get_report_viewer_status_fields
 from kora.studio_runtime_status import get_runtime_status, summarize_installed_models
+from kora.studio_shell_render import render_shell_layout
 from kora.studio_status import get_studio_status
 from kora.studio_system_profile import estimate_model_capability, get_system_profile
 
@@ -688,6 +689,84 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             "model_escalations",
             "validation_pass_count",
         ]
+    )
+
+    composer_html = f"""      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
+        <div class=\"composer-panel\">
+          <h1>What do you want to work on?</h1>
+          <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
+          <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\">
+            <span>Ask KORA...</span>
+            <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>
+          </div>
+          <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
+          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" data-kora-component=\"selected-run-summary\" aria-live=\"polite\">
+            <strong>Composer selected-run summary</strong>
+            <span>Request: <code id=\"kora-composer-request-id\">{selector_preview_id}</code></span>
+            <span>Status: <code id=\"kora-composer-run-status\">not_started</code></span>
+            <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
+            <span>Boundary: approved local harness request only</span>
+          </div>
+          <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-live=\"polite\">
+            <h2>Selected run details</h2>
+            <div class=\"shell-selected-run-grid\">
+              <span>Timeline: <code id=\"kora-shell-selected-timeline-status\">not loaded</code></span>
+              <span>Counters: <code id=\"kora-shell-selected-counters-status\">not loaded</code></span>
+              <span>Comparison: <code id=\"kora-shell-selected-comparison-status\">not loaded</code></span>
+              <span>Report: <code id=\"kora-shell-selected-report-status\">not loaded</code></span>
+            </div>
+            <p>Shell selected-run surface mirrors generated local harness output only. Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection. No model execution, provider calls, downloads, cloud sync, or report export is connected.</p>
+          </div>
+          <div class=\"shell-boundary-strip\" data-kora-component=\"boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
+            <div class=\"shell-boundary-pills\">
+              <span class=\"shell-pill cyan\">Local preview only</span>
+              <span class=\"shell-pill\">Provider calls disabled</span>
+              <span class=\"shell-pill\">Cloud sync disabled</span>
+              <span class=\"shell-pill\">Downloads disabled</span>
+              <span class=\"shell-pill amber\">Model execution not connected yet</span>
+              <span class=\"shell-pill\">Report export disabled</span>
+            </div>
+            <p>Shell-first boundary: approved local harness requests only. No arbitrary prompt execution, no provider calls, no cloud sync, no downloads, no model execution, and no report file export or writing.</p>
+          </div>
+        </div>
+      </section>"""
+    details_drawer_html = f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
+        <div class=\"drawer-header\">
+          <div>
+            <h2>Details</h2>
+            <p class=\"subtitle\">Inspector · local preview</p>
+          </div>
+          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-drawer-close=\"true\">x</button>
+        </div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-run-surfaces\" data-kora-drawer-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-drawer-selected-run-polish=\"primary-diagnostics\"><h3>Selected run surfaces</h3><p>Run id: <code id=\"kora-drawer-selected-run-id\">not run yet</code></p><p>Timeline: <span id=\"kora-drawer-selected-timeline-status\">not loaded</span></p><p>Counters: <span id=\"kora-drawer-selected-counters-status\">not loaded</span></p><p>Comparison: <span id=\"kora-drawer-selected-comparison-status\">not loaded</span></p><p>Report metadata: <span id=\"kora-drawer-selected-report-status\">not loaded</span></p><p>Drawer selected-run diagnostics mirror shell state for normal inspection: timeline availability, generated counters, local harness comparison, and report metadata preview.</p><p>Generated local harness output only. Not model token streaming. Not production telemetry. Not production cost evidence. Report metadata preview only. No file export or writing.</p></div>
+        <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
+        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\" data-kora-drawer-boundary-coverage=\"provider,cloud,download,model-execution,report-export,private-scan,runtime-list\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p><p>No report file export or writing.</p><p>No private model directory scanning.</p><p>No runtime model list commands.</p></div>
+      </aside>"""
+    legacy_preview_html = """  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-component=\"legacy-compatibility-reference\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\" data-kora-v1-1-legacy-secondary=\"developer-reference-only\" data-kora-v1-1-legacy-first-run-required=\"false\">
+    <summary aria-label=\"Open legacy detailed preview compatibility scaffold\">
+      <div class=\"legacy-preview-summary\">
+        <div><strong>Legacy detailed preview compatibility scaffold</strong><span>Collapsed by default. The final shell and Details drawer above are the primary local preview; this developer reference is not required for first-run understanding.</span></div>
+        <span class=\"legacy-preview-summary-badge\">Developer reference only</span>
+      </div>
+    </summary>
+    <p class=\"legacy-preview-summary\" data-kora-v1-1-legacy-boundary=\"secondary-reference-only\">This compatibility scaffold remains local-only and secondary. It does not enable model execution, provider calls, downloads, cloud sync, report export, or report writing.</p>
+    <div class=\"legacy-preview-content\">"""
+    shell_layout_html = render_shell_layout(
+        local_candidate_name=local_candidate_name,
+        local_candidate_id=local_candidate_id,
+        local_candidate_type=local_candidate_type,
+        local_candidate_memory=local_candidate_memory,
+        local_candidate_installed=local_candidate_installed,
+        model_selector_count=model_selector_count,
+        model_selector_items=model_selector_items,
+        composer_html=composer_html,
+        details_drawer_html=details_drawer_html,
+        legacy_preview_html=legacy_preview_html,
     )
 
     return f"""<!doctype html>
@@ -1522,125 +1601,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-  <div class=\"studio-shell\" data-kora-component=\"shell-layout\" data-kora-final-ui-shell=\"true\" data-kora-v1-preview-readiness=\"shell-first-boundary-consolidation\" data-kora-v1-shell-local-only-status=\"visible\" data-kora-v1-1-shell-only-hardening=\"active\" data-kora-v1-1-shell-only-coverage=\"boundaries,drawer-diagnostics,selected-run,legacy-secondary\" data-kora-responsive-shell=\"mobile-overlay-ready\" data-kora-mobile-visual-qa=\"v0.9\" data-kora-mobile-breakpoint=\"max-width-760\" data-kora-mobile-qa-surfaces=\"left-rail,model-selector,composer,right-drawer,boundary-pills\" data-kora-mobile-no-overlap-contract=\"true\" data-kora-keyboard-focus-pass=\"true\" data-kora-focus-visible-controls=\"shell-and-harness\" data-kora-rail-open=\"false\">
-    <aside class=\"studio-left-rail\" id=\"kora-left-rail\" aria-label=\"KORA Studio left mini rail\" data-kora-component=\"left-rail\" data-kora-mobile-rail=\"collapsed-overlay\" data-kora-rail-state=\"closed\" aria-hidden=\"false\" tabindex=\"-1\">
-      <div class=\"rail-header\">
-        <div class=\"rail-brand\"><span class=\"rail-icon\"></span>KORA Studio</div>
-        <button class=\"rail-close-button\" type=\"button\" id=\"kora-left-rail-close\" aria-label=\"Close left rail\" data-kora-rail-close=\"true\">x</button>
-      </div>
-      <div class=\"rail-list\">
-        <div class=\"rail-action\"><span class=\"rail-icon\">+</span>New task</div>
-        <div class=\"rail-action\"><span class=\"rail-icon\">⌕</span>Search tasks</div>
-      </div>
-      <div>
-        <p class=\"rail-section-title\">Projects</p>
-        <div class=\"rail-list\">
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Local routing demo</div>
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Catalog fit notes</div>
-        </div>
-      </div>
-      <div>
-        <p class=\"rail-section-title\">Today</p>
-        <div class=\"rail-list\">
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Qwen 2.5 fit estimate</div>
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Deterministic route draft</div>
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Report metadata preview</div>
-        </div>
-      </div>
-      <div>
-        <p class=\"rail-section-title\">Earlier</p>
-        <div class=\"rail-list\">
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Claim boundary checklist</div>
-          <div class=\"rail-item\"><span class=\"rail-icon\"></span>Picker taxonomy review</div>
-        </div>
-      </div>
-      <div class=\"rail-footer\"><span class=\"rail-icon\">K</span><div><strong>Local workspace</strong><span>Cloud sync disabled</span></div></div>
-    </aside>
-    <div class=\"studio-workspace\">
-      <div class=\"studio-topbar\" aria-label=\"KORA Studio top bar\">
-        <button class=\"rail-shell-button\" type=\"button\" id=\"kora-left-rail-toggle\" aria-label=\"Open left rail\" aria-controls=\"kora-left-rail\" aria-expanded=\"false\" data-kora-rail-toggle=\"true\">Menu</button>
-        <details class=\"model-selector-shell\" aria-label=\"Top model selector\" data-kora-component=\"top-model-selector\" data-kora-model-selector=\"local-catalog-scaffold\" data-kora-mobile-selector=\"compact-overlay-menu\" data-kora-model-selection-state=\"catalog-estimate-only\">
-          <summary aria-describedby=\"kora-model-selector-boundary\">
-            <span><span class=\"model-selector-title\">Search or select open-source LLM</span><span class=\"model-selector-subtitle\">Selected estimate: {local_candidate_name}</span><span class=\"model-selector-selected-label\" data-kora-model-selected-label=\"catalog-estimate-only\">Catalog-only estimate selected</span></span>
-            <span class=\"model-selector-chevron\">⌄</span>
-          </summary>
-          <div class=\"model-selector-menu\" data-kora-model-selector-menu=\"true\">
-            <p class=\"model-selector-boundary\" id=\"kora-model-selector-boundary\">Catalog suggestions are local static examples, not installed models. Selecting a model here does not install, download, or execute it.</p>
-            <div class=\"model-selector-option\" data-kora-model-selected-estimate=\"true\" data-kora-model-selection-status=\"selected-estimate\" aria-selected=\"true\" tabindex=\"0\"><strong>{local_candidate_name}</strong><span>Selected local fit estimate; catalog-only state.</span><span>{local_candidate_id}</span><span>{local_candidate_type}</span><span>{local_candidate_memory} GB estimate</span><span>Installed: {local_candidate_installed}</span><span>Selection does not install, download, or execute this model.</span></div>
-            <p class=\"model-selector-boundary\">Recommended local catalog options shown: {model_selector_count}</p>
-            {model_selector_items}
-          </div>
-        </details>
-        <button class=\"details-shell-button\" type=\"button\" id=\"kora-details-drawer-toggle\" aria-label=\"Open details drawer\" aria-controls=\"kora-details-drawer\" aria-expanded=\"false\" data-kora-drawer-toggle=\"true\">Details</button>
-      </div>
-      <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\" data-kora-component=\"composer\">
-        <div class=\"composer-panel\">
-          <h1>What do you want to work on?</h1>
-          <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
-          <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\">
-            <span>Ask KORA...</span>
-            <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>
-          </div>
-          <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
-          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" data-kora-component=\"selected-run-summary\" aria-live=\"polite\">
-            <strong>Composer selected-run summary</strong>
-            <span>Request: <code id=\"kora-composer-request-id\">{selector_preview_id}</code></span>
-            <span>Status: <code id=\"kora-composer-run-status\">not_started</code></span>
-            <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
-            <span>Boundary: approved local harness request only</span>
-          </div>
-          <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-live=\"polite\">
-            <h2>Selected run details</h2>
-            <div class=\"shell-selected-run-grid\">
-              <span>Timeline: <code id=\"kora-shell-selected-timeline-status\">not loaded</code></span>
-              <span>Counters: <code id=\"kora-shell-selected-counters-status\">not loaded</code></span>
-              <span>Comparison: <code id=\"kora-shell-selected-comparison-status\">not loaded</code></span>
-              <span>Report: <code id=\"kora-shell-selected-report-status\">not loaded</code></span>
-            </div>
-            <p>Shell selected-run surface mirrors generated local harness output only. Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection. No model execution, provider calls, downloads, cloud sync, or report export is connected.</p>
-          </div>
-          <div class=\"shell-boundary-strip\" data-kora-component=\"boundary-strip\" data-kora-shell-local-only-boundary=\"v1.0\" data-kora-shell-boundary-coverage=\"provider,cloud,download,model-execution,report-export\">
-            <div class=\"shell-boundary-pills\">
-              <span class=\"shell-pill cyan\">Local preview only</span>
-              <span class=\"shell-pill\">Provider calls disabled</span>
-              <span class=\"shell-pill\">Cloud sync disabled</span>
-              <span class=\"shell-pill\">Downloads disabled</span>
-              <span class=\"shell-pill amber\">Model execution not connected yet</span>
-              <span class=\"shell-pill\">Report export disabled</span>
-            </div>
-            <p>Shell-first boundary: approved local harness requests only. No arbitrary prompt execution, no provider calls, no cloud sync, no downloads, no model execution, and no report file export or writing.</p>
-          </div>
-        </div>
-      </section>
-      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
-        <div class=\"drawer-header\">
-          <div>
-            <h2>Details</h2>
-            <p class=\"subtitle\">Inspector · local preview</p>
-          </div>
-          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-drawer-close=\"true\">x</button>
-        </div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"route-trace\"><h3>Route trace</h3><p>Sample request: <code>{sample_request_id}</code></p><p>Expected route: {sample_route}</p><p>Validation: {sample_validation}</p><p>Generated harness events only.</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"generated-counters\"><h3>Generated counters</h3><p>Total requests: {total_requests}</p><p>Baseline model calls: {baseline_model_calls}</p><p>KORA model calls: {kora_model_calls}</p><p>Avoided model calls: {avoided_model_calls}</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-run-surfaces\" data-kora-drawer-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-drawer-selected-run-polish=\"primary-diagnostics\"><h3>Selected run surfaces</h3><p>Run id: <code id=\"kora-drawer-selected-run-id\">not run yet</code></p><p>Timeline: <span id=\"kora-drawer-selected-timeline-status\">not loaded</span></p><p>Counters: <span id=\"kora-drawer-selected-counters-status\">not loaded</span></p><p>Comparison: <span id=\"kora-drawer-selected-comparison-status\">not loaded</span></p><p>Report metadata: <span id=\"kora-drawer-selected-report-status\">not loaded</span></p><p>Drawer selected-run diagnostics mirror shell state for normal inspection: timeline availability, generated counters, local harness comparison, and report metadata preview.</p><p>Generated local harness output only. Not model token streaming. Not production telemetry. Not production cost evidence. Report metadata preview only. No file export or writing.</p></div>
-        <div class=\"drawer-section-block\" data-kora-drawer-section=\"report-metadata\"><h3>Report metadata</h3><p>Report status: {report_viewer_status}</p><p>Report source: {report_source}</p><p>File export: {report_file_export_enabled}</p><p>File written: {report_file_written}</p></div>
-        <div class=\"drawer-section-block drawer-boundary\" data-kora-drawer-section=\"claim-boundaries\" data-kora-drawer-boundary-coverage=\"provider,cloud,download,model-execution,report-export,private-scan,runtime-list\"><h3>Claim boundaries</h3><p>Local preview only.</p><p>No arbitrary prompt execution.</p><p>No model execution.</p><p>No provider calls.</p><p>No downloads.</p><p>No cloud sync.</p><p>No report file export or writing.</p><p>No private model directory scanning.</p><p>No runtime model list commands.</p></div>
-      </aside>
-    </div>
-  </div>
-
-  <details class=\"legacy-preview\" aria-label=\"Detailed local preview compatibility scaffolds\" data-kora-component=\"legacy-compatibility-reference\" data-kora-legacy-preview-mode=\"compatibility-collapsed\" data-kora-legacy-preview-default=\"collapsed\" data-kora-legacy-preview-role=\"developer-compatibility-scaffold\" data-kora-v1-1-legacy-secondary=\"developer-reference-only\" data-kora-v1-1-legacy-first-run-required=\"false\">
-    <summary aria-label=\"Open legacy detailed preview compatibility scaffold\">
-      <div class=\"legacy-preview-summary\">
-        <div><strong>Legacy detailed preview compatibility scaffold</strong><span>Collapsed by default. The final shell and Details drawer above are the primary local preview; this developer reference is not required for first-run understanding.</span></div>
-        <span class=\"legacy-preview-summary-badge\">Developer reference only</span>
-      </div>
-    </summary>
-    <p class=\"legacy-preview-summary\" data-kora-v1-1-legacy-boundary=\"secondary-reference-only\">This compatibility scaffold remains local-only and secondary. It does not enable model execution, provider calls, downloads, cloud sync, report export, or report writing.</p>
-    <div class=\"legacy-preview-content\">
+{shell_layout_html}
     <header>
       <div class=\"topline\">
         <strong>Local Preview Scaffold</strong>
