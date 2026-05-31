@@ -291,6 +291,14 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Report metadata preview only
             No file export
             No file writing
+            kora-details-drawer-toggle
+            aria-controls="kora-details-drawer"
+            aria-expanded="false"
+            kora-details-drawer-close
+            data-kora-drawer-close
+            data-kora-drawer-state
+            setDetailsDrawerOpen
+            event.key === "Escape"
             kora-run-local-harness-button
             data-kora-request-id
             fetch("/api/harness/run"

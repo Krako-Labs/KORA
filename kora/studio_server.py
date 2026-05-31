@@ -1075,6 +1075,15 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       padding: 10px 22px;
       font-weight: 700;
     }}
+    .details-shell-button[aria-expanded="true"] {{
+      border-color: var(--cyan);
+      color: var(--text);
+    }}
+    .details-shell-button:focus-visible,
+    .drawer-close-button:focus-visible {{
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }}
     .composer-stage {{
       flex: 1;
       min-height: 620px;
@@ -1194,6 +1203,33 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       transform: translateX(calc(100% + 48px));
       opacity: 0.02;
       pointer-events: none;
+      transition: transform 180ms ease, opacity 180ms ease;
+      z-index: 5;
+    }}
+    .studio-workspace[data-kora-drawer-open="true"] .details-drawer-shell {{
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }}
+    .drawer-header {{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }}
+    .drawer-close-button {{
+      border: 1px solid #334052;
+      background: #151a22;
+      color: var(--muted);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
     }}
     .details-drawer-shell h2 {{
       margin-bottom: 4px;
@@ -1371,7 +1407,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             {model_selector_items}
           </div>
         </details>
-        <button class=\"details-shell-button\" type=\"button\" aria-label=\"Open details drawer\">Details</button>
+        <button class=\"details-shell-button\" type=\"button\" id=\"kora-details-drawer-toggle\" aria-label=\"Open details drawer\" aria-controls=\"kora-details-drawer\" aria-expanded=\"false\" data-kora-drawer-toggle=\"true\">Details</button>
       </div>
       <section class=\"composer-stage\" aria-label=\"KORA Studio centered composer\">
         <div class=\"composer-panel\">
@@ -1396,9 +1432,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
         </div>
       </section>
-      <aside class=\"details-drawer-shell\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-mobile-drawer=\"right-overlay\">
-        <h2>Details</h2>
-        <p class=\"subtitle\">Inspector · local preview</p>
+      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
+        <div class=\"drawer-header\">
+          <div>
+            <h2>Details</h2>
+            <p class=\"subtitle\">Inspector · local preview</p>
+          </div>
+          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-drawer-close=\"true\">x</button>
+        </div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"catalog-vs-installed\"><h3>Catalog vs installed</h3><p>Catalog candidate: {local_candidate_name}</p><p>Catalog status: {catalog_status}</p><p>Installed detection: {installed_status}</p><p>Installed count: {installed_count}</p></div>
@@ -1665,6 +1706,51 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           element.textContent = String(value);
         }}
       }};
+
+      const workspace = document.querySelector(".studio-workspace");
+      const detailsDrawer = document.getElementById("kora-details-drawer");
+      const detailsDrawerToggle = document.getElementById("kora-details-drawer-toggle");
+      const detailsDrawerClose = document.getElementById("kora-details-drawer-close");
+
+      const setDetailsDrawerOpen = (open, options) => {{
+        const shouldOpen = open === true;
+        if (workspace) {{
+          workspace.setAttribute("data-kora-drawer-open", shouldOpen ? "true" : "false");
+        }}
+        if (detailsDrawer) {{
+          detailsDrawer.setAttribute("data-kora-drawer-state", shouldOpen ? "open" : "closed");
+          detailsDrawer.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+        }}
+        if (detailsDrawerToggle) {{
+          detailsDrawerToggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+          detailsDrawerToggle.setAttribute("aria-label", shouldOpen ? "Close details drawer" : "Open details drawer");
+        }}
+        const shouldManageFocus = !options || options.manageFocus !== false;
+        if (shouldManageFocus && shouldOpen && detailsDrawerClose) {{
+          detailsDrawerClose.focus();
+        }}
+        if (shouldManageFocus && !shouldOpen && detailsDrawerToggle) {{
+          detailsDrawerToggle.focus();
+        }}
+      }};
+
+      if (detailsDrawerToggle) {{
+        detailsDrawerToggle.addEventListener("click", () => {{
+          const isOpen = detailsDrawerToggle.getAttribute("aria-expanded") === "true";
+          setDetailsDrawerOpen(!isOpen);
+        }});
+      }}
+      if (detailsDrawerClose) {{
+        detailsDrawerClose.addEventListener("click", () => {{
+          setDetailsDrawerOpen(false);
+        }});
+      }}
+      document.addEventListener("keydown", (event) => {{
+        if (event.key === "Escape" && detailsDrawer && detailsDrawer.getAttribute("data-kora-drawer-state") === "open") {{
+          setDetailsDrawerOpen(false);
+        }}
+      }});
+      setDetailsDrawerOpen(false, {{manageFocus: false}});
 
       const setButtonState = () => {{
         document.querySelectorAll("[data-kora-request-id]").forEach((button) => {{

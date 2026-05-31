@@ -752,6 +752,18 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-run-id"' in html
     assert "Provider calls disabled" in html
     assert "Model execution not connected yet" in html
+    assert 'id="kora-details-drawer-toggle"' in html
+    assert 'aria-controls="kora-details-drawer"' in html
+    assert 'aria-expanded="false"' in html
+    assert 'data-kora-drawer-toggle="true"' in html
+    assert 'id="kora-details-drawer"' in html
+    assert 'data-kora-drawer-state="closed"' in html
+    assert 'aria-hidden="true"' in html
+    assert 'id="kora-details-drawer-close"' in html
+    assert 'data-kora-drawer-close="true"' in html
+    assert 'data-kora-drawer-open="true"' in html
+    assert "setDetailsDrawerOpen" in html
+    assert 'event.key === "Escape"' in html
     assert "KORA Studio right details drawer scaffold" in html
     assert 'data-kora-mobile-drawer="right-overlay"' in html
     assert "Inspector · local preview" in html

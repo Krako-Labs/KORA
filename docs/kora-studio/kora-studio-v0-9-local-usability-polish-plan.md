@@ -161,6 +161,8 @@ Create this plan and link it from Studio docs.
 
 Add explicit Details open/close behavior, Escape close, ARIA state, focus-safe controls, and tests.
 
+Status: implemented. The Details control opens and closes the right drawer in local browser state, exposes `aria-controls` / `aria-expanded` / `aria-hidden` state, includes an explicit close button, and closes on Escape. The drawer remains local preview content only: no model execution, provider calls, downloads, cloud sync, or report export behavior is connected.
+
 ### Task 466: left rail open/close interaction
 
 Add mobile left rail open/close behavior, Escape close, ARIA state, and tests.

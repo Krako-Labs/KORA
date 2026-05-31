@@ -746,7 +746,7 @@ These are future issue candidates. Do not create the issues from this document w
 
 ## Phase 12 — v0.9 Local Usability Polish
 
-Status: planned in [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md).
+Status: in progress in [KORA Studio v0.9 local usability polish plan](kora-studio-v0-9-local-usability-polish-plan.md). The right details drawer now has local open/close controls, ARIA state, a close button, and Escape close behavior.
 
 Goal: Polish the v0.8 local preview shell with keyboard/focus accessibility, explicit drawer and rail interactions, clearer model selector selected state, stronger mobile QA, and less reliance on the legacy detailed preview.
 
