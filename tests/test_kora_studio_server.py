@@ -12,6 +12,7 @@ import pytest
 from http.server import ThreadingHTTPServer
 
 import kora.studio_drawer_render as studio_drawer_render
+import kora.studio_harness_request_render as studio_harness_request_render
 import kora.studio_reference_render as studio_reference_render
 import kora.studio_script_render as studio_script_render
 import kora.studio_selected_run_render as studio_selected_run_render
@@ -33,6 +34,12 @@ from kora.studio_server import (
     run_studio_server,
 )
 from kora.studio_harness_runs import clear_local_harness_run_records
+from kora.studio_harness_request_render import (
+    render_local_harness_request_selector_panels,
+    render_local_harness_selector_item,
+    render_local_harness_trigger_item,
+    render_local_harness_trigger_reference_panels,
+)
 from kora.studio_reference_render import render_reference_panels
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
@@ -52,6 +59,10 @@ RENDER_HELPER_FUNCTIONS = [
     studio_selected_run_render.render_selected_run_state_panel,
     studio_selected_run_render.render_selected_run_detail_panels,
     studio_selected_run_render.render_selected_run_panels,
+    studio_harness_request_render.render_local_harness_selector_item,
+    studio_harness_request_render.render_local_harness_trigger_item,
+    studio_harness_request_render.render_local_harness_request_selector_panels,
+    studio_harness_request_render.render_local_harness_trigger_reference_panels,
     studio_reference_render.render_endpoint_panel,
     studio_reference_render.render_limitations_panel,
     studio_reference_render.render_local_references_panel,
@@ -90,6 +101,7 @@ def test_render_helper_modules_do_not_import_io_network_or_subprocess_dependenci
         studio_shell_render,
         studio_drawer_render,
         studio_selected_run_render,
+        studio_harness_request_render,
         studio_reference_render,
         studio_style_render,
         studio_script_render,
@@ -226,6 +238,53 @@ def test_reference_render_helper_preserves_static_local_boundaries() -> None:
     assert "<h2>Local References</h2>" in html
     assert "<code>/tmp/kora-docs</code>" in html
     assert "<code>/tmp/kora-fixtures</code>" in html
+    assert "<script" not in html.lower()
+    assert "https://" not in html
+    assert "fetch(" not in html
+
+
+def test_harness_request_render_helper_preserves_selector_and_trigger_markers() -> None:
+    selector_item = render_local_harness_selector_item(
+        request_id="local-harness-json-required-fields-001",
+        input_text="Validate required JSON fields.",
+        route_class="deterministic_code",
+        model_needed="False",
+    )
+    trigger_item = render_local_harness_trigger_item(
+        request_id="local-harness-json-required-fields-001",
+        input_text="Validate required JSON fields.",
+        task_family="json_validation",
+        route_class="deterministic_code",
+        model_needed="False",
+    )
+    selector_html = render_local_harness_request_selector_panels(
+        selector_preview_id="local-harness-json-required-fields-001",
+        selector_preview_text="Validate required JSON fields.",
+        selector_preview_route="deterministic_code",
+        selector_preview_model_needed="False",
+        selector_items_html=selector_item,
+    )
+    trigger_html = render_local_harness_trigger_reference_panels(trigger_items_html=trigger_item)
+    html = f"{selector_html}\n{trigger_html}"
+
+    assert 'data-kora-component="approved-request-selector"' in html
+    assert 'id="kora-selected-request-id">local-harness-json-required-fields-001</code>' in html
+    assert 'id="kora-selected-request-text">Validate required JSON fields.</p>' in html
+    assert 'id="kora-selected-request-route">deterministic_code</span>' in html
+    assert 'id="kora-selected-request-model-needed">False</span>' in html
+    assert 'id="kora-run-local-harness-button"' in html
+    assert 'class="request-option"' in html
+    assert 'data-kora-keyboard-selectable-request="true"' in html
+    assert 'data-kora-request-id="local-harness-json-required-fields-001"' in html
+    assert 'aria-label="Select approved local harness request local-harness-json-required-fields-001"' in html
+    assert "Run Local Harness action state" in html
+    assert "Approved deterministic sample requests only" in html
+    assert "No arbitrary prompt execution" in html
+    assert "No model execution" in html
+    assert "No provider calls" in html
+    assert "No downloads" in html
+    assert "This is local preview/demo data, not production evidence" in html
+    assert "Model-needed boundary returns <code>execution_not_connected</code>" in html
     assert "<script" not in html.lower()
     assert "https://" not in html
     assert "fetch(" not in html

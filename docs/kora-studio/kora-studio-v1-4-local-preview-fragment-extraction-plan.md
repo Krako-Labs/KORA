@@ -55,7 +55,7 @@ The next candidate fragments in `kora/studio_server.py` are:
 Preferred v1.4 extraction sequence:
 
 1. Inventory the remaining generated local harness fragments and classify each as safe, server-owned, deferred, or already extracted.
-2. Extract approved request selector and local harness trigger panels if tests can lock markers and boundary copy.
+2. Extract approved request selector and local harness trigger panels if tests can lock markers and boundary copy. Task 498 extracted these panels into `kora/studio_harness_request_render.py`.
 3. Extract retry/error state and browser-local run history panels if ids and JavaScript expectations remain stable.
 4. Reassess the legacy compatibility/reference wrapper; extract only if it can be done without altering final page assembly.
 5. Harden helper contract and marker coverage after any extraction.

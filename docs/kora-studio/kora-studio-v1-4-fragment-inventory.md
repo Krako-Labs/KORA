@@ -15,6 +15,7 @@ This document classifies the next server-owned generated local harness preview f
 | `kora/studio_drawer_render.py` | right details drawer diagnostic panels | pure string render helper; accepts server-prepared display strings |
 | `kora/studio_selected_run_render.py` | selected-run summary/state/detail containers for event stream status, selected timeline, counters, comparison, and report metadata | pure string render helper; owns stable selected-run ids and markers |
 | `kora/studio_reference_render.py` | endpoint panel, limitations panel, and local references panel | pure string render helper; accepts escaped local path strings |
+| `kora/studio_harness_request_render.py` | approved request selector cards, selected request preview card, Run Local Harness action card, selector option cards, and local harness trigger reference cards | pure string render helper; accepts escaped display strings and slot HTML |
 | `kora/studio_style_render.py` | inline CSS template | pure string render helper; no external CSS path or CDN |
 | `kora/studio_script_render.py` | inline vanilla JavaScript template | pure string render helper; local harness endpoints only |
 
@@ -52,21 +53,23 @@ This document classifies the next server-owned generated local harness preview f
 | Shell layout and details drawer | `kora/studio_shell_render.py`, `kora/studio_drawer_render.py` | server-provided display strings and slots | Already extracted | No v1.4 extraction needed | shell and drawer remain local preview only |
 | Inline CSS and JavaScript templates | `kora/studio_style_render.py`, `kora/studio_script_render.py` | static inline templates | Already extracted | No v1.4 extraction needed | no external static assets, CDN, dependencies, or framework migration |
 
+Task 498 update: the approved request selector intro card, selected request preview card, Run Local Harness action card, local harness selector option cards, and local harness trigger reference cards are now extracted into `kora/studio_harness_request_render.py`. `kora/studio_server.py` still owns status payload assembly, local harness request data selection, HTML escaping, `local_harness_requests_json`, and final helper placement.
+
 ## Recommended Task 498 Target
 
-Task 498 should extract only the request selector and local harness trigger markup that is already low-risk and marker-bound.
+Task 498 extracted only the request selector and local harness trigger markup that was low-risk and marker-bound.
 
-Recommended helper module:
+Helper module:
 
 - `kora/studio_harness_request_render.py`
 
-Recommended helper responsibilities:
+Helper responsibilities:
 
 - render the approved request selector intro card
 - render the selected request preview card from escaped preview strings
 - render the Run Local Harness action card
-- render local harness selector option cards from pre-escaped item fields or a narrowly documented request item contract
-- optionally render the static trigger boundary/result surface cards if the extraction stays behavior-preserving
+- render local harness selector option cards from pre-escaped item fields
+- render the static trigger boundary/result surface cards from slot HTML
 
 Required markers and ids to preserve:
 
@@ -80,7 +83,7 @@ Required markers and ids to preserve:
 - `data-kora-keyboard-selectable-request="true"`
 - `data-kora-request-id`
 
-The helper must not accept arbitrary prompt text, call endpoints, read files, execute models, call providers, add downloads, or add new dependencies.
+The helper does not accept arbitrary prompt text, call endpoints, read files, execute models, call providers, add downloads, or add new dependencies.
 
 ## Recommended Task 499 Target
 
