@@ -774,7 +774,7 @@ Acceptance criteria:
 
 ## Phase 13 — v1.0 Preview Readiness
 
-Status: in progress. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md) and [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md). The shell now has v1.0 local-only boundary markers and a compact boundary strip covering provider calls, cloud sync, downloads, model execution, and report export/write status. The shell and right drawer also expose selected-run surface status for timeline, counters, comparison, and report metadata so these details no longer depend only on the legacy preview. The legacy detailed preview is now collapsed by default and labelled as compatibility/developer scaffolding.
+Status: in progress. See [KORA Studio v1.0 preview readiness plan](kora-studio-v1-0-preview-readiness-plan.md) and [KORA Studio v1.0 shell-first information architecture](kora-studio-v1-0-shell-first-information-architecture.md). The shell now has v1.0 local-only boundary markers and a compact boundary strip covering provider calls, cloud sync, downloads, model execution, and report export/write status. The shell and right drawer also expose selected-run surface status for timeline, counters, comparison, and report metadata so these details no longer depend only on the legacy preview. The legacy detailed preview is now collapsed by default and labelled as compatibility/developer scaffolding. The local preview smoke check includes a dedicated v1.0 shell-first result.
 
 Goal: Reduce legacy detailed preview dependence and make the final minimal shell the primary local preview experience while preserving local-only claim boundaries.
 

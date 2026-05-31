@@ -252,6 +252,30 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     root_status, root_content_type, root_body = _read_url(base_url, "/", timeout=timeout, opener=opener)
     _require(root_status == 200, f"/ returned HTTP {root_status}")
     _require("text/html" in root_content_type, "/ did not return HTML")
+    required_v1_shell_markers = [
+        'data-kora-final-ui-shell="true"',
+        'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"',
+        'data-kora-v1-shell-local-only-status="visible"',
+        '<details class="legacy-preview"',
+        'data-kora-legacy-preview-mode="compatibility-collapsed"',
+        'data-kora-legacy-preview-default="collapsed"',
+        'data-kora-legacy-preview-role="developer-compatibility-scaffold"',
+        'data-kora-shell-local-only-boundary="v1.0"',
+        'data-kora-shell-boundary-coverage="provider,cloud,download,model-execution,report-export"',
+        'data-kora-shell-selected-run-surface="v1.0"',
+        'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"',
+        'data-kora-drawer-selected-run-coverage="timeline,counters,comparison,report-metadata"',
+        "The final shell above is the primary local preview",
+        "Shell-first boundary: approved local harness requests only",
+        "Shell selected-run surface mirrors generated local harness output only",
+        "Legacy detailed preview compatibility scaffold",
+    ]
+    missing_v1_markers = [marker for marker in required_v1_shell_markers if marker not in root_body]
+    _require(not missing_v1_markers, f"/ missing v1.0 shell-first markers: {', '.join(missing_v1_markers)}")
+    _require("<main class=\"legacy-preview\"" not in root_body, "/ still renders legacy preview as the primary main surface")
+    _require("<details class=\"legacy-preview\" open" not in root_body, "/ legacy preview is open by default")
+    results.append("/ v1.0 shell-first ok")
+
     required_html_markers = [
         'data-kora-final-ui-shell="true"',
         'data-kora-v1-preview-readiness="shell-first-boundary-consolidation"',

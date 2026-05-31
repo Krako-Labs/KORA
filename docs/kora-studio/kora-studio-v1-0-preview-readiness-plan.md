@@ -229,6 +229,8 @@ Status: implemented. The legacy detailed preview is now a collapsed compatibilit
 
 Update smoke checks and tests for v1.0 shell-first readiness markers, legacy compatibility markers, and claim boundaries.
 
+Status: implemented. The local preview smoke check now has a dedicated v1.0 shell-first check result covering shell readiness markers, shell boundary coverage, selected-run shell/drawer coverage, collapsed legacy compatibility mode, and the absence of legacy preview as the primary main surface.
+
 ### Task 478: v1.0 readiness report
 
 Run validation and live local smoke check, then add a public-safe readiness report.

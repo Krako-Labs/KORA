@@ -843,6 +843,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Claim boundaries" in html
     assert "No private model directory scanning" in html
     assert "No runtime model list commands" in html
+    assert '<details class="legacy-preview"' in html
+    assert '<main class="legacy-preview"' not in html
+    assert '<details class="legacy-preview" open' not in html
     assert "legacy-preview" in html
     assert 'data-kora-legacy-preview-mode="compatibility-collapsed"' in html
     assert 'data-kora-legacy-preview-default="collapsed"' in html
