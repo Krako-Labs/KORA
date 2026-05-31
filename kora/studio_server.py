@@ -1105,6 +1105,35 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       justify-content: center;
       font-size: 20px;
     }}
+    .composer-action-note {{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: -8px auto 20px;
+      max-width: 560px;
+    }}
+    .composer-action-note code {{
+      color: var(--text);
+      font-size: 12px;
+    }}
+    .composer-run-summary {{
+      border: 1px solid #293447;
+      background: rgba(17, 22, 30, 0.68);
+      border-radius: 18px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+      margin: 0 auto 22px;
+      max-width: 560px;
+      padding: 12px 16px;
+      text-align: left;
+    }}
+    .composer-run-summary strong {{
+      color: var(--text);
+    }}
+    .composer-run-summary span {{
+      color: var(--text);
+    }}
     .shell-boundary-pills {{
       display: flex;
       flex-wrap: wrap;
@@ -1286,7 +1315,15 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
           <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\">
             <span>Ask KORA...</span>
-            <button class=\"composer-submit\" type=\"button\" aria-label=\"Local harness action scaffold\">↑</button>
+            <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>
+          </div>
+          <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
+          <div class=\"composer-run-summary\" id=\"kora-composer-selected-run-summary\" aria-live=\"polite\">
+            <strong>Composer selected-run summary</strong>
+            <span>Request: <code id=\"kora-composer-request-id\">{selector_preview_id}</code></span>
+            <span>Status: <code id=\"kora-composer-run-status\">not_started</code></span>
+            <span>Run id: <code id=\"kora-composer-run-id\">not run yet</code></span>
+            <span>Boundary: approved local harness request only</span>
           </div>
           <div class=\"shell-boundary-pills\">
             <span class=\"shell-pill cyan\">Local preview</span>
@@ -1585,9 +1622,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       const setRunLoading = (loading) => {{
         runLoading = loading === true;
         const runButton = document.getElementById("kora-run-local-harness-button");
+        const composerRunButton = document.getElementById("kora-composer-run-local-harness-button");
         const retryButton = document.getElementById("kora-retry-last-approved-request-button");
         if (runButton) {{
           runButton.disabled = runLoading;
+        }}
+        if (composerRunButton) {{
+          composerRunButton.disabled = runLoading;
         }}
         if (retryButton) {{
           retryButton.disabled = runLoading || !retryAvailable;
@@ -1616,12 +1657,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         const request = requestById.get(selectedRequestId);
         if (!request) {{
           text("kora-selected-request-id", "none");
+          text("kora-composer-request-id", "none");
           text("kora-selected-request-text", "No approved request selected.");
           text("kora-selected-request-route", "unknown");
           text("kora-selected-request-model-needed", "unknown");
           return;
         }}
         text("kora-selected-request-id", request.request_id);
+        text("kora-composer-request-id", request.request_id);
         text("kora-selected-request-text", request.input_text || "Approved local sample request.");
         text("kora-selected-request-route", request.expected_route_class || "unknown");
         text("kora-selected-request-model-needed", request.expected_model_needed === true ? "true" : "false");
@@ -1631,6 +1674,8 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       const renderRunError = (message) => {{
         runError = message || "Local harness run failed.";
         text("kora-run-status", "failed");
+        text("kora-composer-run-status", "failed");
+        text("kora-composer-run-id", "not available");
         text("kora-run-claim-boundary", `${{runError}} No model execution was attempted. Provider calls remain disabled. Try again or inspect the local server logs.`);
         setRetryState(true, `${{runError}} Retry uses the last approved request only. No model execution was attempted. Provider calls remain disabled.`);
         renderCountersUnavailable("Selected-run counters unavailable.");
@@ -1981,7 +2026,10 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         text("kora-selected-run-id", "not run yet");
         text("kora-run-request-id", "not run yet");
         text("kora-run-status", "not_started");
+        text("kora-composer-run-status", "not_started");
         text("kora-run-event-count", "0");
+        text("kora-composer-run-id", "not run yet");
+        text("kora-composer-request-id", selectedRequestId || "none");
         text("kora-run-model-execution-status", "not_connected");
         text("kora-run-provider-calls-enabled", "false");
         text("kora-run-cloud-sync-enabled", "false");
@@ -2097,8 +2145,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         selectedRunId = run.run_id || "";
         const report = run.report_metadata_summary || {{}};
         text("kora-selected-run-id", selectedRunId || "not returned");
+        text("kora-composer-run-id", selectedRunId || "not returned");
         text("kora-run-request-id", run.request_id || selectedRequestId);
+        text("kora-composer-request-id", run.request_id || selectedRequestId);
         text("kora-run-status", run.run_status || "unknown");
+        text("kora-composer-run-status", run.run_status || "unknown");
         text("kora-run-event-count", run.event_count || (Array.isArray(run.generated_events) ? run.generated_events.length : 0));
         text("kora-run-model-execution-status", run.model_execution_status || "execution_not_connected");
         text("kora-run-provider-calls-enabled", run.provider_calls_enabled === true ? "true" : "false");
@@ -2128,6 +2179,9 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         setRunLoading(true);
         setRetryState(false, "No selected-run error.");
         text("kora-run-status", "running");
+        text("kora-composer-run-status", "running");
+        text("kora-composer-request-id", requestId);
+        text("kora-composer-run-id", "pending local harness response");
         text("kora-run-claim-boundary", "Local harness run requested for an approved request id only.");
         try {{
           const response = await fetch("/api/harness/run", {{
@@ -2170,6 +2224,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
       const runButton = document.getElementById("kora-run-local-harness-button");
       if (runButton) {{
         runButton.addEventListener("click", async () => {{
+          await runLocalHarness(selectedRequestId);
+        }});
+      }}
+
+      const composerRunButton = document.getElementById("kora-composer-run-local-harness-button");
+      if (composerRunButton) {{
+        composerRunButton.addEventListener("click", async () => {{
           await runLocalHarness(selectedRequestId);
         }});
       }}

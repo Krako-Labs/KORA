@@ -305,6 +305,8 @@ Align the existing approved local harness trigger with the new composer surface.
 
 Do not add arbitrary prompt execution.
 
+Status: implemented. The centered composer action now reuses the approved local harness request path and updates a compact composer selected-run summary. It sends only the selected approved request ID to the existing local harness endpoint and does not add arbitrary prompt execution, model execution, provider calls, downloads, or cloud sync.
+
 ### Task 461: Responsive/mobile layout pass
 
 Implement mobile behavior for:

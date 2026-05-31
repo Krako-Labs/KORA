@@ -179,6 +179,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             What do you want to work on?
             Choose a local model once. KORA keeps routing details out of the way.
             Ask KORA...
+            kora-composer-run-local-harness-button
+            Composer action uses the selected approved local harness request only
+            Composer selected-run summary
+            kora-composer-selected-run-summary
+            kora-composer-request-id
+            kora-composer-run-status
+            kora-composer-run-id
             Provider calls disabled
             Model execution not connected yet
             KORA Studio right details drawer scaffold

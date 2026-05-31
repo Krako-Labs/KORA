@@ -739,6 +739,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "What do you want to work on?" in html
     assert "Choose a local model once. KORA keeps routing details out of the way." in html
     assert "Ask KORA..." in html
+    assert 'id="kora-composer-run-local-harness-button"' in html
+    assert "Composer action uses the selected approved local harness request only" in html
+    assert "Composer selected-run summary" in html
+    assert 'id="kora-composer-selected-run-summary"' in html
+    assert 'id="kora-composer-request-id"' in html
+    assert 'id="kora-composer-run-status"' in html
+    assert 'id="kora-composer-run-id"' in html
     assert "Provider calls disabled" in html
     assert "Model execution not connected yet" in html
     assert "KORA Studio right details drawer scaffold" in html
@@ -807,6 +814,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Selected request preview" in html
     assert "Selector state is browser-local in-memory page state only" in html
     assert "id=\"kora-run-local-harness-button\"" in html
+    assert "kora-composer-run-local-harness-button" in html
     assert "id=\"kora-selected-run-state\"" in html
     assert "Selected run state" in html
     assert "Selected Run Error State" in html
