@@ -50,6 +50,8 @@ They must not:
 | `render_studio_css()` | none | inline CSS string | none | no external CSS path or CDN |
 | `render_studio_javascript()` | none | inline vanilla JavaScript string | none | local harness endpoints only |
 
+Task 493 keeps this inline CSS/JavaScript helper path as the v1.3 decision. See [KORA Studio v1.3 static asset serving tradeoff](kora-studio-v1-3-static-asset-serving-tradeoff.md).
+
 ## Signature Rules
 
 Render helper signatures should remain simple and explicit:

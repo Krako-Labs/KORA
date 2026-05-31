@@ -107,6 +107,8 @@ v1.3 should not implement external CSS/JS files or static route serving unless a
 - marker preservation expectations
 - why inline helper output may remain preferable for the local preview
 
+Task 493 documents this tradeoff in [KORA Studio v1.3 static asset serving tradeoff](kora-studio-v1-3-static-asset-serving-tradeoff.md). The v1.3 decision is to keep CSS and JavaScript inline through render helpers and not implement static asset serving.
+
 ## Task Breakdown
 
 Suggested v1.3 sequence:
