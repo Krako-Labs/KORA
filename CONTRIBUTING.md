@@ -218,6 +218,8 @@ Good branch names:
 - `test/offline-runner-smoke`
 - `feature/dev-error-reporting`
 
+**Tip for first-time contributors:** pick a branch name that describes your change in a few words. Short names like `docs/fix-typo-readme` are easier to read in PR lists than long or generic ones like `my-changes`. The prefixes above are suggestions, not strict requirements.
+
 ### Fork workflow for external contributors
 
 Use this workflow if you do not have write access to `Krako-Labs/KORA`.
