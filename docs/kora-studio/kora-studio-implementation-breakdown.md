@@ -1477,6 +1477,39 @@ Acceptance criteria:
 - no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Phase 33 — v3.1 UX/Feature Readiness Review
+
+Status: complete as a review-only UX and feature readiness assessment. See [KORA Studio v3.1 UX/feature readiness review](kora-studio-v3-1-ux-feature-readiness-review.md). Goal 530G reviews the current local preview operator workflow without changing runtime behavior.
+
+Review coverage:
+
+- Run Local Harness workflow
+- approved request selector
+- browser-local run history
+- selected-run summary
+- timeline/event visibility
+- generated event stream status and fallback behavior
+- selected-run comparison and report metadata
+- error, empty, and retry states
+- details drawer and compact model selector boundaries
+- local-only boundary strip
+- narrow/mobile and accessibility basics
+- claim boundaries for what Studio cannot claim or do
+
+Findings summary:
+
+- no blocker was found for the current local demo/preview scope
+- important follow-up work should simplify the primary operator path, make SSE/timeline states easier to scan, review drawer utility, refresh responsive visual QA, and run a focused accessibility interaction review
+- cosmetic issues are mostly text density, repeated boundary copy, and legacy compatibility page length
+
+Acceptance criteria:
+
+- documentation-only review
+- no Studio runtime behavior changes
+- no CSP broadening or asset allowlist broadening is introduced
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- claim boundaries remain local preview/demo only
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
