@@ -28,6 +28,7 @@ from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
+    STUDIO_LOCAL_PREVIEW_CSP,
     create_studio_request_handler,
     get_studio_asset_path_status,
     get_studio_css_asset_path_status,
@@ -1290,28 +1291,35 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     base_url = f"http://127.0.0.1:{server.server_port}"
     try:
         with urllib.request.urlopen(f"{base_url}/health", timeout=2) as response:
+            health_csp = response.headers.get("Content-Security-Policy")
             health = json.loads(response.read().decode("utf-8"))
         with urllib.request.urlopen(f"{base_url}/status", timeout=2) as response:
+            status_csp = response.headers.get("Content-Security-Policy")
             status = json.loads(response.read().decode("utf-8"))
         with urllib.request.urlopen(f"{base_url}/studio-assets/studio.css", timeout=2) as response:
             css_content_type = response.headers.get("Content-Type", "")
             css_cache_control = response.headers.get("Cache-Control", "")
+            css_csp = response.headers.get("Content-Security-Policy")
             css = response.read().decode("utf-8")
         with urllib.request.urlopen(f"{base_url}/studio-assets/studio.js", timeout=2) as response:
             javascript_content_type = response.headers.get("Content-Type", "")
             javascript_cache_control = response.headers.get("Cache-Control", "")
+            javascript_csp = response.headers.get("Content-Security-Policy")
             javascript = response.read().decode("utf-8")
         with urllib.request.urlopen(f"{base_url}/", timeout=2) as response:
             html = response.read().decode("utf-8")
             content_type = response.headers.get("Content-Type", "")
+            html_csp = response.headers.get("Content-Security-Policy", "")
     finally:
         server.shutdown()
         thread.join(timeout=2)
         server.server_close()
 
     assert health["ok"] is True
+    assert health_csp is None
     assert health["service"] == "kora-studio"
     assert status["server"] == "local-only"
+    assert status_csp is None
     assert status["provider_calls_enabled"] is False
     assert status["cloud_sync_enabled"] is False
     assert "system_profile" in status
@@ -1324,6 +1332,7 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     assert "text/css" in css_content_type
     assert "charset=utf-8" in css_content_type
     assert css_cache_control == "no-store"
+    assert css_csp is None
     assert ".studio-shell" in css
     assert ".details-drawer-shell" in css
     assert "<script" not in css.lower()
@@ -1332,6 +1341,7 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     assert "application/javascript" in javascript_content_type
     assert "charset=utf-8" in javascript_content_type
     assert javascript_cache_control == "no-store"
+    assert javascript_csp is None
     assert "window.koraStudioScriptStatus" in javascript
     assert "fetch(\"/api/harness/run\"" in javascript
     assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
@@ -1340,6 +1350,19 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     assert "https://" not in javascript
 
     assert "text/html" in content_type
+    assert html_csp == STUDIO_LOCAL_PREVIEW_CSP
+    assert "default-src 'none'" in html_csp
+    assert "style-src 'self'" in html_csp
+    assert "script-src 'self'" in html_csp
+    assert "connect-src 'self'" in html_csp
+    assert "frame-ancestors 'none'" in html_csp
+    assert "object-src 'none'" in html_csp
+    assert "form-action 'none'" in html_csp
+    assert "http:" not in html_csp
+    assert "https:" not in html_csp
+    assert "*" not in html_csp
+    assert "unsafe-inline" not in html_csp
+    assert "unsafe-eval" not in html_csp
     assert "KORA Studio" in html
     assert '<link rel="stylesheet" href="/studio-assets/studio.css">' in html
     assert '<script src="/studio-assets/studio.js"></script>' in html

@@ -70,6 +70,16 @@ DEFAULT_STUDIO_PORT = 8765
 ALLOWED_STUDIO_HOSTS = {"127.0.0.1", "localhost"}
 STUDIO_CSS_ASSET_PATH = "/studio-assets/studio.css"
 STUDIO_JAVASCRIPT_ASSET_PATH = "/studio-assets/studio.js"
+STUDIO_LOCAL_PREVIEW_CSP = (
+    "default-src 'none'; "
+    "base-uri 'none'; "
+    "object-src 'none'; "
+    "frame-ancestors 'none'; "
+    "form-action 'none'; "
+    "style-src 'self'; "
+    "script-src 'self'; "
+    "connect-src 'self'"
+)
 SETUP_GUIDANCE_CLAIM_BOUNDARY = (
     "Setup guidance is informational in this scaffold. Disabled actions point to guidance, not to an active "
     "installer. No model is downloaded, no model is executed, no provider call is made, and cloud routes remain "
@@ -1010,6 +1020,7 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             body = html.encode("utf-8")
             self.send_response(status_code)
             self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Security-Policy", STUDIO_LOCAL_PREVIEW_CSP)
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)

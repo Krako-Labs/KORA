@@ -1208,6 +1208,38 @@ Acceptance criteria:
 - endpoint and smoke marker coverage remains stable
 - full validation and live smoke checks pass
 
+## Phase 25 — v2.1 Local Asset CSP Readiness
+
+Status: complete as a local preview CSP readiness step. See [KORA Studio v2.1 local asset CSP readiness report](kora-studio-v2-1-local-asset-csp-readiness-report.md) and [KORA Studio v2.1 goal report](kora-studio-v2-1-goal-report.md). Goal 520G adds a minimal enforced `Content-Security-Policy` header to the root Studio HTML route only while preserving package-controlled local CSS/JavaScript assets, approved request JSON behavior, API/SSE/status responses, and local-only claim boundaries.
+
+Goal: Add a bounded local-preview CSP header without claiming production security readiness.
+
+Scope:
+
+- root HTML response includes local preview CSP
+- API, SSE, health, status, CSS asset, and JavaScript asset responses are not altered with CSP
+- CSS and JavaScript remain package-controlled assets under `/studio-assets`
+- approved request JSON remains inline as `type="application/json"`
+- no external source allowances
+- no broad wildcard source allowances
+- no `unsafe-inline`
+- no `unsafe-eval`
+- no nonce framework
+- no hash management
+- no frontend framework, bundler, minifier, npm workflow, or dependency addition
+- no product behavior change
+- no production security readiness claim
+
+Acceptance criteria:
+
+- root HTML CSP includes only local preview allowances needed for self-hosted CSS, JavaScript, fetch, and SSE
+- CSP does not include external hosts, broad wildcards, `unsafe-inline`, or `unsafe-eval`
+- API/SSE/status and asset routes are not accidentally changed by the CSP step
+- root preview still references `/studio-assets/studio.css` and `/studio-assets/studio.js`
+- approved request JSON behavior remains unchanged
+- endpoint and smoke marker coverage remains stable
+- full validation and live smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
