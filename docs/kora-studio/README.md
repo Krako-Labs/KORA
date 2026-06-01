@@ -262,6 +262,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.2 goal report](kora-studio-v2-2-goal-report.md)
 - [KORA Studio v2.3 browser CSP smoke CI-optional policy](kora-studio-v2-3-browser-csp-smoke-ci-optional-policy.md)
 - [KORA Studio v2.3 goal report](kora-studio-v2-3-goal-report.md)
+- [KORA Studio v2.4 CSP resource-type regression guard](kora-studio-v2-4-csp-resource-type-regression-guard.md)
+- [KORA Studio v2.4 goal report](kora-studio-v2-4-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

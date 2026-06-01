@@ -6,6 +6,7 @@ import os
 import threading
 import urllib.error
 import urllib.request
+from html.parser import HTMLParser
 from pathlib import Path
 
 import pytest
@@ -181,10 +182,46 @@ EXPECTED_RENDER_HELPER_NAMES = {
 }
 
 
+class StudioHtmlResourceParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.tags: list[tuple[str, dict[str, str]]] = []
+        self.scripts: list[dict[str, str]] = []
+        self.resource_urls: list[tuple[str, str, str]] = []
+        self.inline_style_attributes: list[tuple[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self._record_tag(tag, attrs)
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self._record_tag(tag, attrs)
+
+    def _record_tag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        normalised_tag = tag.lower()
+        attr_map = {name.lower(): value or "" for name, value in attrs}
+        self.tags.append((normalised_tag, attr_map))
+        if normalised_tag == "script":
+            self.scripts.append(attr_map)
+        if "style" in attr_map:
+            self.inline_style_attributes.append((normalised_tag, attr_map["style"]))
+        for attr_name in ("src", "href", "action", "formaction", "poster", "data"):
+            if attr_name in attr_map:
+                self.resource_urls.append((normalised_tag, attr_name, attr_map[attr_name]))
+
+
 def _qualified_name(function: object) -> str:
     assert hasattr(function, "__module__")
     assert hasattr(function, "__name__")
     return f"{function.__module__}.{function.__name__}"
+
+
+def _parse_csp_directives(csp: str) -> dict[str, list[str]]:
+    directives: dict[str, list[str]] = {}
+    for directive in csp.split(";"):
+        parts = directive.strip().split()
+        if parts:
+            directives[parts[0]] = parts[1:]
+    return directives
 
 
 def test_render_helper_api_contracts_are_string_only_and_keyword_stable() -> None:
@@ -2086,6 +2123,97 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     ]
     positions = [html.index(f"<h2>{section}</h2>") for section in ordered_sections]
     assert positions == sorted(positions)
+
+
+def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
+    html = render_studio_placeholder_html(get_studio_server_status())
+    parser = StudioHtmlResourceParser()
+    parser.feed(html)
+
+    assert parser.inline_style_attributes == []
+
+    stylesheet_hrefs = [
+        attrs["href"]
+        for tag, attrs in parser.tags
+        if tag == "link" and attrs.get("rel") == "stylesheet"
+    ]
+    assert stylesheet_hrefs == ["/studio-assets/studio.css"]
+
+    src_scripts = [attrs for attrs in parser.scripts if "src" in attrs]
+    inline_scripts = [attrs for attrs in parser.scripts if "src" not in attrs]
+    assert src_scripts == [{"src": "/studio-assets/studio.js"}]
+    assert inline_scripts == [
+        {
+            "type": "application/json",
+            "id": "kora-approved-requests-data",
+        }
+    ]
+
+    for tag, attr_name, url in parser.resource_urls:
+        assert not url.startswith(("data:", "blob:", "http://", "https://", "//")), (tag, attr_name, url)
+
+    resource_urls = {url for _, _, url in parser.resource_urls}
+    assert "/studio-assets/studio.css" in resource_urls
+    assert "/studio-assets/studio.js" in resource_urls
+    assert all(
+        not url.startswith("/studio-assets/") or url in {"/studio-assets/studio.css", "/studio-assets/studio.js"}
+        for url in resource_urls
+    )
+
+
+def test_studio_root_csp_remains_narrow_for_current_resource_types() -> None:
+    directives = _parse_csp_directives(STUDIO_LOCAL_PREVIEW_CSP)
+
+    assert directives == {
+        "default-src": ["'none'"],
+        "base-uri": ["'none'"],
+        "object-src": ["'none'"],
+        "frame-ancestors": ["'none'"],
+        "form-action": ["'none'"],
+        "style-src": ["'self'"],
+        "script-src": ["'self'"],
+        "connect-src": ["'self'"],
+    }
+
+    forbidden_sources = {
+        "*",
+        "data:",
+        "blob:",
+        "http:",
+        "https:",
+        "http://*",
+        "https://*",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+    }
+    for directive, sources in directives.items():
+        assert not forbidden_sources.intersection(sources), directive
+        assert all("://" not in source for source in sources), directive
+    assert "img-src" not in directives
+    assert "font-src" not in directives
+    assert "media-src" not in directives
+    assert "worker-src" not in directives
+    assert "frame-src" not in directives
+
+
+def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls() -> None:
+    css = render_studio_css()
+    javascript = render_studio_javascript()
+
+    for source in (css, javascript):
+        lowered = source.lower()
+        assert "unsafe-inline" not in lowered
+        assert "unsafe-eval" not in lowered
+        assert "data:" not in lowered
+        assert "blob:" not in lowered
+        assert "http://" not in lowered
+        assert "https://" not in lowered
+        assert "//cdn." not in lowered
+        assert "cdn.jsdelivr" not in lowered
+        assert "unpkg.com" not in lowered
+
+    assert "@import" not in css.lower()
+    assert "url(" not in css.lower()
 
 
 def test_request_handler_rejects_unsafe_static_asset_paths() -> None:

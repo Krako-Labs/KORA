@@ -1304,6 +1304,34 @@ Acceptance criteria:
 - default CI/test path remains unchanged
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Phase 28 — v2.4 CSP Resource-Type Regression Guard
+
+Status: complete as dependency-light pytest regression coverage. See [KORA Studio v2.4 CSP resource-type regression guard](kora-studio-v2-4-csp-resource-type-regression-guard.md) and [KORA Studio v2.4 goal report](kora-studio-v2-4-goal-report.md). Goal 523G adds static and server-rendered HTML guard coverage for CSP resource classes without adding frontend dependencies or changing browser smoke policy.
+
+Goal: Prevent future local preview changes from silently adding blocked inline styles/scripts, remote resource URLs, embedded resource URL schemes, broad CSP sources, or new resource classes without explicit review.
+
+Scope:
+
+- add HTML parser-based guard coverage for root Studio HTML
+- allow only `/studio-assets/studio.css` as the stylesheet
+- allow only `/studio-assets/studio.js` as executable JavaScript
+- keep approved request JSON as the only inline script block with `type="application/json"`
+- reject resource-bearing attributes that point to `data:`, `blob:`, HTTP(S), protocol-relative, CDN, or remote URLs
+- assert CSP directives remain narrow and exact for current local preview needs
+- assert package CSS/JavaScript do not introduce remote or embedded resource URLs
+- preserve optional browser CSP smoke and CI-optional wrapper behavior
+
+Acceptance criteria:
+
+- root HTML has no inline `style` attributes
+- root HTML has no inline executable script blocks
+- approved request JSON exception remains explicit
+- root HTML references only current package-controlled Studio assets
+- CSP has no `unsafe-inline`, `unsafe-eval`, wildcard, `data:`, `blob:`, HTTP(S), or external host sources
+- package CSS has no `@import` or `url(...)` resource loading
+- no persistent frontend dependency, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
