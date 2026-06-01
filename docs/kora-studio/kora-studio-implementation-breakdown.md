@@ -1621,6 +1621,31 @@ Next recommended implementation:
 
 - move or mirror Retry Last Approved Request closer to failed status and last-run context
 
+## Phase 38 — v3.6 Retry and Error State Polish
+
+Status: complete as a bounded UX-only frontend shell improvement. See [KORA Studio v3.6 retry and error state polish report](kora-studio-v3-6-retry-error-state-polish-report.md) and [KORA Studio v3.6 goal report](kora-studio-v3-6-goal-report.md). Goal 535G implements the fourth v3.2 simplification candidate by adding shell-level retry guidance and a safe retry action near run progress/error context.
+
+Implemented behavior:
+
+- shell-level Safe next action guidance
+- shell-level Retry Last Approved Request button
+- shared retry enable/disable handling for shell and diagnostic retry controls
+- last-approved-request-only retry boundary copy
+- package CSS styling for shell retry placement
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no diagnostic information removed
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+
+Next recommended implementation:
+
+- rebalance diagnostic surfaces across primary shell, details drawer, and collapsed legacy compatibility preview
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

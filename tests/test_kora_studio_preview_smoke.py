@@ -200,6 +200,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-component="top-model-selector"
             data-kora-component="primary-workflow-band"
             data-kora-component="run-progress-summary"
+            data-kora-component="shell-retry-action"
             data-kora-component="primary-result-summary"
             data-kora-component="composer"
             data-kora-component="approved-request-selector"
@@ -300,6 +301,13 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             No generated events yet
             Generated event stream idle
             not model token streaming or provider output
+            data-kora-component="shell-retry-action"
+            data-kora-retry-boundary="last-approved-request-only"
+            Safe next action
+            kora-shell-retry-guidance
+            No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.
+            kora-shell-retry-last-approved-request-button
+            Retry reuses only the last approved request ID.
             data-kora-component="primary-result-summary"
             data-kora-result-summary-before-diagnostics="true"
             Result summary

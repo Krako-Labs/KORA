@@ -614,6 +614,27 @@ li + li { margin-top: 8px; }
   font-size: 12px;
   padding: 8px 10px;
 }
+.shell-retry-action {
+  border-top: 1px solid #293447;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding-top: 12px;
+}
+.shell-retry-action strong {
+  color: var(--text);
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.shell-retry-action p {
+  grid-column: 1 / -1;
+}
+.shell-retry-button {
+  align-self: start;
+  margin-top: 0;
+  min-width: 210px;
+}
 .primary-result-summary {
   border: 1px solid #2f4954;
   background: rgba(14, 24, 31, 0.78);
@@ -938,6 +959,13 @@ li + li { margin-top: 8px; }
   }
   .run-progress-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  .shell-retry-action {
+    grid-template-columns: 1fr;
+  }
+  .shell-retry-button {
+    min-width: 0;
+    width: 100%;
   }
   .primary-result-grid {
     grid-template-columns: 1fr 1fr;

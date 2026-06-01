@@ -495,6 +495,8 @@ def test_rendered_preview_preserves_helper_owned_component_markers() -> None:
         "left-rail": "kora.studio_shell_render",
         "top-model-selector": "kora.studio_shell_render",
         "primary-workflow-band": "kora.studio_server",
+        "run-progress-summary": "kora.studio_server",
+        "shell-retry-action": "kora.studio_server",
         "primary-result-summary": "kora.studio_server",
         "right-details-drawer": "kora.studio_drawer_render",
         "selected-run-summary": "kora.studio_selected_run_render",
@@ -1003,6 +1005,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".primary-workflow-step" in css
     assert ".run-progress-summary" in css
     assert ".run-progress-grid" in css
+    assert ".shell-retry-action" in css
+    assert ".shell-retry-button" in css
     assert ".primary-result-summary" in css
     assert ".primary-result-grid" in css
     assert ".composer-stage" in css
@@ -1019,6 +1023,9 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "setDetailsDrawerOpen" in javascript
     assert "setRunProgressSummary" in javascript
     assert "kora-run-progress-state" in javascript
+    assert "kora-shell-retry-guidance" in javascript
+    assert "kora-shell-retry-last-approved-request-button" in javascript
+    assert "data-kora-retry-last-approved-request-button" in javascript
     assert "Generated event stream is local harness events only" in javascript
     assert "setPrimaryResultSummary" in javascript
     assert "kora-primary-result-status" in javascript
@@ -1870,6 +1877,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
         "top-model-selector",
         "primary-workflow-band",
         "run-progress-summary",
+        "shell-retry-action",
         "primary-result-summary",
         "composer",
         "approved-request-selector",
@@ -1978,6 +1986,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "No generated events yet" in html
     assert "Generated event stream idle" in html
     assert "not model token streaming or provider output" in html
+    assert 'data-kora-component="shell-retry-action"' in html
+    assert 'data-kora-retry-boundary="last-approved-request-only"' in html
+    assert "Safe next action" in html
+    assert 'id="kora-shell-retry-guidance"' in html
+    assert "No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails." in html
+    assert 'id="kora-shell-retry-last-approved-request-button"' in html
+    assert "Retry reuses only the last approved request ID." in html
+    assert "No arbitrary prompt execution, model execution, provider calls, downloads, report export, or file writing." in html
     assert 'data-kora-component="primary-result-summary"' in html
     assert 'data-kora-result-summary-before-diagnostics="true"' in html
     assert "Result summary" in html

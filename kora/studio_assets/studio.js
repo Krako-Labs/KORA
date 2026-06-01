@@ -141,28 +141,27 @@
   const setRetryState = (available, message) => {
     retryAvailable = available === true && requestById.has(lastApprovedRequestId);
     text("kora-run-error-state", message || "No selected-run error.");
+    text("kora-shell-retry-guidance", message || "No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.");
     text("kora-last-approved-request-id", lastApprovedRequestId || "none");
     text("kora-retry-available", retryAvailable ? "true" : "false");
-    const retryButton = document.getElementById("kora-retry-last-approved-request-button");
-    if (retryButton) {
+    document.querySelectorAll("[data-kora-retry-last-approved-request-button]").forEach((retryButton) => {
       retryButton.disabled = !retryAvailable || runLoading;
-    }
+    });
   };
 
   const setRunLoading = (loading) => {
     runLoading = loading === true;
     const runButton = document.getElementById("kora-run-local-harness-button");
     const composerRunButton = document.getElementById("kora-composer-run-local-harness-button");
-    const retryButton = document.getElementById("kora-retry-last-approved-request-button");
     if (runButton) {
       runButton.disabled = runLoading;
     }
     if (composerRunButton) {
       composerRunButton.disabled = runLoading;
     }
-    if (retryButton) {
+    document.querySelectorAll("[data-kora-retry-last-approved-request-button]").forEach((retryButton) => {
       retryButton.disabled = runLoading || !retryAvailable;
-    }
+    });
   };
 
   const setSseState = (status, error, fallbackUsed) => {
@@ -990,15 +989,20 @@
   }
 
   const retryButton = document.getElementById("kora-retry-last-approved-request-button");
-  if (retryButton) {
-    retryButton.addEventListener("click", async () => {
+  const shellRetryButton = document.getElementById("kora-shell-retry-last-approved-request-button");
+  [retryButton, shellRetryButton].forEach((button) => {
+    if (!button) {
+      return;
+    }
+    button.setAttribute("data-kora-retry-last-approved-request-button", "true");
+    button.addEventListener("click", async () => {
       if (!requestById.has(lastApprovedRequestId)) {
         renderRunError("Retry is unavailable because no approved request has been selected.");
         return;
       }
       await runLocalHarness(lastApprovedRequestId);
     });
-  }
+  });
 
   const clearHistoryButton = document.getElementById("kora-clear-run-history-button");
   if (clearHistoryButton) {

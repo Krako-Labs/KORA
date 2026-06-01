@@ -913,6 +913,14 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
               <span>Stream: <code id=\"kora-run-progress-stream-status\">Generated event stream idle</code></span>
             </div>
             <p id=\"kora-run-progress-error\">No run error. Generated event stream is local harness events only, not model token streaming or provider output.</p>
+            <div class=\"shell-retry-action\" data-kora-component=\"shell-retry-action\" data-kora-retry-boundary=\"last-approved-request-only\">
+              <div>
+                <strong>Safe next action</strong>
+                <p id=\"kora-shell-retry-guidance\">No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.</p>
+              </div>
+              <button class=\"action-button shell-retry-button\" type=\"button\" id=\"kora-shell-retry-last-approved-request-button\" disabled>Retry Last Approved Request</button>
+              <p>Retry reuses only the last approved request ID. No arbitrary prompt execution, model execution, provider calls, downloads, report export, or file writing.</p>
+            </div>
           </div>
           <div class=\"primary-result-summary\" data-kora-component=\"primary-result-summary\" data-kora-result-summary-before-diagnostics=\"true\" aria-live=\"polite\">
             <div>
