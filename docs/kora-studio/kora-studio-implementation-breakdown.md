@@ -1134,6 +1134,43 @@ Acceptance criteria:
 - endpoint and smoke marker coverage remains stable
 - full validation and live smoke checks pass
 
+## Phase 23 — v1.9 CSS Asset Source File Migration
+
+Status: complete as a narrow source migration. See [KORA Studio v1.9 CSS asset source file migration report](kora-studio-v1-9-css-asset-source-file-migration-report.md) and [KORA Studio v1.9 goal report](kora-studio-v1-9-goal-report.md). Goal 518G moves the Studio CSS source into a package-controlled first-party CSS file while preserving the existing `/studio-assets/studio.css` route, exact allowlist, `no-store` cache behavior, root preview stylesheet reference, and inline JavaScript boundary.
+
+Goal: Make the CSS asset source file-based without introducing broad static serving, frontend tooling, or product behavior changes.
+
+Scope:
+
+- CSS source file: `kora/studio_assets/studio.css`
+- package resource loader remains behind `render_studio_css()`
+- `/studio-assets/studio.css` remains the only served CSS asset
+- `Content-Type: text/css; charset=utf-8`
+- `Cache-Control: no-store`
+- exact CSS allowlist only
+- unknown asset rejection
+- directory request rejection
+- traversal and encoded traversal rejection
+- root preview references only the local CSS asset
+- JavaScript remains inline through `render_studio_javascript()`
+- no JavaScript static serving
+- no wildcard static route
+- no directory listing
+- no arbitrary filesystem serving
+- no external assets or CDN
+- no frontend framework or dependency addition
+- no product behavior change
+
+Acceptance criteria:
+
+- CSS helper returns the package-controlled source file contents
+- approved CSS asset route still returns CSS with expected MIME/cache headers
+- unsafe/unknown asset paths fail without exposing local filesystem details
+- root preview references `/studio-assets/studio.css`
+- root preview keeps inline JavaScript and no external JavaScript source
+- endpoint and smoke marker coverage remains stable
+- full validation and live smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

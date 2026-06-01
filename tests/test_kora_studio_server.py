@@ -77,7 +77,7 @@ from kora.studio_status_boundary_render import (
     render_launch_local_status_section,
     render_shell_boundary_strip,
 )
-from kora.studio_style_render import render_studio_css
+from kora.studio_style_render import STUDIO_CSS_SOURCE_PACKAGE, STUDIO_CSS_SOURCE_PATH, render_studio_css
 
 APPROVED_BOOST_MESSAGE = "Less waiting. Better answers. No hardware upgrade."
 TECHNICAL_EXPLANATION = (
@@ -777,6 +777,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     css = render_studio_css()
     javascript = render_studio_javascript()
 
+    assert STUDIO_CSS_SOURCE_PACKAGE == "kora"
+    assert STUDIO_CSS_SOURCE_PATH == "studio_assets/studio.css"
     assert ".studio-shell" in css
     assert ".studio-left-rail" in css
     assert ".model-selector-shell" in css
@@ -804,6 +806,19 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "localStorage" not in javascript
     assert "sessionStorage" not in javascript
     assert "indexedDB" not in javascript
+
+
+def test_studio_css_helper_loads_package_controlled_source_file() -> None:
+    css_source_path = Path(__file__).resolve().parents[1] / "kora" / "studio_assets" / "studio.css"
+    css_source = css_source_path.read_text(encoding="utf-8")
+
+    assert css_source_path.is_file()
+    assert css_source == render_studio_css()
+    assert ".studio-shell" in css_source
+    assert ".details-drawer-shell" in css_source
+    assert "<script" not in css_source.lower()
+    assert "http://" not in css_source
+    assert "https://" not in css_source
 
 
 def test_css_static_asset_path_allowlist_rejects_unsafe_paths() -> None:

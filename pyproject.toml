@@ -49,6 +49,9 @@ dev = [
 [tool.setuptools.packages.find]
 include = ["kora*"]
 
+[tool.setuptools.package-data]
+kora = ["studio_assets/*.css"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]

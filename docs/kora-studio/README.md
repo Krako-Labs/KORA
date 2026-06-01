@@ -252,6 +252,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v1.8 static asset allowlist test plan](kora-studio-v1-8-static-asset-allowlist-test-plan.md)
 - [KORA Studio v1.8 readiness report](kora-studio-v1-8-readiness-report.md)
 - [KORA Studio v1.8 goal report](kora-studio-v1-8-goal-report.md)
+- [KORA Studio v1.9 CSS asset source file migration report](kora-studio-v1-9-css-asset-source-file-migration-report.md)
+- [KORA Studio v1.9 goal report](kora-studio-v1-9-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)
