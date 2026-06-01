@@ -69,6 +69,7 @@ DEFAULT_STUDIO_HOST = "127.0.0.1"
 DEFAULT_STUDIO_PORT = 8765
 ALLOWED_STUDIO_HOSTS = {"127.0.0.1", "localhost"}
 STUDIO_CSS_ASSET_PATH = "/studio-assets/studio.css"
+STUDIO_JAVASCRIPT_ASSET_PATH = "/studio-assets/studio.js"
 SETUP_GUIDANCE_CLAIM_BOUNDARY = (
     "Setup guidance is informational in this scaffold. Disabled actions point to guidance, not to an active "
     "installer. No model is downloaded, no model is executed, no provider call is made, and cloud routes remain "
@@ -79,8 +80,8 @@ StatusProvider = Callable[[], dict[str, Any]]
 BrowserOpener = Callable[[str], bool]
 
 
-def get_studio_css_asset_path_status(path: str) -> tuple[str | None, int]:
-    """Return the allowed CSS asset key and status code for a Studio asset path."""
+def get_studio_asset_path_status(path: str) -> tuple[str | None, int]:
+    """Return the allowed Studio asset key and status code for an asset path."""
 
     decoded_path = unquote(path)
     decoded_twice_path = unquote(decoded_path)
@@ -98,9 +99,17 @@ def get_studio_css_asset_path_status(path: str) -> tuple[str | None, int]:
         return None, 404
     if decoded_path == STUDIO_CSS_ASSET_PATH:
         return "studio.css", 200
+    if decoded_path == STUDIO_JAVASCRIPT_ASSET_PATH:
+        return "studio.js", 200
     if decoded_path.startswith("/studio-assets/"):
         return None, 404
     return None, 404
+
+
+def get_studio_css_asset_path_status(path: str) -> tuple[str | None, int]:
+    """Return the allowed Studio asset key and status code for backward-compatible tests."""
+
+    return get_studio_asset_path_status(path)
 
 
 def is_allowed_studio_host(host: str) -> bool:
@@ -972,8 +981,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
     </div>
   </details>
   <script type=\"application/json\" id=\"kora-approved-requests-data\">{local_harness_requests_json}</script>
-  <script>{render_studio_javascript().rstrip("\n")}
-  </script>
+  <script src=\"/studio-assets/studio.js\"></script>
 </body>
 </html>
 """
@@ -1015,6 +1023,15 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             self.end_headers()
             self.wfile.write(body)
 
+        def _write_javascript(self, javascript: str, status_code: int = 200) -> None:
+            body = javascript.encode("utf-8")
+            self.send_response(status_code)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
         def _write_sse(self, stream: str, status_code: int = 200) -> None:
             body = stream.encode("utf-8")
             self.send_response(status_code)
@@ -1044,9 +1061,12 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             path = parsed_path.path
             status = provider()
             if path.startswith("/studio-assets"):
-                asset_key, asset_status = get_studio_css_asset_path_status(path)
+                asset_key, asset_status = get_studio_asset_path_status(path)
                 if asset_key == "studio.css":
                     self._write_css(render_studio_css())
+                    return
+                if asset_key == "studio.js":
+                    self._write_javascript(render_studio_javascript())
                     return
                 self._write_json({"ok": False, "error": "asset_not_found"}, status_code=asset_status)
                 return

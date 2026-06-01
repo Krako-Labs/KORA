@@ -167,12 +167,33 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             .details-drawer-shell { display: block; }
             """,
         )
+    if url.endswith("/studio-assets/studio.js"):
+        return FakeResponse(
+            status=200,
+            content_type="application/javascript; charset=utf-8",
+            headers={"Cache-Control": "no-store"},
+            body="""
+            window.koraStudioScriptStatus = {status: "ready", error: ""};
+            const setLeftRailOpen = () => {};
+            const setDetailsDrawerOpen = () => {};
+            const localHarnessError = "The local harness endpoint was unavailable";
+            const parseError = "The local response could not be parsed";
+            const counterCopy = "Compact counters: avoided_model_calls=";
+            const activeRunCopy = "Active selected local run";
+            const selectedRunCopy = "Selected in page";
+            const clearCopy = "Cleared browser-local preview state only";
+            const clearBoundary = "No backend records, files, report exports, or server endpoints were deleted";
+            fetch("/api/harness/run", {});
+            new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`);
+            """,
+        )
     if url.endswith("/"):
         return FakeResponse(
             status=200,
             content_type="text/html; charset=utf-8",
             body="""
             <link rel="stylesheet" href="/studio-assets/studio.css">
+            <script src="/studio-assets/studio.js"></script>
             data-kora-component="shell-layout"
             data-kora-component="left-rail"
             data-kora-component="boundary-strip"
@@ -212,8 +233,6 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-rail-toggle
             kora-left-rail-close
             data-kora-rail-close
-            setLeftRailOpen
-            isSmallRailViewport
             Open left rail
             Close left rail
             New task
@@ -457,6 +476,7 @@ def test_check_preview_uses_local_endpoints_only() -> None:
         "/api/harness/events ok",
         "/api/harness/sse ok",
         "/studio-assets/studio.css ok",
+        "/studio-assets/studio.js ok",
         "/ v1.0 shell-first ok",
         "/ v1.1 shell-only ok",
         "/ v1.2 component markers ok",

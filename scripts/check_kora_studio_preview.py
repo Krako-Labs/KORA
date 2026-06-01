@@ -263,6 +263,60 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
     _require("http://" not in css_body and "https://" not in css_body, "/studio-assets/studio.css references external assets")
     results.append("/studio-assets/studio.css ok")
 
+    javascript_status, javascript_content_type, javascript_body = _read_url(
+        base_url,
+        "/studio-assets/studio.js",
+        timeout=timeout,
+        opener=opener,
+    )
+    _require(javascript_status == 200, f"/studio-assets/studio.js returned HTTP {javascript_status}")
+    _require(
+        "application/javascript" in javascript_content_type,
+        "/studio-assets/studio.js did not return JavaScript",
+    )
+    _require(
+        "window.koraStudioScriptStatus" in javascript_body,
+        "/studio-assets/studio.js missing script status marker",
+    )
+    _require("setLeftRailOpen" in javascript_body, "/studio-assets/studio.js missing left rail behavior")
+    _require("setDetailsDrawerOpen" in javascript_body, "/studio-assets/studio.js missing drawer behavior")
+    _require(
+        "The local harness endpoint was unavailable" in javascript_body,
+        "/studio-assets/studio.js missing local harness error copy",
+    )
+    _require(
+        "The local response could not be parsed" in javascript_body,
+        "/studio-assets/studio.js missing local harness parse error copy",
+    )
+    _require(
+        "Compact counters: avoided_model_calls=" in javascript_body,
+        "/studio-assets/studio.js missing run history counter copy",
+    )
+    _require("Active selected local run" in javascript_body, "/studio-assets/studio.js missing active run copy")
+    _require("Selected in page" in javascript_body, "/studio-assets/studio.js missing selected run copy")
+    _require(
+        "Cleared browser-local preview state only" in javascript_body,
+        "/studio-assets/studio.js missing local clear-state copy",
+    )
+    _require(
+        "No backend records, files, report exports, or server endpoints were deleted" in javascript_body,
+        "/studio-assets/studio.js missing local clear boundary copy",
+    )
+    _require(
+        'fetch("/api/harness/run"' in javascript_body,
+        "/studio-assets/studio.js missing local harness run endpoint",
+    )
+    _require(
+        "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript_body,
+        "/studio-assets/studio.js missing generated event stream connection",
+    )
+    _require("<script" not in javascript_body.lower(), "/studio-assets/studio.js contains script markup")
+    _require(
+        "http://" not in javascript_body and "https://" not in javascript_body,
+        "/studio-assets/studio.js references external assets",
+    )
+    results.append("/studio-assets/studio.js ok")
+
     root_status, root_content_type, root_body = _read_url(base_url, "/", timeout=timeout, opener=opener)
     _require(root_status == 200, f"/ returned HTTP {root_status}")
     _require("text/html" in root_content_type, "/ did not return HTML")
@@ -364,8 +418,6 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "data-kora-rail-toggle",
         "kora-left-rail-close",
         "data-kora-rail-close",
-        "setLeftRailOpen",
-        "isSmallRailViewport",
         "Open left rail",
         "Close left rail",
         "New task",
@@ -498,8 +550,6 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "kora-details-drawer-close",
         "data-kora-drawer-close",
         "data-kora-drawer-state",
-        "setDetailsDrawerOpen",
-        'event.key === "Escape"',
         "Approved Request Selector",
         "Interactive approved request selector",
         "Approved local harness requests only",
@@ -517,8 +567,6 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "kora-retry-last-approved-request-button",
         "kora-last-approved-request-id",
         "Retry uses the last approved request only",
-        "The local harness endpoint was unavailable",
-        "The local response could not be parsed",
         "Local Run History",
         "kora-local-run-history",
         "kora-run-history-count",
@@ -529,19 +577,7 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "Clears on refresh",
         "kora-active-history-run-id",
         "History cards show compact counters from generated harness output only",
-        "Compact counters: avoided_model_calls=",
-        "Active selected local run",
-        "Selected in page",
-        "Cleared browser-local preview state only",
-        "No backend records, files, report exports, or server endpoints were deleted",
-        "getShellAccessibilityState",
-        "setShellSelectedRunSurfaceState",
-        "window.koraStudioAccessibilityState",
-        "window.koraStudioScriptStatus",
-        'status: "ready"',
-        "keyboard_focus_pass",
-        "left_rail_expanded",
-        "details_drawer_expanded",
+        '<script src="/studio-assets/studio.js"></script>',
         "Generated Event Stream",
         "kora-sse-status",
         "kora-sse-fallback-used",
@@ -549,7 +585,6 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "Fallback to local events endpoint available",
         "No provider streaming",
         '<link rel="stylesheet" href="/studio-assets/studio.css">',
-        "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)",
         "Selected Run Event Timeline",
         "kora-selected-run-events",
         "kora-selected-events-status",
@@ -570,8 +605,6 @@ def check_preview(base_url: str = DEFAULT_BASE_URL, *, timeout: float = 2.0, ope
         "No file writing",
         "kora-run-local-harness-button",
         "data-kora-request-id",
-        'fetch("/api/harness/run"',
-        "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)",
         "api_endpoint_connected",
         "Run Local Harness",
         "Approved deterministic sample requests only",

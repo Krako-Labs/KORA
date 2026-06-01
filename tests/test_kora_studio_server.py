@@ -29,6 +29,7 @@ from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
     create_studio_request_handler,
+    get_studio_asset_path_status,
     get_studio_css_asset_path_status,
     get_studio_url,
     get_studio_health_payload,
@@ -71,7 +72,11 @@ from kora.studio_run_state_render import (
 )
 from kora.studio_selected_run_render import render_selected_run_panels, render_selected_run_summary_panel
 from kora.studio_shell_render import render_shell_layout
-from kora.studio_script_render import render_studio_javascript
+from kora.studio_script_render import (
+    STUDIO_JAVASCRIPT_SOURCE_PACKAGE,
+    STUDIO_JAVASCRIPT_SOURCE_PATH,
+    render_studio_javascript,
+)
 from kora.studio_status_boundary_render import (
     render_kora_boost_boundary_section,
     render_launch_local_status_section,
@@ -265,7 +270,7 @@ def test_server_retains_endpoint_status_escaping_and_document_assembly() -> None
     assert "<!doctype html>" in placeholder_source
     assert "STUDIO_CSS_ASSET_PATH" in placeholder_source
     assert "render_studio_css" in handler_source
-    assert "render_studio_javascript" in placeholder_source
+    assert "render_studio_javascript" in handler_source
     assert 'id=\\"kora-approved-requests-data\\"' in placeholder_source
     assert "def do_GET" in handler_source
     assert "def do_POST" in handler_source
@@ -789,6 +794,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "http://" not in css
     assert "https://" not in css
 
+    assert STUDIO_JAVASCRIPT_SOURCE_PACKAGE == "kora"
+    assert STUDIO_JAVASCRIPT_SOURCE_PATH == "studio_assets/studio.js"
     assert "window.koraStudioScriptStatus" in javascript
     assert "setLeftRailOpen" in javascript
     assert "setDetailsDrawerOpen" in javascript
@@ -808,6 +815,25 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "indexedDB" not in javascript
 
 
+def test_studio_javascript_helper_loads_package_controlled_source_file() -> None:
+    javascript_source_path = Path(__file__).resolve().parents[1] / "kora" / "studio_assets" / "studio.js"
+    javascript_source = javascript_source_path.read_text(encoding="utf-8")
+
+    assert javascript_source_path.is_file()
+    assert javascript_source == render_studio_javascript()
+    assert "window.koraStudioScriptStatus" in javascript_source
+    assert "fetch(\"/api/harness/run\"" in javascript_source
+    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript_source
+    assert "<script" not in javascript_source.lower()
+    assert "fetch(\"/api/provider" not in javascript_source
+    assert "fetch(\"/api/download" not in javascript_source
+    assert "fetch(\"/api/model" not in javascript_source
+    assert "fetch(\"/api/report" not in javascript_source
+    assert "fetch(\"/api/export" not in javascript_source
+    assert "http://" not in javascript_source
+    assert "https://" not in javascript_source
+
+
 def test_studio_css_helper_loads_package_controlled_source_file() -> None:
     css_source_path = Path(__file__).resolve().parents[1] / "kora" / "studio_assets" / "studio.css"
     css_source = css_source_path.read_text(encoding="utf-8")
@@ -823,10 +849,13 @@ def test_studio_css_helper_loads_package_controlled_source_file() -> None:
 
 def test_css_static_asset_path_allowlist_rejects_unsafe_paths() -> None:
     assert get_studio_css_asset_path_status("/studio-assets/studio.css") == ("studio.css", 200)
+    assert get_studio_css_asset_path_status("/studio-assets/studio.js") == ("studio.js", 200)
+    assert get_studio_asset_path_status("/studio-assets/studio.css") == ("studio.css", 200)
+    assert get_studio_asset_path_status("/studio-assets/studio.js") == ("studio.js", 200)
     assert get_studio_css_asset_path_status("/studio-assets") == (None, 404)
     assert get_studio_css_asset_path_status("/studio-assets/") == (None, 404)
-    assert get_studio_css_asset_path_status("/studio-assets/studio.js") == (None, 404)
     assert get_studio_css_asset_path_status("/studio-assets/unknown.css") == (None, 404)
+    assert get_studio_css_asset_path_status("/studio-assets/unknown.js") == (None, 404)
     assert get_studio_css_asset_path_status("/studio-assets/../studio.css") == (None, 400)
     assert get_studio_css_asset_path_status("/studio-assets/%2e%2e/studio.css") == (None, 400)
     assert get_studio_css_asset_path_status("/studio-assets/%252e%252e/studio.css") == (None, 400)
@@ -1268,6 +1297,10 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
             css_content_type = response.headers.get("Content-Type", "")
             css_cache_control = response.headers.get("Cache-Control", "")
             css = response.read().decode("utf-8")
+        with urllib.request.urlopen(f"{base_url}/studio-assets/studio.js", timeout=2) as response:
+            javascript_content_type = response.headers.get("Content-Type", "")
+            javascript_cache_control = response.headers.get("Cache-Control", "")
+            javascript = response.read().decode("utf-8")
         with urllib.request.urlopen(f"{base_url}/", timeout=2) as response:
             html = response.read().decode("utf-8")
             content_type = response.headers.get("Content-Type", "")
@@ -1296,10 +1329,20 @@ def test_request_handler_serves_health_status_and_placeholder() -> None:
     assert "<script" not in css.lower()
     assert "http://" not in css
     assert "https://" not in css
+    assert "application/javascript" in javascript_content_type
+    assert "charset=utf-8" in javascript_content_type
+    assert javascript_cache_control == "no-store"
+    assert "window.koraStudioScriptStatus" in javascript
+    assert "fetch(\"/api/harness/run\"" in javascript
+    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
+    assert "<script" not in javascript.lower()
+    assert "http://" not in javascript
+    assert "https://" not in javascript
 
     assert "text/html" in content_type
     assert "KORA Studio" in html
     assert '<link rel="stylesheet" href="/studio-assets/studio.css">' in html
+    assert '<script src="/studio-assets/studio.js"></script>' in html
     assert "<style>" not in html.lower()
     assert APPROVED_BOOST_MESSAGE in html
     assert "Preview / Local-only" in html
@@ -1533,6 +1576,7 @@ def test_request_handler_rejects_invalid_local_harness_run_request() -> None:
 def test_static_preview_html_content_is_safe_and_complete() -> None:
     html = render_studio_placeholder_html(get_studio_server_status())
     css = render_studio_css()
+    javascript = render_studio_javascript()
 
     assert html.startswith("<!doctype html>")
     assert "KORA Studio" in html
@@ -1578,9 +1622,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-rail-toggle="true"' in html
     assert 'id="kora-left-rail-close"' in html
     assert 'data-kora-rail-close="true"' in html
-    assert "setLeftRailOpen" in html
-    assert "isSmallRailViewport" in html
-    assert 'data-kora-rail-state") === "open"' in html
+    assert "setLeftRailOpen" in javascript
+    assert "isSmallRailViewport" in javascript
+    assert 'data-kora-rail-state") === "open"' in javascript
     assert "Open left rail" in html
     assert "Close left rail" in html
     assert "New task" in html
@@ -1649,8 +1693,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-details-drawer-close"' in html
     assert 'data-kora-drawer-close="true"' in html
     assert 'data-kora-drawer-open="true"' in css
-    assert "setDetailsDrawerOpen" in html
-    assert 'event.key === "Escape"' in html
+    assert "setDetailsDrawerOpen" in javascript
+    assert 'event.key === "Escape"' in javascript
     assert "KORA Studio right details drawer scaffold" in html
     assert 'data-kora-mobile-drawer="right-overlay"' in html
     assert "Inspector · local preview" in html
@@ -1763,13 +1807,13 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "id=\"kora-retry-last-approved-request-button\"" in html
     assert "id=\"kora-last-approved-request-id\"" in html
     assert "Retry uses the last approved request only" in html
-    assert "The local harness endpoint was unavailable" in html
-    assert "The local response could not be parsed" in html
-    assert "lastApprovedRequestId" in html
-    assert "retryAvailable" in html
-    assert "runError" in html
-    assert "runLoading" in html
-    assert "await runLocalHarness(lastApprovedRequestId)" in html
+    assert "The local harness endpoint was unavailable" in javascript
+    assert "The local response could not be parsed" in javascript
+    assert "lastApprovedRequestId" in javascript
+    assert "retryAvailable" in javascript
+    assert "runError" in javascript
+    assert "runLoading" in javascript
+    assert "await runLocalHarness(lastApprovedRequestId)" in javascript
     assert "Local Run History" in html
     assert "Browser-local run history" in html
     assert "Page-memory only" in html
@@ -1781,33 +1825,36 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "id=\"kora-run-history-status\"" in html
     assert "Clear Local Run History" in html
     assert "id=\"kora-clear-run-history-button\"" in html
-    assert "Cleared browser-local preview state only" in html
-    assert "Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history" in html
+    assert "Cleared browser-local preview state only" in javascript
+    assert (
+        "Resets selected-run UI, selected events, selected counters, selected comparison, selected report metadata, and page-memory history"
+        in html
+    )
     assert "No persistence, no cloud sync, no file export, no file writing, and no backend delete call" in html
-    assert "let runHistory = []" in html
-    assert "const runHistoryLimit = 5" in html
-    assert "renderRunHistory" in html
-    assert "selectRunFromHistory" in html
-    assert "addRunToHistory" in html
-    assert "clearLocalRunHistory" in html
-    assert "getShellAccessibilityState" in html
-    assert "setShellSelectedRunSurfaceState" in html
+    assert "let runHistory = []" in javascript
+    assert "const runHistoryLimit = 5" in javascript
+    assert "renderRunHistory" in javascript
+    assert "selectRunFromHistory" in javascript
+    assert "addRunToHistory" in javascript
+    assert "clearLocalRunHistory" in javascript
+    assert "getShellAccessibilityState" in javascript
+    assert "setShellSelectedRunSurfaceState" in javascript
     assert "kora-drawer-selected-run-id" in html
-    assert "window.koraStudioAccessibilityState" in html
-    assert "window.koraStudioScriptStatus" in html
-    assert 'status: "ready"' in html
-    assert "keyboard_focus_pass" in html
-    assert "left_rail_expanded" in html
-    assert "details_drawer_expanded" in html
-    assert "data-kora-history-run-id" in html
-    assert "Active selected local run" in html
-    assert "Recent local run" in html
-    assert "Compact counters: avoided_model_calls=" in html
-    assert "aria-current" in html
-    assert "Selected in page" in html
-    assert "No backend records, files, report exports, or server endpoints were deleted" in html
-    assert "get run_history()" in html
-    assert "get selected_run_record()" in html
+    assert "window.koraStudioAccessibilityState" in javascript
+    assert "window.koraStudioScriptStatus" in javascript
+    assert 'status: "ready"' in javascript
+    assert "keyboard_focus_pass" in javascript
+    assert "left_rail_expanded" in javascript
+    assert "details_drawer_expanded" in javascript
+    assert "data-kora-history-run-id" in javascript
+    assert "Active selected local run" in javascript
+    assert "Recent local run" in javascript
+    assert "Compact counters: avoided_model_calls=" in javascript
+    assert "aria-current" in javascript
+    assert "Selected in page" in javascript
+    assert "No backend records, files, report exports, or server endpoints were deleted" in javascript
+    assert "get run_history()" in javascript
+    assert "get selected_run_record()" in javascript
     assert "Generated Event Stream" in html
     assert "id=\"kora-sse-status\"" in html
     assert "id=\"kora-sse-fallback-used\"" in html
@@ -1816,16 +1863,16 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Not model token streaming" in html
     assert "No provider streaming" in html
     assert "Fallback to local events endpoint available" in html
-    assert "let sseAvailable = typeof EventSource !== \"undefined\"" in html
-    assert "let activeEventSource = null" in html
-    assert "closeActiveEventSource" in html
-    assert "connectGeneratedEventStream" in html
-    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in html
-    assert "fetchSelectedEventsFallback" in html
-    assert "eventSource.addEventListener(\"harness_stage\"" in html
-    assert "eventSource.addEventListener(\"stream_completed\"" in html
-    assert "get sse_status()" in html
-    assert "get sse_fallback_used()" in html
+    assert "let sseAvailable = typeof EventSource !== \"undefined\"" in javascript
+    assert "let activeEventSource = null" in javascript
+    assert "closeActiveEventSource" in javascript
+    assert "connectGeneratedEventStream" in javascript
+    assert "new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
+    assert "fetchSelectedEventsFallback" in javascript
+    assert "eventSource.addEventListener(\"harness_stage\"" in javascript
+    assert "eventSource.addEventListener(\"stream_completed\"" in javascript
+    assert "get sse_status()" in javascript
+    assert "get sse_fallback_used()" in javascript
     assert "Generated local harness output only" in html
     assert "Selected Run Event Timeline" in html
     assert "id=\"kora-selected-run-events\"" in html
@@ -1850,11 +1897,11 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Generated local harness counters only" in html
     assert "Not production telemetry" in html
     assert "Not production cost evidence" in html
-    assert "selectedRunId" in html
-    assert "selectedRunEvents" in html
-    assert "selectedRunCounters" in html
-    assert "selectedRunComparison" in html
-    assert "selectedRunReportMetadata" in html
+    assert "selectedRunId" in javascript
+    assert "selectedRunEvents" in javascript
+    assert "selectedRunCounters" in javascript
+    assert "selectedRunComparison" in javascript
+    assert "selectedRunReportMetadata" in javascript
     assert "data-kora-request-id" in html
     assert "Local deterministic harness data only" in html
     assert "Run Local Harness" in html
@@ -1961,30 +2008,30 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "download report" not in html.lower()
     assert "export now" not in html.lower()
     assert "<script" in html.lower()
+    assert '<script src="/studio-assets/studio.js"></script>' in html
     assert "type=\"application/json\" id=\"kora-approved-requests-data\"" in html
-    assert "fetch(\"/api/harness/run\"" in html
-    assert "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)" in html
-    assert html.index("renderRunResponse(payload);") < html.index("await connectGeneratedEventStream();")
-    assert "renderSelectedCounters(run.generated_counters" in html
-    assert "renderSelectedComparison(run.comparison_summary" in html
-    assert "renderSelectedReportMetadata(run.report_metadata_summary)" in html
-    assert "JSON.stringify({request_id: requestId})" in html
+    assert "fetch(\"/api/harness/run\"" in javascript
+    assert "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
+    assert javascript.index("renderRunResponse(payload);") < javascript.index("await connectGeneratedEventStream();")
+    assert "renderSelectedCounters(run.generated_counters" in javascript
+    assert "renderSelectedComparison(run.comparison_summary" in javascript
+    assert "renderSelectedReportMetadata(run.report_metadata_summary)" in javascript
+    assert "JSON.stringify({request_id: requestId})" in javascript
     assert "Retry any prompt" not in html
     assert "Type a prompt" not in html
-    assert "src=" not in html.lower()
+    assert 'src="/studio-assets/studio.js"' in html
     assert 'href="http' not in html.lower()
     assert "https://" not in html.lower()
     assert "localstorage" not in html.lower()
     assert "sessionstorage" not in html.lower()
     assert "indexeddb" not in html.lower()
-    assert "fetch(\"/api/delete" not in html
-    assert "fetch(\"/api/harness/delete" not in html
-    assert "fetch(\"/api/harness/events" not in html
-    assert "fetch(\"/api/harness/sse" not in html
-    assert "new EventSource(\"http" not in html
-    assert "new EventSource(\"/api/model" not in html
-    assert "new EventSource(\"/api/provider" not in html
-    assert "new EventSource(\"/api/download" not in html
+    assert "fetch(\"/api/delete" not in javascript
+    assert "fetch(\"/api/harness/delete" not in javascript
+    assert "fetch(\"/api/harness/sse" not in javascript
+    assert "new EventSource(\"http" not in javascript
+    assert "new EventSource(\"/api/model" not in javascript
+    assert "new EventSource(\"/api/provider" not in javascript
+    assert "new EventSource(\"/api/download" not in javascript
     assert "fetch(\"/api/model" not in html
     assert "fetch(\"/api/provider" not in html
     assert "fetch(\"/api/download" not in html

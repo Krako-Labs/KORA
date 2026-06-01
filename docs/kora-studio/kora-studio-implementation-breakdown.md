@@ -1171,6 +1171,43 @@ Acceptance criteria:
 - endpoint and smoke marker coverage remains stable
 - full validation and live smoke checks pass
 
+## Phase 24 — v2.0 JavaScript Asset Migration
+
+Status: complete as a narrow package-controlled JavaScript asset migration. See [KORA Studio v2.0 JavaScript asset migration decision report](kora-studio-v2-0-javascript-asset-migration-decision-report.md) and [KORA Studio v2.0 goal report](kora-studio-v2-0-goal-report.md). Goal 519G moves the Studio interaction script into `kora/studio_assets/studio.js` and serves it through the existing local asset namespace with an explicit allowlist for `studio.css` and `studio.js` only.
+
+Goal: Move JavaScript from inline final document assembly to a package-controlled source file without adding broad static serving, frontend tooling, external assets, or product behavior changes.
+
+Scope:
+
+- JavaScript source file: `kora/studio_assets/studio.js`
+- package resource loader remains behind `render_studio_javascript()`
+- `/studio-assets/studio.css` remains the only served CSS asset
+- `/studio-assets/studio.js` is the only served JavaScript asset
+- explicit allowlist for `studio.css` and `studio.js`
+- JavaScript response: `application/javascript; charset=utf-8`
+- CSS response: `text/css; charset=utf-8`
+- `Cache-Control: no-store` for both local preview assets
+- unknown asset rejection
+- directory request rejection
+- traversal and encoded traversal rejection
+- no wildcard static route
+- no directory listing
+- no arbitrary filesystem serving
+- no external assets or CDN
+- no frontend framework, bundler, minifier, npm workflow, or dependency addition
+- no product behavior change
+
+Acceptance criteria:
+
+- JavaScript helper returns the package-controlled source file contents
+- approved JavaScript asset route returns expected MIME/cache headers
+- approved CSS asset route behavior remains stable
+- unsafe/unknown asset paths fail without exposing local filesystem details
+- root preview references `/studio-assets/studio.css` and `/studio-assets/studio.js`
+- root preview keeps approved request JSON inline but does not embed the interaction script body
+- endpoint and smoke marker coverage remains stable
+- full validation and live smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
