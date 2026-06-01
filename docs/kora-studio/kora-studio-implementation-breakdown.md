@@ -1670,6 +1670,32 @@ Next recommended implementation:
 
 - validate simplified primary path responsive behavior and accessibility basics
 
+## Phase 40 — v3.8 Responsive and Accessibility Check
+
+Status: complete as a bounded UX/accessibility review and small frontend-shell improvement. See [KORA Studio v3.8 responsive and accessibility check report](kora-studio-v3-8-responsive-accessibility-check-report.md) and [KORA Studio v3.8 goal report](kora-studio-v3-8-goal-report.md). Goal 537G reviews the primary operator path for narrow/mobile behavior and basic accessibility signals.
+
+Implemented behavior:
+
+- primary path responsive/accessibility markers
+- list semantics for the primary workflow band
+- explicit descriptive relationships for Run Local Harness and Retry Last Approved Request controls
+- atomic polite live-region markers for run progress and primary result summary
+- 520px single-column fallback for primary status grids
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- run a focused keyboard and screen-reader interaction spot check for the primary path, drawer, and approved request selector
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

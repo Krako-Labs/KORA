@@ -321,6 +321,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v3.6 goal report](kora-studio-v3-6-goal-report.md)
 - [KORA Studio v3.7 diagnostic surface rebalancing report](kora-studio-v3-7-diagnostic-surface-rebalancing-report.md)
 - [KORA Studio v3.7 goal report](kora-studio-v3-7-goal-report.md)
+- [KORA Studio v3.8 responsive and accessibility check report](kora-studio-v3-8-responsive-accessibility-check-report.md)
+- [KORA Studio v3.8 goal report](kora-studio-v3-8-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

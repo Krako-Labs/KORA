@@ -266,10 +266,15 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Recommended local catalog options shown:
             KORA Studio top bar
             KORA Studio centered composer
+            data-kora-responsive-accessibility-check="v3.8"
+            data-kora-primary-path-a11y="labels-focus-keyboard-status"
             What do you want to work on?
             Choose a local model once. KORA keeps routing details out of the way.
             data-kora-component="primary-workflow-band"
             data-kora-primary-operator-path="select-run-review-inspect"
+            data-kora-responsive-stack="single-column-under-760"
+            role="list"
+            role="listitem"
             Primary local demo workflow
             Select approved request
             Run Local Harness
@@ -282,6 +287,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Local preview only. No arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or file writing.
             Ask KORA...
             kora-composer-run-local-harness-button
+            aria-describedby="kora-composer-action-note"
             Composer action uses the selected approved local harness request only
             Composer selected-run summary
             kora-composer-selected-run-summary
@@ -290,6 +296,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-run-id
             data-kora-component="run-progress-summary"
             data-kora-run-progress-surface="idle-running-events-completed-failed"
+            data-kora-primary-status-a11y="polite-atomic"
+            aria-atomic="true"
             Run progress
             Follow the selected local harness run state before opening generated event diagnostics.
             kora-run-progress-state
@@ -307,9 +315,12 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-shell-retry-guidance
             No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.
             kora-shell-retry-last-approved-request-button
+            data-kora-retry-last-approved-request-button="true"
+            kora-shell-retry-boundary-note
             Retry reuses only the last approved request ID.
             data-kora-component="primary-result-summary"
             data-kora-result-summary-before-diagnostics="true"
+            data-kora-primary-result-a11y="polite-atomic"
             Result summary
             Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics.
             kora-primary-result-request-id
@@ -324,6 +335,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-shell-selected-run-surface="v1.0"
             data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"
             data-kora-v1-1-selected-run-polish="shell-drawer-status"
+            aria-label="Secondary diagnostics status"
             Diagnostics status
             kora-shell-selected-timeline-status
             kora-shell-selected-counters-status

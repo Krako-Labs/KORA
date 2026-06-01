@@ -913,6 +913,8 @@ def test_harness_request_render_helper_preserves_selector_and_trigger_markers() 
     assert 'id="kora-selected-request-route">deterministic_code</span>' in html
     assert 'id="kora-selected-request-model-needed">False</span>' in html
     assert 'id="kora-run-local-harness-button"' in html
+    assert 'aria-describedby="kora-run-local-harness-boundary"' in html
+    assert 'id="kora-run-local-harness-boundary"' in html
     assert 'class="request-option"' in html
     assert 'data-kora-keyboard-selectable-request="true"' in html
     assert 'data-kora-request-id="local-harness-json-required-fields-001"' in html
@@ -1008,6 +1010,7 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".studio-left-rail" in css
     assert ".model-selector-shell" in css
     assert ".primary-workflow-band" in css
+    assert ".primary-workflow-steps" in css
     assert ".primary-workflow-step" in css
     assert ".run-progress-summary" in css
     assert ".run-progress-grid" in css
@@ -1019,6 +1022,10 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".composer-stage" in css
     assert ".details-drawer-shell" in css
     assert "@media (max-width: 760px)" in css
+    assert "@media (max-width: 520px)" in css
+    assert "button,\nsummary,\n[tabindex=\"0\"]" in css
+    assert "min-height: 44px" in css
+    assert ".run-progress-grid,\n  .primary-result-grid,\n  .shell-selected-run-grid" in css
     assert "<script" not in css.lower()
     assert "http://" not in css
     assert "https://" not in css
@@ -1955,10 +1962,17 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Recommended local catalog options shown:" in html
     assert "KORA Studio top bar" in html
     assert "KORA Studio centered composer" in html
+    assert 'data-kora-responsive-accessibility-check="v3.8"' in html
+    assert 'data-kora-primary-path-a11y="labels-focus-keyboard-status"' in html
     assert "What do you want to work on?" in html
     assert "Choose a local model once. KORA keeps routing details out of the way." in html
     assert 'data-kora-component="primary-workflow-band"' in html
     assert 'data-kora-primary-operator-path="select-run-review-inspect"' in html
+    assert 'data-kora-responsive-stack="single-column-under-760"' in html
+    assert 'class="primary-workflow-steps" role="list"' in html
+    assert 'role="list"' in html
+    assert 'role="listitem"' in html
+    assert 'aria-hidden="true">1</span>' in html
     assert "Primary local demo workflow" in html
     assert "Select approved request" in html
     assert "Run Local Harness" in html
@@ -1974,6 +1988,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     ) in html
     assert "Ask KORA..." in html
     assert 'id="kora-composer-run-local-harness-button"' in html
+    assert 'aria-describedby="kora-composer-action-note"' in html
+    assert 'id="kora-composer-action-note"' in html
     assert "Composer action uses the selected approved local harness request only" in html
     assert "Composer selected-run summary" in html
     assert 'id="kora-composer-selected-run-summary"' in html
@@ -1982,6 +1998,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-run-id"' in html
     assert 'data-kora-component="run-progress-summary"' in html
     assert 'data-kora-run-progress-surface="idle-running-events-completed-failed"' in html
+    assert 'data-kora-primary-status-a11y="polite-atomic"' in html
+    assert 'aria-atomic="true"' in html
     assert "Run progress" in html
     assert "Follow the selected local harness run state before opening generated event diagnostics." in html
     assert 'id="kora-run-progress-state"' in html
@@ -1999,10 +2017,14 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-shell-retry-guidance"' in html
     assert "No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails." in html
     assert 'id="kora-shell-retry-last-approved-request-button"' in html
+    assert 'data-kora-retry-last-approved-request-button="true"' in html
+    assert 'aria-describedby="kora-shell-retry-guidance kora-shell-retry-boundary-note"' in html
+    assert 'id="kora-shell-retry-boundary-note"' in html
     assert "Retry reuses only the last approved request ID." in html
     assert "No arbitrary prompt execution, model execution, provider calls, downloads, report export, or file writing." in html
     assert 'data-kora-component="primary-result-summary"' in html
     assert 'data-kora-result-summary-before-diagnostics="true"' in html
+    assert 'data-kora-primary-result-a11y="polite-atomic"' in html
     assert "Result summary" in html
     assert "Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics." in html
     assert 'id="kora-primary-result-request-id"' in html
@@ -2018,6 +2040,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-shell-selected-run-surface="v1.0"' in html
     assert 'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
     assert 'data-kora-v1-1-selected-run-polish="shell-drawer-status"' in html
+    assert 'aria-label="Secondary diagnostics status"' in html
     assert 'data-kora-diagnostic-hierarchy="secondary"' in html
     assert "secondary-diagnostic-card" in html
     assert "Secondary diagnostic timeline." in html
