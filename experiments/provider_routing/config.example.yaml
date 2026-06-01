@@ -1,0 +1,87 @@
+{
+  "name": "ai_champion_provider_routing_dry_run",
+  "dry_run_only": true,
+  "synthetic_results_only": true,
+  "real_provider_calls_enabled": false,
+  "notes": [
+    "JSON-compatible YAML example for the dry-run harness.",
+    "All provider entries are placeholders only.",
+    "Do not add secrets, credentials, active endpoints, or host addresses."
+  ],
+  "providers": [
+    {
+      "id": "deterministic",
+      "kind": "deterministic",
+      "status": "ready_dry_run",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "cache",
+      "kind": "cache",
+      "status": "ready_dry_run",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "local_small_model",
+      "kind": "local_small_model",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "local_h100_model",
+      "kind": "local_h100_model",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "aws_model",
+      "kind": "aws_model",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "azure_model",
+      "kind": "azure_model",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "openai_api",
+      "kind": "openai_api",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "claude_api",
+      "kind": "claude_api",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    },
+    {
+      "id": "gemini_api",
+      "kind": "gemini_api",
+      "status": "planned_blocked",
+      "endpoint": null,
+      "credential_ref": "PLACEHOLDER_ONLY"
+    }
+  ],
+  "synthetic_tasks": [
+    {"id": "task_deterministic_001", "route_hint": "deterministic"},
+    {"id": "task_cache_001", "route_hint": "cache"},
+    {"id": "task_local_small_001", "route_hint": "local_small_model"},
+    {"id": "task_local_h100_001", "route_hint": "local_h100_model"},
+    {"id": "task_aws_001", "route_hint": "aws_model"},
+    {"id": "task_azure_001", "route_hint": "azure_model"},
+    {"id": "task_openai_001", "route_hint": "openai_api"},
+    {"id": "task_claude_001", "route_hint": "claude_api"},
+    {"id": "task_gemini_001", "route_hint": "gemini_api"}
+  ]
+}
