@@ -1272,6 +1272,38 @@ Acceptance criteria:
 - existing server/header/static-route tests remain stable
 - full validation and live smoke checks pass
 
+## Phase 27 — v2.3 Browser CSP Smoke CI-Optional Policy
+
+Status: complete as a CI-optional policy step. See [KORA Studio v2.3 browser CSP smoke CI-optional policy](kora-studio-v2-3-browser-csp-smoke-ci-optional-policy.md) and [KORA Studio v2.3 goal report](kora-studio-v2-3-goal-report.md). Goal 522G keeps the browser-level CSP smoke outside the default CI and pytest path while adding an explicit opt-in wrapper for CI or local validation environments.
+
+Goal: Decide and document whether browser CSP smoke remains manual-only or becomes CI-optional without adding persistent frontend dependencies.
+
+Decision:
+
+- CI-optional, explicitly gated by `KORA_STUDIO_BROWSER_CSP_SMOKE=1`
+- default GitHub CI remains release smoke plus pytest
+- normal pytest remains browser-free and does not require `npx`
+- no persistent Node dependency, root package manifest, lockfile, bundler, npm workflow, Playwright config, external asset, or CDN is added
+
+Scope:
+
+- add `scripts/check_kora_studio_browser_csp_ci_optional.sh`
+- preserve `scripts/check_kora_studio_browser_csp.py`
+- start a localhost-only Studio preview only when explicitly enabled
+- run browser CSP smoke against that local preview
+- stop the server cleanly on exit
+- preserve root CSP and local asset route behavior
+- preserve no wildcard static route, no directory listing, and no arbitrary filesystem serving
+- preserve no production security readiness claim
+
+Acceptance criteria:
+
+- optional wrapper skips cleanly unless `KORA_STUDIO_BROWSER_CSP_SMOKE=1` is set
+- optional wrapper can run the existing browser CSP smoke against a local preview when enabled
+- dependency-light unit coverage proves the opt-in policy without launching a browser
+- default CI/test path remains unchanged
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

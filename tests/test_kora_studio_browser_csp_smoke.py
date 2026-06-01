@@ -8,6 +8,7 @@ import pytest
 
 
 SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "check_kora_studio_browser_csp.py"
+CI_OPTIONAL_SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "check_kora_studio_browser_csp_ci_optional.sh"
 SPEC = importlib.util.spec_from_file_location("check_kora_studio_browser_csp", SCRIPT_PATH)
 assert SPEC is not None
 browser_csp = importlib.util.module_from_spec(SPEC)
@@ -71,3 +72,15 @@ def test_browser_csp_smoke_reports_missing_npx(monkeypatch: pytest.MonkeyPatch) 
 
     with pytest.raises(browser_csp.BrowserCspSmokeError, match="npx is required"):
         browser_csp.run_browser_csp_smoke("http://127.0.0.1:8765")
+
+
+def test_ci_optional_browser_csp_wrapper_is_explicit_opt_in() -> None:
+    script = CI_OPTIONAL_SCRIPT_PATH.read_text(encoding="utf-8")
+
+    assert "KORA_STUDIO_BROWSER_CSP_SMOKE" in script
+    assert 'KORA_STUDIO_BROWSER_CSP_SMOKE:-}" != "1"' in script
+    assert "python3 -m kora studio --no-browser" in script
+    assert "python3 scripts/check_kora_studio_browser_csp.py" in script
+    assert "npm install" not in script
+    assert "playwright install" not in script
+    assert "package.json" not in script
