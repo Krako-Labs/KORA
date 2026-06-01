@@ -15,7 +15,7 @@ def render_local_harness_selector_item(
     return (
         '<div class="card">'
         "<h3>Selector option</h3>"
-        f'<button class="request-option" type="button" data-kora-keyboard-selectable-request="true" aria-pressed="false" aria-label="Select approved local harness request {request_id}" data-kora-request-id="{request_id}">'
+        f'<button class="request-option" type="button" data-kora-keyboard-selectable-request="true" aria-pressed="false" aria-current="false" aria-label="Select approved local harness request {request_id}" data-kora-request-id="{request_id}">'
         f"{request_id}"
         "</button>"
         f"<p>{input_text}</p>"

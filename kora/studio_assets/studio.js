@@ -50,12 +50,18 @@
 
   const setLeftRailOpen = (open, options) => {
     const shouldOpen = open === true;
+    const shouldHideRail = !shouldOpen && isSmallRailViewport();
     if (studioShell) {
       studioShell.setAttribute("data-kora-rail-open", shouldOpen ? "true" : "false");
     }
     if (leftRail) {
       leftRail.setAttribute("data-kora-rail-state", shouldOpen ? "open" : "closed");
-      leftRail.setAttribute("aria-hidden", !shouldOpen && isSmallRailViewport() ? "true" : "false");
+      leftRail.setAttribute("aria-hidden", shouldHideRail ? "true" : "false");
+      if (shouldHideRail) {
+        leftRail.setAttribute("inert", "");
+      } else {
+        leftRail.removeAttribute("inert");
+      }
     }
     if (leftRailToggle) {
       leftRailToggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
@@ -96,6 +102,11 @@
     if (detailsDrawer) {
       detailsDrawer.setAttribute("data-kora-drawer-state", shouldOpen ? "open" : "closed");
       detailsDrawer.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+      if (shouldOpen) {
+        detailsDrawer.removeAttribute("inert");
+      } else {
+        detailsDrawer.setAttribute("inert", "");
+      }
     }
     if (detailsDrawerToggle) {
       detailsDrawerToggle.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
@@ -134,7 +145,9 @@
 
   const setButtonState = () => {
     document.querySelectorAll("[data-kora-request-id]").forEach((button) => {
-      button.setAttribute("aria-pressed", button.getAttribute("data-kora-request-id") === selectedRequestId ? "true" : "false");
+      const isSelected = button.getAttribute("data-kora-request-id") === selectedRequestId;
+      button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+      button.setAttribute("aria-current", isSelected ? "true" : "false");
     });
   };
 
@@ -277,8 +290,10 @@
     return {
       left_rail_state: leftRail ? leftRail.getAttribute("data-kora-rail-state") : "missing",
       left_rail_expanded: leftRailToggle ? leftRailToggle.getAttribute("aria-expanded") : "missing",
+      left_rail_inert: leftRail ? leftRail.hasAttribute("inert") : "missing",
       details_drawer_state: detailsDrawer ? detailsDrawer.getAttribute("data-kora-drawer-state") : "missing",
       details_drawer_expanded: detailsDrawerToggle ? detailsDrawerToggle.getAttribute("aria-expanded") : "missing",
+      details_drawer_inert: detailsDrawer ? detailsDrawer.hasAttribute("inert") : "missing",
       model_selector_state: document.querySelector("[data-kora-model-selector]") ? document.querySelector("[data-kora-model-selector]").getAttribute("data-kora-model-selection-state") : "missing",
       selected_request_id: selectedRequestId || "none",
       keyboard_focus_pass: studioShell ? studioShell.getAttribute("data-kora-keyboard-focus-pass") : "missing"

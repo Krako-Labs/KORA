@@ -1696,6 +1696,32 @@ Next recommended implementation:
 
 - run a focused keyboard and screen-reader interaction spot check for the primary path, drawer, and approved request selector
 
+## Phase 41 — v3.9 Keyboard and Screen-Reader Spot Check
+
+Status: complete as a bounded keyboard/screen-reader spot check and small frontend-shell improvement. See [KORA Studio v3.9 keyboard and screen-reader spot check report](kora-studio-v3-9-keyboard-screen-reader-spot-check-report.md) and [KORA Studio v3.9 goal report](kora-studio-v3-9-goal-report.md). Goal 538G reviews primary keyboard controls, selected request state, and overlay drawer/rail semantics.
+
+Implemented behavior:
+
+- closed details drawer starts inert
+- details drawer open/close JavaScript toggles inert with `aria-hidden`
+- closed mobile left rail JavaScript toggles inert with `aria-hidden`
+- approved request selector buttons expose `aria-current`
+- selected request JavaScript keeps `aria-pressed` and `aria-current` in sync
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- run a manual browser keyboard traversal report for Tab, Enter, Space, and Escape behavior across the primary path and overlays
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

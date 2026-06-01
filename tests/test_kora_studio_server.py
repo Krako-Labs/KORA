@@ -917,6 +917,7 @@ def test_harness_request_render_helper_preserves_selector_and_trigger_markers() 
     assert 'id="kora-run-local-harness-boundary"' in html
     assert 'class="request-option"' in html
     assert 'data-kora-keyboard-selectable-request="true"' in html
+    assert 'aria-current="false"' in html
     assert 'data-kora-request-id="local-harness-json-required-fields-001"' in html
     assert 'aria-label="Select approved local harness request local-harness-json-required-fields-001"' in html
     assert "Run Local Harness action state" in html
@@ -1040,6 +1041,11 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "kora-shell-retry-guidance" in javascript
     assert "kora-shell-retry-last-approved-request-button" in javascript
     assert "data-kora-retry-last-approved-request-button" in javascript
+    assert 'setAttribute("inert", "")' in javascript
+    assert 'removeAttribute("inert")' in javascript
+    assert 'button.setAttribute("aria-current", isSelected ? "true" : "false")' in javascript
+    assert "left_rail_inert" in javascript
+    assert "details_drawer_inert" in javascript
     assert "Generated event stream is local harness events only" in javascript
     assert "setPrimaryResultSummary" in javascript
     assert "kora-primary-result-status" in javascript
@@ -2073,7 +2079,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-drawer-toggle="true"' in html
     assert 'id="kora-details-drawer"' in html
     assert 'data-kora-drawer-state="closed"' in html
+    assert 'data-kora-keyboard-trap-boundary="closed-inert-open-focus-managed"' in html
     assert 'aria-hidden="true"' in html
+    assert 'tabindex="-1" inert' in html
     assert 'id="kora-details-drawer-close"' in html
     assert 'data-kora-drawer-close="true"' in html
     assert 'data-kora-drawer-open="true"' in css
@@ -2181,6 +2189,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-keyboard-selectable-request="true"' in html
     assert 'aria-label="Select approved local harness request local-harness-json-required-fields-001"' in html
     assert 'aria-pressed="false"' in html
+    assert 'aria-current="false"' in html
     assert "id=\"kora-run-local-harness-button\"" in html
     assert "kora-composer-run-local-harness-button" in html
     assert "id=\"kora-selected-run-state\"" in html
@@ -2229,7 +2238,9 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'status: "ready"' in javascript
     assert "keyboard_focus_pass" in javascript
     assert "left_rail_expanded" in javascript
+    assert "left_rail_inert" in javascript
     assert "details_drawer_expanded" in javascript
+    assert "details_drawer_inert" in javascript
     assert "data-kora-history-run-id" in javascript
     assert "Active selected local run" in javascript
     assert "Recent local run" in javascript

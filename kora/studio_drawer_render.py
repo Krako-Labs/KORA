@@ -26,7 +26,7 @@ def render_right_details_drawer(
 ) -> str:
     """Render the right details drawer from server-prepared display values."""
 
-    return f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" aria-hidden=\"true\" tabindex=\"-1\">
+    return f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" data-kora-keyboard-trap-boundary=\"closed-inert-open-focus-managed\" aria-hidden=\"true\" tabindex=\"-1\" inert>
         <div class=\"drawer-header\">
           <div>
             <h2>Details</h2>

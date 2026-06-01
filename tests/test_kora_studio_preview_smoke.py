@@ -354,6 +354,8 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             no report file export or writing
             KORA Studio right details drawer scaffold
             data-kora-mobile-drawer="right-overlay"
+            data-kora-keyboard-trap-boundary="closed-inert-open-focus-managed"
+            tabindex="-1" inert
             Inspector · local preview
             data-kora-drawer-section="runtime-status"
             data-kora-drawer-section="selected-model"
@@ -471,7 +473,10 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             status: "ready"
             keyboard_focus_pass
             left_rail_expanded
+            left_rail_inert
             details_drawer_expanded
+            details_drawer_inert
+            aria-current="false"
             Generated Event Stream
             kora-sse-status
             kora-sse-fallback-used
