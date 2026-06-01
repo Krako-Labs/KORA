@@ -110,6 +110,27 @@ python3 scripts/check_kora_studio_preview.py
 
 The smoke check only accepts `http://127.0.0.1` or `http://localhost` URLs. It checks `/health`, `/status`, and `/` without starting external services, calling providers, downloading models, executing models, scanning private model directories, or running runtime model list commands.
 
+## Local Asset CSP Guard
+
+The current Studio preview serves package-controlled local assets only:
+
+- `/studio-assets/studio.css`
+- `/studio-assets/studio.js`
+
+The root Studio HTML route has a local-preview CSP header only. API, SSE, health, status, and asset routes are not given a CSP header by default. The root CSP stays narrow:
+
+```text
+default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; style-src 'self'; script-src 'self'; connect-src 'self'
+```
+
+Default pytest coverage remains dependency-light and browser-free. It guards root HTML, CSP directives, package CSS/JavaScript assets, allowed `/studio-assets/...` references, and negative resource fixtures. The optional browser-level CSP smoke remains explicitly gated:
+
+```bash
+KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optional.sh
+```
+
+These checks are local preview regression guards only. They do not claim production security readiness.
+
 ## Local Server Troubleshooting
 
 If you encounter issues launching the local KORA Studio server, try the following steps:
@@ -270,6 +291,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.6 goal report](kora-studio-v2-6-goal-report.md)
 - [KORA Studio v2.7 CSP negative coverage review](kora-studio-v2-7-csp-negative-coverage-review.md)
 - [KORA Studio v2.7 goal report](kora-studio-v2-7-goal-report.md)
+- [KORA Studio v2.8 CSP guard documentation sync](kora-studio-v2-8-csp-guard-documentation-sync.md)
+- [KORA Studio v2.8 goal report](kora-studio-v2-8-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

@@ -6,6 +6,8 @@ KORA Studio v2.4 adds dependency-light CSP resource-type regression guards in py
 
 The browser CSP smoke from v2.2/v2.3 remains optional and explicitly gated. v2.4 does not broaden CSP or static asset serving.
 
+Current documentation note: later v2.5-v2.7 work keeps this positive guard model and adds table-driven negative fixtures, helper cleanup, and targeted negative cases. Those later reports are documentation/test refinements only; they do not broaden CSP or static asset serving.
+
 ## Guard Coverage
 
 The regression guard validates:
@@ -20,6 +22,8 @@ The regression guard validates:
 - CSP does not include `unsafe-inline`, `unsafe-eval`, wildcard sources, `data:`, `blob:`, HTTP(S) sources, or broad external hosts
 - package-controlled CSS and JavaScript do not introduce remote or embedded resource URLs
 - package-controlled CSS does not introduce `@import` or `url(...)` resource loading
+
+Later v2.7 negative coverage additionally checks mixed-case and whitespace-padded URLs, `javascript:` pseudo URLs, `srcset`, `meta refresh`, form actions, inline event handlers, and inline `<style>` blocks.
 
 ## Current CSP
 

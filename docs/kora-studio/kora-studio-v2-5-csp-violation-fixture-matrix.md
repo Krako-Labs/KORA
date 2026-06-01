@@ -6,6 +6,8 @@ KORA Studio v2.5 adds a dependency-light CSP violation fixture matrix to make re
 
 The fixture matrix is local-only and browser-free. It does not add frontend dependencies, browser dependencies, package manifests, lockfiles, bundlers, npm workflows, external assets, or CDN usage.
 
+Current documentation note: v2.7 extends this matrix with targeted HTML resource cases while preserving the same root CSP, asset allowlist, optional browser smoke policy, and local-preview-only claim boundary.
+
 ## Fixture Matrix Coverage
 
 HTML resource fixtures prove these patterns are rejected:
@@ -18,6 +20,8 @@ HTML resource fixtures prove these patterns are rejected:
 - `blob:` resource URLs
 - protocol-relative resource URLs
 - unapproved `/studio-assets/...` paths
+
+Later v2.7 HTML fixtures also reject mixed-case and whitespace-padded external URLs, `javascript:` pseudo URLs, `srcset` external candidates, `meta refresh` URL targets, external form actions, inline event handlers, and inline `<style>` blocks.
 
 CSP fixtures prove these sources/directives are rejected:
 

@@ -1416,6 +1416,27 @@ Acceptance criteria:
 - no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Current CSP Guard Summary
+
+Current Studio CSP/static-asset guard documentation spans v2.1-v2.7:
+
+- v2.1 adds the root-only local-preview CSP header
+- v2.2 adds optional browser-level CSP smoke validation
+- v2.3 keeps browser CSP smoke explicitly CI-optional with `KORA_STUDIO_BROWSER_CSP_SMOKE=1`
+- v2.4 adds dependency-light positive regression guards for root HTML, CSP directives, package CSS, and package JavaScript
+- v2.5 adds table-driven negative fixtures for rejected HTML, CSP, and CSS patterns
+- v2.6 consolidates guard helpers inside `tests/test_kora_studio_server.py`
+- v2.7 expands targeted negative HTML coverage for mixed-case/whitespace URLs, `javascript:`, `srcset`, `meta refresh`, form actions, inline event handlers, and inline `<style>` blocks
+
+Current boundaries:
+
+- package assets remain `/studio-assets/studio.css` and `/studio-assets/studio.js`
+- root Studio HTML is the only route with the local-preview CSP header
+- API, SSE, health, status, and asset routes are not given CSP headers by default
+- default automated CSP/resource guard tests remain dependency-light and browser-free
+- browser-level CSP smoke remains optional and explicitly gated
+- these are local preview regression guards, not production security readiness claims
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

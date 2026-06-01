@@ -6,6 +6,8 @@ KORA Studio v2.6 keeps CSP/resource guard helpers inside `tests/test_kora_studio
 
 The cleanup consolidates repeated constants and parsing/checking logic while preserving all v2.4/v2.5 guard coverage.
 
+Current documentation note: v2.7 adds targeted negative coverage on top of these helpers. The helpers still remain test-module-only and dependency-light.
+
 ## Helper Cleanup Summary
 
 The test module now centralizes:
@@ -35,6 +37,8 @@ HTML fixture coverage remains:
 - `blob:` resource URLs
 - protocol-relative URLs
 - unapproved `/studio-assets/...` paths
+
+Later v2.7 HTML fixture coverage also includes mixed-case and whitespace-padded external URLs, `javascript:` pseudo URLs, `srcset`, `meta refresh`, form actions, inline event handlers, and inline `<style>` blocks.
 
 CSP fixture coverage remains:
 
