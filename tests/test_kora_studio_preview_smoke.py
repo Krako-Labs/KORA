@@ -419,16 +419,25 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Select approved local harness request local-harness-json-required-fields-001
             aria-pressed="false"
             Selected run state
-            Generated local harness output only
+            Secondary diagnostic mirror. Generated local harness output only.
+            data-kora-diagnostic-hierarchy="secondary"
+            secondary-diagnostic-card
+            Secondary diagnostic timeline.
+            Secondary diagnostic counters.
+            Secondary diagnostic comparison.
+            Secondary diagnostic report metadata.
             Selected Run Error State
+            Secondary diagnostic error detail.
             kora-run-error-state
             Retry Last Approved Request
+            Secondary diagnostic retry control; primary safe next action is also shown in the shell.
             kora-retry-last-approved-request-button
             kora-last-approved-request-id
             Retry uses the last approved request only
             The local harness endpoint was unavailable
             The local response could not be parsed
             Local Run History
+            Secondary diagnostic history.
             kora-local-run-history
             kora-run-history-count
             Clear Local Run History

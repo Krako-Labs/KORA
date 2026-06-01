@@ -937,6 +937,9 @@ def test_run_state_render_helper_preserves_retry_and_history_markers() -> None:
     html = f"{retry_html}\n{history_html}\n{combined_html}"
 
     assert 'data-kora-component="retry-error-state"' in html
+    assert 'data-kora-diagnostic-hierarchy="secondary"' in html
+    assert 'class="card secondary-diagnostic-card"' in html
+    assert "Secondary diagnostic error detail." in html
     assert 'id="kora-run-error-state"' in html
     assert "Selected Run Error State" in html
     assert "Retry uses the last approved request only" in html
@@ -944,12 +947,14 @@ def test_run_state_render_helper_preserves_retry_and_history_markers() -> None:
     assert "Provider calls remain disabled" in html
     assert "No downloads are connected" in html
     assert "Retry Last Approved Request" in html
+    assert "Secondary diagnostic retry control; primary safe next action is also shown in the shell." in html
     assert 'id="kora-last-approved-request-id">local-harness-json-required-fields-001</code>' in html
     assert 'id="kora-retry-available">false</span>' in html
     assert 'id="kora-retry-last-approved-request-button"' in html
     assert "Retry calls only <code>POST /api/harness/run</code> with the last approved" in html
     assert 'data-kora-component="run-history"' in html
     assert "Local Run History" in html
+    assert "Secondary diagnostic history." in html
     assert "Browser-local run history" in html
     assert "Page-memory only" in html
     assert "Clears on refresh" in html
@@ -958,6 +963,7 @@ def test_run_state_render_helper_preserves_retry_and_history_markers() -> None:
     assert 'id="kora-run-history-count">0</span>' in html
     assert 'id="kora-run-history-status"' in html
     assert "Clear Local Run History" in html
+    assert "Secondary diagnostic state reset." in html
     assert 'id="kora-clear-run-history-button"' in html
     assert "Clears browser-local preview state only" in html
     assert "No persistence, no cloud sync, no file export, no file writing, and no backend delete call" in html
@@ -1007,6 +1013,7 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".run-progress-grid" in css
     assert ".shell-retry-action" in css
     assert ".shell-retry-button" in css
+    assert ".secondary-diagnostic-card" in css
     assert ".primary-result-summary" in css
     assert ".primary-result-grid" in css
     assert ".composer-stage" in css
@@ -2011,6 +2018,12 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'data-kora-shell-selected-run-surface="v1.0"' in html
     assert 'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
     assert 'data-kora-v1-1-selected-run-polish="shell-drawer-status"' in html
+    assert 'data-kora-diagnostic-hierarchy="secondary"' in html
+    assert "secondary-diagnostic-card" in html
+    assert "Secondary diagnostic timeline." in html
+    assert "Secondary diagnostic counters." in html
+    assert "Secondary diagnostic comparison." in html
+    assert "Secondary diagnostic report metadata." in html
     assert "Diagnostics status" in html
     assert 'id="kora-shell-selected-timeline-status"' in html
     assert 'id="kora-shell-selected-counters-status"' in html

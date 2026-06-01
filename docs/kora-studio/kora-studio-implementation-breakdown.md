@@ -1646,6 +1646,30 @@ Next recommended implementation:
 
 - rebalance diagnostic surfaces across primary shell, details drawer, and collapsed legacy compatibility preview
 
+## Phase 39 — v3.7 Diagnostic Surface Rebalancing
+
+Status: complete as a bounded UX-only frontend shell improvement. See [KORA Studio v3.7 diagnostic surface rebalancing report](kora-studio-v3-7-diagnostic-surface-rebalancing-report.md) and [KORA Studio v3.7 goal report](kora-studio-v3-7-goal-report.md). Goal 536G rebalances diagnostic surfaces so primary workflow, run progress, safe next action, and result summary remain visually primary while lower diagnostics stay available.
+
+Implemented behavior:
+
+- secondary hierarchy markers for selected-run diagnostics
+- secondary hierarchy markers for lower retry/error panels
+- secondary hierarchy markers for browser-local run history
+- package CSS styling for secondary diagnostic cards
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no diagnostic information removed
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+
+Next recommended implementation:
+
+- validate simplified primary path responsive behavior and accessibility basics
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

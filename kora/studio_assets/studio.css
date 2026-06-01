@@ -120,6 +120,16 @@ section, .card {
   background: var(--panel-3);
 }
 .status-card p { color: var(--muted); }
+.secondary-diagnostic-card {
+  background: rgba(13, 27, 34, 0.7);
+  border-color: #263946;
+}
+.secondary-diagnostic-card h3::after {
+  color: var(--muted);
+  content: " - secondary";
+  font-size: 12px;
+  font-weight: 600;
+}
 .status-value {
   color: var(--green);
   font-weight: 800;
