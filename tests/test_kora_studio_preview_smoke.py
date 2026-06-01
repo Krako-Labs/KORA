@@ -227,15 +227,19 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-mobile-no-overlap-contract="true"
             data-kora-keyboard-focus-pass="true"
             data-kora-focus-visible-controls="shell-and-harness"
+            data-kora-keyboard-selector-contract="v4.2"
             KORA Studio left mini rail
+            data-kora-keyboard-contract="mobile-left-rail"
             data-kora-mobile-rail="collapsed-overlay"
             data-kora-rail-open="false"
             kora-left-rail
             data-kora-rail-state
             kora-left-rail-toggle
             aria-controls="kora-left-rail"
+            data-kora-keyboard-contract="mobile-rail-toggle"
             data-kora-rail-toggle
             kora-left-rail-close
+            data-kora-keyboard-contract="mobile-rail-close"
             data-kora-rail-close
             Open left rail
             Close left rail
@@ -244,6 +248,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Local workspace
             Cloud sync disabled
             Search or select open-source LLM
+            data-kora-keyboard-contract="model-selector"
             data-kora-model-selector="local-catalog-scaffold"
             data-kora-mobile-selector="compact-overlay-menu"
             data-kora-model-selection-state="catalog-estimate-only"
@@ -287,6 +292,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Local preview only. No arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or file writing.
             Ask KORA...
             kora-composer-run-local-harness-button
+            data-kora-keyboard-contract="primary-run-local-harness"
             aria-describedby="kora-composer-action-note"
             Composer action uses the selected approved local harness request only
             Composer selected-run summary
@@ -295,6 +301,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-run-status
             kora-composer-run-id
             data-kora-component="run-progress-summary"
+            data-kora-keyboard-contract="run-progress-summary"
             data-kora-run-progress-surface="idle-running-events-completed-failed"
             data-kora-primary-status-a11y="polite-atomic"
             aria-atomic="true"
@@ -315,10 +322,12 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-shell-retry-guidance
             No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.
             kora-shell-retry-last-approved-request-button
+            data-kora-keyboard-contract="shell-retry-last-approved-request"
             data-kora-retry-last-approved-request-button="true"
             kora-shell-retry-boundary-note
             Retry reuses only the last approved request ID.
             data-kora-component="primary-result-summary"
+            data-kora-keyboard-contract="primary-result-summary"
             data-kora-result-summary-before-diagnostics="true"
             data-kora-primary-result-a11y="polite-atomic"
             Result summary
@@ -333,6 +342,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-primary-result-report-status
             kora-primary-result-boundary
             data-kora-shell-selected-run-surface="v1.0"
+            data-kora-keyboard-contract="secondary-diagnostics-status"
             data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"
             data-kora-v1-1-selected-run-polish="shell-drawer-status"
             aria-label="Secondary diagnostics status"
@@ -446,6 +456,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             Retry Last Approved Request
             Secondary diagnostic retry control; primary safe next action is also shown in the shell.
             kora-retry-last-approved-request-button
+            data-kora-keyboard-contract="secondary-retry-last-approved-request"
             kora-last-approved-request-id
             Retry uses the last approved request only
             The local harness endpoint was unavailable
@@ -478,6 +489,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             details_drawer_inert
             aria-current="false"
             Generated Event Stream
+            data-kora-keyboard-contract="secondary-generated-event-stream"
             kora-sse-status
             kora-sse-fallback-used
             kora-sse-error
@@ -485,32 +497,42 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             No provider streaming
             new EventSource(`/api/harness/sse?run_id=${encodeURIComponent(selectedRunId)}`)
             Selected Run Event Timeline
+            data-kora-keyboard-contract="secondary-event-timeline"
             kora-selected-run-events
             kora-selected-events-status
             No selected run events loaded yet
             Selected Run Counters
+            data-kora-keyboard-contract="secondary-run-counters"
             kora-selected-run-counters
             kora-selected-counters-status
             Selected Run: Standard Mode vs KORA Boost
+            data-kora-keyboard-contract="secondary-run-comparison"
             kora-selected-run-comparison
             kora-selected-comparison-status
             Not production telemetry
             Not production cost evidence
             Selected Run Report Metadata
+            data-kora-keyboard-contract="secondary-report-metadata"
             kora-selected-run-report-metadata
             kora-selected-report-status
             Report metadata preview only
             No file export
             No file writing
             kora-details-drawer-toggle
+            data-kora-keyboard-contract="details-drawer-toggle"
             aria-controls="kora-details-drawer"
             aria-expanded="false"
+            data-kora-keyboard-contract="details-drawer"
             kora-details-drawer-close
+            data-kora-keyboard-contract="details-drawer-close"
             data-kora-drawer-close
             data-kora-drawer-state
             setDetailsDrawerOpen
             event.key === "Escape"
             kora-run-local-harness-button
+            data-kora-keyboard-contract="lower-run-local-harness"
+            data-kora-keyboard-contract="approved-request-selector"
+            data-kora-keyboard-contract="approved-request-option"
             data-kora-request-id
             fetch("/api/harness/run"
             fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)

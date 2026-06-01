@@ -1776,6 +1776,32 @@ Next recommended implementation:
 
 - document the selector contract for a possible future optional browser keyboard smoke
 
+## Phase 44 - v4.2 Keyboard Selector Contract
+
+Status: complete as a selector and focus-state contract milestone. See [KORA Studio v4.2 keyboard selector contract](kora-studio-v4-2-keyboard-selector-contract.md) and [KORA Studio v4.2 goal report](kora-studio-v4-2-goal-report.md). Goal 541G defines stable selectors for a future optional browser keyboard smoke without adding that browser smoke script.
+
+Completed work:
+
+- added a root `data-kora-keyboard-selector-contract="v4.2"` marker
+- added additive `data-kora-keyboard-contract` markers for primary controls, overlays, progress/result surfaces, and secondary diagnostics
+- documented expected desktop and narrow/mobile focus states
+- added dependency-light selector contract assertions
+- updated preview smoke marker coverage
+
+Preserved boundaries:
+
+- no browser keyboard smoke script
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- design the future explicitly gated optional browser keyboard smoke around the v4.2 selector contract
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

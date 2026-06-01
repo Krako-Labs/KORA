@@ -899,11 +899,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
           <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\" aria-describedby=\"kora-composer-action-note\">
             <span>Ask KORA...</span>
-            <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\" aria-describedby=\"kora-composer-action-note\">↑</button>
+            <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" data-kora-keyboard-contract=\"primary-run-local-harness\" aria-label=\"Run approved local harness request\" aria-describedby=\"kora-composer-action-note\">↑</button>
           </div>
           <p class=\"composer-action-note\" id=\"kora-composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
 {selected_run_summary_html}
-          <div class=\"run-progress-summary\" data-kora-component=\"run-progress-summary\" data-kora-run-progress-surface=\"idle-running-events-completed-failed\" data-kora-primary-status-a11y=\"polite-atomic\" aria-live=\"polite\" aria-atomic=\"true\">
+          <div class=\"run-progress-summary\" data-kora-component=\"run-progress-summary\" data-kora-keyboard-contract=\"run-progress-summary\" data-kora-run-progress-surface=\"idle-running-events-completed-failed\" data-kora-primary-status-a11y=\"polite-atomic\" aria-live=\"polite\" aria-atomic=\"true\">
             <div>
               <h2>Run progress</h2>
               <p>Follow the selected local harness run state before opening generated event diagnostics.</p>
@@ -920,11 +920,11 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
                 <strong>Safe next action</strong>
                 <p id=\"kora-shell-retry-guidance\">No retry needed. Select an approved request, run Local Harness, or inspect diagnostics if a run fails.</p>
               </div>
-              <button class=\"action-button shell-retry-button\" type=\"button\" id=\"kora-shell-retry-last-approved-request-button\" data-kora-retry-last-approved-request-button=\"true\" aria-describedby=\"kora-shell-retry-guidance kora-shell-retry-boundary-note\" disabled>Retry Last Approved Request</button>
+              <button class=\"action-button shell-retry-button\" type=\"button\" id=\"kora-shell-retry-last-approved-request-button\" data-kora-keyboard-contract=\"shell-retry-last-approved-request\" data-kora-retry-last-approved-request-button=\"true\" aria-describedby=\"kora-shell-retry-guidance kora-shell-retry-boundary-note\" disabled>Retry Last Approved Request</button>
               <p id=\"kora-shell-retry-boundary-note\">Retry reuses only the last approved request ID. No arbitrary prompt execution, model execution, provider calls, downloads, report export, or file writing.</p>
             </div>
           </div>
-          <div class=\"primary-result-summary\" data-kora-component=\"primary-result-summary\" data-kora-result-summary-before-diagnostics=\"true\" data-kora-primary-result-a11y=\"polite-atomic\" aria-live=\"polite\" aria-atomic=\"true\">
+          <div class=\"primary-result-summary\" data-kora-component=\"primary-result-summary\" data-kora-keyboard-contract=\"primary-result-summary\" data-kora-result-summary-before-diagnostics=\"true\" data-kora-primary-result-a11y=\"polite-atomic\" aria-live=\"polite\" aria-atomic=\"true\">
             <div>
               <h2>Result summary</h2>
               <p>Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics.</p>
@@ -941,7 +941,7 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
             </div>
             <p id=\"kora-primary-result-boundary\">Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing.</p>
           </div>
-          <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-label=\"Secondary diagnostics status\" aria-live=\"polite\">
+          <div class=\"shell-selected-run-strip\" data-kora-keyboard-contract=\"secondary-diagnostics-status\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-label=\"Secondary diagnostics status\" aria-live=\"polite\">
             <h2>Diagnostics status</h2>
             <div class=\"shell-selected-run-grid\">
               <span>Timeline: <code id=\"kora-shell-selected-timeline-status\">not loaded</code></span>

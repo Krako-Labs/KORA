@@ -26,13 +26,13 @@ def render_right_details_drawer(
 ) -> str:
     """Render the right details drawer from server-prepared display values."""
 
-    return f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" data-kora-keyboard-trap-boundary=\"closed-inert-open-focus-managed\" aria-hidden=\"true\" tabindex=\"-1\" inert>
+    return f"""      <aside class=\"details-drawer-shell\" id=\"kora-details-drawer\" aria-label=\"KORA Studio right details drawer scaffold\" data-kora-component=\"right-details-drawer\" data-kora-keyboard-contract=\"details-drawer\" data-kora-mobile-drawer=\"right-overlay\" data-kora-drawer-state=\"closed\" data-kora-keyboard-trap-boundary=\"closed-inert-open-focus-managed\" aria-hidden=\"true\" tabindex=\"-1\" inert>
         <div class=\"drawer-header\">
           <div>
             <h2>Details</h2>
             <p class=\"subtitle\">Inspector · local preview</p>
           </div>
-          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-drawer-close=\"true\">x</button>
+          <button class=\"drawer-close-button\" type=\"button\" id=\"kora-details-drawer-close\" aria-label=\"Close details drawer\" data-kora-keyboard-contract=\"details-drawer-close\" data-kora-drawer-close=\"true\">x</button>
         </div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"runtime-status\"><h3>Runtime status</h3><p>Local runtime: {runtime_name}</p><p>Runtime detected: {runtime_detected}</p><p>Service reachability: {service_status}</p><p>Model execution: not connected yet</p></div>
         <div class=\"drawer-section-block\" data-kora-drawer-section=\"selected-model\"><h3>Selected model</h3><p>Suggested estimate: {local_candidate_name}</p><p>Catalog candidate only; not installed unless detected.</p><p>Selection does not install or run a model.</p><p>Top selector: <code>Search or select open-source LLM</code></p></div>

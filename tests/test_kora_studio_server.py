@@ -2122,6 +2122,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "Claim boundaries" in html
     assert "No private model directory scanning" in html
     assert "No runtime model list commands" in html
+
     assert '<details class="legacy-preview"' in html
     assert '<main class="legacy-preview"' not in html
     assert '<details class="legacy-preview" open' not in html
@@ -2484,6 +2485,68 @@ def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
         not url.startswith("/studio-assets/") or url in ALLOWED_STUDIO_ASSET_URLS
         for url in resource_urls
     )
+
+
+def test_static_preview_html_exposes_keyboard_selector_contract() -> None:
+    html = render_studio_placeholder_html(get_studio_server_status())
+
+    assert 'data-kora-keyboard-selector-contract="v4.2"' in html
+    required_keyboard_contracts = [
+        "mobile-left-rail",
+        "mobile-rail-toggle",
+        "mobile-rail-close",
+        "model-selector",
+        "details-drawer-toggle",
+        "details-drawer",
+        "details-drawer-close",
+        "primary-run-local-harness",
+        "approved-request-selector",
+        "approved-request-option",
+        "lower-run-local-harness",
+        "run-progress-summary",
+        "shell-retry-last-approved-request",
+        "primary-result-summary",
+        "secondary-diagnostics-status",
+        "secondary-generated-event-stream",
+        "secondary-event-timeline",
+        "secondary-run-counters",
+        "secondary-run-comparison",
+        "secondary-report-metadata",
+        "secondary-retry-last-approved-request",
+    ]
+    for contract in required_keyboard_contracts:
+        assert f'data-kora-keyboard-contract="{contract}"' in html
+
+    assert 'id="kora-left-rail-toggle"' in html
+    assert 'aria-controls="kora-left-rail"' in html
+    assert 'aria-expanded="false"' in html
+    assert 'id="kora-left-rail"' in html
+    assert 'data-kora-rail-state="closed"' in html
+    assert 'id="kora-left-rail-close"' in html
+
+    assert 'id="kora-details-drawer-toggle"' in html
+    assert 'aria-controls="kora-details-drawer"' in html
+    assert 'id="kora-details-drawer"' in html
+    assert 'data-kora-drawer-state="closed"' in html
+    assert 'data-kora-keyboard-trap-boundary="closed-inert-open-focus-managed"' in html
+    assert 'aria-hidden="true"' in html
+    assert 'tabindex="-1" inert' in html
+    assert 'id="kora-details-drawer-close"' in html
+
+    assert 'data-kora-keyboard-selectable-request="true"' in html
+    assert 'aria-pressed="false"' in html
+    assert 'aria-current="false"' in html
+    assert 'id="kora-composer-run-local-harness-button"' in html
+    assert 'id="kora-run-local-harness-button"' in html
+    assert 'id="kora-shell-retry-last-approved-request-button"' in html
+    assert 'disabled>Retry Last Approved Request</button>' in html
+
+    assert 'data-kora-component="run-progress-summary"' in html
+    assert 'data-kora-primary-status-a11y="polite-atomic"' in html
+    assert 'aria-live="polite"' in html
+    assert 'aria-atomic="true"' in html
+    assert 'data-kora-component="primary-result-summary"' in html
+    assert 'data-kora-primary-result-a11y="polite-atomic"' in html
 
 
 def test_studio_root_csp_remains_narrow_for_current_resource_types() -> None:
