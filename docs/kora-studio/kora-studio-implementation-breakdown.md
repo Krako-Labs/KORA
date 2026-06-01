@@ -1748,6 +1748,34 @@ Next recommended implementation:
 
 - decide whether a tiny optional transient Playwright keyboard smoke should be added outside the default dependency-light test path
 
+## Phase 43 - v4.1 Optional Browser Keyboard Smoke Feasibility
+
+Status: complete as a documentation and feasibility milestone. See [KORA Studio v4.1 optional browser keyboard smoke feasibility](kora-studio-v4-1-optional-browser-keyboard-smoke-feasibility.md) and [KORA Studio v4.1 goal report](kora-studio-v4-1-goal-report.md). Goal 540G decides whether to add an optional browser keyboard smoke now.
+
+Decision:
+
+- keep keyboard traversal manual-only for this milestone
+- do not add a new browser keyboard smoke script yet
+
+Rationale:
+
+- existing optional browser CSP smoke already validates browser runtime loading and Run Local Harness interaction under CSP
+- stable desktop and narrow/mobile focus selector sequences should be documented before adding Tab-order assertions
+- no blocker was found in the v4.0 manual traversal report
+- no dependency, script, test, runtime, CSP, or asset allowlist change is needed for this feasibility step
+
+Future acceptance criteria:
+
+- define stable desktop selector sequence
+- define stable narrow/mobile selector sequence
+- keep any future smoke explicitly opt-in
+- reuse transient `npx --package @playwright/test`
+- avoid package manifests, lockfiles, Playwright config, axe tooling, and frontend build tooling
+
+Next recommended implementation:
+
+- document the selector contract for a possible future optional browser keyboard smoke
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
