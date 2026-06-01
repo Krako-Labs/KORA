@@ -1510,6 +1510,44 @@ Acceptance criteria:
 - no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - claim boundaries remain local preview/demo only
 
+## Phase 34 — v3.2 Primary Operator Path Simplification Plan
+
+Status: complete as a planning-only operator path simplification review. See [KORA Studio v3.2 primary operator path simplification plan](kora-studio-v3-2-primary-operator-path-simplification-plan.md). Goal 531G reviews the first-time local demo journey without implementing UI changes.
+
+Review coverage:
+
+- opening Studio
+- understanding local-only boundaries
+- selecting an approved request
+- running Local Harness
+- understanding run progress
+- reading a result summary
+- inspecting timeline/details if needed
+- retrying the last approved request if needed
+
+Findings summary:
+
+- no blocker was found for the current local demo/preview scope
+- important friction comes from a diffuse primary action path, repeated boundary copy, multiple status surfaces, and diagnostics competing with the result summary
+- cosmetic friction comes from heavy labels, repeated panel copy, and legacy compatibility page length
+
+Prioritized implementation candidates:
+
+- primary workflow band implementation
+- result summary before diagnostics
+- run progress and SSE state simplification
+- retry placement and error state polish
+- diagnostic surface rebalancing
+- responsive and accessibility check after simplification
+
+Acceptance criteria:
+
+- planning/review only
+- no Studio runtime behavior changes
+- no CSP broadening or asset allowlist broadening is introduced
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- claim boundaries remain local preview/demo only
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
