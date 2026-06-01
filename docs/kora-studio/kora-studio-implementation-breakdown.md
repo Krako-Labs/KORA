@@ -1571,6 +1571,31 @@ Next recommended implementation:
 
 - add or promote selected-run result summary before deep diagnostics
 
+## Phase 36 — v3.4 Result Summary Before Diagnostics
+
+Status: complete as a bounded UX-only frontend shell improvement. See [KORA Studio v3.4 result summary before diagnostics report](kora-studio-v3-4-result-summary-before-diagnostics-report.md) and [KORA Studio v3.4 goal report](kora-studio-v3-4-goal-report.md). Goal 533G implements the second v3.2 simplification candidate by adding a primary result summary before lower-level diagnostics.
+
+Implemented behavior:
+
+- shell-level primary result summary before diagnostics
+- request/run identity, status, event count, key counters, comparison status, and report metadata status
+- generated local harness output boundary copy
+- package CSS styling for the summary
+- browser-local JavaScript state updates using the existing local harness run response
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no diagnostic information removed
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+
+Next recommended implementation:
+
+- simplify run progress and generated event stream states while preserving generated-harness-only boundaries
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

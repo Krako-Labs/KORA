@@ -199,6 +199,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-component="boundary-strip"
             data-kora-component="top-model-selector"
             data-kora-component="primary-workflow-band"
+            data-kora-component="primary-result-summary"
             data-kora-component="composer"
             data-kora-component="approved-request-selector"
             data-kora-component="selected-run-summary"
@@ -285,10 +286,23 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-request-id
             kora-composer-run-status
             kora-composer-run-id
+            data-kora-component="primary-result-summary"
+            data-kora-result-summary-before-diagnostics="true"
+            Result summary
+            Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics.
+            kora-primary-result-request-id
+            kora-primary-result-run-id
+            kora-primary-result-status
+            kora-primary-result-event-count
+            kora-primary-result-avoided-model-calls
+            kora-primary-result-deterministic-routes
+            kora-primary-result-comparison-status
+            kora-primary-result-report-status
+            kora-primary-result-boundary
             data-kora-shell-selected-run-surface="v1.0"
             data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"
             data-kora-v1-1-selected-run-polish="shell-drawer-status"
-            Selected run details
+            Diagnostics status
             kora-shell-selected-timeline-status
             kora-shell-selected-counters-status
             kora-shell-selected-comparison-status

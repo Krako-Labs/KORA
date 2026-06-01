@@ -206,6 +206,37 @@
     }
   };
 
+  const setPrimaryResultSummary = (updates) => {
+    const state = updates || {};
+    if (state.request_id !== undefined) {
+      text("kora-primary-result-request-id", state.request_id || "none");
+    }
+    if (state.run_id !== undefined) {
+      text("kora-primary-result-run-id", state.run_id || "not run yet");
+    }
+    if (state.status !== undefined) {
+      text("kora-primary-result-status", state.status || "not_started");
+    }
+    if (state.event_count !== undefined) {
+      text("kora-primary-result-event-count", state.event_count);
+    }
+    if (state.avoided_model_calls !== undefined) {
+      text("kora-primary-result-avoided-model-calls", state.avoided_model_calls);
+    }
+    if (state.deterministic_routes !== undefined) {
+      text("kora-primary-result-deterministic-routes", state.deterministic_routes);
+    }
+    if (state.comparison_status !== undefined) {
+      text("kora-primary-result-comparison-status", state.comparison_status || "not loaded");
+    }
+    if (state.report_status !== undefined) {
+      text("kora-primary-result-report-status", state.report_status || "not loaded");
+    }
+    if (state.boundary !== undefined) {
+      text("kora-primary-result-boundary", state.boundary || "Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing.");
+    }
+  };
+
   const getShellAccessibilityState = () => {
     return {
       left_rail_state: leftRail ? leftRail.getAttribute("data-kora-rail-state") : "missing",
@@ -223,6 +254,7 @@
     if (!request) {
       text("kora-selected-request-id", "none");
       text("kora-composer-request-id", "none");
+      setPrimaryResultSummary({request_id: "none"});
       text("kora-selected-request-text", "No approved request selected.");
       text("kora-selected-request-route", "unknown");
       text("kora-selected-request-model-needed", "unknown");
@@ -230,6 +262,7 @@
     }
     text("kora-selected-request-id", request.request_id);
     text("kora-composer-request-id", request.request_id);
+    setPrimaryResultSummary({request_id: request.request_id});
     text("kora-selected-request-text", request.input_text || "Approved local sample request.");
     text("kora-selected-request-route", request.expected_route_class || "unknown");
     text("kora-selected-request-model-needed", request.expected_model_needed === true ? "true" : "false");
@@ -241,6 +274,13 @@
     text("kora-run-status", "failed");
     text("kora-composer-run-status", "failed");
     text("kora-composer-run-id", "not available");
+    setPrimaryResultSummary({
+      run_id: "not available",
+      status: "failed",
+      comparison_status: "unavailable",
+      report_status: "unavailable",
+      boundary: `${runError} No model execution was attempted. Provider calls remain disabled. Retry uses the last approved request only.`
+    });
     text("kora-run-claim-boundary", `${runError} No model execution was attempted. Provider calls remain disabled. Try again or inspect the local server logs.`);
     setRetryState(true, `${runError} Retry uses the last approved request only. No model execution was attempted. Provider calls remain disabled.`);
     renderCountersUnavailable("Selected-run counters unavailable.");
@@ -617,6 +657,17 @@
     text("kora-run-cloud-sync-enabled", "false");
     text("kora-run-file-export-enabled", "false");
     text("kora-run-claim-boundary", "Cleared browser-local preview state only.");
+    setPrimaryResultSummary({
+      request_id: selectedRequestId || "none",
+      run_id: "not run yet",
+      status: "not_started",
+      event_count: "0",
+      avoided_model_calls: "0",
+      deterministic_routes: "0",
+      comparison_status: "not loaded",
+      report_status: "not loaded",
+      boundary: "Cleared browser-local preview state only. No backend records, files, report exports, or server endpoints were deleted."
+    });
     text("kora-active-history-run-id", "none");
     text("kora-selected-events-status", "No selected run events loaded yet.");
     renderCountersUnavailable("Run an approved local harness request to view selected-run counters.");
@@ -746,6 +797,19 @@
     text("kora-run-cloud-sync-enabled", run.cloud_sync_enabled === true ? "true" : "false");
     text("kora-run-file-export-enabled", report.file_export_enabled === true ? "true" : "false");
     text("kora-run-claim-boundary", run.claim_boundary || "Generated local harness output only. No model execution.");
+    const counters = run.generated_counters && typeof run.generated_counters === "object" ? run.generated_counters : {};
+    const comparison = run.comparison_summary && typeof run.comparison_summary === "object" ? run.comparison_summary : {};
+    setPrimaryResultSummary({
+      request_id: run.request_id || selectedRequestId,
+      run_id: selectedRunId || "not returned",
+      status: run.run_status || "unknown",
+      event_count: run.event_count || (Array.isArray(run.generated_events) ? run.generated_events.length : 0),
+      avoided_model_calls: counters.avoided_model_calls === undefined ? 0 : counters.avoided_model_calls,
+      deterministic_routes: counters.deterministic_routes === undefined ? 0 : counters.deterministic_routes,
+      comparison_status: comparison.comparison_status || report.comparison_summary_status || "loaded from selected run",
+      report_status: report.report_status || report.report_viewer_status || "preview loaded",
+      boundary: run.claim_boundary || "Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing."
+    });
     runError = "";
     setRetryState(false, "No selected-run error.");
     renderSelectedCounters(run.generated_counters, run.event_count || 0);
@@ -773,6 +837,14 @@
     text("kora-composer-request-id", requestId);
     text("kora-composer-run-id", "pending local harness response");
     text("kora-run-claim-boundary", "Local harness run requested for an approved request id only.");
+    setPrimaryResultSummary({
+      request_id: requestId,
+      run_id: "pending local harness response",
+      status: "running",
+      comparison_status: "pending",
+      report_status: "pending",
+      boundary: "Local harness run requested for an approved request id only. No arbitrary prompt execution, model execution, provider calls, downloads, report export, or file writing."
+    });
     setShellSelectedRunSurfaceState({
       run_id: "pending local harness response",
       timeline: "pending",
@@ -851,6 +923,17 @@
   }
 
   renderSelectedRequest();
+  setPrimaryResultSummary({
+    request_id: selectedRequestId || "none",
+    run_id: "not run yet",
+    status: "not_started",
+    event_count: "0",
+    avoided_model_calls: "0",
+    deterministic_routes: "0",
+    comparison_status: "not loaded",
+    report_status: "not loaded",
+    boundary: "Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing."
+  });
   setRetryState(false, "No selected-run error.");
   setShellSelectedRunSurfaceState({
     run_id: "not run yet",

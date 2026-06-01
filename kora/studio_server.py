@@ -901,8 +901,25 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
           <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
 {selected_run_summary_html}
+          <div class=\"primary-result-summary\" data-kora-component=\"primary-result-summary\" data-kora-result-summary-before-diagnostics=\"true\" aria-live=\"polite\">
+            <div>
+              <h2>Result summary</h2>
+              <p>Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics.</p>
+            </div>
+            <div class=\"primary-result-grid\">
+              <span>Request: <code id=\"kora-primary-result-request-id\">{selector_preview_id}</code></span>
+              <span>Run: <code id=\"kora-primary-result-run-id\">not run yet</code></span>
+              <span>Status: <code id=\"kora-primary-result-status\">not_started</code></span>
+              <span>Events: <code id=\"kora-primary-result-event-count\">0</code></span>
+              <span>Avoided model calls: <code id=\"kora-primary-result-avoided-model-calls\">0</code></span>
+              <span>Deterministic routes: <code id=\"kora-primary-result-deterministic-routes\">0</code></span>
+              <span>Comparison: <code id=\"kora-primary-result-comparison-status\">not loaded</code></span>
+              <span>Report metadata: <code id=\"kora-primary-result-report-status\">not loaded</code></span>
+            </div>
+            <p id=\"kora-primary-result-boundary\">Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing.</p>
+          </div>
           <div class=\"shell-selected-run-strip\" data-kora-shell-selected-run-surface=\"v1.0\" data-kora-shell-selected-run-coverage=\"timeline,counters,comparison,report-metadata\" data-kora-v1-1-selected-run-polish=\"shell-drawer-status\" aria-live=\"polite\">
-            <h2>Selected run details</h2>
+            <h2>Diagnostics status</h2>
             <div class=\"shell-selected-run-grid\">
               <span>Timeline: <code id=\"kora-shell-selected-timeline-status\">not loaded</code></span>
               <span>Counters: <code id=\"kora-shell-selected-counters-status\">not loaded</code></span>

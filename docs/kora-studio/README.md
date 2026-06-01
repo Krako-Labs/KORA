@@ -313,6 +313,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v3.2 primary operator path simplification plan](kora-studio-v3-2-primary-operator-path-simplification-plan.md)
 - [KORA Studio v3.3 primary workflow band report](kora-studio-v3-3-primary-workflow-band-report.md)
 - [KORA Studio v3.3 goal report](kora-studio-v3-3-goal-report.md)
+- [KORA Studio v3.4 result summary before diagnostics report](kora-studio-v3-4-result-summary-before-diagnostics-report.md)
+- [KORA Studio v3.4 goal report](kora-studio-v3-4-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

@@ -495,6 +495,7 @@ def test_rendered_preview_preserves_helper_owned_component_markers() -> None:
         "left-rail": "kora.studio_shell_render",
         "top-model-selector": "kora.studio_shell_render",
         "primary-workflow-band": "kora.studio_server",
+        "primary-result-summary": "kora.studio_server",
         "right-details-drawer": "kora.studio_drawer_render",
         "selected-run-summary": "kora.studio_selected_run_render",
         "generated-event-stream-status": "kora.studio_selected_run_render",
@@ -1000,6 +1001,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".model-selector-shell" in css
     assert ".primary-workflow-band" in css
     assert ".primary-workflow-step" in css
+    assert ".primary-result-summary" in css
+    assert ".primary-result-grid" in css
     assert ".composer-stage" in css
     assert ".details-drawer-shell" in css
     assert "@media (max-width: 760px)" in css
@@ -1012,6 +1015,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "window.koraStudioScriptStatus" in javascript
     assert "setLeftRailOpen" in javascript
     assert "setDetailsDrawerOpen" in javascript
+    assert "setPrimaryResultSummary" in javascript
+    assert "kora-primary-result-status" in javascript
     assert "renderRunResponse" in javascript
     assert "fetch(\"/api/harness/run\"" in javascript
     assert "fetch(`/api/harness/events?run_id=${encodeURIComponent(selectedRunId)}`)" in javascript
@@ -1859,6 +1864,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
         "boundary-strip",
         "top-model-selector",
         "primary-workflow-band",
+        "primary-result-summary",
         "composer",
         "approved-request-selector",
         "selected-run-summary",
@@ -1953,16 +1959,32 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-request-id"' in html
     assert 'id="kora-composer-run-status"' in html
     assert 'id="kora-composer-run-id"' in html
+    assert 'data-kora-component="primary-result-summary"' in html
+    assert 'data-kora-result-summary-before-diagnostics="true"' in html
+    assert "Result summary" in html
+    assert "Review the selected request, final run status, key generated counters, comparison status, and report metadata before opening lower-level diagnostics." in html
+    assert 'id="kora-primary-result-request-id"' in html
+    assert 'id="kora-primary-result-run-id"' in html
+    assert 'id="kora-primary-result-status"' in html
+    assert 'id="kora-primary-result-event-count"' in html
+    assert 'id="kora-primary-result-avoided-model-calls"' in html
+    assert 'id="kora-primary-result-deterministic-routes"' in html
+    assert 'id="kora-primary-result-comparison-status"' in html
+    assert 'id="kora-primary-result-report-status"' in html
+    assert 'id="kora-primary-result-boundary"' in html
+    assert "Generated local harness output only. Not production telemetry, not production cost evidence" in html
     assert 'data-kora-shell-selected-run-surface="v1.0"' in html
     assert 'data-kora-shell-selected-run-coverage="timeline,counters,comparison,report-metadata"' in html
     assert 'data-kora-v1-1-selected-run-polish="shell-drawer-status"' in html
-    assert "Selected run details" in html
+    assert "Diagnostics status" in html
     assert 'id="kora-shell-selected-timeline-status"' in html
     assert 'id="kora-shell-selected-counters-status"' in html
     assert 'id="kora-shell-selected-comparison-status"' in html
     assert 'id="kora-shell-selected-report-status"' in html
     assert "Shell selected-run surface mirrors generated local harness output only" in html
     assert "Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection" in html
+    assert html.index('data-kora-component="primary-result-summary"') < html.index('data-kora-shell-selected-run-surface="v1.0"')
+    assert html.index('data-kora-component="primary-result-summary"') < html.index('data-kora-component="selected-run-event-timeline"')
     assert "Provider calls disabled" in html
     assert "Cloud sync disabled" in html
     assert "Downloads disabled" in html
