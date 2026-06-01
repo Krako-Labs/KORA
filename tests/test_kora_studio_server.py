@@ -103,6 +103,7 @@ FORBIDDEN_HTML_RESOURCE_PREFIXES = {
     "blob:": "blob URL resource",
     "http://": "remote resource URL",
     "https://": "remote resource URL",
+    "javascript:": "javascript pseudo URL",
     "//": "remote resource URL",
 }
 EXPECTED_STUDIO_CSP_DIRECTIVES = {
@@ -245,6 +246,9 @@ class StudioHtmlResourceParser(HTMLParser):
         self.scripts: list[dict[str, str]] = []
         self.resource_urls: list[tuple[str, str, str]] = []
         self.inline_style_attributes: list[tuple[str, str]] = []
+        self.inline_event_handler_attributes: list[tuple[str, str, str]] = []
+        self.style_elements: list[dict[str, str]] = []
+        self.meta_refresh_values: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self._record_tag(tag, attrs)
@@ -258,9 +262,16 @@ class StudioHtmlResourceParser(HTMLParser):
         self.tags.append((normalised_tag, attr_map))
         if normalised_tag == "script":
             self.scripts.append(attr_map)
+        if normalised_tag == "style":
+            self.style_elements.append(attr_map)
+        if normalised_tag == "meta" and attr_map.get("http-equiv", "").lower() == "refresh":
+            self.meta_refresh_values.append(attr_map.get("content", ""))
         if "style" in attr_map:
             self.inline_style_attributes.append((normalised_tag, attr_map["style"]))
-        for attr_name in ("src", "href", "action", "formaction", "poster", "data"):
+        for attr_name, attr_value in attr_map.items():
+            if attr_name.startswith("on"):
+                self.inline_event_handler_attributes.append((normalised_tag, attr_name, attr_value))
+        for attr_name in ("src", "href", "action", "formaction", "poster", "data", "srcset"):
             if attr_name in attr_map:
                 self.resource_urls.append((normalised_tag, attr_name, attr_map[attr_name]))
 
@@ -301,12 +312,38 @@ def _script_groups(parser: StudioHtmlResourceParser) -> tuple[list[dict[str, str
     )
 
 
+def _normalise_resource_url(url: str) -> str:
+    return url.strip().lower()
+
+
+def _resource_url_candidates(attr_name: str, url: str) -> list[str]:
+    if attr_name == "srcset":
+        candidates: list[str] = []
+        for item in url.split(","):
+            parts = item.strip().split()
+            if parts:
+                candidates.append(parts[0])
+        return candidates
+    return [url]
+
+
+def _meta_refresh_url_candidates(content: str) -> list[str]:
+    lowered = content.lower()
+    if "url=" not in lowered:
+        return []
+    return [content[lowered.index("url=") + len("url=") :].strip()]
+
+
 def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
     parser = _parse_studio_html_resources(html)
     violations: list[str] = []
 
     if parser.inline_style_attributes:
         violations.append("inline style attribute")
+    if parser.inline_event_handler_attributes:
+        violations.append("inline event handler")
+    if parser.style_elements:
+        violations.append("inline style block")
 
     if _stylesheet_hrefs(parser) != EXPECTED_STUDIO_STYLESHEETS:
         violations.append("stylesheet must be /studio-assets/studio.css")
@@ -317,12 +354,19 @@ def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
     if inline_scripts != [EXPECTED_APPROVED_REQUEST_JSON_SCRIPT]:
         violations.append("inline script must be approved request JSON")
 
-    for _tag, _attr_name, url in parser.resource_urls:
-        for prefix, violation in FORBIDDEN_HTML_RESOURCE_PREFIXES.items():
-            if url.startswith(prefix):
-                violations.append(violation)
-        if url.startswith("/studio-assets/") and url not in ALLOWED_STUDIO_ASSET_URLS:
-            violations.append("unapproved studio asset")
+    resource_urls = parser.resource_urls + [
+        ("meta", "refresh", url)
+        for refresh_value in parser.meta_refresh_values
+        for url in _meta_refresh_url_candidates(refresh_value)
+    ]
+    for _tag, attr_name, url in resource_urls:
+        for candidate in _resource_url_candidates(attr_name, url):
+            normalised_url = _normalise_resource_url(candidate)
+            for prefix, violation in FORBIDDEN_HTML_RESOURCE_PREFIXES.items():
+                if normalised_url.startswith(prefix):
+                    violations.append(violation)
+            if normalised_url.startswith("/studio-assets/") and candidate.strip() not in ALLOWED_STUDIO_ASSET_URLS:
+                violations.append("unapproved studio asset")
 
     return violations
 
@@ -2359,6 +2403,57 @@ def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls
             '<html><head><link rel="stylesheet" href="/studio-assets/theme.css"></head>'
             '<body><script src="/studio-assets/studio.js"></script></body></html>',
             "unapproved studio asset",
+        ),
+        (
+            "mixed-case external resource scheme",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><img src="HTTPS://cdn.example/image.png"><script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "whitespace-padded resource URL",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><img src="  https://cdn.example/image.png  ">'
+            '<script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "javascript pseudo URL",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><a href="javascript:alert(1)">blocked</a><script src="/studio-assets/studio.js"></script></body></html>',
+            "javascript pseudo URL",
+        ),
+        (
+            "srcset external URL",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><img srcset="/studio-assets/studio.css 1x, https://cdn.example/image.png 2x">'
+            '<script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "meta refresh URL",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css">'
+            '<meta http-equiv="refresh" content="0;url=https://cdn.example/redirect"></head>'
+            '<body><script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "form action target",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><form action="https://cdn.example/post"></form><script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "inline event handler",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><button onclick="alert(1)">blocked</button><script src="/studio-assets/studio.js"></script></body></html>',
+            "inline event handler",
+        ),
+        (
+            "inline style block",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"><style>body{display:block}</style></head>'
+            '<body><script src="/studio-assets/studio.js"></script></body></html>',
+            "inline style block",
         ),
     ],
 )

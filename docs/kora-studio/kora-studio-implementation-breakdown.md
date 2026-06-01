@@ -1383,6 +1383,39 @@ Acceptance criteria:
 - no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Phase 31 — v2.7 CSP Guard Negative Coverage Review
+
+Status: complete as targeted negative coverage additions. See [KORA Studio v2.7 CSP negative coverage review](kora-studio-v2-7-csp-negative-coverage-review.md) and [KORA Studio v2.7 goal report](kora-studio-v2-7-goal-report.md). Goal 526G reviews the v2.4-v2.6 CSP/resource guards and adds only relevant fixture cases for the current server-rendered Studio HTML model.
+
+Goal: Add obvious missing negative cases without speculative test bloat or runtime changes.
+
+Added coverage:
+
+- mixed-case external resource schemes
+- whitespace-padded external resource URLs
+- `javascript:` pseudo URLs
+- `srcset` external URL candidates
+- `meta refresh` URL targets
+- external form `action` targets
+- inline event handler attributes
+- inline `<style>` blocks
+
+Declined scope:
+
+- workers, frames, media, and font-specific cases until those resource classes are intentionally introduced
+- browser-only assertions, because browser CSP validation remains optional and explicitly gated
+- broader static asset fixtures, because existing allowlist and traversal tests already cover route behavior
+
+Acceptance criteria:
+
+- added fixtures remain dependency-light and browser-free
+- added fixtures are relevant to HTML resource behavior
+- approved request JSON exception remains explicit
+- no Studio runtime behavior changes
+- no CSP broadening or asset allowlist broadening is introduced
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
