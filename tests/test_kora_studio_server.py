@@ -4,6 +4,7 @@ import inspect
 import json
 import os
 import threading
+import tomllib
 import urllib.error
 import urllib.request
 from html.parser import HTMLParser
@@ -1056,6 +1057,16 @@ def test_studio_css_helper_loads_package_controlled_source_file() -> None:
     assert "https://" not in css_source
 
 
+def test_studio_package_data_includes_only_package_controlled_css_and_javascript_assets() -> None:
+    pyproject_path = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    pyproject = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
+
+    assert pyproject["tool"]["setuptools"]["package-data"]["kora"] == [
+        "studio_assets/*.css",
+        "studio_assets/*.js",
+    ]
+
+
 def test_css_static_asset_path_allowlist_rejects_unsafe_paths() -> None:
     assert get_studio_css_asset_path_status("/studio-assets/studio.css") == ("studio.css", 200)
     assert get_studio_css_asset_path_status("/studio-assets/studio.js") == ("studio.js", 200)
@@ -1071,6 +1082,34 @@ def test_css_static_asset_path_allowlist_rejects_unsafe_paths() -> None:
     assert get_studio_css_asset_path_status("/studio-assets/..%2fsecret") == (None, 400)
     assert get_studio_css_asset_path_status("/studio-assets/..\\secret") == (None, 400)
     assert get_studio_css_asset_path_status("/studio-assets//etc/passwd") == (None, 400)
+
+
+def test_studio_asset_handler_does_not_introduce_filesystem_static_serving() -> None:
+    handler_source = inspect.getsource(create_studio_request_handler)
+    asset_guard_source = inspect.getsource(get_studio_asset_path_status)
+
+    assert "path.startswith(\"/studio-assets\")" in handler_source
+    assert "get_studio_asset_path_status(path)" in handler_source
+    assert "render_studio_css()" in handler_source
+    assert "render_studio_javascript()" in handler_source
+    assert "STUDIO_CSS_ASSET_PATH" in asset_guard_source
+    assert "STUDIO_JAVASCRIPT_ASSET_PATH" in asset_guard_source
+
+    forbidden_tokens = [
+        "SimpleHTTPRequestHandler",
+        "translate_path",
+        "list_directory",
+        "os.listdir",
+        "os.scandir",
+        "def send_head",
+        "shutil.copyfileobj",
+        "open(",
+        "Path(",
+        "glob(",
+    ]
+    combined_source = f"{handler_source}\n{asset_guard_source}"
+    for token in forbidden_tokens:
+        assert token not in combined_source
 
 
 def test_import_does_not_start_server_or_require_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:

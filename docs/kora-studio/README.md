@@ -307,6 +307,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.8 goal report](kora-studio-v2-8-goal-report.md)
 - [KORA Studio v2.9 CSP guard maintenance checklist](kora-studio-v2-9-csp-guard-maintenance-checklist.md)
 - [KORA Studio v2.9 goal report](kora-studio-v2-9-goal-report.md)
+- [KORA Studio v3.0 static asset guard stability report](kora-studio-v3-0-static-asset-guard-stability-report.md)
+- [KORA Studio v3.0 goal report](kora-studio-v3-0-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

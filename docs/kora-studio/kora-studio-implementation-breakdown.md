@@ -1449,6 +1449,34 @@ For future Studio HTML, CSS, JavaScript, CSP, or asset-route changes:
 - avoid package manifests, lockfiles, frontend tooling, bundlers, npm workflows, Playwright config, external assets, or CDN dependencies as routine maintenance
 - run standard validation, and run the optional browser CSP smoke when resource loading or CSP behavior changes
 
+## Phase 32 — v3.0 Static Asset Guard Stability Review
+
+Status: complete as static asset guard stability review. See [KORA Studio v3.0 static asset guard stability report](kora-studio-v3-0-static-asset-guard-stability-report.md) and [KORA Studio v3.0 goal report](kora-studio-v3-0-goal-report.md). Goal 529G reviews allowlist, MIME/cache, package-data, package source loading, route rejection, and filesystem static-serving risks.
+
+Goal: Close obvious maintenance risks around the current Studio static asset guard without changing runtime behavior.
+
+Added coverage:
+
+- package-data config must include only `studio_assets/*.css` and `studio_assets/*.js`
+- asset handler must not introduce filesystem-backed static serving helpers or directory-serving behavior
+
+No-gap rationale:
+
+- exact `studio.css` and `studio.js` allowlist coverage already exists
+- unknown asset rejection already exists
+- traversal and encoded traversal rejection already exists
+- directory-style asset rejection already exists
+- CSS/JS MIME and `Cache-Control: no-store` coverage already exists
+- package-controlled source loading coverage already exists
+- optional browser CSP smoke already covers live asset loading
+
+Acceptance criteria:
+
+- no runtime behavior changes
+- no CSP broadening or asset allowlist broadening is introduced
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
