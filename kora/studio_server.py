@@ -947,7 +947,6 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
   <meta charset=\"utf-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
   <title>KORA Studio</title>
-  <link rel=\"icon\" href=\"data:,\">
   <link rel=\"stylesheet\" href=\"{STUDIO_CSS_ASSET_PATH}\">
 </head>
 <body>

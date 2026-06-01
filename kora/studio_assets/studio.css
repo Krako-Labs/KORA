@@ -101,6 +101,14 @@ code {
   gap: 16px;
   margin-top: 18px;
 }
+.grid-spaced,
+.card-spaced,
+.workflow-spaced {
+  margin-top: 16px;
+}
+.section-spaced {
+  margin-top: 18px;
+}
 section, .card {
   border: 1px solid var(--line);
   background: var(--panel);

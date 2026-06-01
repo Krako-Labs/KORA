@@ -40,13 +40,13 @@ def render_local_harness_preview_section(
 {run_state_history_html}
 {selected_run_detail_panels_html}
 {trigger_reference_html}
-        <div class=\"grid\" style=\"margin-top: 16px;\">
+        <div class=\"grid grid-spaced\">
           <div class=\"card\"><h3>Available local deterministic sample requests</h3><ul>{local_harness_request_items}</ul></div>
           <div class=\"card\"><h3>Harness event stages</h3><ul>{local_harness_event_items}</ul></div>
         </div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Generated Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider output.</p></div>
+        <div class=\"card card-spaced\"><h3>Generated Event Timeline</h3><p>Generated local harness events only. Not model token streaming. No model execution. No provider output.</p></div>
         <div class=\"grid\">{local_harness_timeline_items}</div>
-        <div class=\"card\" style=\"margin-top: 16px;\"><h3>Generated Counters</h3><p>Generated counters come from local deterministic harness output only. No cost or energy conversion is performed.</p></div>
+        <div class=\"card card-spaced\"><h3>Generated Counters</h3><p>Generated counters come from local deterministic harness output only. No cost or energy conversion is performed.</p></div>
         <div class=\"grid\">{local_harness_counter_items}</div>
       </section>"""
 
@@ -68,7 +68,7 @@ def render_execution_viewer_section(
           <div class=\"card\"><h3>Event schema</h3><p>Schema fields: {execution_schema_count}</p><p>Fixture events: {execution_event_count}</p><p>{execution_boundary}</p></div>
           <div class=\"card\"><h3>Fixture stages</h3><ul>{execution_event_items}</ul></div>
         </div>
-        <div class=\"workflow\" style=\"margin-top: 16px;\">
+        <div class=\"workflow workflow-spaced\">
           <div class=\"step\"><p class=\"step-number\">01</p><h3>Request received</h3><p>Local fixture request is received by the Execution Viewer scaffold.</p></div>
           <div class=\"step\"><p class=\"step-number\">02</p><h3>Deterministic route check</h3><p>Fixture route selection checks deterministic code before the model path.</p></div>
           <div class=\"step\"><p class=\"step-number\">03</p><h3>Structured lookup and validation pass</h3><p>Fixture structured lookup succeeds and validation passes.</p></div>

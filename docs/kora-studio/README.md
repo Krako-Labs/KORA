@@ -258,6 +258,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.0 goal report](kora-studio-v2-0-goal-report.md)
 - [KORA Studio v2.1 local asset CSP readiness report](kora-studio-v2-1-local-asset-csp-readiness-report.md)
 - [KORA Studio v2.1 goal report](kora-studio-v2-1-goal-report.md)
+- [KORA Studio v2.2 browser-level CSP smoke validation report](kora-studio-v2-2-browser-csp-smoke-validation-report.md)
+- [KORA Studio v2.2 goal report](kora-studio-v2-2-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

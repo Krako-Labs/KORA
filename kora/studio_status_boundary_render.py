@@ -22,7 +22,7 @@ def render_shell_boundary_strip() -> str:
 def render_launch_local_status_section(*, section_order_items: str) -> str:
     """Render the launch/local-only status section."""
 
-    return f"""    <section aria-label=\"Launch Local-only Status\" style=\"margin-top: 18px;\">
+    return f"""    <section aria-label=\"Launch Local-only Status\" class=\"section-spaced\">
       <h2>Launch / Local-only Status</h2>
       <div class=\"grid\">
         <div class=\"status-card card\"><h3>Server</h3><p class=\"status-value\">Server: local</p><p>Bound to the local Studio skeleton.</p></div>
@@ -32,7 +32,7 @@ def render_launch_local_status_section(*, section_order_items: str) -> str:
         <div class=\"status-card card\"><h3>Browser Launch</h3><p class=\"status-value\">Browser launch: available</p><p>The CLI opens the local page by default; use <code>--no-browser</code> to suppress it.</p></div>
         <div class=\"status-card card\"><h3>Ollama</h3><p class=\"status-value disabled\">Ollama integration: not connected</p><p>No Ollama model calls happen here.</p></div>
       </div>
-      <div class=\"card\" style=\"margin-top: 16px;\"><h3>First-run order</h3><ol>{section_order_items}</ol></div>
+      <div class=\"card card-spaced\"><h3>First-run order</h3><ol>{section_order_items}</ol></div>
     </section>"""
 
 

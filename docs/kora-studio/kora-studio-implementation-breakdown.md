@@ -1240,6 +1240,38 @@ Acceptance criteria:
 - endpoint and smoke marker coverage remains stable
 - full validation and live smoke checks pass
 
+## Phase 26 — v2.2 Browser-Level CSP Smoke Validation
+
+Status: complete as an optional browser-level CSP smoke validation step. See [KORA Studio v2.2 browser-level CSP smoke validation report](kora-studio-v2-2-browser-csp-smoke-validation-report.md) and [KORA Studio v2.2 goal report](kora-studio-v2-2-goal-report.md). Goal 521G adds a dependency-light optional browser smoke script that uses Playwright through `npx` when available, validates the root CSP header in a real browser, confirms local CSS/JavaScript asset loading, checks initial shell readiness, clicks the visible Run Local Harness control, and fails on browser CSP violations.
+
+Goal: Validate the local preview under the enforced CSP at browser/runtime level without adding repo dependencies or production security readiness claims.
+
+Scope:
+
+- optional browser smoke script: `scripts/check_kora_studio_browser_csp.py`
+- script accepts only localhost preview URLs
+- script uses `npx` and temporary Playwright files when available
+- no committed Node package manifest, lockfile, or browser dependency
+- no frontend framework, bundler, minifier, npm workflow, external asset, or CDN addition
+- no CSP broadening
+- no `unsafe-inline`
+- no `unsafe-eval`
+- no wildcard or external host allowances
+- root preview inline styles removed in favor of package CSS classes
+- data favicon removed to avoid CSP noise
+- local CSS and JavaScript package assets preserved
+- approved request JSON behavior preserved
+- no production security readiness claim
+
+Acceptance criteria:
+
+- browser smoke passes against a running local preview when Playwright is available through `npx`
+- browser smoke fails on CSP console violations
+- browser smoke verifies root CSP header, local CSS/JS assets, initial shell readiness, approved request availability, and Run Local Harness interaction
+- automated unit coverage remains dependency-light and does not require a browser
+- existing server/header/static-route tests remain stable
+- full validation and live smoke checks pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
