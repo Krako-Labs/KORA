@@ -266,6 +266,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.4 goal report](kora-studio-v2-4-goal-report.md)
 - [KORA Studio v2.5 CSP violation fixture matrix](kora-studio-v2-5-csp-violation-fixture-matrix.md)
 - [KORA Studio v2.5 goal report](kora-studio-v2-5-goal-report.md)
+- [KORA Studio v2.6 CSP guard helper cleanup](kora-studio-v2-6-csp-guard-helper-cleanup.md)
+- [KORA Studio v2.6 goal report](kora-studio-v2-6-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

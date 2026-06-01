@@ -1356,6 +1356,33 @@ Acceptance criteria:
 - no persistent frontend dependency, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Phase 30 — v2.6 CSP Guard Helper Cleanup
+
+Status: complete as test-module helper consolidation. See [KORA Studio v2.6 CSP guard helper cleanup](kora-studio-v2-6-csp-guard-helper-cleanup.md) and [KORA Studio v2.6 goal report](kora-studio-v2-6-goal-report.md). Goal 525G keeps the CSP/resource helpers inside `tests/test_kora_studio_server.py` and consolidates repeated constants and parser helpers without changing runtime behavior.
+
+Goal: Keep the CSP guard and fixture matrix maintainable without weakening assertions.
+
+Scope:
+
+- centralize expected Studio CSS and JavaScript asset paths
+- centralize approved request JSON script shape
+- centralize allowed Studio asset URLs
+- centralize forbidden HTML resource prefixes
+- centralize expected CSP directives and forbidden CSP sources
+- centralize forbidden CSS/package asset tokens
+- reuse helper parsing for positive guards and fixture matrix tests
+- preserve all v2.4/v2.5 coverage
+
+Acceptance criteria:
+
+- helper cleanup stays inside the test module only
+- positive guard coverage remains equivalent
+- negative fixture matrix coverage remains equivalent
+- no Studio runtime behavior changes
+- no CSP broadening or asset allowlist broadening is introduced
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

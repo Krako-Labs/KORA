@@ -91,6 +91,62 @@ TECHNICAL_EXPLANATION = (
     "KORA Boost handles simple work through fast paths and saves model power "
     "for the tasks that need it."
 )
+EXPECTED_STUDIO_STYLESHEETS = ["/studio-assets/studio.css"]
+EXPECTED_STUDIO_SCRIPT = {"src": "/studio-assets/studio.js"}
+EXPECTED_APPROVED_REQUEST_JSON_SCRIPT = {
+    "type": "application/json",
+    "id": "kora-approved-requests-data",
+}
+ALLOWED_STUDIO_ASSET_URLS = {"/studio-assets/studio.css", "/studio-assets/studio.js"}
+FORBIDDEN_HTML_RESOURCE_PREFIXES = {
+    "data:": "data URL resource",
+    "blob:": "blob URL resource",
+    "http://": "remote resource URL",
+    "https://": "remote resource URL",
+    "//": "remote resource URL",
+}
+EXPECTED_STUDIO_CSP_DIRECTIVES = {
+    "default-src": ["'none'"],
+    "base-uri": ["'none'"],
+    "object-src": ["'none'"],
+    "frame-ancestors": ["'none'"],
+    "form-action": ["'none'"],
+    "style-src": ["'self'"],
+    "script-src": ["'self'"],
+    "connect-src": ["'self'"],
+}
+CSP_FORBIDDEN_SOURCES = {
+    "*": "wildcard CSP source",
+    "data:": "data CSP source",
+    "blob:": "blob CSP source",
+    "http:": "HTTP CSP source",
+    "https:": "HTTP CSP source",
+    "http://*": "HTTP CSP source",
+    "https://*": "HTTP CSP source",
+    "'unsafe-inline'": "unsafe-inline",
+    "'unsafe-eval'": "unsafe-eval",
+}
+CSP_NEW_RESOURCE_DIRECTIVES_REQUIRING_REVIEW = ("img-src", "font-src", "media-src", "worker-src", "frame-src")
+CSS_FORBIDDEN_PATTERNS = (
+    ("@import", "CSS @import"),
+    ("url(", "CSS url"),
+    ("data:", "data URL resource"),
+    ("blob:", "blob URL resource"),
+    ("http://", "remote resource URL"),
+    ("https://", "remote resource URL"),
+    ("//cdn.", "remote resource URL"),
+)
+PACKAGE_ASSET_FORBIDDEN_TOKENS = (
+    "unsafe-inline",
+    "unsafe-eval",
+    "data:",
+    "blob:",
+    "http://",
+    "https://",
+    "//cdn.",
+    "cdn.jsdelivr",
+    "unpkg.com",
+)
 
 RENDER_HELPER_FUNCTIONS = [
     studio_shell_render.render_shell_layout,
@@ -224,37 +280,48 @@ def _parse_csp_directives(csp: str) -> dict[str, list[str]]:
     return directives
 
 
-def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
+def _parse_studio_html_resources(html: str) -> StudioHtmlResourceParser:
     parser = StudioHtmlResourceParser()
     parser.feed(html)
+    return parser
+
+
+def _stylesheet_hrefs(parser: StudioHtmlResourceParser) -> list[str]:
+    return [
+        attrs["href"]
+        for tag, attrs in parser.tags
+        if tag == "link" and attrs.get("rel") == "stylesheet"
+    ]
+
+
+def _script_groups(parser: StudioHtmlResourceParser) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    return (
+        [attrs for attrs in parser.scripts if "src" in attrs],
+        [attrs for attrs in parser.scripts if "src" not in attrs],
+    )
+
+
+def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
+    parser = _parse_studio_html_resources(html)
     violations: list[str] = []
 
     if parser.inline_style_attributes:
         violations.append("inline style attribute")
 
-    stylesheet_hrefs = [
-        attrs["href"]
-        for tag, attrs in parser.tags
-        if tag == "link" and attrs.get("rel") == "stylesheet"
-    ]
-    if stylesheet_hrefs != ["/studio-assets/studio.css"]:
+    if _stylesheet_hrefs(parser) != EXPECTED_STUDIO_STYLESHEETS:
         violations.append("stylesheet must be /studio-assets/studio.css")
 
-    src_scripts = [attrs for attrs in parser.scripts if "src" in attrs]
-    inline_scripts = [attrs for attrs in parser.scripts if "src" not in attrs]
-    if src_scripts != [{"src": "/studio-assets/studio.js"}]:
+    src_scripts, inline_scripts = _script_groups(parser)
+    if src_scripts != [EXPECTED_STUDIO_SCRIPT]:
         violations.append("executable script must be /studio-assets/studio.js")
-    if inline_scripts != [{"type": "application/json", "id": "kora-approved-requests-data"}]:
+    if inline_scripts != [EXPECTED_APPROVED_REQUEST_JSON_SCRIPT]:
         violations.append("inline script must be approved request JSON")
 
     for _tag, _attr_name, url in parser.resource_urls:
-        if url.startswith("data:"):
-            violations.append("data URL resource")
-        if url.startswith("blob:"):
-            violations.append("blob URL resource")
-        if url.startswith(("http://", "https://", "//")):
-            violations.append("remote resource URL")
-        if url.startswith("/studio-assets/") and url not in {"/studio-assets/studio.css", "/studio-assets/studio.js"}:
+        for prefix, violation in FORBIDDEN_HTML_RESOURCE_PREFIXES.items():
+            if url.startswith(prefix):
+                violations.append(violation)
+        if url.startswith("/studio-assets/") and url not in ALLOWED_STUDIO_ASSET_URLS:
             violations.append("unapproved studio asset")
 
     return violations
@@ -263,24 +330,13 @@ def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
 def _find_csp_source_policy_violations(csp: str) -> list[str]:
     directives = _parse_csp_directives(csp)
     violations: list[str] = []
-    forbidden_sources = {
-        "*": "wildcard CSP source",
-        "data:": "data CSP source",
-        "blob:": "blob CSP source",
-        "http:": "HTTP CSP source",
-        "https:": "HTTP CSP source",
-        "http://*": "HTTP CSP source",
-        "https://*": "HTTP CSP source",
-        "'unsafe-inline'": "unsafe-inline",
-        "'unsafe-eval'": "unsafe-eval",
-    }
     for sources in directives.values():
         for source in sources:
-            if source in forbidden_sources:
-                violations.append(forbidden_sources[source])
+            if source in CSP_FORBIDDEN_SOURCES:
+                violations.append(CSP_FORBIDDEN_SOURCES[source])
             if "://" in source:
                 violations.append("external CSP host")
-    for directive in ("img-src", "font-src", "media-src", "worker-src", "frame-src"):
+    for directive in CSP_NEW_RESOURCE_DIRECTIVES_REQUIRING_REVIEW:
         if directive in directives:
             violations.append(f"new resource directive {directive}")
     return violations
@@ -289,16 +345,9 @@ def _find_csp_source_policy_violations(csp: str) -> list[str]:
 def _find_css_resource_policy_violations(css: str) -> list[str]:
     lowered = css.lower()
     violations: list[str] = []
-    if "@import" in lowered:
-        violations.append("CSS @import")
-    if "url(" in lowered:
-        violations.append("CSS url")
-    if "data:" in lowered:
-        violations.append("data URL resource")
-    if "blob:" in lowered:
-        violations.append("blob URL resource")
-    if "http://" in lowered or "https://" in lowered or "//cdn." in lowered:
-        violations.append("remote resource URL")
+    for token, violation in CSS_FORBIDDEN_PATTERNS:
+        if token in lowered:
+            violations.append(violation)
     return violations
 
 
@@ -2207,27 +2256,15 @@ def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
     html = render_studio_placeholder_html(get_studio_server_status())
     assert _find_studio_html_resource_policy_violations(html) == []
 
-    parser = StudioHtmlResourceParser()
-    parser.feed(html)
+    parser = _parse_studio_html_resources(html)
 
     assert parser.inline_style_attributes == []
 
-    stylesheet_hrefs = [
-        attrs["href"]
-        for tag, attrs in parser.tags
-        if tag == "link" and attrs.get("rel") == "stylesheet"
-    ]
-    assert stylesheet_hrefs == ["/studio-assets/studio.css"]
+    assert _stylesheet_hrefs(parser) == EXPECTED_STUDIO_STYLESHEETS
 
-    src_scripts = [attrs for attrs in parser.scripts if "src" in attrs]
-    inline_scripts = [attrs for attrs in parser.scripts if "src" not in attrs]
-    assert src_scripts == [{"src": "/studio-assets/studio.js"}]
-    assert inline_scripts == [
-        {
-            "type": "application/json",
-            "id": "kora-approved-requests-data",
-        }
-    ]
+    src_scripts, inline_scripts = _script_groups(parser)
+    assert src_scripts == [EXPECTED_STUDIO_SCRIPT]
+    assert inline_scripts == [EXPECTED_APPROVED_REQUEST_JSON_SCRIPT]
 
     for tag, attr_name, url in parser.resource_urls:
         assert not url.startswith(("data:", "blob:", "http://", "https://", "//")), (tag, attr_name, url)
@@ -2236,7 +2273,7 @@ def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
     assert "/studio-assets/studio.css" in resource_urls
     assert "/studio-assets/studio.js" in resource_urls
     assert all(
-        not url.startswith("/studio-assets/") or url in {"/studio-assets/studio.css", "/studio-assets/studio.js"}
+        not url.startswith("/studio-assets/") or url in ALLOWED_STUDIO_ASSET_URLS
         for url in resource_urls
     )
 
@@ -2246,36 +2283,13 @@ def test_studio_root_csp_remains_narrow_for_current_resource_types() -> None:
 
     directives = _parse_csp_directives(STUDIO_LOCAL_PREVIEW_CSP)
 
-    assert directives == {
-        "default-src": ["'none'"],
-        "base-uri": ["'none'"],
-        "object-src": ["'none'"],
-        "frame-ancestors": ["'none'"],
-        "form-action": ["'none'"],
-        "style-src": ["'self'"],
-        "script-src": ["'self'"],
-        "connect-src": ["'self'"],
-    }
+    assert directives == EXPECTED_STUDIO_CSP_DIRECTIVES
 
-    forbidden_sources = {
-        "*",
-        "data:",
-        "blob:",
-        "http:",
-        "https:",
-        "http://*",
-        "https://*",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-    }
     for directive, sources in directives.items():
-        assert not forbidden_sources.intersection(sources), directive
+        assert not set(CSP_FORBIDDEN_SOURCES).intersection(sources), directive
         assert all("://" not in source for source in sources), directive
-    assert "img-src" not in directives
-    assert "font-src" not in directives
-    assert "media-src" not in directives
-    assert "worker-src" not in directives
-    assert "frame-src" not in directives
+    for directive in CSP_NEW_RESOURCE_DIRECTIVES_REQUIRING_REVIEW:
+        assert directive not in directives
 
 
 def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls() -> None:
@@ -2286,18 +2300,11 @@ def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls
 
     for source in (css, javascript):
         lowered = source.lower()
-        assert "unsafe-inline" not in lowered
-        assert "unsafe-eval" not in lowered
-        assert "data:" not in lowered
-        assert "blob:" not in lowered
-        assert "http://" not in lowered
-        assert "https://" not in lowered
-        assert "//cdn." not in lowered
-        assert "cdn.jsdelivr" not in lowered
-        assert "unpkg.com" not in lowered
+        for token in PACKAGE_ASSET_FORBIDDEN_TOKENS:
+            assert token not in lowered
 
-    assert "@import" not in css.lower()
-    assert "url(" not in css.lower()
+    for token, _violation in CSS_FORBIDDEN_PATTERNS:
+        assert token not in css.lower()
 
 
 @pytest.mark.parametrize(
