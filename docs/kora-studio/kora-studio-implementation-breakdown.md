@@ -1722,6 +1722,32 @@ Next recommended implementation:
 
 - run a manual browser keyboard traversal report for Tab, Enter, Space, and Escape behavior across the primary path and overlays
 
+## Phase 42 - v4.0 Manual Browser Keyboard Traversal Report
+
+Status: complete as a documentation and validation milestone. See [KORA Studio v4.0 manual browser keyboard traversal report](kora-studio-v4-0-manual-browser-keyboard-traversal-report.md) and [KORA Studio v4.0 goal report](kora-studio-v4-0-goal-report.md). Goal 539G documents expected manual keyboard traversal for the primary local demo path without adding new browser tooling or claiming certification.
+
+Completed work:
+
+- inspected keyboard/accessibility implementation and tests
+- reviewed the existing optional browser CSP smoke path
+- documented expected Tab, Enter, Space, and Escape behavior
+- covered approved request selection, Run Local Harness, retry, drawer, mobile rail, diagnostics, and collapsed reference surfaces
+- classified findings as blocker, important but not blocker, and cosmetic
+
+Preserved boundaries:
+
+- no runtime behavior change
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- decide whether a tiny optional transient Playwright keyboard smoke should be added outside the default dependency-light test path
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
