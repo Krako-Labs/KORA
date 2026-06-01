@@ -131,6 +131,18 @@ KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optiona
 
 These checks are local preview regression guards only. They do not claim production security readiness.
 
+### CSP/Asset Maintenance Checklist
+
+When changing Studio HTML, CSS, JavaScript, CSP, or asset routes:
+
+- Update dependency-light tests in `tests/test_kora_studio_server.py` for any new HTML resource attribute, CSS resource pattern, JavaScript asset behavior, CSP directive, or `/studio-assets/...` route.
+- Keep root HTML executable JavaScript on `/studio-assets/studio.js`; keep the approved request JSON block non-executable with `type="application/json"`.
+- Keep CSS package-controlled through `/studio-assets/studio.css`; add guard coverage before introducing `@import`, `url(...)`, image, font, media, frame, or worker resources.
+- Do not add a new Studio asset route unless the allowlist, rejection tests, MIME/cache behavior, smoke checks, and docs are updated in the same reviewed change.
+- Do not add or broaden CSP sources such as `unsafe-inline`, `unsafe-eval`, wildcard sources, external hosts, CDNs, `data:`, or `blob:` without explicit review.
+- Do not add package manifests, lockfiles, frontend tooling, bundlers, npm workflows, Playwright config, external assets, or CDN dependencies as part of routine CSP/static asset maintenance.
+- Run the standard validation path and, when resource loading or CSP behavior changes, run the optional browser smoke with `KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optional.sh`.
+
 ## Local Server Troubleshooting
 
 If you encounter issues launching the local KORA Studio server, try the following steps:
@@ -293,6 +305,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v2.7 goal report](kora-studio-v2-7-goal-report.md)
 - [KORA Studio v2.8 CSP guard documentation sync](kora-studio-v2-8-csp-guard-documentation-sync.md)
 - [KORA Studio v2.8 goal report](kora-studio-v2-8-goal-report.md)
+- [KORA Studio v2.9 CSP guard maintenance checklist](kora-studio-v2-9-csp-guard-maintenance-checklist.md)
+- [KORA Studio v2.9 goal report](kora-studio-v2-9-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

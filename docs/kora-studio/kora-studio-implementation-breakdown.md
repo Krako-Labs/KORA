@@ -1437,6 +1437,18 @@ Current boundaries:
 - browser-level CSP smoke remains optional and explicitly gated
 - these are local preview regression guards, not production security readiness claims
 
+## Current CSP/Asset Maintenance Checklist
+
+For future Studio HTML, CSS, JavaScript, CSP, or asset-route changes:
+
+- update `tests/test_kora_studio_server.py` for any new resource attribute, CSS resource pattern, JavaScript asset behavior, CSP directive, or `/studio-assets/...` route
+- preserve `/studio-assets/studio.css` and `/studio-assets/studio.js` as the only current package-controlled Studio assets unless a separate reviewed goal expands the allowlist
+- keep executable JavaScript external through `/studio-assets/studio.js`; keep approved request JSON non-executable with `type="application/json"`
+- update allowlist, rejection, MIME/cache, smoke, and docs coverage for any new asset route
+- avoid `unsafe-inline`, `unsafe-eval`, wildcard sources, external hosts, CDN sources, `data:`, and `blob:` without explicit review
+- avoid package manifests, lockfiles, frontend tooling, bundlers, npm workflows, Playwright config, external assets, or CDN dependencies as routine maintenance
+- run standard validation, and run the optional browser CSP smoke when resource loading or CSP behavior changes
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
