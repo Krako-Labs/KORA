@@ -1802,6 +1802,42 @@ Next recommended implementation:
 
 - design the future explicitly gated optional browser keyboard smoke around the v4.2 selector contract
 
+## Phase 45 - v4.3 Optional Browser Keyboard Smoke Design
+
+Status: complete as a design-only milestone. See [KORA Studio v4.3 optional browser keyboard smoke design](kora-studio-v4-3-optional-browser-keyboard-smoke-design.md) and [KORA Studio v4.3 goal report](kora-studio-v4-3-goal-report.md). Goal 542G designs the future optional browser keyboard smoke flow without adding the browser keyboard smoke script.
+
+Design decision:
+
+- do not add the keyboard smoke script in this milestone
+- use the v4.2 selector contract for a future explicitly gated transient Playwright smoke
+- keep normal pytest and default CI dependency-light
+- automate stable primary path checks first
+- keep exact full-page Tab order, screen reader announcement quality, and production accessibility claims manual-only
+
+Future stable automation candidates:
+
+- root load and selector contract presence
+- approved request keyboard selection
+- Run Local Harness keyboard activation
+- progress/result summary visibility
+- retry availability after an approved run target exists
+- details drawer focus transfer, Escape close, and focus return
+- mobile rail keyboard behavior as a second-phase optional viewport check
+
+Preserved boundaries:
+
+- no browser keyboard smoke script
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- implement the explicitly gated optional browser keyboard smoke using the v4.2 selector contract and v4.3 design
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
