@@ -1332,6 +1332,30 @@ Acceptance criteria:
 - no persistent frontend dependency, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - full validation, optional browser smoke, and standard preview smoke pass
 
+## Phase 29 — v2.5 CSP Violation Fixture Matrix
+
+Status: complete as table-driven negative fixture coverage. See [KORA Studio v2.5 CSP violation fixture matrix](kora-studio-v2-5-csp-violation-fixture-matrix.md) and [KORA Studio v2.5 goal report](kora-studio-v2-5-goal-report.md). Goal 524G keeps the positive CSP/resource guards from v2.4 and adds representative rejected fixtures so future contributors can see which patterns require explicit review.
+
+Goal: Make rejected CSP/resource patterns explicit without broadening Studio behavior.
+
+Scope:
+
+- add reusable test helpers for HTML resource, CSP source, and CSS resource policy violations
+- add HTML negative fixtures for inline styles, inline executable scripts, external scripts, external stylesheets, `data:`, `blob:`, protocol-relative URLs, and unapproved Studio assets
+- add CSP negative fixtures for wildcard sources, `unsafe-inline`, `unsafe-eval`, `data:`, `blob:`, external hosts, and new image/font directives
+- add CSS negative fixtures for `@import`, `url(...)`, `data:`, `blob:`, and external URLs
+- preserve the approved request JSON exception
+- preserve optional browser CSP smoke and CI-optional wrapper behavior
+
+Acceptance criteria:
+
+- fixture matrix tests are dependency-light and browser-free
+- fixture matrix tests fail for representative rejected patterns
+- positive guard still passes for current Studio HTML, CSP, CSS, and JavaScript assets
+- no CSP broadening or asset allowlist broadening is introduced
+- no persistent frontend dependency, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
+- full validation, optional browser smoke, and standard preview smoke pass
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

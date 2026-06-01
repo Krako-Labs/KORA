@@ -224,6 +224,84 @@ def _parse_csp_directives(csp: str) -> dict[str, list[str]]:
     return directives
 
 
+def _find_studio_html_resource_policy_violations(html: str) -> list[str]:
+    parser = StudioHtmlResourceParser()
+    parser.feed(html)
+    violations: list[str] = []
+
+    if parser.inline_style_attributes:
+        violations.append("inline style attribute")
+
+    stylesheet_hrefs = [
+        attrs["href"]
+        for tag, attrs in parser.tags
+        if tag == "link" and attrs.get("rel") == "stylesheet"
+    ]
+    if stylesheet_hrefs != ["/studio-assets/studio.css"]:
+        violations.append("stylesheet must be /studio-assets/studio.css")
+
+    src_scripts = [attrs for attrs in parser.scripts if "src" in attrs]
+    inline_scripts = [attrs for attrs in parser.scripts if "src" not in attrs]
+    if src_scripts != [{"src": "/studio-assets/studio.js"}]:
+        violations.append("executable script must be /studio-assets/studio.js")
+    if inline_scripts != [{"type": "application/json", "id": "kora-approved-requests-data"}]:
+        violations.append("inline script must be approved request JSON")
+
+    for _tag, _attr_name, url in parser.resource_urls:
+        if url.startswith("data:"):
+            violations.append("data URL resource")
+        if url.startswith("blob:"):
+            violations.append("blob URL resource")
+        if url.startswith(("http://", "https://", "//")):
+            violations.append("remote resource URL")
+        if url.startswith("/studio-assets/") and url not in {"/studio-assets/studio.css", "/studio-assets/studio.js"}:
+            violations.append("unapproved studio asset")
+
+    return violations
+
+
+def _find_csp_source_policy_violations(csp: str) -> list[str]:
+    directives = _parse_csp_directives(csp)
+    violations: list[str] = []
+    forbidden_sources = {
+        "*": "wildcard CSP source",
+        "data:": "data CSP source",
+        "blob:": "blob CSP source",
+        "http:": "HTTP CSP source",
+        "https:": "HTTP CSP source",
+        "http://*": "HTTP CSP source",
+        "https://*": "HTTP CSP source",
+        "'unsafe-inline'": "unsafe-inline",
+        "'unsafe-eval'": "unsafe-eval",
+    }
+    for sources in directives.values():
+        for source in sources:
+            if source in forbidden_sources:
+                violations.append(forbidden_sources[source])
+            if "://" in source:
+                violations.append("external CSP host")
+    for directive in ("img-src", "font-src", "media-src", "worker-src", "frame-src"):
+        if directive in directives:
+            violations.append(f"new resource directive {directive}")
+    return violations
+
+
+def _find_css_resource_policy_violations(css: str) -> list[str]:
+    lowered = css.lower()
+    violations: list[str] = []
+    if "@import" in lowered:
+        violations.append("CSS @import")
+    if "url(" in lowered:
+        violations.append("CSS url")
+    if "data:" in lowered:
+        violations.append("data URL resource")
+    if "blob:" in lowered:
+        violations.append("blob URL resource")
+    if "http://" in lowered or "https://" in lowered or "//cdn." in lowered:
+        violations.append("remote resource URL")
+    return violations
+
+
 def test_render_helper_api_contracts_are_string_only_and_keyword_stable() -> None:
     for helper in RENDER_HELPER_FUNCTIONS:
         signature = inspect.signature(helper)
@@ -2127,6 +2205,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
 
 def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
     html = render_studio_placeholder_html(get_studio_server_status())
+    assert _find_studio_html_resource_policy_violations(html) == []
+
     parser = StudioHtmlResourceParser()
     parser.feed(html)
 
@@ -2162,6 +2242,8 @@ def test_studio_root_html_resource_types_remain_csp_compatible() -> None:
 
 
 def test_studio_root_csp_remains_narrow_for_current_resource_types() -> None:
+    assert _find_csp_source_policy_violations(STUDIO_LOCAL_PREVIEW_CSP) == []
+
     directives = _parse_csp_directives(STUDIO_LOCAL_PREVIEW_CSP)
 
     assert directives == {
@@ -2200,6 +2282,8 @@ def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls
     css = render_studio_css()
     javascript = render_studio_javascript()
 
+    assert _find_css_resource_policy_violations(css) == []
+
     for source in (css, javascript):
         lowered = source.lower()
         assert "unsafe-inline" not in lowered
@@ -2214,6 +2298,102 @@ def test_studio_package_assets_do_not_introduce_remote_or_embedded_resource_urls
 
     assert "@import" not in css.lower()
     assert "url(" not in css.lower()
+
+
+@pytest.mark.parametrize(
+    ("name", "html", "expected_violation"),
+    [
+        (
+            "inline style attribute",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><main style="display:block"></main><script src="/studio-assets/studio.js"></script></body></html>',
+            "inline style attribute",
+        ),
+        (
+            "inline executable script",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><script>alert("blocked")</script><script src="/studio-assets/studio.js"></script></body></html>',
+            "inline script must be approved request JSON",
+        ),
+        (
+            "external script URL",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><script src="https://cdn.example/studio.js"></script></body></html>',
+            "executable script must be /studio-assets/studio.js",
+        ),
+        (
+            "external stylesheet URL",
+            '<html><head><link rel="stylesheet" href="https://cdn.example/studio.css"></head>'
+            '<body><script src="/studio-assets/studio.js"></script></body></html>',
+            "stylesheet must be /studio-assets/studio.css",
+        ),
+        (
+            "data image resource",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">'
+            '<script src="/studio-assets/studio.js"></script></body></html>',
+            "data URL resource",
+        ),
+        (
+            "blob resource",
+            '<html><head><link rel="stylesheet" href="/studio-assets/studio.css"></head>'
+            '<body><img src="blob:http://127.0.0.1/example">'
+            '<script src="/studio-assets/studio.js"></script></body></html>',
+            "blob URL resource",
+        ),
+        (
+            "protocol-relative URL",
+            '<html><head><link rel="stylesheet" href="//cdn.example/studio.css"></head>'
+            '<body><script src="/studio-assets/studio.js"></script></body></html>',
+            "remote resource URL",
+        ),
+        (
+            "unapproved studio asset",
+            '<html><head><link rel="stylesheet" href="/studio-assets/theme.css"></head>'
+            '<body><script src="/studio-assets/studio.js"></script></body></html>',
+            "unapproved studio asset",
+        ),
+    ],
+)
+def test_studio_html_resource_violation_fixture_matrix(name: str, html: str, expected_violation: str) -> None:
+    violations = _find_studio_html_resource_policy_violations(html)
+
+    assert expected_violation in violations, name
+
+
+@pytest.mark.parametrize(
+    ("name", "csp", "expected_violation"),
+    [
+        ("wildcard CSP source", "default-src 'none'; script-src *", "wildcard CSP source"),
+        ("unsafe-inline", "default-src 'none'; script-src 'self' 'unsafe-inline'", "unsafe-inline"),
+        ("unsafe-eval", "default-src 'none'; script-src 'self' 'unsafe-eval'", "unsafe-eval"),
+        ("data CSP source", "default-src 'none'; img-src data:", "data CSP source"),
+        ("blob CSP source", "default-src 'none'; worker-src blob:", "blob CSP source"),
+        ("external CSP host", "default-src 'none'; script-src https://cdn.example", "external CSP host"),
+        ("new image directive", f"{STUDIO_LOCAL_PREVIEW_CSP}; img-src 'self'", "new resource directive img-src"),
+        ("new font directive", f"{STUDIO_LOCAL_PREVIEW_CSP}; font-src 'self'", "new resource directive font-src"),
+    ],
+)
+def test_studio_csp_violation_fixture_matrix(name: str, csp: str, expected_violation: str) -> None:
+    violations = _find_csp_source_policy_violations(csp)
+
+    assert expected_violation in violations, name
+
+
+@pytest.mark.parametrize(
+    ("name", "css", "expected_violation"),
+    [
+        ("CSS @import", "@import url('https://fonts.example/css'); .studio-shell {}", "CSS @import"),
+        ("CSS url", ".studio-shell { background-image: url('/studio-assets/bg.png'); }", "CSS url"),
+        ("data CSS URL", ".studio-shell { background: url('data:image/svg+xml,<svg></svg>'); }", "data URL resource"),
+        ("blob CSS URL", ".studio-shell { background: url('blob:http://127.0.0.1/example'); }", "blob URL resource"),
+        ("external CSS URL", ".studio-shell { background: url('https://cdn.example/bg.png'); }", "remote resource URL"),
+    ],
+)
+def test_studio_css_violation_fixture_matrix(name: str, css: str, expected_violation: str) -> None:
+    violations = _find_css_resource_policy_violations(css)
+
+    assert expected_violation in violations, name
 
 
 def test_request_handler_rejects_unsafe_static_asset_paths() -> None:
