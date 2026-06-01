@@ -901,6 +901,19 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
           </div>
           <p class=\"composer-action-note\">Composer action uses the selected approved local harness request only. No arbitrary prompt execution, no model execution, no provider calls, and no downloads.</p>
 {selected_run_summary_html}
+          <div class=\"run-progress-summary\" data-kora-component=\"run-progress-summary\" data-kora-run-progress-surface=\"idle-running-events-completed-failed\" aria-live=\"polite\">
+            <div>
+              <h2>Run progress</h2>
+              <p>Follow the selected local harness run state before opening generated event diagnostics.</p>
+            </div>
+            <div class=\"run-progress-grid\">
+              <span>State: <code id=\"kora-run-progress-state\">idle</code></span>
+              <span>Step: <code id=\"kora-run-progress-step\">No run selected</code></span>
+              <span>Events: <code id=\"kora-run-progress-event-status\">No generated events yet</code></span>
+              <span>Stream: <code id=\"kora-run-progress-stream-status\">Generated event stream idle</code></span>
+            </div>
+            <p id=\"kora-run-progress-error\">No run error. Generated event stream is local harness events only, not model token streaming or provider output.</p>
+          </div>
           <div class=\"primary-result-summary\" data-kora-component=\"primary-result-summary\" data-kora-result-summary-before-diagnostics=\"true\" aria-live=\"polite\">
             <div>
               <h2>Result summary</h2>

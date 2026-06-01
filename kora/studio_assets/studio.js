@@ -174,6 +174,24 @@
     text("kora-sse-status", sseStatus);
     text("kora-sse-error", sseError || "No generated event stream error.");
     text("kora-sse-fallback-used", sseFallbackUsed ? "true" : "false");
+    const streamMessages = {
+      idle: "Generated event stream idle",
+      connecting: "Connecting to generated event stream",
+      streaming: "Receiving generated events",
+      completed: "Generated event stream completed",
+      fallback: "Using local events endpoint fallback"
+    };
+    const eventMessages = {
+      connecting: "Waiting for generated events",
+      streaming: "Generated events received",
+      completed: "Generated events complete",
+      fallback: "Generated events loaded by fallback"
+    };
+    setRunProgressSummary({
+      event_status: eventMessages[sseStatus],
+      stream_status: streamMessages[sseStatus] || sseStatus,
+      error: sseError || "No run error. Generated event stream is local harness events only, not model token streaming or provider output."
+    });
   };
 
   const closeActiveEventSource = () => {
@@ -237,6 +255,25 @@
     }
   };
 
+  const setRunProgressSummary = (updates) => {
+    const state = updates || {};
+    if (state.state !== undefined) {
+      text("kora-run-progress-state", state.state || "idle");
+    }
+    if (state.step !== undefined) {
+      text("kora-run-progress-step", state.step || "No run selected");
+    }
+    if (state.event_status !== undefined) {
+      text("kora-run-progress-event-status", state.event_status || "No generated events yet");
+    }
+    if (state.stream_status !== undefined) {
+      text("kora-run-progress-stream-status", state.stream_status || "Generated event stream idle");
+    }
+    if (state.error !== undefined) {
+      text("kora-run-progress-error", state.error || "No run error. Generated event stream is local harness events only, not model token streaming or provider output.");
+    }
+  };
+
   const getShellAccessibilityState = () => {
     return {
       left_rail_state: leftRail ? leftRail.getAttribute("data-kora-rail-state") : "missing",
@@ -274,6 +311,13 @@
     text("kora-run-status", "failed");
     text("kora-composer-run-status", "failed");
     text("kora-composer-run-id", "not available");
+    setRunProgressSummary({
+      state: "failed",
+      step: "Run failed",
+      event_status: "Generated events unavailable",
+      stream_status: "Generated event stream stopped",
+      error: `${runError} No model execution was attempted. Provider calls remain disabled.`
+    });
     setPrimaryResultSummary({
       run_id: "not available",
       status: "failed",
@@ -299,6 +343,13 @@
     selectedRunEvents = [];
     runError = message || "Generated events unavailable for this local run.";
     text("kora-selected-events-status", `${runError} No model execution was attempted. Provider calls remain disabled.`);
+    setRunProgressSummary({
+      state: "failed",
+      step: "Generated events unavailable",
+      event_status: "Generated events unavailable",
+      stream_status: "Using local events endpoint fallback failed",
+      error: `${runError} No model execution was attempted. Provider calls remain disabled.`
+    });
     setRetryState(true, `${runError} Retry uses the last approved request only. No model execution was attempted. Provider calls remain disabled.`);
     const container = document.getElementById("kora-selected-run-events");
     if (container) {
@@ -486,6 +537,12 @@
       return;
     }
     text("kora-selected-events-status", `Loaded ${selectedRunEvents.length} generated local harness events for the selected run.`);
+    setRunProgressSummary({
+      state: "completed",
+      step: "Generated events received",
+      event_status: `${selectedRunEvents.length} generated events loaded`,
+      error: "No run error. Generated event stream is local harness events only, not model token streaming or provider output."
+    });
     setShellSelectedRunSurfaceState({timeline: `loaded from selected run (${selectedRunEvents.length} events)`});
     selectedRunEvents.forEach((event) => {
       const card = document.createElement("div");
@@ -541,6 +598,13 @@
   const renderSseEvents = () => {
     renderSelectedEvents(sseEvents);
     text("kora-selected-events-status", `Loaded ${sseEvents.length} generated harness events from the generated event stream. Not model token streaming. No provider streaming.`);
+    setRunProgressSummary({
+      state: "running",
+      step: "Receiving generated events",
+      event_status: `${sseEvents.length} generated events received`,
+      stream_status: "Receiving generated events",
+      error: "No run error. Generated event stream is local harness events only, not model token streaming or provider output."
+    });
     setShellSelectedRunSurfaceState({timeline: `streamed from selected run (${sseEvents.length} events)`});
   };
 
@@ -657,6 +721,13 @@
     text("kora-run-cloud-sync-enabled", "false");
     text("kora-run-file-export-enabled", "false");
     text("kora-run-claim-boundary", "Cleared browser-local preview state only.");
+    setRunProgressSummary({
+      state: "idle",
+      step: "No run selected",
+      event_status: "No generated events yet",
+      stream_status: "Generated event stream idle",
+      error: "Cleared browser-local preview state only. No backend records, files, report exports, or server endpoints were deleted."
+    });
     setPrimaryResultSummary({
       request_id: selectedRequestId || "none",
       run_id: "not run yet",
@@ -797,6 +868,13 @@
     text("kora-run-cloud-sync-enabled", run.cloud_sync_enabled === true ? "true" : "false");
     text("kora-run-file-export-enabled", report.file_export_enabled === true ? "true" : "false");
     text("kora-run-claim-boundary", run.claim_boundary || "Generated local harness output only. No model execution.");
+    setRunProgressSummary({
+      state: run.run_status || "completed",
+      step: "Run response received",
+      event_status: `${run.event_count || (Array.isArray(run.generated_events) ? run.generated_events.length : 0)} generated events available`,
+      stream_status: "Generated event stream pending",
+      error: "No run error. Generated event stream is local harness events only, not model token streaming or provider output."
+    });
     const counters = run.generated_counters && typeof run.generated_counters === "object" ? run.generated_counters : {};
     const comparison = run.comparison_summary && typeof run.comparison_summary === "object" ? run.comparison_summary : {};
     setPrimaryResultSummary({
@@ -837,6 +915,13 @@
     text("kora-composer-request-id", requestId);
     text("kora-composer-run-id", "pending local harness response");
     text("kora-run-claim-boundary", "Local harness run requested for an approved request id only.");
+    setRunProgressSummary({
+      state: "running",
+      step: "Run submitted",
+      event_status: "Waiting for generated events",
+      stream_status: "Generated event stream not connected yet",
+      error: "No run error. Waiting for local harness response."
+    });
     setPrimaryResultSummary({
       request_id: requestId,
       run_id: "pending local harness response",
@@ -933,6 +1018,13 @@
     comparison_status: "not loaded",
     report_status: "not loaded",
     boundary: "Generated local harness output only. Not production telemetry, not production cost evidence, no model execution, no provider calls, no report export, and no file writing."
+  });
+  setRunProgressSummary({
+    state: "idle",
+    step: "No run selected",
+    event_status: "No generated events yet",
+    stream_status: "Generated event stream idle",
+    error: "No run error. Generated event stream is local harness events only, not model token streaming or provider output."
   });
   setRetryState(false, "No selected-run error.");
   setShellSelectedRunSurfaceState({

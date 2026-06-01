@@ -1001,6 +1001,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".model-selector-shell" in css
     assert ".primary-workflow-band" in css
     assert ".primary-workflow-step" in css
+    assert ".run-progress-summary" in css
+    assert ".run-progress-grid" in css
     assert ".primary-result-summary" in css
     assert ".primary-result-grid" in css
     assert ".composer-stage" in css
@@ -1015,6 +1017,9 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert "window.koraStudioScriptStatus" in javascript
     assert "setLeftRailOpen" in javascript
     assert "setDetailsDrawerOpen" in javascript
+    assert "setRunProgressSummary" in javascript
+    assert "kora-run-progress-state" in javascript
+    assert "Generated event stream is local harness events only" in javascript
     assert "setPrimaryResultSummary" in javascript
     assert "kora-primary-result-status" in javascript
     assert "renderRunResponse" in javascript
@@ -1864,6 +1869,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
         "boundary-strip",
         "top-model-selector",
         "primary-workflow-band",
+        "run-progress-summary",
         "primary-result-summary",
         "composer",
         "approved-request-selector",
@@ -1959,6 +1965,19 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-composer-request-id"' in html
     assert 'id="kora-composer-run-status"' in html
     assert 'id="kora-composer-run-id"' in html
+    assert 'data-kora-component="run-progress-summary"' in html
+    assert 'data-kora-run-progress-surface="idle-running-events-completed-failed"' in html
+    assert "Run progress" in html
+    assert "Follow the selected local harness run state before opening generated event diagnostics." in html
+    assert 'id="kora-run-progress-state"' in html
+    assert 'id="kora-run-progress-step"' in html
+    assert 'id="kora-run-progress-event-status"' in html
+    assert 'id="kora-run-progress-stream-status"' in html
+    assert 'id="kora-run-progress-error"' in html
+    assert "No run selected" in html
+    assert "No generated events yet" in html
+    assert "Generated event stream idle" in html
+    assert "not model token streaming or provider output" in html
     assert 'data-kora-component="primary-result-summary"' in html
     assert 'data-kora-result-summary-before-diagnostics="true"' in html
     assert "Result summary" in html
@@ -1983,6 +2002,8 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert 'id="kora-shell-selected-report-status"' in html
     assert "Shell selected-run surface mirrors generated local harness output only" in html
     assert "Details drawer mirrors the same selected-run status so legacy preview is not required for normal inspection" in html
+    assert html.index('data-kora-component="run-progress-summary"') < html.index('data-kora-component="primary-result-summary"')
+    assert html.index('data-kora-component="run-progress-summary"') < html.index('data-kora-shell-selected-run-surface="v1.0"')
     assert html.index('data-kora-component="primary-result-summary"') < html.index('data-kora-shell-selected-run-surface="v1.0"')
     assert html.index('data-kora-component="primary-result-summary"') < html.index('data-kora-component="selected-run-event-timeline"')
     assert "Provider calls disabled" in html

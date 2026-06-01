@@ -199,6 +199,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-component="boundary-strip"
             data-kora-component="top-model-selector"
             data-kora-component="primary-workflow-band"
+            data-kora-component="run-progress-summary"
             data-kora-component="primary-result-summary"
             data-kora-component="composer"
             data-kora-component="approved-request-selector"
@@ -286,6 +287,19 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             kora-composer-request-id
             kora-composer-run-status
             kora-composer-run-id
+            data-kora-component="run-progress-summary"
+            data-kora-run-progress-surface="idle-running-events-completed-failed"
+            Run progress
+            Follow the selected local harness run state before opening generated event diagnostics.
+            kora-run-progress-state
+            kora-run-progress-step
+            kora-run-progress-event-status
+            kora-run-progress-stream-status
+            kora-run-progress-error
+            No run selected
+            No generated events yet
+            Generated event stream idle
+            not model token streaming or provider output
             data-kora-component="primary-result-summary"
             data-kora-result-summary-before-diagnostics="true"
             Result summary

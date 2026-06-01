@@ -1596,6 +1596,31 @@ Next recommended implementation:
 
 - simplify run progress and generated event stream states while preserving generated-harness-only boundaries
 
+## Phase 37 — v3.5 Run Progress and SSE State Simplification
+
+Status: complete as a bounded UX-only frontend shell improvement. See [KORA Studio v3.5 run progress and SSE state simplification report](kora-studio-v3-5-run-progress-sse-state-simplification-report.md) and [KORA Studio v3.5 goal report](kora-studio-v3-5-goal-report.md). Goal 534G implements the third v3.2 simplification candidate by adding a concise run progress and generated event stream summary before result and diagnostic surfaces.
+
+Implemented behavior:
+
+- shell-level run progress summary before result summary
+- idle/running/generated-events/completed/failed state copy
+- generated event stream connection status in plain language
+- package CSS styling for the summary
+- browser-local JavaScript state updates using existing local harness and SSE state
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no diagnostic information removed
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+
+Next recommended implementation:
+
+- move or mirror Retry Last Approved Request closer to failed status and last-run context
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
