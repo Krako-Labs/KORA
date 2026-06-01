@@ -198,6 +198,7 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             data-kora-component="left-rail"
             data-kora-component="boundary-strip"
             data-kora-component="top-model-selector"
+            data-kora-component="primary-workflow-band"
             data-kora-component="composer"
             data-kora-component="approved-request-selector"
             data-kora-component="selected-run-summary"
@@ -264,6 +265,18 @@ def _fake_opener(url: object, timeout: float) -> FakeResponse:
             KORA Studio centered composer
             What do you want to work on?
             Choose a local model once. KORA keeps routing details out of the way.
+            data-kora-component="primary-workflow-band"
+            data-kora-primary-operator-path="select-run-review-inspect"
+            Primary local demo workflow
+            Select approved request
+            Run Local Harness
+            Review result summary
+            Inspect timeline/details
+            Use approved local harness requests only.
+            Run the selected request ID locally.
+            Read generated local harness output only.
+            Open generated events and drawer diagnostics if needed.
+            Local preview only. No arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or file writing.
             Ask KORA...
             kora-composer-run-local-harness-button
             Composer action uses the selected approved local harness request only

@@ -1548,6 +1548,29 @@ Acceptance criteria:
 - no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN is added
 - claim boundaries remain local preview/demo only
 
+## Phase 35 — v3.3 Primary Workflow Band
+
+Status: complete as a bounded UX-only frontend shell improvement. See [KORA Studio v3.3 primary workflow band report](kora-studio-v3-3-primary-workflow-band-report.md) and [KORA Studio v3.3 goal report](kora-studio-v3-3-goal-report.md). Goal 532G implements the first v3.2 simplification candidate by adding a concise primary workflow band near the top of the final Studio shell.
+
+Implemented behavior:
+
+- shell-level primary workflow band
+- sequence copy for selecting an approved request, running Local Harness, reviewing the result summary, and inspecting timeline/details
+- compact local preview boundary copy
+- package CSS styling for the band
+- dependency-light server and smoke marker coverage
+
+Preserved boundaries:
+
+- no backend route or API change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, frontend tooling, package manifest, lockfile, Playwright config, bundler, npm workflow, external asset, or CDN
+
+Next recommended implementation:
+
+- add or promote selected-run result summary before deep diagnostics
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

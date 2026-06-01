@@ -888,6 +888,13 @@ def render_studio_placeholder_html(status: dict[str, Any]) -> str:
         <div class=\"composer-panel\">
           <h1>What do you want to work on?</h1>
           <p class=\"subtitle\">Choose a local model once. KORA keeps routing details out of the way.</p>
+          <div class=\"primary-workflow-band\" data-kora-component=\"primary-workflow-band\" data-kora-primary-operator-path=\"select-run-review-inspect\" aria-label=\"Primary local demo workflow\">
+            <div class=\"primary-workflow-step\"><span>1</span><strong>Select approved request</strong><p>Use approved local harness requests only.</p></div>
+            <div class=\"primary-workflow-step\"><span>2</span><strong>Run Local Harness</strong><p>Run the selected request ID locally.</p></div>
+            <div class=\"primary-workflow-step\"><span>3</span><strong>Review result summary</strong><p>Read generated local harness output only.</p></div>
+            <div class=\"primary-workflow-step\"><span>4</span><strong>Inspect timeline/details</strong><p>Open generated events and drawer diagnostics if needed.</p></div>
+            <p class=\"primary-workflow-boundary\">Local preview only. No arbitrary prompt execution, model execution, provider calls, downloads, cloud sync, report export, or file writing.</p>
+          </div>
           <div class=\"composer-box\" role=\"group\" aria-label=\"KORA composer scaffold\">
             <span>Ask KORA...</span>
             <button class=\"composer-submit\" type=\"button\" id=\"kora-composer-run-local-harness-button\" aria-label=\"Run approved local harness request\">↑</button>

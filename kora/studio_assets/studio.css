@@ -473,6 +473,57 @@ li + li { margin-top: 8px; }
   margin: 0 auto;
   max-width: 560px;
 }
+.primary-workflow-band {
+  border: 1px solid #293447;
+  background: rgba(12, 16, 22, 0.7);
+  border-radius: 18px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 28px auto 0;
+  max-width: 760px;
+  padding: 14px;
+  text-align: left;
+}
+.primary-workflow-step {
+  border: 1px solid #334052;
+  background: rgba(17, 22, 30, 0.72);
+  border-radius: 14px;
+  min-width: 0;
+  padding: 12px;
+}
+.primary-workflow-step span {
+  align-items: center;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  color: var(--cyan);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 800;
+  height: 24px;
+  justify-content: center;
+  margin-bottom: 8px;
+  width: 24px;
+}
+.primary-workflow-step strong {
+  color: var(--text);
+  display: block;
+  font-size: 13px;
+}
+.primary-workflow-step p,
+.primary-workflow-boundary {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+.primary-workflow-boundary {
+  border-top: 1px solid #293447;
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 10px;
+  text-align: center;
+}
 .composer-box {
   margin: 64px auto 24px;
   border: 1px solid #334052;
@@ -800,6 +851,13 @@ li + li { margin-top: 8px; }
     margin-top: 36px;
     min-height: 84px;
     padding: 22px 66px 22px 22px;
+  }
+  .primary-workflow-band {
+    grid-template-columns: 1fr;
+    margin-top: 24px;
+  }
+  .primary-workflow-boundary {
+    text-align: left;
   }
   .composer-submit {
     right: 18px;

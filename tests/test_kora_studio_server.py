@@ -494,6 +494,7 @@ def test_rendered_preview_preserves_helper_owned_component_markers() -> None:
         "shell-layout": "kora.studio_shell_render",
         "left-rail": "kora.studio_shell_render",
         "top-model-selector": "kora.studio_shell_render",
+        "primary-workflow-band": "kora.studio_server",
         "right-details-drawer": "kora.studio_drawer_render",
         "selected-run-summary": "kora.studio_selected_run_render",
         "generated-event-stream-status": "kora.studio_selected_run_render",
@@ -997,6 +998,8 @@ def test_style_and_script_render_helpers_preserve_embedded_preview_contract() ->
     assert ".studio-shell" in css
     assert ".studio-left-rail" in css
     assert ".model-selector-shell" in css
+    assert ".primary-workflow-band" in css
+    assert ".primary-workflow-step" in css
     assert ".composer-stage" in css
     assert ".details-drawer-shell" in css
     assert "@media (max-width: 760px)" in css
@@ -1855,6 +1858,7 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
         "left-rail",
         "boundary-strip",
         "top-model-selector",
+        "primary-workflow-band",
         "composer",
         "approved-request-selector",
         "selected-run-summary",
@@ -1926,6 +1930,21 @@ def test_static_preview_html_content_is_safe_and_complete() -> None:
     assert "KORA Studio centered composer" in html
     assert "What do you want to work on?" in html
     assert "Choose a local model once. KORA keeps routing details out of the way." in html
+    assert 'data-kora-component="primary-workflow-band"' in html
+    assert 'data-kora-primary-operator-path="select-run-review-inspect"' in html
+    assert "Primary local demo workflow" in html
+    assert "Select approved request" in html
+    assert "Run Local Harness" in html
+    assert "Review result summary" in html
+    assert "Inspect timeline/details" in html
+    assert "Use approved local harness requests only." in html
+    assert "Run the selected request ID locally." in html
+    assert "Read generated local harness output only." in html
+    assert "Open generated events and drawer diagnostics if needed." in html
+    assert (
+        "Local preview only. No arbitrary prompt execution, model execution, provider calls, downloads, "
+        "cloud sync, report export, or file writing."
+    ) in html
     assert "Ask KORA..." in html
     assert 'id="kora-composer-run-local-harness-button"' in html
     assert "Composer action uses the selected approved local harness request only" in html
