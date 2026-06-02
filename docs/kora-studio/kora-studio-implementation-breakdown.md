@@ -1838,6 +1838,32 @@ Next recommended implementation:
 
 - implement the explicitly gated optional browser keyboard smoke using the v4.2 selector contract and v4.3 design
 
+## Phase 46 - v4.4 Optional Browser Keyboard Smoke Implementation
+
+Status: complete as an explicitly gated optional browser smoke milestone. See [KORA Studio v4.4 optional browser keyboard smoke implementation](kora-studio-v4-4-optional-browser-keyboard-smoke-implementation.md) and [KORA Studio v4.4 goal report](kora-studio-v4-4-goal-report.md). Goal 543G implements the optional browser keyboard smoke using the existing transient Playwright pattern.
+
+Implemented behavior:
+
+- adds `scripts/check_kora_studio_browser_keyboard.py`
+- adds `scripts/check_kora_studio_browser_keyboard_ci_optional.sh`
+- requires `KORA_STUDIO_BROWSER_KEYBOARD_SMOKE=1` to run the wrapper
+- uses transient `npx --yes --package @playwright/test`
+- validates page load, selector contract, approved request state, Run Local Harness keyboard activation, progress/result summaries, bounded retry state, and details drawer focus return
+- keeps exact full-page Tab order, screen-reader announcement quality, and production accessibility claims out of automation
+
+Preserved boundaries:
+
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- review whether mobile rail traversal should be added to the optional keyboard smoke or remain manual-only
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
