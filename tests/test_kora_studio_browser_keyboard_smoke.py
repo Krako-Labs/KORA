@@ -31,6 +31,9 @@ def test_browser_keyboard_smoke_spec_uses_selector_contract_and_stable_assertion
     assert 'data-kora-keyboard-contract="run-progress-summary"' in spec
     assert 'data-kora-keyboard-contract="primary-result-summary"' in spec
     assert 'data-kora-keyboard-contract="shell-retry-last-approved-request"' in spec
+    assert 'data-kora-keyboard-contract="mobile-rail-toggle"' in spec
+    assert 'data-kora-keyboard-contract="mobile-left-rail"' in spec
+    assert 'data-kora-keyboard-contract="mobile-rail-close"' in spec
     assert 'data-kora-keyboard-contract="details-drawer-toggle"' in spec
     assert 'data-kora-keyboard-contract="details-drawer"' in spec
     assert 'data-kora-keyboard-contract="details-drawer-close"' in spec
@@ -38,6 +41,9 @@ def test_browser_keyboard_smoke_spec_uses_selector_contract_and_stable_assertion
     assert "koraStudioSelectedRunState" in spec
     assert 'page.keyboard.press("Enter")' in spec
     assert 'page.keyboard.press("Escape")' in spec
+    assert "setViewportSize" in spec
+    assert "390" in spec
+    assert "844" in spec
     assert "toBeFocused" in spec
     assert "toHaveAttribute" in spec
     assert "toBeAttached" in spec
@@ -66,6 +72,7 @@ def test_browser_keyboard_smoke_invokes_playwright_without_repo_dependency(monke
     assert "/ browser keyboard approved request state ok" in results
     assert "/ browser keyboard bounded retry state ok" in results
     assert "/ browser keyboard details drawer focus return ok" in results
+    assert "/ browser keyboard mobile rail focus return ok" in results
     assert len(calls) == 2
     command = calls[1]["command"]
     assert command[:5] == ["npx", "--yes", "--package", "@playwright/test", "playwright"]

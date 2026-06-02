@@ -45,7 +45,7 @@ The optional smoke does not validate:
 - every secondary diagnostic surface by keyboard
 - screen-reader announcement quality
 - production accessibility conformance
-- mobile rail traversal in this first implementation
+- mobile rail traversal in the first implementation; v4.5 adds a bounded optional narrow-viewport rail check
 
 Those remain manual-only or future optional-smoke expansion candidates.
 

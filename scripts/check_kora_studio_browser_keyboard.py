@@ -115,6 +115,61 @@ def _build_playwright_spec() -> str:
           expect(pageErrors, "page errors").toEqual([]);
           expect(failedRequests, "failed same-origin requests").toEqual([]);
         });
+
+        test("KORA Studio local preview mobile rail keyboard path works", async ({ page }) => {
+          const cspViolations = [];
+          const pageErrors = [];
+          const failedRequests = [];
+
+          page.on("console", (message) => {
+            const text = message.text();
+            if (message.type() === "error" && /Content Security Policy|Refused to|violates/.test(text)) {
+              cspViolations.push(text);
+            }
+          });
+          page.on("pageerror", (error) => {
+            pageErrors.push(error.message);
+          });
+          page.on("requestfailed", (request) => {
+            const url = request.url();
+            if (url.startsWith(baseUrl)) {
+              failedRequests.push(`${url}: ${request.failure()?.errorText || "request failed"}`);
+            }
+          });
+
+          await page.setViewportSize({ width: 390, height: 844 });
+          const response = await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
+          expect(response, "root response").not.toBeNull();
+          expect(response.status(), "root HTTP status").toBe(200);
+          await page.waitForFunction(() => window.koraStudioScriptStatus?.status === "ready");
+
+          const railToggle = page.locator('[data-kora-keyboard-contract="mobile-rail-toggle"]');
+          const leftRail = page.locator('[data-kora-keyboard-contract="mobile-left-rail"]');
+          const railClose = page.locator('[data-kora-keyboard-contract="mobile-rail-close"]');
+
+          await expect(railToggle).toBeVisible();
+          await expect(railToggle).toHaveAttribute("aria-expanded", "false");
+          await expect(leftRail).toHaveAttribute("data-kora-rail-state", "closed");
+          await expect(leftRail).toHaveAttribute("aria-hidden", "true");
+
+          await railToggle.focus();
+          await expect(railToggle).toBeFocused();
+          await page.keyboard.press("Enter");
+          await expect(railToggle).toHaveAttribute("aria-expanded", "true");
+          await expect(leftRail).toHaveAttribute("data-kora-rail-state", "open");
+          await expect(leftRail).toHaveAttribute("aria-hidden", "false");
+          await expect(railClose).toBeFocused();
+
+          await page.keyboard.press("Escape");
+          await expect(railToggle).toHaveAttribute("aria-expanded", "false");
+          await expect(leftRail).toHaveAttribute("data-kora-rail-state", "closed");
+          await expect(leftRail).toHaveAttribute("aria-hidden", "true");
+          await expect(railToggle).toBeFocused();
+
+          expect(cspViolations, "browser CSP violations").toEqual([]);
+          expect(pageErrors, "page errors").toEqual([]);
+          expect(failedRequests, "failed same-origin requests").toEqual([]);
+        });
         """
     ).strip()
 
@@ -189,6 +244,7 @@ def run_browser_keyboard_smoke(
         "/ browser keyboard progress and result summaries ok",
         "/ browser keyboard bounded retry state ok",
         "/ browser keyboard details drawer focus return ok",
+        "/ browser keyboard mobile rail focus return ok",
     ]
 
 

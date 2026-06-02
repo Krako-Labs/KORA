@@ -1864,6 +1864,31 @@ Next recommended implementation:
 
 - review whether mobile rail traversal should be added to the optional keyboard smoke or remain manual-only
 
+## Phase 47 - v4.5 Mobile Rail Keyboard Smoke Extension Review
+
+Status: complete as a bounded optional browser smoke extension. See [KORA Studio v4.5 mobile rail keyboard smoke extension review](kora-studio-v4-5-mobile-rail-keyboard-smoke-extension-review.md) and [KORA Studio v4.5 goal report](kora-studio-v4-5-goal-report.md). Goal 544G reviews mobile rail keyboard coverage and adds a stable narrow-viewport check to the existing optional browser keyboard smoke.
+
+Implemented behavior:
+
+- keeps the existing `KORA_STUDIO_BROWSER_KEYBOARD_SMOKE=1` gate
+- keeps transient `npx --yes --package @playwright/test`
+- adds a separate narrow-viewport rail test at 390 by 844
+- validates mobile rail toggle visibility, open/closed state, `aria-expanded`, `aria-hidden`, close-button focus, Escape close, and focus return
+- avoids exact full-page Tab order and production accessibility claims
+
+Preserved boundaries:
+
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- document optional browser keyboard smoke stability boundaries for future contributors
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |
