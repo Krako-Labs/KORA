@@ -1889,6 +1889,35 @@ Next recommended implementation:
 
 - document optional browser keyboard smoke stability boundaries for future contributors
 
+## Phase 48 - v4.6 Browser Keyboard Smoke Stability Documentation
+
+Status: complete as a documentation-only stability milestone. See [KORA Studio v4.6 browser keyboard smoke stability](kora-studio-v4-6-browser-keyboard-smoke-stability.md) and [KORA Studio v4.6 goal report](kora-studio-v4-6-goal-report.md). Goal 545G documents what the optional browser keyboard smoke asserts, what remains manual-only, and when future contributors should update the smoke.
+
+Documented stability rules:
+
+- keep the smoke explicitly opt-in through `KORA_STUDIO_BROWSER_KEYBOARD_SMOKE=1`
+- keep transient `npx --yes --package @playwright/test`
+- keep default pytest and default CI browser-free
+- keep desktop assertions limited to stable selector/state behavior
+- keep mobile rail assertions limited to narrow-viewport open/close/focus-return behavior
+- keep exact full-page Tab order, screen-reader announcement quality, and production accessibility conformance manual-only
+- update the smoke when selector contracts or focus-state behavior changes
+- do not broaden the smoke into visual QA, axe tooling, frontend tooling, persistent dependencies, or production claims
+
+Preserved boundaries:
+
+- no runtime behavior change
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- decide whether CSP and keyboard browser smoke documentation should be consolidated into one optional browser smoke maintenance guide
+
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
 | Add KORA Studio fixture plan | 0 | `docs/kora-studio/fixtures-plan.md` | small | good first docs issue | low |

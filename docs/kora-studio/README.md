@@ -337,6 +337,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v4.4 goal report](kora-studio-v4-4-goal-report.md)
 - [KORA Studio v4.5 mobile rail keyboard smoke extension review](kora-studio-v4-5-mobile-rail-keyboard-smoke-extension-review.md)
 - [KORA Studio v4.5 goal report](kora-studio-v4-5-goal-report.md)
+- [KORA Studio v4.6 browser keyboard smoke stability](kora-studio-v4-6-browser-keyboard-smoke-stability.md)
+- [KORA Studio v4.6 goal report](kora-studio-v4-6-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)
