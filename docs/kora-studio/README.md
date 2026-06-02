@@ -123,13 +123,27 @@ The root Studio HTML route has a local-preview CSP header only. API, SSE, health
 default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; style-src 'self'; script-src 'self'; connect-src 'self'
 ```
 
-Default pytest coverage remains dependency-light and browser-free. It guards root HTML, CSP directives, package CSS/JavaScript assets, allowed `/studio-assets/...` references, and negative resource fixtures. The optional browser-level CSP smoke remains explicitly gated:
-
-```bash
-KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optional.sh
-```
+Default pytest coverage remains dependency-light and browser-free. It guards root HTML, CSP directives, package CSS/JavaScript assets, allowed `/studio-assets/...` references, and negative resource fixtures.
 
 These checks are local preview regression guards only. They do not claim production security readiness.
+
+## Optional Browser Smoke
+
+Default validation stays browser-free. The normal pytest path includes dependency-light tests for the Studio server, preview smoke script, browser CSP smoke wrapper, browser keyboard smoke wrapper, CSP directives, asset allowlist, resource guards, selector contracts, and smoke script opt-in behavior. It does not install browsers, invoke `npx`, or require Playwright.
+
+Optional smoke checks are separate local validation paths:
+
+- Preview smoke: `python3 scripts/check_kora_studio_preview.py`
+- Browser CSP smoke: `KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optional.sh`
+- Browser keyboard smoke: `KORA_STUDIO_BROWSER_KEYBOARD_SMOKE=1 scripts/check_kora_studio_browser_keyboard_ci_optional.sh`
+
+The preview smoke is browser-free. It checks an already-running local Studio preview through localhost-only HTTP requests, including `/health`, `/status`, root shell markers, approved local harness endpoints, generated event/SSE behavior, and local CSS/JavaScript asset routes. Run it after Studio server, shell marker, harness endpoint, SSE, or static asset changes.
+
+The browser CSP smoke is explicitly opt-in. Its wrapper starts a local Studio server and uses transient `npx --yes --package @playwright/test` without adding `package.json`, lockfiles, Playwright config, frontend tooling, external assets, or CDN dependencies. It validates the root CSP header, local CSS/JavaScript asset loading, absence of browser CSP/page/request failures, visible shell controls, and Run Local Harness interaction under `connect-src 'self'`. Run it after CSP, local asset, shell loading, or browser resource behavior changes.
+
+The browser keyboard smoke is explicitly opt-in. Its wrapper starts a local Studio server and uses the same transient `npx --yes --package @playwright/test` model. It validates the v4.2 keyboard selector contract, approved request selected state, Run Local Harness keyboard activation, progress/result visibility, bounded retry state, details drawer focus return, and the narrow/mobile rail open/close/focus-return behavior at 390 by 844. Run it after primary control, selector contract, drawer, focus-state, retry-state, or mobile rail behavior changes.
+
+These optional checks intentionally do not validate exact full-page Tab order, screen-reader announcement quality, full visual responsive QA, production accessibility certification, production security readiness, or production readiness. Do not broaden them into persistent frontend dependencies, axe tooling, package manifests, lockfiles, Playwright config, npm workflows, external hosts, external assets, or CDN without a separate reviewed change.
 
 ### CSP/Asset Maintenance Checklist
 
@@ -141,7 +155,7 @@ When changing Studio HTML, CSS, JavaScript, CSP, or asset routes:
 - Do not add a new Studio asset route unless the allowlist, rejection tests, MIME/cache behavior, smoke checks, and docs are updated in the same reviewed change.
 - Do not add or broaden CSP sources such as `unsafe-inline`, `unsafe-eval`, wildcard sources, external hosts, CDNs, `data:`, or `blob:` without explicit review.
 - Do not add package manifests, lockfiles, frontend tooling, bundlers, npm workflows, Playwright config, external assets, or CDN dependencies as part of routine CSP/static asset maintenance.
-- Run the standard validation path and, when resource loading or CSP behavior changes, run the optional browser smoke with `KORA_STUDIO_BROWSER_CSP_SMOKE=1 scripts/check_kora_studio_browser_csp_ci_optional.sh`.
+- Run the standard validation path and, when resource loading, CSP behavior, selector contracts, focus behavior, or mobile rail behavior changes, run the matching optional browser smoke from the section above.
 
 ## Local Server Troubleshooting
 
@@ -339,6 +353,8 @@ The legacy detailed preview is now collapsed by default and labelled as compatib
 - [KORA Studio v4.5 goal report](kora-studio-v4-5-goal-report.md)
 - [KORA Studio v4.6 browser keyboard smoke stability](kora-studio-v4-6-browser-keyboard-smoke-stability.md)
 - [KORA Studio v4.6 goal report](kora-studio-v4-6-goal-report.md)
+- [KORA Studio v4.7 optional browser smoke documentation consolidation](kora-studio-v4-7-optional-browser-smoke-documentation-consolidation.md)
+- [KORA Studio v4.7 goal report](kora-studio-v4-7-goal-report.md)
 - [Harness engineering specification](kora-studio-harness-engineering-spec.md)
 - [Runtime setup guidance](kora-studio-runtime-setup-guidance.md)
 - [Report viewer requirements](report-viewer-requirements.md)

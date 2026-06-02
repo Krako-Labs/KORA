@@ -1916,7 +1916,35 @@ Preserved boundaries:
 
 Next recommended implementation:
 
-- decide whether CSP and keyboard browser smoke documentation should be consolidated into one optional browser smoke maintenance guide
+- review whether a dependency-light drift guard should keep README smoke commands aligned with the optional wrapper scripts
+
+## Phase 49 - v4.7 Optional Browser Smoke Documentation Consolidation
+
+Status: complete as a documentation-only consolidation milestone. See [KORA Studio v4.7 optional browser smoke documentation consolidation](kora-studio-v4-7-optional-browser-smoke-documentation-consolidation.md) and [KORA Studio v4.7 goal report](kora-studio-v4-7-goal-report.md). Goal 546G consolidates preview smoke, browser CSP smoke, and browser keyboard smoke guidance into one main README section.
+
+Documented smoke policy:
+
+- default pytest remains dependency-light and browser-free
+- preview smoke remains browser-free and local HTTP-only
+- browser CSP smoke remains explicitly gated with `KORA_STUDIO_BROWSER_CSP_SMOKE=1`
+- browser keyboard smoke remains explicitly gated with `KORA_STUDIO_BROWSER_KEYBOARD_SMOKE=1`
+- browser smoke scripts use transient `npx --yes --package @playwright/test`
+- exact full-page Tab order, screen-reader announcement quality, full visual responsive QA, production accessibility certification, production security readiness, and production readiness remain out of scope
+- contributor guidance now explains when to run each optional smoke path
+
+Preserved boundaries:
+
+- no runtime behavior change
+- no backend route or API change
+- no harness behavior change
+- no model execution, provider calls, downloads, cloud sync, report export, or file writing
+- no CSP broadening or asset allowlist broadening
+- no dependency, axe tooling, browser framework config, package manifest, lockfile, frontend build tooling, external asset, or CDN
+- no production accessibility certification claim
+
+Next recommended implementation:
+
+- review whether a small dependency-light docs/script drift guard is useful for keeping README smoke commands aligned with the wrapper script names and opt-in environment variables
 
 | Title | Phase | Target files | Difficulty | Contributor suitability | Claim risk |
 |---|---:|---|---|---|---|
