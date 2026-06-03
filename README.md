@@ -275,6 +275,23 @@ Current examples available in this repository:
 
 Use `--offline` for reproducible first-run paths without OpenAI credentials.
 
+## 📚 Resources
+
+### KORA Guide Series
+
+| Guide    | Topic                                                          |
+| -------- | -------------------------------------------------------------- |
+| Guide #1 | Introducing KORA: Open-Source AI Orchestration for Task Graphs |
+| Guide #2 | Coming Soon                                                    |
+| Guide #3 | Coming Soon                                                    |
+
+### Latest Article
+
+👉 Introducing KORA: Open-Source AI Orchestration for Task Graphs
+
+https://dev.to/krakoteam/introducing-kora-open-source-ai-orchestration-for-task-graphs-10o9
+
+
 ## Alpha Scope
 
 Included in the alpha surface:
