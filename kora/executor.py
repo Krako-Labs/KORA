@@ -488,6 +488,33 @@ def _apply_adaptive_confidence_policy(
 
 def run_graph(graph: TaskGraph) -> dict[str, Any]:
     """Execute a normalized task graph with structured success/failure contracts."""
+    import os
+    if os.getenv("KORA_USE_RUST") == "1":
+        try:
+            import kora_rust
+            json_str = graph.model_dump_json(by_alias=True)
+            result_json = kora_rust.run_graph(json_str)
+            
+            import json
+            outputs = json.loads(result_json)
+            from kora.scheduler import topo_sort
+            try:
+                order = topo_sort(graph)
+            except Exception:
+                order = list(outputs.keys())
+            final_output = outputs.get(graph.root)
+            return {
+                "ok": True,
+                "graph_id": graph.graph_id,
+                "order": order,
+                "events": [],
+                "outputs": outputs,
+                "final": final_output,
+                "stage_timings": {"overall_total_s": 0.0}
+            }
+        except ImportError:
+            pass
+
     run_start = time.monotonic()
     outputs: dict[str, dict[str, Any]] = {}
     events: list[dict[str, Any]] = []
