@@ -192,7 +192,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "telemetry":
         input_path = Path(args.input)
-        obj = load_json(input_path)
+        try:
+            obj = load_json(input_path)
+        except (FileNotFoundError, IsADirectoryError) as e:
+            print(e, file=sys.stderr)
+            return 1
         summary = summarize_run(obj, price_input=args.price_input, price_output=args.price_output)
         json_out = Path(args.json_out) if args.json_out else _default_json_out(input_path)
         md_out = Path(args.md_out) if args.md_out else _default_md_out(input_path)

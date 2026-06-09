@@ -10,7 +10,18 @@ from kora.cost_model import estimate_cost
 
 
 def load_json(path: str | Path) -> dict[str, Any]:
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    p = Path(path)
+    if p.is_dir():
+        raise IsADirectoryError(
+            f"'{p}' is a directory, not a file. "
+            "Provide the path to a KORA run or report JSON file with --input."
+        )
+    if not p.exists():
+        raise FileNotFoundError(
+            f"run JSON not found: {p}. "
+            "Provide the path to a KORA run or report JSON file with --input."
+        )
+    payload = json.loads(p.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("input JSON must be an object")
     return payload
