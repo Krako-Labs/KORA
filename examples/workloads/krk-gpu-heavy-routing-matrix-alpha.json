@@ -1,0 +1,91 @@
+{
+  "schema_version": "krk_routing_matrix_alpha_v0",
+  "profile_id": "GPU-heavy",
+  "description": "Small public-safe dry-run matrix with several GPU-suitable requests for route-selectivity evaluation.",
+  "items": [
+    {
+      "request_id": "gpu-001",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "large-batch-generation",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 128,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local_or_sanitized",
+        "estimated_complexity": "high",
+        "compute_weight": 16
+      },
+      "oracle_labels": {
+        "expected_route": "GPU",
+        "acceptable_routes": ["GPU"],
+        "disallowed_routes": ["deterministic", "cache"],
+        "oracle_reason": "Large batch and high complexity make GPU the expected bounded-measurement route."
+      }
+    },
+    {
+      "request_id": "gpu-002",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "multimodal-transform",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 16,
+        "request_modality": "multimodal",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local_or_sanitized",
+        "estimated_complexity": "high",
+        "compute_weight": 20
+      },
+      "oracle_labels": {
+        "expected_route": "GPU",
+        "acceptable_routes": ["GPU", "provider"],
+        "disallowed_routes": ["deterministic", "cache", "CPU"],
+        "oracle_reason": "High-complexity multimodal request is GPU-suitable when policy permits."
+      }
+    },
+    {
+      "request_id": "gpu-003",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "small-known-answer",
+      "router_visible_metadata": {
+        "input_size": "small",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "high",
+        "privacy_preference": "local",
+        "estimated_complexity": "low",
+        "compute_weight": 1
+      },
+      "oracle_labels": {
+        "expected_route": "deterministic",
+        "acceptable_routes": ["deterministic"],
+        "disallowed_routes": ["GPU", "provider"],
+        "oracle_reason": "GPU-heavy profile still includes low-complexity controls to catch GPU false positives."
+      }
+    },
+    {
+      "request_id": "gpu-004",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "large-private-request",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 32,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "low",
+        "privacy_preference": "restricted",
+        "estimated_complexity": "high",
+        "compute_weight": 14
+      },
+      "oracle_labels": {
+        "expected_route": "fallback",
+        "acceptable_routes": ["fallback"],
+        "disallowed_routes": ["provider", "GPU"],
+        "oracle_reason": "Restricted privacy policy overrides apparent GPU suitability."
+      }
+    }
+  ]
+}

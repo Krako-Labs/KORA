@@ -4,9 +4,9 @@
 
 This is the starting point for navigating KORA documentation.
 
-KORA is an open-source execution-control layer that turns AI requests into structured execution paths before inference.
+KORA makes AI workloads routable.
 
-Most AI apps call the model too soon. KORA changes the default. Structure first. Inference second.
+KORA Core is the planned open-source AI workload execution layer. The current public alpha is KRK-oriented: deterministic-first workload routing and evidence reporting through the KORA Routing Kernel.
 
 ## Start
 
@@ -27,6 +27,56 @@ KORA control layer architecture.
 - [Local validation reviewer packet](benchmarks/local-validation-reviewer-packet.md)
 - [Research agenda](research-agenda.md)
 - [Whitepaper](whitepaper.md)
+
+## Strategy
+
+- [KORA Routable AI Workloads Master Plan v0.1](strategy/kora-routable-ai-workloads-master-plan-v0-1.md)
+
+## Product
+
+- [KORA Core alpha surface v0](product/kora-core-alpha-surface-v0.md)
+- [KORA Core user workflow v0](product/kora-core-user-workflow-v0.md)
+- [KORA Core inspect definition v0](product/kora-core-inspect-definition-v0.md)
+- [KORA Core compare definition v0](product/kora-core-compare-definition-v0.md)
+- [KORA Core run definition v0](product/kora-core-run-definition-v0.md)
+- [KORA Core report definition v0](product/kora-core-report-definition-v0.md)
+- [KRK quickstart v0](product/krk-quickstart-v0.md)
+- [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
+- [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
+- [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
+
+## Architecture
+
+- [KRK architecture v0](architecture/krk-architecture-v0.md)
+- [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
+- [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
+
+## Evidence
+
+- [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
+- [KRK performance table v0](evidence/krk-performance-table-v0.md)
+- [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
+- [KRK claim boundary table v0](evidence/krk-claim-boundary-table-v0.md)
+- [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
+- [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
+- [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
+- [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
+- [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
+- [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
+
+## Reports
+
+- [KORA Core public merge readiness v0](reports/kora-core-public-merge-readiness-v0.md)
+- [KORA Core PR packet v0](reports/kora-core-pr-packet-v0.md)
+- [KORA Core public boundary audit v0](reports/kora-core-public-boundary-audit-v0.md)
+- [KORA Core change inventory v0](reports/kora-core-change-inventory-v0.md)
+- [July 31 report outline v0](reports/july31-report-outline-v0.md)
+- [July 31 development plan outline v0](reports/july31-development-plan-outline-v0.md)
+- [July 31 five-minute video storyboard v0](reports/july31-five-minute-video-storyboard-v0.md)
+- [July 31 evidence package index v0](reports/july31-evidence-package-index-v0.md)
+- [July 31 deliverable readiness checklist v0](reports/july31-deliverable-readiness-checklist-v0.md)
+- [July 31 risk and gap register v0](reports/july31-risk-and-gap-register-v0.md)
 
 ## KORA Studio Planning
 
@@ -143,9 +193,9 @@ Use this path for the current `v0.3.0-alpha` prerelease runtime evidence and reg
 18. Customer-support triage workload spec: [`docs/workloads/customer-support-triage.md`](workloads/customer-support-triage.md)
 19. Claim boundary source: [`docs/claims/kora-claim-registry.md`](claims/kora-claim-registry.md)
 
-Current approved public claim:
+Current approved bounded public claim:
 
-> KORA reduced model invocations by 80% in a reproducible deterministic-heavy benchmark workload.
+> In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline.
 
 This evidence does not claim production cost reduction proof, real API-cost reduction proof, production benchmark proof, full runtime-integrated benchmark evidence, broad workload superiority proof, or energy reduction evidence.
 
@@ -164,6 +214,12 @@ Additional evidence and release docs:
 
 ## Paper Preparation
 
+- [KRK technical paper outline v0](paper/krk-technical-paper-outline-v0.md)
+- [KRK technical paper draft v0](paper/krk-technical-paper-draft-v0.md)
+- [KRK related work notes v0](paper/krk-related-work-notes-v0.md)
+- [KRK figures and tables plan v0](paper/krk-figures-and-tables-plan-v0.md)
+- [KRK paper claim boundary v0](paper/krk-paper-claim-boundary-v0.md)
+- [KRK paper next experiments v0](paper/krk-paper-next-experiments-v0.md)
 - [KORA first paper draft v0](paper/kora-first-paper-draft-v0.md)
 - [KORA first paper manuscript v0.1](paper/kora-first-paper-manuscript-v0-1.md)
 - [KORA first paper outline](paper/kora-first-paper-outline.md)
