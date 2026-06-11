@@ -1,0 +1,91 @@
+{
+  "schema_version": "krk_routing_matrix_alpha_v0",
+  "profile_id": "adversarial",
+  "description": "Small public-safe dry-run matrix for unsafe, ambiguous, malformed, and conflicting route metadata.",
+  "items": [
+    {
+      "request_id": "adv-001",
+      "workload_profile": "adversarial",
+      "workload_class": "malformed-input",
+      "router_visible_metadata": {
+        "input_size": "unknown",
+        "batch_size": 0,
+        "request_modality": "unknown",
+        "cache_key_available": false,
+        "latency_sensitivity": "low",
+        "privacy_preference": "restricted",
+        "estimated_complexity": "unknown",
+        "compute_weight": 1
+      },
+      "oracle_labels": {
+        "expected_route": "fallback",
+        "acceptable_routes": ["fallback"],
+        "disallowed_routes": ["provider", "GPU", "cache"],
+        "oracle_reason": "Malformed metadata should trigger safe fallback."
+      }
+    },
+    {
+      "request_id": "adv-002",
+      "workload_profile": "adversarial",
+      "workload_class": "conflicting-signals",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 64,
+        "request_modality": "text",
+        "cache_key_available": true,
+        "latency_sensitivity": "high",
+        "privacy_preference": "restricted",
+        "estimated_complexity": "high",
+        "compute_weight": 12
+      },
+      "oracle_labels": {
+        "expected_route": "fallback",
+        "acceptable_routes": ["fallback"],
+        "disallowed_routes": ["provider", "GPU", "cache"],
+        "oracle_reason": "Privacy restriction overrides cache, provider, and GPU suitability signals."
+      }
+    },
+    {
+      "request_id": "adv-003",
+      "workload_profile": "adversarial",
+      "workload_class": "gpu-tempting-low-value",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 2,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "low",
+        "privacy_preference": "provider_allowed",
+        "estimated_complexity": "low",
+        "compute_weight": 2
+      },
+      "oracle_labels": {
+        "expected_route": "CPU",
+        "acceptable_routes": ["CPU", "provider"],
+        "disallowed_routes": ["GPU"],
+        "oracle_reason": "Large input alone should not force GPU when complexity and batch size are low."
+      }
+    },
+    {
+      "request_id": "adv-004",
+      "workload_profile": "adversarial",
+      "workload_class": "provider-disallowed",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local_only",
+        "estimated_complexity": "medium",
+        "compute_weight": 3
+      },
+      "oracle_labels": {
+        "expected_route": "CPU",
+        "acceptable_routes": ["CPU", "fallback"],
+        "disallowed_routes": ["provider"],
+        "oracle_reason": "Provider path is disallowed by local-only preference."
+      }
+    }
+  ]
+}
