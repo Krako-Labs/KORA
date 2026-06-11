@@ -51,6 +51,14 @@ KORA control layer architecture.
 - [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
 - [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
 
+## Implementation
+
+- [KRK route-selectivity metrics implementation plan v0](implementation/krk-route-selectivity-metrics-implementation-plan-v0.md)
+- [KRK matrix evaluator design v0](implementation/krk-matrix-evaluator-design-v0.md)
+- [KRK oracle label contract v0](implementation/krk-oracle-label-contract-v0.md)
+- [KRK route metrics schema v0](implementation/krk-route-metrics-schema-v0.md)
+- [KRK Goal 045 task breakdown v0](implementation/krk-goal045-task-breakdown-v0.md)
+
 ## Evidence
 
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
