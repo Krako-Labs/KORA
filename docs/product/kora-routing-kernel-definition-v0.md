@@ -21,7 +21,7 @@ The path list is intentionally implementation-facing. A workload may begin with 
 
 ## Current Alpha Mapping
 
-The current public alpha maps existing commands to KRK primitives:
+The current public alpha maps existing behavior and examples to KRK primitives:
 
 - `route`: select a route for a workload request.
 - `explain`: show why a route was selected.
@@ -29,6 +29,8 @@ The current public alpha maps existing commands to KRK primitives:
 - `report`: generate reviewable evidence.
 
 These primitives are the first building block for KORA Core. They do not yet imply a complete production execution platform.
+
+On the current base, these primitive names are not exposed as top-level CLI commands. Verified top-level commands are `examples`, `run`, `studio`, and `telemetry`. Standalone KRK aliases or commands remain roadmap until implemented and tested.
 
 ## GPU And H100 Benchmark Boundary
 
@@ -46,7 +48,7 @@ Allowed:
 
 - KRK is a deterministic-first execution routing kernel.
 - KRK evaluates deterministic, cache, CPU, provider, GPU, and fallback paths.
-- The current alpha exposes route, explain, benchmark, and report primitives.
+- The current alpha documents route, explain, benchmark, and report as KRK primitives.
 - KRK can produce bounded routing and benchmark evidence.
 
 Prohibited:
@@ -58,4 +60,3 @@ Prohibited:
 - infrastructure savings.
 - replacement of vLLM, OpenRouter, LiteLLM, OpenAI, Claude, Gemini, or other systems.
 - H100 superiority claims.
-

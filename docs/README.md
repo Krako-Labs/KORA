@@ -34,16 +34,24 @@ KORA control layer architecture.
 
 ## Product
 
+- [KRK quickstart v0](product/krk-quickstart-v0.md)
+- [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
 - [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
 - [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
 
 ## Architecture
 
+- [KRK architecture v0](architecture/krk-architecture-v0.md)
 - [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
 - [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
 
 ## Evidence
 
+- [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
+- [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
+- [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
+- [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
+- [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 
 ## KORA Studio Planning

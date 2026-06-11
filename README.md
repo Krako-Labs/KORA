@@ -22,6 +22,15 @@ Current alpha primitives:
 - `benchmark`: compare bounded workload behavior.
 - `report`: produce evidence for review.
 
+These are KRK alpha primitives, not top-level CLI commands on the current base. The verified local CLI currently exposes `examples`, `run`, `studio`, and `telemetry`.
+
+KRK standalone docs:
+
+- [KRK quickstart](docs/product/krk-quickstart-v0.md)
+- [KRK architecture](docs/architecture/krk-architecture-v0.md)
+- [KRK capability matrix](docs/evidence/krk-capability-matrix-v0.md)
+- [KRK July 1 release-candidate checklist](docs/product/krk-july1-release-candidate-v0.md)
+
 KORA still starts from the same execution-control idea:
 
 ```text
