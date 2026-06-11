@@ -50,4 +50,3 @@ Studio and UI work should remain deferred relative to backend evidence. The back
 ## Claim Boundary
 
 KORA Core should be described as a planned open-source execution layer. Public docs should distinguish current alpha behavior from roadmap intent.
-

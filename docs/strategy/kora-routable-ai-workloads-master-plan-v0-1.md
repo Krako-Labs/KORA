@@ -131,4 +131,3 @@ Allowed public framing:
 - KORA can produce bounded, reproducible benchmark evidence.
 
 Do not claim production cost reduction, broad superiority, customer savings, infrastructure savings, or replacement of provider/router systems.
-

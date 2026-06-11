@@ -71,4 +71,3 @@ Public evidence reports should not include:
 - customer data.
 
 Raw artifacts can exist in private or local workflows, but public summaries must be sanitized and reproducible.
-

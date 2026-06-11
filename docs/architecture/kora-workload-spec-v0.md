@@ -92,4 +92,3 @@ hints:
 ## Boundary
 
 The spec should not include secrets, private logs, private server details, raw GPU artifacts, or customer data.
-

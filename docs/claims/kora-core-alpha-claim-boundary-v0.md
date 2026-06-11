@@ -43,4 +43,3 @@ Do not claim:
 ## Public/Private Boundary
 
 Public docs must not include private resource details, private operating prompts, private repo paths, raw logs, credentials, or unsanitized internal artifacts.
-
