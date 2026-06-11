@@ -195,6 +195,12 @@ Additional evidence and release docs:
 
 ## Paper Preparation
 
+- [KRK technical paper outline v0](paper/krk-technical-paper-outline-v0.md)
+- [KRK technical paper draft v0](paper/krk-technical-paper-draft-v0.md)
+- [KRK related work notes v0](paper/krk-related-work-notes-v0.md)
+- [KRK figures and tables plan v0](paper/krk-figures-and-tables-plan-v0.md)
+- [KRK paper claim boundary v0](paper/krk-paper-claim-boundary-v0.md)
+- [KRK paper next experiments v0](paper/krk-paper-next-experiments-v0.md)
 - [KORA first paper draft v0](paper/kora-first-paper-draft-v0.md)
 - [KORA first paper manuscript v0.1](paper/kora-first-paper-manuscript-v0-1.md)
 - [KORA first paper outline](paper/kora-first-paper-outline.md)
