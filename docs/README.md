@@ -34,6 +34,12 @@ KORA control layer architecture.
 
 ## Product
 
+- [KORA Core alpha surface v0](product/kora-core-alpha-surface-v0.md)
+- [KORA Core user workflow v0](product/kora-core-user-workflow-v0.md)
+- [KORA Core inspect definition v0](product/kora-core-inspect-definition-v0.md)
+- [KORA Core compare definition v0](product/kora-core-compare-definition-v0.md)
+- [KORA Core run definition v0](product/kora-core-run-definition-v0.md)
+- [KORA Core report definition v0](product/kora-core-report-definition-v0.md)
 - [KRK quickstart v0](product/krk-quickstart-v0.md)
 - [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
 - [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)

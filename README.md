@@ -71,6 +71,15 @@ KORA Core is planned to expand beyond the current KRK alpha into a broader AI wo
 
 These are roadmap surfaces unless a command or module is documented as implemented.
 
+KORA Core alpha surface docs:
+
+- [KORA Core alpha surface](docs/product/kora-core-alpha-surface-v0.md)
+- [KORA Core user workflow](docs/product/kora-core-user-workflow-v0.md)
+- [Inspect definition](docs/product/kora-core-inspect-definition-v0.md)
+- [Compare definition](docs/product/kora-core-compare-definition-v0.md)
+- [Run definition](docs/product/kora-core-run-definition-v0.md)
+- [Report definition](docs/product/kora-core-report-definition-v0.md)
+
 ## Prerequisites
 
 KORA uses `pyproject.toml`-based Python packaging.
