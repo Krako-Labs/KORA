@@ -31,6 +31,14 @@ KRK standalone docs:
 - [KRK capability matrix](docs/evidence/krk-capability-matrix-v0.md)
 - [KRK July 1 release-candidate checklist](docs/product/krk-july1-release-candidate-v0.md)
 
+KRK evidence:
+
+- [KRK capability matrix](docs/evidence/krk-capability-matrix-v0.md)
+- [KRK performance table](docs/evidence/krk-performance-table-v0.md)
+- [KRK evidence package](docs/evidence/krk-evidence-package-v0.md)
+- [KRK reproducibility matrix](docs/evidence/krk-reproducibility-matrix-v0.md)
+- [KRK claim boundary table](docs/evidence/krk-claim-boundary-table-v0.md)
+
 KORA still starts from the same execution-control idea:
 
 ```text
@@ -198,6 +206,8 @@ For methodology, counters, artifact policy, and reproduction commands, see:
 - [Runtime evidence reviewer guide](docs/reports/v0.3.0-alpha-runtime-evidence-reviewer-guide.md)
 - [Benchmark artifact policy](docs/reports/benchmark_artifact_policy.md)
 - [Benchmark result summary](docs/benchmarks/kora_benchmark_result_v1_100.md)
+- [KRK performance table](docs/evidence/krk-performance-table-v0.md)
+- [KRK July 1 evidence summary](docs/reports/krk-july1-evidence-summary-v0.md)
 - [Claim registry](docs/claims/kora-claim-registry.md)
 - [Validation roadmap](docs/benchmarks/validation-roadmap.md)
 

@@ -48,11 +48,16 @@ KORA control layer architecture.
 ## Evidence
 
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
+- [KRK performance table v0](evidence/krk-performance-table-v0.md)
+- [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
+- [KRK claim boundary table v0](evidence/krk-claim-boundary-table-v0.md)
 - [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
 - [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
 - [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
 - [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
+- [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
 
 ## KORA Studio Planning
 
