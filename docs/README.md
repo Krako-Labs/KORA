@@ -65,6 +65,15 @@ KORA control layer architecture.
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 - [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
 
+## Reports
+
+- [July 31 report outline v0](reports/july31-report-outline-v0.md)
+- [July 31 development plan outline v0](reports/july31-development-plan-outline-v0.md)
+- [July 31 five-minute video storyboard v0](reports/july31-five-minute-video-storyboard-v0.md)
+- [July 31 evidence package index v0](reports/july31-evidence-package-index-v0.md)
+- [July 31 deliverable readiness checklist v0](reports/july31-deliverable-readiness-checklist-v0.md)
+- [July 31 risk and gap register v0](reports/july31-risk-and-gap-register-v0.md)
+
 ## KORA Studio Planning
 
 KORA Studio is future planning only. It is not implemented yet.
