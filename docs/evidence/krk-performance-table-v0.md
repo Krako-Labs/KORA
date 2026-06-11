@@ -37,21 +37,28 @@ This benchmark is deterministic-heavy and simulated. It does not measure product
 
 ## B. KRK Routing Metrics
 
-These metrics are defined in [KRK routing benchmark methodology v0](krk-routing-benchmark-methodology-v0.md). They have not yet been measured against the KRK extended matrix fixtures.
+These metrics are defined in [KRK routing benchmark methodology v0](krk-routing-benchmark-methodology-v0.md) and computed in the [KRK multi-profile routing evaluation v0](krk-multi-profile-routing-evaluation-v0.md).
 
-| Metric | Status |
-| --- | --- |
-| `exact_route_accuracy` | NOT MEASURED YET |
-| `acceptable_route_rate` | NOT MEASURED YET |
-| `unsafe_misroute_rate` | NOT MEASURED YET |
-| `cache_hit_correctness_rate` | NOT MEASURED YET |
-| `safety_fallback_rate` | NOT MEASURED YET |
-| `failure_fallback_rate` | NOT MEASURED YET |
-| `gpu_false_positive_count` | NOT MEASURED YET |
-| `gpu_false_negative_count` | NOT MEASURED YET |
-| `compute_weighted_gpu_demand` | NOT MEASURED YET |
+Scope:
 
-Next requirement: connect the KRK matrix fixtures to a dry-run evaluator that keeps router-visible metadata separate from oracle labels.
+- dry-run matrix evaluation.
+- not a production benchmark.
+- no provider calls.
+- no GPU execution.
+
+| Profile | Requests | Exact route accuracy | Acceptable route rate | Unsafe misroute rate | Cache correctness | Safety fallback rate | Failure fallback rate | GPU false positives | GPU false negatives | Compute-weighted GPU demand |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| mixed-realistic | 6 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0.1667 | 0.0000 | 0 | 0 | 0.5217 |
+| GPU-heavy | 4 | 1.0000 | 1.0000 | 0.0000 | N/A | 0.2500 | 0.0000 | 0 | 0 | 0.7059 |
+| cache-heavy | 4 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0.0000 | 0.0000 | 0 | 0 | 0.5556 |
+| adversarial | 4 | 0.7500 | 1.0000 | 0.0000 | N/A | 0.5000 | 0.0000 | 0 | 0 | 0.0000 |
+
+Generated outputs:
+
+- [mixed-realistic metrics](generated/krk-mixed-routing-metrics-v0.md)
+- [GPU-heavy metrics](generated/krk-gpu-heavy-routing-metrics-v0.md)
+- [cache-heavy metrics](generated/krk-cache-heavy-routing-metrics-v0.md)
+- [adversarial metrics](generated/krk-adversarial-routing-metrics-v0.md)
 
 ## C. GPU-Routed Subset Evidence
 
@@ -94,6 +101,7 @@ Supported:
 - KRK/KORA-controlled execution has bounded deterministic-heavy benchmark evidence.
 - The current alpha can produce reproducible evidence counters for the deterministic-heavy workload.
 - The KRK extended matrix methodology defines how future route-selectivity metrics should be measured.
+- KRK now has dry-run route-selectivity metrics over four public matrix profiles.
 
 Not supported:
 

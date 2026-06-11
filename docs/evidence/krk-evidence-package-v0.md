@@ -45,12 +45,27 @@ Reference:
 
 ### Benchmark Methodology
 
-The current benchmark path supports deterministic-heavy alpha evidence and a future KRK matrix evaluator. The existing deterministic benchmark is already reproducible. The extended matrix runner is not implemented yet.
+The current benchmark path supports deterministic-heavy alpha evidence and a dry-run KRK matrix evaluator. The existing deterministic benchmark is reproducible, and the four public matrix fixtures now have generated route-selectivity metrics.
 
 References:
 
 - [KRK extended H100 test matrix v0](krk-extended-h100-test-matrix-v0.md)
 - [KRK performance table schema v0](krk-performance-table-schema-v0.md)
+- [KRK multi-profile routing evaluation v0](krk-multi-profile-routing-evaluation-v0.md)
+- [KRK route-selectivity results v0](krk-route-selectivity-results-v0.md)
+
+### Route-Selectivity Metrics
+
+KRK now has dry-run route-selectivity metrics for four public alpha matrix profiles:
+
+| Profile | Requests | Exact route accuracy | Acceptable route rate | Unsafe misroute rate |
+| --- | ---: | ---: | ---: | ---: |
+| mixed-realistic | 6 | 1.0000 | 1.0000 | 0.0000 |
+| GPU-heavy | 4 | 1.0000 | 1.0000 | 0.0000 |
+| cache-heavy | 4 | 1.0000 | 1.0000 | 0.0000 |
+| adversarial | 4 | 0.7500 | 1.0000 | 0.0000 |
+
+These metrics evaluate selected routes against oracle labels without GPU execution or provider calls. They are benchmark-methodology evidence, not production evidence.
 
 ### GPU Subset Methodology
 
@@ -101,4 +116,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It should be extended next with a dry-run KRK matrix evaluator and a generated performance table.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence and generated dry-run route-selectivity metrics for the four KRK matrix profiles. It should be extended next with broader workload coverage, provider validation if included, and bounded GPU-routed subset measurement when public-safe.

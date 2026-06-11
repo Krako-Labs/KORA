@@ -42,6 +42,7 @@ KORA control layer architecture.
 - [KORA Core report definition v0](product/kora-core-report-definition-v0.md)
 - [KRK quickstart v0](product/krk-quickstart-v0.md)
 - [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
+- [KRK July 1 readiness scorecard v0](product/krk-july1-readiness-scorecard-v0.md)
 - [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
 - [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
 
@@ -64,15 +65,21 @@ KORA control layer architecture.
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
 - [KRK performance table v0](evidence/krk-performance-table-v0.md)
 - [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK multi-profile routing evaluation v0](evidence/krk-multi-profile-routing-evaluation-v0.md)
+- [KRK route-selectivity results v0](evidence/krk-route-selectivity-results-v0.md)
 - [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
 - [KRK claim boundary table v0](evidence/krk-claim-boundary-table-v0.md)
 - [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
 - [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
 - [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
 - [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
+- [KRK July 1 missing evidence register v0](evidence/krk-july1-missing-evidence-register-v0.md)
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 - [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
 - [Generated KRK mixed route-selectivity metrics v0](evidence/generated/krk-mixed-routing-metrics-v0.md)
+- [Generated KRK GPU-heavy route-selectivity metrics v0](evidence/generated/krk-gpu-heavy-routing-metrics-v0.md)
+- [Generated KRK cache-heavy route-selectivity metrics v0](evidence/generated/krk-cache-heavy-routing-metrics-v0.md)
+- [Generated KRK adversarial route-selectivity metrics v0](evidence/generated/krk-adversarial-routing-metrics-v0.md)
 
 ## Reports
 
