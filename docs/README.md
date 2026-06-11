@@ -4,9 +4,9 @@
 
 This is the starting point for navigating KORA documentation.
 
-KORA is an open-source execution-control layer that turns AI requests into structured execution paths before inference.
+KORA makes AI workloads routable.
 
-Most AI apps call the model too soon. KORA changes the default. Structure first. Inference second.
+KORA Core is the planned open-source AI workload execution layer. The current public alpha is KRK-oriented: deterministic-first workload routing and evidence reporting through the KORA Routing Kernel.
 
 ## Start
 
@@ -27,6 +27,24 @@ KORA control layer architecture.
 - [Local validation reviewer packet](benchmarks/local-validation-reviewer-packet.md)
 - [Research agenda](research-agenda.md)
 - [Whitepaper](whitepaper.md)
+
+## Strategy
+
+- [KORA Routable AI Workloads Master Plan v0.1](strategy/kora-routable-ai-workloads-master-plan-v0-1.md)
+
+## Product
+
+- [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
+- [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
+
+## Architecture
+
+- [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
+- [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
+
+## Evidence
+
+- [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 
 ## KORA Studio Planning
 
@@ -143,9 +161,9 @@ Use this path for the current `v0.3.0-alpha` prerelease runtime evidence and reg
 18. Customer-support triage workload spec: [`docs/workloads/customer-support-triage.md`](workloads/customer-support-triage.md)
 19. Claim boundary source: [`docs/claims/kora-claim-registry.md`](claims/kora-claim-registry.md)
 
-Current approved public claim:
+Current approved bounded public claim:
 
-> KORA reduced model invocations by 80% in a reproducible deterministic-heavy benchmark workload.
+> In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline.
 
 This evidence does not claim production cost reduction proof, real API-cost reduction proof, production benchmark proof, full runtime-integrated benchmark evidence, broad workload superiority proof, or energy reduction evidence.
 

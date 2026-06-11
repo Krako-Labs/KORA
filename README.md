@@ -1,18 +1,28 @@
-# KORA
+# KORA Core
 
-Open-source execution control for AI workloads.
+Make AI workloads routable.
 
-Most AI apps call the model too soon.
+Docker made applications portable.
+KORA makes AI workloads routable.
 
-Every request becomes a prompt.
-Every prompt becomes tokens.
-Every token becomes latency, cost, and infrastructure pressure.
+KORA Core is an open-source AI workload execution layer.
 
-KORA turns AI requests into structured execution paths before inference: task graphs, deterministic-first execution, validation, telemetry, and model escalation only when needed.
+The current alpha focuses on deterministic-first workload routing and evidence reporting through the KORA Routing Kernel.
 
 ![KORA execution control overview](docs/assets/kora-execution-control-overview.png)
 
-Before:
+## Current Alpha
+
+The current public implementation is a KRK-oriented alpha. KRK means KORA Routing Kernel: a deterministic-first execution routing kernel inside KORA Core.
+
+Current alpha primitives:
+
+- `route`: select a workload route.
+- `explain`: explain the routing decision.
+- `benchmark`: compare bounded workload behavior.
+- `report`: produce evidence for review.
+
+KORA still starts from the same execution-control idea:
 
 ```text
 request -> prompt -> model -> output
@@ -25,6 +35,24 @@ request -> task graph -> deterministic path -> validation -> model escalation ->
 ```
 
 Structure first. Inference second.
+
+## Roadmap
+
+KORA Core is planned to expand beyond the current KRK alpha into a broader AI workload execution layer:
+
+- inspect.
+- compare.
+- run.
+- report.
+- doctor.
+- Workload Spec.
+- Target Registry.
+- Evidence Report.
+- adapters.
+- examples.
+- developer preview.
+
+These are roadmap surfaces unless a command or module is documented as implemented.
 
 ## Prerequisites
 
@@ -150,7 +178,7 @@ KORA does not try to make models smarter. It controls when, why, and how they ar
 
 ## Current Alpha Evidence
 
-KORA reduced model invocations by 80% in a reproducible deterministic-heavy benchmark workload.
+In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline.
 
 ![KORA benchmark evidence card](docs/assets/kora-benchmark-evidence-card.png)
 
