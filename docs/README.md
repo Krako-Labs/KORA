@@ -67,6 +67,10 @@ KORA control layer architecture.
 
 ## Reports
 
+- [KORA Core public merge readiness v0](reports/kora-core-public-merge-readiness-v0.md)
+- [KORA Core PR packet v0](reports/kora-core-pr-packet-v0.md)
+- [KORA Core public boundary audit v0](reports/kora-core-public-boundary-audit-v0.md)
+- [KORA Core change inventory v0](reports/kora-core-change-inventory-v0.md)
 - [July 31 report outline v0](reports/july31-report-outline-v0.md)
 - [July 31 development plan outline v0](reports/july31-development-plan-outline-v0.md)
 - [July 31 five-minute video storyboard v0](reports/july31-five-minute-video-storyboard-v0.md)
