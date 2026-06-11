@@ -72,6 +72,7 @@ KORA control layer architecture.
 - [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 - [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
+- [Generated KRK mixed route-selectivity metrics v0](evidence/generated/krk-mixed-routing-metrics-v0.md)
 
 ## Reports
 
