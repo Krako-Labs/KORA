@@ -65,6 +65,7 @@ KORA control layer architecture.
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
 - [KRK performance table v0](evidence/krk-performance-table-v0.md)
 - [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK bounded H100 evaluation v0](evidence/krk-bounded-h100-evaluation-v0.md)
 - [KRK multi-profile routing evaluation v0](evidence/krk-multi-profile-routing-evaluation-v0.md)
 - [KRK route-selectivity results v0](evidence/krk-route-selectivity-results-v0.md)
 - [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
@@ -80,6 +81,7 @@ KORA control layer architecture.
 - [Generated KRK GPU-heavy route-selectivity metrics v0](evidence/generated/krk-gpu-heavy-routing-metrics-v0.md)
 - [Generated KRK cache-heavy route-selectivity metrics v0](evidence/generated/krk-cache-heavy-routing-metrics-v0.md)
 - [Generated KRK adversarial route-selectivity metrics v0](evidence/generated/krk-adversarial-routing-metrics-v0.md)
+- [Generated KRK H100 bounded summary v0](evidence/generated/krk-h100-bounded-summary-v0.md)
 
 ## Reports
 

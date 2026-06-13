@@ -71,28 +71,42 @@ These metrics evaluate selected routes against oracle labels without GPU executi
 
 The GPU-routed subset methodology is defined as a measurement plan. It evaluates whether KRK selects GPU-class compute only for workload items where it is justified by visible metadata and policy.
 
-This is methodology, not a completed measurement.
+The public matrix path now includes a bounded H100 subset measurement for the GPU-selected fixture items.
 
 Reference:
 
 - [KRK public evidence boundary v0](krk-public-evidence-boundary-v0.md)
+- [KRK bounded H100 evaluation v0](krk-bounded-h100-evaluation-v0.md)
 
 ### Bounded GPU Measurement
 
-Bounded GPU measurement is not included in the current public package. No public task count, runtime, throughput, or memory table is included for this package.
+Bounded GPU measurement is included for the small public matrix GPU subset:
 
-Future measurement should report sanitized subset summaries only after the route matrix evaluator and artifact policy are ready.
+| Metric | Value |
+| --- | ---: |
+| Subset count | 4 |
+| Runtime seconds | 0.035312 |
+| Throughput, requests/second | 113.277481 |
+| Throughput, compute weight/second | 1642.523477 |
+| Bounded workload peak allocation MB | 240.000 |
+
+Generated summaries:
+
+- [Generated H100 bounded JSON summary](generated/krk-h100-bounded-summary-v0.json)
+- [Generated H100 bounded Markdown summary](generated/krk-h100-bounded-summary-v0.md)
+
+This is a bounded H100 routed-subset measurement. It is not a production benchmark, provider benchmark, raw GPU benchmark, or broad workload superiority claim.
 
 ### Reproducibility Path
 
-Current reproducible path:
+Current reproducible local path:
 
 ```bash
 python3 -m pytest
 python3 -m kora run runtime_integrated_benchmark -- --offline
 ```
 
-The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands.
+The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands. The bounded H100 subset summary is reproducible only in an H100-capable environment and should be regenerated through a controlled evidence task, not by committing raw logs.
 
 ## What Is Evidence
 
@@ -116,4 +130,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence and generated dry-run route-selectivity metrics for the four KRK matrix profiles. It should be extended next with broader workload coverage, provider validation if included, and bounded GPU-routed subset measurement when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, and a bounded H100 subset measurement for the GPU-selected public fixture items. It should be extended next with broader workload coverage, provider validation if included, and runtime-integrated evidence when public-safe.

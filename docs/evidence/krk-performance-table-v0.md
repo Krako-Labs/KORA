@@ -72,9 +72,9 @@ Source methodology:
 | --- | --- |
 | Methodology | Defined |
 | Subset selection rule | Select only workload items that KRK routes to GPU-class execution during a bounded matrix run. |
-| Subset count | NOT MEASURED YET |
-| Measurement status | NOT MEASURED YET |
-| Claim level | Methodology defined only |
+| Subset count | 4 |
+| Measurement status | Bounded H100 subset measured |
+| Claim level | `bounded_h100_routed_subset_measured` |
 
 Public-safe summary:
 
@@ -82,17 +82,23 @@ Public-safe summary:
 
 ## D. H100 Bounded Measurement
 
-The current public package does not include public-safe measured task count, runtime, throughput, or memory values for a KRK H100 bounded measurement.
+The current public package includes a sanitized bounded H100 measurement for the GPU-selected public matrix subset.
 
 | Field | Value |
 | --- | --- |
-| Task count | NOT INCLUDED IN CURRENT PUBLIC PACKAGE |
-| Runtime | NOT INCLUDED IN CURRENT PUBLIC PACKAGE |
-| Throughput | NOT INCLUDED IN CURRENT PUBLIC PACKAGE |
-| Memory | NOT INCLUDED IN CURRENT PUBLIC PACKAGE |
-| Claim level | NOT INCLUDED IN CURRENT PUBLIC PACKAGE |
+| Task count | 4 |
+| Runtime | 0.035312 seconds |
+| Throughput | 113.277481 requests/second |
+| Compute-weight throughput | 1642.523477 compute weight/second |
+| Memory | 240.000 MB bounded workload peak allocation |
+| Claim level | `bounded_h100_routed_subset_measured` |
 
-Any future bounded measurement must include sanitized reproducibility metadata and must not publish raw logs, private resource identifiers, credentials, or local-only environment details.
+Generated summaries:
+
+- [Generated H100 bounded JSON summary](generated/krk-h100-bounded-summary-v0.json)
+- [Generated H100 bounded Markdown summary](generated/krk-h100-bounded-summary-v0.md)
+
+This measurement is subset-bounded. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, provider superiority, GPU superiority, or broad workload superiority.
 
 ## Claim Boundary
 
@@ -102,6 +108,7 @@ Supported:
 - The current alpha can produce reproducible evidence counters for the deterministic-heavy workload.
 - The KRK extended matrix methodology defines how future route-selectivity metrics should be measured.
 - KRK now has dry-run route-selectivity metrics over four public matrix profiles.
+- KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
 
 Not supported:
 
