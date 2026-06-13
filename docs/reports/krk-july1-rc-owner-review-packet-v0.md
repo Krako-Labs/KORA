@@ -6,7 +6,7 @@ Status: owner review packet refreshed after route-selectivity evidence generatio
 
 Recommendation: proceed with a narrowed KRK July 1 RC.
 
-The package is not ready to be framed as a broad KORA Core release or live infrastructure proof. It is ready to be framed as a bounded KRK alpha/release-candidate package focused on deterministic-first routing, deterministic-heavy evidence, and dry-run route-selectivity metrics over four public matrix profiles.
+The package is not ready to be framed as a broad KORA Core release, live infrastructure proof, or measured H100 execution package. It is ready to be framed as a bounded KRK alpha/release-candidate package focused on deterministic-first routing, deterministic-heavy evidence, dry-run route-selectivity metrics over four public matrix profiles, and explicit H100 measurement gap disclosure.
 
 ## Decision Options
 
@@ -23,6 +23,8 @@ Rationale:
 - route-selectivity metrics now exist for four public dry-run matrix profiles.
 - generated JSON and Markdown evidence outputs are committed.
 - deterministic-heavy evidence remains available and bounded.
+- H100 methodology and public evidence boundaries exist.
+- public KRK H100 measured evidence is not included and is not required for a narrowed RC.
 - remaining gaps are explicit rather than hidden.
 
 ### C. Delay KRK July 1 RC
@@ -60,6 +62,7 @@ Choose this if the desired RC must include live provider validation, bounded GPU
 - Add a one-command regeneration wrapper for matrix outputs.
 - Add a contributor-friendly issue list for the next evidence gaps.
 - Refresh the technical paper draft with the route-selectivity results.
+- Decide whether H100 measured evidence is required before July 1 or can remain post-RC.
 
 ## Can Wait Until After July 1
 

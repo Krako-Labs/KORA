@@ -15,7 +15,7 @@ Status: refreshed after multi-profile route-selectivity evaluation.
 
 | Missing evidence | Why it matters | Current blocker | Next action | Public claim impact |
 | --- | --- | --- | --- | --- |
-| H100 bounded public evidence | Separates route selection from actual bounded GPU-class measurement | No public-safe measurement package in this branch | Define sanitized inputs, outputs, and reproducibility metadata before running | Cannot claim live GPU performance from current matrix results |
+| H100 bounded public evidence | Separates route selection from actual bounded GPU-class measurement | No public-safe measurement package in this branch | Optional for narrowed RC; required only if measured GPU-class execution evidence is part of July 1 | Cannot claim live GPU performance from current matrix results |
 | Provider validation | Tests provider-route selections against provider-backed execution | No provider calls are included in this dry-run package | Add a small public-safe provider validation sample only if approved | Cannot claim provider-backed quality or latency evidence |
 | Runtime-integrated workflow | Connects dry-run route metrics to real KORA runtime flow | Current evaluator is separate from runtime execution | Add integration plan and tests after metrics stabilize | Cannot claim runtime-integrated route-selectivity evidence |
 | Broader workload representativeness | Reduces overfitting to small alpha fixtures | Current matrix profiles are intentionally small | Add larger synthetic and service-replay profiles | Cannot claim broad workload superiority |
@@ -24,3 +24,7 @@ Status: refreshed after multi-profile route-selectivity evaluation.
 ## Claim Boundary
 
 Current route-selectivity evidence supports bounded statements about dry-run route selection over four public matrix profiles. It does not support live execution, savings, broad superiority, or infrastructure claims.
+
+## H100 Gap Review Result
+
+The H100 evidence gap remains open but is not a blocker for a narrowed KRK July 1 RC. The blocker applies only to any RC scope that includes measured GPU-class execution evidence.
