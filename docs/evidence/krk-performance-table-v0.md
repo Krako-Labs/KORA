@@ -100,6 +100,30 @@ Generated summaries:
 
 This measurement is subset-bounded. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, provider superiority, GPU superiority, or broad workload superiority.
 
+## E. Provider-Routed Validation
+
+The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
+
+| Field | Value |
+| --- | --- |
+| Sample count | 3 |
+| Success count | 3 |
+| Failure count | 0 |
+| Latency min | 1581.517 ms |
+| Latency median | 1583.670 ms |
+| Latency max | 3635.988 ms |
+| Input units/tokens total | 176 |
+| Output units/tokens total | 156 |
+| Claim level | `bounded_provider_path_measured` |
+
+Generated summaries:
+
+- [KRK provider-routed validation v0](krk-provider-routed-validation-v0.md)
+- [Generated provider-routed validation JSON summary](generated/krk-provider-routed-validation-summary-v0.json)
+- [Generated provider-routed validation Markdown summary](generated/krk-provider-routed-validation-summary-v0.md)
+
+This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
+
 ## Claim Boundary
 
 Supported:
@@ -109,6 +133,7 @@ Supported:
 - The KRK extended matrix methodology defines how future route-selectivity metrics should be measured.
 - KRK now has dry-run route-selectivity metrics over four public matrix profiles.
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
+- KRK-selected provider-path items from the public matrix fixtures completed a bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 
 Not supported:
 

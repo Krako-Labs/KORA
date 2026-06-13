@@ -1,8 +1,8 @@
 # KRK July 1 Readiness Scorecard v0
 
-Status: refreshed after bounded H100 routed subset evaluation.
+Status: refreshed after bounded provider-routed validation.
 
-This scorecard is not a release announcement. It records readiness based on the current public repository state, generated dry-run matrix evidence, and bounded H100 subset measurement.
+This scorecard is not a release announcement. It records readiness based on the current public repository state, generated dry-run matrix evidence, bounded H100 subset measurement, and bounded provider-path validation.
 
 ## Scorecard
 
@@ -11,7 +11,7 @@ This scorecard is not a release announcement. It records readiness based on the 
 | Product definition | READY | KRK definition, quickstart, architecture, capability matrix | Naming still needs repetition in contributor docs | Keep KRK/KORA Core/KORA hierarchy consistent |
 | CLI path | PARTIAL | Current CLI and quickstart docs describe available surfaces | KRK route/explain/benchmark/report are not all top-level commands on this base | Add or document exact command aliases in a future scoped task |
 | Docs completeness | READY | Product, architecture, evidence, paper, report, and readiness docs exist | Some docs are planning-level | Keep docs index current as evidence grows |
-| Evidence completeness | PARTIAL | Deterministic-heavy evidence, four dry-run route-selectivity profiles, and bounded H100 subset measurement | No live provider validation, runtime-integrated route-selectivity workflow, or broad workload coverage | Proceed with narrowed RC; keep measurement language subset-bounded |
+| Evidence completeness | PARTIAL | Deterministic-heavy evidence, four dry-run route-selectivity profiles, bounded H100 subset measurement, and bounded provider-path validation | No runtime-integrated route-selectivity workflow, broad workload coverage, or output-quality validation | Proceed with narrowed RC; keep measurement language subset-bounded |
 | Reproducibility | READY | Matrix fixtures parse with `jq`; evaluator emits JSON and Markdown outputs | Broader workload sampling is still pending | Add scripted regeneration wrapper if needed |
 | Claim boundary | READY | Claim boundary tables and generated output boundaries | Review required before future public announcements | Keep unsupported claims out of README and reports |
 | Public/private boundary | READY | Generated metrics contain public fixtures only | Raw private artifacts must remain out of public docs | Continue scan gates before PRs |
@@ -46,6 +46,23 @@ The current package now includes bounded H100 measurement for the GPU-selected p
 
 This supports only a subset-bounded measured-evidence statement. It does not support production, savings, provider, GPU-superiority, or broad workload claims.
 
+## Bounded Provider Path Status
+
+The current package now includes bounded commercial LLM API validation for the provider-selected public matrix subset:
+
+| Metric | Value |
+| --- | ---: |
+| Sample count | 3 |
+| Success count | 3 |
+| Failure count | 0 |
+| Latency min, ms | 1581.517 |
+| Latency median, ms | 1583.670 |
+| Latency max, ms | 3635.988 |
+| Input units/tokens total | 176 |
+| Output units/tokens total | 156 |
+
+This supports only a subset-bounded provider-path measured-evidence statement. It does not support production, savings, provider-cost, provider-superiority, broad provider benchmark, or replacement claims.
+
 ## Readiness Delta
 
 Improved since the prior planning state:
@@ -53,10 +70,11 @@ Improved since the prior planning state:
 - route-selectivity metrics moved from missing/planned to implemented as dry-run evidence.
 - reproducibility moved to READY for the public matrix path because generated JSON and Markdown outputs exist.
 - bounded H100 subset measurement moved from open gap to subset-bounded measured evidence.
-- evidence completeness remains PARTIAL because live provider validation, broader workload representativeness, and runtime-integrated route-selectivity are still open.
+- bounded provider-path validation moved from open gap to subset-bounded measured evidence.
+- evidence completeness remains PARTIAL because broader workload representativeness, output-quality validation, and runtime-integrated route-selectivity are still open.
 
 ## Current Recommendation
 
-Proceed with a narrowed KRK July 1 RC: package KRK as a deterministic-first routing kernel with deterministic-heavy evidence, four-profile dry-run route-selectivity evidence, bounded H100 routed-subset measurement, and explicit remaining evidence gaps.
+Proceed with a narrowed KRK July 1 RC: package KRK as a deterministic-first routing kernel with deterministic-heavy evidence, four-profile dry-run route-selectivity evidence, bounded H100 routed-subset measurement, bounded provider-path validation, and explicit remaining evidence gaps.
 
-The bounded H100 subset result improves the RC evidence package, but it must remain fixture-scoped and claim-bounded.
+The bounded H100 and provider-path results improve the RC evidence package, but both must remain fixture-scoped and claim-bounded.

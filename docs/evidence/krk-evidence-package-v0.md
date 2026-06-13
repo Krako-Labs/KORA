@@ -97,6 +97,29 @@ Generated summaries:
 
 This is a bounded H100 routed-subset measurement. It is not a production benchmark, provider benchmark, raw GPU benchmark, or broad workload superiority claim.
 
+### Provider-Routed Validation
+
+KRK now includes a bounded provider-path validation for the small provider-selected public matrix subset:
+
+| Metric | Value |
+| --- | ---: |
+| Sample count | 3 |
+| Success count | 3 |
+| Failure count | 0 |
+| Latency min, ms | 1581.517 |
+| Latency median, ms | 1583.670 |
+| Latency max, ms | 3635.988 |
+| Input units/tokens total | 176 |
+| Output units/tokens total | 156 |
+
+Generated summaries:
+
+- [KRK provider-routed validation v0](krk-provider-routed-validation-v0.md)
+- [Generated provider-routed validation JSON summary](generated/krk-provider-routed-validation-summary-v0.json)
+- [Generated provider-routed validation Markdown summary](generated/krk-provider-routed-validation-summary-v0.md)
+
+This is a bounded commercial LLM API path validation. It is not a production benchmark, provider benchmark, provider-cost benchmark, provider superiority claim, or replacement claim.
+
 ### Reproducibility Path
 
 Current reproducible local path:
@@ -130,4 +153,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, and a bounded H100 subset measurement for the GPU-selected public fixture items. It should be extended next with broader workload coverage, provider validation if included, and runtime-integrated evidence when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, a bounded H100 subset measurement for the GPU-selected public fixture items, and bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage and runtime-integrated evidence when public-safe.
