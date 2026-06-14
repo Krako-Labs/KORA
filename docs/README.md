@@ -24,6 +24,7 @@ KORA control layer architecture.
 - [KORA Public Language Guide](claims/kora-public-language-guide.md)
 - [Telemetry and observability counters](telemetry-and-observability.md#current-public-counters)
 - [Testing and validation strategy](testing-and-validation-strategy.md)
+- [Local validation reviewer packet](benchmarks/local-validation-reviewer-packet.md)
 - [Research agenda](research-agenda.md)
 - [Whitepaper](whitepaper.md)
 
