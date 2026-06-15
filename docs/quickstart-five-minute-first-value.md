@@ -13,28 +13,43 @@ The workflow runs four steps over committed public KRK fixtures:
 3. Run the public-safe KRK dry-run fixture workflow.
 4. Generate a report with route decisions and output-fidelity summary metrics.
 
-It requires no provider credentials, no GPU, and no network access.
+It requires no provider credentials, no GPU, and no network access after dependencies are installed.
+
+## Install
+
+From a fresh clone on a macOS/Linux-style shell:
+
+```bash
+git clone https://github.com/Krako-Labs/KORA.git
+cd KORA
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install -e .
+```
+
+KORA uses `pyproject.toml` packaging. The installed console script is `kora`, and the module entrypoint `python3 -m kora` remains available.
 
 ## Run
 
 From the repository root:
 
 ```bash
-python3 -m kora inspect
-python3 -m kora compare
-python3 -m kora run
-python3 -m kora report \
-  --json-out /tmp/kora-first-value.json \
-  --md-out /tmp/kora-first-value.md
-```
-
-If the package console script is installed in your environment, the equivalent commands are:
-
-```bash
 kora inspect
 kora compare
 kora run
 kora report \
+  --json-out /tmp/kora-first-value.json \
+  --md-out /tmp/kora-first-value.md
+```
+
+If you prefer the Python module form, the equivalent commands are:
+
+```bash
+python3 -m kora inspect
+python3 -m kora compare
+python3 -m kora run
+python3 -m kora report \
   --json-out /tmp/kora-first-value.json \
   --md-out /tmp/kora-first-value.md
 ```
@@ -56,6 +71,8 @@ Expected result:
 - dry-run execution success rate: `1.0000`.
 - unsafe misroute rate: `0.0000`.
 - acceptable output rate: `1.0000`.
+
+Goal 070C validated this editable-install path in a temporary clean virtual environment. Native Windows and WSL-specific validation are deferred.
 
 ## Inspect
 

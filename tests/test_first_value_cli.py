@@ -4,9 +4,16 @@ import json
 import os
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 from kora.cli import main as cli_main
+
+
+def test_pyproject_registers_kora_console_script() -> None:
+    data = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+
+    assert data["project"]["scripts"]["kora"] == "kora.cli:main"
 
 
 def _run_kora(*args: str) -> subprocess.CompletedProcess[str]:
