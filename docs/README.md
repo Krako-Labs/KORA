@@ -82,6 +82,7 @@ KORA control layer architecture.
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 - [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
 - [KRK July 1 RC decision package v0](reports/krk-july1-rc-decision-package-v0.md)
+- [KRK July 1 RC decision refresh v0](reports/krk-july1-rc-decision-refresh-v0.md)
 - [KRK July 1 RC final scope v0](reports/krk-july1-rc-final-scope-v0.md)
 - [KRK July 1 RC claim package v0](reports/krk-july1-rc-claim-package-v0.md)
 - [KRK July 1 RC public positioning v0](reports/krk-july1-rc-public-positioning-v0.md)

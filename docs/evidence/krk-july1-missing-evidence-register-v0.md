@@ -13,13 +13,14 @@ Status: refreshed after expanded H100 routed-subset evaluation attempt.
 | Runtime-integrated route-selectivity workflow | COMPLETE FOR DRY-RUN WORKFLOW PATH | Connects route decision, dry-run executor, evidence record, and route scoring | Dry-run only; no provider calls, GPU execution, production traffic, or output-quality validation | Supports bounded runtime-integrated dry-run route-selectivity statements only |
 | H100 bounded public evidence | COMPLETE FOR PUBLIC MATRIX GPU SUBSET | Separates route selection from actual bounded GPU-class measurement | Small fixture subset only; not production or broad benchmark evidence | Supports only bounded H100 routed-subset measurement statements |
 | Expanded H100 bounded public evidence | PREPARED BUT NOT MEASURED | Would expand GPU-routed path evidence beyond the initial 4-item subset | Safe CUDA/H100 runtime was unavailable in the current execution environment | Supports only a prepared-but-not-measured statement |
-| Provider validation | COMPLETE FOR EXPANDED PUBLIC MATRIX PROVIDER SUBSET | Tests provider-route selections against bounded commercial LLM API execution | Expanded sample remains bounded and synthetic; raw prompts and responses excluded | Supports only bounded provider-path validation statements |
+| Provider validation | COMPLETE FOR EXPANDED PUBLIC MATRIX PROVIDER SUBSET | Tests provider-route selections against bounded commercial LLM API execution | Expanded 12-call sample remains bounded and synthetic; raw prompts and responses excluded | Supports only bounded provider-path validation statements |
 
 ## Remaining Gaps
 
 | Missing evidence | Why it matters | Current blocker | Next action | Public claim impact |
 | --- | --- | --- | --- | --- |
 | Broader workload representativeness | Reduces overfitting to small alpha fixtures | Current matrix profiles are intentionally small | Add larger synthetic and service-replay profiles | Cannot claim broad workload superiority |
+| Expanded H100 measurement | Expands GPU-routed path evidence beyond the initial 4-item subset | Safe CUDA/H100 runtime was unavailable for Goal 055 | Rerun bounded expanded H100 evaluation later only in a safe runtime environment | Cannot claim expanded H100 runtime, throughput, or memory evidence |
 | Output quality validation | Measures whether selected routes produce acceptable task outputs | Current evaluator measures route selection only | Add quality rubric and sample validation later | Cannot claim task quality improvements |
 | Production workload proof | Tests behavior under real production workload conditions | Current evidence uses public fixtures and bounded validation paths | Add production-like methodology only after separate review | Cannot claim production readiness or production savings |
 

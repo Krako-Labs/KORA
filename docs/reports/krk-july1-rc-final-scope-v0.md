@@ -11,10 +11,13 @@ Status: final scoped package for July 1 RC decision.
 | Route-selectivity metrics | Four public dry-run matrix profiles with generated JSON and Markdown metrics. |
 | Four matrix profiles | mixed-realistic, GPU-heavy, cache-heavy, and adversarial public alpha fixtures. |
 | Dry-run evaluator | `python3 -m kora.matrix_evaluator` route-selectivity path using router-visible metadata and oracle labels after routing. |
-| Bounded H100 subset evidence | Public-safe bounded measurement for four GPU-selected public matrix items. |
+| Runtime-integrated dry-run route evaluation | Goal 053 executable dry-run workflow path with 18 evidence records, 100% acceptable route rate, 0% unsafe misroute rate, and 100% dry-run execution success rate. |
+| Bounded H100 subset evidence | Goal 050 public-safe bounded measurement for four GPU-selected public matrix items. |
+| Expanded H100 evaluation status | Goal 055 prepared expanded bounded H100 routed-subset evidence, but it was not run because safe CUDA/H100 runtime was unavailable. |
 | Bounded provider-routed validation | Public-safe bounded validation for three provider-selected public matrix items. |
+| Expanded provider-routed validation | Goal 054 public-safe expanded bounded provider validation for 12 provider-selected public matrix variants. |
 | Evidence package | Current KRK evidence package and performance table. |
-| Performance table | Current table summarizing deterministic-heavy, route-selectivity, H100 subset, and provider-path evidence. |
+| Performance table | Current table summarizing deterministic-heavy, route-selectivity, runtime-integrated dry-run, H100 subset, expanded H100 status, and provider-path evidence. |
 | Technical paper draft | Included as draft context only, not as a final paper submission claim. |
 | KORA Core roadmap | Included as roadmap direction for inspect, compare, run, and report workflow expansion. |
 
@@ -34,6 +37,6 @@ Status: final scoped package for July 1 RC decision.
 
 ## Final RC Scope Statement
 
-The July 1 RC scope is an evidence-centered KRK package. It demonstrates deterministic-first routing concepts with bounded deterministic-heavy evidence, four public dry-run matrix route-selectivity profiles, bounded H100-routed subset measurement, and bounded provider-routed validation.
+The July 1 RC scope is an evidence-centered KRK package. It demonstrates deterministic-first routing concepts with bounded deterministic-heavy evidence, four public dry-run matrix route-selectivity profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100-routed subset measurement from Goal 050, expanded bounded provider-routed validation from Goal 054, and a prepared-but-not-measured expanded H100 status from Goal 055.
 
 The RC does not claim production readiness, production savings, customer savings, infrastructure savings, H100 superiority, provider superiority, broad workload superiority, or replacement of existing model serving/provider routing systems.
