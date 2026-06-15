@@ -67,6 +67,30 @@ KRK now has dry-run route-selectivity metrics for four public alpha matrix profi
 
 These metrics evaluate selected routes against oracle labels without GPU execution or provider calls. They are benchmark-methodology evidence, not production evidence.
 
+### Runtime-Integrated Dry-Run Route Evaluation
+
+KRK now has runtime-integrated dry-run route-selectivity evidence over the four public matrix profiles. The workflow path is:
+
+request -> KRK route decision -> route-specific dry-run executor -> evidence record -> route-selectivity scoring -> report.
+
+| Metric | Value |
+| --- | ---: |
+| Total requests | 18 |
+| Exact route accuracy | 0.9444 |
+| Acceptable route rate | 1.0000 |
+| Unsafe misroute rate | 0.0000 |
+| Dry-run execution success rate | 1.0000 |
+| Evidence records created | 18 |
+| Error count | 0 |
+
+Generated evidence:
+
+- [KRK runtime-integrated route evaluation v0](krk-runtime-integrated-route-evaluation-v0.md)
+- [Generated runtime-integrated route evaluation JSON](generated/krk-runtime-integrated-route-evaluation-v0.json)
+- [Generated runtime-integrated route evaluation Markdown](generated/krk-runtime-integrated-route-evaluation-v0.md)
+
+This evidence is runtime-integrated only in the dry-run sense. It does not call providers, use GPU hardware, run H100 workloads, execute production traffic, or validate task output quality.
+
 ### GPU Subset Methodology
 
 The GPU-routed subset methodology is defined as a measurement plan. It evaluates whether KRK selects GPU-class compute only for workload items where it is justified by visible metadata and policy.
@@ -122,11 +146,12 @@ This is a bounded commercial LLM API path validation. It is not a production ben
 
 ### Reproducibility Path
 
-Current reproducible local path:
+Current reproducible local paths:
 
 ```bash
 python3 -m pytest
 python3 -m kora run runtime_integrated_benchmark -- --offline
+python3 -m kora.runtime_route_evaluator --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --json-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.json --md-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.md
 ```
 
 The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands. The bounded H100 subset summary is reproducible only in an H100-capable environment and should be regenerated through a controlled evidence task, not by committing raw logs.
@@ -153,4 +178,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, a bounded H100 subset measurement for the GPU-selected public fixture items, and bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage and runtime-integrated evidence when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, and bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger provider/GPU samples when public-safe.

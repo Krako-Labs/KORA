@@ -60,7 +60,42 @@ Generated outputs:
 - [cache-heavy metrics](generated/krk-cache-heavy-routing-metrics-v0.md)
 - [adversarial metrics](generated/krk-adversarial-routing-metrics-v0.md)
 
-## C. GPU-Routed Subset Evidence
+## C. Runtime-Integrated Dry-Run Route Evaluation
+
+The current public package includes a runtime-integrated dry-run route evaluation over the four public matrix profiles. It runs request, KRK route decision, route-specific dry-run executor, evidence record creation, route-selectivity scoring, and report generation.
+
+Scope:
+
+- dry-run executors only.
+- no provider calls.
+- no GPU execution.
+- no H100 workload execution.
+- no production traffic.
+
+| Field | Value |
+| --- | --- |
+| Total requests | 18 |
+| Route counts | deterministic 2, cache 3, CPU 2, provider 3, GPU 4, fallback 4 |
+| Executor counts | deterministic 2, cache 3, CPU 2, provider 3, GPU 4, fallback 4 |
+| Exact route accuracy | 0.9444 |
+| Acceptable route rate | 1.0000 |
+| Unsafe misroute rate | 0.0000 |
+| Safety fallback rate | 0.2222 |
+| Failure fallback rate | 0.0000 |
+| Error count | 0 |
+| Dry-run execution success rate | 1.0000 |
+| Evidence records created | 18 |
+| Claim level | `runtime_integrated_dry_run_route_selectivity_measured` |
+
+Generated summaries:
+
+- [KRK runtime-integrated route evaluation v0](krk-runtime-integrated-route-evaluation-v0.md)
+- [Generated runtime-integrated route evaluation JSON summary](generated/krk-runtime-integrated-route-evaluation-v0.json)
+- [Generated runtime-integrated route evaluation Markdown summary](generated/krk-runtime-integrated-route-evaluation-v0.md)
+
+This evidence supports only a runtime-integrated dry-run route-selectivity statement. It must not be generalized into production readiness, provider execution, GPU execution, savings, or broad workload claims.
+
+## D. GPU-Routed Subset Evidence
 
 Source methodology:
 
@@ -80,7 +115,7 @@ Public-safe summary:
 
 > KORA benchmarks when GPU-class compute should be used, not raw GPU usage.
 
-## D. H100 Bounded Measurement
+## E. H100 Bounded Measurement
 
 The current public package includes a sanitized bounded H100 measurement for the GPU-selected public matrix subset.
 
@@ -100,7 +135,7 @@ Generated summaries:
 
 This measurement is subset-bounded. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, provider superiority, GPU superiority, or broad workload superiority.
 
-## E. Provider-Routed Validation
+## F. Provider-Routed Validation
 
 The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
 
@@ -132,6 +167,7 @@ Supported:
 - The current alpha can produce reproducible evidence counters for the deterministic-heavy workload.
 - The KRK extended matrix methodology defines how future route-selectivity metrics should be measured.
 - KRK now has dry-run route-selectivity metrics over four public matrix profiles.
+- KRK now has runtime-integrated dry-run route-selectivity evidence over the four public matrix profiles.
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
 - KRK-selected provider-path items from the public matrix fixtures completed a bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 
