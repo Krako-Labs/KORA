@@ -1,0 +1,34 @@
+# KRK July 1 RC Public Positioning v0
+
+Status: public-safe positioning draft.
+
+## Positioning
+
+KRK is a deterministic-first routing kernel for AI workloads.
+
+KORA's goal is to make AI workloads routable. KRK evaluates when deterministic, cache, CPU, provider, GPU, or fallback paths should be used for a workload task.
+
+The July 1 RC is evidence-centered. It packages current public evidence for deterministic-heavy execution, dry-run route-selectivity across four public matrix profiles, bounded H100-routed subset measurement, and bounded provider-routed validation.
+
+The July 1 RC is not a production savings claim.
+
+## Public-Safe Summary
+
+KRK shows that AI workload routing can be measured as an execution-path decision problem. The current package includes public fixtures, generated route-selectivity metrics, bounded subset measurements, and explicit claim boundaries.
+
+## Use This Language
+
+- KRK is a deterministic-first routing kernel for AI workloads.
+- KORA makes AI workloads routable.
+- KRK evaluates deterministic, cache, CPU, provider, GPU, and fallback execution paths.
+- The July 1 RC is an evidence-centered package.
+- Current evidence is public-safe, fixture-scoped, and subset-bounded.
+
+## Avoid This Language
+
+- Do not say KRK is production-ready.
+- Do not say KRK proves production savings.
+- Do not say KRK proves customer savings.
+- Do not say KRK proves infrastructure savings.
+- Do not say KRK is superior to H100, providers, or existing routing systems.
+- Do not say KRK replaces model serving or provider routing systems.

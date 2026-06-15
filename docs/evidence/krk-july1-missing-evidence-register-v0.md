@@ -21,6 +21,12 @@ Status: refreshed after bounded provider-routed validation.
 | Broader workload representativeness | Reduces overfitting to small alpha fixtures | Current matrix profiles are intentionally small | Add larger synthetic and service-replay profiles | Cannot claim broad workload superiority |
 | Output quality validation | Measures whether selected routes produce acceptable task outputs | Current evaluator measures route selection only | Add quality rubric and sample validation later | Cannot claim task quality improvements |
 
+## July 1 RC Decision Impact
+
+The remaining gaps do not block a July 1 RC if the RC is explicitly scoped as GO WITH CAVEATS and limited to deterministic-heavy evidence, four public dry-run route-selectivity profiles, bounded H100-routed subset measurement, and bounded provider-routed validation.
+
+The remaining gaps do block any broader claim that KRK is production-ready, proves production savings, proves customer savings, proves broad workload superiority, proves H100 superiority, proves provider superiority, or replaces existing model serving/provider routing systems.
+
 ## Claim Boundary
 
 Current route-selectivity evidence supports bounded statements about dry-run route selection over four public matrix profiles. Current bounded H100 evidence supports only subset-bounded measured execution statements for the GPU-selected public fixture items. Current provider validation supports only subset-bounded provider-path statements for the provider-selected public fixture items. These results do not support savings, broad superiority, provider superiority, GPU superiority, replacement, or infrastructure claims.

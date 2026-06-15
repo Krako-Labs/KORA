@@ -1,6 +1,6 @@
 # KRK July 1 Readiness Scorecard v0
 
-Status: refreshed after bounded provider-routed validation.
+Status: refreshed for July 1 RC decision package.
 
 This scorecard is not a release announcement. It records readiness based on the current public repository state, generated dry-run matrix evidence, bounded H100 subset measurement, and bounded provider-path validation.
 
@@ -75,6 +75,8 @@ Improved since the prior planning state:
 
 ## Current Recommendation
 
-Proceed with a narrowed KRK July 1 RC: package KRK as a deterministic-first routing kernel with deterministic-heavy evidence, four-profile dry-run route-selectivity evidence, bounded H100 routed-subset measurement, bounded provider-path validation, and explicit remaining evidence gaps.
+Proceed with the KRK July 1 RC as GO WITH CAVEATS: package KRK as a deterministic-first routing kernel with deterministic-heavy evidence, four-profile dry-run route-selectivity evidence, bounded H100 routed-subset measurement, bounded provider-path validation, and explicit remaining evidence gaps.
 
 The bounded H100 and provider-path results improve the RC evidence package, but both must remain fixture-scoped and claim-bounded.
+
+The July 1 RC is not a production-readiness, production savings, customer savings, infrastructure savings, H100 superiority, provider superiority, broad workload superiority, or replacement claim.
