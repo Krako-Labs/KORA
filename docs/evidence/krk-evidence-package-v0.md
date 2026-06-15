@@ -101,6 +101,7 @@ Reference:
 
 - [KRK public evidence boundary v0](krk-public-evidence-boundary-v0.md)
 - [KRK bounded H100 evaluation v0](krk-bounded-h100-evaluation-v0.md)
+- [Goal 058C H100 bounded execution report](../reports/krk-goal058c-h100-bounded-execution-v0.md)
 
 ### Bounded GPU Measurement
 
@@ -121,9 +122,34 @@ Generated summaries:
 
 This is a bounded H100 routed-subset measurement. It is not a production benchmark, provider benchmark, raw GPU benchmark, or broad workload superiority claim.
 
+### Repo-Owned Bounded H100 Harness Measurement
+
+Goal 058C added a reusable repo-owned bounded H100 harness and measured a 24-operation fixture-derived H100-class run. The harness safely emits structured `not_run` output in no-CUDA environments and runs bounded CUDA tensor work only when CUDA is available.
+
+| Metric | Value |
+| --- | ---: |
+| Fixture count | 18 |
+| GPU-routed fixture count | 4 |
+| Operation count | 24 |
+| Success count | 24 |
+| Failure count | 0 |
+| Runtime seconds | 0.034976 |
+| Throughput, requests/second | 686.176591 |
+| Throughput, compute weight/second | 9949.560571 |
+| Peak bounded allocation MB | 24.0 |
+| CUDA device count | 2 |
+
+Generated summaries:
+
+- [Goal 058C H100 bounded execution report](../reports/krk-goal058c-h100-bounded-execution-v0.md)
+- [Generated Goal 058C H100 bounded JSON summary](generated/krk-goal058c-h100-bounded-execution-summary-v0.json)
+- [Generated Goal 058C H100 bounded Markdown summary](generated/krk-goal058c-h100-bounded-execution-summary-v0.md)
+
+This supersedes the prior repo-harness execution blocker for basic bounded H100 execution. It does not replace the historical Goal 055 `not_run` expanded evaluation result, and it does not support broad H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority claims.
+
 ### Expanded Bounded GPU Measurement
 
-An expanded bounded H100 routed-subset evaluation was prepared for Goal 055, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+An expanded bounded H100 routed-subset evaluation was prepared for Goal 055, but it was not run because a safe CUDA/H100 runtime was not available in that goal's execution environment.
 
 | Metric | Value |
 | --- | --- |
@@ -141,7 +167,7 @@ Generated summaries:
 - [Generated expanded H100 bounded JSON summary](generated/krk-expanded-h100-bounded-summary-v0.json)
 - [Generated expanded H100 bounded Markdown summary](generated/krk-expanded-h100-bounded-summary-v0.md)
 
-The existing 4-item bounded H100 subset remains the current measured H100 evidence. The expanded attempt is documented as a prepared but not measured evidence slot.
+The Goal 055 expanded attempt remains documented as a prepared but not measured historical evidence slot. Goal 058C now adds measured repo-owned bounded harness evidence, but broader expanded H100 representativeness remains open.
 
 ### Provider-Routed Validation
 
@@ -194,9 +220,10 @@ Current reproducible local paths:
 python3 -m pytest
 python3 -m kora run runtime_integrated_benchmark -- --offline
 python3 -m kora.runtime_route_evaluator --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --json-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.json --md-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.md
+python3 scripts/run_krk_h100_bounded.py --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --target-count 24 --json-out /tmp/krk-h100-bounded.json --md-out /tmp/krk-h100-bounded.md
 ```
 
-The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands. The bounded H100 subset summary is reproducible only in an H100-capable environment and should be regenerated through a controlled evidence task, not by committing raw logs.
+The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands. The bounded H100 harness is safe to run in no-CUDA environments, where it emits structured `not_run` output. Measured H100 summaries are reproducible only in a CUDA/H100-capable environment and should be regenerated through a controlled evidence task, not by committing raw logs.
 
 ## What Is Evidence
 
@@ -220,4 +247,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, a prepared-but-not-measured expanded H100 evaluation slot, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement for the GPU-selected public fixture items, repo-owned bounded H100 harness measurement from Goal 058C, a historical prepared-but-not-measured expanded H100 evaluation slot from Goal 055, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.

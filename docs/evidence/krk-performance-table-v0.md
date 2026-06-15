@@ -137,7 +137,7 @@ This measurement is subset-bounded. It must not be generalized into raw H100 per
 
 ## F. Expanded H100 Bounded Measurement
 
-Goal 055 prepared an expanded bounded H100 routed-subset evaluation, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+Goal 055 prepared an expanded bounded H100 routed-subset evaluation, but it was not run because a safe CUDA/H100 runtime was not available in that goal's execution environment.
 
 | Field | Value |
 | --- | --- |
@@ -158,7 +158,34 @@ Generated summaries:
 
 This prepared expanded evaluation does not add measured H100 runtime, throughput, or memory evidence.
 
-## G. Provider-Routed Validation
+## G. Repo-Owned Bounded H100 Harness Measurement
+
+Goal 058C added and ran a repo-owned bounded H100 harness against KRK-selected GPU fixture items. The harness emits structured `not_run` output when CUDA is unavailable and aggregate-only measured output when CUDA is available.
+
+| Field | Value |
+| --- | --- |
+| Fixture count | 18 |
+| GPU-routed fixture count | 4 |
+| Operation count | 24 |
+| Success count | 24 |
+| Failure count | 0 |
+| Runtime | 0.034976 seconds |
+| Throughput | 686.176591 requests/second |
+| Compute-weight throughput | 9949.560571 compute weight/second |
+| Memory | 24.0 MB peak bounded allocation |
+| CUDA device count | 2 |
+| CUDA device class | H100-class GPU |
+| Claim level | `bounded_h100_execution_measured` |
+
+Generated summaries:
+
+- [Goal 058C H100 bounded execution report](../reports/krk-goal058c-h100-bounded-execution-v0.md)
+- [Generated Goal 058C H100 bounded JSON summary](generated/krk-goal058c-h100-bounded-execution-summary-v0.json)
+- [Generated Goal 058C H100 bounded Markdown summary](generated/krk-goal058c-h100-bounded-execution-summary-v0.md)
+
+This measurement is repo-harness-backed and fixture-bounded. It does not replace the historical Goal 055 `not_run` expanded evaluation result and must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority.
+
+## H. Provider-Routed Validation
 
 The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
 
@@ -182,7 +209,7 @@ Generated summaries:
 
 This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
-## H. Expanded Provider-Routed Validation
+## I. Expanded Provider-Routed Validation
 
 The current public package also includes an expanded bounded commercial LLM API validation derived from provider-selected public matrix items.
 
@@ -218,6 +245,7 @@ Supported:
 - KRK now has runtime-integrated dry-run route-selectivity evidence over the four public matrix profiles.
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
 - KRK has a prepared expanded H100 routed-subset evaluation slot, but it has not been measured.
+- KRK now has repo-owned bounded H100 harness evidence for 24 fixture-derived GPU-routed operations, summarized with aggregate runtime, throughput, and memory metrics.
 - KRK-selected provider-path items from the public matrix fixtures completed bounded and expanded bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 
 Not supported:

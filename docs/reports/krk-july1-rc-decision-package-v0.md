@@ -6,7 +6,7 @@ Status: refreshed decision package for owner approval.
 
 Recommendation: GO WITH CAVEATS.
 
-KRK July 1 RC can proceed as an evidence-centered release-candidate package if the scope remains limited to deterministic-first routing evidence, four public dry-run matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100-routed subset measurement from Goal 050, prepared-but-not-measured expanded H100 evaluation from Goal 055, and expanded bounded provider-routed validation from Goal 054.
+KRK July 1 RC can proceed as an evidence-centered release-candidate package if the scope remains limited to deterministic-first routing evidence, four public dry-run matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100-routed subset measurement from Goal 050, repo-owned bounded H100 harness measurement from Goal 058C, historical prepared-but-not-measured expanded H100 evaluation from Goal 055, and expanded bounded provider-routed validation from Goal 054.
 
 This recommendation does not approve a release, tag, production-readiness claim, production savings claim, customer savings claim, provider superiority claim, GPU superiority claim, or broad workload superiority claim.
 
@@ -19,7 +19,8 @@ Reasons:
 - KRK now has route-selectivity evidence across four public dry-run matrix profiles.
 - KRK now has runtime-integrated dry-run route-selectivity evidence from Goal 053.
 - KRK now has bounded H100-routed subset evidence from Goal 050 for the public matrix GPU-selected items.
-- KRK has prepared expanded H100-routed subset evaluation from Goal 055, but it was not measured because safe runtime was unavailable.
+- KRK now has repo-owned bounded H100 harness measurement from Goal 058C for fixture-derived GPU-routed operations.
+- KRK has historical prepared expanded H100-routed subset evaluation from Goal 055, but it was not measured because safe runtime was unavailable in that goal.
 - KRK now has expanded bounded provider-routed validation from Goal 054 for the public matrix provider-selected items.
 - KRK still does not have production workload proof, customer proof, broad workload representativeness, or output-quality validation.
 
@@ -31,7 +32,8 @@ Reasons:
 | Route-selectivity | Four public dry-run profiles with 100% acceptable route rate and 0% unsafe misroute rate | Supports execution-path routing evidence over current public matrix profiles |
 | Runtime-integrated route-selectivity | Runtime-integrated dry-run workflow with 18 evidence records, 100% acceptable route rate, 0% unsafe misroute rate, and 100% dry-run execution success rate | Supports dry-run workflow-path route-selectivity evidence only |
 | H100 bounded subset | Four GPU-selected public matrix items measured in a bounded H100-class execution summary | Supports subset-bounded GPU-routed measurement only |
-| Expanded H100 bounded subset | Expanded evaluation prepared but not run because safe CUDA/H100 runtime was unavailable in the current execution environment | Supports only a prepared-but-not-measured statement |
+| Repo-owned H100 harness | Goal 058C measured 24 bounded fixture-derived GPU-routed operations with a reusable public harness | Supports repo-harness-backed bounded H100 measurement only |
+| Expanded H100 bounded subset | Goal 055 expanded evaluation prepared but not run because safe CUDA/H100 runtime was unavailable in that goal | Supports only a historical prepared-but-not-measured statement |
 | Provider-routed validation | Provider-selected public matrix items completed initial and expanded bounded commercial LLM API validation | Supports bounded provider-path validation only |
 | Claim boundary | Existing docs state unsupported claims directly | Supports public-safe RC packaging if wording stays narrow |
 
@@ -90,12 +92,14 @@ Evidence sources:
 
 - [KRK bounded H100 evaluation v0](../evidence/krk-bounded-h100-evaluation-v0.md)
 - [Generated H100 bounded JSON summary](../evidence/generated/krk-h100-bounded-summary-v0.json)
+- [Goal 058C H100 bounded execution report](krk-goal058c-h100-bounded-execution-v0.md)
+- [Generated Goal 058C H100 bounded execution JSON summary](../evidence/generated/krk-goal058c-h100-bounded-execution-summary-v0.json)
 - [KRK expanded bounded H100 evaluation v0](../evidence/krk-expanded-bounded-h100-evaluation-v0.md)
 - [Generated expanded H100 bounded JSON summary](../evidence/generated/krk-expanded-h100-bounded-summary-v0.json)
 
-Interpretation: KRK-selected GPU subset items from the public matrix fixtures have bounded H100-class measurement. This is not H100 superiority, broad GPU benchmark, infrastructure savings, or production performance proof.
+Interpretation: KRK-selected GPU subset items from the public matrix fixtures have bounded H100-class measurement, and Goal 058C adds repo-owned bounded harness evidence for 24 fixture-derived operations. This is not H100 superiority, broad GPU benchmark, infrastructure savings, customer savings, or production performance proof.
 
-Expanded H100 note: Goal 055 prepared the expanded bounded H100 evaluation, but did not run it because a safe CUDA/H100 runtime was not available. The existing 4-item bounded subset remains the current measured H100 evidence.
+Expanded H100 note: Goal 055 prepared the expanded bounded H100 evaluation, but did not run it because a safe CUDA/H100 runtime was not available in that goal. Goal 058C supersedes the basic repo-harness execution blocker with bounded measured harness evidence, but broader expanded H100 representativeness remains open.
 
 ## Provider-Routed Validation Evidence
 
@@ -142,7 +146,7 @@ Interpretation: KRK-selected provider-path items from the public matrix fixtures
 - Current matrix profiles are small alpha fixtures.
 - Output quality validation is not included.
 - Provider sample size is expanded to 12 successful bounded calls, but still bounded.
-- H100 subset size is small; expanded H100 evaluation is prepared but not measured.
+- H100 subset and harness samples are bounded; broader expanded H100 representativeness remains open.
 - CLI surface still has mismatch between planned top-level KRK commands and current available commands.
 - KORA Core inspect/compare/run/report workflow remains roadmap-level rather than fully implemented.
 
