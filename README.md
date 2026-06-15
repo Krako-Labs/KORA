@@ -137,6 +137,22 @@ python3 -m kora run direct_vs_kora -- --offline
 
 Inspect the output to see how KORA changes a direct model-first path into a controlled execution path.
 
+## Five-Minute First Value
+
+For the shortest current path from fresh clone to a public-safe KORA result, run:
+
+```bash
+python3 scripts/kora_five_minute_demo.py \
+  --json-out /tmp/kora-first-value.json \
+  --md-out /tmp/kora-first-value.md
+```
+
+This one-command workflow shows inspect, compare, run, and report steps over committed public KRK fixtures. It requires no provider credentials, no GPU, and no network access.
+
+Guide:
+
+- [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
+
 ## Local Setup Troubleshooting
 
 If first-run setup fails after a system restart, Python upgrade, VS Code interpreter change, or virtual environment change, start by collecting the active environment:

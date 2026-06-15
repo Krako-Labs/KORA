@@ -13,6 +13,7 @@ KORA Core is the planned open-source AI workload execution layer. The current pu
 - [Main README](../README.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
+- [KORA five-minute first-value quickstart](quickstart-five-minute-first-value.md)
 
 ## Understand
 
@@ -72,6 +73,7 @@ KORA control layer architecture.
 - [KRK Goal 058D H100 evidence package refresh v0](reports/krk-goal058d-h100-evidence-package-refresh-v0.md)
 - [KRK Goal 059 expanded H100 representativeness v0](reports/krk-goal059-expanded-h100-representativeness-v0.md)
 - [KRK Goal 060 baseline equivalence and output fidelity v0](reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
+- [KRK Goal 070A five-minute first value v0](reports/krk-goal070a-five-minute-first-value-v0.md)
 - [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
 - [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
 - [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
@@ -102,6 +104,7 @@ KORA control layer architecture.
 - [Generated KRK Goal 058C H100 bounded execution summary v0](evidence/generated/krk-goal058c-h100-bounded-execution-summary-v0.md)
 - [Generated KRK Goal 059 expanded H100 representativeness summary v0](evidence/generated/krk-goal059-expanded-h100-representativeness-summary-v0.md)
 - [Generated KRK Goal 060 output fidelity summary v0](evidence/generated/krk-goal060-output-fidelity-summary-v0.md)
+- [Generated KRK Goal 070A five-minute first-value summary v0](evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.md)
 - [Generated KRK expanded H100 bounded summary v0](evidence/generated/krk-expanded-h100-bounded-summary-v0.md)
 - [Generated KRK provider-routed validation summary v0](evidence/generated/krk-provider-routed-validation-summary-v0.md)
 - [Generated KRK expanded provider-routed validation summary v0](evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
