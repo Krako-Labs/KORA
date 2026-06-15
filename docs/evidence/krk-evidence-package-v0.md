@@ -121,6 +121,28 @@ Generated summaries:
 
 This is a bounded H100 routed-subset measurement. It is not a production benchmark, provider benchmark, raw GPU benchmark, or broad workload superiority claim.
 
+### Expanded Bounded GPU Measurement
+
+An expanded bounded H100 routed-subset evaluation was prepared for Goal 055, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+
+| Metric | Value |
+| --- | --- |
+| Expanded evaluation status | not run |
+| Subset count | 0 |
+| Success count | 0 |
+| Failure count | 0 |
+| Claim level | `expanded_h100_validation_not_run` |
+| Raw logs committed | false |
+| Private infrastructure details committed | false |
+
+Generated summaries:
+
+- [KRK expanded bounded H100 evaluation v0](krk-expanded-bounded-h100-evaluation-v0.md)
+- [Generated expanded H100 bounded JSON summary](generated/krk-expanded-h100-bounded-summary-v0.json)
+- [Generated expanded H100 bounded Markdown summary](generated/krk-expanded-h100-bounded-summary-v0.md)
+
+The existing 4-item bounded H100 subset remains the current measured H100 evidence. The expanded attempt is documented as a prepared but not measured evidence slot.
+
 ### Provider-Routed Validation
 
 KRK now includes bounded and expanded bounded provider-path validation for provider-selected public matrix items.
@@ -198,4 +220,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, a prepared-but-not-measured expanded H100 evaluation slot, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.

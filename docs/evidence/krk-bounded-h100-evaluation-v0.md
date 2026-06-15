@@ -51,6 +51,18 @@ Generated summaries:
 - [Generated H100 bounded JSON summary](generated/krk-h100-bounded-summary-v0.json)
 - [Generated H100 bounded Markdown summary](generated/krk-h100-bounded-summary-v0.md)
 
+## Expanded Evaluation Status
+
+Goal 055 prepared an expanded bounded H100 routed-subset evaluation, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+
+Expanded evaluation summaries:
+
+- [KRK expanded bounded H100 evaluation v0](krk-expanded-bounded-h100-evaluation-v0.md)
+- [Generated expanded H100 bounded JSON summary](generated/krk-expanded-h100-bounded-summary-v0.json)
+- [Generated expanded H100 bounded Markdown summary](generated/krk-expanded-h100-bounded-summary-v0.md)
+
+The initial 4-item bounded subset remains the current measured H100 evidence.
+
 ## What This Proves
 
 This supports a bounded statement that KRK-selected GPU subset items from the public matrix fixtures were executed in an H100-class environment and summarized with runtime, throughput, and memory measurements.

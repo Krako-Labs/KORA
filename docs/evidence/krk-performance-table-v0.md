@@ -135,7 +135,30 @@ Generated summaries:
 
 This measurement is subset-bounded. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, provider superiority, GPU superiority, or broad workload superiority.
 
-## F. Provider-Routed Validation
+## F. Expanded H100 Bounded Measurement
+
+Goal 055 prepared an expanded bounded H100 routed-subset evaluation, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+
+| Field | Value |
+| --- | --- |
+| Expanded evaluation status | not run |
+| Subset count | 0 |
+| Success count | 0 |
+| Failure count | 0 |
+| Runtime | N/A |
+| Throughput | N/A |
+| Memory | N/A |
+| Claim level | `expanded_h100_validation_not_run` |
+
+Generated summaries:
+
+- [KRK expanded bounded H100 evaluation v0](krk-expanded-bounded-h100-evaluation-v0.md)
+- [Generated expanded H100 bounded JSON summary](generated/krk-expanded-h100-bounded-summary-v0.json)
+- [Generated expanded H100 bounded Markdown summary](generated/krk-expanded-h100-bounded-summary-v0.md)
+
+This prepared expanded evaluation does not add measured H100 runtime, throughput, or memory evidence.
+
+## G. Provider-Routed Validation
 
 The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
 
@@ -159,7 +182,7 @@ Generated summaries:
 
 This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
-## G. Expanded Provider-Routed Validation
+## H. Expanded Provider-Routed Validation
 
 The current public package also includes an expanded bounded commercial LLM API validation derived from provider-selected public matrix items.
 
@@ -194,6 +217,7 @@ Supported:
 - KRK now has dry-run route-selectivity metrics over four public matrix profiles.
 - KRK now has runtime-integrated dry-run route-selectivity evidence over the four public matrix profiles.
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
+- KRK has a prepared expanded H100 routed-subset evaluation slot, but it has not been measured.
 - KRK-selected provider-path items from the public matrix fixtures completed bounded and expanded bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 
 Not supported:

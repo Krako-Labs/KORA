@@ -2,7 +2,7 @@
 
 Status: refreshed for July 1 RC decision package.
 
-This scorecard is not a release announcement. It records readiness based on the current public repository state, generated dry-run matrix evidence, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement, and expanded bounded provider-path validation.
+This scorecard is not a release announcement. It records readiness based on the current public repository state, generated dry-run matrix evidence, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement, a prepared-but-not-measured expanded H100 evaluation slot, and expanded bounded provider-path validation.
 
 ## Scorecard
 
@@ -11,7 +11,7 @@ This scorecard is not a release announcement. It records readiness based on the 
 | Product definition | READY | KRK definition, quickstart, architecture, capability matrix | Naming still needs repetition in contributor docs | Keep KRK/KORA Core/KORA hierarchy consistent |
 | CLI path | PARTIAL | Current CLI and quickstart docs describe available surfaces | KRK route/explain/benchmark/report are not all top-level commands on this base | Add or document exact command aliases in a future scoped task |
 | Docs completeness | READY | Product, architecture, evidence, paper, report, and readiness docs exist | Some docs are planning-level | Keep docs index current as evidence grows |
-| Evidence completeness | PARTIAL | Deterministic-heavy evidence, four dry-run route-selectivity profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement, and expanded bounded provider-path validation | No broad workload coverage, output-quality validation, or production workload proof | Proceed with narrowed RC; keep measurement language subset-bounded |
+| Evidence completeness | PARTIAL | Deterministic-heavy evidence, four dry-run route-selectivity profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement, prepared expanded H100 evaluation slot, and expanded bounded provider-path validation | No expanded H100 measurement, broad workload coverage, output-quality validation, or production workload proof | Proceed with narrowed RC; keep measurement language subset-bounded |
 | Reproducibility | READY | Matrix fixtures parse with `jq`; evaluator emits JSON and Markdown outputs | Broader workload sampling is still pending | Add scripted regeneration wrapper if needed |
 | Claim boundary | READY | Claim boundary tables and generated output boundaries | Review required before future public announcements | Keep unsupported claims out of README and reports |
 | Public/private boundary | READY | Generated metrics contain public fixtures only | Raw private artifacts must remain out of public docs | Continue scan gates before PRs |
@@ -62,6 +62,20 @@ The current package now includes bounded H100 measurement for the GPU-selected p
 
 This supports only a subset-bounded measured-evidence statement. It does not support production, savings, provider, GPU-superiority, or broad workload claims.
 
+## Expanded Bounded H100 Status
+
+Goal 055 prepared an expanded bounded H100 routed-subset evaluation, but it was not run because a safe CUDA/H100 runtime was not available in the current execution environment.
+
+| Metric | Value |
+| --- | --- |
+| Expanded evaluation run | no |
+| Subset count | 0 |
+| Success count | 0 |
+| Failure count | 0 |
+| Claim level | `expanded_h100_validation_not_run` |
+
+The existing 4-item bounded H100 subset remains the current measured H100 evidence. The expanded evaluation does not add runtime, throughput, memory, production, savings, GPU-superiority, or broad workload evidence.
+
 ## Bounded Provider Path Status
 
 The current package includes bounded and expanded bounded commercial LLM API validation for provider-selected public matrix items:
@@ -91,6 +105,7 @@ Improved since the prior planning state:
 - runtime-integrated dry-run route-selectivity moved from missing to measured evidence.
 - reproducibility moved to READY for the public matrix path because generated JSON and Markdown outputs exist.
 - bounded H100 subset measurement moved from open gap to subset-bounded measured evidence.
+- expanded H100 evidence is prepared but not measured because safe runtime was unavailable in the current execution environment.
 - bounded provider-path validation moved from open gap to subset-bounded measured evidence, then expanded from 3 to 12 bounded calls.
 - evidence completeness remains PARTIAL because broader workload representativeness, output-quality validation, and production workload proof are still open.
 

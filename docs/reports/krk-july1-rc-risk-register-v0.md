@@ -9,6 +9,7 @@ Status: July 1 RC risk register.
 | Output quality validation | Medium | Route selection is measured, but selected-route output quality is not validated | Add quality rubric and sample validation in a later evidence goal | No, if disclosed |
 | Provider sample remains bounded | Medium | Twelve expanded provider calls strengthen provider-path evidence but still do not support provider benchmarking or superiority claims | Keep provider claim to bounded completion and aggregate metadata only; expand workload diversity later | No, if disclosed |
 | H100 subset small | Medium | Four GPU-selected items are enough for bounded subset evidence but not broad GPU claims | Keep H100 claim subset-bounded; expand workloads later | No, if disclosed |
+| Expanded H100 evaluation not measured | Medium | Goal 055 prepared the expanded H100 routed-subset evidence slot but did not produce new runtime, throughput, or memory measurements | Rerun in a safe CUDA/H100-capable environment and commit only sanitized aggregate metrics | No, if disclosed |
 | Top-level CLI mismatch | Medium | Planned KRK top-level commands are not fully aligned with current available command surfaces | Document exact current commands and add aliases or wrappers in a future scoped task | No, if disclosed |
 | Future KORA Core implementation gap | High | Inspect, compare, run, and report remain roadmap direction rather than complete workflow implementation | Keep KORA Core language roadmap-scoped; implement workflow surfaces after RC | No, if disclosed |
 
