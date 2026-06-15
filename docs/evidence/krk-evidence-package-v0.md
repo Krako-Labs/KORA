@@ -123,7 +123,24 @@ This is a bounded H100 routed-subset measurement. It is not a production benchma
 
 ### Provider-Routed Validation
 
-KRK now includes a bounded provider-path validation for the small provider-selected public matrix subset:
+KRK now includes bounded and expanded bounded provider-path validation for provider-selected public matrix items.
+
+| Metric | Value |
+| --- | ---: |
+| Initial sample count | 3 |
+| Initial success count | 3 |
+| Initial failure count | 0 |
+| Expanded sample count | 12 |
+| Expanded success count | 12 |
+| Expanded failure count | 0 |
+| Expanded latency min, ms | 1418.283 |
+| Expanded latency median, ms | 2601.086 |
+| Expanded latency p95, ms | 5888.007 |
+| Expanded latency max, ms | 5888.007 |
+| Expanded input units/tokens total | 1102 |
+| Expanded output units/tokens total | 745 |
+
+Initial validation:
 
 | Metric | Value |
 | --- | ---: |
@@ -139,10 +156,13 @@ KRK now includes a bounded provider-path validation for the small provider-selec
 Generated summaries:
 
 - [KRK provider-routed validation v0](krk-provider-routed-validation-v0.md)
+- [KRK expanded provider-routed validation v0](krk-expanded-provider-routed-validation-v0.md)
 - [Generated provider-routed validation JSON summary](generated/krk-provider-routed-validation-summary-v0.json)
 - [Generated provider-routed validation Markdown summary](generated/krk-provider-routed-validation-summary-v0.md)
+- [Generated expanded provider-routed validation JSON summary](generated/krk-expanded-provider-routed-validation-summary-v0.json)
+- [Generated expanded provider-routed validation Markdown summary](generated/krk-expanded-provider-routed-validation-summary-v0.md)
 
-This is a bounded commercial LLM API path validation. It is not a production benchmark, provider benchmark, provider-cost benchmark, provider superiority claim, or replacement claim.
+This is bounded commercial LLM API path validation. It is not a production benchmark, provider benchmark, provider-cost benchmark, provider superiority claim, broad commercial LLM benchmark, or replacement claim.
 
 ### Reproducibility Path
 
@@ -178,4 +198,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, and bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger provider/GPU samples when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, a bounded H100 subset measurement for the GPU-selected public fixture items, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.

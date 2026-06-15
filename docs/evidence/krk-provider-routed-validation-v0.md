@@ -48,6 +48,16 @@ Generated summaries:
 - [Generated provider-routed validation JSON summary](generated/krk-provider-routed-validation-summary-v0.json)
 - [Generated provider-routed validation Markdown summary](generated/krk-provider-routed-validation-summary-v0.md)
 
+## Expanded Validation
+
+The provider-routed path now also has an expanded bounded validation with 12 live commercial LLM API calls, 12 successes, 0 failures, sanitized latency metadata, and token/unit totals.
+
+Reference:
+
+- [KRK expanded provider-routed validation v0](krk-expanded-provider-routed-validation-v0.md)
+- [Generated expanded provider-routed validation JSON summary](generated/krk-expanded-provider-routed-validation-summary-v0.json)
+- [Generated expanded provider-routed validation Markdown summary](generated/krk-expanded-provider-routed-validation-summary-v0.md)
+
 ## What This Proves
 
 This supports a bounded statement that KRK-selected provider-path items from the public matrix fixtures completed a small commercial LLM API validation and produced sanitized latency and token/unit metadata.

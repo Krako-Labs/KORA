@@ -159,6 +159,31 @@ Generated summaries:
 
 This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
+## G. Expanded Provider-Routed Validation
+
+The current public package also includes an expanded bounded commercial LLM API validation derived from provider-selected public matrix items.
+
+| Field | Value |
+| --- | --- |
+| Sample count | 12 |
+| Success count | 12 |
+| Failure count | 0 |
+| Latency min | 1418.283 ms |
+| Latency median | 2601.086 ms |
+| Latency p95 | 5888.007 ms |
+| Latency max | 5888.007 ms |
+| Input units/tokens total | 1102 |
+| Output units/tokens total | 745 |
+| Claim level | `expanded_bounded_provider_path_measured` |
+
+Generated summaries:
+
+- [KRK expanded provider-routed validation v0](krk-expanded-provider-routed-validation-v0.md)
+- [Generated expanded provider-routed validation JSON summary](generated/krk-expanded-provider-routed-validation-summary-v0.json)
+- [Generated expanded provider-routed validation Markdown summary](generated/krk-expanded-provider-routed-validation-summary-v0.md)
+
+This expanded validation strengthens the provider-routed evidence package, but it remains bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
+
 ## Claim Boundary
 
 Supported:
@@ -169,7 +194,7 @@ Supported:
 - KRK now has dry-run route-selectivity metrics over four public matrix profiles.
 - KRK now has runtime-integrated dry-run route-selectivity evidence over the four public matrix profiles.
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
-- KRK-selected provider-path items from the public matrix fixtures completed a bounded commercial LLM API validation with sanitized latency and token/unit metadata.
+- KRK-selected provider-path items from the public matrix fixtures completed bounded and expanded bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 
 Not supported:
 

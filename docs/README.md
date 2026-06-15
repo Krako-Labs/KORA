@@ -67,6 +67,7 @@ KORA control layer architecture.
 - [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
 - [KRK bounded H100 evaluation v0](evidence/krk-bounded-h100-evaluation-v0.md)
 - [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
+- [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
 - [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
 - [KRK multi-profile routing evaluation v0](evidence/krk-multi-profile-routing-evaluation-v0.md)
 - [KRK route-selectivity results v0](evidence/krk-route-selectivity-results-v0.md)
@@ -91,6 +92,7 @@ KORA control layer architecture.
 - [Generated KRK adversarial route-selectivity metrics v0](evidence/generated/krk-adversarial-routing-metrics-v0.md)
 - [Generated KRK H100 bounded summary v0](evidence/generated/krk-h100-bounded-summary-v0.md)
 - [Generated KRK provider-routed validation summary v0](evidence/generated/krk-provider-routed-validation-summary-v0.md)
+- [Generated KRK expanded provider-routed validation summary v0](evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
 - [Generated KRK runtime-integrated route evaluation v0](evidence/generated/krk-runtime-integrated-route-evaluation-v0.md)
 
 ## Reports
