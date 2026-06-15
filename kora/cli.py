@@ -10,6 +10,11 @@ import sys
 from pathlib import Path
 
 from kora.cost_model import compute_savings
+from kora.five_minute_first_value import (
+    build_five_minute_first_value,
+    render_markdown_summary as render_first_value_markdown,
+    write_outputs as write_first_value_outputs,
+)
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -127,22 +132,131 @@ def _print_summary(summary: dict) -> None:
         print("  - (none)")
 
 
+def _write_json_output(data: dict, path: str | None) -> None:
+    if not path:
+        return
+    output_path = Path(path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _print_inspect(step: dict) -> None:
+    print("KORA Inspect")
+    print("- execution paths:")
+    for route in step["available_execution_paths"]:
+        print(f"  - {route}")
+    print("- workload profiles:")
+    for profile in step["routable_workload_profiles"]:
+        print(f"  - {profile}")
+    env = step["environment_summary"]
+    print("- first-value requirements:")
+    print(f"  - provider credentials required: {str(env['provider_credentials_required']).lower()}")
+    print(f"  - GPU required: {str(env['gpu_required']).lower()}")
+    print(f"  - network required: {str(env['network_required']).lower()}")
+    print(f"  - execution mode: {env['execution_mode']}")
+
+
+def _print_compare(step: dict) -> None:
+    direct = step["direct_path"]
+    krk = step["krk_routed_path"]
+    opportunities = step["avoided_execution_opportunities"]
+    print("KORA Compare")
+    print(f"- direct path candidate invocations: {direct['candidate_invocations']}")
+    print("- KRK route counts:")
+    for route, count in krk["route_counts"].items():
+        print(f"  - {route}: {count}")
+    print(f"- provider/GPU route count: {krk['provider_or_gpu_route_count']}")
+    print(f"- local-or-guardrail route count: {krk['local_or_guardrail_route_count']}")
+    print(f"- avoided execution opportunities: {opportunities['count']} ({opportunities['rate']:.4f})")
+    print("- claim boundary: execution-path opportunity count, not a production savings claim")
+
+
+def _print_run(step: dict) -> None:
+    print("KORA Run")
+    print(f"- total requests: {step['total_requests']}")
+    print("- route counts:")
+    for route, count in step["route_counts"].items():
+        print(f"  - {route}: {count}")
+    print(f"- dry-run execution success rate: {step['dry_run_execution_success_rate']:.4f}")
+    print(f"- unsafe misroute rate: {step['unsafe_misroute_rate']:.4f}")
+    print(f"- error count: {step['error_count']}")
+    print(f"- provider calls performed: {str(step['provider_calls_performed']).lower()}")
+    print(f"- GPU execution performed: {str(step['gpu_execution_performed']).lower()}")
+
+
+def _run_first_value_step(step_id: str, *, json_out: str | None = None) -> int:
+    result = build_five_minute_first_value(command=f"kora {step_id}")
+    step = next(item for item in result["steps"] if item["step_id"] == step_id)
+    output = {
+        "schema_version": f"kora_{step_id}_v0",
+        "claim_level": result["claim_level"],
+        "final_classification": result["final_classification"],
+        "step": step,
+        "works_without_provider_credentials": result["works_without_provider_credentials"],
+        "works_without_gpu": result["works_without_gpu"],
+        "network_required": result["network_required"],
+        "claim_boundary": result["claim_boundary"],
+    }
+    if step_id == "inspect":
+        _print_inspect(step)
+    elif step_id == "compare":
+        _print_compare(step)
+    elif step_id == "run":
+        _print_run(step)
+    else:
+        raise ValueError(f"unsupported first-value step: {step_id}")
+    _write_json_output(output, json_out)
+    if json_out:
+        print(f"Saved JSON: {json_out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="kora.cli", description="KORA CLI")
+    parser = argparse.ArgumentParser(prog="kora", description="KORA CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     examples_parser = subparsers.add_parser("examples", help="list available runnable examples")
     examples_subparsers = examples_parser.add_subparsers(dest="examples_command", required=True)
     examples_subparsers.add_parser("list", help="list runnable examples")
 
+    inspect_parser = subparsers.add_parser(
+        "inspect",
+        help="inspect public-safe first-value execution paths",
+        description="Inspect the public-safe KORA first-value environment and available execution paths.",
+    )
+    inspect_parser.add_argument("--json-out", help="optional path for structured JSON output")
+
+    compare_parser = subparsers.add_parser(
+        "compare",
+        help="compare direct and KRK-routed public fixture behavior",
+        description="Compare direct model-candidate behavior with KRK-routed public fixture behavior.",
+    )
+    compare_parser.add_argument("--json-out", help="optional path for structured JSON output")
+
     run_parser = subparsers.add_parser(
         "run",
-        help="run an example",
-        description="Run an example. Use -- to pass arguments through to the example.\nExample: kora run direct_vs_kora -- --offline",
+        help="run the public-safe first-value fixture path or a named example",
+        description=(
+            "Run the public-safe first-value fixture path when no example is provided. "
+            "Use an example name plus -- to pass arguments through to an example.\n"
+            "Examples:\n"
+            "  kora run\n"
+            "  kora run --json-out /tmp/kora-run.json\n"
+            "  kora run direct_vs_kora -- --offline"
+        ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    run_parser.add_argument("example", help="example name under examples/")
+    run_parser.add_argument("example", nargs="?", help="optional example name under examples/")
+    run_parser.add_argument("--json-out", help="optional path for structured JSON output when no example is provided")
     run_parser.add_argument("example_args", nargs=argparse.REMAINDER, help="arguments passed to the example")
+
+    report_parser = subparsers.add_parser(
+        "report",
+        help="generate the public-safe first-value report",
+        description="Generate JSON and Markdown reports for the public-safe first-value workflow.",
+    )
+    report_parser.add_argument("--json-out", required=True, help="output path for JSON report")
+    report_parser.add_argument("--md-out", required=True, help="output path for Markdown report")
 
     studio_parser = subparsers.add_parser(
         "studio",
@@ -170,11 +284,28 @@ def main(argv: list[str] | None = None) -> int:
         _print_examples_list()
         return 0
 
+    if args.command == "inspect":
+        return _run_first_value_step("inspect", json_out=args.json_out)
+
+    if args.command == "compare":
+        return _run_first_value_step("compare", json_out=args.json_out)
+
     if args.command == "run":
+        if args.example is None:
+            return _run_first_value_step("run", json_out=args.json_out)
         extra_args = list(args.example_args)
         if extra_args and extra_args[0] == "--":
             extra_args = extra_args[1:]
         return _run_example(args.example, extra_args)
+
+    if args.command == "report":
+        command = f"kora report --json-out {args.json_out} --md-out {args.md_out}"
+        result = build_five_minute_first_value(command=command)
+        write_first_value_outputs(result, json_out=Path(args.json_out), md_out=Path(args.md_out))
+        print(render_first_value_markdown(result))
+        print(f"Saved JSON: {args.json_out}")
+        print(f"Saved Markdown: {args.md_out}")
+        return 0
 
     if args.command == "studio":
         if args.status:

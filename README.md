@@ -142,12 +142,15 @@ Inspect the output to see how KORA changes a direct model-first path into a cont
 For the shortest current path from fresh clone to a public-safe KORA result, run:
 
 ```bash
-python3 scripts/kora_five_minute_demo.py \
+python3 -m kora inspect
+python3 -m kora compare
+python3 -m kora run
+python3 -m kora report \
   --json-out /tmp/kora-first-value.json \
   --md-out /tmp/kora-first-value.md
 ```
 
-This one-command workflow shows inspect, compare, run, and report steps over committed public KRK fixtures. It requires no provider credentials, no GPU, and no network access.
+This workflow shows inspect, compare, run, and report steps over committed public KRK fixtures. It requires no provider credentials, no GPU, and no network access. The compatibility wrapper `python3 scripts/kora_five_minute_demo.py` remains available for one-command execution.
 
 Guide:
 

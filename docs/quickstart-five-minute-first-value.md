@@ -20,6 +20,28 @@ It requires no provider credentials, no GPU, and no network access.
 From the repository root:
 
 ```bash
+python3 -m kora inspect
+python3 -m kora compare
+python3 -m kora run
+python3 -m kora report \
+  --json-out /tmp/kora-first-value.json \
+  --md-out /tmp/kora-first-value.md
+```
+
+If the package console script is installed in your environment, the equivalent commands are:
+
+```bash
+kora inspect
+kora compare
+kora run
+kora report \
+  --json-out /tmp/kora-first-value.json \
+  --md-out /tmp/kora-first-value.md
+```
+
+Compatibility wrapper:
+
+```bash
 python3 scripts/kora_five_minute_demo.py \
   --json-out /tmp/kora-first-value.json \
   --md-out /tmp/kora-first-value.md
@@ -87,7 +109,7 @@ This quickstart demonstrates local first value over public fixtures. It does not
 
 ## Next Interface Direction
 
-The wrapper is intentionally simple. Future official commands should expose the same flow as:
+The first official CLI surface now exposes the same flow as:
 
 ```bash
 kora inspect
@@ -96,4 +118,4 @@ kora run
 kora report
 ```
 
-Until those commands exist, `scripts/kora_five_minute_demo.py` is the public-safe first-value path.
+The current implementation keeps `scripts/kora_five_minute_demo.py` as a compatibility wrapper. Future work should polish install-package ergonomics, command output formatting, and user-provided workload selection.
