@@ -9,12 +9,13 @@ Status: July 1 RC risk register.
 | Output quality validation | Medium | Route selection is measured, but selected-route output quality is not validated | Add quality rubric and sample validation in a later evidence goal | No, if disclosed |
 | Provider sample remains bounded | Low | Twelve expanded provider calls strengthen provider-path evidence and reduce the initial sample-size concern, but still do not support provider benchmarking or superiority claims | Keep provider claim to bounded completion and aggregate metadata only; expand workload diversity later | No, if disclosed |
 | H100 subset small | Medium | Four GPU-selected items are enough for bounded subset evidence but not broad GPU claims | Keep H100 claim subset-bounded; expand workloads later | No, if disclosed |
-| Expanded H100 evaluation not measured | Medium | Goal 055 prepared the expanded H100 routed-subset evidence slot but did not produce new runtime, throughput, or memory measurements | Rerun in a safe CUDA/H100-capable environment and commit only sanitized aggregate metrics | No, if disclosed |
+| Expanded H100 evaluation not measured | Medium | Goal 055 prepared the expanded H100 routed-subset evidence slot but did not produce new runtime, throughput, or memory measurements | Use the Goal 057 runtime recovery plan; rerun in a safe CUDA/H100-capable environment and commit only sanitized aggregate metrics | No, if disclosed |
+| H100 runtime environment readiness | Medium | Local worktree runtime cannot execute CUDA/H100 workloads, and the reachable private H100 path needs a CUDA-capable Python measurement environment prepared | Execute Goal 058 only after `nvidia-smi` and `torch.cuda.is_available()` pass in the private runtime | No, if disclosed |
 | Top-level CLI mismatch | Medium | Planned KRK top-level commands are not fully aligned with current available command surfaces | Document exact current commands and add aliases or wrappers in a future scoped task | No, if disclosed |
 | Future KORA Core implementation gap | High | Inspect, compare, run, and report remain roadmap direction rather than complete workflow implementation | Keep KORA Core language roadmap-scoped; implement workflow surfaces after RC | No, if disclosed |
 
 ## RC Risk Posture
 
-The July 1 RC can proceed with caveats because the major gaps are claim-boundary and scope risks rather than blockers to publishing the current bounded evidence package. The provider sample-size risk is lower after the 12-call bounded validation, while expanded H100 measurement remains open.
+The July 1 RC can proceed with caveats because the major gaps are claim-boundary and scope risks rather than blockers to publishing the current bounded evidence package. The provider sample-size risk is lower after the 12-call bounded validation, while expanded H100 measurement remains open and now has a runtime recovery plan.
 
 The RC should not proceed if the intended public message requires production readiness, production savings, customer savings, broad workload superiority, H100 superiority, provider superiority, or replacement claims.
