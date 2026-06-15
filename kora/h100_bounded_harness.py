@@ -14,13 +14,17 @@ from kora.route_selectivity_metrics import POLICIES, route_request_from_item, va
 
 CLAIM_LEVEL_MEASURED = "bounded_h100_execution_measured"
 CLAIM_LEVEL_NOT_RUN = "h100_cuda_unavailable_not_run"
+CLASSIFICATION_MEASURED = "BOUNDED_H100_EXECUTION_MEASURED"
+CLASSIFICATION_EXPANDED_MEASURED = "EXPANDED_H100_REPRESENTATIVENESS_MEASURED"
+CLASSIFICATION_BLOCKED = "EXPANDED_H100_EXECUTION_BLOCKED"
 CLAIM_BOUNDARY = (
     "Bounded KRK-selected GPU fixture execution only. This output does not claim "
     "production savings, customer savings, infrastructure savings, H100 superiority, "
     "GPU superiority, broad workload superiority, production readiness, or provider replacement."
 )
 DEFAULT_TARGET_COUNT = 24
-MAX_TARGET_COUNT = 50
+EXPANDED_TARGET_COUNT = 100
+MAX_TARGET_COUNT = 200
 
 
 @dataclass(frozen=True)
@@ -30,6 +34,21 @@ class BoundedOperation:
     workload_class: str
     compute_weight: float
     operation_index: int
+
+
+def _empty_profile_summary(profile: str) -> dict[str, Any]:
+    return {
+        "workload_profile": profile,
+        "fixture_count": 0,
+        "gpu_routed_count": 0,
+        "operation_count": 0,
+        "success_count": 0,
+        "failure_count": 0,
+        "total_compute_weight": 0.0,
+        "runtime_seconds": 0.0,
+        "throughput_requests_per_second": 0.0,
+        "throughput_compute_weight_per_second": 0.0,
+    }
 
 
 def _compute_weight(item: dict[str, Any]) -> float:
@@ -69,6 +88,32 @@ def collect_gpu_routed_items(matrix_paths: list[Path], *, policy_id: str = "KRK"
                 }
             )
     return selected
+
+
+def matrix_fixture_counts(matrix_paths: list[Path]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for matrix_path in matrix_paths:
+        matrix = load_matrix(matrix_path)
+        profile = str(matrix["profile_id"])
+        counts[profile] = counts.get(profile, 0) + len(matrix["items"])
+    return counts
+
+
+def initialize_profile_summaries(
+    matrix_paths: list[Path],
+    gpu_items: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    summaries = {
+        profile: _empty_profile_summary(profile)
+        for profile in matrix_fixture_counts(matrix_paths)
+    }
+    for profile, count in matrix_fixture_counts(matrix_paths).items():
+        summaries[profile]["fixture_count"] = count
+    for item in gpu_items:
+        profile = str(item["workload_profile"])
+        summaries.setdefault(profile, _empty_profile_summary(profile))
+        summaries[profile]["gpu_routed_count"] += 1
+    return summaries
 
 
 def build_bounded_operations(
@@ -130,6 +175,7 @@ def _unavailable_result(
 ) -> dict[str, Any]:
     return {
         "schema_version": "krk_h100_bounded_harness_v0",
+        "final_classification": CLASSIFICATION_BLOCKED,
         "claim_level": CLAIM_LEVEL_NOT_RUN,
         "run_status": "not_run",
         "blocker": blocker,
@@ -153,9 +199,11 @@ def _unavailable_result(
         },
         "source": {
             "matrix_files": [path.as_posix() for path in matrix_paths],
+            "workload_profiles": sorted(matrix_fixture_counts(matrix_paths)),
             "policy_id": "KRK",
             "subset_source": "public_krk_matrix_gpu_routed_items",
         },
+        "profile_summaries": initialize_profile_summaries(matrix_paths, gpu_items),
         "reproducibility": {
             "repo_commit": repo_commit_value if repo_commit_value is not None else repo_commit(),
         },
@@ -176,6 +224,7 @@ def execute_bounded_h100(
 ) -> dict[str, Any]:
     fixture_count = sum(len(load_matrix(path)["items"]) for path in matrix_paths)
     gpu_items = collect_gpu_routed_items(matrix_paths)
+    profile_summaries = initialize_profile_summaries(matrix_paths, gpu_items)
     operations = build_bounded_operations(gpu_items, target_count=target_count)
 
     if not operations:
@@ -220,6 +269,11 @@ def execute_bounded_h100(
 
     for operation in operations:
         total_compute_weight += operation.compute_weight
+        profile_summary = profile_summaries.setdefault(
+            operation.workload_profile,
+            _empty_profile_summary(operation.workload_profile),
+        )
+        profile_start = time.perf_counter()
         elements = int(min(2_097_152, max(262_144, operation.compute_weight * 131_072)))
         iterations = int(min(32, max(4, operation.compute_weight)))
         tensor = torch_module.full((elements,), 0.5, device=device)
@@ -228,15 +282,38 @@ def execute_bounded_h100(
         _ = float(tensor.mean().item())
         torch_module.cuda.synchronize()
         del tensor
+        profile_runtime = time.perf_counter() - profile_start
+        profile_summary["operation_count"] += 1
+        profile_summary["success_count"] += 1
+        profile_summary["total_compute_weight"] += operation.compute_weight
+        profile_summary["runtime_seconds"] += profile_runtime
 
     torch_module.cuda.synchronize()
     runtime_seconds = time.perf_counter() - start
     peak_allocation_mb = torch_module.cuda.max_memory_allocated() / (1024 * 1024)
     context_after_mb = torch_module.cuda.memory_reserved() / (1024 * 1024)
     operation_count = len(operations)
+    for summary in profile_summaries.values():
+        summary["total_compute_weight"] = round(float(summary["total_compute_weight"]), 6)
+        summary["runtime_seconds"] = round(float(summary["runtime_seconds"]), 6)
+        runtime = float(summary["runtime_seconds"])
+        operations_for_profile = int(summary["operation_count"])
+        compute_weight = float(summary["total_compute_weight"])
+        summary["throughput_requests_per_second"] = (
+            round(operations_for_profile / runtime, 6) if runtime else 0.0
+        )
+        summary["throughput_compute_weight_per_second"] = (
+            round(compute_weight / runtime, 6) if runtime else 0.0
+        )
+    final_classification = (
+        CLASSIFICATION_EXPANDED_MEASURED
+        if operation_count >= EXPANDED_TARGET_COUNT
+        else CLASSIFICATION_MEASURED
+    )
 
     return {
         "schema_version": "krk_h100_bounded_harness_v0",
+        "final_classification": final_classification,
         "claim_level": CLAIM_LEVEL_MEASURED,
         "run_status": "measured",
         "fixture_count": fixture_count,
@@ -257,9 +334,11 @@ def execute_bounded_h100(
         "cuda": status,
         "source": {
             "matrix_files": [path.as_posix() for path in matrix_paths],
+            "workload_profiles": sorted(matrix_fixture_counts(matrix_paths)),
             "policy_id": "KRK",
             "subset_source": "public_krk_matrix_gpu_routed_items",
         },
+        "profile_summaries": dict(sorted(profile_summaries.items())),
         "reproducibility": {
             "repo_commit": repo_commit_value if repo_commit_value is not None else repo_commit(),
             "target_count": target_count,
@@ -283,6 +362,7 @@ def render_markdown_summary(result: dict[str, Any]) -> str:
         "## Run Summary",
         "",
         f"- run status: `{result['run_status']}`",
+        f"- final classification: `{result['final_classification']}`",
         f"- claim level: `{result['claim_level']}`",
         f"- fixture count: `{result['fixture_count']}`",
         f"- GPU-routed fixture count: `{result['gpu_routed_count']}`",
@@ -306,6 +386,20 @@ def render_markdown_summary(result: dict[str, Any]) -> str:
         f"- CUDA context after MB: `{result['memory']['cuda_context_after_mb']}`",
         "",
     ]
+    if result.get("profile_summaries"):
+        lines.extend([
+            "## Profile Summary",
+            "",
+            "| Profile | Fixtures | GPU-routed fixtures | Operations | Successes | Failures | Runtime seconds | Requests/sec | Compute-weight/sec |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ])
+        for summary in result["profile_summaries"].values():
+            lines.append(
+                "| {workload_profile} | {fixture_count} | {gpu_routed_count} | {operation_count} | "
+                "{success_count} | {failure_count} | {runtime_seconds} | "
+                "{throughput_requests_per_second} | {throughput_compute_weight_per_second} |".format(**summary)
+            )
+        lines.append("")
     if result["run_status"] != "measured":
         lines.extend(["## Blocker", "", str(result.get("blocker", "not measured")), ""])
     lines.extend(["## Claim Boundary", "", CLAIM_BOUNDARY, ""])

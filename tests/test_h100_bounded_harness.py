@@ -5,6 +5,8 @@ from pathlib import Path
 
 from kora.h100_bounded_harness import (
     CLAIM_BOUNDARY,
+    CLASSIFICATION_BLOCKED,
+    CLASSIFICATION_EXPANDED_MEASURED,
     CLAIM_LEVEL_NOT_RUN,
     build_bounded_operations,
     collect_gpu_routed_items,
@@ -64,6 +66,7 @@ def test_execute_bounded_h100_no_cuda_returns_not_run_result() -> None:
     )
 
     assert result["schema_version"] == "krk_h100_bounded_harness_v0"
+    assert result["final_classification"] == CLASSIFICATION_BLOCKED
     assert result["claim_level"] == CLAIM_LEVEL_NOT_RUN
     assert result["run_status"] == "not_run"
     assert result["fixture_count"] == 18
@@ -72,6 +75,13 @@ def test_execute_bounded_h100_no_cuda_returns_not_run_result() -> None:
     assert result["cuda"]["cuda_available"] is False
     assert result["public_boundary"]["raw_logs_committed"] is False
     assert "private" not in json.dumps(result["source"]).lower()
+    assert result["source"]["workload_profiles"] == [
+        "GPU-heavy",
+        "adversarial",
+        "cache-heavy",
+        "mixed-realistic",
+    ]
+    assert result["profile_summaries"]["mixed-realistic"]["gpu_routed_count"] == 1
 
 
 def test_render_markdown_summary_preserves_claim_boundary() -> None:
@@ -112,5 +122,15 @@ def test_h100_bounded_cli_writes_json_and_markdown(tmp_path: Path) -> None:
     saved = json.loads(json_out.read_text(encoding="utf-8"))
     markdown = md_out.read_text(encoding="utf-8")
     assert saved["schema_version"] == "krk_h100_bounded_harness_v0"
+    assert saved["final_classification"] == CLASSIFICATION_BLOCKED
     assert saved["gpu_routed_count"] == 4
     assert "# KRK H100 Bounded Harness Summary v0" in markdown
+
+
+def test_build_bounded_operations_allows_expanded_representativeness_target() -> None:
+    items = collect_gpu_routed_items(MATRIX_PATHS)
+    operations = build_bounded_operations(items, target_count=100)
+
+    assert len(operations) == 100
+    assert operations[-1].workload_profile == "cache-heavy"
+    assert CLASSIFICATION_EXPANDED_MEASURED == "EXPANDED_H100_REPRESENTATIVENESS_MEASURED"
