@@ -147,6 +147,31 @@ Generated summaries:
 
 This supersedes the prior repo-harness execution blocker for basic bounded H100 execution. It does not replace the historical Goal 055 `not_run` expanded evaluation result, and it does not support broad H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority claims.
 
+### Expanded H100 Representativeness Measurement
+
+Goal 059 measured a bounded multi-profile H100 representativeness run using the repo-owned harness and public fixture-derived GPU-routed workload items.
+
+| Metric | Value |
+| --- | ---: |
+| Fixture count | 18 |
+| GPU-routed fixture count | 4 |
+| Operation count | 100 |
+| Success count | 100 |
+| Failure count | 0 |
+| Runtime seconds | 0.054051 |
+| Throughput, requests/second | 1850.090914 |
+| Throughput, compute weight/second | 26826.318247 |
+| Peak bounded allocation MB | 24.0 |
+| CUDA device count | 2 |
+
+Generated summaries:
+
+- [Goal 059 expanded H100 representativeness report](../reports/krk-goal059-expanded-h100-representativeness-v0.md)
+- [Generated Goal 059 expanded H100 JSON summary](generated/krk-goal059-expanded-h100-representativeness-summary-v0.json)
+- [Generated Goal 059 expanded H100 Markdown summary](generated/krk-goal059-expanded-h100-representativeness-summary-v0.md)
+
+This moves the H100 evidence state from basic bounded repo-owned harness execution to bounded multi-profile H100 representativeness over public fixture-derived GPU-routed operations. It does not support production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority claims.
+
 ### Expanded Bounded GPU Measurement
 
 An expanded bounded H100 routed-subset evaluation was prepared for Goal 055, but it was not run because a safe CUDA/H100 runtime was not available in that goal's execution environment.
@@ -212,6 +237,33 @@ Generated summaries:
 
 This is bounded commercial LLM API path validation. It is not a production benchmark, provider benchmark, provider-cost benchmark, provider superiority claim, broad commercial LLM benchmark, or replacement claim.
 
+### Baseline Equivalence and Output Fidelity
+
+Goal 060 adds a deterministic, reviewer-facing baseline-equivalence and output-fidelity evaluator over the four public matrix profiles. The evaluator compares public fixture-derived baseline output contracts with KRK-routed output contracts. It uses deterministic rule-based comparison only and does not call providers, use GPU execution, inspect private logs, or use a semantic model judge.
+
+| Metric | Value |
+| --- | ---: |
+| Total evaluated items | 18 |
+| Baseline success count | 18 |
+| KRK success count | 18 |
+| Exact match count | 17 |
+| Structured equivalent count | 1 |
+| Semantic equivalent count | 0 |
+| Degraded count | 0 |
+| Failed count | 0 |
+| Exact match rate | 0.9444 |
+| Acceptable output rate | 1.0000 |
+| Degradation rate | 0.0000 |
+| Failure rate | 0.0000 |
+
+Generated summaries:
+
+- [Goal 060 baseline equivalence and output fidelity report](../reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
+- [Generated Goal 060 output fidelity JSON summary](generated/krk-goal060-output-fidelity-summary-v0.json)
+- [Generated Goal 060 output fidelity Markdown summary](generated/krk-goal060-output-fidelity-summary-v0.md)
+
+This supports a public fixture-derived output-fidelity statement only. It does not support semantic-model-judge validation, production output quality, production readiness, production cost reduction, customer savings, energy reduction, real API/GPU cost reduction, provider superiority, H100 superiority, or broad workload superiority claims.
+
 ### Reproducibility Path
 
 Current reproducible local paths:
@@ -221,6 +273,7 @@ python3 -m pytest
 python3 -m kora run runtime_integrated_benchmark -- --offline
 python3 -m kora.runtime_route_evaluator --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --json-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.json --md-out docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.md
 python3 scripts/run_krk_h100_bounded.py --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --target-count 24 --json-out /tmp/krk-h100-bounded.json --md-out /tmp/krk-h100-bounded.md
+python3 scripts/run_krk_output_fidelity.py --matrix examples/workloads/krk-mixed-routing-matrix-alpha.json --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-cache-heavy-routing-matrix-alpha.json --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --json-out docs/evidence/generated/krk-goal060-output-fidelity-summary-v0.json --md-out docs/evidence/generated/krk-goal060-output-fidelity-summary-v0.md
 ```
 
 The runtime evidence reviewer guide contains the current expected counters and optional generated evidence commands. The bounded H100 harness is safe to run in no-CUDA environments, where it emits structured `not_run` output. Measured H100 summaries are reproducible only in a CUDA/H100-capable environment and should be regenerated through a controlled evidence task, not by committing raw logs.
@@ -247,4 +300,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement for the GPU-selected public fixture items, repo-owned bounded H100 harness measurement from Goal 058C, a historical prepared-but-not-measured expanded H100 evaluation slot from Goal 055, and expanded bounded provider-path validation for the provider-selected public fixture items. It should be extended next with broader workload coverage, output-quality validation, and larger GPU samples when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement for the GPU-selected public fixture items, repo-owned bounded H100 harness measurement from Goal 058C, expanded bounded H100 representativeness evidence from Goal 059, a historical prepared-but-not-measured expanded H100 evaluation slot from Goal 055, expanded bounded provider-path validation for the provider-selected public fixture items, and deterministic public fixture-derived output-fidelity evidence from Goal 060. It should be extended next with broader workload coverage, live semantic or human-graded output-quality validation, and larger GPU samples when public-safe.

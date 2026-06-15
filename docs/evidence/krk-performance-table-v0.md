@@ -185,7 +185,35 @@ Generated summaries:
 
 This measurement is repo-harness-backed and fixture-bounded. It does not replace the historical Goal 055 `not_run` expanded evaluation result and must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority.
 
-## H. Provider-Routed Validation
+## H. Expanded H100 Representativeness Measurement
+
+Goal 059 measured a bounded multi-profile H100 representativeness run using public fixture-derived GPU-routed operations through the repo-owned harness.
+
+| Field | Value |
+| --- | --- |
+| Fixture count | 18 |
+| GPU-routed fixture count | 4 |
+| Operation count | 100 |
+| Success count | 100 |
+| Failure count | 0 |
+| Runtime | 0.054051 seconds |
+| Throughput | 1850.090914 requests/second |
+| Compute-weight throughput | 26826.318247 compute weight/second |
+| Memory | 24.0 MB peak bounded allocation |
+| CUDA device count | 2 |
+| CUDA device class | H100-class GPU |
+| Claim level | `bounded_h100_execution_measured` |
+| Final classification | `EXPANDED_H100_REPRESENTATIVENESS_MEASURED` |
+
+Generated summaries:
+
+- [Goal 059 expanded H100 representativeness report](../reports/krk-goal059-expanded-h100-representativeness-v0.md)
+- [Generated Goal 059 expanded H100 JSON summary](generated/krk-goal059-expanded-h100-representativeness-summary-v0.json)
+- [Generated Goal 059 expanded H100 Markdown summary](generated/krk-goal059-expanded-h100-representativeness-summary-v0.md)
+
+This measurement is bounded and fixture-derived. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority.
+
+## I. Provider-Routed Validation
 
 The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
 
@@ -209,7 +237,7 @@ Generated summaries:
 
 This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
-## I. Expanded Provider-Routed Validation
+## J. Expanded Provider-Routed Validation
 
 The current public package also includes an expanded bounded commercial LLM API validation derived from provider-selected public matrix items.
 
@@ -234,6 +262,35 @@ Generated summaries:
 
 This expanded validation strengthens the provider-routed evidence package, but it remains bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
+## K. Baseline Equivalence and Output Fidelity
+
+Goal 060 measured deterministic public fixture-derived baseline equivalence and output fidelity over the four public matrix profiles.
+
+| Field | Value |
+| --- | --- |
+| Total evaluated items | 18 |
+| Baseline success count | 18 |
+| KRK success count | 18 |
+| Exact match count | 17 |
+| Structured equivalent count | 1 |
+| Semantic equivalent count | 0 |
+| Degraded count | 0 |
+| Failed count | 0 |
+| Exact match rate | 0.9444 |
+| Acceptable output rate | 1.0000 |
+| Degradation rate | 0.0000 |
+| Failure rate | 0.0000 |
+| Claim level | `baseline_equivalence_output_fidelity_measured` |
+| Final classification | `BASELINE_EQUIVALENCE_OUTPUT_FIDELITY_MEASURED` |
+
+Generated summaries:
+
+- [Goal 060 baseline equivalence and output fidelity report](../reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
+- [Generated Goal 060 output fidelity JSON summary](generated/krk-goal060-output-fidelity-summary-v0.json)
+- [Generated Goal 060 output fidelity Markdown summary](generated/krk-goal060-output-fidelity-summary-v0.md)
+
+This measurement uses deterministic rule-based comparison against committed public matrix fixtures. It does not use a semantic model judge and must not be generalized into production output quality, production readiness, production cost reduction, customer savings, energy reduction, real API/GPU cost reduction, provider superiority, H100 superiority, or broad workload superiority.
+
 ## Claim Boundary
 
 Supported:
@@ -246,7 +303,9 @@ Supported:
 - KRK-selected GPU subset items from the public matrix fixtures were executed in a bounded H100 evaluation and summarized with runtime, throughput, and memory measurements.
 - KRK has a prepared expanded H100 routed-subset evaluation slot, but it has not been measured.
 - KRK now has repo-owned bounded H100 harness evidence for 24 fixture-derived GPU-routed operations, summarized with aggregate runtime, throughput, and memory metrics.
+- KRK now has bounded multi-profile H100 representativeness evidence for 100 public fixture-derived GPU-routed operations through the repo-owned harness.
 - KRK-selected provider-path items from the public matrix fixtures completed bounded and expanded bounded commercial LLM API validation with sanitized latency and token/unit metadata.
+- KRK now has deterministic public fixture-derived baseline-equivalence and output-fidelity evidence over the four public matrix profiles.
 
 Not supported:
 
@@ -255,3 +314,4 @@ Not supported:
 - broad workload superiority.
 - infrastructure savings.
 - provider or router replacement claims.
+- production output quality or semantic-model-judge validation.
