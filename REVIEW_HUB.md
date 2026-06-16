@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 071.
+Last updated by: Goal 072.
 
 ## Project Identity
 
@@ -16,7 +16,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - public truth branch: `origin/main`
 - active evidence branch: `goal044_krk_route_selectivity_metrics_plan`
 - worktree label: `goal044_krk_route_selectivity_metrics_plan`
-- current commit when this hub was created: `8c4f178`
+- base commit before Goal 072 update: `ed62698`
 
 ## Current State Summary
 
@@ -31,6 +31,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - expanded H100 representativeness measurement.
 - baseline equivalence and output-fidelity evaluation.
 - install-validated local first-value CLI workflow.
+- reusable Project Operating System templates, prompts, and adoption standard.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -53,6 +54,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 070B | Added official `kora inspect`, `kora compare`, `kora run`, and `kora report` CLI surface. | [KRK Goal 070B official CLI surface](docs/reports/krk-goal070b-official-cli-surface-v0.md) |
 | Goal 070C | Validated editable-install first-value CLI path in a clean macOS/Linux-style environment. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 | Goal 071 | Added this project breadcrumb and documentation operating standard. | [KRK Goal 071 project breadcrumb standard](docs/reports/krk-goal071-project-breadcrumb-standard-v0.md) |
+| Goal 072 | Extracted the breadcrumb and review-hub pattern into a reusable Project Operating System package. | [KRK Goal 072 project operating system extraction](docs/reports/krk-goal072-project-operating-system-extraction-v0.md) |
 
 ## Evidence Index
 
@@ -79,12 +81,17 @@ Generated summaries:
 Current reviewer path:
 
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
+- [Project Operating System](docs/project-operating-system/README.md)
 - [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md)
 - [KRK Goal 070B official CLI surface](docs/reports/krk-goal070b-official-cli-surface-v0.md)
 - [KRK Goal 070A five-minute first value](docs/reports/krk-goal070a-five-minute-first-value-v0.md)
 
 Current evidence path:
 
+- [Project Operating Standard v0](docs/project-operating-system/project-operating-standard-v0.md)
+- [Project initialization prompt](docs/project-operating-system/prompts/project-initialization-prompt.md)
+- [Project gap analysis prompt](docs/project-operating-system/prompts/project-gap-analysis-prompt.md)
+- [Project documentation refresh prompt](docs/project-operating-system/prompts/project-doc-refresh-prompt.md)
 - [KRK Goal 060 baseline equivalence and output fidelity](docs/reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
 - [KRK Goal 059 expanded H100 representativeness](docs/reports/krk-goal059-expanded-h100-representativeness-v0.md)
 - [KRK Goal 058C H100 bounded execution](docs/reports/krk-goal058c-h100-bounded-execution-v0.md)
@@ -100,6 +107,7 @@ Supported:
 - KRK can route public fixture workloads across deterministic, cache, CPU, provider, GPU, and fallback paths.
 - KORA has a public-safe first-value CLI path using `kora inspect`, `kora compare`, `kora run`, and `kora report`.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
+- KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
 Not supported:
 
@@ -171,13 +179,14 @@ Expected public fixture result:
 - broader provider validation without exposing raw responses or private metadata.
 - larger H100 samples that remain bounded and public-safe.
 - published package and wheel validation.
+- applying the Project Operating System to a second project and verifying the templates work outside KORA.
 
 ## Recommended Next Goals
 
-1. Goal 072 - Keep Breadcrumbs Current During PR Readiness.
-2. Goal 073 - Public Reviewer Packet From Review Hub.
-3. Goal 074 - Wheel and Source Distribution Smoke Validation.
-4. Goal 075 - Broader Public Workload Coverage Plan.
+1. Goal 073 - Apply Project Operating System To A Second Project.
+2. Goal 074 - Public Reviewer Packet From Review Hub.
+3. Goal 075 - Wheel and Source Distribution Smoke Validation.
+4. Goal 076 - Broader Public Workload Coverage Plan.
 
 ## How To Resume With ChatGPT
 

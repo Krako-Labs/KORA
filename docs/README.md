@@ -67,6 +67,8 @@ KORA control layer architecture.
 
 - [Project Documentation Operating Standard](runbooks/project-documentation-operating-standard.md)
 - [ADR-001 project breadcrumb and review hub standard](adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
+- [Project Operating System](project-operating-system/README.md)
+- [Project Operating Standard v0](project-operating-system/project-operating-standard-v0.md)
 
 ## Evidence
 
@@ -84,6 +86,7 @@ KORA control layer architecture.
 - [KRK Goal 070B official CLI surface v0](reports/krk-goal070b-official-cli-surface-v0.md)
 - [KRK Goal 070C first-value install packaging v0](reports/krk-goal070c-first-value-install-packaging-v0.md)
 - [KRK Goal 071 project breadcrumb standard v0](reports/krk-goal071-project-breadcrumb-standard-v0.md)
+- [KRK Goal 072 project operating system extraction v0](reports/krk-goal072-project-operating-system-extraction-v0.md)
 - [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
 - [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
 - [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
