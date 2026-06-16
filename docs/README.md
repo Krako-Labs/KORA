@@ -88,6 +88,8 @@ KORA control layer architecture.
 - [KRK Goal 071 project breadcrumb standard v0](reports/krk-goal071-project-breadcrumb-standard-v0.md)
 - [KRK Goal 072 project operating system extraction v0](reports/krk-goal072-project-operating-system-extraction-v0.md)
 - [KRK Goal 073 project operating system validation v0](reports/krk-goal073-project-operating-system-validation-v0.md)
+- [KRK Goal 074 PR readiness merge packet v0](reports/krk-goal074-pr-readiness-merge-packet-v0.md)
+- [KRK Goal 074 PR draft body v0](reports/krk-goal074-pr-draft-body-v0.md)
 - [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
 - [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
 - [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)

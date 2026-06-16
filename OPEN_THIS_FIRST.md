@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 070C revalidation.
+Last updated by: Goal 074.
 
 ## Current Status
 
@@ -17,25 +17,36 @@ Current state:
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
+- the active branch has a public-safe PR readiness packet with caveats.
 
 ## Current Branch
 
 - branch: `goal044_krk_route_selectivity_metrics_plan`
 - public truth: `origin/main`
-- base commit before Goal 070C revalidation: `f84756e`
+- base commit before Goal 074 readiness packet: `a4c0f83`
 
 ## Last Completed Goal
 
-Goal 070C - First-value CLI install and packaging polish revalidation.
+Goal 074 - KORA PR readiness and public-safe merge packet.
 
-Goal 070C revalidated the fresh macOS/Linux-style editable-install first-value path after the Project Operating System updates. The package entrypoint remained registered as `kora = "kora.cli:main"`, and no packaging code change was required.
+Goal 074 inspected the active branch against `origin/main`, validated tests, generated JSON, documentation links, public/private boundaries, claim boundaries, and breadcrumbs, then produced a public-safe PR readiness packet and PR draft body.
 
 Primary report:
 
+- [KRK Goal 074 PR readiness merge packet v0](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md)
+- [KRK Goal 074 PR draft body v0](docs/reports/krk-goal074-pr-draft-body-v0.md)
+
+Readiness classification:
+
+- `READY_FOR_PR_WITH_CAVEATS`
+
+Previous completed technical Goal: Goal 070C - First-value CLI install and packaging polish revalidation.
+
+Goal 070C revalidated the fresh macOS/Linux-style editable-install first-value path after the Project Operating System updates. The package entrypoint remained registered as `kora = "kora.cli:main"`, and no packaging code change was required.
+
+Goal 070C report and evidence:
+
 - [KRK Goal 070C first-value install packaging v0](docs/reports/krk-goal070c-first-value-install-packaging-v0.md)
-
-Primary evidence:
-
 - [Generated Goal 070C first-value install packaging summary](docs/evidence/generated/krk-goal070c-first-value-install-packaging-summary-v0.md)
 
 Previous completed documentation Goal: Goal 073 - Project Operating System validation on KORA.
@@ -95,14 +106,13 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 074 - Apply Project Operating System To Permea.
+Goal 075 - Open KRK evidence and first-value PR.
 
 Recommended scope:
 
-- use the extracted templates and prompts on a second project.
-- keep public/private boundaries explicit.
-- do not copy private operational context into public docs.
-- verify that the KORA-validated continuation pattern works outside KORA.
+- open a PR from `goal044_krk_route_selectivity_metrics_plan` into `main`.
+- use the Goal 074 PR draft body.
+- do not add new evidence or broaden claims during PR creation.
 
 ## How To Continue
 
