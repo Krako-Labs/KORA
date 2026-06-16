@@ -1,0 +1,162 @@
+{
+  "claim_boundary": "Five-minute first-value workflow evidence only. This output demonstrates a local inspect, compare, run, and report path over committed public fixtures. It does not claim production adoption, production readiness, production cost reduction, customer savings, provider superiority, H100 superiority, broad workload superiority, or real API/GPU cost reduction.",
+  "claim_level": "five_minute_first_value_public_safe_demo",
+  "commands_required": 1,
+  "estimated_time_to_first_value_label": "approximately five minutes",
+  "estimated_time_to_first_value_minutes": 5,
+  "evidence_summary": {
+    "acceptable_output_rate": 1.0,
+    "dry_run_execution_success_rate": 1.0,
+    "output_degraded_count": 0,
+    "output_exact_match_count": 17,
+    "output_failed_count": 0,
+    "output_structured_equivalent_count": 1,
+    "output_total_evaluated_items": 18,
+    "runtime_total_requests": 18,
+    "unsafe_misroute_rate": 0.0
+  },
+  "final_classification": "FIVE_MINUTE_FIRST_VALUE_PATH_MEASURED",
+  "first_value_definition": "fresh clone to local inspect, compare, run, and report over public fixtures",
+  "generated_outputs": {
+    "json_summary": "docs/evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.json",
+    "markdown_summary": "docs/evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.md"
+  },
+  "network_required": false,
+  "onboarding_metrics": {
+    "commands_required": 1,
+    "estimated_time_to_first_value_minutes": 5,
+    "generated_outputs": 2,
+    "required_user_decisions": 0,
+    "step_count": 4
+  },
+  "profile_counts": {
+    "GPU-heavy": 4,
+    "adversarial": 4,
+    "cache-heavy": 4,
+    "mixed-realistic": 6
+  },
+  "reproducibility": {
+    "command": "python3 scripts/kora_five_minute_demo.py --json-out docs/evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.json --md-out docs/evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.md",
+    "repo_commit": "ac832a4f758094828d5123b216f6e6ae4a19ade9"
+  },
+  "required_user_decisions": 0,
+  "route_counts": {
+    "CPU": 2,
+    "GPU": 4,
+    "cache": 3,
+    "deterministic": 2,
+    "fallback": 4,
+    "provider": 3
+  },
+  "schema_version": "krk_five_minute_first_value_v0",
+  "source": {
+    "matrix_files": [
+      "examples/workloads/krk-mixed-routing-matrix-alpha.json",
+      "examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json",
+      "examples/workloads/krk-cache-heavy-routing-matrix-alpha.json",
+      "examples/workloads/krk-adversarial-routing-matrix-alpha.json"
+    ],
+    "reuse": [
+      "kora.runtime_route_evaluator.evaluate_runtime_routes",
+      "kora.output_fidelity.evaluate_output_fidelity"
+    ]
+  },
+  "step_count": 4,
+  "steps": [
+    {
+      "available_execution_paths": [
+        "deterministic",
+        "cache",
+        "CPU",
+        "provider",
+        "GPU",
+        "fallback"
+      ],
+      "environment_summary": {
+        "execution_mode": "local_public_fixture_dry_run",
+        "gpu_required": false,
+        "network_required": false,
+        "provider_credentials_required": false,
+        "python_version": "3.13.5"
+      },
+      "routable_workload_profiles": [
+        "mixed-realistic",
+        "GPU-heavy",
+        "cache-heavy",
+        "adversarial"
+      ],
+      "status": "completed",
+      "step_id": "inspect",
+      "title": "Inspect available KORA execution paths",
+      "total_fixture_items": 18
+    },
+    {
+      "avoided_execution_opportunities": {
+        "count": 11,
+        "definition": "items routed to deterministic, cache, CPU, or fallback paths instead of provider/GPU-class paths",
+        "rate": 0.6111111111111112
+      },
+      "direct_path": {
+        "candidate_invocations": 18,
+        "description": "single model-candidate path for every public fixture item"
+      },
+      "krk_routed_path": {
+        "local_or_guardrail_route_count": 11,
+        "provider_or_gpu_route_count": 7,
+        "route_counts": {
+          "CPU": 2,
+          "GPU": 4,
+          "cache": 3,
+          "deterministic": 2,
+          "fallback": 4,
+          "provider": 3
+        }
+      },
+      "status": "completed",
+      "step_id": "compare",
+      "title": "Compare direct path with KRK-routed path"
+    },
+    {
+      "dry_run_execution_success_rate": 1.0,
+      "error_count": 0,
+      "executor_counts": {
+        "CPU": 2,
+        "GPU": 4,
+        "cache": 3,
+        "deterministic": 2,
+        "fallback": 4,
+        "provider": 3
+      },
+      "gpu_execution_performed": false,
+      "provider_calls_performed": false,
+      "route_counts": {
+        "CPU": 2,
+        "GPU": 4,
+        "cache": 3,
+        "deterministic": 2,
+        "fallback": 4,
+        "provider": 3
+      },
+      "status": "completed",
+      "step_id": "run",
+      "title": "Run public-safe KRK fixture workflow",
+      "total_requests": 18,
+      "unsafe_misroute_rate": 0.0
+    },
+    {
+      "acceptable_output_rate": 1.0,
+      "degraded_count": 0,
+      "exact_match_count": 17,
+      "failed_count": 0,
+      "status": "completed",
+      "step_id": "report",
+      "structured_equivalent_count": 1,
+      "title": "Generate route and output-fidelity summary",
+      "total_evaluated_items": 18
+    }
+  ],
+  "total_fixture_items": 18,
+  "workflow_name": "KORA Five-Minute First Value Path",
+  "works_without_gpu": true,
+  "works_without_provider_credentials": true
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": "krk_h100_bounded_summary_v0",
+  "generated_at_utc": "2026-06-13T17:00:00Z",
+  "claim_level": "bounded_h100_routed_subset_measured",
+  "execution_mode": "bounded_h100_routed_subset_cuda_execution",
+  "subset_count": 4,
+  "total_compute_weight": 58,
+  "runtime_seconds": 0.035312,
+  "throughput_requests_per_second": 113.277481,
+  "throughput_compute_weight_per_second": 1642.523477,
+  "memory": {
+    "gpu_class": "H100",
+    "gpu_count_visible": 2,
+    "total_memory_mb": 81007.938,
+    "bounded_workload_peak_allocation_mb": 240.0,
+    "cuda_context_memory_used_mb_before": 525.062,
+    "cuda_context_memory_used_mb_after": 525.062
+  },
+  "source": {
+    "subset_source": "public_krk_matrix_gpu_routed_items",
+    "profiles": [
+      "GPU-heavy",
+      "cache-heavy",
+      "mixed-realistic"
+    ],
+    "route_selection": "GPU-expected public matrix items selected after KRK route-selectivity evaluation"
+  },
+  "results": [
+    {
+      "request_id": "cache-003",
+      "workload_profile": "cache-heavy",
+      "workload_class": "cache-miss-complex",
+      "selected_route": "GPU",
+      "expected_route": "GPU",
+      "compute_weight": 10,
+      "elements": 8388608,
+      "iterations": 48,
+      "runtime_seconds": 0.001931
+    },
+    {
+      "request_id": "gpu-001",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "large-batch-generation",
+      "selected_route": "GPU",
+      "expected_route": "GPU",
+      "compute_weight": 16,
+      "elements": 16777216,
+      "iterations": 80,
+      "runtime_seconds": 0.006089
+    },
+    {
+      "request_id": "gpu-002",
+      "workload_profile": "GPU-heavy",
+      "workload_class": "multimodal-transform",
+      "selected_route": "GPU",
+      "expected_route": "GPU",
+      "compute_weight": 20,
+      "elements": 20971520,
+      "iterations": 72,
+      "runtime_seconds": 0.006761
+    },
+    {
+      "request_id": "mixed-004",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "large-batch-embedding-like",
+      "selected_route": "GPU",
+      "expected_route": "GPU",
+      "compute_weight": 12,
+      "elements": 12582912,
+      "iterations": 64,
+      "runtime_seconds": 0.003739
+    }
+  ],
+  "public_boundary": {
+    "raw_logs_committed": false,
+    "infrastructure_identifiers_included": false,
+    "server_or_ip_included": false,
+    "ssh_details_included": false,
+    "private_resource_details_included": false
+  },
+  "claim_boundary": {
+    "production_savings_claimed": false,
+    "customer_savings_claimed": false,
+    "gpu_superiority_claimed": false,
+    "provider_superiority_claimed": false,
+    "broad_workload_superiority_claimed": false
+  }
+}

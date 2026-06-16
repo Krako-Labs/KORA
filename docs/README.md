@@ -11,8 +11,11 @@ KORA Core is the planned open-source AI workload execution layer. The current pu
 ## Start
 
 - [Main README](../README.md)
+- [Open this first](../OPEN_THIS_FIRST.md)
+- [Review hub](../REVIEW_HUB.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
+- [KORA five-minute first-value quickstart](quickstart-five-minute-first-value.md)
 
 ## Understand
 
@@ -42,6 +45,7 @@ KORA control layer architecture.
 - [KORA Core report definition v0](product/kora-core-report-definition-v0.md)
 - [KRK quickstart v0](product/krk-quickstart-v0.md)
 - [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
+- [KRK July 1 readiness scorecard v0](product/krk-july1-readiness-scorecard-v0.md)
 - [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
 - [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
 
@@ -51,19 +55,79 @@ KORA control layer architecture.
 - [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
 - [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
 
+## Implementation
+
+- [KRK route-selectivity metrics implementation plan v0](implementation/krk-route-selectivity-metrics-implementation-plan-v0.md)
+- [KRK matrix evaluator design v0](implementation/krk-matrix-evaluator-design-v0.md)
+- [KRK oracle label contract v0](implementation/krk-oracle-label-contract-v0.md)
+- [KRK route metrics schema v0](implementation/krk-route-metrics-schema-v0.md)
+- [KRK Goal 045 task breakdown v0](implementation/krk-goal045-task-breakdown-v0.md)
+
+## Runbooks And ADRs
+
+- [Project Documentation Operating Standard](runbooks/project-documentation-operating-standard.md)
+- [ADR-001 project breadcrumb and review hub standard](adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
+- [Project Operating System](project-operating-system/README.md)
+- [Project Operating Standard v0](project-operating-system/project-operating-standard-v0.md)
+
 ## Evidence
 
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
 - [KRK performance table v0](evidence/krk-performance-table-v0.md)
 - [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK bounded H100 evaluation v0](evidence/krk-bounded-h100-evaluation-v0.md)
+- [KRK expanded bounded H100 evaluation v0](evidence/krk-expanded-bounded-h100-evaluation-v0.md)
+- [KRK H100 runtime recovery plan v0](evidence/krk-h100-runtime-recovery-plan-v0.md)
+- [KRK Goal 058C H100 bounded execution v0](reports/krk-goal058c-h100-bounded-execution-v0.md)
+- [KRK Goal 058D H100 evidence package refresh v0](reports/krk-goal058d-h100-evidence-package-refresh-v0.md)
+- [KRK Goal 059 expanded H100 representativeness v0](reports/krk-goal059-expanded-h100-representativeness-v0.md)
+- [KRK Goal 060 baseline equivalence and output fidelity v0](reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
+- [KRK Goal 070A five-minute first value v0](reports/krk-goal070a-five-minute-first-value-v0.md)
+- [KRK Goal 070B official CLI surface v0](reports/krk-goal070b-official-cli-surface-v0.md)
+- [KRK Goal 070C first-value install packaging v0](reports/krk-goal070c-first-value-install-packaging-v0.md)
+- [KRK Goal 071 project breadcrumb standard v0](reports/krk-goal071-project-breadcrumb-standard-v0.md)
+- [KRK Goal 072 project operating system extraction v0](reports/krk-goal072-project-operating-system-extraction-v0.md)
+- [KRK Goal 073 project operating system validation v0](reports/krk-goal073-project-operating-system-validation-v0.md)
+- [KRK Goal 074 PR readiness merge packet v0](reports/krk-goal074-pr-readiness-merge-packet-v0.md)
+- [KRK Goal 074 PR draft body v0](reports/krk-goal074-pr-draft-body-v0.md)
+- [KRK Goal 075 PR open v0](reports/krk-goal075-pr-open-v0.md)
+- [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
+- [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
+- [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
+- [KRK multi-profile routing evaluation v0](evidence/krk-multi-profile-routing-evaluation-v0.md)
+- [KRK route-selectivity results v0](evidence/krk-route-selectivity-results-v0.md)
 - [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
 - [KRK claim boundary table v0](evidence/krk-claim-boundary-table-v0.md)
 - [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
 - [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
 - [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
 - [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
+- [KRK July 1 missing evidence register v0](evidence/krk-july1-missing-evidence-register-v0.md)
 - [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
 - [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
+- [KRK July 1 RC decision package v0](reports/krk-july1-rc-decision-package-v0.md)
+- [KRK July 1 RC decision refresh v0](reports/krk-july1-rc-decision-refresh-v0.md)
+- [KRK July 1 RC final scope v0](reports/krk-july1-rc-final-scope-v0.md)
+- [KRK July 1 RC claim package v0](reports/krk-july1-rc-claim-package-v0.md)
+- [KRK July 1 RC public positioning v0](reports/krk-july1-rc-public-positioning-v0.md)
+- [KRK July 1 RC risk register v0](reports/krk-july1-rc-risk-register-v0.md)
+- [KRK July 1 RC next actions v0](reports/krk-july1-rc-next-actions-v0.md)
+- [KRK Goal 058 H100 execution plan v0](reports/krk-goal058-h100-execution-plan-v0.md)
+- [Generated KRK mixed route-selectivity metrics v0](evidence/generated/krk-mixed-routing-metrics-v0.md)
+- [Generated KRK GPU-heavy route-selectivity metrics v0](evidence/generated/krk-gpu-heavy-routing-metrics-v0.md)
+- [Generated KRK cache-heavy route-selectivity metrics v0](evidence/generated/krk-cache-heavy-routing-metrics-v0.md)
+- [Generated KRK adversarial route-selectivity metrics v0](evidence/generated/krk-adversarial-routing-metrics-v0.md)
+- [Generated KRK H100 bounded summary v0](evidence/generated/krk-h100-bounded-summary-v0.md)
+- [Generated KRK Goal 058C H100 bounded execution summary v0](evidence/generated/krk-goal058c-h100-bounded-execution-summary-v0.md)
+- [Generated KRK Goal 059 expanded H100 representativeness summary v0](evidence/generated/krk-goal059-expanded-h100-representativeness-summary-v0.md)
+- [Generated KRK Goal 060 output fidelity summary v0](evidence/generated/krk-goal060-output-fidelity-summary-v0.md)
+- [Generated KRK Goal 070A five-minute first-value summary v0](evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.md)
+- [Generated KRK Goal 070B official CLI surface summary v0](evidence/generated/krk-goal070b-official-cli-surface-summary-v0.md)
+- [Generated KRK Goal 070C first-value install packaging summary v0](evidence/generated/krk-goal070c-first-value-install-packaging-summary-v0.md)
+- [Generated KRK expanded H100 bounded summary v0](evidence/generated/krk-expanded-h100-bounded-summary-v0.md)
+- [Generated KRK provider-routed validation summary v0](evidence/generated/krk-provider-routed-validation-summary-v0.md)
+- [Generated KRK expanded provider-routed validation summary v0](evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
+- [Generated KRK runtime-integrated route evaluation v0](evidence/generated/krk-runtime-integrated-route-evaluation-v0.md)
 
 ## Reports
 
