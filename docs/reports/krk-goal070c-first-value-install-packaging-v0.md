@@ -2,6 +2,8 @@
 
 Status: public-safe technical report.
 
+Latest validation refresh: Goal 070C revalidation after Project Operating System adoption.
+
 ## Motivation
 
 Goal 070B added the official first-value CLI surface:
@@ -60,12 +62,18 @@ Validation ran in a temporary clean virtual environment outside the repository:
 
 - editable install command completed.
 - installed `kora --help` completed.
+- installed `kora inspect --help` completed.
+- installed `kora compare --help` completed.
+- installed `kora run --help` completed.
+- installed `kora report --help` completed.
 - installed `kora inspect` completed.
 - installed `kora compare` completed.
 - installed `kora run` completed.
 - installed `kora report` generated JSON and Markdown outputs.
 
 Result: `FIRST_VALUE_EDITABLE_INSTALL_VALIDATED`.
+
+Goal 070C was revalidated after Goals 071-073 added the Project Operating System breadcrumb layer. The revalidation included command help checks and did not require packaging or entrypoint code changes.
 
 ## Onboarding Metrics
 

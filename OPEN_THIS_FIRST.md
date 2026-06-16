@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 073.
+Last updated by: Goal 070C revalidation.
 
 ## Current Status
 
@@ -15,22 +15,34 @@ Current state:
 - bounded provider-path validation exists.
 - bounded H100 subset, repo-owned H100 harness, and expanded H100 representativeness evidence exist.
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
-- first-value CLI commands exist for local public-safe onboarding.
+- first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
 
 ## Current Branch
 
 - branch: `goal044_krk_route_selectivity_metrics_plan`
 - public truth: `origin/main`
-- base commit before Goal 073 update: `9362cf4`
+- base commit before Goal 070C revalidation: `f84756e`
 
 ## Last Completed Goal
 
-Goal 073 - Project Operating System validation on KORA.
+Goal 070C - First-value CLI install and packaging polish revalidation.
+
+Goal 070C revalidated the fresh macOS/Linux-style editable-install first-value path after the Project Operating System updates. The package entrypoint remained registered as `kora = "kora.cli:main"`, and no packaging code change was required.
+
+Primary report:
+
+- [KRK Goal 070C first-value install packaging v0](docs/reports/krk-goal070c-first-value-install-packaging-v0.md)
+
+Primary evidence:
+
+- [Generated Goal 070C first-value install packaging summary](docs/evidence/generated/krk-goal070c-first-value-install-packaging-summary-v0.md)
+
+Previous completed documentation Goal: Goal 073 - Project Operating System validation on KORA.
 
 Goal 073 audited whether a new reviewer, planning agent, execution agent, or project owner can continue KORA from this file and `REVIEW_HUB.md` without reading chat history. The audit passed with light refinements to the breadcrumb templates and continuation language.
 
-Primary report:
+Goal 073 report:
 
 - [KRK Goal 073 project operating system validation v0](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
 
@@ -44,17 +56,6 @@ Goal 072 extracted the Goal 071 breadcrumb/review-hub pattern into reusable temp
 - [Project Operating System prompts](docs/project-operating-system/prompts/project-initialization-prompt.md).
 
 Previous completed breadcrumb Goal: Goal 071 - project breadcrumb and documentation operating standard.
-
-Previous completed technical Goal: Goal 070C - first-value install packaging validation.
-
-Goal 070C validated the editable-install first-value path for macOS/Linux-style environments:
-
-```bash
-kora inspect
-kora compare
-kora run
-kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value.md
-```
 
 Primary report:
 

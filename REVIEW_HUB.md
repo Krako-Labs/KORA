@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 073.
+Last updated by: Goal 070C revalidation.
 
 ## Project Identity
 
@@ -16,7 +16,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - public truth branch: `origin/main`
 - active evidence branch: `goal044_krk_route_selectivity_metrics_plan`
 - worktree label: `goal044_krk_route_selectivity_metrics_plan`
-- base commit before Goal 073 update: `9362cf4`
+- base commit before Goal 070C revalidation: `f84756e`
 
 ## Current State Summary
 
@@ -30,7 +30,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - repo-owned bounded H100 harness measurement.
 - expanded H100 representativeness measurement.
 - baseline equivalence and output-fidelity evaluation.
-- install-validated local first-value CLI workflow.
+- install-revalidated local first-value CLI workflow.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 
@@ -53,10 +53,11 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 060 | Added baseline equivalence and output-fidelity evaluation over public fixtures. | [KRK Goal 060 output fidelity](docs/reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md) |
 | Goal 070A | Added one-command public-safe five-minute first-value workflow. | [KRK Goal 070A five-minute first value](docs/reports/krk-goal070a-five-minute-first-value-v0.md) |
 | Goal 070B | Added official `kora inspect`, `kora compare`, `kora run`, and `kora report` CLI surface. | [KRK Goal 070B official CLI surface](docs/reports/krk-goal070b-official-cli-surface-v0.md) |
-| Goal 070C | Validated editable-install first-value CLI path in a clean macOS/Linux-style environment. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
+| Goal 070C | Validated and later revalidated the editable-install first-value CLI path in a clean macOS/Linux-style environment. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 | Goal 071 | Added this project breadcrumb and documentation operating standard. | [KRK Goal 071 project breadcrumb standard](docs/reports/krk-goal071-project-breadcrumb-standard-v0.md) |
 | Goal 072 | Extracted the breadcrumb and review-hub pattern into a reusable Project Operating System package. | [KRK Goal 072 project operating system extraction](docs/reports/krk-goal072-project-operating-system-extraction-v0.md) |
 | Goal 073 | Validated KORA's Project Operating System as a self-contained continuation surface and refined the templates. | [KRK Goal 073 project operating system validation](docs/reports/krk-goal073-project-operating-system-validation-v0.md) |
+| Goal 070C refresh | Revalidated package entrypoint, command help, and end-to-end installed first-value CLI path after Project Operating System adoption. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 
 ## Evidence Index
 

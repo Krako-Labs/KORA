@@ -2,6 +2,8 @@
 
 Status: public-safe generated summary.
 
+Latest validation refresh: Goal 070C revalidation after Project Operating System adoption.
+
 ## Classification
 
 `FIRST_VALUE_EDITABLE_INSTALL_VALIDATED`
@@ -22,6 +24,10 @@ Goal 070C validated the editable install path in a temporary clean virtual envir
 ```bash
 python3 -m pip install -e .
 kora --help
+kora inspect --help
+kora compare --help
+kora run --help
+kora report --help
 kora inspect
 kora compare
 kora run
@@ -29,6 +35,8 @@ kora report
 ```
 
 Validation result: passed.
+
+The post-Project Operating System revalidation did not require packaging or entrypoint code changes.
 
 The installed first-value path requires no provider credentials, no GPU, and no network access after dependencies are installed.
 

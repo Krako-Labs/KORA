@@ -11,6 +11,8 @@
   "fresh_install_validation": {
     "status": "passed",
     "environment_type": "temporary_clean_venv",
+    "latest_revalidation": "goal070c_after_project_operating_system_adoption",
+    "revalidation_base_commit": "f84756e",
     "editable_install_command": "python3 -m pip install -e .",
     "console_script_available": true,
     "python_module_entrypoint_available": true,
@@ -20,6 +22,10 @@
   },
   "commands_validated": [
     "kora --help",
+    "kora inspect --help",
+    "kora compare --help",
+    "kora run --help",
+    "kora report --help",
     "kora inspect",
     "kora compare",
     "kora run",
