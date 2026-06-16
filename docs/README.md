@@ -11,6 +11,8 @@ KORA Core is the planned open-source AI workload execution layer. The current pu
 ## Start
 
 - [Main README](../README.md)
+- [Open this first](../OPEN_THIS_FIRST.md)
+- [Review hub](../REVIEW_HUB.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
 - [KORA five-minute first-value quickstart](quickstart-five-minute-first-value.md)
@@ -61,6 +63,11 @@ KORA control layer architecture.
 - [KRK route metrics schema v0](implementation/krk-route-metrics-schema-v0.md)
 - [KRK Goal 045 task breakdown v0](implementation/krk-goal045-task-breakdown-v0.md)
 
+## Runbooks And ADRs
+
+- [Project Documentation Operating Standard](runbooks/project-documentation-operating-standard.md)
+- [ADR-001 project breadcrumb and review hub standard](adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
+
 ## Evidence
 
 - [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
@@ -76,6 +83,7 @@ KORA control layer architecture.
 - [KRK Goal 070A five-minute first value v0](reports/krk-goal070a-five-minute-first-value-v0.md)
 - [KRK Goal 070B official CLI surface v0](reports/krk-goal070b-official-cli-surface-v0.md)
 - [KRK Goal 070C first-value install packaging v0](reports/krk-goal070c-first-value-install-packaging-v0.md)
+- [KRK Goal 071 project breadcrumb standard v0](reports/krk-goal071-project-breadcrumb-standard-v0.md)
 - [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
 - [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
 - [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
