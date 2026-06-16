@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 074.
+Last updated by: Goal 075.
 
 ## Project Identity
 
@@ -16,7 +16,9 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - public truth branch: `origin/main`
 - active evidence branch: `goal044_krk_route_selectivity_metrics_plan`
 - worktree label: `goal044_krk_route_selectivity_metrics_plan`
-- base commit before Goal 074 readiness packet: `a4c0f83`
+- branch pushed to: `origin/goal044_krk_route_selectivity_metrics_plan`
+- open PR: `https://github.com/Krako-Labs/KORA/pull/229`
+- base commit before Goal 075 post-PR update: `7cbd5f8`
 
 ## Current State Summary
 
@@ -34,6 +36,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - public-safe PR readiness packet with classification `READY_FOR_PR_WITH_CAVEATS`.
+- PR #229 is open against `main`; initial GitHub state was `MERGEABLE` with CI queued.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -60,6 +63,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 073 | Validated KORA's Project Operating System as a self-contained continuation surface and refined the templates. | [KRK Goal 073 project operating system validation](docs/reports/krk-goal073-project-operating-system-validation-v0.md) |
 | Goal 070C refresh | Revalidated package entrypoint, command help, and end-to-end installed first-value CLI path after Project Operating System adoption. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 | Goal 074 | Prepared PR readiness packet and PR draft body for the integrated KRK evidence and first-value branch. | [KRK Goal 074 PR readiness merge packet](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md) |
+| Goal 075 | Pushed the branch and opened PR #229 against `main`; no merge, tag, or release was created. | [KRK Goal 075 PR open](docs/reports/krk-goal075-pr-open-v0.md) |
 
 ## Evidence Index
 
@@ -86,6 +90,7 @@ Generated summaries:
 Current reviewer path:
 
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
+- [KRK Goal 075 PR open](docs/reports/krk-goal075-pr-open-v0.md)
 - [KRK Goal 074 PR readiness merge packet](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md)
 - [KRK Goal 074 PR draft body](docs/reports/krk-goal074-pr-draft-body-v0.md)
 - [KRK Goal 073 project operating system validation](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
@@ -180,6 +185,7 @@ Expected public fixture result:
 - Native Windows and WSL-specific first-value install validation are deferred.
 - Project Operating System has been validated on KORA, but has not yet been applied to a second project.
 - PR readiness classification is `READY_FOR_PR_WITH_CAVEATS` because the branch is large and evidence remains bounded.
+- PR #229 needs CI completion and review-gate validation before any merge.
 
 ## Remaining Evidence Gaps
 
@@ -193,10 +199,10 @@ Expected public fixture result:
 
 ## Recommended Next Goals
 
-1. Goal 075 - Open KRK evidence and first-value PR.
-2. Goal 076 - Public Reviewer Packet From Review Hub.
-3. Goal 077 - Wheel and Source Distribution Smoke Validation.
-4. Goal 078 - Apply Project Operating System To Permea.
+1. Goal 076 - PR Review and Merge Gate.
+2. Goal 077 - Public Reviewer Packet From Review Hub.
+3. Goal 078 - Wheel and Source Distribution Smoke Validation.
+4. Goal 079 - Apply Project Operating System To Permea.
 
 ## How To Resume With ChatGPT
 

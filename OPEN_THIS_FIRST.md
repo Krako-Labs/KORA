@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 074.
+Last updated by: Goal 075.
 
 ## Current Status
 
@@ -18,27 +18,33 @@ Current state:
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
 - the active branch has a public-safe PR readiness packet with caveats.
+- PR #229 is open for the integrated KRK evidence and first-value branch.
 
 ## Current Branch
 
 - branch: `goal044_krk_route_selectivity_metrics_plan`
 - public truth: `origin/main`
-- base commit before Goal 074 readiness packet: `a4c0f83`
+- branch pushed to: `origin/goal044_krk_route_selectivity_metrics_plan`
+- open PR: `https://github.com/Krako-Labs/KORA/pull/229`
+- base commit before Goal 075 post-PR update: `7cbd5f8`
 
 ## Last Completed Goal
 
-Goal 074 - KORA PR readiness and public-safe merge packet.
+Goal 075 - Open KRK evidence and first-value PR.
 
-Goal 074 inspected the active branch against `origin/main`, validated tests, generated JSON, documentation links, public/private boundaries, claim boundaries, and breadcrumbs, then produced a public-safe PR readiness packet and PR draft body.
+Goal 075 pushed `goal044_krk_route_selectivity_metrics_plan` and opened PR #229 against `main` using the public-safe Goal 074 draft body. The PR was opened only; it was not merged, tagged, or released.
 
 Primary report:
 
+- [KRK Goal 075 PR open v0](docs/reports/krk-goal075-pr-open-v0.md)
 - [KRK Goal 074 PR readiness merge packet v0](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md)
 - [KRK Goal 074 PR draft body v0](docs/reports/krk-goal074-pr-draft-body-v0.md)
 
-Readiness classification:
+PR status at creation:
 
-- `READY_FOR_PR_WITH_CAVEATS`
+- PR: [#229](https://github.com/Krako-Labs/KORA/pull/229)
+- mergeable: `MERGEABLE`
+- merge state: `UNSTABLE` because CI was queued
 
 Previous completed technical Goal: Goal 070C - First-value CLI install and packaging polish revalidation.
 
@@ -106,13 +112,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 075 - Open KRK evidence and first-value PR.
+Goal 076 - PR Review and Merge Gate.
 
 Recommended scope:
 
-- open a PR from `goal044_krk_route_selectivity_metrics_plan` into `main`.
-- use the Goal 074 PR draft body.
-- do not add new evidence or broaden claims during PR creation.
+- wait for CI completion on PR #229.
+- inspect PR checks and review state.
+- address CI or reviewer feedback if needed.
+- merge only if checks and review gate pass.
 
 ## How To Continue
 
