@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 072.
+Last updated by: Goal 073.
 
 ## Project Identity
 
@@ -16,7 +16,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - public truth branch: `origin/main`
 - active evidence branch: `goal044_krk_route_selectivity_metrics_plan`
 - worktree label: `goal044_krk_route_selectivity_metrics_plan`
-- base commit before Goal 072 update: `ed62698`
+- base commit before Goal 073 update: `9362cf4`
 
 ## Current State Summary
 
@@ -32,6 +32,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - baseline equivalence and output-fidelity evaluation.
 - install-validated local first-value CLI workflow.
 - reusable Project Operating System templates, prompts, and adoption standard.
+- validated Project Operating System continuation path for KORA.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -55,6 +56,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 070C | Validated editable-install first-value CLI path in a clean macOS/Linux-style environment. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 | Goal 071 | Added this project breadcrumb and documentation operating standard. | [KRK Goal 071 project breadcrumb standard](docs/reports/krk-goal071-project-breadcrumb-standard-v0.md) |
 | Goal 072 | Extracted the breadcrumb and review-hub pattern into a reusable Project Operating System package. | [KRK Goal 072 project operating system extraction](docs/reports/krk-goal072-project-operating-system-extraction-v0.md) |
+| Goal 073 | Validated KORA's Project Operating System as a self-contained continuation surface and refined the templates. | [KRK Goal 073 project operating system validation](docs/reports/krk-goal073-project-operating-system-validation-v0.md) |
 
 ## Evidence Index
 
@@ -81,6 +83,7 @@ Generated summaries:
 Current reviewer path:
 
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
+- [KRK Goal 073 project operating system validation](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
 - [Project Operating System](docs/project-operating-system/README.md)
 - [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md)
 - [KRK Goal 070B official CLI surface](docs/reports/krk-goal070b-official-cli-surface-v0.md)
@@ -170,6 +173,7 @@ Expected public fixture result:
 - H100 measurements are bounded and do not establish H100 superiority.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - Native Windows and WSL-specific first-value install validation are deferred.
+- Project Operating System has been validated on KORA, but has not yet been applied to a second project.
 
 ## Remaining Evidence Gaps
 
@@ -183,10 +187,10 @@ Expected public fixture result:
 
 ## Recommended Next Goals
 
-1. Goal 073 - Apply Project Operating System To A Second Project.
-2. Goal 074 - Public Reviewer Packet From Review Hub.
-3. Goal 075 - Wheel and Source Distribution Smoke Validation.
-4. Goal 076 - Broader Public Workload Coverage Plan.
+1. Goal 074 - Apply Project Operating System To Permea.
+2. Goal 075 - Public Reviewer Packet From Review Hub.
+3. Goal 076 - Wheel and Source Distribution Smoke Validation.
+4. Goal 077 - Broader Public Workload Coverage Plan.
 
 ## How To Resume With ChatGPT
 
@@ -204,8 +208,8 @@ Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly 
 Use this work sequence:
 
 1. Verify KORA identity and branch.
-2. Read [OPEN_THIS_FIRST.md](OPEN_THIS_FIRST.md).
-3. Read this file.
+2. Read [OPEN_THIS_FIRST.md](OPEN_THIS_FIRST.md) as the single source of human continuation.
+3. Read this file as the detailed second stop.
 4. Read only the linked reports/evidence relevant to the new Goal.
 5. Implement the scoped change.
 6. Run validation.

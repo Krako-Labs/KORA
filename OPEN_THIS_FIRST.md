@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 072.
+Last updated by: Goal 073.
 
 ## Current Status
 
@@ -16,17 +16,25 @@ Current state:
 - bounded H100 subset, repo-owned H100 harness, and expanded H100 representativeness evidence exist.
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
 - first-value CLI commands exist for local public-safe onboarding.
-- the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package.
+- the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
 
 ## Current Branch
 
 - branch: `goal044_krk_route_selectivity_metrics_plan`
 - public truth: `origin/main`
-- base commit before Goal 072 update: `ed62698`
+- base commit before Goal 073 update: `9362cf4`
 
 ## Last Completed Goal
 
-Goal 072 - Project Operating System extraction.
+Goal 073 - Project Operating System validation on KORA.
+
+Goal 073 audited whether a new reviewer, planning agent, execution agent, or project owner can continue KORA from this file and `REVIEW_HUB.md` without reading chat history. The audit passed with light refinements to the breadcrumb templates and continuation language.
+
+Primary report:
+
+- [KRK Goal 073 project operating system validation v0](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
+
+Previous completed documentation Goal: Goal 072 - Project Operating System extraction.
 
 Goal 072 extracted the Goal 071 breadcrumb/review-hub pattern into reusable templates, prompts, and a project operating standard:
 
@@ -35,7 +43,7 @@ Goal 072 extracted the Goal 071 breadcrumb/review-hub pattern into reusable temp
 - [Project Operating System templates](docs/project-operating-system/templates/OPEN_THIS_FIRST.template.md).
 - [Project Operating System prompts](docs/project-operating-system/prompts/project-initialization-prompt.md).
 
-Previous completed documentation Goal: Goal 071 - project breadcrumb and documentation operating standard.
+Previous completed breadcrumb Goal: Goal 071 - project breadcrumb and documentation operating standard.
 
 Previous completed technical Goal: Goal 070C - first-value install packaging validation.
 
@@ -52,12 +60,14 @@ Primary report:
 
 - [KRK Goal 071 project breadcrumb standard v0](docs/reports/krk-goal071-project-breadcrumb-standard-v0.md)
 - [KRK Goal 072 project operating system extraction v0](docs/reports/krk-goal072-project-operating-system-extraction-v0.md)
+- [KRK Goal 073 project operating system validation v0](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
 - [KRK Goal 070C first-value install packaging v0](docs/reports/krk-goal070c-first-value-install-packaging-v0.md)
 
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
 - [Project Operating System](docs/project-operating-system/README.md)
+- [KRK Goal 073 project operating system validation v0](docs/reports/krk-goal073-project-operating-system-validation-v0.md)
 - [KRK evidence package v0](docs/evidence/krk-evidence-package-v0.md)
 - [KRK performance table v0](docs/evidence/krk-performance-table-v0.md)
 - [KRK Goal 070A five-minute first value v0](docs/reports/krk-goal070a-five-minute-first-value-v0.md)
@@ -84,13 +94,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 073 - Apply Project Operating System To A Second Project.
+Goal 074 - Apply Project Operating System To Permea.
 
 Recommended scope:
 
-- use the extracted templates and prompts on another project.
+- use the extracted templates and prompts on a second project.
 - keep public/private boundaries explicit.
 - do not copy private operational context into public docs.
+- verify that the KORA-validated continuation pattern works outside KORA.
 
 ## How To Continue
 

@@ -19,6 +19,11 @@ Update:
 - OPEN_THIS_FIRST.md
 - REVIEW_HUB.md
 
+Continuation rule:
+- OPEN_THIS_FIRST.md is the single source of human continuation.
+- REVIEW_HUB.md is the detailed second stop.
+- Every completed task must refresh both unless explicitly exempted.
+
 Update at minimum:
 - latest completed task
 - current branch/worktree/commit

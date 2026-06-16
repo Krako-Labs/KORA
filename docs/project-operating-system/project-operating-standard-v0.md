@@ -14,8 +14,8 @@ Every adopting project should maintain:
 
 | File | Purpose |
 | --- | --- |
-| `OPEN_THIS_FIRST.md` | Fast-start breadcrumb for the current state. |
-| `REVIEW_HUB.md` | Durable review hub with evidence, reports, risks, claims, and continuation instructions. |
+| `OPEN_THIS_FIRST.md` | Single source of human continuation and fast-start breadcrumb for the current state. |
+| `REVIEW_HUB.md` | Detailed second stop with evidence, reports, risks, claims, and continuation instructions. |
 | `docs/adr/ADR-001-project-breadcrumb-standard.md` | Decision record explaining why the breadcrumb and review hub exist. |
 | `docs/runbooks/project-operating-standard.md` | Project-specific operating standard. |
 
@@ -116,6 +116,8 @@ Every completed task should update:
 
 - `OPEN_THIS_FIRST.md`
 - `REVIEW_HUB.md`
+
+These are the required continuation files. `OPEN_THIS_FIRST.md` must remain the first stop for humans and agents. `REVIEW_HUB.md` must remain the detailed second stop.
 
 Minimum update:
 

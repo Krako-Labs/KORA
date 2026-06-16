@@ -4,6 +4,10 @@ Status: current project breadcrumb.
 
 Last updated by: `[latest task id or name]`.
 
+Single Source of Human Continuation: this file is the first stop for any project owner, reviewer, planning agent, or execution agent.
+
+Detailed second stop: `REVIEW_HUB.md`.
+
 ## Current Status
 
 `[One-paragraph public-safe project status.]`
@@ -64,7 +68,7 @@ Primary evidence:
 For a reviewer:
 
 1. Read this file.
-2. Read `REVIEW_HUB.md`.
+2. Read `REVIEW_HUB.md` as the detailed second stop.
 3. Read the primary report and evidence links above.
 4. Verify claim boundaries before approving public language.
 
@@ -77,9 +81,10 @@ For a planning agent:
 For an execution agent:
 
 1. Verify repo identity and branch.
-2. Read this file and `REVIEW_HUB.md`.
-3. Complete the scoped task.
-4. Update this file and `REVIEW_HUB.md` before committing unless explicitly exempted.
+2. Read this file as the single source of human continuation.
+3. Read `REVIEW_HUB.md` as the detailed second stop.
+4. Complete the scoped task.
+5. Update this file and `REVIEW_HUB.md` before committing unless explicitly exempted.
 
 For a project owner:
 

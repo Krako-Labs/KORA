@@ -4,6 +4,8 @@ Status: current project review and continuation hub.
 
 Last updated by: `[latest task id or name]`.
 
+Detailed second stop: read `OPEN_THIS_FIRST.md` first. This file is the durable review hub for evidence, reports, risks, claim boundaries, and continuation instructions.
+
 ## Project Identity
 
 `[Project name]` is `[short public-safe project definition]`.

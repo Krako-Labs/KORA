@@ -17,6 +17,10 @@ The Project Operating System helps a project answer quickly:
 - What should happen next?
 - How should a planning agent, execution agent, reviewer, or project owner resume work?
 
+`OPEN_THIS_FIRST.md` is the single source of human continuation. It should be the shortest reliable answer to "what should I read first and what should happen next?"
+
+`REVIEW_HUB.md` is the detailed second stop. It should contain the evidence, reports, risks, claim boundaries, and continuation workflow behind the breadcrumb.
+
 It is designed for projects that may have:
 
 - a public GitHub repo.
