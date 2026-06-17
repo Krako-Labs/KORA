@@ -176,6 +176,19 @@ fn test_differential_fuzzing_robustness() {
         "Fuzzing completed: {} iterations. Parsed successfully: {}/{}. Passed validation: {}/{}. Caught validation errors: {}.",
         iterations, parsed_ok, iterations, validation_ok, parsed_ok, errors_caught
     );
+
+    let dir = std::path::Path::new("tests/outputs");
+    if !dir.exists() {
+        std::fs::create_dir_all(dir).unwrap();
+    }
+    let filepath = dir.join("differential_fuzz_stats.json");
+    let stats = json!({
+        "iterations": iterations,
+        "parsed_ok": parsed_ok,
+        "validation_ok": validation_ok,
+        "errors_caught": errors_caught
+    });
+    std::fs::write(&filepath, serde_json::to_string_pretty(&stats).unwrap()).unwrap();
     
     // Assert that we processed a mix of valid/invalid inputs
     assert!(parsed_ok > 0);
