@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
 import subprocess
@@ -10,6 +11,11 @@ import sys
 from pathlib import Path
 
 from kora.cost_model import compute_savings
+from kora.five_minute_first_value import (
+    build_five_minute_first_value,
+    render_markdown_summary as render_first_value_markdown,
+    write_outputs as write_first_value_outputs,
+)
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -32,12 +38,19 @@ def _examples_root() -> Path:
     return Path(__file__).resolve().parent.parent / "examples"
 
 
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parent.parent
+
+
 def _example_descriptions() -> dict[str, str]:
     return {
         "hello_kora": "basic deterministic hello-world graph",
         "retry_demo": "retry/recovery flow example",
         "customer_support_triage_fake_validation": "customer-support triage local no-network validation example",
+        "deterministic_classification": "deterministic classification example pack",
         "direct_vs_kora": "direct call vs KORA-controlled path",
+        "kora_doctor": "offline doctor-style workload inspection example",
+        "openai_compatible_proxy": "offline OpenAI-style proxy routing example",
         "real_workload_harness": "benchmark/report flow example",
         "real_model_call_validation_fake": "local no-network model-call validation example",
         "runtime_integrated_benchmark": "initial runtime-path benchmark harness",
@@ -69,6 +82,73 @@ def _discover_examples() -> list[dict[str, object]]:
     return examples
 
 
+def _load_doctor_module():
+    doctor_path = _examples_root() / "kora_doctor" / "run.py"
+    spec = importlib.util.spec_from_file_location("kora_doctor_cli_runtime", doctor_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"failed to load KORA Doctor module from {doctor_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _resolve_doctor_workload_path(path_text: str) -> Path:
+    path = Path(path_text)
+    if path.exists():
+        return path
+
+    doctor_root = _examples_root() / "kora_doctor"
+    workload_candidate = doctor_root / "workloads" / path.name
+    if path.parent.name == "kora_doctor" and workload_candidate.exists():
+        return workload_candidate
+
+    return path
+
+
+def _run_doctor_command(
+    workload_path: str | None,
+    *,
+    all_workloads: bool,
+    json_out: str | None,
+    report_md: str | None,
+) -> int:
+    doctor = _load_doctor_module()
+    try:
+        if all_workloads:
+            workloads_root = Path(workload_path) if workload_path else _examples_root() / "kora_doctor"
+            if not workloads_root.exists() or not workloads_root.is_dir():
+                print(f"KORA Doctor workload directory not found: {workloads_root}", file=sys.stderr)
+                return 2
+            summary = doctor.build_aggregate_summary(
+                workloads_root=workloads_root,
+                json_out=Path(json_out) if json_out else None,
+            )
+        else:
+            resolved_workload = (
+                _resolve_doctor_workload_path(workload_path)
+                if workload_path
+                else _examples_root() / "kora_doctor" / "workload.json"
+            )
+            if not resolved_workload.exists() or not resolved_workload.is_file():
+                print(f"KORA Doctor workload JSON not found: {resolved_workload}", file=sys.stderr)
+                return 2
+            summary = doctor.build_doctor_summary(
+                resolved_workload,
+                json_out=Path(json_out) if json_out else None,
+            )
+    except (json.JSONDecodeError, KeyError, RuntimeError, ValueError) as e:
+        print(f"KORA Doctor failed: {e}", file=sys.stderr)
+        return 1
+
+    report = doctor.render_text_report(summary)
+    if report_md:
+        report_path = Path(report_md)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(report, encoding="utf-8")
+    print(report, end="")
+    return 0 if summary["ok"] else 1
+
+
 def _print_examples_list() -> None:
     examples = _discover_examples()
     if not examples:
@@ -92,7 +172,7 @@ def _run_example(example_name: str, extra_args: list[str]) -> int:
         return 2
 
     command = [sys.executable, str(example_map[example_name]), *extra_args]
-    repo_root = Path(__file__).resolve().parent.parent
+    repo_root = _repo_root()
     env = os.environ.copy()
     existing_pythonpath = env.get("PYTHONPATH")
     env["PYTHONPATH"] = (
@@ -127,22 +207,148 @@ def _print_summary(summary: dict) -> None:
         print("  - (none)")
 
 
+def _write_json_output(data: dict, path: str | None) -> None:
+    if not path:
+        return
+    output_path = Path(path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _print_inspect(step: dict) -> None:
+    print("KORA Inspect")
+    print("- execution paths:")
+    for route in step["available_execution_paths"]:
+        print(f"  - {route}")
+    print("- workload profiles:")
+    for profile in step["routable_workload_profiles"]:
+        print(f"  - {profile}")
+    env = step["environment_summary"]
+    print("- first-value requirements:")
+    print(f"  - provider credentials required: {str(env['provider_credentials_required']).lower()}")
+    print(f"  - GPU required: {str(env['gpu_required']).lower()}")
+    print(f"  - network required: {str(env['network_required']).lower()}")
+    print(f"  - execution mode: {env['execution_mode']}")
+
+
+def _print_compare(step: dict) -> None:
+    direct = step["direct_path"]
+    krk = step["krk_routed_path"]
+    opportunities = step["avoided_execution_opportunities"]
+    print("KORA Compare")
+    print(f"- direct path candidate invocations: {direct['candidate_invocations']}")
+    print("- KRK route counts:")
+    for route, count in krk["route_counts"].items():
+        print(f"  - {route}: {count}")
+    print(f"- provider/GPU route count: {krk['provider_or_gpu_route_count']}")
+    print(f"- local-or-guardrail route count: {krk['local_or_guardrail_route_count']}")
+    print(f"- avoided execution opportunities: {opportunities['count']} ({opportunities['rate']:.4f})")
+    print("- claim boundary: execution-path opportunity count, not a production savings claim")
+
+
+def _print_run(step: dict) -> None:
+    print("KORA Run")
+    print(f"- total requests: {step['total_requests']}")
+    print("- route counts:")
+    for route, count in step["route_counts"].items():
+        print(f"  - {route}: {count}")
+    print(f"- dry-run execution success rate: {step['dry_run_execution_success_rate']:.4f}")
+    print(f"- unsafe misroute rate: {step['unsafe_misroute_rate']:.4f}")
+    print(f"- error count: {step['error_count']}")
+    print(f"- provider calls performed: {str(step['provider_calls_performed']).lower()}")
+    print(f"- GPU execution performed: {str(step['gpu_execution_performed']).lower()}")
+
+
+def _run_first_value_step(step_id: str, *, json_out: str | None = None) -> int:
+    result = build_five_minute_first_value(command=f"kora {step_id}")
+    step = next(item for item in result["steps"] if item["step_id"] == step_id)
+    output = {
+        "schema_version": f"kora_{step_id}_v0",
+        "claim_level": result["claim_level"],
+        "final_classification": result["final_classification"],
+        "step": step,
+        "works_without_provider_credentials": result["works_without_provider_credentials"],
+        "works_without_gpu": result["works_without_gpu"],
+        "network_required": result["network_required"],
+        "claim_boundary": result["claim_boundary"],
+    }
+    if step_id == "inspect":
+        _print_inspect(step)
+    elif step_id == "compare":
+        _print_compare(step)
+    elif step_id == "run":
+        _print_run(step)
+    else:
+        raise ValueError(f"unsupported first-value step: {step_id}")
+    _write_json_output(output, json_out)
+    if json_out:
+        print(f"Saved JSON: {json_out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="kora.cli", description="KORA CLI")
+    parser = argparse.ArgumentParser(prog="kora", description="KORA CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     examples_parser = subparsers.add_parser("examples", help="list available runnable examples")
     examples_subparsers = examples_parser.add_subparsers(dest="examples_command", required=True)
     examples_subparsers.add_parser("list", help="list runnable examples")
 
+    inspect_parser = subparsers.add_parser(
+        "inspect",
+        help="inspect public-safe first-value execution paths",
+        description="Inspect the public-safe KORA first-value environment and available execution paths.",
+    )
+    inspect_parser.add_argument("--json-out", help="optional path for structured JSON output")
+
+    compare_parser = subparsers.add_parser(
+        "compare",
+        help="compare direct and KRK-routed public fixture behavior",
+        description="Compare direct model-candidate behavior with KRK-routed public fixture behavior.",
+    )
+    compare_parser.add_argument("--json-out", help="optional path for structured JSON output")
+
+    doctor_parser = subparsers.add_parser(
+        "doctor",
+        help="inspect a workload for deterministic and provider-needed candidates",
+        description=(
+            "Run the offline KORA Doctor workload-control report for a workload JSON file, "
+            "or aggregate bundled workloads with --all."
+        ),
+    )
+    doctor_parser.add_argument(
+        "workload_path",
+        nargs="?",
+        help="workload JSON path, or workload directory when used with --all",
+    )
+    doctor_parser.add_argument("--all", action="store_true", help="run all workloads in a Doctor workload directory")
+    doctor_parser.add_argument("--json-out", help="optional path for structured JSON output")
+    doctor_parser.add_argument("--report-md", help="optional path for the rendered text report")
+
     run_parser = subparsers.add_parser(
         "run",
-        help="run an example",
-        description="Run an example. Use -- to pass arguments through to the example.\nExample: kora run direct_vs_kora -- --offline",
+        help="run the public-safe first-value fixture path or a named example",
+        description=(
+            "Run the public-safe first-value fixture path when no example is provided. "
+            "Use an example name plus -- to pass arguments through to an example.\n"
+            "Examples:\n"
+            "  kora run\n"
+            "  kora run --json-out /tmp/kora-run.json\n"
+            "  kora run direct_vs_kora -- --offline"
+        ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    run_parser.add_argument("example", help="example name under examples/")
+    run_parser.add_argument("example", nargs="?", help="optional example name under examples/")
+    run_parser.add_argument("--json-out", help="optional path for structured JSON output when no example is provided")
     run_parser.add_argument("example_args", nargs=argparse.REMAINDER, help="arguments passed to the example")
+
+    report_parser = subparsers.add_parser(
+        "report",
+        help="generate the public-safe first-value report",
+        description="Generate JSON and Markdown reports for the public-safe first-value workflow.",
+    )
+    report_parser.add_argument("--json-out", required=True, help="output path for JSON report")
+    report_parser.add_argument("--md-out", required=True, help="output path for Markdown report")
 
     studio_parser = subparsers.add_parser(
         "studio",
@@ -170,11 +376,36 @@ def main(argv: list[str] | None = None) -> int:
         _print_examples_list()
         return 0
 
+    if args.command == "inspect":
+        return _run_first_value_step("inspect", json_out=args.json_out)
+
+    if args.command == "compare":
+        return _run_first_value_step("compare", json_out=args.json_out)
+
+    if args.command == "doctor":
+        return _run_doctor_command(
+            args.workload_path,
+            all_workloads=args.all,
+            json_out=args.json_out,
+            report_md=args.report_md,
+        )
+
     if args.command == "run":
+        if args.example is None:
+            return _run_first_value_step("run", json_out=args.json_out)
         extra_args = list(args.example_args)
         if extra_args and extra_args[0] == "--":
             extra_args = extra_args[1:]
         return _run_example(args.example, extra_args)
+
+    if args.command == "report":
+        command = f"kora report --json-out {args.json_out} --md-out {args.md_out}"
+        result = build_five_minute_first_value(command=command)
+        write_first_value_outputs(result, json_out=Path(args.json_out), md_out=Path(args.md_out))
+        print(render_first_value_markdown(result))
+        print(f"Saved JSON: {args.json_out}")
+        print(f"Saved Markdown: {args.md_out}")
+        return 0
 
     if args.command == "studio":
         if args.status:
@@ -192,7 +423,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "telemetry":
         input_path = Path(args.input)
-        obj = load_json(input_path)
+        try:
+            obj = load_json(input_path)
+        except (FileNotFoundError, IsADirectoryError) as e:
+            print(e, file=sys.stderr)
+            return 1
         summary = summarize_run(obj, price_input=args.price_input, price_output=args.price_output)
         json_out = Path(args.json_out) if args.json_out else _default_json_out(input_path)
         md_out = Path(args.md_out) if args.md_out else _default_md_out(input_path)

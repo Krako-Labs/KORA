@@ -1,0 +1,35 @@
+{
+  "schema_version": "krk_provider_routed_validation_summary_v0",
+  "generated_at_utc": "2026-06-13T22:08:22Z",
+  "claim_level": "bounded_provider_path_measured",
+  "provider_family": "commercial_llm_api",
+  "model_family": "small_general_purpose_llm",
+  "sample_source": "public_krk_matrix_provider_selected_items",
+  "sample_count": 3,
+  "success_count": 3,
+  "failure_count": 0,
+  "latency_ms": {
+    "min": 1581.517,
+    "median": 1583.67,
+    "max": 3635.988
+  },
+  "tokens_or_units": {
+    "input_total": 176,
+    "output_total": 156
+  },
+  "error_count": 0,
+  "raw_outputs_committed": false,
+  "credentials_committed": false,
+  "request_ids_committed": false,
+  "account_ids_committed": false,
+  "billing_details_committed": false,
+  "private_endpoints_committed": false,
+  "provider_response_text_committed": false,
+  "claim_boundary": {
+    "production_savings_claimed": false,
+    "provider_cost_reduction_claimed": false,
+    "provider_superiority_claimed": false,
+    "broad_provider_benchmark_claimed": false,
+    "replacement_claimed": false
+  }
+}

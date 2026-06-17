@@ -1,0 +1,10 @@
+{
+  "avoided_provider_invocations": 4,
+  "deterministic_candidates": 4,
+  "expected_match_count": 7,
+  "mode": "kora_doctor_example",
+  "ok": true,
+  "provider_calls_actually_made": 0,
+  "provider_needed_candidates": 3,
+  "total_tasks": 7
+}

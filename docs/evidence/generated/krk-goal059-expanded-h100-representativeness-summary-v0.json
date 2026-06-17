@@ -1,0 +1,101 @@
+{
+  "claim_boundary": "Bounded KRK-selected GPU fixture execution only. This output does not claim production savings, customer savings, infrastructure savings, H100 superiority, GPU superiority, broad workload superiority, production readiness, or provider replacement.",
+  "claim_level": "bounded_h100_execution_measured",
+  "cuda": {
+    "cuda_available": true,
+    "cuda_device_class": "H100-class GPU",
+    "cuda_device_count": 2,
+    "torch_cuda_version": "12.1",
+    "torch_version": "2.5.1+cu121"
+  },
+  "failure_count": 0,
+  "final_classification": "EXPANDED_H100_REPRESENTATIVENESS_MEASURED",
+  "fixture_count": 18,
+  "gpu_routed_count": 4,
+  "memory": {
+    "cuda_context_after_mb": 42.0,
+    "cuda_context_before_mb": 0.0,
+    "peak_bounded_allocation_mb": 24.0
+  },
+  "operation_count": 100,
+  "profile_summaries": {
+    "GPU-heavy": {
+      "failure_count": 0,
+      "fixture_count": 4,
+      "gpu_routed_count": 2,
+      "operation_count": 50,
+      "runtime_seconds": 0.015012,
+      "success_count": 50,
+      "throughput_compute_weight_per_second": 59952.038369,
+      "throughput_requests_per_second": 3330.668798,
+      "total_compute_weight": 900.0,
+      "workload_profile": "GPU-heavy"
+    },
+    "adversarial": {
+      "failure_count": 0,
+      "fixture_count": 4,
+      "gpu_routed_count": 0,
+      "operation_count": 0,
+      "runtime_seconds": 0.0,
+      "success_count": 0,
+      "throughput_compute_weight_per_second": 0.0,
+      "throughput_requests_per_second": 0.0,
+      "total_compute_weight": 0.0,
+      "workload_profile": "adversarial"
+    },
+    "cache-heavy": {
+      "failure_count": 0,
+      "fixture_count": 4,
+      "gpu_routed_count": 1,
+      "operation_count": 25,
+      "runtime_seconds": 0.004576,
+      "success_count": 25,
+      "throughput_compute_weight_per_second": 54632.867133,
+      "throughput_requests_per_second": 5463.286713,
+      "total_compute_weight": 250.0,
+      "workload_profile": "cache-heavy"
+    },
+    "mixed-realistic": {
+      "failure_count": 0,
+      "fixture_count": 6,
+      "gpu_routed_count": 1,
+      "operation_count": 25,
+      "runtime_seconds": 0.034301,
+      "success_count": 25,
+      "throughput_compute_weight_per_second": 8746.100697,
+      "throughput_requests_per_second": 728.841725,
+      "total_compute_weight": 300.0,
+      "workload_profile": "mixed-realistic"
+    }
+  },
+  "public_boundary": {
+    "private_infrastructure_details_committed": false,
+    "raw_logs_committed": false
+  },
+  "reproducibility": {
+    "repo_commit": "goal059-working-tree",
+    "target_count": 100
+  },
+  "run_status": "measured",
+  "runtime_seconds": 0.054051,
+  "schema_version": "krk_h100_bounded_harness_v0",
+  "source": {
+    "matrix_files": [
+      "examples/workloads/krk-mixed-routing-matrix-alpha.json",
+      "examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json",
+      "examples/workloads/krk-cache-heavy-routing-matrix-alpha.json",
+      "examples/workloads/krk-adversarial-routing-matrix-alpha.json"
+    ],
+    "policy_id": "KRK",
+    "subset_source": "public_krk_matrix_gpu_routed_items",
+    "workload_profiles": [
+      "GPU-heavy",
+      "adversarial",
+      "cache-heavy",
+      "mixed-realistic"
+    ]
+  },
+  "success_count": 100,
+  "throughput_compute_weight_per_second": 26826.318247,
+  "throughput_requests_per_second": 1850.090914
+}

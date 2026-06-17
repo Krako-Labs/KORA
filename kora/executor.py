@@ -77,6 +77,137 @@ def _handle_classify_simple(task: Task, state: dict[str, Any]) -> dict[str, Any]
     }
 
 
+def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, Any]:
+    del state
+    if task.run.kind != "det":
+        raise ValueError("classify_by_rules requires deterministic task input")
+
+    args = task.run.spec.args
+    text = task.in_.get("text", args.get("text", ""))
+    if not isinstance(text, str):
+        text = str(text)
+    lowered = text.lower()
+
+    routes = args.get("routes", [])
+    if not isinstance(routes, list):
+        routes = []
+
+    matches: list[dict[str, Any]] = []
+    for route in routes:
+        if not isinstance(route, dict):
+            continue
+        keywords = route.get("keywords", [])
+        if not isinstance(keywords, list):
+            continue
+        if any(str(keyword).lower() in lowered for keyword in keywords):
+            matches.append(route)
+
+    scenario_id = str(args.get("scenario_id", "classification"))
+    fallback_route = str(args.get("provider_required_route", f"provider_required.{scenario_id}"))
+
+    if len(matches) == 1:
+        route = matches[0]
+        output = route.get("output", {})
+        if not isinstance(output, dict):
+            output = {}
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "deterministic",
+            "selected_route": str(route.get("route_id", "")),
+            "classification_output": output,
+            "provider_calls": 0,
+            "provider_needed_reason": None,
+        }
+
+    reason = "no deterministic keyword route matched" if not matches else "multiple deterministic routes matched"
+    return {
+        "status": "ok",
+        "task_id": task.id,
+        "route_kind": "provider_required",
+        "selected_route": fallback_route,
+        "classification_output": None,
+        "provider_calls": 0,
+        "provider_needed_reason": reason,
+    }
+
+
+def _handle_doctor_inspect_task(task: Task, state: dict[str, Any]) -> dict[str, Any]:
+    del state
+    if task.run.kind != "det":
+        raise ValueError("doctor_inspect_task requires deterministic task input")
+
+    args = task.run.spec.args
+    text = task.in_.get("text", args.get("text", ""))
+    if not isinstance(text, str):
+        text = str(text)
+    lowered = text.lower()
+
+    def _matches(rules: Any) -> list[dict[str, Any]]:
+        if not isinstance(rules, list):
+            return []
+        matched: list[dict[str, Any]] = []
+        for rule in rules:
+            if not isinstance(rule, dict):
+                continue
+            keywords = rule.get("keywords", [])
+            if not isinstance(keywords, list):
+                continue
+            if any(str(keyword).lower() in lowered for keyword in keywords):
+                matched.append(rule)
+        return matched
+
+    deterministic_matches = _matches(args.get("deterministic_rules", []))
+    provider_matches = _matches(args.get("provider_needed_rules", []))
+
+    if len(deterministic_matches) == 1 and not provider_matches:
+        rule = deterministic_matches[0]
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "deterministic_candidate",
+            "selected_route": str(rule.get("route_id", "")),
+            "suggested_handler": str(rule.get("suggested_handler", "")),
+            "classification_output": rule.get("output", {}),
+            "route_rationale": str(rule.get("rationale", "")),
+            "next_step": str(rule.get("next_step", "")),
+            "provider_calls": 0,
+            "provider_needed_reason": None,
+        }
+
+    if provider_matches:
+        rule = provider_matches[0]
+        reason = str(rule.get("reason", "provider/model fallback recommended"))
+        if deterministic_matches or len(provider_matches) > 1:
+            reason = f"ambiguous doctor signal: {reason}"
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "provider_needed_candidate",
+            "selected_route": str(rule.get("route_id", "provider_required.doctor")),
+            "suggested_handler": None,
+            "classification_output": None,
+            "route_rationale": str(rule.get("rationale", reason)),
+            "next_step": str(rule.get("next_step", "send to provider/model fallback")),
+            "provider_calls": 0,
+            "provider_needed_reason": reason,
+        }
+
+    reason = "no deterministic doctor rule matched"
+    return {
+        "status": "ok",
+        "task_id": task.id,
+        "route_kind": "provider_needed_candidate",
+        "selected_route": "provider_required.doctor",
+        "suggested_handler": None,
+        "classification_output": None,
+        "route_rationale": reason,
+        "next_step": "review manually or route to provider/model fallback",
+        "provider_calls": 0,
+        "provider_needed_reason": reason,
+    }
+
+
 def _handle_flaky_once(task: Task, state: dict[str, Any]) -> dict[str, Any]:
     attempts = state.setdefault("flaky_once_attempts", {})
     count = int(attempts.get(task.id, 0)) + 1
@@ -245,7 +376,9 @@ def _handle_quality_gate(task: Task, state: dict[str, Any]) -> dict[str, Any]:
 
 DETERMINISTIC_HANDLERS: dict[str, Handler] = {
     "echo": _handle_echo,
+    "classify_by_rules": _handle_classify_by_rules,
     "classify_simple": _handle_classify_simple,
+    "doctor_inspect_task": _handle_doctor_inspect_task,
     "flaky_once": _handle_flaky_once,
     "parse_request_constraints": _handle_parse_request_constraints,
     "quality_gate": _handle_quality_gate,

@@ -1,0 +1,9 @@
+{
+  "claim_level": "expanded_h100_validation_not_run",
+  "subset_count": 0,
+  "success_count": 0,
+  "failure_count": 0,
+  "blocker": "Safe CUDA/H100 runtime was not available in the current execution environment.",
+  "raw_logs_committed": false,
+  "private_infrastructure_details_committed": false
+}

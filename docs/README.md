@@ -4,15 +4,45 @@
 
 This is the starting point for navigating KORA documentation.
 
-KORA is an open-source execution-control layer that turns AI requests into structured execution paths before inference.
+KORA is an AI Workload Control Layer. It helps developers inspect AI work, identify deterministic candidates, preserve provider/model fallback for ambiguous tasks, and report route rationale without overclaiming.
 
-Most AI apps call the model too soon. KORA changes the default. Structure first. Inference second.
+The current public examples are offline and synthetic. They demonstrate routing/control surfaces and bounded evidence, not production readiness or automatic savings.
+
+## Current Availability
+
+Use a current GitHub checkout for the latest KORA examples and CLI commands.
+
+As of the Goal 083B packaging check on June 18, 2026, plain `python3 -m pip install kora` resolves to an unrelated PyPI project named `kora` (`0.9.20`, a Colab utility package), not this `Krako-Labs/KORA` project. Do not use that command to validate `kora doctor`.
+
+The planned future PyPI distribution name is `getkora`; it is not documented as published here. Until a future release explicitly announces a package, install from source:
+
+```bash
+git clone https://github.com/Krako-Labs/KORA.git
+cd KORA
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install -e .
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+```
 
 ## Start
 
 - [Main README](../README.md)
+- [Open this first](../OPEN_THIS_FIRST.md)
+- [Review hub](../REVIEW_HUB.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 084 OpenAI-compatible proxy example](reports/goal084_openai_compatible_proxy_example.md)
+- [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
+- [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
+- [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
+- [KORA Doctor README](../examples/kora_doctor/README.md)
+- [OpenAI-compatible proxy example README](../examples/openai_compatible_proxy/README.md)
+- [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
+- [Deterministic classification example pack README](../examples/deterministic_classification/README.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
+- [KORA five-minute first-value quickstart](quickstart-five-minute-first-value.md)
 
 ## Understand
 
@@ -22,11 +52,133 @@ KORA control layer architecture.
 
 - [KORA Claim Registry](claims/kora-claim-registry.md)
 - [KORA Public Language Guide](claims/kora-public-language-guide.md)
+- [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
 - [Telemetry and observability counters](telemetry-and-observability.md#current-public-counters)
 - [Testing and validation strategy](testing-and-validation-strategy.md)
 - [Local validation reviewer packet](benchmarks/local-validation-reviewer-packet.md)
 - [Research agenda](research-agenda.md)
 - [Whitepaper](whitepaper.md)
+
+## Strategy
+
+- [KORA Routable AI Workloads Master Plan v0.1](strategy/kora-routable-ai-workloads-master-plan-v0-1.md)
+- [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
+
+## Product
+
+- [KORA Core alpha surface v0](product/kora-core-alpha-surface-v0.md)
+- [KORA Core user workflow v0](product/kora-core-user-workflow-v0.md)
+- [KORA Core inspect definition v0](product/kora-core-inspect-definition-v0.md)
+- [KORA Core compare definition v0](product/kora-core-compare-definition-v0.md)
+- [KORA Core run definition v0](product/kora-core-run-definition-v0.md)
+- [KORA Core report definition v0](product/kora-core-report-definition-v0.md)
+- [KRK quickstart v0](product/krk-quickstart-v0.md)
+- [KRK July 1 release-candidate checklist v0](product/krk-july1-release-candidate-v0.md)
+- [KRK July 1 readiness scorecard v0](product/krk-july1-readiness-scorecard-v0.md)
+- [KORA Routing Kernel definition v0](product/kora-routing-kernel-definition-v0.md)
+- [KORA Core expansion plan v0](product/kora-core-expansion-plan-v0.md)
+
+## Architecture
+
+- [KRK architecture v0](architecture/krk-architecture-v0.md)
+- [KORA Workload Spec v0](architecture/kora-workload-spec-v0.md)
+- [KORA Target Registry v0](architecture/kora-target-registry-v0.md)
+
+## Implementation
+
+- [KRK route-selectivity metrics implementation plan v0](implementation/krk-route-selectivity-metrics-implementation-plan-v0.md)
+- [KRK matrix evaluator design v0](implementation/krk-matrix-evaluator-design-v0.md)
+- [KRK oracle label contract v0](implementation/krk-oracle-label-contract-v0.md)
+- [KRK route metrics schema v0](implementation/krk-route-metrics-schema-v0.md)
+- [KRK Goal 045 task breakdown v0](implementation/krk-goal045-task-breakdown-v0.md)
+
+## Runbooks And ADRs
+
+- [Project Documentation Operating Standard](runbooks/project-documentation-operating-standard.md)
+- [ADR-001 project breadcrumb and review hub standard](adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
+- [Project Operating System](project-operating-system/README.md)
+- [Project Operating Standard v0](project-operating-system/project-operating-standard-v0.md)
+
+## Evidence
+
+- [KRK capability matrix v0](evidence/krk-capability-matrix-v0.md)
+- [KRK performance table v0](evidence/krk-performance-table-v0.md)
+- [KRK evidence package v0](evidence/krk-evidence-package-v0.md)
+- [KRK bounded H100 evaluation v0](evidence/krk-bounded-h100-evaluation-v0.md)
+- [KRK expanded bounded H100 evaluation v0](evidence/krk-expanded-bounded-h100-evaluation-v0.md)
+- [KRK H100 runtime recovery plan v0](evidence/krk-h100-runtime-recovery-plan-v0.md)
+- [KRK Goal 058C H100 bounded execution v0](reports/krk-goal058c-h100-bounded-execution-v0.md)
+- [KRK Goal 058D H100 evidence package refresh v0](reports/krk-goal058d-h100-evidence-package-refresh-v0.md)
+- [KRK Goal 059 expanded H100 representativeness v0](reports/krk-goal059-expanded-h100-representativeness-v0.md)
+- [KRK Goal 060 baseline equivalence and output fidelity v0](reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
+- [KRK Goal 070A five-minute first value v0](reports/krk-goal070a-five-minute-first-value-v0.md)
+- [KRK Goal 070B official CLI surface v0](reports/krk-goal070b-official-cli-surface-v0.md)
+- [KRK Goal 070C first-value install packaging v0](reports/krk-goal070c-first-value-install-packaging-v0.md)
+- [KRK Goal 071 project breadcrumb standard v0](reports/krk-goal071-project-breadcrumb-standard-v0.md)
+- [KRK Goal 072 project operating system extraction v0](reports/krk-goal072-project-operating-system-extraction-v0.md)
+- [KRK Goal 073 project operating system validation v0](reports/krk-goal073-project-operating-system-validation-v0.md)
+- [KRK Goal 074 PR readiness merge packet v0](reports/krk-goal074-pr-readiness-merge-packet-v0.md)
+- [KRK Goal 074 PR draft body v0](reports/krk-goal074-pr-draft-body-v0.md)
+- [KRK Goal 075 PR open v0](reports/krk-goal075-pr-open-v0.md)
+- [KRK provider-routed validation v0](evidence/krk-provider-routed-validation-v0.md)
+- [KRK expanded provider-routed validation v0](evidence/krk-expanded-provider-routed-validation-v0.md)
+- [KRK runtime-integrated route evaluation v0](evidence/krk-runtime-integrated-route-evaluation-v0.md)
+- [KRK multi-profile routing evaluation v0](evidence/krk-multi-profile-routing-evaluation-v0.md)
+- [KRK route-selectivity results v0](evidence/krk-route-selectivity-results-v0.md)
+- [KRK reproducibility matrix v0](evidence/krk-reproducibility-matrix-v0.md)
+- [KRK claim boundary table v0](evidence/krk-claim-boundary-table-v0.md)
+- [KRK extended H100 test matrix v0](evidence/krk-extended-h100-test-matrix-v0.md)
+- [KRK routing benchmark methodology v0](evidence/krk-routing-benchmark-methodology-v0.md)
+- [KRK performance table schema v0](evidence/krk-performance-table-schema-v0.md)
+- [KRK public evidence boundary v0](evidence/krk-public-evidence-boundary-v0.md)
+- [KRK July 1 missing evidence register v0](evidence/krk-july1-missing-evidence-register-v0.md)
+- [KORA Evidence Report Schema v0](evidence/kora-evidence-report-schema-v0.md)
+- [KRK July 1 evidence summary v0](reports/krk-july1-evidence-summary-v0.md)
+- [KRK July 1 RC decision package v0](reports/krk-july1-rc-decision-package-v0.md)
+- [KRK July 1 RC decision refresh v0](reports/krk-july1-rc-decision-refresh-v0.md)
+- [KRK July 1 RC final scope v0](reports/krk-july1-rc-final-scope-v0.md)
+- [KRK July 1 RC claim package v0](reports/krk-july1-rc-claim-package-v0.md)
+- [KRK July 1 RC public positioning v0](reports/krk-july1-rc-public-positioning-v0.md)
+- [KRK July 1 RC risk register v0](reports/krk-july1-rc-risk-register-v0.md)
+- [KRK July 1 RC next actions v0](reports/krk-july1-rc-next-actions-v0.md)
+- [KRK Goal 058 H100 execution plan v0](reports/krk-goal058-h100-execution-plan-v0.md)
+- [Generated KRK mixed route-selectivity metrics v0](evidence/generated/krk-mixed-routing-metrics-v0.md)
+- [Generated KRK GPU-heavy route-selectivity metrics v0](evidence/generated/krk-gpu-heavy-routing-metrics-v0.md)
+- [Generated KRK cache-heavy route-selectivity metrics v0](evidence/generated/krk-cache-heavy-routing-metrics-v0.md)
+- [Generated KRK adversarial route-selectivity metrics v0](evidence/generated/krk-adversarial-routing-metrics-v0.md)
+- [Generated KRK H100 bounded summary v0](evidence/generated/krk-h100-bounded-summary-v0.md)
+- [Generated KRK Goal 058C H100 bounded execution summary v0](evidence/generated/krk-goal058c-h100-bounded-execution-summary-v0.md)
+- [Generated KRK Goal 059 expanded H100 representativeness summary v0](evidence/generated/krk-goal059-expanded-h100-representativeness-summary-v0.md)
+- [Generated KRK Goal 060 output fidelity summary v0](evidence/generated/krk-goal060-output-fidelity-summary-v0.md)
+- [Generated KRK Goal 070A five-minute first-value summary v0](evidence/generated/krk-goal070a-five-minute-first-value-summary-v0.md)
+- [Generated KRK Goal 070B official CLI surface summary v0](evidence/generated/krk-goal070b-official-cli-surface-summary-v0.md)
+- [Generated KRK Goal 070C first-value install packaging summary v0](evidence/generated/krk-goal070c-first-value-install-packaging-summary-v0.md)
+- [Generated KRK expanded H100 bounded summary v0](evidence/generated/krk-expanded-h100-bounded-summary-v0.md)
+- [Generated KRK provider-routed validation summary v0](evidence/generated/krk-provider-routed-validation-summary-v0.md)
+- [Generated KRK expanded provider-routed validation summary v0](evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
+- [Generated KRK runtime-integrated route evaluation v0](evidence/generated/krk-runtime-integrated-route-evaluation-v0.md)
+
+## Reports
+
+- [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 084 OpenAI-compatible proxy example](reports/goal084_openai_compatible_proxy_example.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
+- [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
+- [Goal 082A KORA Doctor report pack](reports/goal082a_kora_doctor_report_pack.md)
+- [Goal 082A README refresh proposal](reports/goal082a_readme_refresh_proposal.md)
+- [Goal 082 KORA Doctor example](reports/goal082_kora_doctor_example.md)
+- [Goal 081A deterministic classification expansion pack](reports/goal081a_deterministic_classification_expansion_pack.md)
+- [KORA Core public merge readiness v0](reports/kora-core-public-merge-readiness-v0.md)
+- [KORA Core PR packet v0](reports/kora-core-pr-packet-v0.md)
+- [KORA Core public boundary audit v0](reports/kora-core-public-boundary-audit-v0.md)
+- [KORA Core change inventory v0](reports/kora-core-change-inventory-v0.md)
+- [July 31 report outline v0](reports/july31-report-outline-v0.md)
+- [July 31 development plan outline v0](reports/july31-development-plan-outline-v0.md)
+- [July 31 five-minute video storyboard v0](reports/july31-five-minute-video-storyboard-v0.md)
+- [July 31 evidence package index v0](reports/july31-evidence-package-index-v0.md)
+- [July 31 deliverable readiness checklist v0](reports/july31-deliverable-readiness-checklist-v0.md)
+- [July 31 risk and gap register v0](reports/july31-risk-and-gap-register-v0.md)
 
 ## KORA Studio Planning
 
@@ -58,6 +210,9 @@ KORA Studio is future planning only. It is not implemented yet.
 Local setup prerequisites:
 
 - Packaged support is Python 3.11 or newer, as declared in `pyproject.toml`.
+- Plain `python3 -m pip install kora` currently resolves to a different PyPI project and should not be used for this repository's latest examples.
+- Future package distribution is planned as `getkora`, but this documentation does not claim it is published.
+- Use a current GitHub checkout plus `python3 -m pip install -e .` for latest CLI examples.
 - Python 3.9.6 has been observed to run the offline `direct_vs_kora` example in one user environment.
 - Treat Python 3.9.6 as a troubleshooting datapoint, not as the advertised package support floor until clean Python 3.9 compatibility testing is completed.
 - KORA uses `pyproject.toml`-based packaging.
@@ -85,6 +240,12 @@ Core local commands:
 ```bash
 python3 -m kora --help
 python3 -m kora examples list
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+python3 -m kora doctor --all examples/kora_doctor/
+python3 examples/openai_compatible_proxy/run.py
+python3 examples/kora_doctor/run.py
+python3 examples/kora_doctor/run.py --all
+python3 examples/deterministic_classification/run.py
 python3 -m kora run customer_support_triage_fake_validation -- --offline
 python3 -m kora run real_model_call_validation_fake -- --offline
 python3 -m kora run direct_vs_kora -- --offline
@@ -96,7 +257,9 @@ A local `python3 -m kora examples list` run should include entries like these; y
 ```text
 Runnable examples
 - customer_support_triage_fake_validation: customer-support triage local no-network validation example (graph.json: no)
+- deterministic_classification: deterministic classification example pack (graph.json: no)
 - direct_vs_kora: direct call vs KORA-controlled path (graph.json: yes)
+- kora_doctor: offline doctor-style workload inspection example (graph.json: no)
 - real_model_call_validation_fake: local no-network model-call validation example (graph.json: no)
 - runtime_integrated_benchmark: initial runtime-path benchmark harness (graph.json: no)
 ```
@@ -143,9 +306,9 @@ Use this path for the current `v0.3.0-alpha` prerelease runtime evidence and reg
 18. Customer-support triage workload spec: [`docs/workloads/customer-support-triage.md`](workloads/customer-support-triage.md)
 19. Claim boundary source: [`docs/claims/kora-claim-registry.md`](claims/kora-claim-registry.md)
 
-Current approved public claim:
+Current approved bounded public claim:
 
-> KORA reduced model invocations by 80% in a reproducible deterministic-heavy benchmark workload.
+> In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline.
 
 This evidence does not claim production cost reduction proof, real API-cost reduction proof, production benchmark proof, full runtime-integrated benchmark evidence, broad workload superiority proof, or energy reduction evidence.
 
@@ -164,6 +327,12 @@ Additional evidence and release docs:
 
 ## Paper Preparation
 
+- [KRK technical paper outline v0](paper/krk-technical-paper-outline-v0.md)
+- [KRK technical paper draft v0](paper/krk-technical-paper-draft-v0.md)
+- [KRK related work notes v0](paper/krk-related-work-notes-v0.md)
+- [KRK figures and tables plan v0](paper/krk-figures-and-tables-plan-v0.md)
+- [KRK paper claim boundary v0](paper/krk-paper-claim-boundary-v0.md)
+- [KRK paper next experiments v0](paper/krk-paper-next-experiments-v0.md)
 - [KORA first paper draft v0](paper/kora-first-paper-draft-v0.md)
 - [KORA first paper manuscript v0.1](paper/kora-first-paper-manuscript-v0-1.md)
 - [KORA first paper outline](paper/kora-first-paper-outline.md)

@@ -1,0 +1,93 @@
+{
+  "claim_boundary": "Dry-run route-selectivity evidence only. This output does not claim production savings, customer savings, infrastructure savings, GPU superiority, broad workload superiority, provider replacement, production readiness, or formal validation.",
+  "claim_level": "dry_run_route_selectivity",
+  "errors": [],
+  "fallback_counts": {
+    "failure_fallback": 0,
+    "safety_fallback": 1,
+    "unknown_fallback": 0,
+    "validation_fallback": 0
+  },
+  "items": [
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Large high-complexity local-or-sanitized request selects GPU.",
+      "error": null,
+      "expected_route": "GPU",
+      "fallback_classification": null,
+      "request_id": "gpu-001",
+      "selected_route": "GPU",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Large high-complexity local-or-sanitized request selects GPU.",
+      "error": null,
+      "expected_route": "GPU",
+      "fallback_classification": null,
+      "request_id": "gpu-002",
+      "selected_route": "GPU",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Small low-complexity request selects deterministic route.",
+      "error": null,
+      "expected_route": "deterministic",
+      "fallback_classification": null,
+      "request_id": "gpu-003",
+      "selected_route": "deterministic",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Restricted or malformed visible metadata requires fallback.",
+      "error": null,
+      "expected_route": "fallback",
+      "fallback_classification": "safety_fallback",
+      "request_id": "gpu-004",
+      "selected_route": "fallback",
+      "unsafe_misroute": false
+    }
+  ],
+  "metrics": {
+    "acceptable_route_rate": 1.0,
+    "cache_hit_correctness_rate": null,
+    "compute_weight_formula_version": "cwgd_v0",
+    "compute_weighted_gpu_demand": 0.7058823529411765,
+    "error_count": 0,
+    "error_percentage": 0.0,
+    "exact_route_accuracy": 1.0,
+    "failure_fallback_rate": 0.0,
+    "gpu_false_negative_count": 0,
+    "gpu_false_positive_count": 0,
+    "safety_fallback_rate": 0.25,
+    "unsafe_misroute_rate": 0.0
+  },
+  "policy_id": "KRK",
+  "policy_version": "krk_dry_run_v0",
+  "profile_id": "GPU-heavy",
+  "reproducibility": {
+    "command": "python3 -m kora.matrix_evaluator --matrix examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json --policy KRK --json-out docs/evidence/generated/krk-gpu-heavy-routing-metrics-v0.json --md-out docs/evidence/generated/krk-gpu-heavy-routing-metrics-v0.md --repo-commit committed-example",
+    "formula_version": "cwgd_v0",
+    "policy_id": "KRK",
+    "policy_version": "krk_dry_run_v0",
+    "profile_file": "examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json",
+    "repo_commit": "committed-example"
+  },
+  "route_counts": {
+    "CPU": 0,
+    "GPU": 2,
+    "cache": 0,
+    "deterministic": 1,
+    "fallback": 1,
+    "provider": 0
+  },
+  "schema_version": "krk_route_metrics_v0",
+  "source": {
+    "description": "Small public-safe dry-run matrix with several GPU-suitable requests for route-selectivity evaluation.",
+    "matrix_file": "examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json",
+    "schema_version": "krk_routing_matrix_alpha_v0"
+  },
+  "total_requests": 4
+}

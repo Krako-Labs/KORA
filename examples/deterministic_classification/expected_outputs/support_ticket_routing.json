@@ -1,0 +1,10 @@
+{
+  "avoided_provider_invocations": 5,
+  "deterministic_routes": 5,
+  "ok": true,
+  "provider_calls": 0,
+  "provider_needed_routes": 3,
+  "scenario_count": 1,
+  "scenario_ids": ["support_ticket_routing"],
+  "total_tasks": 8
+}

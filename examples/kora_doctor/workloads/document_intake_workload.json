@@ -1,0 +1,55 @@
+{
+  "workload_id": "kora_doctor_document_intake_workload_v0",
+  "description": "Synthetic document intake workflow tasks for the KORA Doctor report pack.",
+  "privacy_class": "synthetic",
+  "deterministic_rules": [
+    {
+      "route_id": "doctor.det.classify_by_rules",
+      "suggested_handler": "classify_by_rules",
+      "keywords": ["document type", "intake category", "route document"],
+      "rationale": "The task asks for bounded document category routing.",
+      "next_step": "define deterministic document type rules",
+      "output": {"candidate_type": "document_classification", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.cache_reuse",
+      "suggested_handler": "cache_reuse",
+      "keywords": ["duplicate document", "same hash", "known document"],
+      "rationale": "The task can reuse a prior exact document result.",
+      "next_step": "add hash-based cache reuse before fallback",
+      "output": {"candidate_type": "document_cache_reuse", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.static_transform",
+      "suggested_handler": "static_transform",
+      "keywords": ["extract metadata", "rename fields", "static transform"],
+      "rationale": "The task is a mechanical metadata transform.",
+      "next_step": "implement deterministic metadata extraction and schema checks",
+      "output": {"candidate_type": "document_static_transform", "confidence": "high"}
+    }
+  ],
+  "provider_needed_rules": [
+    {
+      "route_id": "doctor.provider.semantic_judgment",
+      "keywords": ["judge legal risk", "subjective risk", "ambiguous semantic judgment"],
+      "reason": "ambiguous semantic judgment",
+      "rationale": "The task asks for subjective risk interpretation.",
+      "next_step": "define a review rubric or route to provider/model fallback"
+    },
+    {
+      "route_id": "doctor.provider.open_generation",
+      "keywords": ["summarize negotiation", "write recommendation", "open-ended generation"],
+      "reason": "open-ended generation",
+      "rationale": "The task asks for generated narrative or recommendation text.",
+      "next_step": "separate deterministic metadata from provider/model generation"
+    }
+  ],
+  "tasks": [
+    {"id": "doc-doctor-001", "title": "Route document type", "description": "Route document type into invoice, contract, transcript, or security questionnaire.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "doc-doctor-002", "title": "Duplicate document", "description": "Reuse duplicate document result for the same hash.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "cache_reuse"},
+    {"id": "doc-doctor-003", "title": "Extract metadata", "description": "Extract metadata and rename fields into the intake schema.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "static_transform"},
+    {"id": "doc-doctor-004", "title": "Intake category", "description": "Assign intake category from a fixed document taxonomy.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "doc-doctor-005", "title": "Judge legal risk", "description": "Judge legal risk from subjective risk signals.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null},
+    {"id": "doc-doctor-006", "title": "Write recommendation", "description": "Write recommendation and summarize negotiation context.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null}
+  ]
+}

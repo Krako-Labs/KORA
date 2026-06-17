@@ -1,0 +1,5 @@
+{
+  "note": "Compatibility pointer for the original Goal 080 support-ticket scenario. The runnable datasets now live under examples/deterministic_classification/datasets/.",
+  "scenario_id": "support_ticket_routing",
+  "dataset_path": "datasets/support_ticket_routing.json"
+}

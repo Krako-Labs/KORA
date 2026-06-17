@@ -1,0 +1,69 @@
+{
+  "schema_version": "krk_goal070c_first_value_install_packaging_summary_v0",
+  "final_classification": "FIRST_VALUE_EDITABLE_INSTALL_VALIDATED",
+  "claim_level": "first_value_cli_install_path_validated",
+  "package_entrypoint": {
+    "source": "pyproject.toml",
+    "script": "kora",
+    "target": "kora.cli:main",
+    "status": "registered"
+  },
+  "fresh_install_validation": {
+    "status": "passed",
+    "environment_type": "temporary_clean_venv",
+    "latest_revalidation": "goal070c_after_project_operating_system_adoption",
+    "revalidation_base_commit": "f84756e",
+    "editable_install_command": "python3 -m pip install -e .",
+    "console_script_available": true,
+    "python_module_entrypoint_available": true,
+    "provider_credentials_required": false,
+    "gpu_required": false,
+    "network_required_after_install": false
+  },
+  "commands_validated": [
+    "kora --help",
+    "kora inspect --help",
+    "kora compare --help",
+    "kora run --help",
+    "kora report --help",
+    "kora inspect",
+    "kora compare",
+    "kora run",
+    "kora report"
+  ],
+  "onboarding_metrics": {
+    "install_commands_count": 6,
+    "first_value_commands_count": 4,
+    "total_commands_count": 10,
+    "required_user_decisions": 0,
+    "provider_credentials_required": false,
+    "gpu_required": false,
+    "network_required_after_install": false,
+    "generated_output_files": 2,
+    "estimated_time_to_first_value_minutes": 5
+  },
+  "first_value_result": {
+    "fixture_items": 18,
+    "dry_run_execution_success_rate": 1.0,
+    "unsafe_misroute_rate": 0.0,
+    "acceptable_output_rate": 1.0,
+    "output_exact_match_count": 17,
+    "output_structured_equivalent_count": 1,
+    "output_degraded_count": 0,
+    "output_failed_count": 0
+  },
+  "discovered_failure_points": [],
+  "platform_support": {
+    "macos_linux_style": "validated",
+    "windows_native": "deferred",
+    "wsl": "deferred"
+  },
+  "public_boundary": {
+    "private_paths_committed": false,
+    "credentials_committed": false,
+    "raw_access_details_committed": false,
+    "temporary_venv_committed": false,
+    "local_outputs_committed": false
+  },
+  "claim_boundary": "First-value install and packaging validation only. This summary does not claim production proof, production readiness, production cost reduction, customer savings, energy reduction, broad workload superiority, real API/GPU cost reduction, provider superiority, H100 superiority, or adoption."
+}

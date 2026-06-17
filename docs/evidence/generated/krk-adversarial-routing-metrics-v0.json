@@ -1,0 +1,93 @@
+{
+  "claim_boundary": "Dry-run route-selectivity evidence only. This output does not claim production savings, customer savings, infrastructure savings, GPU superiority, broad workload superiority, provider replacement, production readiness, or formal validation.",
+  "claim_level": "dry_run_route_selectivity",
+  "errors": [],
+  "fallback_counts": {
+    "failure_fallback": 0,
+    "safety_fallback": 2,
+    "unknown_fallback": 0,
+    "validation_fallback": 0
+  },
+  "items": [
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Restricted or malformed visible metadata requires fallback.",
+      "error": null,
+      "expected_route": "fallback",
+      "fallback_classification": "safety_fallback",
+      "request_id": "adv-001",
+      "selected_route": "fallback",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Restricted or malformed visible metadata requires fallback.",
+      "error": null,
+      "expected_route": "fallback",
+      "fallback_classification": "safety_fallback",
+      "request_id": "adv-002",
+      "selected_route": "fallback",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Provider-allowed request selects provider.",
+      "error": null,
+      "expected_route": "CPU",
+      "fallback_classification": null,
+      "request_id": "adv-003",
+      "selected_route": "provider",
+      "unsafe_misroute": false
+    },
+    {
+      "acceptable": true,
+      "decision_reason": "KRK dry-run visible-metadata policy: Default visible-metadata route selects CPU.",
+      "error": null,
+      "expected_route": "CPU",
+      "fallback_classification": null,
+      "request_id": "adv-004",
+      "selected_route": "CPU",
+      "unsafe_misroute": false
+    }
+  ],
+  "metrics": {
+    "acceptable_route_rate": 1.0,
+    "cache_hit_correctness_rate": null,
+    "compute_weight_formula_version": "cwgd_v0",
+    "compute_weighted_gpu_demand": 0.0,
+    "error_count": 0,
+    "error_percentage": 0.0,
+    "exact_route_accuracy": 0.75,
+    "failure_fallback_rate": 0.0,
+    "gpu_false_negative_count": 0,
+    "gpu_false_positive_count": 0,
+    "safety_fallback_rate": 0.5,
+    "unsafe_misroute_rate": 0.0
+  },
+  "policy_id": "KRK",
+  "policy_version": "krk_dry_run_v0",
+  "profile_id": "adversarial",
+  "reproducibility": {
+    "command": "python3 -m kora.matrix_evaluator --matrix examples/workloads/krk-adversarial-routing-matrix-alpha.json --policy KRK --json-out docs/evidence/generated/krk-adversarial-routing-metrics-v0.json --md-out docs/evidence/generated/krk-adversarial-routing-metrics-v0.md --repo-commit committed-example",
+    "formula_version": "cwgd_v0",
+    "policy_id": "KRK",
+    "policy_version": "krk_dry_run_v0",
+    "profile_file": "examples/workloads/krk-adversarial-routing-matrix-alpha.json",
+    "repo_commit": "committed-example"
+  },
+  "route_counts": {
+    "CPU": 1,
+    "GPU": 0,
+    "cache": 0,
+    "deterministic": 0,
+    "fallback": 2,
+    "provider": 1
+  },
+  "schema_version": "krk_route_metrics_v0",
+  "source": {
+    "description": "Small public-safe dry-run matrix for unsafe, ambiguous, malformed, and conflicting route metadata.",
+    "matrix_file": "examples/workloads/krk-adversarial-routing-matrix-alpha.json",
+    "schema_version": "krk_routing_matrix_alpha_v0"
+  },
+  "total_requests": 4
+}
