@@ -254,13 +254,23 @@ Target package install path:
 pip install kora
 ```
 
+To install with the optional Rust acceleration backend:
+
+```bash
+pip install "kora[rust]"
+```
+
 Homebrew install path:
 
 ```bash
 brew install kora
 ```
 
-For the current repository alpha, use the editable local install in the [3-Minute Local Run](#3-minute-local-run).
+For the current repository alpha, use the editable local install in the [3-Minute Local Run](#3-minute-local-run). For local development with Rust support, install with the `rust` extra:
+
+```bash
+pip install -e ".[rust]"
+```
 
 ## Current Examples
 
