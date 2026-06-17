@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "attempt": 1,
+      "stage": "DETERMINISTIC",
+      "status": "ok",
+      "task_id": "t1",
+      "time_ms": 0
+    }
+  ],
+  "final": {
+    "message": "contract test",
+    "status": "ok",
+    "task_id": "t1"
+  },
+  "graph_id": "test-graph",
+  "ok": true,
+  "order": [
+    "t1"
+  ],
+  "outputs": {
+    "t1": {
+      "message": "contract test",
+      "status": "ok",
+      "task_id": "t1"
+    }
+  },
+  "stage_timings": {
+    "det_total_s": 0.0002758,
+    "overall_total_s": 0.0004217,
+    "verify_total_s": 1e-7
+  }
+}

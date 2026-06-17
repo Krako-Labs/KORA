@@ -1,0 +1,39 @@
+{
+  "error": {
+    "budget_breached": false,
+    "details": "Rule 'required' failed: path 'non_existent_key' not found",
+    "error_type": "OUTPUT_SCHEMA_INVALID",
+    "retryable": false,
+    "stage": "VERIFY",
+    "task_id": "t1"
+  },
+  "events": [
+    {
+      "attempt": 1,
+      "error": {
+        "budget_breached": false,
+        "details": "Rule 'required' failed: path 'non_existent_key' not found",
+        "error_type": "OUTPUT_SCHEMA_INVALID",
+        "retryable": false,
+        "stage": "VERIFY",
+        "task_id": "t1"
+      },
+      "stage": "VERIFY",
+      "status": "fail",
+      "task_id": "t1",
+      "time_ms": 0
+    }
+  ],
+  "final": null,
+  "graph_id": "test-graph",
+  "ok": false,
+  "order": [
+    "t1"
+  ],
+  "outputs": {},
+  "stage_timings": {
+    "det_total_s": 0.0000985,
+    "overall_total_s": 0.0001659,
+    "verify_total_s": 1e-6
+  }
+}

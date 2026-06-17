@@ -1,0 +1,38 @@
+{
+  "error": {
+    "budget_breached": true,
+    "details": "Task 't1' timed out (max_time_ms = 50 exceeded)",
+    "error_type": "BUDGET_BREACH",
+    "retryable": false,
+    "stage": "BUDGET",
+    "task_id": "t1"
+  },
+  "events": [
+    {
+      "attempt": 1,
+      "error": {
+        "budget_breached": true,
+        "details": "Task 't1' timed out (max_time_ms = 50 exceeded)",
+        "error_type": "BUDGET_BREACH",
+        "retryable": false,
+        "stage": "BUDGET",
+        "task_id": "t1"
+      },
+      "stage": "BUDGET",
+      "status": "fail",
+      "task_id": "t1",
+      "time_ms": 64
+    }
+  ],
+  "final": null,
+  "graph_id": "test-graph",
+  "ok": false,
+  "order": [
+    "t1"
+  ],
+  "outputs": {},
+  "stage_timings": {
+    "det_total_s": 0.0644072,
+    "overall_total_s": 0.0646027
+  }
+}
