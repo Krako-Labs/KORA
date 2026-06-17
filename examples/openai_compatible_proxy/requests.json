@@ -1,0 +1,137 @@
+{
+  "schema_version": "kora_openai_compatible_proxy_requests_v0",
+  "description": "Synthetic OpenAI-style chat requests for the offline KORA proxy example.",
+  "routes": [
+    {
+      "route_id": "proxy.det.support.billing",
+      "keywords": ["charged twice", "duplicate charge", "invoice", "billing"],
+      "output": {
+        "category": "billing",
+        "team": "support_billing",
+        "priority": "normal",
+        "response_template": "billing-review"
+      }
+    },
+    {
+      "route_id": "proxy.det.support.account_access",
+      "keywords": ["password reset", "cannot sign in", "login"],
+      "output": {
+        "category": "account_access",
+        "team": "support_account",
+        "priority": "normal",
+        "response_template": "account-access-reset"
+      }
+    },
+    {
+      "route_id": "proxy.det.support.technical_support",
+      "keywords": ["export fails", "timeout", "error"],
+      "output": {
+        "category": "technical_support",
+        "team": "support_technical",
+        "priority": "high",
+        "response_template": "technical-diagnostics"
+      }
+    }
+  ],
+  "provider_required_route": "proxy.provider.openai_style_fallback",
+  "requests": [
+    {
+      "id": "proxy-001",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules",
+      "request": {
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "Classify support tickets into bounded routing categories."
+          },
+          {
+            "role": "user",
+            "content": "Classify this ticket: Customer was charged twice"
+          }
+        ],
+        "temperature": 0
+      }
+    },
+    {
+      "id": "proxy-002",
+      "expected_route_kind": "cache_hit",
+      "expected_handler": "cache_reuse",
+      "request": {
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "Classify support tickets into bounded routing categories."
+          },
+          {
+            "role": "user",
+            "content": "Classify this ticket: Customer was charged twice"
+          }
+        ],
+        "temperature": 0
+      }
+    },
+    {
+      "id": "proxy-003",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules",
+      "request": {
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Classify this ticket: Password reset link expired and I cannot sign in"
+          }
+        ],
+        "temperature": 0
+      }
+    },
+    {
+      "id": "proxy-004",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules",
+      "request": {
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Classify this ticket: CSV export fails with timeout"
+          }
+        ],
+        "temperature": 0
+      }
+    },
+    {
+      "id": "proxy-005",
+      "expected_route_kind": "provider_required",
+      "expected_handler": "provider_needed_fallback",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a warm apology email and propose a custom retention offer."
+          }
+        ],
+        "temperature": 0.7
+      }
+    },
+    {
+      "id": "proxy-006",
+      "expected_route_kind": "provider_required",
+      "expected_handler": "provider_needed_fallback",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Classify this ticket: Billing invoice problem and login timeout error"
+          }
+        ],
+        "temperature": 0
+      }
+    }
+  ]
+}

@@ -95,6 +95,7 @@ Current implemented surfaces in this GitHub repository include:
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
 - Run KORA Doctor sample workload inspection from the first-class CLI: `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json`
 - Run the deterministic classification expansion pack.
+- Run the offline OpenAI-compatible proxy example.
 - Run first-value CLI paths: `kora inspect`, `kora compare`, `kora run`, `kora doctor`, and `kora report`
 - Execute deterministic sample tasks through KORA `TaskGraph` paths.
 - Produce local JSON and Markdown/text reports from bundled examples.
@@ -109,12 +110,37 @@ After installing from the current repository, start here:
 python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
+python3 examples/openai_compatible_proxy/run.py
 python3 examples/kora_doctor/run.py
 python3 examples/kora_doctor/run.py --all
 python3 examples/deterministic_classification/run.py
 ```
 
 The examples require no provider credentials and make no provider calls.
+
+### OpenAI-Compatible Proxy
+
+The OpenAI-compatible proxy example shows KORA sitting in front of OpenAI-style chat request objects. It routes deterministic classification requests through KORA `TaskGraph` execution, reuses a local cache for repeated sample requests, and marks ambiguous or open-ended sample requests as provider-needed.
+
+Run the example:
+
+```bash
+python3 examples/openai_compatible_proxy/run.py
+```
+
+Expected counters:
+
+- total requests: `6`
+- deterministic handled: `3`
+- cache hits: `1`
+- provider-needed: `2`
+- avoided simulated provider/model invocations: `4`
+- provider calls actually made: `0`
+
+Docs:
+
+- [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
+- [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md)
 
 ### KORA Doctor
 
