@@ -60,9 +60,9 @@ Current implemented surfaces include:
 
 - List runnable examples: `python3 -m kora examples list`
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
-- Run KORA Doctor sample workload inspection.
+- Run KORA Doctor sample workload inspection from the first-class CLI: `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json`
 - Run the deterministic classification expansion pack.
-- Run first-value CLI paths: `kora inspect`, `kora compare`, `kora run`, and `kora report`
+- Run first-value CLI paths: `kora inspect`, `kora compare`, `kora run`, `kora doctor`, and `kora report`
 - Execute deterministic sample tasks through KORA `TaskGraph` paths.
 - Produce local JSON and Markdown/text reports from bundled examples.
 
@@ -74,6 +74,8 @@ Start here:
 
 ```bash
 python3 -m kora examples list
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+python3 -m kora doctor --all examples/kora_doctor/
 python3 examples/kora_doctor/run.py
 python3 examples/kora_doctor/run.py --all
 python3 examples/deterministic_classification/run.py
@@ -99,7 +101,19 @@ Run the default Doctor workload:
 python3 examples/kora_doctor/run.py
 ```
 
+Run a workload through the first-class CLI:
+
+```bash
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+```
+
 Run the Doctor report pack across bundled sample workloads:
+
+```bash
+python3 -m kora doctor --all examples/kora_doctor/
+```
+
+The example script remains available:
 
 ```bash
 python3 examples/kora_doctor/run.py --all \
@@ -121,6 +135,7 @@ Docs:
 - [KORA Doctor README](examples/kora_doctor/README.md)
 - [Goal 082 KORA Doctor example](docs/reports/goal082_kora_doctor_example.md)
 - [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
+- [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
 
 ### Deterministic Classification
 

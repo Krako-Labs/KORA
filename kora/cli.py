@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
 import subprocess
@@ -35,6 +36,10 @@ def _default_md_out(input_path: Path) -> Path:
 
 def _examples_root() -> Path:
     return Path(__file__).resolve().parent.parent / "examples"
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parent.parent
 
 
 def _example_descriptions() -> dict[str, str]:
@@ -76,6 +81,73 @@ def _discover_examples() -> list[dict[str, object]]:
     return examples
 
 
+def _load_doctor_module():
+    doctor_path = _examples_root() / "kora_doctor" / "run.py"
+    spec = importlib.util.spec_from_file_location("kora_doctor_cli_runtime", doctor_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"failed to load KORA Doctor module from {doctor_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _resolve_doctor_workload_path(path_text: str) -> Path:
+    path = Path(path_text)
+    if path.exists():
+        return path
+
+    doctor_root = _examples_root() / "kora_doctor"
+    workload_candidate = doctor_root / "workloads" / path.name
+    if path.parent.name == "kora_doctor" and workload_candidate.exists():
+        return workload_candidate
+
+    return path
+
+
+def _run_doctor_command(
+    workload_path: str | None,
+    *,
+    all_workloads: bool,
+    json_out: str | None,
+    report_md: str | None,
+) -> int:
+    doctor = _load_doctor_module()
+    try:
+        if all_workloads:
+            workloads_root = Path(workload_path) if workload_path else _examples_root() / "kora_doctor"
+            if not workloads_root.exists() or not workloads_root.is_dir():
+                print(f"KORA Doctor workload directory not found: {workloads_root}", file=sys.stderr)
+                return 2
+            summary = doctor.build_aggregate_summary(
+                workloads_root=workloads_root,
+                json_out=Path(json_out) if json_out else None,
+            )
+        else:
+            resolved_workload = (
+                _resolve_doctor_workload_path(workload_path)
+                if workload_path
+                else _examples_root() / "kora_doctor" / "workload.json"
+            )
+            if not resolved_workload.exists() or not resolved_workload.is_file():
+                print(f"KORA Doctor workload JSON not found: {resolved_workload}", file=sys.stderr)
+                return 2
+            summary = doctor.build_doctor_summary(
+                resolved_workload,
+                json_out=Path(json_out) if json_out else None,
+            )
+    except (json.JSONDecodeError, KeyError, RuntimeError, ValueError) as e:
+        print(f"KORA Doctor failed: {e}", file=sys.stderr)
+        return 1
+
+    report = doctor.render_text_report(summary)
+    if report_md:
+        report_path = Path(report_md)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(report, encoding="utf-8")
+    print(report, end="")
+    return 0 if summary["ok"] else 1
+
+
 def _print_examples_list() -> None:
     examples = _discover_examples()
     if not examples:
@@ -99,7 +171,7 @@ def _run_example(example_name: str, extra_args: list[str]) -> int:
         return 2
 
     command = [sys.executable, str(example_map[example_name]), *extra_args]
-    repo_root = Path(__file__).resolve().parent.parent
+    repo_root = _repo_root()
     env = os.environ.copy()
     existing_pythonpath = env.get("PYTHONPATH")
     env["PYTHONPATH"] = (
@@ -235,6 +307,23 @@ def main(argv: list[str] | None = None) -> int:
     )
     compare_parser.add_argument("--json-out", help="optional path for structured JSON output")
 
+    doctor_parser = subparsers.add_parser(
+        "doctor",
+        help="inspect a workload for deterministic and provider-needed candidates",
+        description=(
+            "Run the offline KORA Doctor workload-control report for a workload JSON file, "
+            "or aggregate bundled workloads with --all."
+        ),
+    )
+    doctor_parser.add_argument(
+        "workload_path",
+        nargs="?",
+        help="workload JSON path, or workload directory when used with --all",
+    )
+    doctor_parser.add_argument("--all", action="store_true", help="run all workloads in a Doctor workload directory")
+    doctor_parser.add_argument("--json-out", help="optional path for structured JSON output")
+    doctor_parser.add_argument("--report-md", help="optional path for the rendered text report")
+
     run_parser = subparsers.add_parser(
         "run",
         help="run the public-safe first-value fixture path or a named example",
@@ -291,6 +380,14 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "compare":
         return _run_first_value_step("compare", json_out=args.json_out)
+
+    if args.command == "doctor":
+        return _run_doctor_command(
+            args.workload_path,
+            all_workloads=args.all,
+            json_out=args.json_out,
+            report_md=args.report_md,
+        )
 
     if args.command == "run":
         if args.example is None:

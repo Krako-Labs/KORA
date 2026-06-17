@@ -31,10 +31,13 @@ def load_workload(path: Path = DEFAULT_WORKLOAD) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def sample_workload_paths() -> list[Path]:
-    paths = [DEFAULT_WORKLOAD]
-    if WORKLOADS_DIR.exists():
-        paths.extend(sorted(WORKLOADS_DIR.glob("*.json")))
+def sample_workload_paths(workloads_root: Path | None = None) -> list[Path]:
+    root = workloads_root or EXAMPLE_DIR
+    default_workload = root / "workload.json"
+    workloads_dir = root / "workloads"
+    paths = [default_workload]
+    if workloads_dir.exists():
+        paths.extend(sorted(workloads_dir.glob("*.json")))
     return paths
 
 
@@ -162,8 +165,12 @@ def build_doctor_summary(
     return summary
 
 
-def build_aggregate_summary(*, json_out: Path | None = None) -> dict[str, Any]:
-    workload_summaries = [build_doctor_summary(path) for path in sample_workload_paths()]
+def build_aggregate_summary(
+    workloads_root: Path | None = None,
+    *,
+    json_out: Path | None = None,
+) -> dict[str, Any]:
+    workload_summaries = [build_doctor_summary(path) for path in sample_workload_paths(workloads_root)]
     total_tasks = sum(item["total_tasks"] for item in workload_summaries)
     deterministic_candidates = sum(item["deterministic_candidates"] for item in workload_summaries)
     provider_needed_candidates = sum(item["provider_needed_candidates"] for item in workload_summaries)
@@ -188,6 +195,7 @@ def build_aggregate_summary(*, json_out: Path | None = None) -> dict[str, Any]:
     summary: dict[str, Any] = {
         "ok": all(item["ok"] for item in workload_summaries) and provider_calls == 0,
         "mode": "kora_doctor_report_pack",
+        "workloads_root": str(workloads_root or EXAMPLE_DIR),
         "workload_count": len(workload_summaries),
         "workload_ids": [item["workload_id"] for item in workload_summaries],
         "total_tasks": total_tasks,
@@ -222,6 +230,7 @@ def render_text_report(summary: dict[str, Any]) -> str:
     lines = [
         title,
         "",
+        f"Workload: {summary['workload_id']}" if summary["mode"] != "kora_doctor_report_pack" else f"Workloads: {summary['workload_count']}",
         f"Total tasks: {summary['total_tasks']}",
         f"Deterministic candidates: {summary['deterministic_candidates']}",
         f"Provider-needed candidates: {summary['provider_needed_candidates']}",
@@ -236,6 +245,7 @@ def render_text_report(summary: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            f"Avoided simulated provider/model invocations: {summary['avoided_provider_invocations']}",
             f"Provider calls actually made: {summary['provider_calls_actually_made']}",
         "",
         ]

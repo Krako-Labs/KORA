@@ -35,12 +35,13 @@ def test_top_level_help_lists_first_value_commands() -> None:
     assert completed.returncode == 0
     assert "inspect" in completed.stdout
     assert "compare" in completed.stdout
+    assert "doctor" in completed.stdout
     assert "run" in completed.stdout
     assert "report" in completed.stdout
 
 
 def test_first_value_command_help_works() -> None:
-    for command in ("inspect", "compare", "run", "report"):
+    for command in ("inspect", "compare", "doctor", "run", "report"):
         completed = _run_kora(command, "--help")
         assert completed.returncode == 0
         assert command in completed.stdout

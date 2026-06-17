@@ -15,6 +15,7 @@ The current public examples are offline and synthetic. They demonstrate routing/
 - [Review hub](../REVIEW_HUB.md)
 - [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
 - [KORA Doctor README](../examples/kora_doctor/README.md)
+- [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
 - [Deterministic classification example pack README](../examples/deterministic_classification/README.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
@@ -136,6 +137,7 @@ KORA control layer architecture.
 ## Reports
 
 - [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
 - [Goal 082A KORA Doctor report pack](reports/goal082a_kora_doctor_report_pack.md)
 - [Goal 082A README refresh proposal](reports/goal082a_readme_refresh_proposal.md)
 - [Goal 082 KORA Doctor example](reports/goal082_kora_doctor_example.md)
@@ -208,6 +210,8 @@ Core local commands:
 ```bash
 python3 -m kora --help
 python3 -m kora examples list
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+python3 -m kora doctor --all examples/kora_doctor/
 python3 examples/kora_doctor/run.py
 python3 examples/kora_doctor/run.py --all
 python3 examples/deterministic_classification/run.py
