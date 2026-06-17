@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 084.
+Last updated by: Goal 085.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal084_openai_compatible_proxy`
-- worktree label: `goal084_openai_compatible_proxy`
+- active evidence branch: `goal085_openai_proxy_module_cli`
+- worktree label: `goal085_openai_proxy_module_cli`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 084
-- base commit: `b925a5163650ed60b97ebc7b1aa2b44d7fda4290`
+- open PR: none for Goal 085
+- base commit: `651ab79e037d334339463efb1df61e9e8812371c`
 
 ## Current State Summary
 
@@ -36,6 +36,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - distribution strategy documents PyPI `kora` collision, source-install current path, and planned future PyPI distribution name `getkora`.
 - public first-run acceptance testing covers README-only onboarding, fresh source install, KORA Doctor, deterministic classification, and PyPI collision wording.
 - OpenAI-compatible proxy example with offline OpenAI-style chat request fixtures, KORA deterministic routing, local cache reuse, provider-needed fallback labels, and `0` provider calls.
+- reusable OpenAI-style proxy demo module and first-class `kora proxy-demo` CLI command for running the offline proxy/control path over sample request JSON.
 - deterministic classification example pack with KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - KORA Doctor first-value developer example with KORA `TaskGraph` execution, deterministic candidate/provider-needed candidate inspection, route rationale, counters, and next-step recommendations.
 - KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
@@ -80,6 +81,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 083B | Documented the `getkora` future distribution strategy after verifying the PyPI `kora` collision and current source-install path. | [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md) |
 | Goal 083C | Ran public first-run acceptance testing over README onboarding, fresh source install, KORA Doctor, deterministic classification, and PyPI collision wording. | [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md) |
 | Goal 084 | Added an offline OpenAI-compatible proxy example that routes OpenAI-style sample requests through KORA deterministic handling, cache reuse, or provider-needed fallback. | [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md) |
+| Goal 085 | Promoted the OpenAI-style proxy demo into reusable module logic and a first-class offline `kora proxy-demo` CLI command. | [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md) |
 
 ## Evidence Index
 
@@ -106,6 +108,7 @@ Generated summaries:
 Current reviewer path:
 
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
+- [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md)
 - [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md)
 - [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
 - [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md)
@@ -156,6 +159,7 @@ Supported:
 - KORA has a first-class `kora doctor` CLI command for running the same offline Doctor inspection over sample workload JSON files and bundled workload directories.
 - KORA's planned future PyPI distribution package name is `getkora`; current latest-feature testing requires source install from the repository.
 - KORA has an offline OpenAI-style proxy example where sample chat requests are routed through deterministic handling, local cache reuse, or provider-needed fallback without provider calls.
+- KORA has a reusable offline proxy demo module and first-class `kora proxy-demo` CLI command for routing OpenAI-style sample request JSON without provider calls.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
@@ -193,6 +197,7 @@ kora compare
 kora run
 kora doctor examples/kora_doctor/customer_support_workload.json
 kora doctor --all examples/kora_doctor/
+kora proxy-demo examples/openai_compatible_proxy/requests.json
 kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value.md
 ```
 
@@ -205,6 +210,7 @@ python3 -m kora compare
 python3 -m kora run
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
+python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
 python3 -m kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value.md
 ```
 
@@ -360,7 +366,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 085 - Public reviewer walkthrough and example catalog refresh.
+1. Goal 086 - Public reviewer walkthrough and example catalog refresh.
 2. Goal 086 - Contributor issue seed for examples-first onboarding.
 3. Goal 087 - Contributor issue seed for first-value examples.
 4. Goal 088 - Wheel and source distribution smoke validation.

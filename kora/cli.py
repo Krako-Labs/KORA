@@ -16,6 +16,12 @@ from kora.five_minute_first_value import (
     render_markdown_summary as render_first_value_markdown,
     write_outputs as write_first_value_outputs,
 )
+from kora.openai_proxy_demo import (
+    DEFAULT_EXPECTED_COUNTERS_PATH,
+    build_proxy_summary,
+    render_report as render_proxy_report,
+    write_report as write_proxy_report,
+)
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -145,6 +151,34 @@ def _run_doctor_command(
         report_path = Path(report_md)
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text(report, encoding="utf-8")
+    print(report, end="")
+    return 0 if summary["ok"] else 1
+
+
+def _run_proxy_demo_command(
+    requests_path: str,
+    *,
+    json_out: str | None,
+    report_md: str | None,
+) -> int:
+    path = Path(requests_path)
+    if not path.exists() or not path.is_file():
+        print(f"KORA proxy demo request JSON not found: {path}", file=sys.stderr)
+        return 2
+
+    try:
+        summary = build_proxy_summary(
+            requests_path=path,
+            expected_counters_path=DEFAULT_EXPECTED_COUNTERS_PATH,
+            json_out=Path(json_out) if json_out else None,
+            mode="openai_proxy_demo_cli",
+        )
+    except (json.JSONDecodeError, KeyError, RuntimeError, ValueError) as e:
+        print(f"KORA proxy demo failed: {e}", file=sys.stderr)
+        return 1
+
+    report = render_proxy_report(summary)
+    write_proxy_report(report, Path(report_md) if report_md else None)
     print(report, end="")
     return 0 if summary["ok"] else 1
 
@@ -325,6 +359,19 @@ def main(argv: list[str] | None = None) -> int:
     doctor_parser.add_argument("--json-out", help="optional path for structured JSON output")
     doctor_parser.add_argument("--report-md", help="optional path for the rendered text report")
 
+    proxy_demo_parser = subparsers.add_parser(
+        "proxy-demo",
+        help="run the offline OpenAI-style proxy demo",
+        description=(
+            "Run the offline KORA proxy demo for OpenAI-style sample request JSON. "
+            "The demo routes deterministic or cacheable sample requests without provider calls "
+            "and marks ambiguous/open-ended requests as provider-needed."
+        ),
+    )
+    proxy_demo_parser.add_argument("requests_path", help="OpenAI-style request fixture JSON")
+    proxy_demo_parser.add_argument("--json-out", help="optional path for structured JSON output")
+    proxy_demo_parser.add_argument("--report-md", help="optional path for the rendered text report")
+
     run_parser = subparsers.add_parser(
         "run",
         help="run the public-safe first-value fixture path or a named example",
@@ -386,6 +433,13 @@ def main(argv: list[str] | None = None) -> int:
         return _run_doctor_command(
             args.workload_path,
             all_workloads=args.all,
+            json_out=args.json_out,
+            report_md=args.report_md,
+        )
+
+    if args.command == "proxy-demo":
+        return _run_proxy_demo_command(
+            args.requests_path,
             json_out=args.json_out,
             report_md=args.report_md,
         )

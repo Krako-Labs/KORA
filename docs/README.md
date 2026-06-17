@@ -32,6 +32,7 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 - [Open this first](../OPEN_THIS_FIRST.md)
 - [Review hub](../REVIEW_HUB.md)
 - [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 085 OpenAI proxy reusable module and CLI](reports/goal085_openai_proxy_reusable_module_cli.md)
 - [Goal 084 OpenAI-compatible proxy example](reports/goal084_openai_compatible_proxy_example.md)
 - [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
 - [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
@@ -161,6 +162,7 @@ KORA control layer architecture.
 ## Reports
 
 - [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 085 OpenAI proxy reusable module and CLI](reports/goal085_openai_proxy_reusable_module_cli.md)
 - [Goal 084 OpenAI-compatible proxy example](reports/goal084_openai_compatible_proxy_example.md)
 - [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
 - [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
@@ -242,6 +244,7 @@ python3 -m kora --help
 python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
+python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
 python3 examples/openai_compatible_proxy/run.py
 python3 examples/kora_doctor/run.py
 python3 examples/kora_doctor/run.py --all
