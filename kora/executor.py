@@ -488,31 +488,91 @@ def _apply_adaptive_confidence_policy(
 
 def run_graph(graph: TaskGraph) -> dict[str, Any]:
     """Execute a normalized task graph with structured success/failure contracts."""
-    import os
     if os.getenv("KORA_USE_RUST") == "1":
+        run_start = time.monotonic()
         try:
             import kora_rust
-            json_str = graph.model_dump_json(by_alias=True)
-            result_json = kora_rust.run_graph(json_str)
-            
-            import json
-            outputs = json.loads(result_json)
-            from kora.scheduler import topo_sort
             try:
-                order = topo_sort(graph)
-            except Exception:
-                order = list(outputs.keys())
-            final_output = outputs.get(graph.root)
-            return {
-                "ok": True,
-                "graph_id": graph.graph_id,
-                "order": order,
-                "events": [],
-                "outputs": outputs,
-                "final": final_output,
-                "stage_timings": {"overall_total_s": 0.0}
-            }
+                json_str = graph.model_dump_json(by_alias=True)
+                result_json = kora_rust.run_graph(json_str)
+                result = json.loads(result_json)
+                if isinstance(result, dict):
+                    if "ok" not in result:
+                        try:
+                            order = topo_sort(graph)
+                        except Exception:
+                            order = list(result.keys())
+                        final_output = result.get(graph.root)
+                        result = {
+                            "ok": True,
+                            "graph_id": graph.graph_id,
+                            "order": order,
+                            "events": [],
+                            "outputs": result,
+                            "final": final_output,
+                            "stage_timings": {"overall_total_s": time.monotonic() - run_start}
+                        }
+                    return result
+            except Exception as exc:
+                import re
+                msg = str(exc)
+                task_id = None
+                error_type = "UNKNOWN"
+                stage = "UNKNOWN"
+                retryable = False
+                budget_breached = False
+                details = msg
+
+                if "timed out" in msg:
+                    match = re.search(r"Task '([^']+)' timed out", msg)
+                    if match:
+                        task_id = match.group(1)
+                    error_type = "BUDGET_BREACH"
+                    stage = "BUDGET"
+                    budget_breached = True
+                elif "Verification failed for task" in msg:
+                    match = re.search(r"Verification failed for task '([^']+)': (.*)", msg)
+                    if match:
+                        task_id = match.group(1)
+                        details = match.group(2)
+                    error_type = "OUTPUT_SCHEMA_INVALID"
+                    stage = "VERIFY"
+                elif "Deterministic handler" in msg:
+                    match = re.search(r"Deterministic handler '([^']+)' failed: (.*)", msg)
+                    if match:
+                        task_id = match.group(1)
+                        details = match.group(2)
+                    error_type = "DETERMINISTIC_EXEC_FAILED"
+                    stage = "DETERMINISTIC"
+                elif "LLM adapter failed" in msg:
+                    match = re.search(r"LLM adapter failed: (.*)", msg)
+                    if match:
+                        details = match.group(1)
+                    error_type = "ADAPTER_FAILED"
+                    stage = "ADAPTER"
+                elif "Execution failed: " in msg:
+                    details = msg.replace("Execution failed: ", "", 1)
+
+                err = {
+                    "error_type": error_type,
+                    "stage": stage,
+                    "retryable": retryable,
+                    "budget_breached": budget_breached,
+                    "details": details,
+                    "task_id": task_id,
+                }
+                return {
+                    "ok": False,
+                    "graph_id": graph.graph_id,
+                    "order": [],
+                    "error": err,
+                    "events": [],
+                    "outputs": {},
+                    "final": None,
+                    "stage_timings": {"overall_total_s": time.monotonic() - run_start},
+                }
         except ImportError:
+            # Fallback to Python executor if Rust module not available
             pass
 
     run_start = time.monotonic()
