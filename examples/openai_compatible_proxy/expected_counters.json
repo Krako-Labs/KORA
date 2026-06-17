@@ -1,0 +1,8 @@
+{
+  "total_requests": 6,
+  "deterministic_handled": 3,
+  "cache_hits": 1,
+  "provider_needed": 2,
+  "avoided_provider_invocations": 4,
+  "provider_calls_actually_made": 0
+}

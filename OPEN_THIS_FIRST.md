@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 083C.
+Last updated by: Goal 084.
 
 ## Current Status
 
@@ -18,6 +18,7 @@ Current state:
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
+- an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -29,15 +30,32 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal083c_public_first_run_acceptance`
+- branch: `goal084_openai_compatible_proxy`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 083C
-- base commit: `f768a353fa02feb0dcf1f02055ae4c029117ad37` including pending local Goal 083B material
+- open PR: none for Goal 084
+- base commit: `b925a5163650ed60b97ebc7b1aa2b44d7fda4290`
 
 ## Last Completed Goal
 
-Goal 083C - Public First-Run Acceptance Test.
+Goal 084 - Implement OpenAI-Compatible Proxy Example.
+
+Goal 084 added an offline OpenAI-compatible proxy example under `examples/openai_compatible_proxy/`. The example uses KORA `TaskGraph` execution with the deterministic `classify_by_rules` handler for bounded support-ticket classification requests, local cache reuse for repeated sample requests, and provider-needed fallback labels for ambiguous/open-ended sample requests. It makes `0` provider calls.
+
+Primary report:
+
+- [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md)
+
+Example artifacts:
+
+- [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
+- [OpenAI-compatible proxy runnable script](examples/openai_compatible_proxy/run.py)
+- [OpenAI-compatible proxy request fixture](examples/openai_compatible_proxy/requests.json)
+- [OpenAI-compatible proxy expected counters](examples/openai_compatible_proxy/expected_counters.json)
+
+Claim boundary: In this offline OpenAI-style proxy example, KORA routes deterministic or cacheable sample requests without making provider calls and marks ambiguous/open-ended requests as provider-needed. It does not claim production proxy readiness, full OpenAI API compatibility, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 083C - Public First-Run Acceptance Test.
 
 Goal 083C tested the README-only reviewer path, fresh source install path, PyPI collision awareness, and five-minute reviewer path using the pending Goal 083B distribution strategy material. It also added a short source-install availability note to the deterministic classification README.
 
@@ -225,6 +243,8 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md)
+- [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
 - [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md)
 - [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
 - [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
