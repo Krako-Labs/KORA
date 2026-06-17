@@ -1,0 +1,41 @@
+{
+  "scenario_id": "log_event_classification",
+  "scenario_label": "Log/event classification",
+  "description": "Synthetic application log events for deterministic event classification.",
+  "privacy_class": "synthetic",
+  "provider_required_route": "provider_required.log_event_classification",
+  "routes": [
+    {
+      "route_id": "det.log.auth_failure",
+      "category": "auth_failure",
+      "keywords": ["401", "unauthorized", "invalid token", "auth failure"],
+      "output": {"category": "auth_failure", "stream": "security_events", "severity": "medium"}
+    },
+    {
+      "route_id": "det.log.rate_limit",
+      "category": "rate_limit",
+      "keywords": ["429", "rate limit", "too many requests", "throttled"],
+      "output": {"category": "rate_limit", "stream": "traffic_control", "severity": "low"}
+    },
+    {
+      "route_id": "det.log.database_error",
+      "category": "database_error",
+      "keywords": ["database error", "deadlock", "connection pool", "sql timeout"],
+      "output": {"category": "database_error", "stream": "database_ops", "severity": "high"}
+    },
+    {
+      "route_id": "det.log.deploy_event",
+      "category": "deploy_event",
+      "keywords": ["deploy started", "deploy completed", "release version", "rollback started"],
+      "output": {"category": "deploy_event", "stream": "release_events", "severity": "info"}
+    }
+  ],
+  "items": [
+    {"id": "log-001", "subject": "401 auth failure", "body": "Request failed with 401 unauthorized because of invalid token.", "expected_route": "deterministic", "expected_category": "auth_failure"},
+    {"id": "log-002", "subject": "429 rate limit", "body": "Client was throttled after too many requests.", "expected_route": "deterministic", "expected_category": "rate_limit"},
+    {"id": "log-003", "subject": "Database error", "body": "Database error from connection pool and sql timeout.", "expected_route": "deterministic", "expected_category": "database_error"},
+    {"id": "log-004", "subject": "Deploy completed", "body": "Release version 2.3 deploy completed successfully.", "expected_route": "deterministic", "expected_category": "deploy_event"},
+    {"id": "log-005", "subject": "Unexpected latency", "body": "Requests are slow but no known event keyword appears.", "expected_route": "provider_required", "expected_category": null},
+    {"id": "log-006", "subject": "Auth failure during rate limit", "body": "401 unauthorized appears together with 429 rate limit.", "expected_route": "provider_required", "expected_category": null}
+  ]
+}

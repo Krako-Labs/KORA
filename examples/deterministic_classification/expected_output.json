@@ -1,0 +1,11 @@
+{
+  "avoided_provider_invocations": 21,
+  "deterministic_routes": 21,
+  "mode": "deterministic_classification_expansion_pack",
+  "ok": true,
+  "provider_calls": 0,
+  "provider_calls_actually_made": 0,
+  "provider_needed_routes": 11,
+  "scenario_count": 5,
+  "total_tasks": 32
+}

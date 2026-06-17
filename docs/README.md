@@ -4,15 +4,18 @@
 
 This is the starting point for navigating KORA documentation.
 
-KORA makes AI workloads routable.
+KORA is an AI Workload Control Layer. It helps developers inspect AI work, identify deterministic candidates, preserve provider/model fallback for ambiguous tasks, and report route rationale without overclaiming.
 
-KORA Core is the planned open-source AI workload execution layer. The current public alpha is KRK-oriented: deterministic-first workload routing and evidence reporting through the KORA Routing Kernel.
+The current public examples are offline and synthetic. They demonstrate routing/control surfaces and bounded evidence, not production readiness or automatic savings.
 
 ## Start
 
 - [Main README](../README.md)
 - [Open this first](../OPEN_THIS_FIRST.md)
 - [Review hub](../REVIEW_HUB.md)
+- [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
+- [KORA Doctor README](../examples/kora_doctor/README.md)
+- [Deterministic classification example pack README](../examples/deterministic_classification/README.md)
 - [Current v0.3.0-alpha prerelease](https://github.com/Krako-Labs/KORA/releases/tag/v0.3.0-alpha)
 - [KORA Category Thesis](vision/2026-05-06-kora-category-thesis.md)
 - [KORA five-minute first-value quickstart](quickstart-five-minute-first-value.md)
@@ -25,6 +28,7 @@ KORA control layer architecture.
 
 - [KORA Claim Registry](claims/kora-claim-registry.md)
 - [KORA Public Language Guide](claims/kora-public-language-guide.md)
+- [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
 - [Telemetry and observability counters](telemetry-and-observability.md#current-public-counters)
 - [Testing and validation strategy](testing-and-validation-strategy.md)
 - [Local validation reviewer packet](benchmarks/local-validation-reviewer-packet.md)
@@ -131,6 +135,11 @@ KORA control layer architecture.
 
 ## Reports
 
+- [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 082A KORA Doctor report pack](reports/goal082a_kora_doctor_report_pack.md)
+- [Goal 082A README refresh proposal](reports/goal082a_readme_refresh_proposal.md)
+- [Goal 082 KORA Doctor example](reports/goal082_kora_doctor_example.md)
+- [Goal 081A deterministic classification expansion pack](reports/goal081a_deterministic_classification_expansion_pack.md)
 - [KORA Core public merge readiness v0](reports/kora-core-public-merge-readiness-v0.md)
 - [KORA Core PR packet v0](reports/kora-core-pr-packet-v0.md)
 - [KORA Core public boundary audit v0](reports/kora-core-public-boundary-audit-v0.md)
@@ -199,6 +208,9 @@ Core local commands:
 ```bash
 python3 -m kora --help
 python3 -m kora examples list
+python3 examples/kora_doctor/run.py
+python3 examples/kora_doctor/run.py --all
+python3 examples/deterministic_classification/run.py
 python3 -m kora run customer_support_triage_fake_validation -- --offline
 python3 -m kora run real_model_call_validation_fake -- --offline
 python3 -m kora run direct_vs_kora -- --offline
@@ -210,7 +222,9 @@ A local `python3 -m kora examples list` run should include entries like these; y
 ```text
 Runnable examples
 - customer_support_triage_fake_validation: customer-support triage local no-network validation example (graph.json: no)
+- deterministic_classification: deterministic classification example pack (graph.json: no)
 - direct_vs_kora: direct call vs KORA-controlled path (graph.json: yes)
+- kora_doctor: offline doctor-style workload inspection example (graph.json: no)
 - real_model_call_validation_fake: local no-network model-call validation example (graph.json: no)
 - runtime_integrated_benchmark: initial runtime-path benchmark harness (graph.json: no)
 ```

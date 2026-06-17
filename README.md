@@ -1,112 +1,210 @@
-# KORA Core
+# KORA
 
-Make AI workloads routable.
+Make AI workloads controllable.
 
-Docker made applications portable.
-KORA makes AI workloads routable.
+KORA is an AI Workload Control Layer. It helps developers inspect work before sending it to a model, identify deterministic paths, preserve provider/model fallback for ambiguous work, and report what happened.
 
-KORA Core is an open-source AI workload execution layer.
+Many AI systems treat every task as a model problem. Many tasks are actually classification, validation, routing, policy, cache reuse, workflow control, or deterministic processing. KORA helps decide what should reach a model, what does not need a model, and how work should move through an AI system.
 
-The current alpha focuses on deterministic-first workload routing and evidence reporting through the KORA Routing Kernel.
+Current examples are offline and synthetic. They demonstrate KORA's routing/control surfaces, not production readiness, production cost reduction, benchmark superiority, or model replacement.
 
-![KORA execution control overview](docs/assets/kora-execution-control-overview.png)
+## What KORA Is
 
-## Current Alpha
+KORA sits between an AI request and provider/model execution.
 
-The current public implementation is a KRK-oriented alpha. KRK means KORA Routing Kernel: a deterministic-first execution routing kernel inside KORA Core.
+It turns implicit work into explicit tasks and routes:
 
-Current alpha primitives:
+```text
+request -> workload/task -> route decision -> deterministic handler or provider-needed fallback -> report
+```
 
-- `route`: select a workload route.
-- `explain`: explain the routing decision.
-- `benchmark`: compare bounded workload behavior.
-- `report`: produce evidence for review.
+KORA does not try to make models smarter. It controls when, why, and how they are used.
 
-These are KRK alpha primitives, not top-level CLI commands on the current base. The verified local CLI currently exposes `examples`, `run`, `studio`, and `telemetry`.
+## Why KORA Exists
 
-KRK standalone docs:
+Model-first systems often send too much work directly to inference. That makes it harder to see which parts of a workflow are:
 
-- [KRK quickstart](docs/product/krk-quickstart-v0.md)
-- [KRK architecture](docs/architecture/krk-architecture-v0.md)
-- [KRK capability matrix](docs/evidence/krk-capability-matrix-v0.md)
-- [KRK July 1 release-candidate checklist](docs/product/krk-july1-release-candidate-v0.md)
+- bounded classification.
+- validation.
+- routing.
+- policy checks.
+- cache reuse.
+- static transforms.
+- workflow control.
+- open-ended generation or semantic judgment.
 
-KRK evidence:
+KORA makes these boundaries visible so developers can separate deterministic work from provider/model-needed work before building deeper integrations.
 
-- [KRK capability matrix](docs/evidence/krk-capability-matrix-v0.md)
-- [KRK performance table](docs/evidence/krk-performance-table-v0.md)
+## AI Workload Control Layer
+
+An AI Workload Control Layer is the part of an AI system that asks:
+
+- What kind of work is this?
+- Can it be handled deterministically?
+- Should it use cache reuse or a static transform?
+- Does it require provider/model fallback?
+- What route was selected, and why?
+- What evidence can be reported without overclaiming?
+
+KORA currently demonstrates this with offline examples, deterministic handlers, KORA `TaskGraph` execution, route rationale, and bounded evidence reports.
+
+Read more:
+
+- [KORA Workload Control Layer vision](docs/vision/kora_workload_control_layer.md)
+- [KORA Review Hub](REVIEW_HUB.md)
+- [Open This First](OPEN_THIS_FIRST.md)
+
+## What KORA Can Do Today
+
+Current implemented surfaces include:
+
+- List runnable examples: `python3 -m kora examples list`
+- Run offline examples through the KORA example runner: `python3 -m kora run <example>`
+- Run KORA Doctor sample workload inspection.
+- Run the deterministic classification expansion pack.
+- Run first-value CLI paths: `kora inspect`, `kora compare`, `kora run`, and `kora report`
+- Execute deterministic sample tasks through KORA `TaskGraph` paths.
+- Produce local JSON and Markdown/text reports from bundled examples.
+
+These are first-value developer examples and bounded evidence paths. They are not production validation.
+
+## Examples
+
+Start here:
+
+```bash
+python3 -m kora examples list
+python3 examples/kora_doctor/run.py
+python3 examples/kora_doctor/run.py --all
+python3 examples/deterministic_classification/run.py
+```
+
+The examples require no provider credentials and make no provider calls.
+
+### KORA Doctor
+
+KORA Doctor inspects sample workloads and explains:
+
+- deterministic candidates.
+- provider-needed candidates.
+- suggested deterministic handlers.
+- provider/model fallback reasons.
+- route rationale.
+- next-step recommendations.
+- provider calls actually made.
+
+Run the default Doctor workload:
+
+```bash
+python3 examples/kora_doctor/run.py
+```
+
+Run the Doctor report pack across bundled sample workloads:
+
+```bash
+python3 examples/kora_doctor/run.py --all \
+  --json-out /tmp/kora_doctor_report_pack.json \
+  --report-md /tmp/kora_doctor_report_pack.md
+```
+
+Current Doctor report pack counters:
+
+- workload count: `4`
+- total tasks: `25`
+- deterministic candidates: `16`
+- provider-needed candidates: `9`
+- avoided simulated provider/model invocations in these offline samples: `16`
+- provider calls actually made: `0`
+
+Docs:
+
+- [KORA Doctor README](examples/kora_doctor/README.md)
+- [Goal 082 KORA Doctor example](docs/reports/goal082_kora_doctor_example.md)
+- [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
+
+### Deterministic Classification
+
+The deterministic classification example pack shows KORA routing synthetic classification tasks through deterministic handlers while preserving provider-needed fallback cases.
+
+Run the pack:
+
+```bash
+python3 examples/deterministic_classification/run.py
+```
+
+Run through the KORA example runner:
+
+```bash
+python3 -m kora run deterministic_classification
+```
+
+Current deterministic classification pack counters:
+
+- total tasks: `32`
+- deterministic routes: `21`
+- provider-needed routes: `11`
+- avoided simulated provider/model invocations in this example pack: `21`
+- provider calls actually made: `0`
+
+Scenarios:
+
+- support ticket routing.
+- issue triage.
+- incident severity routing.
+- document type routing.
+- log/event classification.
+
+Docs:
+
+- [Deterministic classification example pack README](examples/deterministic_classification/README.md)
+- [Goal 081A deterministic classification expansion pack](docs/reports/goal081a_deterministic_classification_expansion_pack.md)
+
+## Evidence And Validation
+
+KORA still includes KRK-oriented evidence and first-value reports. Current evidence is bounded and public-safe.
+
+Key evidence and reports:
+
+- [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
 - [KRK evidence package](docs/evidence/krk-evidence-package-v0.md)
-- [KRK reproducibility matrix](docs/evidence/krk-reproducibility-matrix-v0.md)
-- [KRK claim boundary table](docs/evidence/krk-claim-boundary-table-v0.md)
+- [KRK performance table](docs/evidence/krk-performance-table-v0.md)
+- [KRK route-selectivity results](docs/evidence/krk-route-selectivity-results-v0.md)
+- [KRK runtime-integrated route evaluation](docs/evidence/krk-runtime-integrated-route-evaluation-v0.md)
+- [Goal 082A README refresh proposal](docs/reports/goal082a_readme_refresh_proposal.md)
+- [Goal 082B narrative repositioning report](docs/reports/goal082b_narrative_repositioning.md)
 
-KORA still starts from the same execution-control idea:
+## Safe Claim Boundaries
 
-```text
-request -> prompt -> model -> output
-```
+Supported narrow statements:
 
-After:
+- KORA helps make AI workloads routable and controllable.
+- KORA examples can identify deterministic candidates and provider-needed candidates in bundled offline sample workloads.
+- KORA examples can execute deterministic sample tasks through KORA `TaskGraph` paths.
+- KORA examples can preserve explicit provider-needed fallback cases while making zero provider calls.
+- KORA Doctor and deterministic classification examples produce local reports over synthetic sample workloads.
 
-```text
-request -> task graph -> deterministic path -> validation -> model escalation -> telemetry
-```
+Not claimed:
 
-Structure first. Inference second.
+- production cost reduction proof.
+- broad workload superiority.
+- production readiness.
+- benchmark superiority.
+- automatic savings.
+- model replacement.
+- production diagnostic accuracy.
+- real API-cost proof.
+- production proxy readiness.
 
-## Roadmap
-
-KORA Core is planned to expand beyond the current KRK alpha into a broader AI workload execution layer:
-
-- inspect.
-- compare.
-- run.
-- report.
-- doctor.
-- Workload Spec.
-- Target Registry.
-- Evidence Report.
-- adapters.
-- examples.
-- developer preview.
-
-These are roadmap surfaces unless a command or module is documented as implemented.
-
-KORA Core alpha surface docs:
-
-- [KORA Core alpha surface](docs/product/kora-core-alpha-surface-v0.md)
-- [KORA Core user workflow](docs/product/kora-core-user-workflow-v0.md)
-- [Inspect definition](docs/product/kora-core-inspect-definition-v0.md)
-- [Compare definition](docs/product/kora-core-compare-definition-v0.md)
-- [Run definition](docs/product/kora-core-run-definition-v0.md)
-- [Report definition](docs/product/kora-core-report-definition-v0.md)
-
-## Prerequisites
+## Installation
 
 KORA uses `pyproject.toml`-based Python packaging.
 
-- Packaged support: Python 3.11 or newer, as declared in `pyproject.toml`.
-- Observed local result: Python 3.9.6 has been confirmed to run the offline `direct_vs_kora` example in one user environment.
-- Treat Python 3.9.6 as an observed troubleshooting datapoint, not as the advertised package support floor until clean Python 3.9 compatibility testing is completed.
-- Before making Python-version compatibility assumptions, check the active interpreter with `python3 --version`.
-- VS Code's selected interpreter may differ from terminal `python3`; make sure both point to the intended environment when debugging setup issues.
-- Upgrade `pip`, `setuptools`, and `wheel` before editable install so local tooling understands modern `pyproject.toml` builds.
-
-Check your local tools first:
+Packaged support is Python 3.11 or newer, as declared in `pyproject.toml`.
 
 ```bash
-python3 --version
-python3 -m pip --version
-which python3
-```
+git clone https://github.com/Krako-Labs/KORA.git
+cd KORA
 
-## 3-Minute Local Run
-
-For local development in this repository:
-
-```bash
-python3 --version
-
-rm -rf .venv
 python3 -m venv .venv
 source .venv/bin/activate
 
@@ -114,41 +212,18 @@ python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install -e ".[dev]"
 ```
 
-If editable install reports that `setup.py`, `setup.cfg`, or install metadata is missing, first verify that your checkout is current:
-
-```bash
-git remote -v
-git fetch origin
-git checkout main
-git pull origin main
-ls pyproject.toml
-```
-
-If `pyproject.toml` is still missing after pulling, re-clone from `https://github.com/Krako-Labs/KORA.git`.
-
-Run the CLI and first offline demo:
+Check the CLI:
 
 ```bash
 python3 -m kora --help
 python3 -m kora examples list
-python3 -m kora run hello_kora -- --offline
-python3 -m kora run direct_vs_kora -- --offline
 ```
 
-Inspect the output to see how KORA changes a direct model-first path into a controlled execution path.
+## First-Value CLI
 
-## Five-Minute First Value
-
-For the shortest current path from fresh clone to a public-safe KORA result, install the package locally and run the official first-value commands:
+The first-value CLI path runs over committed public fixtures and requires no provider credentials, no GPU, and no network access after dependencies are installed:
 
 ```bash
-git clone https://github.com/Krako-Labs/KORA.git
-cd KORA
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install --upgrade pip setuptools wheel
-python3 -m pip install -e .
-
 kora inspect
 kora compare
 kora run
@@ -157,276 +232,45 @@ kora report \
   --md-out /tmp/kora-first-value.md
 ```
 
-This workflow shows inspect, compare, run, and report steps over committed public KRK fixtures. It requires no provider credentials, no GPU, and no network access after dependencies are installed. The module form `python3 -m kora ...` and compatibility wrapper `python3 scripts/kora_five_minute_demo.py` remain available.
+Module form:
+
+```bash
+python3 -m kora inspect
+python3 -m kora compare
+python3 -m kora run
+python3 -m kora report \
+  --json-out /tmp/kora-first-value.json \
+  --md-out /tmp/kora-first-value.md
+```
 
 Guide:
 
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
 
-## Local Setup Troubleshooting
+## Roadmap
 
-If first-run setup fails after a system restart, Python upgrade, VS Code interpreter change, or virtual environment change, start by collecting the active environment:
+Near-term roadmap direction:
 
-```bash
-python3 --version
-python3 -m pip --version
-python3 -m pip show pydantic
-which python3
-```
+- continue improving examples as first-value onboarding.
+- add reviewer walkthroughs for KORA Doctor and deterministic classification.
+- keep public claims tied to checked fixtures and reports.
+- expand workload-control docs without presenting future work as implemented.
+- preserve explicit provider/model fallback boundaries.
 
-### `TypeError: unsupported operand type(s) for |: 'ModelMetaclass' and 'ModelMetaclass'`
+Longer-term surfaces remain roadmap unless a command, example, or module is documented as implemented:
 
-This usually indicates a local Python, virtual environment, `pip`, `setuptools`, or dependency compatibility problem. Python 3.9.6 has been observed to run the offline `direct_vs_kora` example in one user environment, but packaged support is currently Python 3.11 or newer. First rebuild the local environment with current build tooling:
-
-```bash
-rm -rf .venv
-python3 -m venv .venv
-source .venv/bin/activate
-
-python3 -m pip install --upgrade pip setuptools wheel
-python3 -m pip install -e ".[dev]"
-python3 -m kora run hello_kora -- --offline
-python3 -m kora run direct_vs_kora -- --offline
-```
-
-Do not assume this error means a newer Python version is unsupported. Test Python 3.9, 3.10, 3.11, or 3.12 in clean environments before changing the package support floor.
-
-### Editable install says `setup.py` or `setup.cfg` is missing
-
-KORA uses `pyproject.toml`-based packaging, so a missing `setup.py` or `setup.cfg` message usually means the local `pip`/build tooling is too old or the virtual environment is stale. Confirm `pyproject.toml` exists, upgrade build tooling, then reinstall:
-
-```bash
-ls pyproject.toml
-python3 -m pip install --upgrade pip setuptools wheel
-python3 -m pip install -e ".[dev]"
-```
-
-### VS Code interpreter differs from terminal `python3`
-
-If KORA works in Terminal but fails in VS Code, compare the selected VS Code interpreter against terminal `python3`:
-
-```bash
-which python3
-python3 --version
-python3 -m pip --version
-```
-
-Select the repository `.venv` interpreter in VS Code, then reopen the terminal or restart the Python language server before rerunning the examples.
-
-## What KORA Does
-
-KORA sits between an AI request and a model call.
-
-It helps developers:
-
-- turn requests into explicit task graphs
-- run deterministic work before inference
-- validate outputs before escalation
-- make model calls conditional instead of default
-- record telemetry around each execution path
-- compare direct model-first execution against controlled execution
-
-KORA does not try to make models smarter. It controls when, why, and how they are used.
-
-## Current Alpha Evidence
-
-In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline.
-
-![KORA benchmark evidence card](docs/assets/kora-benchmark-evidence-card.png)
-
-This result is based on the current deterministic-heavy alpha benchmark and should not be interpreted as a universal production cost-reduction claim.
-
-For methodology, counters, artifact policy, and reproduction commands, see:
-
-- [Runtime evidence reviewer guide](docs/reports/v0.3.0-alpha-runtime-evidence-reviewer-guide.md)
-- [Benchmark artifact policy](docs/reports/benchmark_artifact_policy.md)
-- [Benchmark result summary](docs/benchmarks/kora_benchmark_result_v1_100.md)
-- [KRK performance table](docs/evidence/krk-performance-table-v0.md)
-- [KRK July 1 evidence summary](docs/reports/krk-july1-evidence-summary-v0.md)
-- [Claim registry](docs/claims/kora-claim-registry.md)
-- [Validation roadmap](docs/benchmarks/validation-roadmap.md)
-
-## What We Are Testing Next
-
-1. Runtime-integrated benchmark paths with real model calls
-2. [Customer-support triage workloads](docs/workloads/customer-support-triage.md)
-3. RAG answer-routing workloads
-4. Agent budget-guard workloads
-
-We are looking for early developers and AI app teams who want to test KORA against real workloads.
-
-![KORA validation roadmap](docs/assets/kora-validation-roadmap.png)
-
-KORA validation roadmap.
-
-See the [KORA validation roadmap](docs/benchmarks/validation-roadmap.md) for the measurement plan.
-
-See the [real model-call validation design](docs/benchmarks/real-model-call-validation-design.md) for the next measurement path.
-
-KORA includes a local no-network validation path that measures model-call routing without requiring API keys or external providers.
-
-Customer-support triage local validation is available as a no-network example.
-
-Local no-network validation examples can generate Markdown reports with `--report-md`.
-
-Local no-network validation examples support `--adapter local_validation` by default and explicit `--adapter local_runtime` for the deterministic in-process local runtime stub.
-
-Reviewer packet: [local no-network validation](docs/benchmarks/local-validation-reviewer-packet.md).
-
-The reviewer packet includes the no-network baseline checklist, adapter-selection commands, fail-closed safety checks, and local Markdown report generation examples.
-
-Local model adapter design: [provider-neutral local runtime path](docs/benchmarks/local-model-adapter-design.md).
-
-Real provider adapter design-only packet: [future provider boundary](docs/benchmarks/real-provider-adapter-design.md).
-
-Real provider test harness design-only packet: [dry-run provider validation contract](docs/benchmarks/real-provider-test-harness-design.md).
-
-## Help Test KORA
-
-Good candidate workloads:
-
-- customer-support triage
-- repetitive RAG workflows
-- agent workflows with budget or escalation rules
-- deterministic-heavy backend workflows
-- LLM apps with high repeated request patterns
-
-To participate, follow the [contact and discussion routes](docs/community/contact-and-discussion-routes.md).
-
-To contribute code or docs without write access to this repository, use the [fork-based pull request workflow](CONTRIBUTING.md#fork-workflow-for-external-contributors). Direct write access is not required to contribute through pull requests.
-
-![KORA help-test flow](docs/assets/kora-help-test-flow.png)
-
-How to help test KORA with a real workload.
-
-See [Help Test KORA](docs/community/help-test-kora.md) for the workload submission template.
-
-> When proposing workloads for KORA validation, use only synthetic or sanitized examples. Do not include secrets, API keys, private user data, proprietary datasets, raw provider responses, or production logs.
+- richer doctor inspection.
+- broader workload specs.
+- target registries.
+- adapter integrations.
+- project-level reports.
+- developer preview workflows.
 
 ## Documentation
 
-Start with the [KORA Documentation Index](docs/README.md) for the developer path:
-
-- Start
-- Understand
-- Run
-- Inspect evidence
-- Help test
-- Contribute
-
-Useful entry points:
-
-- [Examples directory](examples/)
-- [Telemetry and observability counters](docs/telemetry-and-observability.md)
+- [Documentation index](docs/README.md)
+- [KORA Workload Control Layer vision](docs/vision/kora_workload_control_layer.md)
+- [Open This First](OPEN_THIS_FIRST.md)
+- [Review Hub](REVIEW_HUB.md)
+- [Claim registry](docs/claims/kora-claim-registry.md)
 - [Public language guide](docs/claims/kora-public-language-guide.md)
-- [KORA Studio planning docs](docs/kora-studio/README.md)
-- [Contact and discussion routes](docs/community/contact-and-discussion-routes.md)
-- [Community manager guide](docs/community/KORA_COMMUNITY_MANAGER_GUIDE.md)
-- [Contributing guide](CONTRIBUTING.md)
-
-For branch naming, pushing your work, and opening a pull request into `main`, see the [branch and PR workflow](CONTRIBUTING.md#branch-and-pr-workflow).
-
-For support-channel problems or bugs, start with a reproducible report using the [bug report template](.github/ISSUE_TEMPLATE/bug_report.md) before attempting a code change.
-
-## Install
-
-Target package install path:
-
-```bash
-pip install kora
-```
-
-Homebrew install path:
-
-```bash
-brew install kora
-```
-
-For the current repository alpha, use the editable local install in the [3-Minute Local Run](#3-minute-local-run).
-
-## Current Examples
-
-Current examples available in this repository:
-
-- `examples/hello_kora`
-- `examples/direct_vs_kora`
-- `examples/retry_demo`
-- `examples/real_workload_harness`
-- `examples/stress_test`
-- `examples/runtime_integrated_benchmark`
-
-Use `--offline` for reproducible first-run paths without OpenAI credentials.
-
-## 📚 Resources
-
-### KORA Guide Series
-
-| Guide    | Topic                                                          |
-| -------- | -------------------------------------------------------------- |
-| Guide #1 | Introducing KORA: Open-Source AI Orchestration for Task Graphs |
-| Guide #2 | Coming Soon                                                    |
-| Guide #3 | Coming Soon                                                    |
-
-### Latest Article
-
-👉 Introducing KORA: Open-Source AI Orchestration for Task Graphs
-
-https://dev.to/krakoteam/introducing-kora-open-source-ai-orchestration-for-task-graphs-10o9
-
-
-## Alpha Scope
-
-Included in the alpha surface:
-
-- execution-layer primitives for structured AI workloads
-- task graph and scheduler foundations
-- deterministic-first execution and verification components
-- telemetry summarization and reporting
-- repository examples covering direct-vs-structured execution, retries, stress behavior, and runtime evidence flow
-- terminal-first developer workflow
-
-Not included in the alpha surface:
-
-- GUI-first product
-- chatbot interface
-- desktop AI app
-- model hosting or model serving engine
-- production cost-reduction proof
-- real API-cost reduction proof
-- energy reduction evidence
-
-## What KORA Is Not
-
-KORA is not:
-
-- a chatbot
-- a desktop AI app (not yet)
-- a hosted chat-product alternative
-- a model serving engine
-- another agent wrapper that only forwards prompts to providers
-
-KORA is a standalone open-source execution-control layer for AI workloads.
-
-## Contribute
-
-Want to contribute? Start with:
-
-- [Contributor pathway](docs/community/contributor-pathway.md)
-- [Contact and discussion routes](docs/community/contact-and-discussion-routes.md)
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [Good first issue candidates](docs/good_first_issues.md)
-- [SECURITY.md](SECURITY.md)
-- [GOVERNANCE.md](GOVERNANCE.md)
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-
-## Ecosystem
-
-KORA is part of the broader Krako infrastructure.
-
-Related repository:
-
-- Krako 2.0: TBD
-
-## License
-
-Apache-2.0. See [LICENSE](LICENSE).

@@ -1,0 +1,122 @@
+{
+  "scenario_id": "support_ticket_routing",
+  "scenario_label": "Support ticket routing",
+  "description": "Synthetic support-ticket records for deterministic support routing.",
+  "privacy_class": "synthetic",
+  "provider_required_route": "provider_required.support_ticket_routing",
+  "routes": [
+    {
+      "route_id": "det.support.account_access",
+      "category": "account_access",
+      "keywords": ["password", "reset", "sign in", "login", "cannot sign in"],
+      "output": {
+        "category": "account_access",
+        "team": "support_account",
+        "priority": "normal",
+        "response_template": "account-access-reset"
+      }
+    },
+    {
+      "route_id": "det.support.billing",
+      "category": "billing",
+      "keywords": ["invoice", "billing", "charge", "seat charge", "total"],
+      "output": {
+        "category": "billing",
+        "team": "support_billing",
+        "priority": "normal",
+        "response_template": "billing-review"
+      }
+    },
+    {
+      "route_id": "det.support.technical_support",
+      "category": "technical_support",
+      "keywords": ["export", "timeout", "fails", "download", "csv"],
+      "output": {
+        "category": "technical_support",
+        "team": "support_technical",
+        "priority": "high",
+        "response_template": "technical-diagnostics"
+      }
+    },
+    {
+      "route_id": "det.support.security_review",
+      "category": "security_review",
+      "keywords": ["security review", "soc 2", "subprocessors", "vendor security"],
+      "output": {
+        "category": "security_review",
+        "team": "security_compliance",
+        "priority": "normal",
+        "response_template": "security-review-docs"
+      }
+    },
+    {
+      "route_id": "det.support.cancellation",
+      "category": "cancellation",
+      "keywords": ["cancel", "close the workspace", "renewal", "trial"],
+      "output": {
+        "category": "cancellation",
+        "team": "support_retention",
+        "priority": "normal",
+        "response_template": "cancellation-confirmation"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "support-001",
+      "subject": "Password reset link expired",
+      "body": "I cannot sign in because my password reset link expired before I could use it.",
+      "expected_route": "deterministic",
+      "expected_category": "account_access"
+    },
+    {
+      "id": "support-002",
+      "subject": "Invoice total is wrong",
+      "body": "The latest invoice has a duplicate seat charge and the billing total looks wrong.",
+      "expected_route": "deterministic",
+      "expected_category": "billing"
+    },
+    {
+      "id": "support-003",
+      "subject": "Export fails with timeout",
+      "body": "CSV export fails with a timeout every time I try to download last month of events.",
+      "expected_route": "deterministic",
+      "expected_category": "technical_support"
+    },
+    {
+      "id": "support-004",
+      "subject": "Security review questionnaire",
+      "body": "Our vendor security review needs your SOC 2 report and subprocessors list.",
+      "expected_route": "deterministic",
+      "expected_category": "security_review"
+    },
+    {
+      "id": "support-005",
+      "subject": "Cancel trial",
+      "body": "Please cancel my trial and close the workspace before renewal.",
+      "expected_route": "deterministic",
+      "expected_category": "cancellation"
+    },
+    {
+      "id": "support-006",
+      "subject": "Unexpected workspace behavior",
+      "body": "The workspace is behaving strangely after the recent changes and I need someone to decide where this belongs.",
+      "expected_route": "provider_required",
+      "expected_category": null
+    },
+    {
+      "id": "support-007",
+      "subject": "Need help choosing the right plan",
+      "body": "We are evaluating a rollout for several teams and need guidance on the best plan and migration path.",
+      "expected_route": "provider_required",
+      "expected_category": null
+    },
+    {
+      "id": "support-008",
+      "subject": "Mixed billing and login issue",
+      "body": "My admin cannot log in and there may also be a billing problem on the account.",
+      "expected_route": "provider_required",
+      "expected_category": null
+    }
+  ]
+}

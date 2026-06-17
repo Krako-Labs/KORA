@@ -1,0 +1,41 @@
+{
+  "scenario_id": "document_type_routing",
+  "scenario_label": "Document type routing",
+  "description": "Synthetic document snippets for deterministic document type routing.",
+  "privacy_class": "synthetic",
+  "provider_required_route": "provider_required.document_type_routing",
+  "routes": [
+    {
+      "route_id": "det.doc.invoice",
+      "category": "invoice",
+      "keywords": ["invoice", "amount due", "payment terms", "bill to"],
+      "output": {"category": "invoice", "queue": "finance_ap", "retention": "finance_record"}
+    },
+    {
+      "route_id": "det.doc.contract",
+      "category": "contract",
+      "keywords": ["agreement", "party", "effective date"],
+      "output": {"category": "contract", "queue": "legal_ops", "retention": "legal_record"}
+    },
+    {
+      "route_id": "det.doc.support_transcript",
+      "category": "support_transcript",
+      "keywords": ["support transcript", "agent:", "customer:", "ticket transcript"],
+      "output": {"category": "support_transcript", "queue": "support_quality", "retention": "support_record"}
+    },
+    {
+      "route_id": "det.doc.security_questionnaire",
+      "category": "security_questionnaire",
+      "keywords": ["security questionnaire", "encryption at rest", "subprocessor", "soc 2"],
+      "output": {"category": "security_questionnaire", "queue": "security_compliance", "retention": "security_record"}
+    }
+  ],
+  "items": [
+    {"id": "doc-001", "subject": "Invoice 1044", "body": "Invoice with amount due and payment terms for bill to Example Co.", "expected_route": "deterministic", "expected_category": "invoice"},
+    {"id": "doc-002", "subject": "Service agreement", "body": "This agreement states the effective date, party names, and term.", "expected_route": "deterministic", "expected_category": "contract"},
+    {"id": "doc-003", "subject": "Ticket transcript", "body": "Support transcript. Agent: hello. Customer: I need help.", "expected_route": "deterministic", "expected_category": "support_transcript"},
+    {"id": "doc-004", "subject": "Security questionnaire", "body": "Security questionnaire asks about encryption at rest and subprocessors.", "expected_route": "deterministic", "expected_category": "security_questionnaire"},
+    {"id": "doc-005", "subject": "General note", "body": "This note summarizes a meeting with open questions.", "expected_route": "provider_required", "expected_category": null},
+    {"id": "doc-006", "subject": "Agreement invoice bundle", "body": "This agreement also includes an invoice and amount due.", "expected_route": "provider_required", "expected_category": null}
+  ]
+}

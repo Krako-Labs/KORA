@@ -1,0 +1,55 @@
+{
+  "workload_id": "kora_doctor_customer_support_workload_v0",
+  "description": "Synthetic customer support workflow tasks for the KORA Doctor report pack.",
+  "privacy_class": "synthetic",
+  "deterministic_rules": [
+    {
+      "route_id": "doctor.det.classify_by_rules",
+      "suggested_handler": "classify_by_rules",
+      "keywords": ["route ticket", "support category", "support routing"],
+      "rationale": "The task asks for bounded support categories.",
+      "next_step": "move support categories into deterministic routing rules",
+      "output": {"candidate_type": "support_classification", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.cache_reuse",
+      "suggested_handler": "cache_reuse",
+      "keywords": ["known answer", "same question", "repeat lookup"],
+      "rationale": "The task can reuse a prior exact support answer.",
+      "next_step": "define cache keys for exact repeat questions",
+      "output": {"candidate_type": "support_cache_reuse", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.static_transform",
+      "suggested_handler": "static_transform",
+      "keywords": ["normalize ticket export", "rename fields", "static transform"],
+      "rationale": "The task is a mechanical support export transform.",
+      "next_step": "implement schema-based deterministic transformation",
+      "output": {"candidate_type": "support_static_transform", "confidence": "high"}
+    }
+  ],
+  "provider_needed_rules": [
+    {
+      "route_id": "doctor.provider.semantic_judgment",
+      "keywords": ["judge frustration", "subjective priority", "ambiguous semantic judgment"],
+      "reason": "ambiguous semantic judgment",
+      "rationale": "The task asks for subjective interpretation of customer intent.",
+      "next_step": "define a rubric or route to provider/model fallback"
+    },
+    {
+      "route_id": "doctor.provider.open_generation",
+      "keywords": ["write apology", "draft response", "open-ended generation"],
+      "reason": "open-ended generation",
+      "rationale": "The task asks for novel customer-facing prose.",
+      "next_step": "separate deterministic context gathering from provider/model generation"
+    }
+  ],
+  "tasks": [
+    {"id": "support-doctor-001", "title": "Route support tickets", "description": "Route ticket records by support category.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "support-doctor-002", "title": "Reuse known answer", "description": "Repeat lookup for the same question with a known answer.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "cache_reuse"},
+    {"id": "support-doctor-003", "title": "Normalize ticket export", "description": "Normalize ticket export and rename fields for review.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "static_transform"},
+    {"id": "support-doctor-004", "title": "Support routing labels", "description": "Assign support routing labels from bounded category names.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "support-doctor-005", "title": "Judge frustration", "description": "Judge frustration and subjective priority from a nuanced customer note.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null},
+    {"id": "support-doctor-006", "title": "Draft apology", "description": "Write apology text and draft response for the customer.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null}
+  ]
+}

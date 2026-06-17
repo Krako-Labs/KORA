@@ -1,0 +1,107 @@
+{
+  "workload_id": "kora_doctor_sample_workload_v0",
+  "description": "Synthetic project/workload tasks for the KORA Doctor example.",
+  "privacy_class": "synthetic",
+  "deterministic_rules": [
+    {
+      "route_id": "doctor.det.classify_by_rules",
+      "suggested_handler": "classify_by_rules",
+      "keywords": ["label issue", "route ticket", "categorize", "classification"],
+      "rationale": "The task asks for bounded category routing with explicit labels.",
+      "next_step": "move labels and categories into a deterministic ruleset",
+      "output": {
+        "candidate_type": "bounded_classification",
+        "confidence": "high"
+      }
+    },
+    {
+      "route_id": "doctor.det.cache_reuse",
+      "suggested_handler": "cache_reuse",
+      "keywords": ["repeat lookup", "known answer", "cached", "same input"],
+      "rationale": "The task can reuse a prior exact result for the same input.",
+      "next_step": "add a cache key and reuse policy before provider fallback",
+      "output": {
+        "candidate_type": "cache_reuse",
+        "confidence": "high"
+      }
+    },
+    {
+      "route_id": "doctor.det.static_transform",
+      "suggested_handler": "static_transform",
+      "keywords": ["convert json", "normalize csv", "rename fields", "static transform"],
+      "rationale": "The task is a mechanical format or schema transform.",
+      "next_step": "implement as a deterministic transform with schema checks",
+      "output": {
+        "candidate_type": "static_transform",
+        "confidence": "high"
+      }
+    }
+  ],
+  "provider_needed_rules": [
+    {
+      "route_id": "doctor.provider.semantic_judgment",
+      "keywords": ["ambiguous semantic judgment", "judge sentiment", "subjective", "rank quality"],
+      "reason": "ambiguous semantic judgment",
+      "rationale": "The task asks for subjective interpretation that is not represented by a bounded rule.",
+      "next_step": "define an evaluation rubric or route to provider/model fallback"
+    },
+    {
+      "route_id": "doctor.provider.open_generation",
+      "keywords": ["open-ended generation", "write a proposal", "draft strategy", "brainstorm"],
+      "reason": "open-ended generation",
+      "rationale": "The task asks for novel prose or ideation rather than deterministic routing.",
+      "next_step": "separate deterministic preprocessing from provider/model generation"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "doctor-001",
+      "title": "Label issue queue",
+      "description": "Label issue records into bug, docs, feature, or security categories.",
+      "expected_route_kind": "deterministic_candidate",
+      "expected_suggested_handler": "classify_by_rules"
+    },
+    {
+      "id": "doctor-002",
+      "title": "Route ticket intake",
+      "description": "Route ticket intake into account, billing, security review, cancellation, or technical support.",
+      "expected_route_kind": "deterministic_candidate",
+      "expected_suggested_handler": "classify_by_rules"
+    },
+    {
+      "id": "doctor-003",
+      "title": "Reuse known answer lookup",
+      "description": "Repeat lookup for a known answer with the same input from a prior run.",
+      "expected_route_kind": "deterministic_candidate",
+      "expected_suggested_handler": "cache_reuse"
+    },
+    {
+      "id": "doctor-004",
+      "title": "Normalize CSV export",
+      "description": "Normalize CSV columns and rename fields into the public report schema.",
+      "expected_route_kind": "deterministic_candidate",
+      "expected_suggested_handler": "static_transform"
+    },
+    {
+      "id": "doctor-005",
+      "title": "Judge customer sentiment",
+      "description": "Judge sentiment for a nuanced customer message with ambiguous semantic judgment.",
+      "expected_route_kind": "provider_needed_candidate",
+      "expected_suggested_handler": null
+    },
+    {
+      "id": "doctor-006",
+      "title": "Draft launch strategy",
+      "description": "Write a proposal and draft strategy for an open-ended generation task.",
+      "expected_route_kind": "provider_needed_candidate",
+      "expected_suggested_handler": null
+    },
+    {
+      "id": "doctor-007",
+      "title": "Mixed triage and strategy request",
+      "description": "Label issue records and write a proposal for the follow-up roadmap.",
+      "expected_route_kind": "provider_needed_candidate",
+      "expected_suggested_handler": null
+    }
+  ]
+}

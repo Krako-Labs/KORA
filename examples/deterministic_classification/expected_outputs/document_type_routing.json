@@ -1,0 +1,10 @@
+{
+  "avoided_provider_invocations": 4,
+  "deterministic_routes": 4,
+  "ok": true,
+  "provider_calls": 0,
+  "provider_needed_routes": 2,
+  "scenario_count": 1,
+  "scenario_ids": ["document_type_routing"],
+  "total_tasks": 6
+}
