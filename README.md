@@ -8,6 +8,38 @@ Many AI systems treat every task as a model problem. Many tasks are actually cla
 
 Current examples are offline and synthetic. They demonstrate KORA's routing/control surfaces, not production readiness, production cost reduction, benchmark superiority, or model replacement.
 
+## Current Availability
+
+Use the current GitHub repository for the latest examples and CLI commands.
+
+Do not use plain `python3 -m pip install kora` for this project. A packaging check on June 18, 2026 found that `kora` on PyPI is already occupied by an unrelated Colab utility package (`kora 0.9.20`). That package is not `Krako-Labs/KORA` and should not be used to test the KORA Doctor CLI.
+
+Planned distribution strategy:
+
+- Public brand: KORA.
+- GitHub repository: `Krako-Labs/KORA`.
+- Future PyPI distribution package: `getkora`.
+- CLI command: `kora`.
+- Python import package: `kora`.
+
+`getkora` is the planned future distribution name; this README does not claim it is published. Until a package is published, install from the current repository:
+
+```bash
+git clone https://github.com/Krako-Labs/KORA.git
+cd KORA
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install -e .
+
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+python3 -m kora doctor --all examples/kora_doctor/
+```
+
+Use `python3 -m pip install -e ".[dev]"` when you also need test dependencies.
+
 ## What KORA Is
 
 KORA sits between an AI request and provider/model execution.
@@ -53,10 +85,11 @@ Read more:
 - [KORA Workload Control Layer vision](docs/vision/kora_workload_control_layer.md)
 - [KORA Review Hub](REVIEW_HUB.md)
 - [Open This First](OPEN_THIS_FIRST.md)
+- [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
 
 ## What KORA Can Do Today
 
-Current implemented surfaces include:
+Current implemented surfaces in this GitHub repository include:
 
 - List runnable examples: `python3 -m kora examples list`
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
@@ -70,7 +103,7 @@ These are first-value developer examples and bounded evidence paths. They are no
 
 ## Examples
 
-Start here:
+After installing from the current repository, start here:
 
 ```bash
 python3 -m kora examples list
@@ -181,6 +214,7 @@ KORA still includes KRK-oriented evidence and first-value reports. Current evide
 Key evidence and reports:
 
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
+- [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
 - [KRK evidence package](docs/evidence/krk-evidence-package-v0.md)
 - [KRK performance table](docs/evidence/krk-performance-table-v0.md)
 - [KRK route-selectivity results](docs/evidence/krk-route-selectivity-results-v0.md)
@@ -215,6 +249,13 @@ Not claimed:
 KORA uses `pyproject.toml`-based Python packaging.
 
 Packaged support is Python 3.11 or newer, as declared in `pyproject.toml`.
+
+Installation paths:
+
+- PyPI `kora`: do not use for this project; it is an unrelated package.
+- Current latest features: clone `Krako-Labs/KORA` and install from the source checkout with `python3 -m pip install -e .`.
+- Local development and tests: use `python3 -m pip install -e ".[dev]"`.
+- Future package distribution: planned as `getkora`, with CLI command `kora`; do not use `python3 -m pip install getkora` unless a future release explicitly announces publication.
 
 ```bash
 git clone https://github.com/Krako-Labs/KORA.git
