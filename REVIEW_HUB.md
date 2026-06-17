@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 083.
+Last updated by: Goal 083C.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal083_kora_doctor_cli`
-- worktree label: `goal083_kora_doctor_cli`
+- active evidence branch: `goal083c_public_first_run_acceptance`
+- worktree label: `goal083c_public_first_run_acceptance`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 083
-- base commit: `009f11601161fc1d8944e14f3869309e86239e28`
+- open PR: none for Goal 083C
+- base commit: `f768a353fa02feb0dcf1f02055ae4c029117ad37` including pending local Goal 083B material
 
 ## Current State Summary
 
@@ -33,6 +33,8 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - expanded H100 representativeness measurement.
 - baseline equivalence and output-fidelity evaluation.
 - install-revalidated local first-value CLI workflow.
+- distribution strategy documents PyPI `kora` collision, source-install current path, and planned future PyPI distribution name `getkora`.
+- public first-run acceptance testing covers README-only onboarding, fresh source install, KORA Doctor, deterministic classification, and PyPI collision wording.
 - deterministic classification example pack with KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - KORA Doctor first-value developer example with KORA `TaskGraph` execution, deterministic candidate/provider-needed candidate inspection, route rationale, counters, and next-step recommendations.
 - KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
@@ -74,6 +76,8 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 082A | Expanded KORA Doctor into a report pack across four offline workloads and added a README refresh proposal. | [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md) |
 | Goal 082B | Repositioned README and docs navigation around KORA as an AI Workload Control Layer while preserving current evidence boundaries. | [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md) |
 | Goal 083 | Promoted KORA Doctor into a first-class offline CLI command for single-workload and aggregate workload-control reports. | [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md) |
+| Goal 083B | Documented the `getkora` future distribution strategy after verifying the PyPI `kora` collision and current source-install path. | [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md) |
+| Goal 083C | Ran public first-run acceptance testing over README onboarding, fresh source install, KORA Doctor, deterministic classification, and PyPI collision wording. | [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md) |
 
 ## Evidence Index
 
@@ -100,6 +104,9 @@ Generated summaries:
 Current reviewer path:
 
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
+- [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md)
+- [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
 - [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
 - [KORA Workload Control Layer](docs/vision/kora_workload_control_layer.md)
 - [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
@@ -143,6 +150,7 @@ Supported:
 - KORA has an offline Doctor example where KORA Doctor identifies deterministic candidates and provider-needed candidates in a sample workload without making provider calls.
 - KORA has an offline Doctor report pack where KORA Doctor identifies deterministic candidates and provider-needed candidates across four bundled sample workloads without making provider calls.
 - KORA has a first-class `kora doctor` CLI command for running the same offline Doctor inspection over sample workload JSON files and bundled workload directories.
+- KORA's planned future PyPI distribution package name is `getkora`; current latest-feature testing requires source install from the repository.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
@@ -174,6 +182,7 @@ Not supported:
 First-value CLI:
 
 ```bash
+# Install from the current repository/source checkout before running these commands.
 kora inspect
 kora compare
 kora run
@@ -185,6 +194,7 @@ kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value
 Module form:
 
 ```bash
+# Install from the current repository/source checkout before running these commands.
 python3 -m kora inspect
 python3 -m kora compare
 python3 -m kora run

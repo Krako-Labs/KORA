@@ -2,6 +2,8 @@
 
 This example pack shows KORA routing synthetic classification tasks to deterministic handlers before provider/model fallback is needed. Every item runs through a KORA `TaskGraph` and the deterministic `classify_by_rules` handler.
 
+Current availability: run this example from a current `Krako-Labs/KORA` checkout installed from source. Plain `python3 -m pip install kora` installs a different PyPI project and should not be used for these examples. Future package distribution is planned as `getkora`, but this README does not claim that package is published.
+
 Scenarios:
 
 - support ticket routing

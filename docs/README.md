@@ -8,11 +8,32 @@ KORA is an AI Workload Control Layer. It helps developers inspect AI work, ident
 
 The current public examples are offline and synthetic. They demonstrate routing/control surfaces and bounded evidence, not production readiness or automatic savings.
 
+## Current Availability
+
+Use a current GitHub checkout for the latest KORA examples and CLI commands.
+
+As of the Goal 083B packaging check on June 18, 2026, plain `python3 -m pip install kora` resolves to an unrelated PyPI project named `kora` (`0.9.20`, a Colab utility package), not this `Krako-Labs/KORA` project. Do not use that command to validate `kora doctor`.
+
+The planned future PyPI distribution name is `getkora`; it is not documented as published here. Until a future release explicitly announces a package, install from source:
+
+```bash
+git clone https://github.com/Krako-Labs/KORA.git
+cd KORA
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install -e .
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+```
+
 ## Start
 
 - [Main README](../README.md)
 - [Open this first](../OPEN_THIS_FIRST.md)
 - [Review hub](../REVIEW_HUB.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
+- [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
 - [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
 - [KORA Doctor README](../examples/kora_doctor/README.md)
 - [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
@@ -39,6 +60,7 @@ KORA control layer architecture.
 ## Strategy
 
 - [KORA Routable AI Workloads Master Plan v0.1](strategy/kora-routable-ai-workloads-master-plan-v0-1.md)
+- [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
 
 ## Product
 
@@ -137,6 +159,8 @@ KORA control layer architecture.
 ## Reports
 
 - [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
 - [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
 - [Goal 082A KORA Doctor report pack](reports/goal082a_kora_doctor_report_pack.md)
 - [Goal 082A README refresh proposal](reports/goal082a_readme_refresh_proposal.md)
@@ -183,6 +207,9 @@ KORA Studio is future planning only. It is not implemented yet.
 Local setup prerequisites:
 
 - Packaged support is Python 3.11 or newer, as declared in `pyproject.toml`.
+- Plain `python3 -m pip install kora` currently resolves to a different PyPI project and should not be used for this repository's latest examples.
+- Future package distribution is planned as `getkora`, but this documentation does not claim it is published.
+- Use a current GitHub checkout plus `python3 -m pip install -e .` for latest CLI examples.
 - Python 3.9.6 has been observed to run the offline `direct_vs_kora` example in one user environment.
 - Treat Python 3.9.6 as a troubleshooting datapoint, not as the advertised package support floor until clean Python 3.9 compatibility testing is completed.
 - KORA uses `pyproject.toml`-based packaging.

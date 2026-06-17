@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 083.
+Last updated by: Goal 083C.
 
 ## Current Status
 
@@ -16,6 +16,8 @@ Current state:
 - bounded H100 subset, repo-owned H100 harness, and expanded H100 representativeness evidence exist.
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
+- packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
+- public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -27,15 +29,36 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal083_kora_doctor_cli`
+- branch: `goal083c_public_first_run_acceptance`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 083
-- base commit: `009f11601161fc1d8944e14f3869309e86239e28`
+- open PR: none for Goal 083C
+- base commit: `f768a353fa02feb0dcf1f02055ae4c029117ad37` including pending local Goal 083B material
 
 ## Last Completed Goal
 
-Goal 083 - Implement KORA Doctor CLI.
+Goal 083C - Public First-Run Acceptance Test.
+
+Goal 083C tested the README-only reviewer path, fresh source install path, PyPI collision awareness, and five-minute reviewer path using the pending Goal 083B distribution strategy material. It also added a short source-install availability note to the deterministic classification README.
+
+Primary report:
+
+- [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md)
+
+Claim boundary: this goal did not add product features, publish a package, create a release, create a tag, or claim `getkora` is published.
+
+Previous completed Goal: Goal 083B - Distribution Strategy and getkora Packaging Plan.
+
+Goal 083B documented the distribution strategy after verifying that PyPI `kora` is occupied by an unrelated package and that `getkora` has no matching distribution by package-index lookup. The docs now state that latest KORA examples and `kora doctor` should be tested from the current repository/source checkout, while future PyPI distribution is planned under `getkora`.
+
+Primary artifacts:
+
+- [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
+- [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md)
+
+Claim boundary: this goal did not publish a package, create a release, create a tag, create a GitHub Release, reserve a PyPI project, or claim that `pip install getkora` works.
+
+Previous completed Goal: Goal 083 - Implement KORA Doctor CLI.
 
 Goal 083 promoted the KORA Doctor example into a first-class CLI command. Users can now run a single offline workload-control report with `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json` or an aggregate bundled report with `python3 -m kora doctor --all examples/kora_doctor/`.
 
@@ -202,6 +225,8 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md)
+- [getkora distribution strategy](docs/packaging/getkora_distribution_strategy.md)
 - [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
 - [KORA Workload Control Layer](docs/vision/kora_workload_control_layer.md)

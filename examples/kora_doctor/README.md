@@ -2,6 +2,17 @@
 
 This offline example shows how KORA can inspect small project-like workloads before deeper integration. It identifies deterministic candidates, provider-needed candidates, route rationale, summary counters, and next-step recommendations.
 
+Current availability: run this example from a current `Krako-Labs/KORA` checkout installed from source. Plain `python3 -m pip install kora` installs a different PyPI project and should not be used to test `kora doctor`. Future package distribution is planned as `getkora`, but this README does not claim that package is published.
+
+Recommended setup:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install -e .
+```
+
 Run from the repository root:
 
 ```bash
