@@ -6,7 +6,7 @@ pub mod security;
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
 use crate::task_ir::{TaskGraph, validate_graph as ir_validate_graph, normalize_graph as ir_normalize_graph};
-use crate::executor::run_graph as executor_run_graph;
+use crate::executor::run_graph_contract as executor_run_graph_contract;
 
 #[pyfunction]
 fn validate_graph(json_str: &str) -> PyResult<()> {
@@ -42,11 +42,10 @@ fn run_graph(json_str: &str) -> PyResult<String> {
         .build()
         .map_err(|e| PyValueError::new_err(format!("Failed to build Tokio runtime: {}", e)))?;
 
-    let outputs = rt.block_on(executor_run_graph(&graph))
-        .map_err(|e| PyValueError::new_err(format!("Execution failed: {}", e)))?;
+    let result_val = rt.block_on(executor_run_graph_contract(&graph));
 
-    let serialized = serde_json::to_string(&outputs)
-        .map_err(|e| PyValueError::new_err(format!("Failed to serialize execution outputs: {}", e)))?;
+    let serialized = serde_json::to_string(&result_val)
+        .map_err(|e| PyValueError::new_err(format!("Failed to serialize execution result: {}", e)))?;
 
     Ok(serialized)
 }
