@@ -1,0 +1,41 @@
+{
+  "scenario_id": "incident_severity_routing",
+  "scenario_label": "Incident severity routing",
+  "description": "Synthetic incident records for deterministic severity classification.",
+  "privacy_class": "synthetic",
+  "provider_required_route": "provider_required.incident_severity_routing",
+  "routes": [
+    {
+      "route_id": "det.incident.sev1",
+      "category": "sev1",
+      "keywords": ["full outage", "data loss", "all customers", "cannot access service"],
+      "output": {"category": "sev1", "pager": "primary_oncall", "priority": "urgent", "response_sla": "15m"}
+    },
+    {
+      "route_id": "det.incident.sev2",
+      "category": "sev2",
+      "keywords": ["major degradation", "many customers", "checkout failing", "payment failures"],
+      "output": {"category": "sev2", "pager": "service_oncall", "priority": "high", "response_sla": "30m"}
+    },
+    {
+      "route_id": "det.incident.sev3",
+      "category": "sev3",
+      "keywords": ["single customer", "workaround", "intermittent", "partial degradation"],
+      "output": {"category": "sev3", "pager": "business_hours_queue", "priority": "normal", "response_sla": "4h"}
+    },
+    {
+      "route_id": "det.incident.informational",
+      "category": "informational",
+      "keywords": ["maintenance notice", "scheduled maintenance", "informational", "status update"],
+      "output": {"category": "informational", "pager": "none", "priority": "low", "response_sla": "next_business_day"}
+    }
+  ],
+  "items": [
+    {"id": "incident-001", "subject": "Full outage for all customers", "body": "All customers cannot access service in every region.", "expected_route": "deterministic", "expected_category": "sev1"},
+    {"id": "incident-002", "subject": "Payment failures", "body": "Checkout failing for many customers during purchase.", "expected_route": "deterministic", "expected_category": "sev2"},
+    {"id": "incident-003", "subject": "Intermittent export problem", "body": "A single customer reports intermittent export errors with a workaround.", "expected_route": "deterministic", "expected_category": "sev3"},
+    {"id": "incident-004", "subject": "Scheduled maintenance notice", "body": "This is an informational status update for scheduled maintenance.", "expected_route": "deterministic", "expected_category": "informational"},
+    {"id": "incident-005", "subject": "Unclear availability report", "body": "Some users say the service feels slower today.", "expected_route": "provider_required", "expected_category": null},
+    {"id": "incident-006", "subject": "Outage with workaround", "body": "There may be a full outage but a workaround also seems available.", "expected_route": "provider_required", "expected_category": null}
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "scenario_id": "issue_triage",
+  "scenario_label": "Issue triage",
+  "description": "Synthetic GitHub-style issue records for deterministic issue routing.",
+  "privacy_class": "synthetic",
+  "provider_required_route": "provider_required.issue_triage",
+  "routes": [
+    {
+      "route_id": "det.issue.bug",
+      "category": "bug",
+      "keywords": ["crash", "regression", "broken"],
+      "output": {"category": "bug", "team": "engineering", "label": "type:bug", "priority": "high"}
+    },
+    {
+      "route_id": "det.issue.docs",
+      "category": "docs",
+      "keywords": ["docs", "documentation", "readme", "typo"],
+      "output": {"category": "docs", "team": "developer_docs", "label": "type:docs", "priority": "normal"}
+    },
+    {
+      "route_id": "det.issue.feature",
+      "category": "feature_request",
+      "keywords": ["feature", "request", "support adding", "enhancement"],
+      "output": {"category": "feature_request", "team": "product", "label": "type:feature", "priority": "normal"}
+    },
+    {
+      "route_id": "det.issue.security",
+      "category": "security",
+      "keywords": ["security", "vulnerability", "secret", "credential"],
+      "output": {"category": "security", "team": "security", "label": "type:security", "priority": "urgent"}
+    }
+  ],
+  "items": [
+    {"id": "issue-001", "subject": "Crash on startup", "body": "The CLI crash happens on startup after the latest release.", "expected_route": "deterministic", "expected_category": "bug"},
+    {"id": "issue-002", "subject": "README typo", "body": "The documentation has a typo in the install command.", "expected_route": "deterministic", "expected_category": "docs"},
+    {"id": "issue-003", "subject": "Feature request for CSV export", "body": "Please support adding CSV export to the report command.", "expected_route": "deterministic", "expected_category": "feature_request"},
+    {"id": "issue-004", "subject": "Secret appears in logs", "body": "A credential value is visible in debug output.", "expected_route": "deterministic", "expected_category": "security"},
+    {"id": "issue-005", "subject": "Question about roadmap", "body": "Can someone explain where this project is going next?", "expected_route": "provider_required", "expected_category": null},
+    {"id": "issue-006", "subject": "Security bug in documentation sample", "body": "The docs include a credential and the sample appears broken.", "expected_route": "provider_required", "expected_category": null}
+  ]
+}

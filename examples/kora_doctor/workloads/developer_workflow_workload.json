@@ -1,0 +1,55 @@
+{
+  "workload_id": "kora_doctor_developer_workflow_workload_v0",
+  "description": "Synthetic developer workflow tasks for the KORA Doctor report pack.",
+  "privacy_class": "synthetic",
+  "deterministic_rules": [
+    {
+      "route_id": "doctor.det.classify_by_rules",
+      "suggested_handler": "classify_by_rules",
+      "keywords": ["label pull request", "label issue", "triage status"],
+      "rationale": "The task asks for bounded development workflow labels.",
+      "next_step": "define deterministic label rules",
+      "output": {"candidate_type": "developer_triage", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.cache_reuse",
+      "suggested_handler": "cache_reuse",
+      "keywords": ["same dependency", "known compatibility", "repeat build"],
+      "rationale": "The task can reuse known compatibility or build metadata.",
+      "next_step": "cache dependency and build facts by key",
+      "output": {"candidate_type": "developer_cache_reuse", "confidence": "high"}
+    },
+    {
+      "route_id": "doctor.det.static_transform",
+      "suggested_handler": "static_transform",
+      "keywords": ["convert changelog", "normalize release notes", "rename fields"],
+      "rationale": "The task is a mechanical developer artifact transform.",
+      "next_step": "implement deterministic changelog transformation",
+      "output": {"candidate_type": "developer_static_transform", "confidence": "high"}
+    }
+  ],
+  "provider_needed_rules": [
+    {
+      "route_id": "doctor.provider.semantic_judgment",
+      "keywords": ["judge design quality", "subjective review", "ambiguous semantic judgment"],
+      "reason": "ambiguous semantic judgment",
+      "rationale": "The task asks for subjective design or quality judgment.",
+      "next_step": "define a rubric or route to provider/model fallback"
+    },
+    {
+      "route_id": "doctor.provider.open_generation",
+      "keywords": ["write architecture proposal", "brainstorm", "open-ended generation"],
+      "reason": "open-ended generation",
+      "rationale": "The task asks for novel architecture prose or ideation.",
+      "next_step": "separate deterministic facts from provider/model generation"
+    }
+  ],
+  "tasks": [
+    {"id": "dev-doctor-001", "title": "Label pull request", "description": "Label pull request status using bounded workflow labels.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "dev-doctor-002", "title": "Known dependency compatibility", "description": "Reuse same dependency known compatibility result.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "cache_reuse"},
+    {"id": "dev-doctor-003", "title": "Normalize release notes", "description": "Normalize release notes and rename fields for changelog export.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "static_transform"},
+    {"id": "dev-doctor-004", "title": "Triage status", "description": "Assign triage status from a fixed label set.", "expected_route_kind": "deterministic_candidate", "expected_suggested_handler": "classify_by_rules"},
+    {"id": "dev-doctor-005", "title": "Judge design quality", "description": "Judge design quality with subjective review of tradeoffs.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null},
+    {"id": "dev-doctor-006", "title": "Write architecture proposal", "description": "Write architecture proposal for a new subsystem.", "expected_route_kind": "provider_needed_candidate", "expected_suggested_handler": null}
+  ]
+}

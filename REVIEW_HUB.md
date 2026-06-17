@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 075.
+Last updated by: Goal 082B.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal044_krk_route_selectivity_metrics_plan`
-- worktree label: `goal044_krk_route_selectivity_metrics_plan`
-- branch pushed to: `origin/goal044_krk_route_selectivity_metrics_plan`
-- open PR: `https://github.com/Krako-Labs/KORA/pull/229`
-- base commit before Goal 075 post-PR update: `7cbd5f8`
+- active evidence branch: `goal082b_narrative_repositioning`
+- worktree label: `goal082b_narrative_repositioning`
+- branch pushed to: not pushed in this worktree
+- open PR: none for Goal 082B
+- base commit: `b49617ce0402c3a73504ad3490dd668f0797891f`
 
 ## Current State Summary
 
@@ -33,6 +33,10 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - expanded H100 representativeness measurement.
 - baseline equivalence and output-fidelity evaluation.
 - install-revalidated local first-value CLI workflow.
+- deterministic classification example pack with KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
+- KORA Doctor first-value developer example with KORA `TaskGraph` execution, deterministic candidate/provider-needed candidate inspection, route rationale, counters, and next-step recommendations.
+- KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
+- README and documentation index now present KORA as an AI Workload Control Layer with examples-first onboarding and explicit safe claim boundaries.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - public-safe PR readiness packet with classification `READY_FOR_PR_WITH_CAVEATS`.
@@ -64,6 +68,10 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 070C refresh | Revalidated package entrypoint, command help, and end-to-end installed first-value CLI path after Project Operating System adoption. | [KRK Goal 070C first-value install packaging](docs/reports/krk-goal070c-first-value-install-packaging-v0.md) |
 | Goal 074 | Prepared PR readiness packet and PR draft body for the integrated KRK evidence and first-value branch. | [KRK Goal 074 PR readiness merge packet](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md) |
 | Goal 075 | Pushed the branch and opened PR #229 against `main`; no merge, tag, or release was created. | [KRK Goal 075 PR open](docs/reports/krk-goal075-pr-open-v0.md) |
+| Goal 081A | Added a deterministic classification example pack using KORA `TaskGraph` execution across five synthetic routing/classification scenarios. | [Goal 081A deterministic classification expansion pack](docs/reports/goal081a_deterministic_classification_expansion_pack.md) |
+| Goal 082 | Added an offline KORA Doctor example that inspects a synthetic workload and explains deterministic versus provider-needed candidates without provider calls. | [Goal 082 KORA Doctor example](docs/reports/goal082_kora_doctor_example.md) |
+| Goal 082A | Expanded KORA Doctor into a report pack across four offline workloads and added a README refresh proposal. | [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md) |
+| Goal 082B | Repositioned README and docs navigation around KORA as an AI Workload Control Layer while preserving current evidence boundaries. | [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md) |
 
 ## Evidence Index
 
@@ -89,6 +97,14 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
+- [KORA Workload Control Layer](docs/vision/kora_workload_control_layer.md)
+- [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
+- [Goal 082A README refresh proposal](docs/reports/goal082a_readme_refresh_proposal.md)
+- [Goal 082 KORA Doctor example](docs/reports/goal082_kora_doctor_example.md)
+- [KORA Doctor README](examples/kora_doctor/README.md)
+- [Goal 081A deterministic classification expansion pack](docs/reports/goal081a_deterministic_classification_expansion_pack.md)
+- [Deterministic classification example pack README](examples/deterministic_classification/README.md)
 - [KORA five-minute first-value quickstart](docs/quickstart-five-minute-first-value.md)
 - [KRK Goal 075 PR open](docs/reports/krk-goal075-pr-open-v0.md)
 - [KRK Goal 074 PR readiness merge packet](docs/reports/krk-goal074-pr-readiness-merge-packet-v0.md)
@@ -116,20 +132,35 @@ Current evidence path:
 Supported:
 
 - KORA makes AI workloads routable.
+- KORA can be described as an AI Workload Control Layer in the current examples-first public narrative.
 - KRK is a deterministic-first routing kernel inside KORA Core.
 - KRK can route public fixture workloads across deterministic, cache, CPU, provider, GPU, and fallback paths.
 - KORA has a public-safe first-value CLI path using `kora inspect`, `kora compare`, `kora run`, and `kora report`.
+- KORA has a deterministic classification example pack where KORA routes `21` of `32` synthetic sample classification tasks to deterministic handlers, avoiding simulated provider/model invocation for those sample tasks while making `0` provider calls.
+- KORA has an offline Doctor example where KORA Doctor identifies deterministic candidates and provider-needed candidates in a sample workload without making provider calls.
+- KORA has an offline Doctor report pack where KORA Doctor identifies deterministic candidates and provider-needed candidates across four bundled sample workloads without making provider calls.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
 Not supported:
 
 - production readiness.
+- model replacement.
+- production diagnostic accuracy from the KORA Doctor example.
+- production validation from the deterministic classification example pack.
 - production cost reduction.
+- automatic cost reduction from the KORA Doctor example.
+- production proxy readiness from the KORA Doctor report pack.
 - customer savings.
 - energy reduction.
 - broad workload superiority.
 - real API/GPU cost reduction.
+- real API-cost proof from the deterministic classification example pack.
+- real API-cost proof from the KORA Doctor example.
+- benchmark superiority from the deterministic classification example pack.
+- benchmark superiority from the KORA Doctor example.
+- broad workload superiority from the deterministic classification example pack.
+- broad workload superiority from the KORA Doctor example.
 - provider superiority.
 - H100 superiority.
 - replacement of model serving, provider routing, or GPU serving systems.
@@ -175,6 +206,110 @@ Expected public fixture result:
 - degraded outputs: `0`
 - failed outputs: `0`
 
+## Current Deterministic Classification Example Pack
+
+Use [Deterministic classification example pack README](examples/deterministic_classification/README.md).
+
+Quick run:
+
+```bash
+python3 examples/deterministic_classification/run.py
+```
+
+Structured run:
+
+```bash
+python3 examples/deterministic_classification/run.py \
+  --json-out /tmp/kora_goal081a_deterministic_classification_pack.json \
+  --report-md /tmp/kora_goal081a_deterministic_classification_pack.md
+```
+
+KORA example runner:
+
+```bash
+python3 -m kora run deterministic_classification -- \
+  --json-out /tmp/kora_goal081a_deterministic_classification_pack.json \
+  --report-md /tmp/kora_goal081a_deterministic_classification_pack.md
+```
+
+Expected aggregate counters:
+
+- total tasks: `32`
+- deterministic routes: `21`
+- provider-needed routes: `11`
+- avoided provider invocations in this example pack: `21`
+- provider calls actually made: `0`
+
+Boundary: these counters describe only the synthetic example-pack surface. They do not prove production cost reduction, real API-cost reduction, benchmark superiority, broad workload superiority, or production validation.
+
+## Current KORA Doctor Example
+
+Use [KORA Doctor README](examples/kora_doctor/README.md).
+
+Quick run:
+
+```bash
+python3 examples/kora_doctor/run.py
+```
+
+Structured run:
+
+```bash
+python3 examples/kora_doctor/run.py \
+  --json-out /tmp/kora_doctor_example.json \
+  --report-md /tmp/kora_doctor_example.md
+```
+
+KORA example runner:
+
+```bash
+python3 -m kora run kora_doctor
+```
+
+Expected counters:
+
+- total tasks: `7`
+- deterministic candidates: `4`
+- provider-needed candidates: `3`
+- avoided provider invocations in this offline example: `4`
+- provider calls actually made: `0`
+
+Boundary: this is a first-value developer example over synthetic data. It does not prove production diagnostic accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+## Current KORA Doctor Report Pack
+
+Use [KORA Doctor README](examples/kora_doctor/README.md).
+
+Aggregate run:
+
+```bash
+python3 examples/kora_doctor/run.py --all \
+  --json-out /tmp/kora_doctor_report_pack.json \
+  --report-md /tmp/kora_doctor_report_pack.md
+```
+
+Expected aggregate counters:
+
+- workload count: `4`
+- total tasks: `25`
+- deterministic candidates: `16`
+- provider-needed candidates: `9`
+- avoided provider invocations in these offline samples: `16`
+- provider calls actually made: `0`
+
+Boundary: this is an offline synthetic report pack. It does not prove production diagnostic accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, broad workload superiority, or production proxy readiness.
+
+## Current Narrative Positioning
+
+Current public README positioning:
+
+- KORA is an AI Workload Control Layer.
+- Many AI workflow tasks are classification, validation, routing, policy, cache reuse, workflow control, or deterministic processing.
+- KORA helps determine what should reach a model, what does not need a model, and how work should move through an AI system.
+- KORA Doctor and deterministic classification examples are the fastest first-value surfaces.
+
+Boundary: this is positioning grounded in current examples and evidence. It does not introduce new technical claims, production readiness claims, model replacement claims, automatic savings claims, or superiority claims.
+
 ## Current Risks
 
 - Evidence remains fixture-derived and bounded.
@@ -182,6 +317,9 @@ Expected public fixture result:
 - Provider validation is bounded and aggregate-only.
 - H100 measurements are bounded and do not establish H100 superiority.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
+- The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
+- The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
+- The KORA Doctor report pack is examples-driven and should not be presented as production proxy readiness.
 - Native Windows and WSL-specific first-value install validation are deferred.
 - Project Operating System has been validated on KORA, but has not yet been applied to a second project.
 - PR readiness classification is `READY_FOR_PR_WITH_CAVEATS` because the branch is large and evidence remains bounded.
@@ -199,10 +337,10 @@ Expected public fixture result:
 
 ## Recommended Next Goals
 
-1. Goal 076 - PR Review and Merge Gate.
-2. Goal 077 - Public Reviewer Packet From Review Hub.
-3. Goal 078 - Wheel and Source Distribution Smoke Validation.
-4. Goal 079 - Apply Project Operating System To Permea.
+1. Goal 083 - Public reviewer walkthrough and example catalog refresh.
+2. Goal 084 - Contributor issue seed for examples-first onboarding.
+3. Goal 085 - Contributor issue seed for first-value examples.
+4. Goal 086 - Wheel and source distribution smoke validation.
 
 ## How To Resume With ChatGPT
 
@@ -210,7 +348,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal044_krk_route_selectivity_metrics_plan.
+Use the active branch goal082b_narrative_repositioning.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```

@@ -1,0 +1,10 @@
+{
+  "avoided_provider_invocations": 16,
+  "deterministic_candidates": 16,
+  "mode": "kora_doctor_report_pack",
+  "ok": true,
+  "provider_calls_actually_made": 0,
+  "provider_needed_candidates": 9,
+  "total_tasks": 25,
+  "workload_count": 4
+}
