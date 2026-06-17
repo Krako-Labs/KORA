@@ -1,5 +1,5 @@
 use crate::scheduler::topo_sort;
-use crate::task_ir::{Task, TaskGraph, RunSpec, VerifyRule, Budget};
+use crate::task_ir::{Task, TaskGraph, RunSpec, VerifyRule, Budget, OnFailPolicy};
 use crate::security::pii_redact::redact_json_value;
 use crate::security::telemetry::SiemEvent;
 use std::collections::HashMap;
@@ -23,100 +23,338 @@ pub enum ExecutorError {
 
 /// Execute a task graph and return the final state and outputs map
 pub async fn run_graph(graph: &TaskGraph) -> Result<HashMap<String, Value>, ExecutorError> {
+    let result = run_graph_contract(graph).await;
+    if result["ok"].as_bool().unwrap_or(false) {
+        let outputs: HashMap<String, Value> = serde_json::from_value(result["outputs"].clone()).unwrap_or_default();
+        Ok(outputs)
+    } else {
+        let err_obj = &result["error"];
+        let details = err_obj["details"].as_str().unwrap_or("").to_string();
+        let task_id = err_obj["task_id"].as_str().unwrap_or("").to_string();
+        let error_type = err_obj["error_type"].as_str().unwrap_or("");
+        
+        if error_type == "BUDGET_BREACH" {
+            let max_time_ms = graph.defaults.budget.max_time_ms;
+            Err(ExecutorError::Timeout(task_id, max_time_ms))
+        } else if error_type == "OUTPUT_SCHEMA_INVALID" {
+            Err(ExecutorError::VerificationFailed(task_id, details))
+        } else if error_type == "DETERMINISTIC_EXEC_FAILED" {
+            Err(ExecutorError::HandlerFailed(task_id, details))
+        } else {
+            Err(ExecutorError::ExecutionFailed(details))
+        }
+    }
+}
+
+/// Execute a task graph, returning the full Python execution result contract
+pub async fn run_graph_contract(graph: &TaskGraph) -> serde_json::Value {
+    let start_overall = Instant::now();
     let normalized = crate::task_ir::normalize_graph(graph);
     
-    // Sort tasks topologically
-    let order = topo_sort(&normalized).map_err(|e| ExecutorError::ExecutionFailed(e.to_string()))?;
+    let mut outputs = HashMap::new();
+    let mut events = Vec::new();
+    let mut stage_timings = HashMap::new();
     
-    let mut outputs: HashMap<String, Value> = HashMap::new();
+    // Sort tasks topologically
+    let order_result = topo_sort(&normalized);
+    let order = match order_result {
+        Ok(o) => o,
+        Err(e) => {
+            let elapsed = start_overall.elapsed().as_secs_f64();
+            stage_timings.insert("overall_total_s".to_string(), elapsed);
+            return json!({
+                "ok": false,
+                "graph_id": normalized.graph_id,
+                "order": Vec::<String>::new(),
+                "error": {
+                    "error_type": "DAG_INVALID",
+                    "stage": "SCHEDULER",
+                    "retryable": false,
+                    "budget_breached": false,
+                    "details": e.to_string(),
+                    "task_id": Value::Null,
+                },
+                "events": events,
+                "outputs": outputs,
+                "final": Value::Null,
+                "stage_timings": stage_timings,
+            });
+        }
+    };
+    
     let task_map: HashMap<&str, &Task> = normalized.tasks.iter().map(|t| (t.id.as_str(), t)).collect();
-
-    for task_id in order {
-        let task = task_map.get(task_id.as_str()).unwrap();
+    
+    let mut overall_success = true;
+    let mut final_error = None;
+    
+    let mut det_total_s = 0.0;
+    let mut llm_total_s = 0.0;
+    let mut verify_total_s = 0.0;
+    
+    for task_id in &order {
+        let task = match task_map.get(task_id.as_str()) {
+            Some(t) => t,
+            None => {
+                overall_success = false;
+                final_error = Some(json!({
+                    "error_type": "INVALID_TASK",
+                    "stage": "IR",
+                    "retryable": false,
+                    "budget_breached": false,
+                    "details": format!("Task '{}' not found in task map", task_id),
+                    "task_id": task_id,
+                }));
+                break;
+            }
+        };
         
-        let start_time = Instant::now();
-        
-        // Log start SIEM event
-        SiemEvent::new(&normalized.graph_id, &task.id, "task_start", "ok", 0, 0, 0, 0.0, "Starting task execution").emit();
-
         let budget = task.policy.budget.as_ref().cloned().unwrap_or_default();
-        let max_time_ms = budget.max_time_ms;
+        let max_retries = budget.max_retries;
+        let max_attempts = 1 + max_retries;
+        let mut attempt = 0;
+        let mut task_success = false;
+        
+        while attempt < max_attempts {
+            attempt += 1;
+            let start_attempt = Instant::now();
+            
+            let run_kind = match &task.run {
+                RunSpec::Det(_) => "det",
+                RunSpec::Llm(_) => "llm",
+            };
+            
+            // Log start SIEM event
+            SiemEvent::new(&normalized.graph_id, &task.id, "task_start", "ok", 0, 0, 0, 0.0, "Starting task execution").emit();
 
-        // Wrap execution in timeout
-        let result = tokio::time::timeout(
-            Duration::from_millis(max_time_ms),
-            execute_single_task(task, &outputs, &budget)
-        ).await;
+            let max_time_ms = budget.max_time_ms;
+            
+            let result = tokio::time::timeout(
+                Duration::from_millis(max_time_ms),
+                execute_single_task(task, &outputs, &budget)
+            ).await;
+            
+            let duration_ms = start_attempt.elapsed().as_millis() as u64;
+            let duration_s = start_attempt.elapsed().as_secs_f64();
+            if run_kind == "det" {
+                det_total_s += duration_s;
+            } else if run_kind == "llm" {
+                llm_total_s += duration_s;
+            }
+            
+            match result {
+                Ok(Ok((output, tokens_in, tokens_out))) => {
+                    let verify_start = Instant::now();
+                    let verify_res = verify_task_output(task, &output);
+                    let verify_duration_s = verify_start.elapsed().as_secs_f64();
+                    verify_total_s += verify_duration_s;
+                    
+                    if let Err(e) = verify_res {
+                        let err_detail = e.to_string();
+                        let retryable = task.policy.on_fail == OnFailPolicy::Retry && attempt < max_attempts;
+                        let error_obj = json!({
+                            "error_type": "OUTPUT_SCHEMA_INVALID",
+                            "stage": "VERIFY",
+                            "retryable": retryable,
+                            "budget_breached": false,
+                            "details": err_detail,
+                            "task_id": task.id,
+                        });
+                        
+                        SiemEvent::new(
+                            &normalized.graph_id,
+                            &task.id,
+                            "task_fail",
+                            "error",
+                            duration_ms,
+                            tokens_in,
+                            tokens_out,
+                            0.0,
+                            &format!("Output verification failed: {}", err_detail)
+                        ).emit();
 
-        let duration_ms = start_time.elapsed().as_millis() as u64;
+                        events.push(json!({
+                            "task_id": task.id,
+                            "attempt": attempt,
+                            "status": "fail",
+                            "stage": "VERIFY",
+                            "time_ms": duration_ms + (verify_duration_s * 1000.0) as u64,
+                            "error": error_obj,
+                        }));
+                        
+                        if task.policy.on_fail != OnFailPolicy::Retry || attempt == max_attempts {
+                            overall_success = false;
+                            final_error = Some(error_obj);
+                            break;
+                        }
+                    } else {
+                        // Success!
+                        let event_stage = if run_kind == "det" { "DETERMINISTIC" } else { "ADAPTER" };
+                        let mut event_obj = json!({
+                            "task_id": task.id,
+                            "attempt": attempt,
+                            "status": "ok",
+                            "stage": event_stage,
+                            "time_ms": duration_ms,
+                        });
+                        if run_kind == "llm" {
+                            event_obj["usage"] = json!({
+                                "tokens_in": tokens_in,
+                                "tokens_out": tokens_out,
+                            });
+                            event_obj["meta"] = json!({
+                                "cost_units": tokens_in + tokens_out,
+                                "confidence": Value::Null,
+                                "uncertainty": Value::Null,
+                                "voi": Value::Null,
+                                "escalate_recommended": false,
+                                "stop_reason": "accepted_gate_verified",
+                            });
+                        }
+                        
+                        SiemEvent::new(
+                            &normalized.graph_id,
+                            &task.id,
+                            "task_success",
+                            "ok",
+                            duration_ms,
+                            tokens_in,
+                            tokens_out,
+                            0.0,
+                            "Task executed successfully"
+                        ).emit();
 
-        match result {
-            Ok(Ok((output, tokens_in, tokens_out))) => {
-                // Verify output
-                if let Err(e) = verify_task_output(task, &output) {
+                        events.push(event_obj);
+                        outputs.insert(task.id.clone(), output);
+                        task_success = true;
+                        break;
+                    }
+                }
+                Ok(Err(e)) => {
+                    let err_detail = e.to_string();
+                    let error_type = match run_kind {
+                        "det" => "DETERMINISTIC_EXEC_FAILED",
+                        _ => "ADAPTER_FAILED",
+                    };
+                    let stage_str = match run_kind {
+                        "det" => "DETERMINISTIC",
+                        _ => "ADAPTER",
+                    };
+                    let retryable = task.policy.on_fail == OnFailPolicy::Retry && attempt < max_attempts;
+                    let error_obj = json!({
+                        "error_type": error_type,
+                        "stage": stage_str,
+                        "retryable": retryable,
+                        "budget_breached": false,
+                        "details": err_detail,
+                        "task_id": task.id,
+                    });
+                    
                     SiemEvent::new(
                         &normalized.graph_id,
                         &task.id,
                         "task_fail",
                         "error",
                         duration_ms,
-                        tokens_in,
-                        tokens_out,
+                        0,
+                        0,
                         0.0,
-                        &format!("Output verification failed: {}", e)
+                        &format!("Task execution failed: {}", err_detail)
                     ).emit();
-                    return Err(ExecutorError::VerificationFailed(task.id.clone(), e.to_string()));
+
+                    events.push(json!({
+                        "task_id": task.id,
+                        "attempt": attempt,
+                        "status": "fail",
+                        "stage": stage_str,
+                        "time_ms": duration_ms,
+                        "error": error_obj,
+                    }));
+                    
+                    if task.policy.on_fail != OnFailPolicy::Retry || attempt == max_attempts {
+                        overall_success = false;
+                        final_error = Some(error_obj);
+                        break;
+                    }
                 }
+                Err(_) => {
+                    let retryable = task.policy.on_fail == OnFailPolicy::Retry && attempt < max_attempts;
+                    let error_obj = json!({
+                        "error_type": "BUDGET_BREACH",
+                        "stage": "BUDGET",
+                        "retryable": retryable,
+                        "budget_breached": true,
+                        "details": format!("Task '{}' timed out (max_time_ms = {} exceeded)", task.id, max_time_ms),
+                        "task_id": task.id,
+                    });
+                    
+                    SiemEvent::new(
+                        &normalized.graph_id,
+                        &task.id,
+                        "budget_breach",
+                        "error",
+                        duration_ms,
+                        0,
+                        0,
+                        0.0,
+                        &format!("Time budget of {}ms exceeded", max_time_ms)
+                    ).emit();
 
-                // Log success SIEM event
-                SiemEvent::new(
-                    &normalized.graph_id,
-                    &task.id,
-                    "task_success",
-                    "ok",
-                    duration_ms,
-                    tokens_in,
-                    tokens_out,
-                    0.0,
-                    "Task executed successfully"
-                ).emit();
-
-                outputs.insert(task.id.clone(), output);
-            }
-            Ok(Err(e)) => {
-                // Log failure SIEM event
-                SiemEvent::new(
-                    &normalized.graph_id,
-                    &task.id,
-                    "task_fail",
-                    "error",
-                    duration_ms,
-                    0,
-                    0,
-                    0.0,
-                    &format!("Task execution failed: {}", e)
-                ).emit();
-                return Err(e);
-            }
-            Err(_) => {
-                // Timeout breached
-                SiemEvent::new(
-                    &normalized.graph_id,
-                    &task.id,
-                    "budget_breach",
-                    "error",
-                    duration_ms,
-                    0,
-                    0,
-                    0.0,
-                    &format!("Time budget of {}ms exceeded", max_time_ms)
-                ).emit();
-                return Err(ExecutorError::Timeout(task.id.clone(), max_time_ms));
+                    events.push(json!({
+                        "task_id": task.id,
+                        "attempt": attempt,
+                        "status": "fail",
+                        "stage": "BUDGET",
+                        "time_ms": duration_ms,
+                        "error": error_obj,
+                    }));
+                    
+                    if task.policy.on_fail != OnFailPolicy::Retry || attempt == max_attempts {
+                        overall_success = false;
+                        final_error = Some(error_obj);
+                        break;
+                    }
+                }
             }
         }
+        
+        if !task_success {
+            break;
+        }
     }
-
-    Ok(outputs)
+    
+    if det_total_s > 0.0 {
+        stage_timings.insert("det_total_s".to_string(), det_total_s);
+    }
+    if llm_total_s > 0.0 {
+        stage_timings.insert("llm_total_s".to_string(), llm_total_s);
+    }
+    if verify_total_s > 0.0 {
+        stage_timings.insert("verify_total_s".to_string(), verify_total_s);
+    }
+    let overall_elapsed = start_overall.elapsed().as_secs_f64();
+    stage_timings.insert("overall_total_s".to_string(), overall_elapsed);
+    
+    let final_val = if overall_success {
+        outputs.get(&normalized.root).cloned().unwrap_or(Value::Null)
+    } else {
+        Value::Null
+    };
+    
+    let mut result = json!({
+        "ok": overall_success,
+        "graph_id": normalized.graph_id,
+        "order": order,
+        "events": events,
+        "outputs": outputs,
+        "final": final_val,
+        "stage_timings": stage_timings,
+    });
+    
+    if let Some(err) = final_error {
+        result["error"] = err;
+    }
+    
+    result
 }
 
 /// Run a single task based on its spec
