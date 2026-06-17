@@ -9,6 +9,25 @@ from pathlib import Path
 # Add current directory to path so we can import kora and kora_rust
 sys.path.append(str(Path(__file__).parent.absolute()))
 
+if len(sys.argv) == 1:
+    # Check dependencies before starting the benchmark suite
+    missing_deps = []
+    try:
+        import psutil
+    except ImportError:
+        missing_deps.append("psutil (install via: pip install -e \".[dev]\")")
+    try:
+        import kora_rust
+    except ImportError:
+        missing_deps.append("kora_rust (build and install via: pip install -e \".[rust]\")")
+
+    if missing_deps:
+        print("Error: Missing required benchmark dependencies:", file=sys.stderr)
+        for dep in missing_deps:
+            print(f"  - {dep}", file=sys.stderr)
+        print("\nNote: Building the optional Rust acceleration backend requires a Rust compiler toolchain.", file=sys.stderr)
+        sys.exit(1)
+
 # --- Subprocess runner commands ---
 if len(sys.argv) > 1 and sys.argv[1] in ["run-py-val", "run-rust-val", "run-py-norm", "run-rust-norm", "run-py-exec", "run-rust-exec"]:
     cmd = sys.argv[1]
