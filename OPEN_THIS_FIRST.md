@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 083B.
+Last updated by: Goal 083C.
 
 ## Current Status
 
@@ -17,6 +17,7 @@ Current state:
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
+- public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -28,15 +29,25 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal083b_getkora_distribution_strategy`
+- branch: `goal083c_public_first_run_acceptance`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 083B
-- base commit: `09c28f15413e9c3ed8498a046f5352eb0ad7b791`
+- open PR: none for Goal 083C
+- base commit: `f768a353fa02feb0dcf1f02055ae4c029117ad37` including pending local Goal 083B material
 
 ## Last Completed Goal
 
-Goal 083B - Distribution Strategy and getkora Packaging Plan.
+Goal 083C - Public First-Run Acceptance Test.
+
+Goal 083C tested the README-only reviewer path, fresh source install path, PyPI collision awareness, and five-minute reviewer path using the pending Goal 083B distribution strategy material. It also added a short source-install availability note to the deterministic classification README.
+
+Primary report:
+
+- [Goal 083C public first-run acceptance test](docs/reports/goal083c_public_first_run_acceptance_test.md)
+
+Claim boundary: this goal did not add product features, publish a package, create a release, create a tag, or claim `getkora` is published.
+
+Previous completed Goal: Goal 083B - Distribution Strategy and getkora Packaging Plan.
 
 Goal 083B documented the distribution strategy after verifying that PyPI `kora` is occupied by an unrelated package and that `getkora` has no matching distribution by package-index lookup. The docs now state that latest KORA examples and `kora doctor` should be tested from the current repository/source checkout, while future PyPI distribution is planned under `getkora`.
 

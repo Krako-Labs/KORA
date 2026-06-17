@@ -31,6 +31,7 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 - [Main README](../README.md)
 - [Open this first](../OPEN_THIS_FIRST.md)
 - [Review hub](../REVIEW_HUB.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
 - [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
 - [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
 - [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
@@ -158,6 +159,7 @@ KORA control layer architecture.
 ## Reports
 
 - [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
 - [Goal 083B getkora distribution strategy](reports/goal083b_getkora_distribution_strategy.md)
 - [Goal 083 KORA Doctor CLI](reports/goal083_kora_doctor_cli.md)
 - [Goal 082A KORA Doctor report pack](reports/goal082a_kora_doctor_report_pack.md)
