@@ -1883,7 +1883,10 @@ def test_request_handler_rejects_invalid_local_harness_run_request() -> None:
     assert missing_sse_body["model_execution_connected"] is False
 
 
-def test_static_preview_html_content_is_safe_and_complete() -> None:
+def test_static_preview_html_content_is_safe_and_complete(monkeypatch) -> None:
+    from kora import studio_system_profile
+    monkeypatch.setattr(studio_system_profile, "detect_total_memory_gb", lambda: (16.0, "detected"))
+
     html = render_studio_placeholder_html(get_studio_server_status())
     css = render_studio_css()
     javascript = render_studio_javascript()
