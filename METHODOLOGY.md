@@ -1,12 +1,18 @@
-# KORA Rust Acceleration & Security Engine: Methodology & Benchmarks
+# KORA Rust Acceleration & Experimental Security Gateway: Methodology & Local Benchmarks
 
 This document outlines the testing methodology, latency analysis, memory footprint measurements, and security features of the KORA Rust Acceleration and Security Engine (`kora_rust`).
+
+> [!NOTE]
+> **Disclaimer & Scope Limitations:**
+> * All benchmarks and speedups reported below represent **local experimental results** executed under specific hardware and environment conditions. They are not validated under production workloads or automated CI environments.
+> * The Rust Security Gateway is an **experimental developer feature** under active research. It is local-only and must not be relied upon as a production-grade security boundary, compliance firewall, or sanitization control.
+> * Telemetry features output JSON logs to `stdout` for local audit simulation and development debugging purposes only.
 
 ---
 
 ## 1. Benchmarking Methodology
 
-To ensure engineering integrity and avoid common benchmarking mistakes (such as memory accumulation and JVM/interpreter caching biases), we implemented a **subprocess-sandboxed benchmarking harness** in [benchmark.py](file:///d:/D/RESUME%20PROJECTS/Cloud%20Pool/kora_review/benchmark.py).
+To ensure engineering integrity and avoid common benchmarking mistakes (such as memory accumulation and JVM/interpreter caching biases), we implemented a **subprocess-sandboxed benchmarking harness** in [benchmark.py](./benchmark.py).
 
 * **Isolation**: Each benchmark configuration (Python vs. Rust, validation vs. execution, and size) runs in a dedicated Python subprocess. This guarantees that garbage collection and memory leak accumulation do not contaminate subsequent trials.
 * **Latency Measurement**: Timed using Python's high-resolution performance counter `time.perf_counter()`.
@@ -16,6 +22,8 @@ To ensure engineering integrity and avoid common benchmarking mistakes (such as 
 ---
 
 ## 2. Benchmark Results
+
+*The following measurements are local-only experimental results and may vary significantly depending on hardware, memory pressure, and interpreter version.*
 
 ### Latency (Average in Milliseconds)
 | Graph Size | Python Val | Rust Val | Speedup | Python Norm | Rust Norm | Speedup | Python Exec | Rust Exec | Speedup |
@@ -53,15 +61,15 @@ To ensure engineering integrity and avoid common benchmarking mistakes (such as 
 
 ## 4. Custom Differential Fuzzer
 
-To satisfy standard open-source verification expectations (ensuring 0 panics, crashes, or hangs), we wrote a custom **Differential Fuzzer** in [tests/differential_fuzz.rs](file:///d:/D/RESUME%20PROJECTS/Cloud%20Pool/kora_review/kora-rust/tests/differential_fuzz.rs).
+To satisfy standard open-source verification expectations (ensuring 0 panics, crashes, or hangs), we wrote a custom **Differential Fuzzer** in [tests/differential_fuzz.rs](./kora-rust/tests/differential_fuzz.rs).
 * **Generation**: Creates 10,000 random/mutated task graphs including cyclic dependencies, missing task fields, duplicate task IDs, random JSON structures, and arbitrary strings.
 * **Robustness**: Running `cargo test --test differential_fuzz` feeds these random payloads to the Rust validator and asserts that the code handles all errors gracefully through the Rust `Result` type, achieving **0 panics, 0 crashes, and 0 hangs**.
 
 ---
 
-## 5. Enterprise Security Features
+## 5. Experimental Security Gateway Features (Local-Only)
 
-While the scheduler performance gains are substantial, the strongest argument for enterprise adoption lies in KORA's Rust Security Gateway:
+While the scheduler performance gains are local-only optimizations, an experimental feature currently under exploration is KORA's optional Rust Security Gateway:
 * **Secrets Redaction**: Recursive JSON-payload scanner that redacts critical secrets before they are forwarded to adapters or LLMs:
   - **OpenAI API Keys** (`sk-[a-zA-Z0-9_-]{32,}`) -> `[REDACTED_OPENAI_KEY]`
   - **AWS Access Key IDs** (`AKIA[0-9A-Z]{16}`) -> `[REDACTED_AWS_KEY]`
@@ -69,4 +77,4 @@ While the scheduler performance gains are substantial, the strongest argument fo
   - **JSON Web Tokens (JWTs)** (`eyJ...`) -> `[REDACTED_JWT]`
   - **Generic Bearer Tokens** (`Bearer ...`) -> `[REDACTED_BEARER_TOKEN]`
   - **Credit Cards (Luhn Hardened)** -> Checks digit sequences using Luhn checks to avoid redacting arbitrary numbers, replacing valid card sequences with `[REDACTED_CARD]`.
-* **Telemetry**: Emit structured SIEM-compliant JSON logs directly to standard output, making audit trails ready for Splunk, Datadog, or Elastic ingestion.
+* **Telemetry**: Emit structured JSON logs directly to standard output to simulate audit trails (ready for local validation before ingestion in tools like Splunk, Datadog, or Elastic).
