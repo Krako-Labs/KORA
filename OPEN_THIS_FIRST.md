@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 082B.
+Last updated by: Goal 083.
 
 ## Current Status
 
@@ -19,6 +19,7 @@ Current state:
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
+- `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
 - the active branch has a public-safe PR readiness packet with caveats.
@@ -26,15 +27,31 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal082b_narrative_repositioning`
+- branch: `goal083_kora_doctor_cli`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 082B
-- base commit: `b49617ce0402c3a73504ad3490dd668f0797891f`
+- open PR: none for Goal 083
+- base commit: `009f11601161fc1d8944e14f3869309e86239e28`
 
 ## Last Completed Goal
 
-Goal 082B - KORA Narrative Repositioning and README Transformation.
+Goal 083 - Implement KORA Doctor CLI.
+
+Goal 083 promoted the KORA Doctor example into a first-class CLI command. Users can now run a single offline workload-control report with `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json` or an aggregate bundled report with `python3 -m kora doctor --all examples/kora_doctor/`.
+
+Primary report:
+
+- [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
+
+Updated public-facing docs:
+
+- [README](README.md)
+- [Documentation index](docs/README.md)
+- [KORA Doctor README](examples/kora_doctor/README.md)
+
+Claim boundary: In this offline CLI example, KORA Doctor identifies deterministic candidates and provider-needed candidates in sample workloads without making provider calls. It does not claim production diagnostic accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 082B - KORA Narrative Repositioning and README Transformation.
 
 Goal 082B repositioned KORA public documentation around the AI Workload Control Layer narrative. The README now starts from developer-facing workload control, explains why not every task should be treated as a model problem, and foregrounds KORA Doctor plus deterministic classification examples.
 
@@ -185,6 +202,7 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
 - [KORA Workload Control Layer](docs/vision/kora_workload_control_layer.md)
 - [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
@@ -221,12 +239,12 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 083 - Public reviewer walkthrough and example catalog refresh.
+Goal 084 - Public reviewer walkthrough and example catalog refresh.
 
 Recommended scope:
 
-- review the new README narrative from a fresh visitor perspective.
-- verify KORA Doctor and deterministic classification quick starts.
+- review the README and KORA Doctor CLI narrative from a fresh visitor perspective.
+- verify KORA Doctor CLI, KORA Doctor example, and deterministic classification quick starts.
 - refresh contributor-facing example catalog pointers if needed.
 - preserve current evidence boundaries and avoid production or superiority claims.
 

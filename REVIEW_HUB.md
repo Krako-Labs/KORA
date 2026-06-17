@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 082B.
+Last updated by: Goal 083.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal082b_narrative_repositioning`
-- worktree label: `goal082b_narrative_repositioning`
+- active evidence branch: `goal083_kora_doctor_cli`
+- worktree label: `goal083_kora_doctor_cli`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 082B
-- base commit: `b49617ce0402c3a73504ad3490dd668f0797891f`
+- open PR: none for Goal 083
+- base commit: `009f11601161fc1d8944e14f3869309e86239e28`
 
 ## Current State Summary
 
@@ -36,6 +36,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - deterministic classification example pack with KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - KORA Doctor first-value developer example with KORA `TaskGraph` execution, deterministic candidate/provider-needed candidate inspection, route rationale, counters, and next-step recommendations.
 - KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
+- first-class `kora doctor` CLI command for offline single-workload and aggregate Doctor reports.
 - README and documentation index now present KORA as an AI Workload Control Layer with examples-first onboarding and explicit safe claim boundaries.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
@@ -72,6 +73,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 082 | Added an offline KORA Doctor example that inspects a synthetic workload and explains deterministic versus provider-needed candidates without provider calls. | [Goal 082 KORA Doctor example](docs/reports/goal082_kora_doctor_example.md) |
 | Goal 082A | Expanded KORA Doctor into a report pack across four offline workloads and added a README refresh proposal. | [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md) |
 | Goal 082B | Repositioned README and docs navigation around KORA as an AI Workload Control Layer while preserving current evidence boundaries. | [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md) |
+| Goal 083 | Promoted KORA Doctor into a first-class offline CLI command for single-workload and aggregate workload-control reports. | [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md) |
 
 ## Evidence Index
 
@@ -98,6 +100,7 @@ Generated summaries:
 Current reviewer path:
 
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
+- [Goal 083 KORA Doctor CLI](docs/reports/goal083_kora_doctor_cli.md)
 - [KORA Workload Control Layer](docs/vision/kora_workload_control_layer.md)
 - [Goal 082A KORA Doctor report pack](docs/reports/goal082a_kora_doctor_report_pack.md)
 - [Goal 082A README refresh proposal](docs/reports/goal082a_readme_refresh_proposal.md)
@@ -139,6 +142,7 @@ Supported:
 - KORA has a deterministic classification example pack where KORA routes `21` of `32` synthetic sample classification tasks to deterministic handlers, avoiding simulated provider/model invocation for those sample tasks while making `0` provider calls.
 - KORA has an offline Doctor example where KORA Doctor identifies deterministic candidates and provider-needed candidates in a sample workload without making provider calls.
 - KORA has an offline Doctor report pack where KORA Doctor identifies deterministic candidates and provider-needed candidates across four bundled sample workloads without making provider calls.
+- KORA has a first-class `kora doctor` CLI command for running the same offline Doctor inspection over sample workload JSON files and bundled workload directories.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
@@ -173,6 +177,8 @@ First-value CLI:
 kora inspect
 kora compare
 kora run
+kora doctor examples/kora_doctor/customer_support_workload.json
+kora doctor --all examples/kora_doctor/
 kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value.md
 ```
 
@@ -182,6 +188,8 @@ Module form:
 python3 -m kora inspect
 python3 -m kora compare
 python3 -m kora run
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+python3 -m kora doctor --all examples/kora_doctor/
 python3 -m kora report --json-out /tmp/kora-first-value.json --md-out /tmp/kora-first-value.md
 ```
 
@@ -337,10 +345,10 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 083 - Public reviewer walkthrough and example catalog refresh.
-2. Goal 084 - Contributor issue seed for examples-first onboarding.
-3. Goal 085 - Contributor issue seed for first-value examples.
-4. Goal 086 - Wheel and source distribution smoke validation.
+1. Goal 084 - Public reviewer walkthrough and example catalog refresh.
+2. Goal 085 - Contributor issue seed for examples-first onboarding.
+3. Goal 086 - Contributor issue seed for first-value examples.
+4. Goal 087 - Wheel and source distribution smoke validation.
 
 ## How To Resume With ChatGPT
 
@@ -348,7 +356,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal082b_narrative_repositioning.
+Use the active branch goal083_kora_doctor_cli.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```

@@ -8,7 +8,21 @@ Run from the repository root:
 python3 examples/kora_doctor/run.py
 ```
 
+Run a workload through the first-class CLI:
+
+```bash
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
+```
+
 Write structured JSON and a report:
+
+```bash
+python3 -m kora doctor examples/kora_doctor/workloads/customer_support_workload.json \
+  --json-out /tmp/kora_doctor_customer_support.json \
+  --report-md /tmp/kora_doctor_customer_support.md
+```
+
+The example script remains available:
 
 ```bash
 python3 examples/kora_doctor/run.py \
@@ -17,6 +31,12 @@ python3 examples/kora_doctor/run.py \
 ```
 
 Run the full Doctor report pack across all bundled sample workloads:
+
+```bash
+python3 -m kora doctor --all examples/kora_doctor/
+```
+
+The example script remains available for the same report pack:
 
 ```bash
 python3 examples/kora_doctor/run.py --all \
@@ -55,4 +75,4 @@ The default sample workload is [workload.json](workload.json). Additional worklo
 
 Expected counters are in [expected_counters.json](expected_counters.json) and [expected_counters_all.json](expected_counters_all.json).
 
-Claim boundary: this is a first-value developer report pack over synthetic data. It does not claim production diagnostic accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, broad workload superiority, or production proxy readiness.
+Claim boundary: In this offline CLI example, KORA Doctor identifies deterministic candidates and provider-needed candidates in sample workloads without making provider calls. This is a first-value developer report pack over synthetic data. It does not claim production diagnostic accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, broad workload superiority, or production proxy readiness.
