@@ -57,6 +57,7 @@ def _example_descriptions() -> dict[str, str]:
         "direct_vs_kora": "direct call vs KORA-controlled path",
         "kora_doctor": "offline doctor-style workload inspection example",
         "openai_compatible_proxy": "offline OpenAI-style proxy routing example",
+        "rag_routing": "offline RAG routing control example",
         "real_workload_harness": "benchmark/report flow example",
         "real_model_call_validation_fake": "local no-network model-call validation example",
         "runtime_integrated_benchmark": "initial runtime-path benchmark harness",
