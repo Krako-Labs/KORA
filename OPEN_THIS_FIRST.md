@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 084.
+Last updated by: Goal 085.
 
 ## Current Status
 
@@ -19,6 +19,7 @@ Current state:
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
+- the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -30,15 +31,33 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal084_openai_compatible_proxy`
+- branch: `goal085_openai_proxy_module_cli`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 084
-- base commit: `b925a5163650ed60b97ebc7b1aa2b44d7fda4290`
+- open PR: none for Goal 085
+- base commit: `651ab79e037d334339463efb1df61e9e8812371c`
 
 ## Last Completed Goal
 
-Goal 084 - Implement OpenAI-Compatible Proxy Example.
+Goal 085 - Implement OpenAI Proxy Reusable Module and CLI.
+
+Goal 085 promoted the Goal 084 proxy example's routing logic into `kora.openai_proxy_demo` and added the first-class offline CLI command `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json`. The existing `examples/openai_compatible_proxy/run.py` script remains a compatibility wrapper over the reusable module. Both paths make `0` provider calls.
+
+Primary report:
+
+- [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md)
+
+Primary artifacts:
+
+- [Reusable OpenAI proxy demo module](kora/openai_proxy_demo.py)
+- [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
+- [OpenAI-compatible proxy runnable wrapper](examples/openai_compatible_proxy/run.py)
+- [OpenAI-compatible proxy request fixture](examples/openai_compatible_proxy/requests.json)
+- [OpenAI-compatible proxy expected counters](examples/openai_compatible_proxy/expected_counters.json)
+
+Claim boundary: In this offline proxy demo, KORA routes deterministic or cacheable OpenAI-style sample requests without making provider calls and marks ambiguous/open-ended requests as provider-needed. It does not claim production proxy readiness, full OpenAI API compatibility, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 084 - Implement OpenAI-Compatible Proxy Example.
 
 Goal 084 added an offline OpenAI-compatible proxy example under `examples/openai_compatible_proxy/`. The example uses KORA `TaskGraph` execution with the deterministic `classify_by_rules` handler for bounded support-ticket classification requests, local cache reuse for repeated sample requests, and provider-needed fallback labels for ambiguous/open-ended sample requests. It makes `0` provider calls.
 
@@ -284,7 +303,7 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 084 - Public reviewer walkthrough and example catalog refresh.
+Goal 086 - Public reviewer walkthrough and example catalog refresh.
 
 Recommended scope:
 
