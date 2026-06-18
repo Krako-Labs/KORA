@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 086.
+Last updated by: Goal 087.
 
 ## Current Status
 
@@ -21,6 +21,7 @@ Current state:
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
 - an offline RAG routing example exists under `examples/rag_routing/`, showing KORA routing sample queries across deterministic answers, cache hits, retrieval-needed handling, and provider-needed fallback without provider calls.
+- an offline agent workflow optimization example exists under `examples/agent_workflow_optimization/`, showing KORA routing sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -32,15 +33,32 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal086_rag_routing_example`
+- branch: `goal087_agent_workflow_optimization`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 086
-- base commit: `d104d87345afd4d860a8872d2eccbe2b5e0eb063`
+- open PR: none for Goal 087
+- base commit: `2a197f57cca2dc6bfcd0c7c322432da587b88ded`
 
 ## Last Completed Goal
 
-Goal 086 - Implement RAG Routing Example.
+Goal 087 - Implement Agent Workflow Optimization Example.
+
+Goal 087 added an offline agent workflow optimization example under `examples/agent_workflow_optimization/`. The example uses KORA `TaskGraph` execution with the deterministic `agent_route_step` handler for non-cache sample workflow steps, local cache reuse for repeated deterministic steps, tool-needed labels for explicit local action steps, and provider-needed fallback labels for ambiguous planning/open-ended generation steps. It makes `0` provider calls.
+
+Primary report:
+
+- [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
+
+Example artifacts:
+
+- [Agent workflow optimization example README](examples/agent_workflow_optimization/README.md)
+- [Agent workflow optimization runnable script](examples/agent_workflow_optimization/run.py)
+- [Agent workflow fixture](examples/agent_workflow_optimization/workflows.json)
+- [Agent workflow expected counters](examples/agent_workflow_optimization/expected_counters.json)
+
+Claim boundary: In this offline agent-workflow example, KORA routes sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without making provider calls. It does not claim production agent readiness, autonomous agent reliability, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 086 - Implement RAG Routing Example.
 
 Goal 086 added an offline RAG routing example under `examples/rag_routing/`. The example uses KORA `TaskGraph` execution with the deterministic `rag_route_query` handler for non-cache sample queries, local cache reuse for repeated sample queries, retrieval-needed labels for document-grounded queries over an offline corpus, and provider-needed fallback labels for ambiguous/open-ended sample queries. It makes `0` provider calls.
 
@@ -281,6 +299,8 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
+- [Agent workflow optimization example README](examples/agent_workflow_optimization/README.md)
 - [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
 - [RAG routing example README](examples/rag_routing/README.md)
 - [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md)
@@ -325,7 +345,7 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 087 - Public reviewer walkthrough and example catalog refresh.
+Goal 088 - Public reviewer walkthrough and example catalog refresh.
 
 Recommended scope:
 

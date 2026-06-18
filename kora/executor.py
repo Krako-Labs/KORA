@@ -317,6 +317,92 @@ def _handle_rag_route_query(task: Task, state: dict[str, Any]) -> dict[str, Any]
     }
 
 
+def _handle_agent_route_step(task: Task, state: dict[str, Any]) -> dict[str, Any]:
+    del state
+    if task.run.kind != "det":
+        raise ValueError("agent_route_step requires deterministic task input")
+
+    args = task.run.spec.args
+    step = task.in_.get("step", args.get("step", {}))
+    if not isinstance(step, dict):
+        raise ValueError("agent_route_step requires a step object")
+
+    step_type = str(step.get("step_type", "")).strip()
+    description = str(step.get("description", ""))
+    workflow_id = str(step.get("workflow_id", args.get("workflow_id", "agent_workflow")))
+
+    deterministic_handlers = args.get("deterministic_handlers", {})
+    if not isinstance(deterministic_handlers, dict):
+        deterministic_handlers = {}
+    tool_handlers = args.get("tool_handlers", {})
+    if not isinstance(tool_handlers, dict):
+        tool_handlers = {}
+    provider_needed_types = args.get("provider_needed_types", [])
+    if not isinstance(provider_needed_types, list):
+        provider_needed_types = []
+
+    if step_type in deterministic_handlers:
+        handler = str(deterministic_handlers[step_type])
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "deterministic",
+            "selected_route": f"agent.det.{step_type}",
+            "handler": handler,
+            "workflow_id": workflow_id,
+            "step_output": {
+                "step_type": step_type,
+                "summary": f"deterministic {step_type} handled offline",
+            },
+            "tool_name": None,
+            "provider_calls": 0,
+            "provider_needed_reason": None,
+        }
+
+    if step_type in tool_handlers:
+        tool = tool_handlers[step_type]
+        tool_name = str(tool.get("tool_name", step_type)) if isinstance(tool, dict) else str(tool)
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "tool_needed",
+            "selected_route": f"agent.tool.{step_type}",
+            "handler": "local_tool_action",
+            "workflow_id": workflow_id,
+            "step_output": None,
+            "tool_name": tool_name,
+            "provider_calls": 0,
+            "provider_needed_reason": None,
+        }
+
+    if step_type in {str(item) for item in provider_needed_types}:
+        return {
+            "status": "ok",
+            "task_id": task.id,
+            "route_kind": "provider_needed",
+            "selected_route": f"agent.provider_needed.{step_type}",
+            "handler": "provider_needed_fallback",
+            "workflow_id": workflow_id,
+            "step_output": None,
+            "tool_name": None,
+            "provider_calls": 0,
+            "provider_needed_reason": "ambiguous planning, reasoning, or open-ended generation",
+        }
+
+    return {
+        "status": "ok",
+        "task_id": task.id,
+        "route_kind": "provider_needed",
+        "selected_route": "agent.provider_needed.unmatched",
+        "handler": "provider_needed_fallback",
+        "workflow_id": workflow_id,
+        "step_output": None,
+        "tool_name": None,
+        "provider_calls": 0,
+        "provider_needed_reason": f"no offline agent route matched: {description or step_type}",
+    }
+
+
 def _handle_flaky_once(task: Task, state: dict[str, Any]) -> dict[str, Any]:
     attempts = state.setdefault("flaky_once_attempts", {})
     count = int(attempts.get(task.id, 0)) + 1
@@ -489,6 +575,7 @@ DETERMINISTIC_HANDLERS: dict[str, Handler] = {
     "classify_simple": _handle_classify_simple,
     "doctor_inspect_task": _handle_doctor_inspect_task,
     "rag_route_query": _handle_rag_route_query,
+    "agent_route_step": _handle_agent_route_step,
     "flaky_once": _handle_flaky_once,
     "parse_request_constraints": _handle_parse_request_constraints,
     "quality_gate": _handle_quality_gate,

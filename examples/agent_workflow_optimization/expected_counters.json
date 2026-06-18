@@ -1,0 +1,9 @@
+{
+  "total_workflow_steps": 12,
+  "deterministic_steps": 4,
+  "cache_hits": 2,
+  "tool_needed_steps": 3,
+  "provider_needed_steps": 3,
+  "avoided_provider_invocations": 6,
+  "provider_calls_actually_made": 0
+}
