@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 087.
+Last updated by: Goal 088.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal087_agent_workflow_optimization`
-- worktree label: `goal087_agent_workflow_optimization`
+- active evidence branch: `goal088_cache_reuse_example`
+- worktree label: `goal088_cache_reuse_example`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 087
-- base commit: `2a197f57cca2dc6bfcd0c7c322432da587b88ded`
+- open PR: none for Goal 088
+- base commit: `ca7d7de4ecded1bdf4a550c7a58700dd5a9c704b`
 
 ## Current State Summary
 
@@ -39,6 +39,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable OpenAI-style proxy demo module and first-class `kora proxy-demo` CLI command for running the offline proxy/control path over sample request JSON.
 - offline RAG routing example with exact deterministic answers, local cache reuse, retrieval-needed labels over a small offline corpus, provider-needed fallback labels, and `0` provider calls.
 - offline agent workflow optimization example with deterministic steps, cache reuse, tool-needed local actions, provider-needed fallback labels, and `0` provider calls.
+- offline cache reuse example with first-time deterministic handling, repeated exact and semantic cache hits, provider-needed fallback labels, and `0` provider calls.
 - deterministic classification example pack with KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - KORA Doctor first-value developer example with KORA `TaskGraph` execution, deterministic candidate/provider-needed candidate inspection, route rationale, counters, and next-step recommendations.
 - KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
@@ -86,6 +87,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 085 | Promoted the OpenAI-style proxy demo into reusable module logic and a first-class offline `kora proxy-demo` CLI command. | [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md) |
 | Goal 086 | Added an offline RAG routing example that routes sample queries across deterministic, cache, retrieval-needed, and provider-needed paths without provider calls. | [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md) |
 | Goal 087 | Added an offline agent workflow optimization example that routes sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls. | [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md) |
+| Goal 088 | Added an offline cache reuse example that routes repeated sample requests to cache hits and marks ambiguous/open-ended requests as provider-needed without provider calls. | [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md) |
 
 ## Evidence Index
 
@@ -112,6 +114,8 @@ Generated summaries:
 Current reviewer path:
 
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
+- [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
+- [Cache reuse example README](examples/cache_reuse/README.md)
 - [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
 - [Agent workflow optimization example README](examples/agent_workflow_optimization/README.md)
 - [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
@@ -170,6 +174,7 @@ Supported:
 - KORA has a reusable offline proxy demo module and first-class `kora proxy-demo` CLI command for routing OpenAI-style sample request JSON without provider calls.
 - KORA has an offline RAG routing example where sample queries are routed across deterministic, cache, retrieval-needed, and provider-needed paths without provider calls.
 - KORA has an offline agent workflow optimization example where sample workflow steps are routed across deterministic, cache, tool-needed, and provider-needed paths without provider calls.
+- KORA has an offline cache reuse example where repeated sample requests are routed to cache hits without provider calls and ambiguous/open-ended requests are marked provider-needed.
 - Current evidence supports bounded statements about route selectivity, dry-run runtime integration, provider-path validation, bounded H100 execution, expanded H100 representativeness, and fixture-derived output fidelity.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
@@ -186,6 +191,7 @@ Not supported:
 - retrieval accuracy from the RAG routing example.
 - production agent readiness from the agent workflow example.
 - autonomous agent reliability from the agent workflow example.
+- production cache correctness from the cache reuse example.
 - customer savings.
 - energy reduction.
 - broad workload superiority.
@@ -380,8 +386,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 088 - Public reviewer walkthrough and example catalog refresh.
-2. Goal 089 - Contributor issue seed for examples-first onboarding.
+1. Goal 089 - Public reviewer walkthrough and example catalog refresh.
+2. Goal 090 - Contributor issue seed for examples-first onboarding.
 3. Goal 087 - Contributor issue seed for first-value examples.
 4. Goal 088 - Wheel and source distribution smoke validation.
 

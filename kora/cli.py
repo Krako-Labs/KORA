@@ -51,6 +51,7 @@ def _repo_root() -> Path:
 def _example_descriptions() -> dict[str, str]:
     return {
         "agent_workflow_optimization": "offline agent workflow control example",
+        "cache_reuse": "offline cache reuse routing example",
         "hello_kora": "basic deterministic hello-world graph",
         "retry_demo": "retry/recovery flow example",
         "customer_support_triage_fake_validation": "customer-support triage local no-network validation example",
