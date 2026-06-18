@@ -1,0 +1,130 @@
+{
+  "workflow_set_id": "kora_agent_workflow_optimization_v0",
+  "deterministic_handlers": {
+    "classify_ticket": "classify_by_rules",
+    "validate_required_fields": "validate_schema_fields",
+    "static_transform": "static_transform",
+    "policy_check": "policy_check"
+  },
+  "tool_handlers": {
+    "lookup_account": {
+      "tool_name": "local_account_lookup"
+    },
+    "update_document_index": {
+      "tool_name": "local_doc_index_update"
+    },
+    "query_incident_log": {
+      "tool_name": "local_incident_log_query"
+    }
+  },
+  "provider_needed_types": [
+    "plan_resolution",
+    "draft_customer_reply",
+    "write_release_note",
+    "root_cause_reasoning"
+  ],
+  "workflows": [
+    {
+      "id": "support_ticket_resolution",
+      "label": "Support ticket resolution workflow",
+      "steps": [
+        {
+          "id": "support-001",
+          "description": "Classify the incoming billing ticket.",
+          "step_type": "classify_ticket",
+          "expected_route_kind": "deterministic",
+          "expected_handler": "classify_by_rules"
+        },
+        {
+          "id": "support-002",
+          "description": "Classify the incoming billing ticket.",
+          "step_type": "classify_ticket",
+          "expected_route_kind": "cache_hit",
+          "expected_handler": "cache_reuse"
+        },
+        {
+          "id": "support-003",
+          "description": "Look up account status in the local account tool.",
+          "step_type": "lookup_account",
+          "expected_route_kind": "tool_needed",
+          "expected_handler": "local_tool_action"
+        },
+        {
+          "id": "support-004",
+          "description": "Plan a customer-specific resolution strategy.",
+          "step_type": "plan_resolution",
+          "expected_route_kind": "provider_needed",
+          "expected_handler": "provider_needed_fallback"
+        }
+      ]
+    },
+    {
+      "id": "documentation_update",
+      "label": "Documentation update workflow",
+      "steps": [
+        {
+          "id": "docs-001",
+          "description": "Validate required frontmatter fields.",
+          "step_type": "validate_required_fields",
+          "expected_route_kind": "deterministic",
+          "expected_handler": "validate_schema_fields"
+        },
+        {
+          "id": "docs-002",
+          "description": "Transform headings into the standard style.",
+          "step_type": "static_transform",
+          "expected_route_kind": "deterministic",
+          "expected_handler": "static_transform"
+        },
+        {
+          "id": "docs-003",
+          "description": "Update the local document index.",
+          "step_type": "update_document_index",
+          "expected_route_kind": "tool_needed",
+          "expected_handler": "local_tool_action"
+        },
+        {
+          "id": "docs-004",
+          "description": "Write release-note prose for a broad audience.",
+          "step_type": "write_release_note",
+          "expected_route_kind": "provider_needed",
+          "expected_handler": "provider_needed_fallback"
+        }
+      ]
+    },
+    {
+      "id": "incident_response",
+      "label": "Incident response workflow",
+      "steps": [
+        {
+          "id": "incident-001",
+          "description": "Check whether the incident policy requires escalation.",
+          "step_type": "policy_check",
+          "expected_route_kind": "deterministic",
+          "expected_handler": "policy_check"
+        },
+        {
+          "id": "incident-002",
+          "description": "Check whether the incident policy requires escalation.",
+          "step_type": "policy_check",
+          "expected_route_kind": "cache_hit",
+          "expected_handler": "cache_reuse"
+        },
+        {
+          "id": "incident-003",
+          "description": "Query the local incident log for related events.",
+          "step_type": "query_incident_log",
+          "expected_route_kind": "tool_needed",
+          "expected_handler": "local_tool_action"
+        },
+        {
+          "id": "incident-004",
+          "description": "Reason about ambiguous root cause and mitigation plan.",
+          "step_type": "root_cause_reasoning",
+          "expected_route_kind": "provider_needed",
+          "expected_handler": "provider_needed_fallback"
+        }
+      ]
+    }
+  ]
+}

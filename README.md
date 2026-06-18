@@ -95,6 +95,7 @@ Current implemented surfaces in this GitHub repository include:
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
 - Run KORA Doctor sample workload inspection from the first-class CLI: `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json`
 - Run the reusable offline OpenAI-style proxy demo from the first-class CLI: `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json`
+- Run the offline agent workflow optimization example.
 - Run the offline RAG routing example.
 - Run the deterministic classification expansion pack.
 - Run the offline OpenAI-compatible proxy example.
@@ -113,6 +114,7 @@ python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
+python3 examples/agent_workflow_optimization/run.py
 python3 examples/rag_routing/run.py
 python3 examples/openai_compatible_proxy/run.py
 python3 examples/kora_doctor/run.py
@@ -121,6 +123,31 @@ python3 examples/deterministic_classification/run.py
 ```
 
 The examples require no provider credentials and make no provider calls.
+
+### Agent Workflow Optimization
+
+The agent workflow optimization example shows KORA controlling multi-step agent-style workflows. It routes classification, validation, static transform, and policy-check steps to deterministic handlers, repeated steps to cache reuse, explicit local action steps to tool-needed handling, and ambiguous planning or open-ended generation steps to provider-needed fallback.
+
+Run the example:
+
+```bash
+python3 examples/agent_workflow_optimization/run.py
+```
+
+Expected counters:
+
+- total workflow steps: `12`
+- deterministic steps: `4`
+- cache hits: `2`
+- tool-needed steps: `3`
+- provider-needed steps: `3`
+- avoided simulated provider/model invocations: `6`
+- provider calls actually made: `0`
+
+Docs:
+
+- [Agent workflow optimization example README](examples/agent_workflow_optimization/README.md)
+- [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
 
 ### RAG Routing
 
