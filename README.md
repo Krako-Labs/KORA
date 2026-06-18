@@ -95,6 +95,7 @@ Current implemented surfaces in this GitHub repository include:
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
 - Run KORA Doctor sample workload inspection from the first-class CLI: `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json`
 - Run the reusable offline OpenAI-style proxy demo from the first-class CLI: `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json`
+- Run the offline cache reuse example.
 - Run the offline agent workflow optimization example.
 - Run the offline RAG routing example.
 - Run the deterministic classification expansion pack.
@@ -114,6 +115,7 @@ python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
+python3 examples/cache_reuse/run.py
 python3 examples/agent_workflow_optimization/run.py
 python3 examples/rag_routing/run.py
 python3 examples/openai_compatible_proxy/run.py
@@ -123,6 +125,30 @@ python3 examples/deterministic_classification/run.py
 ```
 
 The examples require no provider credentials and make no provider calls.
+
+### Cache Reuse
+
+The cache reuse example shows KORA identifying repeated or reusable work as a first-class workflow-control surface. It routes first-time deterministic sample requests through KORA `TaskGraph` execution, repeated exact or semantically equivalent sample requests to cache hits, and ambiguous or open-ended sample requests to provider-needed fallback.
+
+Run the example:
+
+```bash
+python3 examples/cache_reuse/run.py
+```
+
+Expected counters:
+
+- total requests: `7`
+- first-time deterministic handled: `3`
+- cache hits: `2`
+- provider-needed: `2`
+- avoided simulated provider/model invocations: `5`
+- provider calls actually made: `0`
+
+Docs:
+
+- [Cache reuse example README](examples/cache_reuse/README.md)
+- [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
 
 ### Agent Workflow Optimization
 

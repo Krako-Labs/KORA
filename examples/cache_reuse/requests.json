@@ -1,0 +1,84 @@
+{
+  "request_set_id": "kora_cache_reuse_sample_requests_v0",
+  "routes": [
+    {
+      "route_id": "cache.det.billing_duplicate_charge",
+      "keywords": ["charged twice", "duplicate charge", "double charged"],
+      "output": {
+        "category": "billing_duplicate_charge",
+        "priority": "normal",
+        "owner": "billing_ops"
+      }
+    },
+    {
+      "route_id": "cache.det.password_reset",
+      "keywords": ["password reset", "cannot sign in", "login reset"],
+      "output": {
+        "category": "account_access",
+        "priority": "normal",
+        "owner": "account_support"
+      }
+    },
+    {
+      "route_id": "cache.det.invoice_copy",
+      "keywords": ["invoice copy", "copy of invoice", "download invoice"],
+      "output": {
+        "category": "billing_document",
+        "priority": "low",
+        "owner": "billing_ops"
+      }
+    }
+  ],
+  "provider_required_route": "cache.provider_needed.ambiguous_or_open_ended",
+  "requests": [
+    {
+      "id": "cache-001",
+      "text": "Classify ticket: customer was charged twice for order 4815",
+      "semantic_cache_key": "billing_duplicate_charge_order_4815",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules"
+    },
+    {
+      "id": "cache-002",
+      "text": "Classify ticket: customer was charged twice for order 4815",
+      "semantic_cache_key": "billing_duplicate_charge_order_4815",
+      "expected_route_kind": "cache_hit",
+      "expected_handler": "cache_reuse"
+    },
+    {
+      "id": "cache-003",
+      "text": "Please classify: duplicate charge on order 4815",
+      "semantic_cache_key": "billing_duplicate_charge_order_4815",
+      "expected_route_kind": "cache_hit",
+      "expected_handler": "cache_reuse"
+    },
+    {
+      "id": "cache-004",
+      "text": "Classify ticket: user needs password reset",
+      "semantic_cache_key": "account_password_reset",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules"
+    },
+    {
+      "id": "cache-005",
+      "text": "Classify ticket: send copy of invoice INV-1007",
+      "semantic_cache_key": "invoice_copy_inv_1007",
+      "expected_route_kind": "deterministic",
+      "expected_handler": "classify_by_rules"
+    },
+    {
+      "id": "cache-006",
+      "text": "Draft a warm retention email for this account",
+      "semantic_cache_key": "open_ended_retention_email",
+      "expected_route_kind": "provider_required",
+      "expected_handler": "provider_needed_fallback"
+    },
+    {
+      "id": "cache-007",
+      "text": "Recommend a strategy for this customer's renewal negotiation",
+      "semantic_cache_key": "open_ended_renewal_strategy",
+      "expected_route_kind": "provider_required",
+      "expected_handler": "provider_needed_fallback"
+    }
+  ]
+}

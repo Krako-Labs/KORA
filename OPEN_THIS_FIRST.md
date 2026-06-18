@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 087.
+Last updated by: Goal 088.
 
 ## Current Status
 
@@ -22,6 +22,7 @@ Current state:
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
 - an offline RAG routing example exists under `examples/rag_routing/`, showing KORA routing sample queries across deterministic answers, cache hits, retrieval-needed handling, and provider-needed fallback without provider calls.
 - an offline agent workflow optimization example exists under `examples/agent_workflow_optimization/`, showing KORA routing sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls.
+- an offline cache reuse example exists under `examples/cache_reuse/`, showing KORA routing repeated sample requests to cache hits while preserving provider-needed fallback for ambiguous/open-ended requests without provider calls.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -33,15 +34,32 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal087_agent_workflow_optimization`
+- branch: `goal088_cache_reuse_example`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 087
-- base commit: `2a197f57cca2dc6bfcd0c7c322432da587b88ded`
+- open PR: none for Goal 088
+- base commit: `ca7d7de4ecded1bdf4a550c7a58700dd5a9c704b`
 
 ## Last Completed Goal
 
-Goal 087 - Implement Agent Workflow Optimization Example.
+Goal 088 - Implement Cache Reuse Example.
+
+Goal 088 added an offline cache reuse example under `examples/cache_reuse/`. The example uses KORA `TaskGraph` execution with the deterministic `classify_by_rules` handler for first-time deterministic sample requests, local cache reuse for repeated exact or semantically equivalent sample requests, and provider-needed fallback labels for ambiguous/open-ended sample requests. It makes `0` provider calls.
+
+Primary report:
+
+- [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
+
+Example artifacts:
+
+- [Cache reuse example README](examples/cache_reuse/README.md)
+- [Cache reuse runnable script](examples/cache_reuse/run.py)
+- [Cache reuse request fixture](examples/cache_reuse/requests.json)
+- [Cache reuse expected counters](examples/cache_reuse/expected_counters.json)
+
+Claim boundary: In this offline cache-reuse example, KORA routes repeated sample requests to cache hits without making provider calls and marks ambiguous/open-ended requests as provider-needed. It does not claim production cache correctness, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 087 - Implement Agent Workflow Optimization Example.
 
 Goal 087 added an offline agent workflow optimization example under `examples/agent_workflow_optimization/`. The example uses KORA `TaskGraph` execution with the deterministic `agent_route_step` handler for non-cache sample workflow steps, local cache reuse for repeated deterministic steps, tool-needed labels for explicit local action steps, and provider-needed fallback labels for ambiguous planning/open-ended generation steps. It makes `0` provider calls.
 
@@ -299,6 +317,8 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
+- [Cache reuse example README](examples/cache_reuse/README.md)
 - [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
 - [Agent workflow optimization example README](examples/agent_workflow_optimization/README.md)
 - [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
@@ -345,7 +365,7 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 088 - Public reviewer walkthrough and example catalog refresh.
+Goal 089 - Public reviewer walkthrough and example catalog refresh.
 
 Recommended scope:
 

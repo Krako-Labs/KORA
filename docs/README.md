@@ -32,6 +32,7 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 - [Open this first](../OPEN_THIS_FIRST.md)
 - [Review hub](../REVIEW_HUB.md)
 - [Goal 083C public first-run acceptance test](reports/goal083c_public_first_run_acceptance_test.md)
+- [Goal 088 cache reuse example](reports/goal088_cache_reuse_example.md)
 - [Goal 087 agent workflow optimization example](reports/goal087_agent_workflow_optimization_example.md)
 - [Goal 086 RAG routing example](reports/goal086_rag_routing_example.md)
 - [Goal 085 OpenAI proxy reusable module and CLI](reports/goal085_openai_proxy_reusable_module_cli.md)
@@ -40,6 +41,7 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 - [getkora distribution strategy](packaging/getkora_distribution_strategy.md)
 - [KORA Workload Control Layer vision](vision/kora_workload_control_layer.md)
 - [KORA Doctor README](../examples/kora_doctor/README.md)
+- [Cache reuse example README](../examples/cache_reuse/README.md)
 - [Agent workflow optimization example README](../examples/agent_workflow_optimization/README.md)
 - [RAG routing example README](../examples/rag_routing/README.md)
 - [OpenAI-compatible proxy example README](../examples/openai_compatible_proxy/README.md)
@@ -166,6 +168,7 @@ KORA control layer architecture.
 ## Reports
 
 - [Goal 082B narrative repositioning](reports/goal082b_narrative_repositioning.md)
+- [Goal 088 cache reuse example](reports/goal088_cache_reuse_example.md)
 - [Goal 087 agent workflow optimization example](reports/goal087_agent_workflow_optimization_example.md)
 - [Goal 086 RAG routing example](reports/goal086_rag_routing_example.md)
 - [Goal 085 OpenAI proxy reusable module and CLI](reports/goal085_openai_proxy_reusable_module_cli.md)
@@ -251,6 +254,7 @@ python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
+python3 examples/cache_reuse/run.py
 python3 examples/agent_workflow_optimization/run.py
 python3 examples/rag_routing/run.py
 python3 examples/openai_compatible_proxy/run.py
