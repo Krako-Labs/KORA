@@ -95,6 +95,7 @@ Current implemented surfaces in this GitHub repository include:
 - Run offline examples through the KORA example runner: `python3 -m kora run <example>`
 - Run KORA Doctor sample workload inspection from the first-class CLI: `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json`
 - Run the reusable offline OpenAI-style proxy demo from the first-class CLI: `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json`
+- Run the offline RAG routing example.
 - Run the deterministic classification expansion pack.
 - Run the offline OpenAI-compatible proxy example.
 - Run first-value CLI paths: `kora inspect`, `kora compare`, `kora run`, `kora doctor`, `kora proxy-demo`, and `kora report`
@@ -112,6 +113,7 @@ python3 -m kora examples list
 python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora doctor --all examples/kora_doctor/
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
+python3 examples/rag_routing/run.py
 python3 examples/openai_compatible_proxy/run.py
 python3 examples/kora_doctor/run.py
 python3 examples/kora_doctor/run.py --all
@@ -119,6 +121,31 @@ python3 examples/deterministic_classification/run.py
 ```
 
 The examples require no provider credentials and make no provider calls.
+
+### RAG Routing
+
+The RAG routing example shows KORA controlling a retrieval-style workflow. It routes exact FAQ/policy queries to deterministic answers, repeated queries to cache reuse, document-grounded queries to retrieval-needed handling over an offline corpus, and ambiguous or open-ended generation queries to provider-needed fallback.
+
+Run the example:
+
+```bash
+python3 examples/rag_routing/run.py
+```
+
+Expected counters:
+
+- total queries: `7`
+- deterministic answered: `2`
+- cache hits: `1`
+- retrieval-needed: `2`
+- provider-needed: `2`
+- avoided simulated provider/model invocations: `3`
+- provider calls actually made: `0`
+
+Docs:
+
+- [RAG routing example README](examples/rag_routing/README.md)
+- [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
 
 ### OpenAI-Compatible Proxy
 

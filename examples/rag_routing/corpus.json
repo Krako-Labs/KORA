@@ -1,0 +1,25 @@
+{
+  "corpus_id": "kora_rag_routing_sample_corpus_v0",
+  "documents": [
+    {
+      "id": "doc-return-policy",
+      "title": "Return Policy",
+      "body": "Customers may request a refund within 30 days of purchase when the order record is available."
+    },
+    {
+      "id": "doc-support-hours",
+      "title": "Support Hours",
+      "body": "Standard support hours are Monday through Friday, 9 AM to 5 PM local business time."
+    },
+    {
+      "id": "doc-security-retention",
+      "title": "Security Retention Policy",
+      "body": "Audit logs are retained for 90 days. Access review records are retained for one year."
+    },
+    {
+      "id": "doc-billing-exports",
+      "title": "Billing Export Guide",
+      "body": "Billing exports include invoice id, account id, billing period, amount, status, and currency."
+    }
+  ]
+}

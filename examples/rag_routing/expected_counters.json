@@ -1,0 +1,9 @@
+{
+  "total_queries": 7,
+  "deterministic_answered": 2,
+  "cache_hits": 1,
+  "retrieval_needed": 2,
+  "provider_needed": 2,
+  "avoided_provider_invocations": 3,
+  "provider_calls_actually_made": 0
+}

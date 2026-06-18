@@ -1,0 +1,80 @@
+{
+  "query_set_id": "kora_rag_routing_sample_queries_v0",
+  "exact_answers": [
+    {
+      "route_id": "rag.det.return_policy",
+      "question": "What is the refund window?",
+      "aliases": ["How long do customers have to request a refund?"],
+      "answer": "Customers may request a refund within 30 days of purchase."
+    },
+    {
+      "route_id": "rag.det.support_hours",
+      "question": "What are support hours?",
+      "aliases": ["When is support available?"],
+      "answer": "Standard support hours are Monday through Friday, 9 AM to 5 PM local business time."
+    }
+  ],
+  "retrieval_rules": [
+    {
+      "route_id": "rag.retrieve.security_retention",
+      "keywords": ["audit logs", "access review", "retention"],
+      "document_ids": ["doc-security-retention"]
+    },
+    {
+      "route_id": "rag.retrieve.billing_exports",
+      "keywords": ["billing export", "invoice fields", "export fields"],
+      "document_ids": ["doc-billing-exports"]
+    }
+  ],
+  "provider_needed_rules": [
+    {
+      "route_id": "rag.provider.open_ended_generation",
+      "keywords": ["write", "draft", "persuasive", "strategy", "recommend a plan"],
+      "reason": "open-ended generation or strategic judgment"
+    }
+  ],
+  "queries": [
+    {
+      "id": "rag-001",
+      "query": "What is the refund window?",
+      "expected_route_kind": "deterministic_answer",
+      "expected_handler": "exact_faq_answer"
+    },
+    {
+      "id": "rag-002",
+      "query": "What is the refund window?",
+      "expected_route_kind": "cache_hit",
+      "expected_handler": "cache_reuse"
+    },
+    {
+      "id": "rag-003",
+      "query": "What are support hours?",
+      "expected_route_kind": "deterministic_answer",
+      "expected_handler": "exact_faq_answer"
+    },
+    {
+      "id": "rag-004",
+      "query": "How long are audit logs retained?",
+      "expected_route_kind": "retrieval_needed",
+      "expected_handler": "retrieve_from_corpus"
+    },
+    {
+      "id": "rag-005",
+      "query": "Which invoice fields are available in the billing export?",
+      "expected_route_kind": "retrieval_needed",
+      "expected_handler": "retrieve_from_corpus"
+    },
+    {
+      "id": "rag-006",
+      "query": "Write a persuasive apology email about a delayed renewal.",
+      "expected_route_kind": "provider_needed",
+      "expected_handler": "provider_needed_fallback"
+    },
+    {
+      "id": "rag-007",
+      "query": "Recommend a plan for our pricing strategy next quarter.",
+      "expected_route_kind": "provider_needed",
+      "expected_handler": "provider_needed_fallback"
+    }
+  ]
+}

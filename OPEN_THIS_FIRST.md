@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 085.
+Last updated by: Goal 086.
 
 ## Current Status
 
@@ -20,6 +20,7 @@ Current state:
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
+- an offline RAG routing example exists under `examples/rag_routing/`, showing KORA routing sample queries across deterministic answers, cache hits, retrieval-needed handling, and provider-needed fallback without provider calls.
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -31,15 +32,33 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal085_openai_proxy_module_cli`
+- branch: `goal086_rag_routing_example`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 085
-- base commit: `651ab79e037d334339463efb1df61e9e8812371c`
+- open PR: none for Goal 086
+- base commit: `d104d87345afd4d860a8872d2eccbe2b5e0eb063`
 
 ## Last Completed Goal
 
-Goal 085 - Implement OpenAI Proxy Reusable Module and CLI.
+Goal 086 - Implement RAG Routing Example.
+
+Goal 086 added an offline RAG routing example under `examples/rag_routing/`. The example uses KORA `TaskGraph` execution with the deterministic `rag_route_query` handler for non-cache sample queries, local cache reuse for repeated sample queries, retrieval-needed labels for document-grounded queries over an offline corpus, and provider-needed fallback labels for ambiguous/open-ended sample queries. It makes `0` provider calls.
+
+Primary report:
+
+- [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
+
+Example artifacts:
+
+- [RAG routing example README](examples/rag_routing/README.md)
+- [RAG routing runnable script](examples/rag_routing/run.py)
+- [RAG routing corpus fixture](examples/rag_routing/corpus.json)
+- [RAG routing query fixture](examples/rag_routing/queries.json)
+- [RAG routing expected counters](examples/rag_routing/expected_counters.json)
+
+Claim boundary: In this offline RAG-routing example, KORA routes sample queries across deterministic, cache, retrieval-needed, and provider-needed paths without making provider calls. It does not claim production RAG readiness, retrieval accuracy, automatic cost reduction, real API-cost proof, benchmark superiority, or broad workload superiority.
+
+Previous completed Goal: Goal 085 - Implement OpenAI Proxy Reusable Module and CLI.
 
 Goal 085 promoted the Goal 084 proxy example's routing logic into `kora.openai_proxy_demo` and added the first-class offline CLI command `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json`. The existing `examples/openai_compatible_proxy/run.py` script remains a compatibility wrapper over the reusable module. Both paths make `0` provider calls.
 
@@ -262,6 +281,9 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md)
+- [RAG routing example README](examples/rag_routing/README.md)
+- [Goal 085 OpenAI proxy reusable module and CLI](docs/reports/goal085_openai_proxy_reusable_module_cli.md)
 - [Goal 084 OpenAI-compatible proxy example](docs/reports/goal084_openai_compatible_proxy_example.md)
 - [OpenAI-compatible proxy example README](examples/openai_compatible_proxy/README.md)
 - [Goal 083B getkora distribution strategy](docs/reports/goal083b_getkora_distribution_strategy.md)
@@ -303,7 +325,7 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 086 - Public reviewer walkthrough and example catalog refresh.
+Goal 087 - Public reviewer walkthrough and example catalog refresh.
 
 Recommended scope:
 

@@ -208,6 +208,115 @@ def _handle_doctor_inspect_task(task: Task, state: dict[str, Any]) -> dict[str, 
     }
 
 
+def _handle_rag_route_query(task: Task, state: dict[str, Any]) -> dict[str, Any]:
+    del state
+    if task.run.kind != "det":
+        raise ValueError("rag_route_query requires deterministic task input")
+
+    args = task.run.spec.args
+    query = task.in_.get("query", args.get("query", ""))
+    if not isinstance(query, str):
+        query = str(query)
+    normalized_query = " ".join(query.lower().strip().split())
+    lowered = query.lower()
+
+    exact_answers = args.get("exact_answers", [])
+    if not isinstance(exact_answers, list):
+        exact_answers = []
+    for item in exact_answers:
+        if not isinstance(item, dict):
+            continue
+        question = str(item.get("question", "")).strip().lower()
+        aliases = item.get("aliases", [])
+        if not isinstance(aliases, list):
+            aliases = []
+        candidates = [question, *[str(alias).strip().lower() for alias in aliases]]
+        if normalized_query in {" ".join(candidate.split()) for candidate in candidates if candidate}:
+            return {
+                "status": "ok",
+                "task_id": task.id,
+                "route_kind": "deterministic_answer",
+                "selected_route": str(item.get("route_id", "rag.det.exact_answer")),
+                "handler": "exact_faq_answer",
+                "answer": str(item.get("answer", "")),
+                "retrieved_documents": [],
+                "provider_calls": 0,
+                "provider_needed_reason": None,
+            }
+
+    provider_needed_rules = args.get("provider_needed_rules", [])
+    if not isinstance(provider_needed_rules, list):
+        provider_needed_rules = []
+    for rule in provider_needed_rules:
+        if not isinstance(rule, dict):
+            continue
+        keywords = rule.get("keywords", [])
+        if not isinstance(keywords, list):
+            continue
+        if any(str(keyword).lower() in lowered for keyword in keywords):
+            return {
+                "status": "ok",
+                "task_id": task.id,
+                "route_kind": "provider_needed",
+                "selected_route": str(rule.get("route_id", "rag.provider_needed")),
+                "handler": "provider_needed_fallback",
+                "answer": None,
+                "retrieved_documents": [],
+                "provider_calls": 0,
+                "provider_needed_reason": str(rule.get("reason", "open-ended generation")),
+            }
+
+    corpus = args.get("corpus", [])
+    if not isinstance(corpus, list):
+        corpus = []
+    retrieval_rules = args.get("retrieval_rules", [])
+    if not isinstance(retrieval_rules, list):
+        retrieval_rules = []
+    corpus_by_id = {
+        str(document.get("id", "")): document
+        for document in corpus
+        if isinstance(document, dict)
+    }
+    for rule in retrieval_rules:
+        if not isinstance(rule, dict):
+            continue
+        keywords = rule.get("keywords", [])
+        if not isinstance(keywords, list):
+            continue
+        if any(str(keyword).lower() in lowered for keyword in keywords):
+            document_ids = rule.get("document_ids", [])
+            if not isinstance(document_ids, list):
+                document_ids = []
+            documents = [
+                corpus_by_id[str(document_id)]
+                for document_id in document_ids
+                if str(document_id) in corpus_by_id
+            ]
+            return {
+                "status": "ok",
+                "task_id": task.id,
+                "route_kind": "retrieval_needed",
+                "selected_route": str(rule.get("route_id", "rag.retrieve")),
+                "handler": "retrieve_from_corpus",
+                "answer": None,
+                "retrieved_documents": documents,
+                "provider_calls": 0,
+                "provider_needed_reason": None,
+            }
+
+    return {
+        "status": "ok",
+        "task_id": task.id,
+        "route_kind": "provider_needed",
+        "selected_route": "rag.provider_needed.unmatched",
+        "handler": "provider_needed_fallback",
+        "answer": None,
+        "retrieved_documents": [],
+        "provider_calls": 0,
+        "provider_needed_reason": "no deterministic or retrieval rule matched",
+    }
+
+
 def _handle_flaky_once(task: Task, state: dict[str, Any]) -> dict[str, Any]:
     attempts = state.setdefault("flaky_once_attempts", {})
     count = int(attempts.get(task.id, 0)) + 1
@@ -379,6 +488,7 @@ DETERMINISTIC_HANDLERS: dict[str, Handler] = {
     "classify_by_rules": _handle_classify_by_rules,
     "classify_simple": _handle_classify_simple,
     "doctor_inspect_task": _handle_doctor_inspect_task,
+    "rag_route_query": _handle_rag_route_query,
     "flaky_once": _handle_flaky_once,
     "parse_request_constraints": _handle_parse_request_constraints,
     "quality_gate": _handle_quality_gate,
