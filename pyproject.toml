@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=68", "setuptools-rust>=1.5", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -39,15 +39,23 @@ Issues = "https://github.com/Krako-Labs/KORA/issues"
 kora = "kora.cli:main"
 
 [project.optional-dependencies]
+rust = [
+    "setuptools-rust>=1.5",
+    "cffi>=1.15",
+]
 openai = [
   "requests",
 ]
 dev = [
   "pytest",
+  "psutil",
+]
+benchmark = [
+  "psutil",
 ]
 
 [tool.setuptools.packages.find]
-include = ["kora*"]
+include = ["kora"]
 
 [tool.setuptools.package-data]
 kora = ["studio_assets/*.css", "studio_assets/*.js"]
@@ -55,3 +63,11 @@ kora = ["studio_assets/*.css", "studio_assets/*.js"]
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[[tool.setuptools-rust.ext-modules]]
+target = "kora_rust"
+path = "kora-rust/Cargo.toml"
+binding = "PyO3"
+
+
+

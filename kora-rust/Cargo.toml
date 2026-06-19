@@ -1,0 +1,36 @@
+[package]
+name = "kora-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "kora_rust"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.35", features = ["full"] }
+regex = "1.10"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json"] }
+chrono = { version = "0.4", features = ["serde"] }
+pyo3 = { version = "0.20", features = ["extension-module"] }
+
+[[bin]]
+name = "kora-cli"
+path = "src/main.rs"
+
+[profile.dev]
+codegen-units = 1
+
+[profile.test]
+codegen-units = 1
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "core_bench"
+harness = false

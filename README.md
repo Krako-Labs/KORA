@@ -374,6 +374,7 @@ Installation paths:
 - PyPI `kora`: do not use for this project; it is an unrelated package.
 - Current latest features: clone `Krako-Labs/KORA` and install from the source checkout with `python3 -m pip install -e .`.
 - Local development and tests: use `python3 -m pip install -e ".[dev]"`.
+- Local development with Rust acceleration support: use `python3 -m pip install -e ".[dev,rust]"`.
 - Future package distribution: planned as `getkora`, with CLI command `kora`; do not use `python3 -m pip install getkora` unless a future release explicitly announces publication.
 
 ```bash
@@ -384,7 +385,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 python3 -m pip install --upgrade pip setuptools wheel
+# Standard development installation:
 python3 -m pip install -e ".[dev]"
+# Or with Rust acceleration engine support:
+python3 -m pip install -e ".[dev,rust]"
 ```
 
 Check the CLI:

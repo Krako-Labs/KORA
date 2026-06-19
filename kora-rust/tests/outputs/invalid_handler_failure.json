@@ -1,0 +1,38 @@
+{
+  "error": {
+    "budget_breached": false,
+    "details": "Deterministic handler 't1' failed: Unknown deterministic handler: some_unregistered_handler",
+    "error_type": "DETERMINISTIC_EXEC_FAILED",
+    "retryable": false,
+    "stage": "DETERMINISTIC",
+    "task_id": "t1"
+  },
+  "events": [
+    {
+      "attempt": 1,
+      "error": {
+        "budget_breached": false,
+        "details": "Deterministic handler 't1' failed: Unknown deterministic handler: some_unregistered_handler",
+        "error_type": "DETERMINISTIC_EXEC_FAILED",
+        "retryable": false,
+        "stage": "DETERMINISTIC",
+        "task_id": "t1"
+      },
+      "stage": "DETERMINISTIC",
+      "status": "fail",
+      "task_id": "t1",
+      "time_ms": 0
+    }
+  ],
+  "final": null,
+  "graph_id": "test-graph",
+  "ok": false,
+  "order": [
+    "t1"
+  ],
+  "outputs": {},
+  "stage_timings": {
+    "det_total_s": 0.0000747,
+    "overall_total_s": 0.0001469
+  }
+}

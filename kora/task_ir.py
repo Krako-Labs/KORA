@@ -196,6 +196,16 @@ class TaskGraph(BaseModel):
 
 def normalize_graph(graph: TaskGraph) -> TaskGraph:
     """Apply inherited defaults and llm verify.schema inheritance."""
+    import os
+    if os.getenv("KORA_USE_RUST") == "1":
+        try:
+            import kora_rust
+            json_str = graph.model_dump_json(by_alias=True)
+            normalized_json = kora_rust.normalize_graph(json_str)
+            return TaskGraph.model_validate_json(normalized_json)
+        except ImportError:
+            pass
+
     normalized = graph.model_copy(deep=True)
     default_budget = normalized.defaults.budget
 
@@ -214,6 +224,16 @@ def normalize_graph(graph: TaskGraph) -> TaskGraph:
 
 def validate_graph(graph: TaskGraph) -> None:
     """Validate task references and DAG constraints."""
+    import os
+    if os.getenv("KORA_USE_RUST") == "1":
+        try:
+            import kora_rust
+            json_str = graph.model_dump_json(by_alias=True)
+            kora_rust.validate_graph(json_str)
+            return
+        except ImportError:
+            pass
+
     task_map: dict[str, Task] = {}
     for task in graph.tasks:
         if task.id in task_map:
