@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 091.
+Last updated by: Goal 092.
 
 ## Current Status
 
@@ -26,26 +26,53 @@ Current state:
 - Goal 089 replaced the public workload-control architecture diagram with `docs/assets/kora_workload_control_layer_architecture.svg` and completed a public repository hygiene audit: [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md).
 - Goal 089A embeds that architecture diagram near the top of the public README and vision doc: [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md).
 - Goal 091 compressed the public README into a focused KORA landing page: [Goal 091 README compression](docs/reports/goal091_readme_compression.md).
+- Goal 092 audited the public repository surface after the README replacement and proposed metadata, root, examples, and docs alignment steps without changing repository settings or moving files: [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- the active branch has a public-safe PR readiness packet with caveats.
-- PR #229 is open for the integrated KRK evidence and first-value branch.
+- current public continuation work is focused on post-README public surface alignment and does not change repository settings or move files.
 
 ## Current Branch
 
-- branch: `goal091_readme_compression`
+- branch: `codex/goal092-public-surface-audit`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 091
-- base commit: `ab16f48e1c868342b293bc475b4fb2e79ef2949f`
+- open PR: none for Goal 092
+- base commit: `2972973d732624353bd722d648886eed4d6d9e6c`
 
 ## Last Completed Goal
 
-Goal 088 - Implement Cache Reuse Example.
+Goal 092 - Repository Public Surface Alignment Audit.
+
+Goal 092 audited the public GitHub surface after the exact public documentation replacement. It identified remaining alignment work for repository metadata, root files, example organization, and docs navigation while making no repository-setting changes and moving no files.
+
+Primary report:
+
+- [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md)
+
+Primary findings:
+
+- GitHub About metadata still uses older Inference Operating System positioning.
+- The root directory still exposes older architecture, executive summary, vision, roadmap, artifact, experiment, and Studio surfaces at similar prominence to the current README.
+- `examples/` mixes current flagship examples with older first-run, validation, and benchmark examples.
+- `docs/` needs clearer current, evidence, historical, and archive navigation.
+
+Claim boundary: Goal 092 is an audit/proposal only. It does not add product claims, production-readiness claims, package-publication claims, release claims, metadata changes, or file moves.
+
+Previous completed Goal: Goal 091B - Exact Public Documentation Replacement.
+
+Goal 091B replaced selected public landing and index documents with exact authored Markdown files, including the root README, docs index, examples index, workload-control vision doc, example guide, and report. PR #241 was squash-merged into `origin/main` at `2972973d732624353bd722d648886eed4d6d9e6c`.
+
+Primary report:
+
+- [Goal 091B exact public documentation replacement](docs/reports/goal091b_exact_public_documentation_replacement.md)
+
+Claim boundary: Goal 091B was documentation replacement only. It did not publish `getkora`, create a release, create a tag, claim production readiness, or move root files.
+
+Previous completed Goal: Goal 088 - Implement Cache Reuse Example.
 
 Goal 088 added an offline cache reuse example under `examples/cache_reuse/`. The example uses KORA `TaskGraph` execution with the deterministic `classify_by_rules` handler for first-time deterministic sample requests, local cache reuse for repeated exact or semantically equivalent sample requests, and provider-needed fallback labels for ambiguous/open-ended sample requests. It makes `0` provider calls.
 
@@ -369,14 +396,13 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 092 - Root document movement plan with link-preserving stubs.
+Goal 093 - Metadata-only public surface alignment.
 
 Recommended scope:
 
-- inventory links to root strategic documents.
-- decide canonical destinations for older architecture, executive summary, vision, and roadmap material.
-- preserve redirect stubs for moved root docs.
-- do not move `OPEN_THIS_FIRST.md` or `REVIEW_HUB.md` until maintainer-continuation docs are redesigned.
+- update GitHub repository description and topics after explicit owner approval.
+- verify the public About panel after the settings change.
+- do not move files, rewrite docs, create releases, create tags, or publish packages.
 
 ## How To Continue
 
@@ -400,3 +426,9 @@ For a future Goal:
 - Kept README focused on a short landing-page experience.
 - Added or refreshed documentation index and example catalog pages.
 - Preserved existing project history and avoided root directory moves.
+
+## Goal 092 — Repository Public Surface Alignment Audit
+
+- Audited GitHub metadata, root structure, examples, docs, and public first impression after the Goal 091B replacement.
+- Proposed a metadata-only Goal 093 as the next approved step.
+- Did not change repository settings, move files, create a release, create a tag, or publish a package.
