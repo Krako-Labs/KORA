@@ -43,8 +43,8 @@ Current state:
 
 - branch: `codex/goal095-public-examples-organization`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/goal095-public-examples-organization`
+- open PR: #246
 - base commit: `b6b323c339bd9e6b567351f95ce17b02d5be389b`
 
 ## Active Goal
