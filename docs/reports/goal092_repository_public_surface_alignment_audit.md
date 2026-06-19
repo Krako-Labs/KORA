@@ -187,4 +187,3 @@ Any move should use a dedicated PR, run link validation, run example smoke check
 ## Recommended Next Goal
 
 Goal 093 should be a metadata-only owner-approved update: change the GitHub repository description and topics to match the AI Workload Control Layer positioning, then verify the public About panel and stop. It should not move files or rewrite docs.
-
