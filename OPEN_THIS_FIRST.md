@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 093C.
+Last updated by: Goal 094.
 
 ## Current Status
 
@@ -29,6 +29,7 @@ Current state:
 - Goal 092 audited the public repository surface after the README replacement and proposed metadata, root, examples, and docs alignment steps without changing repository settings or moving files: [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md).
 - Goal 093A prepared a metadata change approval packet for the repository description and topics without changing repository settings: [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md).
 - Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented the readback: [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md).
+- Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content: [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -39,11 +40,23 @@ Current state:
 
 ## Current Branch
 
-- branch: `codex/goal093c-metadata-postchange-verification`
+- branch: `codex/goal094-root-orientation-stubs`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/goal093c-metadata-postchange-verification`
-- open PR: #244
-- base commit: `05f01fcff7a12a90945d9d69a5c18221ea8519c6`
+- branch pushed to: pending
+- open PR: pending
+- base commit: `9b159b845535deab00c943cbb382bf8c373a3db5`
+
+## Active Goal
+
+Goal 094 - Root Orientation Stubs.
+
+Goal 094 adds short current-orientation notes to older root strategic documents so readers can distinguish retained historical context from the current AI Workload Control Layer positioning.
+
+Primary report:
+
+- [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md)
+
+Claim boundary: Goal 094 is documentation orientation only. It does not move files, delete historical content, change repository settings, create a release, create a tag, create a publication, or add product claims.
 
 ## Last Completed Goal
 
@@ -415,13 +428,13 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
+Goal 095 - Public examples directory organization proposal, without moving files unless explicitly approved.
 
 Recommended scope:
 
-- add or refresh short root stubs for older strategic documents.
-- keep file paths stable; do not move files in Goal 094 unless explicitly approved.
-- preserve README and GitHub About alignment around AI Workload Control Layer positioning.
+- audit the examples directory organization after the public surface updates.
+- propose grouping for flagship, basic, validation, and benchmark examples.
+- do not move files unless explicitly approved.
 
 ## How To Continue
 

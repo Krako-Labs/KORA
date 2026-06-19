@@ -1,5 +1,8 @@
 # Architecture Overview
 
+> Current orientation note:
+> KORA is now presented publicly as an AI Workload Control Layer. This root architecture document is retained for continuity and may include earlier architecture language. For the current public landing page, start with [README.md](README.md). For the current workload-control framing, see [docs/vision/kora_workload_control_layer.md](docs/vision/kora_workload_control_layer.md). For current examples, see [examples/README.md](examples/README.md).
+
 This document provides a unified view of KORA.
 
 Other documents explore specific dimensions.
