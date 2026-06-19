@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 094.
+Last updated by: Goal 095.
 
 ## Current Status
 
@@ -30,6 +30,7 @@ Current state:
 - Goal 093A prepared a metadata change approval packet for the repository description and topics without changing repository settings: [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md).
 - Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented the readback: [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md).
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content: [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md).
+- Goal 095 organizes the public examples surface at the README/guide level without moving example directories: [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -40,23 +41,23 @@ Current state:
 
 ## Current Branch
 
-- branch: `codex/goal094-root-orientation-stubs`
+- branch: `codex/goal095-public-examples-organization`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/goal094-root-orientation-stubs`
-- open PR: #245
-- base commit: `9b159b845535deab00c943cbb382bf8c373a3db5`
+- branch pushed to: `origin/codex/goal095-public-examples-organization`
+- open PR: #246
+- base commit: `b6b323c339bd9e6b567351f95ce17b02d5be389b`
 
 ## Active Goal
 
-Goal 094 - Root Orientation Stubs.
+Goal 095 - Public Examples Directory Organization Proposal.
 
-Goal 094 adds short current-orientation notes to older root strategic documents so readers can distinguish retained historical context from the current AI Workload Control Layer positioning.
+Goal 095 organizes the public examples surface at the documentation/index level so readers can distinguish flagship examples from older basic, validation, benchmark, and fixture examples without moving paths.
 
 Primary report:
 
-- [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md)
+- [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md)
 
-Claim boundary: Goal 094 is documentation orientation only. It does not move files, delete historical content, change repository settings, create a release, create a tag, create a publication, or add product claims.
+Claim boundary: Goal 095 is documentation/index organization only. It does not move example directories, rename example directories, delete files, change repository settings, create a release, create a tag, create a publication, or add product claims.
 
 ## Last Completed Goal
 
@@ -428,12 +429,12 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 095 - Public examples directory organization proposal, without moving files unless explicitly approved.
+Goal 096 - Documentation navigation and archive-bucket proposal, without moving files unless explicitly approved.
 
 Recommended scope:
 
-- audit the examples directory organization after the public surface updates.
-- propose grouping for flagship, basic, validation, and benchmark examples.
+- audit documentation navigation after the public surface updates.
+- propose current docs, evidence docs, historical docs, and archive buckets.
 - do not move files unless explicitly approved.
 
 ## How To Continue
