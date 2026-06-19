@@ -394,3 +394,9 @@ For a future Goal:
 2. Read this file and [REVIEW_HUB.md](REVIEW_HUB.md).
 3. Do the scoped work.
 4. Update this file and [REVIEW_HUB.md](REVIEW_HUB.md) before committing, unless the Goal explicitly exempts breadcrumb updates.
+## Goal 091B — Exact Public Documentation Replacement
+
+- Replaced selected public landing and index documents with exact authored Markdown files.
+- Kept README focused on a short landing-page experience.
+- Added or refreshed documentation index and example catalog pages.
+- Preserved existing project history and avoided root directory moves.

@@ -1,105 +1,74 @@
 # KORA Workload Control Layer
 
-Status: current vision document grounded in implemented examples and bounded evidence.
+KORA is an **AI Workload Control Layer**.
 
-## Summary
+It is based on a simple observation: not every AI-system task should immediately become a model invocation.
 
-KORA is an AI Workload Control Layer. It helps developers inspect work before sending it to a model, identify deterministic candidates, preserve provider/model fallback for ambiguous work, and report route rationale.
-
-This vision is grounded in the current offline examples and evidence already present in the repository. It does not claim production readiness, model replacement, automatic savings, benchmark superiority, or broad workload superiority.
+Many useful AI workflows contain work that can be classified, reused, routed, retrieved, validated, or handled by tools before a provider/model call is needed.
 
 ![KORA Workload Control Layer Architecture](../assets/kora_workload_control_layer_architecture.svg)
 
-View the architecture diagram: [docs/assets/kora_workload_control_layer_architecture.svg](../assets/kora_workload_control_layer_architecture.svg)
+[View the architecture diagram](../assets/kora_workload_control_layer_architecture.svg)
 
-## Current AI Stack
+## Model-Centric Systems
 
-Many AI applications are built around a model-centric path:
-
-```text
-request -> prompt -> model -> output
-```
-
-That path is useful for open-ended generation and semantic judgment. It is less precise for work that can be represented as routing, validation, policy, classification, cache reuse, or deterministic processing.
-
-## Model-Centric Architectures
-
-In a model-centric architecture, a provider/model call is often the default unit of work. This can hide important distinctions:
-
-- some tasks are bounded classification.
-- some tasks are validation or policy checks.
-- some tasks are repeated lookups.
-- some tasks are static transforms.
-- some tasks need provider/model fallback.
-- some tasks are ambiguous and should be escalated with rationale.
-
-When every task is treated as a model problem, developers lose visibility into which work actually needed inference.
-
-## Workload-Centric Architectures
-
-A workload-centric architecture starts by asking what kind of work is being requested:
+A common AI application shape is:
 
 ```text
-request -> workload/task -> route decision -> deterministic handler or provider-needed fallback -> report
+input -> model -> output
 ```
 
-The unit of control is the workload task, not the model call. A workload-centric system can keep deterministic work explicit while preserving fallback for tasks that genuinely require a model.
+That shape is simple, but it hides several decisions:
 
-## Why Control Matters
+- Is the task deterministic?
+- Has the same work already been done?
+- Does the task need retrieval?
+- Does the task need a local tool?
+- Does the task truly require provider/model reasoning or generation?
 
-Control matters because AI systems are workflows, not only prompts. A system may need to:
+KORA makes those decisions explicit.
 
-- classify an input.
-- validate a schema.
-- route an incident.
-- reuse a cached answer.
-- apply a policy.
-- transform a document.
-- decide that semantic judgment or open-ended generation requires provider/model fallback.
+## Workload-Centric Systems
 
-KORA's role is to make these decisions explicit and reportable.
+KORA starts from the workload, not the model.
+
+A workload enters KORA and is routed across paths such as:
+
+- deterministic handling
+- cache reuse
+- retrieval-needed handling
+- tool-needed handling
+- provider-needed fallback
+
+This lets developers inspect what kind of work exists in an AI system before treating every request as a model task.
 
 ## What KORA Contributes Today
 
-Current implemented examples demonstrate:
+KORA currently provides offline examples and CLI surfaces that demonstrate:
 
-- KORA Doctor can inspect bundled offline sample workloads and identify deterministic candidates and provider-needed candidates without making provider calls.
-- KORA Doctor Report Pack can aggregate counters across four bundled offline sample workloads.
-- Deterministic Classification Pack can route synthetic classification tasks through KORA `TaskGraph` paths while preserving provider-needed fallback cases.
-- First-value CLI commands can inspect, compare, run, and report over committed public fixtures.
+- workload inspection with KORA Doctor
+- deterministic classification
+- OpenAI-style proxy routing
+- RAG-style route separation
+- agent workflow routing
+- cache reuse
 
-Current evidence is bounded to offline examples, synthetic workloads, and public fixtures.
+The examples are intentionally small and reproducible. They are meant to show where workload control fits, not to claim production completeness.
 
-## Safe Boundaries
+## What KORA Does Not Claim
 
-KORA currently does not claim:
+KORA does not currently claim:
 
-- production cost reduction proof.
-- broad workload superiority.
-- production readiness.
-- benchmark superiority.
-- automatic savings.
-- model replacement.
-- production diagnostic accuracy.
-- real API-cost proof.
-- production proxy readiness.
+- production cost reduction proof
+- real API-cost reduction proof
+- production readiness
+- benchmark superiority
+- full OpenAI API compatibility
+- production RAG, agent, or cache correctness
+- model replacement
 
-Supported wording:
+## Why It Matters
 
-> KORA helps make AI workloads routable and controllable.
+The future of AI infrastructure is not only better models.
 
-> In offline sample workloads, KORA Doctor identifies deterministic candidates and provider-needed candidates without making provider calls.
-
-> In the deterministic classification example pack, KORA routes sample classification tasks to deterministic handlers while preserving provider-needed fallback cases.
-
-## Direction
-
-The near-term direction is examples-first:
-
-- make KORA Doctor easier to run and inspect.
-- keep deterministic classification examples visible.
-- improve report readability.
-- keep claim boundaries close to every example.
-- add evidence only when backed by reproducible fixtures or validation reports.
-
-The long-term direction is to help teams design AI systems around workload control instead of default model invocation.
+It is also deciding when models should be used at all.

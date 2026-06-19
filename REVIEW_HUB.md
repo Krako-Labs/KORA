@@ -428,3 +428,20 @@ Every completed Goal must update:
 - [REVIEW_HUB.md](REVIEW_HUB.md)
 
 Exemptions must be explicit in the Goal prompt or final report. This rule exists so reviewers, owners, future sessions, and contributors can quickly reconstruct the current state without reading every historical report.
+## Goal 091B Review Entry
+
+Review these files for public readability and link integrity:
+
+- `README.md`
+- `docs/README.md`
+- `examples/README.md`
+- `docs/vision/kora_workload_control_layer.md`
+- `docs/examples/kora_example_guide.md`
+- `docs/reports/goal091b_exact_public_documentation_replacement.md`
+
+Required checks:
+
+- README headings render as separate sections.
+- README table renders correctly.
+- Package note does not claim `getkora` is published.
+- No private/internal terms appear in changed public docs.
