@@ -45,3 +45,15 @@ Each flagship example has its own README and report:
 - [`examples/agent_workflow_optimization`](../../examples/agent_workflow_optimization/)
 - [`examples/deterministic_classification`](../../examples/deterministic_classification/)
 - [`docs/reports`](../reports/)
+
+## Additional Example Groups
+
+The public reviewer path should start with the flagship examples above. Other example directories are retained at their existing paths for continuity and reproducibility:
+
+| Group | Directories |
+| --- | --- |
+| Basic / first-run examples | [`hello_kora`](../../examples/hello_kora/), [`direct_vs_kora`](../../examples/direct_vs_kora/), [`retry_demo`](../../examples/retry_demo/) |
+| Validation / harness examples | [`customer_support_triage_fake_validation`](../../examples/customer_support_triage_fake_validation/), [`real_model_call_validation_fake`](../../examples/real_model_call_validation_fake/), [`real_workload_harness`](../../examples/real_workload_harness/), [`stress_test`](../../examples/stress_test/), [`workloads`](../../examples/workloads/) |
+| Benchmark / evidence examples | [`runtime_integrated_benchmark`](../../examples/runtime_integrated_benchmark/) |
+
+Paths are not being moved yet because example directories may be referenced by README commands, reports, tests, scripts, or external links. A future grouping pass should use link-preserving stubs or redirects before any directory move.
