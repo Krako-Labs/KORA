@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 093A.
+Last updated by: Goal 093C.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active approval branch: `codex/goal093a-metadata-approval-packet`
-- worktree label: `goal093a_metadata_approval_packet`
+- active verification branch: `codex/goal093c-metadata-postchange-verification`
+- worktree label: `goal093c_metadata_postchange_verification`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 093A
-- base commit: `7e568a0d8ea7056796bfd8a67bfc7c7cd19f8f9c`
+- open PR: none for Goal 093C
+- base commit: `05f01fcff7a12a90945d9d69a5c18221ea8519c6`
 
 ## Current State Summary
 
@@ -49,9 +49,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 091B replaced selected public landing and index documents exactly and was merged into `origin/main` at `2972973d732624353bd722d648886eed4d6d9e6c`.
 - Goal 092 audited the public repository surface and identified remaining alignment work for GitHub metadata, root files, examples grouping, and docs navigation without changing settings or moving files.
 - Goal 093A prepared a metadata change approval packet for repository description and topics without changing repository settings.
+- Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented that repository metadata is now aligned with the README around AI Workload Control Layer positioning.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
-- current recommended next step is applying the approved metadata update only after explicit owner approval.
+- no repository settings should be changed further without explicit owner approval.
+- current recommended next step is Goal 094 root orientation stubs for older root strategic documents, without moving files.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -94,6 +96,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 091 | Compressed README into a focused public landing page while preserving source-install guidance, flagship examples, architecture diagram, and claim boundaries. | [Goal 091 README compression](docs/reports/goal091_readme_compression.md) |
 | Goal 092 | Audited the post-replacement public repository surface and proposed staged alignment work for metadata, root structure, examples, and docs navigation. | [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md) |
 | Goal 093A | Prepared the metadata change approval packet for repository description and topics without applying settings changes. | [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md) |
+| Goal 093C | Verified the post-change GitHub metadata readback after Goal 093B and documented that repository metadata now matches the README positioning. | [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md) |
 
 ## Evidence Index
 
@@ -119,6 +122,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md)
 - [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md)
 - [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md)
 - [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
@@ -395,10 +399,9 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 093B - Apply metadata update after explicit owner approval.
-2. Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
-3. Goal 095 - Examples grouping proposal with link-preserving plan.
-4. Goal 096 - Documentation navigation and archive-bucket proposal.
+1. Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
+2. Goal 095 - Examples grouping proposal with link-preserving plan.
+3. Goal 096 - Documentation navigation and archive-bucket proposal.
 
 ## How To Resume Review
 
@@ -406,7 +409,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/goal093a-metadata-approval-packet for the current approval packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch codex/goal093c-metadata-postchange-verification for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```

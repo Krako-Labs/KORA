@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 093A.
+Last updated by: Goal 093C.
 
 ## Current Status
 
@@ -28,6 +28,7 @@ Current state:
 - Goal 091 compressed the public README into a focused KORA landing page: [Goal 091 README compression](docs/reports/goal091_readme_compression.md).
 - Goal 092 audited the public repository surface after the README replacement and proposed metadata, root, examples, and docs alignment steps without changing repository settings or moving files: [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md).
 - Goal 093A prepared a metadata change approval packet for the repository description and topics without changing repository settings: [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md).
+- Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented the readback: [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -38,26 +39,37 @@ Current state:
 
 ## Current Branch
 
-- branch: `codex/goal093a-metadata-approval-packet`
+- branch: `codex/goal093c-metadata-postchange-verification`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 093A
-- base commit: `7e568a0d8ea7056796bfd8a67bfc7c7cd19f8f9c`
+- open PR: none for Goal 093C
+- base commit: `05f01fcff7a12a90945d9d69a5c18221ea8519c6`
 
 ## Last Completed Goal
 
-Goal 093A - Metadata Change Approval Packet.
+Goal 093C - Metadata Update Post-Change Verification.
+
+Goal 093C verified and documented the Goal 093B GitHub repository metadata update. The public README and GitHub About metadata are now aligned around AI Workload Control Layer positioning.
+
+Primary report:
+
+- [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md)
+
+Metadata readback:
+
+- description: `AI Workload Control Layer for routing deterministic, reusable, retrieval-needed, tool-needed, and provider-needed work before model invocation.`
+- topics: `ai-infrastructure`, `ai-workload-control`, `deterministic-routing`, `llm-infrastructure`, `open-source`, `python`, `retrieval-routing`, `task-graph`, `tool-routing`, `workload-routing`
+- homepage remains empty; visibility remains public; default branch remains `main`.
+
+Claim boundary: Goal 093C is verification and documentation sync only. It did not change repository settings, move files, create a release, create a tag, create a publication, or add product claims.
+
+Previous completed Goal: Goal 093A - Metadata Change Approval Packet.
 
 Goal 093A prepared an approval packet for updating the public repository description and topics to match the AI Workload Control Layer positioning. It made no repository-setting changes.
 
 Primary report:
 
 - [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md)
-
-Approval boundary:
-
-- Goal 093B may apply the metadata update only after explicit owner approval.
-- Goal 093A did not change repository description, topics, homepage, releases, tags, package state, or files outside the approval packet and breadcrumbs.
 
 Previous completed Goal: Goal 092 - Repository Public Surface Alignment Audit.
 
@@ -403,13 +415,13 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 093B - Apply metadata update after explicit owner approval.
+Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
 
 Recommended scope:
 
-- apply the repository description and topics exactly as approved in the Goal 093A packet.
-- verify the public About panel after the settings change.
-- do not move files, rewrite docs, create releases, create tags, or publish packages.
+- add or refresh short root stubs for older strategic documents.
+- keep file paths stable; do not move files in Goal 094 unless explicitly approved.
+- preserve README and GitHub About alignment around AI Workload Control Layer positioning.
 
 ## How To Continue
 
