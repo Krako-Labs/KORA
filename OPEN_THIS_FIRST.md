@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 092.
+Last updated by: Goal 093A.
 
 ## Current Status
 
@@ -27,6 +27,7 @@ Current state:
 - Goal 089A embeds that architecture diagram near the top of the public README and vision doc: [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md).
 - Goal 091 compressed the public README into a focused KORA landing page: [Goal 091 README compression](docs/reports/goal091_readme_compression.md).
 - Goal 092 audited the public repository surface after the README replacement and proposed metadata, root, examples, and docs alignment steps without changing repository settings or moving files: [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md).
+- Goal 093A prepared a metadata change approval packet for the repository description and topics without changing repository settings: [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -37,28 +38,34 @@ Current state:
 
 ## Current Branch
 
-- branch: `codex/goal092-public-surface-audit`
+- branch: `codex/goal093a-metadata-approval-packet`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 092
-- base commit: `2972973d732624353bd722d648886eed4d6d9e6c`
+- open PR: none for Goal 093A
+- base commit: `7e568a0d8ea7056796bfd8a67bfc7c7cd19f8f9c`
 
 ## Last Completed Goal
 
-Goal 092 - Repository Public Surface Alignment Audit.
+Goal 093A - Metadata Change Approval Packet.
+
+Goal 093A prepared an approval packet for updating the public repository description and topics to match the AI Workload Control Layer positioning. It made no repository-setting changes.
+
+Primary report:
+
+- [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md)
+
+Approval boundary:
+
+- Goal 093B may apply the metadata update only after explicit owner approval.
+- Goal 093A did not change repository description, topics, homepage, releases, tags, package state, or files outside the approval packet and breadcrumbs.
+
+Previous completed Goal: Goal 092 - Repository Public Surface Alignment Audit.
 
 Goal 092 audited the public GitHub surface after the exact public documentation replacement. It identified remaining alignment work for repository metadata, root files, example organization, and docs navigation while making no repository-setting changes and moving no files.
 
 Primary report:
 
 - [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md)
-
-Primary findings:
-
-- GitHub About metadata still uses older Inference Operating System positioning.
-- The root directory still exposes older architecture, executive summary, vision, roadmap, artifact, experiment, and Studio surfaces at similar prominence to the current README.
-- `examples/` mixes current flagship examples with older first-run, validation, and benchmark examples.
-- `docs/` needs clearer current, evidence, historical, and archive navigation.
 
 Claim boundary: Goal 092 is an audit/proposal only. It does not add product claims, production-readiness claims, package-publication claims, release claims, metadata changes, or file moves.
 
@@ -396,11 +403,11 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 093 - Metadata-only public surface alignment.
+Goal 093B - Apply metadata update after explicit owner approval.
 
 Recommended scope:
 
-- update GitHub repository description and topics after explicit owner approval.
+- apply the repository description and topics exactly as approved in the Goal 093A packet.
 - verify the public About panel after the settings change.
 - do not move files, rewrite docs, create releases, create tags, or publish packages.
 
