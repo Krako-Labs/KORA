@@ -1,8 +1,8 @@
-# AI Champion H100 Environment Setup
+# provider routing H100 Environment Setup
 
 Status: public-safe setup note for a private H100 benchmark server.
 
-This document records the safe environment preparation pattern for the AI Champion H100 track. It intentionally omits private hostnames, IP addresses, SSH aliases, credentials, GPU UUIDs, private mount details, and server-local logs. Exact baseline details belong in private server-local reports, not in this public repository.
+This document records the safe environment preparation pattern for the provider routing H100 track. It intentionally omits private hostnames, IP addresses, SSH aliases, credentials, GPU UUIDs, private mount details, and server-local logs. Exact baseline details belong in private server-local reports, not in this public repository.
 
 ## Scope
 

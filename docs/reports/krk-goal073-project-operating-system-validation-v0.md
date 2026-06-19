@@ -54,11 +54,11 @@ Goal 073 made light documentation refinements:
 - KORA evidence remains bounded and fixture-derived unless a later Goal expands public-safe methodology.
 - The breadcrumb layer is a current-state index; it does not replace evidence files, generated summaries, reports, tests, or reviewer judgment.
 
-## Readiness To Apply To Permea
+## Readiness To Apply To A Second Project
 
-The Project Operating System is ready to apply to a second project with care. For Permea adoption, use the neutral templates rather than copying KORA-specific evidence, claims, or implementation language.
+The Project Operating System is ready to apply to a second project with care. For second-project adoption, use the neutral templates rather than copying KORA-specific evidence, claims, or implementation language.
 
-Recommended Permea adoption approach:
+Recommended second-project adoption approach:
 
 1. Create project-specific `OPEN_THIS_FIRST.md` and `REVIEW_HUB.md` from the templates.
 2. Separate public GitHub repo, private GitHub repo, and local-only project context before writing.
@@ -67,7 +67,7 @@ Recommended Permea adoption approach:
 5. Add a claim boundary summary before adding any public positioning.
 6. Run a public/private scan before committing any public files.
 
-This report does not include Permea operational details.
+This report does not include other-project operational details.
 
 ## Claim Boundary
 

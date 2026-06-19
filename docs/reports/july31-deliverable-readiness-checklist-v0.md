@@ -98,7 +98,7 @@ Readiness levels:
 | No server, IP, user, SSH details | Required | Must remain absent from public package. |
 | No raw GPU logs | Required | Must remain absent from public package. |
 | No private operations details | Required | Must remain absent from public package. |
-| No private doctrine references | Required | Must remain absent from public package. |
+| No private operations references | Required | Must remain absent from public package. |
 
 ## Claim Boundary
 

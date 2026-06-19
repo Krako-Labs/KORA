@@ -53,9 +53,9 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 
 ## Understand
 
-![KORA control layer architecture](assets/kora-control-layer-architecture.svg)
+![KORA workload control layer architecture](assets/kora_workload_control_layer_architecture.svg)
 
-KORA control layer architecture.
+KORA workload control layer architecture.
 
 - [KORA Claim Registry](claims/kora-claim-registry.md)
 - [KORA Public Language Guide](claims/kora-public-language-guide.md)

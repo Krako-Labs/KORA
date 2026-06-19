@@ -37,7 +37,7 @@ v0.9 builds on the v0.8 final shell and adds:
 Validation was run from:
 
 ```text
-/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA
+repository checkout root
 ```
 
 Commands and results:

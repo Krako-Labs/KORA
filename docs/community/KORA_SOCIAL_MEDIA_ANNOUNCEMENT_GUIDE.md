@@ -108,6 +108,6 @@ Use the technical diagrams already committed under `docs/assets/`:
 - `docs/assets/kora-benchmark-evidence-card.svg`
 - `docs/assets/kora-validation-roadmap.svg`
 - `docs/assets/kora-help-test-flow.svg`
-- `docs/assets/kora-control-layer-architecture.svg`
+- `docs/assets/kora_workload_control_layer_architecture.svg`
 
 Do not place image-generation prompts, private design prompts, or internal campaign art direction in the public KORA repository.

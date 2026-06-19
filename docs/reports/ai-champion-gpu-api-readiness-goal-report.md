@@ -1,4 +1,4 @@
-# AI Champion GPU/API Readiness Goal Report
+# provider routing GPU/API Readiness Goal Report
 
 Task: 521
 
@@ -37,7 +37,7 @@ The dry-run harness is designed to report:
 
 ## Ready Now
 
-- AI Champion GPU/API benchmark planning docs are available.
+- provider routing GPU/API benchmark planning docs are available.
 - Provider routing categories are named and separated.
 - Placeholder-only provider config exists.
 - Dry-run CLI validates provider definitions.

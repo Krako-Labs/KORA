@@ -284,5 +284,5 @@ KORA Studio v1.0 preview readiness:
 - reduce dependence on the legacy detailed preview
 - move the most important local preview content into the final shell
 - tighten the shell-only information architecture
-- keep the ChatGPT-style minimal default workspace
+- keep the chat-style minimal default workspace
 - preserve all local-only, no-provider, no-model-execution, no-download, no-cloud-sync, and no-report-export boundaries

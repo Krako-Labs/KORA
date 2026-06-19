@@ -4,7 +4,7 @@
 
 KORA Studio v0.8 should implement the final v0.7 UI/UX board into the local Studio preview while preserving all existing local deterministic harness behavior and claim boundaries.
 
-The target is a minimal ChatGPT-like local workspace:
+The target is a minimal chat-like local workspace:
 
 - small left mini rail for workspace/task navigation
 - top model selector
@@ -270,7 +270,7 @@ Tests must not:
 
 Create this implementation plan and link it from Studio docs.
 
-### Task 457: ChatGPT-like shell layout scaffold
+### Task 457: chat-like shell layout scaffold
 
 Rework the local preview shell around:
 

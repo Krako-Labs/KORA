@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal088_cache_reuse_example`
-- worktree label: `goal088_cache_reuse_example`
+- active evidence branch: `goal089_repository_hygiene_architecture_diagram`
+- worktree label: `goal089_repository_hygiene_architecture_diagram`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 088
-- base commit: `ca7d7de4ecded1bdf4a550c7a58700dd5a9c704b`
+- open PR: none for Goal 089
+- base commit: `2fdc260fb0b4b174ad15e41e081df3703dd209c7`
 
 ## Current State Summary
 
@@ -113,6 +113,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md)
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
 - [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
 - [Cache reuse example README](examples/cache_reuse/README.md)
@@ -391,7 +392,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 3. Goal 087 - Contributor issue seed for first-value examples.
 4. Goal 088 - Wheel and source distribution smoke validation.
 
-## How To Resume With ChatGPT
+## How To Resume Review
 
 Paste a new Goal with this instruction:
 
@@ -402,7 +403,7 @@ Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
 
-## How To Resume With Codex
+## How To Resume Implementation
 
 Use this work sequence:
 

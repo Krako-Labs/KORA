@@ -23,6 +23,7 @@ Current state:
 - an offline RAG routing example exists under `examples/rag_routing/`, showing KORA routing sample queries across deterministic answers, cache hits, retrieval-needed handling, and provider-needed fallback without provider calls.
 - an offline agent workflow optimization example exists under `examples/agent_workflow_optimization/`, showing KORA routing sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls.
 - an offline cache reuse example exists under `examples/cache_reuse/`, showing KORA routing repeated sample requests to cache hits while preserving provider-needed fallback for ambiguous/open-ended requests without provider calls.
+- Goal 089 replaced the public workload-control architecture diagram with `docs/assets/kora_workload_control_layer_architecture.svg` and completed a public repository hygiene audit: [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -34,11 +35,11 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal088_cache_reuse_example`
+- branch: `goal089_repository_hygiene_architecture_diagram`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 088
-- base commit: `ca7d7de4ecded1bdf4a550c7a58700dd5a9c704b`
+- open PR: none for Goal 089
+- base commit: `2fdc260fb0b4b174ad15e41e081df3703dd209c7`
 
 ## Last Completed Goal
 

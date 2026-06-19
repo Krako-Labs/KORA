@@ -712,7 +712,7 @@ Goal: Implement the final v0.7 UI/UX board into the local preview while preservi
 
 Target structure:
 
-- ChatGPT-like sparse default workspace
+- chat-like sparse default workspace
 - small left mini rail for workspace/task navigation only
 - compact top model selector
 - centered composer as the primary surface

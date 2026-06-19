@@ -1,4 +1,4 @@
-# AI Champion Provider Routing Matrix
+# Provider Routing Matrix
 
 Status: dry-run planning matrix. No real provider calls are enabled.
 

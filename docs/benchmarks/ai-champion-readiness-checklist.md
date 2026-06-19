@@ -1,4 +1,4 @@
-# AI Champion Readiness Checklist
+# Provider Routing Readiness Checklist
 
 Status: pre-access readiness.
 

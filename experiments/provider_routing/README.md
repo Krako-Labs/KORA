@@ -1,6 +1,6 @@
-# AI Champion Provider Routing Dry Run
+# Provider Routing Dry Run
 
-This directory contains a dry-run-only provider routing experiment skeleton for the AI Champion GPU/API benchmark track.
+This directory contains a dry-run-only provider routing experiment skeleton for the provider routing GPU/API benchmark track.
 
 The harness prepares routing logic before real GPU, cloud, or external API access is formally available. It does not call H100 servers, AWS, Azure, OpenAI, Claude, Gemini, provider-hosted models, local model runtimes, or active network endpoints. All outputs are synthetic dry-run summaries.
 

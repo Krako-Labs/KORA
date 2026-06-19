@@ -15,7 +15,7 @@ Detailed second stop: read `OPEN_THIS_FIRST.md` first. This file is the durable 
 | Context | Location | Boundary |
 | --- | --- | --- |
 | Public GitHub repo | `[owner/repo or n/a]` | Public-safe code, docs, issues, releases, and evidence only. |
-| Private GitHub repo | `[owner/repo or n/a]` | Private doctrine, strategy, or coordination; do not quote into public files. |
+| Private GitHub repo | `[owner/repo or n/a]` | Private strategy or coordination; do not quote into public files. |
 | Local-only project context | `[exists / none]` | Raw logs, diagnostics, environment details, and notes; do not commit. |
 
 ## Current Branch / Worktree / Commit

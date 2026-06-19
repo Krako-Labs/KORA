@@ -4,7 +4,7 @@
 
 This document records the Claude Design artifact review for KORA Studio v0.7 UI direction.
 
-The approved direction is a minimal, chat-first web app surface. It should feel closer to ChatGPT than to a dense model-management or settings application.
+The approved direction is a minimal, chat-first web app surface. It should feel closer to a quiet chat workspace than to a dense model-management or settings application.
 
 This is a design source of truth, not an implementation commit. Product code should adapt the design into the current KORA Studio server constraints and must preserve all local-only and claim-safe boundaries.
 
@@ -61,7 +61,7 @@ Core visual qualities:
 Required:
 
 - visible as a small secondary section on desktop and larger mobile/tablet previews
-- follows the ChatGPT-style app pattern: workspace identity, new task, search tasks, lightweight project/task history
+- follows the chat-style app pattern: workspace identity, new task, search tasks, lightweight project/task history
 - remains visually quiet and narrower than the main work surface
 - never becomes the primary model-management or runtime surface
 - may collapse behind a simple icon on constrained widths
@@ -219,8 +219,8 @@ The implementation must preserve:
 
 Accepted:
 
-- ChatGPT-like minimal first screen
-- small ChatGPT-style left rail for workspace/task navigation
+- chat-like minimal first screen
+- small chat-style left rail for workspace/task navigation
 - top model selector
 - compact selected model label
 - centered composer
