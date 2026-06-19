@@ -41,8 +41,8 @@ Current state:
 
 - branch: `codex/goal093c-metadata-postchange-verification`
 - public truth: `origin/main`
-- branch pushed to: not pushed in this worktree
-- open PR: none for Goal 093C
+- branch pushed to: `origin/codex/goal093c-metadata-postchange-verification`
+- open PR: #244
 - base commit: `05f01fcff7a12a90945d9d69a5c18221ea8519c6`
 
 ## Last Completed Goal
