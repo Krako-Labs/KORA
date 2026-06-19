@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 091.
+Last updated by: Goal 092.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal091_readme_compression`
-- worktree label: `goal091_readme_compression`
+- active audit branch: `codex/goal092-public-surface-audit`
+- worktree label: `goal092_public_surface_audit`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 091
-- base commit: `ab16f48e1c868342b293bc475b4fb2e79ef2949f`
+- open PR: none for Goal 092
+- base commit: `2972973d732624353bd722d648886eed4d6d9e6c`
 
 ## Current State Summary
 
@@ -46,10 +46,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - first-class `kora doctor` CLI command for offline single-workload and aggregate Doctor reports.
 - README and documentation index now present KORA as an AI Workload Control Layer with examples-first onboarding and explicit safe claim boundaries.
 - Goal 091 compressed README into a focused landing page with a source quick start, flagship examples table, and short claim boundaries.
+- Goal 091B replaced selected public landing and index documents exactly and was merged into `origin/main` at `2972973d732624353bd722d648886eed4d6d9e6c`.
+- Goal 092 audited the public repository surface and identified remaining alignment work for GitHub metadata, root files, examples grouping, and docs navigation without changing settings or moving files.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
-- public-safe PR readiness packet with classification `READY_FOR_PR_WITH_CAVEATS`.
-- PR #229 is open against `main`; initial GitHub state was `MERGEABLE` with CI queued.
+- current recommended next step is metadata-only alignment after explicit owner approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -90,6 +91,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 087 | Added an offline agent workflow optimization example that routes sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls. | [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md) |
 | Goal 088 | Added an offline cache reuse example that routes repeated sample requests to cache hits and marks ambiguous/open-ended requests as provider-needed without provider calls. | [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md) |
 | Goal 091 | Compressed README into a focused public landing page while preserving source-install guidance, flagship examples, architecture diagram, and claim boundaries. | [Goal 091 README compression](docs/reports/goal091_readme_compression.md) |
+| Goal 092 | Audited the post-replacement public repository surface and proposed staged alignment work for metadata, root structure, examples, and docs navigation. | [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md) |
 
 ## Evidence Index
 
@@ -115,6 +117,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md)
 - [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
 - [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md)
 - [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md)
@@ -376,8 +379,6 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - The KORA Doctor report pack is examples-driven and should not be presented as production proxy readiness.
 - Native Windows and WSL-specific first-value install validation are deferred.
 - Project Operating System has been validated on KORA, but has not yet been applied to a second project.
-- PR readiness classification is `READY_FOR_PR_WITH_CAVEATS` because the branch is large and evidence remains bounded.
-- PR #229 needs CI completion and review-gate validation before any merge.
 
 ## Remaining Evidence Gaps
 
@@ -391,10 +392,10 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 092 - Root document movement plan with link-preserving stubs.
-2. Goal 093 - Examples index and docs/example catalog alignment.
-3. Goal 094 - Evidence-era artifact and experiments de-emphasis audit.
-4. Goal 095 - Documentation index compression and visitor path cleanup.
+1. Goal 093 - Metadata-only public surface alignment after explicit owner approval.
+2. Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
+3. Goal 095 - Examples grouping proposal with link-preserving plan.
+4. Goal 096 - Documentation navigation and archive-bucket proposal.
 
 ## How To Resume Review
 
@@ -402,7 +403,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal083_kora_doctor_cli.
+Use the active branch codex/goal092-public-surface-audit for the current audit repair, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
