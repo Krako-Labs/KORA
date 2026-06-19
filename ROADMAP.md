@@ -1,5 +1,8 @@
 # Roadmap
 
+> Current orientation note:
+> KORA is now presented publicly as an AI Workload Control Layer. This root roadmap is retained for continuity and may include earlier roadmap language. For the current public landing page, start with [README.md](README.md). For the current workload-control framing, see [docs/vision/kora_workload_control_layer.md](docs/vision/kora_workload_control_layer.md). For current examples, see [examples/README.md](examples/README.md).
+
 This roadmap defines the practical evolution of KORA.
 
 It is implementation-focused, not speculative.

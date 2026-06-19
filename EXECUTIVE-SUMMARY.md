@@ -1,5 +1,8 @@
 # KORA Executive Summary
 
+> Current orientation note:
+> KORA is now presented publicly as an AI Workload Control Layer. This root executive summary is retained for continuity and may include earlier strategic language. For the current public landing page, start with [README.md](README.md). For the current workload-control framing, see [docs/vision/kora_workload_control_layer.md](docs/vision/kora_workload_control_layer.md). For current examples, see [examples/README.md](examples/README.md).
+
 KORA is an inference-first execution architecture.
 
 It does not build larger models.  

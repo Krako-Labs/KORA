@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 093C.
+Last updated by: Goal 094.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/goal093c-metadata-postchange-verification`
-- worktree label: `goal093c_metadata_postchange_verification`
-- branch pushed to: `origin/codex/goal093c-metadata-postchange-verification`
-- open PR: #244
-- base commit: `05f01fcff7a12a90945d9d69a5c18221ea8519c6`
+- active verification branch: `codex/goal094-root-orientation-stubs`
+- worktree label: `goal094_root_orientation_stubs`
+- branch pushed to: `origin/codex/goal094-root-orientation-stubs`
+- open PR: #245
+- base commit: `9b159b845535deab00c943cbb382bf8c373a3db5`
 
 ## Current State Summary
 
@@ -50,10 +50,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 092 audited the public repository surface and identified remaining alignment work for GitHub metadata, root files, examples grouping, and docs navigation without changing settings or moving files.
 - Goal 093A prepared a metadata change approval packet for repository description and topics without changing repository settings.
 - Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented that repository metadata is now aligned with the README around AI Workload Control Layer positioning.
+- Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current recommended next step is Goal 094 root orientation stubs for older root strategic documents, without moving files.
+- current recommended next step is Goal 095 public examples directory organization proposal, without moving files unless explicitly approved.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -97,6 +98,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 092 | Audited the post-replacement public repository surface and proposed staged alignment work for metadata, root structure, examples, and docs navigation. | [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md) |
 | Goal 093A | Prepared the metadata change approval packet for repository description and topics without applying settings changes. | [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md) |
 | Goal 093C | Verified the post-change GitHub metadata readback after Goal 093B and documented that repository metadata now matches the README positioning. | [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md) |
+| Goal 094 | Added current-orientation notes to older root strategic documents while preserving historical content and paths. | [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md) |
 
 ## Evidence Index
 
@@ -122,6 +124,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md)
 - [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md)
 - [Goal 093A metadata change approval packet](docs/reports/goal093a_metadata_change_approval_packet.md)
 - [Goal 092 repository public surface alignment audit](docs/reports/goal092_repository_public_surface_alignment_audit.md)
@@ -399,9 +402,9 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 094 - Root orientation stubs for older root strategic documents, without moving files.
-2. Goal 095 - Examples grouping proposal with link-preserving plan.
-3. Goal 096 - Documentation navigation and archive-bucket proposal.
+1. Goal 095 - Public examples directory organization proposal, without moving files unless explicitly approved.
+2. Goal 096 - Documentation navigation and archive-bucket proposal.
+3. Goal 097 - Root file movement proposal with link-preserving stubs, only after explicit approval.
 
 ## How To Resume Review
 
