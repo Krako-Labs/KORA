@@ -8,6 +8,10 @@ KORA is an AI Workload Control Layer. It helps developers inspect work before se
 
 This vision is grounded in the current offline examples and evidence already present in the repository. It does not claim production readiness, model replacement, automatic savings, benchmark superiority, or broad workload superiority.
 
+![KORA Workload Control Layer Architecture](../assets/kora_workload_control_layer_architecture.svg)
+
+View the architecture diagram: [docs/assets/kora_workload_control_layer_architecture.svg](../assets/kora_workload_control_layer_architecture.svg)
+
 ## Current AI Stack
 
 Many AI applications are built around a model-centric path:
