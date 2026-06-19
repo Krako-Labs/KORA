@@ -151,7 +151,7 @@ Findings:
 - no credentials, API keys, tokens, private keys, or bearer tokens were introduced.
 - no restricted support-program or private affiliation references were found.
 - no raw access details, private hostnames, SSH details, raw provider responses, raw GPU logs, or local-only runtime notes were introduced.
-- `Permea` appears only in public-safe Project Operating System adoption context and not with operational details.
+- Second-project references appear only in public-safe Project Operating System adoption context and not with operational details.
 - expected hits for words such as `hostnames`, `private paths`, and `raw access details` are boundary rules that explicitly prohibit exposing those materials.
 - expected false-positive secret hits include words embedded in ordinary terms such as `task`, `risk`, and environment-variable names removed in tests.
 

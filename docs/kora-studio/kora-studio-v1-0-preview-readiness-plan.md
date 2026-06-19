@@ -6,7 +6,7 @@ KORA Studio v1.0 should make the minimal final shell the primary local preview e
 
 The goal is preview readiness, not production readiness:
 
-- keep the sparse ChatGPT-style workspace as the default surface
+- keep the sparse chat-style workspace as the default surface
 - keep model selection compact and catalog-estimate-only
 - keep advanced routing, runtime, counter, report, and claim details in the right drawer
 - migrate critical local-only information out of the legacy preview into the shell or drawer

@@ -55,8 +55,8 @@ It should include:
 - current risks.
 - remaining evidence gaps.
 - recommended next Goals.
-- instructions for resuming with ChatGPT.
-- instructions for resuming with Codex.
+- instructions for resuming review.
+- instructions for resuming implementation.
 
 It should be comprehensive enough that a new reviewer can orient without reading every historical report.
 

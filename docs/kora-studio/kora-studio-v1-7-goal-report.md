@@ -10,8 +10,8 @@ The goal did not implement static asset serving, add routes, move CSS or JavaScr
 
 - Starting public HEAD: `8dadbc1c35108cf69a206140b0fe72a0b1b8f168`
 - Public truth: `origin/main`
-- Active repo path: `/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA`
-- Legacy repo path excluded: `/Users/albertkim/02_PROJECTS/05_KORA`
+- Active repo path: `repository checkout root`
+- Legacy repo path excluded: `legacy local checkout path`
 
 ## Completed Work
 

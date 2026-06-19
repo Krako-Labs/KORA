@@ -17,7 +17,7 @@ KORA has accumulated substantial public documentation:
 - release-candidate decision packages.
 - first-value CLI reports.
 
-These documents are valuable, but they are historical and distributed. A reviewer, owner, future ChatGPT session, future Codex session, or new contributor should not need to reconstruct current state by reading every report in chronological order.
+These documents are valuable, but they are historical and distributed. A reviewer, owner, future review session, future implementation session, or new contributor should not need to reconstruct current state by reading every report in chronological order.
 
 ## Decision
 

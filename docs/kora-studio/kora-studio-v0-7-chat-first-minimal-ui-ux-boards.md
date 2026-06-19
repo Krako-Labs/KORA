@@ -4,7 +4,7 @@
 
 These boards are the preferred source of truth for the next KORA Studio UI direction.
 
-The previous split boards were still too workbench-heavy. This direction is more minimal: a ChatGPT-like web app surface with a quiet top model picker, one central work area, and a right-side drawer for details.
+The previous split boards were still too workbench-heavy. This direction is more minimal: a chat-like web app surface with a quiet top model picker, one central work area, and a right-side drawer for details.
 
 Implementation should wait for review.
 

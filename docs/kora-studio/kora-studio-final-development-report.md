@@ -150,7 +150,7 @@ The local interaction layer was hardened:
 
 ### v0.7 Final UI/UX Source of Truth
 
-The UI/UX direction was consolidated around a minimal ChatGPT-like workspace:
+The UI/UX direction was consolidated around a minimal chat-like workspace:
 
 - final UI/UX board: `docs/kora-studio/design/claude-v0-7/kora-studio-final-uiux-board.png`
 - Claude Design source-of-truth document
@@ -161,7 +161,7 @@ The UI/UX direction was consolidated around a minimal ChatGPT-like workspace:
 The approved visual target is:
 
 - sparse dark surface
-- small ChatGPT-style left mini rail
+- small chat-style left mini rail
 - top model selector
 - centered work composer
 - compact status boundary pills
@@ -180,7 +180,7 @@ Primary specification:
 
 Implementation direction:
 
-- The default screen should feel closer to ChatGPT than to a dense model-management app.
+- The default screen should feel closer to a quiet chat workspace than to a dense model-management app.
 - The left mini rail is for workspace/task navigation only.
 - Runtime, route trace, counters, report metadata, and claim boundaries belong in the right details drawer.
 - The top model selector may search/select open-source model candidates, but selection is not installation or execution.
@@ -368,7 +368,7 @@ KORA Studio v0.8 should implement the final UI/UX board into the local preview w
 
 Recommended first tasks:
 
-- scaffold the ChatGPT-like layout in the existing local preview
+- scaffold the chat-like layout in the existing local preview
 - add the left mini rail as workspace/task navigation only
 - keep the top model selector compact
 - move dense runtime, route, counter, report, and claim information into a right details drawer

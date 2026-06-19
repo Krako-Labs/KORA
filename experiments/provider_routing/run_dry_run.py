@@ -157,7 +157,7 @@ def write_summary(summary: dict[str, Any], output_path: Path | None) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run the AI Champion provider routing dry-run harness.")
+    parser = argparse.ArgumentParser(description="Run the provider routing provider routing dry-run harness.")
     parser.add_argument(
         "--config",
         type=Path,

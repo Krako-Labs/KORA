@@ -25,7 +25,7 @@ v1.5 completed these maintainability surfaces:
 
 Validation run from:
 
-`/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA`
+`repository checkout root`
 
 Results:
 

@@ -10,8 +10,8 @@ The goal did not implement product behavior, endpoint behavior, static asset ser
 
 - Starting public HEAD: `4f8be54b049a6a0231efca70238c3d696878fedb`
 - Public truth: `origin/main`
-- Active repo path: `/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA`
-- Legacy repo path excluded: `/Users/albertkim/02_PROJECTS/05_KORA`
+- Active repo path: `repository checkout root`
+- Legacy repo path excluded: `legacy local checkout path`
 
 ## Completed Work
 

@@ -34,7 +34,7 @@ This plan inventories existing paper-support assets and identifies the minimum f
 | Asset or spec | Path | Status for paper |
 |---|---|---|
 | KORA benchmark evidence card | `docs/assets/kora-benchmark-evidence-card.svg`, `docs/assets/kora-benchmark-evidence-card.png` | Existing public visual; needs paper-fit review before inclusion |
-| KORA control layer architecture | `docs/assets/kora-control-layer-architecture.svg` | Existing public visual; candidate architecture reference |
+| KORA control layer architecture | `docs/assets/kora_workload_control_layer_architecture.svg` | Existing public visual; candidate architecture reference |
 | KORA execution control overview | `docs/assets/kora-execution-control-overview.svg`, `docs/assets/kora-execution-control-overview.png` | Existing public visual; candidate architecture reference |
 | Help-test flow | `docs/assets/kora-help-test-flow.svg`, `docs/assets/kora-help-test-flow.png` | Existing public visual; not first-paper core unless appendix needs contributor flow |
 | Validation roadmap | `docs/assets/kora-validation-roadmap.svg`, `docs/assets/kora-validation-roadmap.png` | Existing public visual; future-work context only |

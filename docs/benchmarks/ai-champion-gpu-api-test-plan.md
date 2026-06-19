@@ -1,8 +1,8 @@
-# AI Champion GPU/API Test Plan
+# provider routing GPU/API Test Plan
 
 Status: planning and dry-run readiness only.
 
-This plan prepares the AI Champion GPU/API benchmark track before formal access to GPU servers, cloud generative AI resources, or external LLM APIs is available. It does not authorize real GPU execution, cloud model calls, external API calls, model downloads, production benchmark claims, or raw benchmark artifact publication.
+This plan prepares the provider routing GPU/API benchmark track before formal access to GPU servers, cloud generative AI resources, or external LLM APIs is available. It does not authorize real GPU execution, cloud model calls, external API calls, model downloads, production benchmark claims, or raw benchmark artifact publication.
 
 ## Current Approved Claim
 
@@ -72,4 +72,4 @@ Task 524 should integrate the runtime hybrid benchmark after smoke tests pass. I
 
 ## Evidence Policy
 
-Raw generated benchmark outputs should stay in `/tmp` or another ignored path unless a later release process explicitly selects frozen evidence. Do not commit secrets, API keys, credentials, private host details, raw provider responses, or local-only ChatGPT context.
+Raw generated benchmark outputs should stay in `/tmp` or another ignored path unless a later release process explicitly selects frozen evidence. Do not commit secrets, API keys, credentials, private host details, raw provider responses, or local-only context.

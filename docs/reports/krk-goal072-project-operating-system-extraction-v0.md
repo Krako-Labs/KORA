@@ -74,7 +74,7 @@ Recommended adoption path:
 
 ## How Another Project Can Use It Next
 
-Another project, including Permea, can use the extracted templates without inheriting KORA-specific evidence or language.
+Another project can use the extracted templates without inheriting KORA-specific evidence or language.
 
 Recommended next use:
 

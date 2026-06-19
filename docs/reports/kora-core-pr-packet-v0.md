@@ -60,7 +60,7 @@ The PR does not claim production readiness, broad workload superiority, provider
 - public/private boundary scans
 - claim boundary scans
 - original dirty repo status check
-- private doctrine status check
+- private status check
 - external project status checks
 
 ## Notes

@@ -92,7 +92,7 @@ def send_email(cfg: dict[str, str]) -> None:
 
 
 def main() -> int:
-    load_dotenv(Path("/Users/albertkim/02_PROJECTS/05_KORA/.env"))
+    load_dotenv(Path.cwd() / ".env")
     cfg = require_smtp_env()
     try:
         send_email(cfg)

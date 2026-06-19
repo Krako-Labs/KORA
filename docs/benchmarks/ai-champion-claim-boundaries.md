@@ -1,4 +1,4 @@
-# AI Champion Claim Boundaries
+# Provider Routing Claim Boundaries
 
 Status: public wording guardrail for pre-access GPU/API benchmark preparation.
 
@@ -10,7 +10,7 @@ The current approved claim remains:
 
 For Task 521 additions, safe wording is:
 
-- KORA has a dry-run provider routing harness for planned AI Champion GPU/API benchmark work.
+- KORA has a dry-run provider routing harness for planned provider routing GPU/API benchmark work.
 - The harness validates placeholder provider definitions and emits synthetic dry-run summaries.
 - The harness covers planned routes for deterministic, cache, local model, H100, AWS, Azure, OpenAI, Claude, and Gemini providers.
 - Real GPU/API benchmark execution remains blocked until access, credentials, smoke tests, and benchmark approval are complete.

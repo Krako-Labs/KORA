@@ -53,13 +53,13 @@ No raw benchmark JSON artifacts, release assets, package version changes, tags, 
 Private repository reviewed locally:
 
 ```text
-/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/internals
+legacy local checkout path_Project/repo/internals
 ```
 
 Remote:
 
 ```text
-https://github.com/Krako-Labs/internals.git
+private remote omitted
 ```
 
 Private commit reviewed:

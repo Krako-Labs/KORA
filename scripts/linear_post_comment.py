@@ -54,7 +54,7 @@ def require_linear_key() -> str:
     print("LINEAR_API_KEY is missing.")
     print("Set it with one of the following, then re-run:")
     print("export LINEAR_API_KEY='lin_api_...'")
-    print("Or place LINEAR_API_KEY=... in /Users/albertkim/02_PROJECTS/05_KORA/.env")
+    print("Or place LINEAR_API_KEY=... in a local .env file outside version control.")
     raise SystemExit(1)
 
 
@@ -133,8 +133,7 @@ def post_comment(api_key: str, issue_id: str, body: str) -> str:
 
 
 def main() -> int:
-    repo = Path("/Users/albertkim/02_PROJECTS/05_KORA")
-    load_dotenv(repo / ".env")
+    load_dotenv(Path.cwd() / ".env")
     key = require_linear_key()
     issue_id, identifier = pick_issue(key)
     comment_id = post_comment(key, issue_id, COMMENT_BODY)

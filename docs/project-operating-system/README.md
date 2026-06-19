@@ -70,7 +70,7 @@ Use [Project Operating Standard v0](project-operating-standard-v0.md) as the ado
 The templates distinguish:
 
 - public GitHub repo: public-safe source, docs, issues, releases, and evidence.
-- private GitHub repo: private doctrine, strategy, credentials-free operational plans, and non-public context.
+- private GitHub repo: strategy, credentials-free operational plans, and non-public context.
 - local-only project context: uncommitted notes, raw logs, environment details, and temporary diagnostics.
 
 Never copy private repo content or local-only context into a public repo unless it has been reviewed and rewritten as public-safe.

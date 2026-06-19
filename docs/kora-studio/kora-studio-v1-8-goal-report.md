@@ -10,8 +10,8 @@ KORA Studio v1.8 implements the approved CSS-only local static asset route and p
 
 - Starting public HEAD: `79678e0554bfe28b3b35e0f53ecaae48b22b0a0c`
 - Public truth: `origin/main`
-- Active repo path: `/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA`
-- Legacy repo path excluded: `/Users/albertkim/02_PROJECTS/05_KORA`
+- Active repo path: `repository checkout root`
+- Legacy repo path excluded: `legacy local checkout path`
 
 ## Completed Work
 

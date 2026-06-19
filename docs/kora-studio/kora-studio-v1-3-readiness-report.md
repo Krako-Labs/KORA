@@ -31,7 +31,7 @@ No static asset routes were added.
 
 Validation run from:
 
-`/Users/albertkim/02_PROJECTS/05_KORA_Project/repo/KORA`
+`repository checkout root`
 
 Results:
 
