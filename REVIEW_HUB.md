@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal089_repository_hygiene_architecture_diagram`
-- worktree label: `goal089_repository_hygiene_architecture_diagram`
+- active evidence branch: `goal089a_readme_architecture_diagram_placement`
+- worktree label: `goal089a_readme_architecture_diagram_placement`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 089
-- base commit: `2fdc260fb0b4b174ad15e41e081df3703dd209c7`
+- open PR: none for Goal 089A
+- base commit: `5157832af5dcdf6df8baf8ff9f3ab6df35c8ffbb`
 
 ## Current State Summary
 
@@ -113,6 +113,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md)
 - [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md)
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
 - [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)

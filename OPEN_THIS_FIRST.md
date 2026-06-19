@@ -24,6 +24,7 @@ Current state:
 - an offline agent workflow optimization example exists under `examples/agent_workflow_optimization/`, showing KORA routing sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls.
 - an offline cache reuse example exists under `examples/cache_reuse/`, showing KORA routing repeated sample requests to cache hits while preserving provider-needed fallback for ambiguous/open-ended requests without provider calls.
 - Goal 089 replaced the public workload-control architecture diagram with `docs/assets/kora_workload_control_layer_architecture.svg` and completed a public repository hygiene audit: [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md).
+- Goal 089A embeds that architecture diagram near the top of the public README and vision doc: [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -35,11 +36,11 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal089_repository_hygiene_architecture_diagram`
+- branch: `goal089a_readme_architecture_diagram_placement`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 089
-- base commit: `2fdc260fb0b4b174ad15e41e081df3703dd209c7`
+- open PR: none for Goal 089A
+- base commit: `5157832af5dcdf6df8baf8ff9f3ab6df35c8ffbb`
 
 ## Last Completed Goal
 

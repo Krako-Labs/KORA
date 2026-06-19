@@ -8,6 +8,10 @@ Many AI systems treat every task as a model problem. Many tasks are actually cla
 
 Current examples are offline and synthetic. They demonstrate KORA's routing/control surfaces, not production readiness, production cost reduction, benchmark superiority, or model replacement.
 
+![KORA Workload Control Layer Architecture](docs/assets/kora_workload_control_layer_architecture.svg)
+
+View the architecture diagram: [docs/assets/kora_workload_control_layer_architecture.svg](docs/assets/kora_workload_control_layer_architecture.svg)
+
 ## Current Availability
 
 Use the current GitHub repository for the latest examples and CLI commands.
