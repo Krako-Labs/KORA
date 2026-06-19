@@ -42,8 +42,8 @@ Current state:
 
 - branch: `codex/goal094-root-orientation-stubs`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/goal094-root-orientation-stubs`
+- open PR: #245
 - base commit: `9b159b845535deab00c943cbb382bf8c373a3db5`
 
 ## Active Goal
