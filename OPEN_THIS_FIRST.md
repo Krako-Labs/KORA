@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 088.
+Last updated by: Goal 091.
 
 ## Current Status
 
@@ -25,6 +25,7 @@ Current state:
 - an offline cache reuse example exists under `examples/cache_reuse/`, showing KORA routing repeated sample requests to cache hits while preserving provider-needed fallback for ambiguous/open-ended requests without provider calls.
 - Goal 089 replaced the public workload-control architecture diagram with `docs/assets/kora_workload_control_layer_architecture.svg` and completed a public repository hygiene audit: [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md).
 - Goal 089A embeds that architecture diagram near the top of the public README and vision doc: [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md).
+- Goal 091 compressed the public README into a focused KORA landing page: [Goal 091 README compression](docs/reports/goal091_readme_compression.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
@@ -36,11 +37,11 @@ Current state:
 
 ## Current Branch
 
-- branch: `goal089a_readme_architecture_diagram_placement`
+- branch: `goal091_readme_compression`
 - public truth: `origin/main`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 089A
-- base commit: `5157832af5dcdf6df8baf8ff9f3ab6df35c8ffbb`
+- open PR: none for Goal 091
+- base commit: `ab16f48e1c868342b293bc475b4fb2e79ef2949f`
 
 ## Last Completed Goal
 
@@ -319,6 +320,7 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
 - [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
 - [Cache reuse example README](examples/cache_reuse/README.md)
 - [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md)
@@ -367,14 +369,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 089 - Public reviewer walkthrough and example catalog refresh.
+Goal 092 - Root document movement plan with link-preserving stubs.
 
 Recommended scope:
 
-- review the README and KORA Doctor CLI narrative from a fresh visitor perspective.
-- verify KORA Doctor CLI, KORA Doctor example, and deterministic classification quick starts.
-- refresh contributor-facing example catalog pointers if needed.
-- preserve current evidence boundaries and avoid production or superiority claims.
+- inventory links to root strategic documents.
+- decide canonical destinations for older architecture, executive summary, vision, and roadmap material.
+- preserve redirect stubs for moved root docs.
+- do not move `OPEN_THIS_FIRST.md` or `REVIEW_HUB.md` until maintainer-continuation docs are redesigned.
 
 ## How To Continue
 

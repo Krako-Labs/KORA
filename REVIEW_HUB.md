@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 088.
+Last updated by: Goal 091.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active evidence branch: `goal089a_readme_architecture_diagram_placement`
-- worktree label: `goal089a_readme_architecture_diagram_placement`
+- active evidence branch: `goal091_readme_compression`
+- worktree label: `goal091_readme_compression`
 - branch pushed to: not pushed in this worktree
-- open PR: none for Goal 089A
-- base commit: `5157832af5dcdf6df8baf8ff9f3ab6df35c8ffbb`
+- open PR: none for Goal 091
+- base commit: `ab16f48e1c868342b293bc475b4fb2e79ef2949f`
 
 ## Current State Summary
 
@@ -45,6 +45,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - KORA Doctor report pack with four bundled offline workloads, aggregate report mode, and a README refresh proposal for examples-driven routing/control positioning.
 - first-class `kora doctor` CLI command for offline single-workload and aggregate Doctor reports.
 - README and documentation index now present KORA as an AI Workload Control Layer with examples-first onboarding and explicit safe claim boundaries.
+- Goal 091 compressed README into a focused landing page with a source quick start, flagship examples table, and short claim boundaries.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - public-safe PR readiness packet with classification `READY_FOR_PR_WITH_CAVEATS`.
@@ -88,6 +89,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 086 | Added an offline RAG routing example that routes sample queries across deterministic, cache, retrieval-needed, and provider-needed paths without provider calls. | [Goal 086 RAG routing example](docs/reports/goal086_rag_routing_example.md) |
 | Goal 087 | Added an offline agent workflow optimization example that routes sample workflow steps across deterministic, cache, tool-needed, and provider-needed paths without provider calls. | [Goal 087 agent workflow optimization example](docs/reports/goal087_agent_workflow_optimization_example.md) |
 | Goal 088 | Added an offline cache reuse example that routes repeated sample requests to cache hits and marks ambiguous/open-ended requests as provider-needed without provider calls. | [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md) |
+| Goal 091 | Compressed README into a focused public landing page while preserving source-install guidance, flagship examples, architecture diagram, and claim boundaries. | [Goal 091 README compression](docs/reports/goal091_readme_compression.md) |
 
 ## Evidence Index
 
@@ -113,6 +115,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
 - [Goal 089A README architecture diagram placement](docs/reports/goal089a_readme_architecture_diagram_placement.md)
 - [Goal 089 repository hygiene and architecture diagram](docs/reports/goal089_repository_hygiene_and_architecture_diagram.md)
 - [Goal 082B narrative repositioning](docs/reports/goal082b_narrative_repositioning.md)
@@ -388,10 +391,10 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 089 - Public reviewer walkthrough and example catalog refresh.
-2. Goal 090 - Contributor issue seed for examples-first onboarding.
-3. Goal 087 - Contributor issue seed for first-value examples.
-4. Goal 088 - Wheel and source distribution smoke validation.
+1. Goal 092 - Root document movement plan with link-preserving stubs.
+2. Goal 093 - Examples index and docs/example catalog alignment.
+3. Goal 094 - Evidence-era artifact and experiments de-emphasis audit.
+4. Goal 095 - Documentation index compression and visitor path cleanup.
 
 ## How To Resume Review
 
