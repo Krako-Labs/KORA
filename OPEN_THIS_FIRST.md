@@ -44,8 +44,8 @@ Current state:
 
 - branch: `goal096-doc-navigation-archive-proposal`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/goal096-doc-navigation-archive-proposal`
+- open PR: #247
 - base commit: `424cc71860df32c3636ce29b67c02730ad4b28e8`
 
 ## Active Goal
