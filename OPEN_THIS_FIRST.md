@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 100.
+Last updated by: Goal 102.
 
 ## Current Status
 
@@ -41,21 +41,34 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 100 review of the Goal 099 controlled server-run evidence package and the narrow evidence-index decision. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 102 broader workload representativeness planning and a public-safe fixture seed. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal100-goal099-evidence-index-review`
+- branch: `goal102-workload-representativeness-seed`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal100-goal099-evidence-index-review`
-- open PR: Goal 100 PR for this branch
-- base commit: `3c3223e01a3a4bc72475ca938c2910053e34c047`
+- branch pushed to: `origin/goal102-workload-representativeness-seed`
+- open PR: Goal 102 PR for this branch
+- base commit: `5adb19044a697bdb6bfd57b342ba3699efc579c5`
 
 ## Active Goal
 
+Goal 102 - Broader Workload Representativeness Plan and Fixture Expansion Seed.
+
+Goal 102 starts workload representativeness broadening by adding a public-safe synthetic seed fixture and a shape-only validator. It does not run H100 workloads, make provider calls, prove output quality, add production workload proof, or claim broad workload superiority.
+
+Primary report:
+
+- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
+- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
+
+Claim boundary: Goal 102 is fixture-design evidence and planning support only. It does not prove broader workload representativeness, output quality, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
+
+## Last Completed Goal
+
 Goal 100 - Review Goal 099 Evidence Package and Evidence Index Decision.
 
-Goal 100 reviews the merged Goal 099 evidence package and decides whether the broader public evidence index needs a narrow refresh. It does not perform broad documentation restructuring.
+Goal 100 reviewed the merged Goal 099 evidence package and applied a narrow evidence-index refresh after PR #251 was squash-merged into `origin/main` at `5adb19044a697bdb6bfd57b342ba3699efc579c5`.
 
 Primary report:
 
@@ -65,8 +78,6 @@ Primary report:
 - [Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
 
 Claim boundary: Goal 100 is evidence review and narrow index refresh only. Goal 099 remains controlled workload-path execution evidence only; it does not prove both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, general GPU-serving replacement, provider replacement, or published `getkora`.
-
-## Last Completed Goal
 
 Goal 099 - AI Champion H100 Server Run.
 
@@ -472,16 +483,18 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 101 - Local ChatGPT context refresh after Goal 100 merge, if this PR is merged.
+Goal 103 - Implement a route-only evaluator for the Goal 102 representativeness seed without provider calls or H100 execution.
 
 Recommended scope:
 
-- refresh local-only ChatGPT context only after Goal 100 is merged.
-- preserve Goal 099 as controlled workload-path evidence over public fixtures.
-- keep any future larger H100 samples bounded, public-safe, and fixture-derived.
+- load `examples/workloads/kora-representativeness-seed-v0.json`.
+- evaluate route labels or route-only expectations without provider calls.
+- do not run H100 workloads.
+- do not claim production workload proof, output-quality proof, or broad workload superiority.
+- keep any future larger H100 samples bounded, public-safe, fixture-derived, and explicitly approved.
 - exclude raw logs and private infrastructure details.
-- keep claims bounded to controlled workload-path evidence.
-- do not claim both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production benchmark proof, production readiness, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, provider replacement, general GPU-serving replacement, or broad workload superiority.
+- keep claims bounded to fixture-design and route-only evaluation evidence.
+- do not claim both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production benchmark proof, production readiness, output-quality proof, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, provider replacement, general GPU-serving replacement, or broad workload superiority.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 

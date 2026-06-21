@@ -37,13 +37,19 @@ python3 examples/agent_workflow_optimization/run.py
 
 The root `examples/` directory also contains older basic, validation, benchmark, and fixture examples. They remain in place for continuity and reproducibility. New readers should start with the flagship examples above.
 
+## Workload Representativeness Seed
+
+- [KORA representativeness seed fixture v0](workloads/kora-representativeness-seed-v0.json) broadens public-safe synthetic workload category coverage for future evaluation design.
+
+This seed is fixture-design support only. It does not run providers, run H100 workloads, prove production workload handling, prove output quality, or prove broad workload superiority.
+
 ## Directory Map
 
 | Group | Directories | Purpose |
 | --- | --- | --- |
 | Flagship examples | `kora_doctor`, `deterministic_classification`, `openai_compatible_proxy`, `rag_routing`, `agent_workflow_optimization`, `cache_reuse` | Current public first-value examples. |
 | Basic / first-run examples | `hello_kora`, `direct_vs_kora`, `retry_demo` | Smaller examples for minimal graph execution, direct comparison, and retry behavior. |
-| Validation / harness examples | `customer_support_triage_fake_validation`, `real_model_call_validation_fake`, `real_workload_harness`, `stress_test`, `workloads` | Validation fixtures, harnesses, stress runs, and workload data retained for project history and reproducibility. |
+| Validation / harness examples | `customer_support_triage_fake_validation`, `real_model_call_validation_fake`, `real_workload_harness`, `stress_test`, `workloads` | Validation fixtures, harnesses, representativeness seeds, stress runs, and workload data retained for project history and reproducibility. |
 | Benchmark / evidence examples | `runtime_integrated_benchmark` | Benchmark-oriented evidence path retained outside the flagship reviewer path. |
 
 Paths are not being moved in this pass. Future grouping should use link-preserving stubs or redirects so existing documentation, scripts, and external links do not break.
