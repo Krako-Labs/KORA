@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 099.
+Last updated by: Goal 100.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal099-ai-champion-h100-server-run`
-- worktree label: `goal099-ai-champion-h100-server-run`
-- branch pushed to: `origin/goal099-ai-champion-h100-server-run`
-- open PR: #250
-- base commit: `76c43572c3f636024356c4f722acde9433d713f9`
+- active verification branch: `goal100-goal099-evidence-index-review`
+- worktree label: `goal100-goal099-evidence-index-review`
+- branch pushed to: `origin/goal100-goal099-evidence-index-review`
+- open PR: Goal 100 PR for this branch
+- base commit: `3c3223e01a3a4bc72475ca938c2910053e34c047`
 
 ## Current State Summary
 
@@ -59,7 +59,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current recommended next step is reviewing the Goal 099 evidence package and deciding whether to refresh broader evidence indexes. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Goal 100: review the Goal 099 evidence package and apply only a narrow evidence-index refresh where navigation gaps exist. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -109,6 +109,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 097 | Cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps without moving files or making new H100 claims. | [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md) |
 | Goal 098 | Prepared controlled CPU/non-GPU and GPU/H100 evidence regeneration packet; local no-CUDA status is `not_run` and no fresh H100 execution occurred. | [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) |
 | Goal 099 | Executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server with aggregate CPU/non-GPU and bounded H100 summaries. | [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md) |
+| Goal 100 | Reviewed the Goal 099 evidence package and recommended a narrow evidence-index refresh rather than a broad evidence package rewrite. | [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md) |
 
 ## Evidence Index
 
@@ -185,6 +186,7 @@ Current reviewer path:
 
 Current evidence path:
 
+- [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md)
 - [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md)
 - [Generated Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
 - [Generated Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
@@ -411,6 +413,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Runtime-integrated route evaluation is dry-run unless a later Goal adds live execution.
 - Provider validation is bounded and aggregate-only.
 - H100 measurements are bounded and do not establish H100 superiority.
+- Goal 099 records that 2 H100-class devices were visible, but does not establish both-GPU active use or multi-GPU scaling.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -430,7 +433,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 100 - Review Goal 099 evidence package and decide whether to refresh the broader public evidence index and local ChatGPT context.
+1. Goal 101 - Local ChatGPT context refresh after Goal 100 merge, if this PR is merged.
 2. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 3. Broader output-quality or workload-representativeness validation after H100 scope is resolved.
 
@@ -440,7 +443,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal099-ai-champion-h100-server-run for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch goal100-goal099-evidence-index-review for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```

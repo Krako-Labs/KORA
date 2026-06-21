@@ -213,7 +213,31 @@ Generated summaries:
 
 This measurement is bounded and fixture-derived. It must not be generalized into raw H100 performance, production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority.
 
-## I. Provider-Routed Validation
+## I. Goal 099 Controlled AI Champion H100 Server Run
+
+Goal 099 executed a controlled server-run packet on the AI Champion H100 server and recorded aggregate public-safe CPU/non-GPU and bounded H100 summaries.
+
+| Field | Value |
+| --- | --- |
+| CPU/non-GPU phase status | `measured_cpu_nongpu_remote` |
+| CPU/non-GPU GPU visibility setting | `CUDA_VISIBLE_DEVICES=""` |
+| Provider calls actually made | 0 |
+| H100 phase status | `measured_bounded_h100_remote` |
+| Final classification | `BOUNDED_H100_EXECUTION_MEASURED` |
+| Operation count | 24 |
+| Success count | 24 |
+| Failure count | 0 |
+| Visible H100-class device count | 2 |
+
+Generated summaries:
+
+- [Goal 099 AI Champion H100 server run report](../reports/goal099_ai_champion_h100_server_run.md)
+- [Generated Goal 099 CPU/non-GPU AI Champion summary](generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- [Generated Goal 099 H100 AI Champion summary](generated/goal099_h100_ai_champion_summary.md)
+
+The visible H100-class device count does not establish both-GPU active use or multi-GPU scaling. This measurement is controlled workload-path evidence over public fixtures and must not be generalized into H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, energy reduction, customer savings, provider replacement, general GPU-serving replacement, or broad workload superiority.
+
+## J. Provider-Routed Validation
 
 The current public package includes a sanitized bounded commercial LLM API validation for the provider-selected public matrix subset.
 
@@ -237,7 +261,7 @@ Generated summaries:
 
 This validation is subset-bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
-## J. Expanded Provider-Routed Validation
+## K. Expanded Provider-Routed Validation
 
 The current public package also includes an expanded bounded commercial LLM API validation derived from provider-selected public matrix items.
 
@@ -262,7 +286,7 @@ Generated summaries:
 
 This expanded validation strengthens the provider-routed evidence package, but it remains bounded. It must not be generalized into production performance, provider cost reduction, customer savings, provider superiority, broad provider benchmark performance, or replacement of commercial LLM APIs.
 
-## K. Baseline Equivalence and Output Fidelity
+## L. Baseline Equivalence and Output Fidelity
 
 Goal 060 measured deterministic public fixture-derived baseline equivalence and output fidelity over the four public matrix profiles.
 
@@ -304,6 +328,7 @@ Supported:
 - KRK has a prepared expanded H100 routed-subset evaluation slot, but it has not been measured.
 - KRK now has repo-owned bounded H100 harness evidence for 24 fixture-derived GPU-routed operations, summarized with aggregate runtime, throughput, and memory metrics.
 - KRK now has bounded multi-profile H100 representativeness evidence for 100 public fixture-derived GPU-routed operations through the repo-owned harness.
+- Goal 099 executed controlled CPU/non-GPU paths and bounded H100 paths on the AI Champion H100 server with aggregate public-safe summaries.
 - KRK-selected provider-path items from the public matrix fixtures completed bounded and expanded bounded commercial LLM API validation with sanitized latency and token/unit metadata.
 - KRK now has deterministic public fixture-derived baseline-equivalence and output-fidelity evidence over the four public matrix profiles.
 

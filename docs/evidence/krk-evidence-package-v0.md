@@ -172,6 +172,33 @@ Generated summaries:
 
 This moves the H100 evidence state from basic bounded repo-owned harness execution to bounded multi-profile H100 representativeness over public fixture-derived GPU-routed operations. It does not support production performance, infrastructure savings, customer savings, GPU superiority, H100 superiority, or broad workload superiority claims.
 
+### Goal 099 Controlled AI Champion H100 Server Run
+
+Goal 099 executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server and recorded aggregate public-safe CPU/non-GPU and bounded H100 summaries.
+
+CPU/non-GPU evidence:
+
+- [Goal 099 CPU/non-GPU AI Champion summary](generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- phase status: `measured_cpu_nongpu_remote`
+- GPU visibility setting: `CUDA_VISIBLE_DEVICES=""`
+- provider calls actually made: `0`
+
+Bounded H100 evidence:
+
+| Metric | Value |
+| --- | ---: |
+| Operation count | 24 |
+| Success count | 24 |
+| Failure count | 0 |
+
+Generated summaries:
+
+- [Goal 099 AI Champion H100 server run report](../reports/goal099_ai_champion_h100_server_run.md)
+- [Goal 099 CPU/non-GPU AI Champion summary](generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- [Goal 099 H100 AI Champion summary](generated/goal099_h100_ai_champion_summary.md)
+
+The environment reported 2 H100-class devices visible, but this does not establish both-GPU active use or multi-GPU scaling. This evidence is controlled workload-path evidence over public fixtures. It does not support H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, energy reduction, customer savings, provider replacement, general GPU-serving replacement, or broad workload superiority claims.
+
 ### Expanded Bounded GPU Measurement
 
 An expanded bounded H100 routed-subset evaluation was prepared for Goal 055, but it was not run because a safe CUDA/H100 runtime was not available in that goal's execution environment.
@@ -300,4 +327,4 @@ This package does not treat the following as evidence:
 
 ## Current Status
 
-The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement for the GPU-selected public fixture items, repo-owned bounded H100 harness measurement from Goal 058C, expanded bounded H100 representativeness evidence from Goal 059, a historical prepared-but-not-measured expanded H100 evaluation slot from Goal 055, expanded bounded provider-path validation for the provider-selected public fixture items, and deterministic public fixture-derived output-fidelity evidence from Goal 060. It should be extended next with broader workload coverage, live semantic or human-graded output-quality validation, and larger GPU samples when public-safe.
+The current evidence package is ready for public review as a July 1 status package. It includes deterministic-heavy benchmark evidence, generated dry-run route-selectivity metrics for the four KRK matrix profiles, runtime-integrated dry-run route-selectivity evidence, bounded H100 subset measurement for the GPU-selected public fixture items, repo-owned bounded H100 harness measurement from Goal 058C, expanded bounded H100 representativeness evidence from Goal 059, Goal 099 controlled server-run evidence over public CPU/non-GPU and bounded H100 workload paths, a historical prepared-but-not-measured expanded H100 evaluation slot from Goal 055, expanded bounded provider-path validation for the provider-selected public fixture items, and deterministic public fixture-derived output-fidelity evidence from Goal 060. It should be extended next with broader workload coverage, live semantic or human-graded output-quality validation, and larger GPU samples when public-safe.
