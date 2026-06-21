@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 097.
+Last updated by: Goal 098.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `group097-doc-cleanup-h100-evidence-inventory`
-- worktree label: `group097-doc-cleanup-h100-evidence-inventory`
-- branch pushed to: `origin/group097-doc-cleanup-h100-evidence-inventory`
-- open PR: #248
-- base commit: `45d9ee1e0e529ad2c8a836a53e0aba255d10b30a`
+- active verification branch: `goal098-controlled-cpu-gpu-evidence-regeneration`
+- worktree label: `goal098-controlled-cpu-gpu-evidence-regeneration`
+- branch pushed to: `origin/goal098-controlled-cpu-gpu-evidence-regeneration`
+- open PR: #249
+- base commit: `3df6c8920b74fbaf07eb171075596e44dc25878f`
 
 ## Current State Summary
 
@@ -53,11 +53,12 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content.
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories.
 - Goal 096 proposes documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files.
-- Group 097 cleans up Goal 096 continuation state and audits H100 evidence inventory/gaps.
+- Group 097 cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps.
+- Goal 098 prepares controlled CPU/non-GPU and GPU/H100 evidence regeneration on the AI Champion H100 server, with local no-CUDA status recorded as `not_run`.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current recommended next step is a bounded H100 execution or validation task, depending on the Group 097 audit findings. Documentation movement remains optional only after later explicit Albert approval.
+- current recommended next step is executing the Goal 098 server-run packet on the AI Champion H100 server if CUDA/H100 access is available. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -105,6 +106,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 095 | Organized the public examples surface at the README/guide level and proposed future grouping without moving example paths. | [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md) |
 | Goal 096 | Proposed documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files. | [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md) |
 | Group 097 | Cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps without moving files or making new H100 claims. | [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md) |
+| Goal 098 | Prepared controlled CPU/non-GPU and GPU/H100 evidence regeneration packet; local no-CUDA status is `not_run` and no fresh H100 execution occurred. | [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) |
 
 ## Evidence Index
 
@@ -125,11 +127,14 @@ Generated summaries:
 - [Generated runtime-integrated route evaluation](docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.md)
 - [Generated expanded provider-routed validation summary](docs/evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
 - [Generated H100 bounded summary](docs/evidence/generated/krk-h100-bounded-summary-v0.md)
+- [Generated Goal 098 CPU/non-GPU controlled summary](docs/evidence/generated/goal098_cpu_nongpu_controlled_summary.md)
+- [Generated Goal 098 H100 controlled summary](docs/evidence/generated/goal098_h100_controlled_summary.md)
 
 ## Report Index
 
 Current reviewer path:
 
+- [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md)
 - [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 - [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
 - [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md)
@@ -175,6 +180,9 @@ Current reviewer path:
 
 Current evidence path:
 
+- [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md)
+- [Generated Goal 098 CPU/non-GPU controlled summary](docs/evidence/generated/goal098_cpu_nongpu_controlled_summary.md)
+- [Generated Goal 098 H100 controlled summary](docs/evidence/generated/goal098_h100_controlled_summary.md)
 - [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 - [Project Operating Standard v0](docs/project-operating-system/project-operating-standard-v0.md)
 - [Project initialization prompt](docs/project-operating-system/prompts/project-initialization-prompt.md)
@@ -414,7 +422,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 098 - Bounded H100 controlled regeneration or larger fixture-derived H100 sample plan.
+1. Goal 099 - Execute the Goal 098 server-run packet on the AI Champion H100 server if CUDA/H100 access is available.
 2. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 3. Broader output-quality or workload-representativeness validation after H100 scope is resolved.
 
@@ -424,7 +432,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch group097-doc-cleanup-h100-evidence-inventory for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch goal098-controlled-cpu-gpu-evidence-regeneration for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
