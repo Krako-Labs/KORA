@@ -34,6 +34,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Evidence docs](evidence/)
 - [Benchmarks](benchmarks/)
 - [Workloads](workloads/)
+- [Goal 096 documentation navigation and archive-bucket proposal](reports/goal096_documentation_navigation_archive_bucket_proposal.md) - proposal-only navigation buckets; no files moved.
 
 KORA uses narrow evidence language. Offline examples and reports may describe sample workloads and simulated avoided provider/model invocations, but they do not prove production cost reduction or production readiness.
 

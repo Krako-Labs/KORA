@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 095.
+Last updated by: Goal 096.
 
 ## Current Status
 
@@ -31,37 +31,48 @@ Current state:
 - Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented the readback: [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md).
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content: [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md).
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories: [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md).
+- Goal 096 proposes documentation navigation and candidate archive buckets without moving, archiving, renaming, or deleting files: [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on post-README public surface alignment and does not change repository settings or move files.
+- current public continuation work is focused on proposal-only documentation navigation and archive-bucket planning. Movement requires later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/goal095-public-examples-organization`
+- branch: `goal096-doc-navigation-archive-proposal`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/goal095-public-examples-organization`
-- open PR: #246
-- base commit: `b6b323c339bd9e6b567351f95ce17b02d5be389b`
+- branch pushed to: `origin/goal096-doc-navigation-archive-proposal`
+- open PR: #247
+- base commit: `424cc71860df32c3636ce29b67c02730ad4b28e8`
 
 ## Active Goal
 
+Goal 096 - Documentation Navigation and Archive-Bucket Proposal.
+
+Goal 096 creates a proposal-only documentation navigation and candidate archive-bucket plan so readers can distinguish current public docs, first-value examples, evidence/reports, historical/planning material, and project operations without moving paths.
+
+Primary report:
+
+- [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
+
+Claim boundary: Goal 096 is documentation navigation planning only. It does not move, archive, rename, or delete files; change repository settings; create a release; create a tag; create a publication; or add product claims. Movement requires later explicit Albert approval.
+
+## Last Completed Goal
+
 Goal 095 - Public Examples Directory Organization Proposal.
 
-Goal 095 organizes the public examples surface at the documentation/index level so readers can distinguish flagship examples from older basic, validation, benchmark, and fixture examples without moving paths.
+Goal 095 organized the public examples surface at the README/guide level without moving example directories.
 
 Primary report:
 
 - [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md)
 
-Claim boundary: Goal 095 is documentation/index organization only. It does not move example directories, rename example directories, delete files, change repository settings, create a release, create a tag, create a publication, or add product claims.
+Claim boundary: Goal 095 was documentation/index organization only. It did not move example directories, rename example directories, delete files, change repository settings, create a release, create a tag, create a publication, or add product claims.
 
-## Last Completed Goal
-
-Goal 093C - Metadata Update Post-Change Verification.
+Previous completed Goal: Goal 093C - Metadata Update Post-Change Verification.
 
 Goal 093C verified and documented the Goal 093B GitHub repository metadata update. The public README and GitHub About metadata are now aligned around AI Workload Control Layer positioning.
 

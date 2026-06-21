@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 095.
+Last updated by: Goal 096.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/goal095-public-examples-organization`
-- worktree label: `goal095_public_examples_organization`
-- branch pushed to: `origin/codex/goal095-public-examples-organization`
-- open PR: #246
-- base commit: `b6b323c339bd9e6b567351f95ce17b02d5be389b`
+- active verification branch: `goal096-doc-navigation-archive-proposal`
+- worktree label: `goal096-doc-navigation-archive-proposal`
+- branch pushed to: `origin/goal096-doc-navigation-archive-proposal`
+- open PR: #247
+- base commit: `424cc71860df32c3636ce29b67c02730ad4b28e8`
 
 ## Current State Summary
 
@@ -52,10 +52,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 093B applied the approved GitHub repository description and topics metadata update; Goal 093C verified and documented that repository metadata is now aligned with the README around AI Workload Control Layer positioning.
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content.
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories.
+- Goal 096 proposes documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current recommended next step is Goal 096 documentation navigation and archive-bucket proposal, without moving files unless explicitly approved.
+- current recommended next step is a later owner-approved movement task for one small documentation bucket only, if Albert explicitly approves movement.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -101,6 +102,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 093C | Verified the post-change GitHub metadata readback after Goal 093B and documented that repository metadata now matches the README positioning. | [Goal 093C metadata update post-change verification](docs/reports/goal093c_metadata_update_postchange_verification.md) |
 | Goal 094 | Added current-orientation notes to older root strategic documents while preserving historical content and paths. | [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md) |
 | Goal 095 | Organized the public examples surface at the README/guide level and proposed future grouping without moving example paths. | [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md) |
+| Goal 096 | Proposed documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files. | [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md) |
 
 ## Evidence Index
 
@@ -126,6 +128,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
 - [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md)
 - [Example catalog](examples/README.md)
 - [KORA example guide](docs/examples/kora_example_guide.md)
