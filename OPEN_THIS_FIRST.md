@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 099.
+Last updated by: Goal 100.
 
 ## Current Status
 
@@ -41,21 +41,36 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on reviewing the Goal 099 controlled server-run evidence package. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 100 review of the Goal 099 controlled server-run evidence package and the narrow evidence-index decision. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal099-ai-champion-h100-server-run`
+- branch: `goal100-goal099-evidence-index-review`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal099-ai-champion-h100-server-run`
-- open PR: #250
-- base commit: `76c43572c3f636024356c4f722acde9433d713f9`
+- branch pushed to: `origin/goal100-goal099-evidence-index-review`
+- open PR: Goal 100 PR for this branch
+- base commit: `3c3223e01a3a4bc72475ca938c2910053e34c047`
 
 ## Active Goal
 
+Goal 100 - Review Goal 099 Evidence Package and Evidence Index Decision.
+
+Goal 100 reviews the merged Goal 099 evidence package and decides whether the broader public evidence index needs a narrow refresh. It does not perform broad documentation restructuring.
+
+Primary report:
+
+- [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md)
+- [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md)
+- [Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- [Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
+
+Claim boundary: Goal 100 is evidence review and narrow index refresh only. Goal 099 remains controlled workload-path execution evidence only; it does not prove both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, general GPU-serving replacement, provider replacement, or published `getkora`.
+
+## Last Completed Goal
+
 Goal 099 - AI Champion H100 Server Run.
 
-Goal 099 executes the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server. It separates CPU/non-GPU workload paths from bounded GPU/H100-routed paths and records only aggregate public-safe summaries.
+Goal 099 executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server. PR #250 was squash-merged into `origin/main` at `3c3223e01a3a4bc72475ca938c2910053e34c047`.
 
 Primary report:
 
@@ -63,11 +78,9 @@ Primary report:
 - [Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
 - [Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
 
-Claim boundary: Goal 099 is controlled workload-path execution evidence only. It does not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, general GPU-serving replacement, provider replacement, or published `getkora` claims.
+Claim boundary: Goal 099 is controlled workload-path execution evidence. It does not prove both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
 
-## Last Completed Goal
-
-Goal 098 - Controlled CPU/GPU Evidence Regeneration.
+Previous completed Goal: Goal 098 - Controlled CPU/GPU Evidence Regeneration.
 
 Goal 098 prepared a controlled evidence regeneration packet and recorded local no-CUDA status as `not_run`. PR #249 was squash-merged into `origin/main` at `76c43572c3f636024356c4f722acde9433d713f9`.
 
@@ -450,6 +463,8 @@ Primary report:
 - [Generated runtime-integrated route evaluation](docs/evidence/generated/krk-runtime-integrated-route-evaluation-v0.md)
 - [Generated expanded provider-routed validation summary](docs/evidence/generated/krk-expanded-provider-routed-validation-summary-v0.md)
 - [Generated H100 bounded summary](docs/evidence/generated/krk-h100-bounded-summary-v0.md)
+- [Generated Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- [Generated Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
 
 ## Current Value Proposition
 
@@ -457,17 +472,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 100 - Review Goal 099 evidence package and decide whether to refresh the broader public evidence index and local ChatGPT context.
+Goal 101 - Local ChatGPT context refresh after Goal 100 merge, if this PR is merged.
 
 Recommended scope:
 
-- review the Goal 099 aggregate public-safe summaries.
-- decide whether broader evidence-package index updates are needed.
-- refresh local-only ChatGPT context only after Goal 099 is merged.
+- refresh local-only ChatGPT context only after Goal 100 is merged.
+- preserve Goal 099 as controlled workload-path evidence over public fixtures.
 - keep any future larger H100 samples bounded, public-safe, and fixture-derived.
 - exclude raw logs and private infrastructure details.
 - keep claims bounded to controlled workload-path evidence.
-- do not claim H100 superiority, GPU superiority, production benchmark proof, production readiness, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, or broad workload superiority.
+- do not claim both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production benchmark proof, production readiness, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, provider replacement, general GPU-serving replacement, or broad workload superiority.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 
