@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 100.
+Last updated by: Goal 102.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal100-goal099-evidence-index-review`
-- worktree label: `goal100-goal099-evidence-index-review`
-- branch pushed to: `origin/goal100-goal099-evidence-index-review`
-- open PR: Goal 100 PR for this branch
-- base commit: `3c3223e01a3a4bc72475ca938c2910053e34c047`
+- active verification branch: `goal102-workload-representativeness-seed`
+- worktree label: `goal102-workload-representativeness-seed`
+- branch pushed to: `origin/goal102-workload-representativeness-seed`
+- open PR: Goal 102 PR for this branch
+- base commit: `5adb19044a697bdb6bfd57b342ba3699efc579c5`
 
 ## Current State Summary
 
@@ -56,10 +56,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Group 097 cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps.
 - Goal 098 prepared controlled CPU/non-GPU and GPU/H100 evidence regeneration on the AI Champion H100 server, with local no-CUDA status recorded as `not_run`.
 - Goal 099 executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server, separating CPU/non-GPU and bounded GPU/H100 paths.
+- Goal 102 starts broader workload representativeness planning with a public-safe synthetic seed fixture and shape-only validator.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Goal 100: review the Goal 099 evidence package and apply only a narrow evidence-index refresh where navigation gaps exist. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Goal 102: broaden workload category coverage for future route-only and output-quality evaluation design. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -110,6 +111,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 098 | Prepared controlled CPU/non-GPU and GPU/H100 evidence regeneration packet; local no-CUDA status is `not_run` and no fresh H100 execution occurred. | [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) |
 | Goal 099 | Executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server with aggregate CPU/non-GPU and bounded H100 summaries. | [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md) |
 | Goal 100 | Reviewed the Goal 099 evidence package and recommended a narrow evidence-index refresh rather than a broad evidence package rewrite. | [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md) |
+| Goal 102 | Added a public-safe synthetic representativeness seed fixture and shape-only validator for future route-only evaluation design. | [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md) |
 
 ## Evidence Index
 
@@ -139,6 +141,8 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
+- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
 - [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md)
 - [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md)
 - [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
@@ -186,6 +190,8 @@ Current reviewer path:
 
 Current evidence path:
 
+- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
+- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
 - [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md)
 - [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md)
 - [Generated Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
@@ -414,6 +420,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Provider validation is bounded and aggregate-only.
 - H100 measurements are bounded and do not establish H100 superiority.
 - Goal 099 records that 2 H100-class devices were visible, but does not establish both-GPU active use or multi-GPU scaling.
+- Goal 102 is a fixture-design seed only; it does not prove broader workload representativeness, output quality, production workload handling, or broad workload superiority.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -433,9 +440,9 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 101 - Local ChatGPT context refresh after Goal 100 merge, if this PR is merged.
-2. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
-3. Broader output-quality or workload-representativeness validation after H100 scope is resolved.
+1. Goal 103 - Implement a route-only evaluator for the Goal 102 representativeness seed without provider calls or H100 execution.
+2. Goal 103 alternative - Design output-quality validation methodology for public-safe fixtures.
+3. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
 ## How To Resume Review
 
@@ -443,7 +450,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal100-goal099-evidence-index-review for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch goal102-workload-representativeness-seed for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```

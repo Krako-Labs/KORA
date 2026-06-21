@@ -56,4 +56,12 @@ The public reviewer path should start with the flagship examples above. Other ex
 | Validation / harness examples | [`customer_support_triage_fake_validation`](../../examples/customer_support_triage_fake_validation/), [`real_model_call_validation_fake`](../../examples/real_model_call_validation_fake/), [`real_workload_harness`](../../examples/real_workload_harness/), [`stress_test`](../../examples/stress_test/), [`workloads`](../../examples/workloads/) |
 | Benchmark / evidence examples | [`runtime_integrated_benchmark`](../../examples/runtime_integrated_benchmark/) |
 
+## Workload Representativeness Seed
+
+Goal 102 adds a public-safe synthetic seed fixture for broader workload coverage planning:
+
+- [`examples/workloads/kora-representativeness-seed-v0.json`](../../examples/workloads/kora-representativeness-seed-v0.json)
+
+The seed is fixture-design support only. It does not run providers, run H100 workloads, prove production workload handling, prove output quality, or prove broad workload superiority.
+
 Paths are not being moved yet because example directories may be referenced by README commands, reports, tests, scripts, or external links. A future grouping pass should use link-preserving stubs or redirects before any directory move.

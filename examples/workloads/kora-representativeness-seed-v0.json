@@ -1,0 +1,368 @@
+{
+  "schema_version": "kora_representativeness_seed_v0",
+  "description": "Public-safe synthetic seed fixture for broader KORA workload representativeness planning. This fixture is not production workload proof and does not execute providers or H100 workloads.",
+  "claim_scope": "fixture_only",
+  "public_safe": true,
+  "items": [
+    {
+      "id": "rep-seed-001",
+      "category": "support_ticket_classification",
+      "input": "Synthetic support ticket: customer asks how to reset a password after an expired link.",
+      "expected_route": "deterministic",
+      "rationale": "Known support-intent classification can be handled by rule or template routing.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-002",
+      "category": "support_ticket_classification",
+      "input": "Synthetic support ticket: billing page shows a duplicate invoice number in a sandbox account.",
+      "expected_route": "deterministic",
+      "rationale": "Bounded billing-intent classification does not require provider execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-003",
+      "category": "support_ticket_classification",
+      "input": "Synthetic support ticket: user describes vague dissatisfaction and asks for a custom migration plan.",
+      "expected_route": "provider_needed",
+      "rationale": "Open-ended planning request should be marked provider-needed in a control fixture.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-004",
+      "category": "issue_triage",
+      "input": "Synthetic issue: CLI exits with code 2 when a required --matrix argument is omitted.",
+      "expected_route": "deterministic",
+      "rationale": "Simple issue-type triage can be routed by visible error and flag structure.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-005",
+      "category": "issue_triage",
+      "input": "Synthetic issue: documentation references an old report path after a docs index refresh.",
+      "expected_route": "deterministic",
+      "rationale": "Docs-link classification is a bounded deterministic route in this fixture.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-006",
+      "category": "issue_triage",
+      "input": "Synthetic issue: user requests prioritization between five ambiguous roadmap bugs.",
+      "expected_route": "provider_needed",
+      "rationale": "Ambiguous prioritization requires judgment beyond the fixture route labels.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-007",
+      "category": "incident_alert_routing",
+      "input": "Synthetic alert: API error rate is above threshold for five minutes in a staging environment.",
+      "expected_route": "cpu",
+      "rationale": "Moderate local aggregation and threshold evaluation can be represented as CPU-routed work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-008",
+      "category": "incident_alert_routing",
+      "input": "Synthetic alert: security policy conflict between restricted data and external provider route.",
+      "expected_route": "fallback",
+      "rationale": "Policy conflict should route to a safe fallback rather than provider or GPU execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-009",
+      "category": "incident_alert_routing",
+      "input": "Synthetic alert: repeated maintenance notification already acknowledged in local state.",
+      "expected_route": "cache",
+      "rationale": "Repeated acknowledged work can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-010",
+      "category": "document_intake",
+      "input": "Synthetic document intake: classify a short internal FAQ draft as policy, guide, or report.",
+      "expected_route": "deterministic",
+      "rationale": "Bounded document type classification fits deterministic fixture routing.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-011",
+      "category": "document_intake",
+      "input": "Synthetic document intake: extract section headings from a public-safe release note stub.",
+      "expected_route": "cpu",
+      "rationale": "Local parsing and extraction can be represented as CPU work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-012",
+      "category": "document_intake",
+      "input": "Synthetic document intake: unknown document contains restricted placeholder markers.",
+      "expected_route": "fallback",
+      "rationale": "Restricted or unclear content should use a safe fallback route.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-013",
+      "category": "rag_query_routing",
+      "input": "Synthetic RAG query: ask for the install command documented in the local README excerpt.",
+      "expected_route": "retrieval_needed",
+      "rationale": "Answer depends on retrieving from a local document source.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-014",
+      "category": "rag_query_routing",
+      "input": "Synthetic RAG query: repeated question already answered from the same local corpus.",
+      "expected_route": "cache",
+      "rationale": "Repeated retrieval result can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-015",
+      "category": "rag_query_routing",
+      "input": "Synthetic RAG query: asks for a novel opinion not present in the local corpus.",
+      "expected_route": "provider_needed",
+      "rationale": "Open-ended answer outside the local corpus should be provider-needed.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-016",
+      "category": "agent_workflow_steps",
+      "input": "Synthetic agent step: normalize a known checklist item into a status label.",
+      "expected_route": "deterministic",
+      "rationale": "Known workflow normalization can use deterministic routing.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-017",
+      "category": "agent_workflow_steps",
+      "input": "Synthetic agent step: run a local file existence check before a report update.",
+      "expected_route": "tool_needed",
+      "rationale": "Local environment inspection should route to a tool-needed path.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-018",
+      "category": "agent_workflow_steps",
+      "input": "Synthetic agent step: draft a new multi-step project plan from ambiguous stakeholder notes.",
+      "expected_route": "provider_needed",
+      "rationale": "Ambiguous generation should be marked provider-needed in this seed.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-019",
+      "category": "cache_reuse_repeated_work",
+      "input": "Synthetic cache task: repeat the same category lookup for a known support-ticket phrase.",
+      "expected_route": "cache",
+      "rationale": "Repeated exact lookup should be cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-020",
+      "category": "cache_reuse_repeated_work",
+      "input": "Synthetic cache task: repeated semantic duplicate of a prior document classification.",
+      "expected_route": "cache",
+      "rationale": "Repeated equivalent request can be represented as a cache candidate.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-021",
+      "category": "tool_needed_local_actions",
+      "input": "Synthetic tool task: list available examples before choosing a reviewer path.",
+      "expected_route": "tool_needed",
+      "rationale": "The task needs local tool execution rather than provider reasoning.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-022",
+      "category": "tool_needed_local_actions",
+      "input": "Synthetic tool task: validate a JSON fixture shape against required fields.",
+      "expected_route": "tool_needed",
+      "rationale": "The route should invoke a local validator or script.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-023",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic ambiguous task: produce a persuasive executive narrative from sparse notes.",
+      "expected_route": "provider_needed",
+      "rationale": "Creative ambiguous generation is outside deterministic fixture scope.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-024",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic ambiguous task: infer missing customer intent from a vague one-line request.",
+      "expected_route": "provider_needed",
+      "rationale": "Insufficient structure should be provider-needed rather than forced deterministic.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-025",
+      "category": "policy_safety_fallback",
+      "input": "Synthetic policy case: request includes restricted placeholder data and asks for external processing.",
+      "expected_route": "fallback",
+      "rationale": "Restricted data plus external processing request should fall back safely.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-026",
+      "category": "policy_safety_fallback",
+      "input": "Synthetic policy case: requested route conflicts with no-provider policy.",
+      "expected_route": "fallback",
+      "rationale": "Policy conflict must not be routed to provider or GPU execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-027",
+      "category": "mixed_operational_workflow",
+      "input": "Synthetic workflow trace: intake ticket, classify severity, then prepare local checklist.",
+      "expected_route": "cpu",
+      "rationale": "Multi-step local control flow is CPU-suitable fixture work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-028",
+      "category": "mixed_operational_workflow",
+      "input": "Synthetic workflow trace: repeated run over a known cacheable routing report.",
+      "expected_route": "cache",
+      "rationale": "Repeated workflow output can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-029",
+      "category": "mixed_operational_workflow",
+      "input": "Synthetic workflow trace: large batch of public-safe route candidates for bounded GPU suitability review.",
+      "expected_route": "gpu",
+      "rationale": "Large public-safe batch is GPU-suitable for future bounded evaluation design.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-030",
+      "category": "validation_schema_check",
+      "input": "Synthetic validation task: verify required keys in a public fixture item.",
+      "expected_route": "tool_needed",
+      "rationale": "Shape validation is a local tool-needed route.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-031",
+      "category": "validation_schema_check",
+      "input": "Synthetic validation task: identify missing public_safe flag in a fixture draft.",
+      "expected_route": "tool_needed",
+      "rationale": "Fixture validation should use a local validator.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-032",
+      "category": "validation_schema_check",
+      "input": "Synthetic validation task: normalize a known schema version string.",
+      "expected_route": "deterministic",
+      "rationale": "Known schema normalization can be deterministic.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-033",
+      "category": "report_generation_control",
+      "input": "Synthetic report task: create a short status table from structured counters.",
+      "expected_route": "cpu",
+      "rationale": "Structured table generation from bounded fields can be CPU-routed.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-034",
+      "category": "report_generation_control",
+      "input": "Synthetic report task: reuse a previously generated fixture summary.",
+      "expected_route": "cache",
+      "rationale": "Repeated report summary can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-035",
+      "category": "report_generation_control",
+      "input": "Synthetic report task: write a nuanced narrative with unknown audience constraints.",
+      "expected_route": "provider_needed",
+      "rationale": "Open-ended narrative generation is provider-needed in this fixture.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-036",
+      "category": "gpu_candidate_batch",
+      "input": "Synthetic GPU candidate: public-safe batch transform over many similar text records.",
+      "expected_route": "gpu",
+      "rationale": "Large homogeneous batch is a future bounded GPU candidate, not current H100 evidence.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-037",
+      "category": "gpu_candidate_batch",
+      "input": "Synthetic GPU candidate: high-complexity public-safe embedding-like batch.",
+      "expected_route": "gpu",
+      "rationale": "High-complexity batch is useful for future bounded GPU route design.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-038",
+      "category": "gpu_candidate_batch",
+      "input": "Synthetic GPU candidate with restricted policy marker despite large batch size.",
+      "expected_route": "fallback",
+      "rationale": "Policy restriction overrides apparent GPU suitability.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-039",
+      "category": "output_quality_methodology_seed",
+      "input": "Synthetic output-quality task: compare expected structured fields without semantic judging.",
+      "expected_route": "cpu",
+      "rationale": "Deterministic structured comparison can be represented as CPU work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-seed-040",
+      "category": "output_quality_methodology_seed",
+      "input": "Synthetic output-quality task: request human rubric design for future validation.",
+      "expected_route": "provider_needed",
+      "rationale": "Rubric design should be future methodology work, not executed as a proof here.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    }
+  ]
+}
