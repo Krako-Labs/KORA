@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 098.
+Last updated by: Goal 099.
 
 ## Current Status
 
@@ -33,28 +33,43 @@ Current state:
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories: [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md).
 - Goal 096 proposes documentation navigation and candidate archive buckets without moving, archiving, renaming, or deleting files: [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md).
 - Group 097 cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps: [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md).
-- Goal 098 prepares controlled CPU/non-GPU and GPU/H100 evidence regeneration on the AI Champion H100 server, with local no-CUDA status recorded as `not_run`: [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md).
+- Goal 098 prepared controlled CPU/non-GPU and GPU/H100 evidence regeneration on the AI Champion H100 server, with local no-CUDA status recorded as `not_run`: [Goal 098 controlled CPU/GPU evidence regeneration](docs/reports/goal098_controlled_cpu_gpu_evidence_regeneration.md).
+- Goal 099 executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server, separating CPU/non-GPU and bounded GPU/H100 paths: [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on controlled CPU/non-GPU and GPU/H100 evidence regeneration. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on reviewing the Goal 099 controlled server-run evidence package. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal098-controlled-cpu-gpu-evidence-regeneration`
+- branch: `goal099-ai-champion-h100-server-run`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal098-controlled-cpu-gpu-evidence-regeneration`
-- open PR: #249
-- base commit: `3df6c8920b74fbaf07eb171075596e44dc25878f`
+- branch pushed to: `origin/goal099-ai-champion-h100-server-run`
+- open PR: #250
+- base commit: `76c43572c3f636024356c4f722acde9433d713f9`
 
 ## Active Goal
 
+Goal 099 - AI Champion H100 Server Run.
+
+Goal 099 executes the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server. It separates CPU/non-GPU workload paths from bounded GPU/H100-routed paths and records only aggregate public-safe summaries.
+
+Primary report:
+
+- [Goal 099 AI Champion H100 server run](docs/reports/goal099_ai_champion_h100_server_run.md)
+- [Goal 099 CPU/non-GPU AI Champion summary](docs/evidence/generated/goal099_cpu_nongpu_ai_champion_summary.md)
+- [Goal 099 H100 AI Champion summary](docs/evidence/generated/goal099_h100_ai_champion_summary.md)
+
+Claim boundary: Goal 099 is controlled workload-path execution evidence only. It does not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add H100 superiority, GPU superiority, CPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, general GPU-serving replacement, provider replacement, or published `getkora` claims.
+
+## Last Completed Goal
+
 Goal 098 - Controlled CPU/GPU Evidence Regeneration.
 
-Goal 098 prepares a controlled evidence regeneration packet that separates CPU/non-GPU KORA workload paths from GPU/H100-routed paths. The intended execution environment is the AI Champion H100 server. This branch records local no-CUDA status as `not_run` and does not create measured H100 evidence.
+Goal 098 prepared a controlled evidence regeneration packet and recorded local no-CUDA status as `not_run`. PR #249 was squash-merged into `origin/main` at `76c43572c3f636024356c4f722acde9433d713f9`.
 
 Primary report:
 
@@ -62,11 +77,9 @@ Primary report:
 - [Goal 098 CPU/non-GPU controlled summary](docs/evidence/generated/goal098_cpu_nongpu_controlled_summary.md)
 - [Goal 098 H100 controlled summary](docs/evidence/generated/goal098_h100_controlled_summary.md)
 
-Claim boundary: Goal 098 is controlled workload-path evidence preparation only unless and until the packet is executed on the AI Champion H100 server. It does not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add H100 superiority, GPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, general GPU-serving replacement, or published `getkora` claims.
+Claim boundary: Goal 098 prepared a server-run packet only. It did not create measured CPU/non-GPU evidence, measured H100 evidence, H100 superiority, GPU superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, real GPU-cost proof, broad workload superiority, energy reduction, customer savings, or published `getkora` claims.
 
-## Last Completed Goal
-
-Group 097 - Documentation Continuation Cleanup and H100 Evidence Inventory.
+Previous completed Goal: Group 097 - Documentation Continuation Cleanup and H100 Evidence Inventory.
 
 Group 097 cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps. PR #248 was squash-merged into `origin/main` at `3df6c8920b74fbaf07eb171075596e44dc25878f`.
 
@@ -75,16 +88,6 @@ Primary report:
 - [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 
 Claim boundary: Group 097 was documentation cleanup plus H100 evidence inventory/gap audit only. It did not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add H100 superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, broad workload superiority, energy reduction, or published `getkora` claims.
-
-Previous completed Goal: Goal 096 - Documentation Navigation and Archive-Bucket Proposal.
-
-Goal 096 proposed documentation navigation and candidate archive buckets without moving, archiving, renaming, or deleting files. PR #247 was squash-merged into `origin/main` at `45d9ee1e0e529ad2c8a836a53e0aba255d10b30a`.
-
-Primary report:
-
-- [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
-
-Claim boundary: Goal 096 was proposal-only documentation navigation planning. It did not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add product claims. Future movement requires later explicit Albert approval.
 
 Previous completed Goal: Goal 093C - Metadata Update Post-Change Verification.
 
@@ -454,14 +457,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 099 - Execute the Goal 098 server-run packet on the AI Champion H100 server.
+Goal 100 - Review Goal 099 evidence package and decide whether to refresh the broader public evidence index and local ChatGPT context.
 
 Recommended scope:
 
-- run CPU/non-GPU commands on the AI Champion H100 server with GPU disabled or unused.
-- run bounded GPU/H100 commands only with CUDA/H100 available.
-- use committed public fixtures.
-- write aggregate Markdown summaries only unless raw JSON is explicitly reviewed as public-safe.
+- review the Goal 099 aggregate public-safe summaries.
+- decide whether broader evidence-package index updates are needed.
+- refresh local-only ChatGPT context only after Goal 099 is merged.
+- keep any future larger H100 samples bounded, public-safe, and fixture-derived.
 - exclude raw logs and private infrastructure details.
 - keep claims bounded to controlled workload-path evidence.
 - do not claim H100 superiority, GPU superiority, production benchmark proof, production readiness, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, or broad workload superiority.
