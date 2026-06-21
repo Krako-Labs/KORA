@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 096.
+Last updated by: Group 097.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal096-doc-navigation-archive-proposal`
-- worktree label: `goal096-doc-navigation-archive-proposal`
-- branch pushed to: `origin/goal096-doc-navigation-archive-proposal`
-- open PR: #247
-- base commit: `424cc71860df32c3636ce29b67c02730ad4b28e8`
+- active verification branch: `group097-doc-cleanup-h100-evidence-inventory`
+- worktree label: `group097-doc-cleanup-h100-evidence-inventory`
+- branch pushed to: pending
+- open PR: pending
+- base commit: `45d9ee1e0e529ad2c8a836a53e0aba255d10b30a`
 
 ## Current State Summary
 
@@ -53,10 +53,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content.
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories.
 - Goal 096 proposes documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files.
+- Group 097 cleans up Goal 096 continuation state and audits H100 evidence inventory/gaps.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current recommended next step is a later owner-approved movement task for one small documentation bucket only, if Albert explicitly approves movement.
+- current recommended next step is a bounded H100 execution or validation task, depending on the Group 097 audit findings. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -103,6 +104,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 094 | Added current-orientation notes to older root strategic documents while preserving historical content and paths. | [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md) |
 | Goal 095 | Organized the public examples surface at the README/guide level and proposed future grouping without moving example paths. | [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md) |
 | Goal 096 | Proposed documentation navigation buckets and candidate archive buckets without moving, archiving, renaming, or deleting files. | [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md) |
+| Group 097 | Cleaned up Goal 096 continuation state and audited H100 evidence inventory/gaps without moving files or making new H100 claims. | [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md) |
 
 ## Evidence Index
 
@@ -128,6 +130,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 - [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
 - [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md)
 - [Example catalog](examples/README.md)
@@ -172,6 +175,7 @@ Current reviewer path:
 
 Current evidence path:
 
+- [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 - [Project Operating Standard v0](docs/project-operating-system/project-operating-standard-v0.md)
 - [Project initialization prompt](docs/project-operating-system/prompts/project-initialization-prompt.md)
 - [Project gap analysis prompt](docs/project-operating-system/prompts/project-gap-analysis-prompt.md)
@@ -410,9 +414,9 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 096 - Documentation navigation and archive-bucket proposal, without moving files unless explicitly approved.
-2. Goal 097 - Root file movement proposal with link-preserving stubs, only after explicit approval.
-3. Goal 098 - Examples path move proposal, only after explicit approval.
+1. Goal 098 - Bounded H100 controlled regeneration or larger fixture-derived H100 sample plan.
+2. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
+3. Broader output-quality or workload-representativeness validation after H100 scope is resolved.
 
 ## How To Resume Review
 
@@ -420,7 +424,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/goal093c-metadata-postchange-verification for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch group097-doc-cleanup-h100-evidence-inventory for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
