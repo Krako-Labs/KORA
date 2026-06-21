@@ -440,7 +440,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal098-controlled-cpu-gpu-evidence-regeneration for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
+Use the active branch goal099-ai-champion-h100-server-run for the current verification packet, or create a new scoped branch from origin/main for a new Goal.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
