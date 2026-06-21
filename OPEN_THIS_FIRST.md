@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 096.
+Last updated by: Group 097.
 
 ## Current Status
 
@@ -32,37 +32,48 @@ Current state:
 - Goal 094 adds short orientation notes to older root strategic documents without moving files or deleting historical content: [Goal 094 root orientation stubs](docs/reports/goal094_root_orientation_stubs.md).
 - Goal 095 organizes the public examples surface at the README/guide level without moving example directories: [Goal 095 public examples directory organization proposal](docs/reports/goal095_public_examples_directory_organization_proposal.md).
 - Goal 096 proposes documentation navigation and candidate archive buckets without moving, archiving, renaming, or deleting files: [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md).
+- Group 097 cleans up Goal 096 continuation state and audits H100 evidence inventory/gaps: [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md).
 - a deterministic classification example pack exists under `examples/deterministic_classification/`, using KORA `TaskGraph` execution across support-ticket routing, issue triage, incident severity routing, document type routing, and log/event classification.
 - a KORA Doctor example exists under `examples/kora_doctor/`, using KORA `TaskGraph` execution to inspect a synthetic workload and explain deterministic candidates, provider-needed candidates, route rationale, counters, and next steps.
 - the KORA Doctor example now includes a report pack mode across four bundled offline workloads and a README refresh proposal for examples-driven positioning.
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on proposal-only documentation navigation and archive-bucket planning. Movement requires later explicit Albert approval.
+- current public continuation work is focused on H100 evidence inventory and gap audit. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal096-doc-navigation-archive-proposal`
+- branch: `group097-doc-cleanup-h100-evidence-inventory`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal096-doc-navigation-archive-proposal`
-- open PR: #247
-- base commit: `424cc71860df32c3636ce29b67c02730ad4b28e8`
+- branch pushed to: `origin/group097-doc-cleanup-h100-evidence-inventory`
+- open PR: #248
+- base commit: `45d9ee1e0e529ad2c8a836a53e0aba255d10b30a`
 
 ## Active Goal
 
+Group 097 - Documentation Continuation Cleanup and H100 Evidence Inventory.
+
+Group 097 transitions KORA from the documentation-navigation proposal track back into the H100 evidence track. It cleans up Goal 096 continuation state, inventories current public H100 evidence, and identifies the next bounded H100 evidence task.
+
+Primary report:
+
+- [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
+
+Claim boundary: Group 097 is documentation cleanup plus H100 evidence inventory/gap audit only. It does not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add H100 superiority, production readiness, production benchmark proof, production cost reduction proof, real API-cost proof, broad workload superiority, energy reduction, or published `getkora` claims.
+
+## Last Completed Goal
+
 Goal 096 - Documentation Navigation and Archive-Bucket Proposal.
 
-Goal 096 creates a proposal-only documentation navigation and candidate archive-bucket plan so readers can distinguish current public docs, first-value examples, evidence/reports, historical/planning material, and project operations without moving paths.
+Goal 096 proposed documentation navigation and candidate archive buckets without moving, archiving, renaming, or deleting files. PR #247 was squash-merged into `origin/main` at `45d9ee1e0e529ad2c8a836a53e0aba255d10b30a`.
 
 Primary report:
 
 - [Goal 096 documentation navigation and archive-bucket proposal](docs/reports/goal096_documentation_navigation_archive_bucket_proposal.md)
 
-Claim boundary: Goal 096 is documentation navigation planning only. It does not move, archive, rename, or delete files; change repository settings; create a release; create a tag; create a publication; or add product claims. Movement requires later explicit Albert approval.
+Claim boundary: Goal 096 was proposal-only documentation navigation planning. It did not move, archive, rename, or delete files; create archive directories; change repository settings; create a release; create a tag; create a publication; or add product claims. Future movement requires later explicit Albert approval.
 
-## Last Completed Goal
-
-Goal 095 - Public Examples Directory Organization Proposal.
+Previous completed Goal: Goal 095 - Public Examples Directory Organization Proposal.
 
 Goal 095 organized the public examples surface at the README/guide level without moving example directories.
 
@@ -440,13 +451,18 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 096 - Documentation navigation and archive-bucket proposal, without moving files unless explicitly approved.
+Goal 098 - Bounded H100 controlled regeneration or larger fixture-derived H100 sample plan.
 
 Recommended scope:
 
-- audit documentation navigation after the public surface updates.
-- propose current docs, evidence docs, historical docs, and archive buckets.
-- do not move files unless explicitly approved.
+- run only in a documented CUDA/H100-capable environment.
+- use committed public fixtures or a newly reviewed public-safe fixture set.
+- write aggregate JSON and Markdown summaries only.
+- exclude raw logs and private infrastructure details.
+- keep claims bounded to fixture-derived H100 execution.
+- do not claim H100 superiority, production benchmark proof, production readiness, energy reduction, customer savings, production cost reduction proof, or broad workload superiority.
+
+Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 
 ## How To Continue
 
