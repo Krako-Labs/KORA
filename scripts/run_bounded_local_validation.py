@@ -150,7 +150,9 @@ def write_reports(report: dict[str, Any], json_out: Path | None, md_out: Path | 
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run approved bounded local KORA validation profiles.")
+    parser = argparse.ArgumentParser(
+        description="Run approved bounded local KORA validation profiles."
+    )
     parser.add_argument("--profile", required=True, help="Approved validation profile to run.")
     parser.add_argument("--dry-run", action="store_true", help="Report planned steps without executing commands.")
     parser.add_argument("--json-out", type=Path, help="Optional path for a structured JSON report.")

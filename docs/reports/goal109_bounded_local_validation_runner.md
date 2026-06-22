@@ -141,3 +141,15 @@ R1 inspected the three Goal 109 files for hidden, bidirectional, control, and no
 - `docs/reports/goal109_bounded_local_validation_runner.md`
 
 The scan found no hidden, bidirectional, control, or non-ASCII Unicode code points in the three files. No functionality, command list, safety boundary, or claim boundary changes were made.
+
+## R2 Byte-Level LF/ASCII Normalization
+
+R2 applied a byte-level normalization pass over the same three Goal 109 files:
+
+- UTF-8 text with strict ASCII content.
+- LF line endings only.
+- no CR, BOM, NUL, C0/C1 control characters except LF and horizontal tab.
+- no bidirectional formatting characters.
+- no hidden Unicode separators.
+
+The runner behavior, approved command profile, tests, safety boundaries, and claim boundaries are unchanged.
