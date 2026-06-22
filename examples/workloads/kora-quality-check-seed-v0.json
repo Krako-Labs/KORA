@@ -1,0 +1,98 @@
+{
+  "schema_version": "kora_quality_check_seed_v0",
+  "description": "Tiny public-safe synthetic fixture for deterministic fixture-only quality-check scaffolding. This fixture does not use provider calls, model inference, semantic judging, human review results, H100/GPU/CUDA/server/remote execution, production data, or private data.",
+  "claim_scope": "fixture_only",
+  "public_safe": true,
+  "items": [
+    {
+      "id": "quality-seed-001",
+      "category": "support_ticket_classification",
+      "input": "Synthetic support ticket: user asks how to reset a password after an expired link.",
+      "status": "checked",
+      "check_type": "exact",
+      "expected_output": "password_reset",
+      "observed_output": "password_reset",
+      "acceptance_criteria": "The fixture-only deterministic label must exactly match the expected public-safe label.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "quality-seed-002",
+      "category": "validation_schema_check",
+      "input": "Synthetic validation task: normalized ticket object should include id, route, and priority fields.",
+      "status": "checked",
+      "check_type": "schema",
+      "expected_fields": [
+        "ticket_id",
+        "route",
+        "priority"
+      ],
+      "observed_output": {
+        "ticket_id": "ticket-002",
+        "route": "deterministic",
+        "priority": "low"
+      },
+      "acceptance_criteria": "The observed public-safe object must include every expected field.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "quality-seed-003",
+      "category": "structured_equivalent_output",
+      "input": "Synthetic routing explanation: route a billing FAQ request to a reusable deterministic answer.",
+      "status": "checked",
+      "check_type": "structured_equivalent",
+      "expected_output": {
+        "route": "deterministic",
+        "answer_id": "billing_faq",
+        "tags": [
+          "billing",
+          "faq"
+        ]
+      },
+      "observed_output": {
+        "tags": [
+          "faq",
+          "billing"
+        ],
+        "answer_id": "billing_faq",
+        "route": "deterministic"
+      },
+      "acceptance_criteria": "The normalized public-safe structure must match after object-key ordering and list ordering are normalized.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "quality-seed-004",
+      "category": "document_intake",
+      "input": "Synthetic document intake task: classify a public-safe invoice stub.",
+      "status": "checked",
+      "check_type": "exact",
+      "expected_output": "invoice",
+      "observed_output": "invoice",
+      "acceptance_criteria": "The fixture-only deterministic document type must exactly match.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "quality-seed-005",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic open-ended planning request that lacks a public-safe expected output.",
+      "status": "skipped",
+      "skip_reason": "No public-safe expected output is present for deterministic fixture-only checking.",
+      "acceptance_criteria": "Skipped items must be counted separately and must not be treated as checked results.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "quality-seed-006",
+      "category": "semantic_review_candidate",
+      "input": "Synthetic response-quality item that would require semantic or human review in a later approved goal.",
+      "status": "gated",
+      "gate_reason": "Semantic or human review remains separately approval-gated and is not executed by this scaffold.",
+      "acceptance_criteria": "Gated items must be counted separately and must not be treated as deterministic checks.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    }
+  ]
+}
