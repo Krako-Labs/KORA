@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 106.
+Last updated by: Goal 107.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal106-fixture-quality-check-scaffold`
-- worktree label: `goal106-fixture-quality-check-scaffold`
-- branch pushed to: `origin/goal106-fixture-quality-check-scaffold`
-- open PR: [#256 Goal 106 - Fixture quality-check scaffold](https://github.com/Krako-Labs/KORA/pull/256)
-- base commit: `c90d5463967394f9cda3cb6a0126e37363f1d95e`
+- active verification branch: `goal107-long-run-test-loop-protocol`
+- worktree label: `goal107-long-run-test-loop-protocol`
+- branch pushed to: `origin/goal107-long-run-test-loop-protocol`
+- open PR: [#257 Goal 107 - Long-run test loop protocol](https://github.com/Krako-Labs/KORA/pull/257)
+- base commit: `a2e1164b397fbac0a35186db08348fc80a3fcbab`
 
 ## Current State Summary
 
@@ -61,10 +61,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 104 adds a KORA-specific Codex bounded-loop protocol, claim-boundary checklist, PR completion format, and next-goal queue for semi-autonomous execution with human approval gates.
 - Goal 105 adds a public-safe output-quality methodology for future fixture-derived checks without executing evaluation or turning Goal 103 route-only counters into output-quality proof.
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
+- Goal 107 adds a public-safe long-run test loop protocol, failure-triage checklist, and test-loop queue template for future bounded local validation loops.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Goal 106: tiny public-safe fixture-based quality-check scaffold. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Goal 107: long-run test loop protocol and failure triage. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -120,6 +121,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 104 | Added KORA-specific bounded-loop runbooks for Codex execution, claim-boundary review, PR completion, and next-goal queueing with human approval gates. | [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md) |
 | Goal 105 | Added public-safe output-quality methodology for future fixture-derived checks without executing evaluation. | [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md) |
 | Goal 106 | Added a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks. | [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md) |
+| Goal 107 | Added long-run test loop protocol and failure triage for future bounded local validation loops. | [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md) |
 
 ## Evidence Index
 
@@ -149,6 +151,10 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
+- [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
+- [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md)
+- [KORA test loop queue](docs/context/TEST_LOOP_QUEUE.md)
 - [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
 - [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
 - [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
@@ -211,6 +217,9 @@ Current reviewer path:
 
 Current evidence path:
 
+- [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
+- [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
+- [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md)
 - [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
 - [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
@@ -261,10 +270,13 @@ Supported:
 - Goal 104 supports a bounded-loop operating protocol for PR-open execution with human approval gates and claim-boundary review.
 - Goal 105 supports methodology and future validation design for public-safe fixture-derived checks; it does not execute evaluation and does not prove output quality.
 - Goal 106 supports a tiny bounded scaffold over a public-safe synthetic fixture with deterministic fixture-only checks and aggregate counts.
+- Goal 107 supports a long-run test loop protocol and failure-triage checklist for future bounded local validation loops; it does not execute those loops or create automation.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
 Not supported:
 
+- execution of long-run validation from Goal 107 protocol documentation.
+- background daemon, scheduler, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent from Goal 107.
 - production readiness.
 - broad workload representativeness from Goal 103 route-only counters.
 - output quality from Goal 103 route-only counters.
@@ -462,6 +474,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Goal 104 is protocol documentation only; it does not authorize merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 - Goal 105 is methodology and future validation design only; it does not execute evaluation, prove output quality, prove broader workload representativeness, or prove production workload handling.
 - Goal 106 is a tiny deterministic fixture-only scaffold; it does not prove output quality, broader workload representativeness, production workload handling, or broad workload superiority.
+- Goal 107 is protocol documentation only; it does not execute long-run validation, create background automation, prove output quality, prove broader workload representativeness, or prove production workload handling.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -481,7 +494,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 107 - Review the tiny scaffold and decide whether to add one more public-safe fixture-check slice, only after explicit approval.
+1. Goal 108 - Apply the long-run test loop protocol to one bounded local-only test batch, only after explicit approval.
 2. A second route-only fixture slice, only after explicit approval.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
@@ -492,9 +505,10 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal106-fixture-quality-check-scaffold for the current Goal 106 review packet, or create a new scoped branch from origin/main for a new Goal after Goal 106 is merged.
+Use the active branch goal107-long-run-test-loop-protocol for the current Goal 107 review packet, or create a new scoped branch from origin/main for a new Goal after Goal 107 is merged.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
+Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
 
