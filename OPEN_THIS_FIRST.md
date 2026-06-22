@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 103.
+Last updated by: Goal 104.
 
 ## Current Status
 
@@ -41,21 +41,48 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 103 route-only evaluation of the Goal 102 public-safe representativeness seed. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 104 Codex bounded-loop protocol and claim-boundary automation guidance. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal103-representativeness-route-only-evaluator`
+- branch: `goal104-codex-bounded-loop-protocol`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal103-representativeness-route-only-evaluator`
-- open PR: [#253 Goal 103 - Representativeness route-only evaluator](https://github.com/Krako-Labs/KORA/pull/253)
-- base commit: `5e2a9cab9e5d3c8aca25fa2ec11cd6f06e060726`
+- branch pushed to: `origin/goal104-codex-bounded-loop-protocol`
+- open PR: [#254 Goal 104 - Codex bounded loop protocol](https://github.com/Krako-Labs/KORA/pull/254)
+- base commit: `9d4fff45a448a16c23e2907db68ce68f91e77865`
 
 ## Active Goal
 
+Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
+
+Goal 104 adds KORA-specific runbooks for semi-autonomous Codex execution with human approval gates, claim-boundary review, PR-open then stop behavior, fix-loop cleanup, merge-gate separation, and local source-refresh after merge. It is documentation/protocol only and adds no runtime feature code.
+
+Primary report:
+
+- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
+- [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
+- [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
+- [KORA PR completion format](docs/runbooks/kora_pr_completion_format.md)
+- [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md)
+- [Goal 103 representativeness route-only evaluator](docs/reports/goal103_representativeness_route_only_evaluator.md)
+- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
+- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
+
+Validation commands:
+
+```bash
+python3 scripts/check_markdown_links_goal082b.py
+git diff --check
+python3 -m pytest
+```
+
+Current caveat: Goal 104 is a bounded-loop operating protocol and claim-boundary checklist. It does not authorize merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, claim expansion, or local-only source refresh without separate explicit approval.
+
+## Last Completed Goal
+
 Goal 103 - Representativeness Route-Only Evaluator.
 
-Goal 103 adds a route-only evaluator for the Goal 102 public-safe synthetic representativeness seed fixture. It reads the seed, reuses shape-only validation, and emits aggregate public-safe route counters only. It does not run H100 workloads, make provider calls, execute model inference, prove output quality, add production workload proof, or claim broad workload representativeness.
+Goal 103 added a route-only evaluator for the Goal 102 public-safe synthetic representativeness seed fixture. It reads the seed, reuses shape-only validation, and emits aggregate public-safe route counters only. PR #253 was squash-merged into `origin/main` at `9d4fff45a448a16c23e2907db68ce68f91e77865`.
 
 Primary report:
 
@@ -69,29 +96,7 @@ Evaluator command:
 python3 scripts/evaluate_representativeness_seed_routes.py
 ```
 
-Validation commands:
-
-```bash
-python3 scripts/validate_representativeness_seed.py
-python3 scripts/evaluate_representativeness_seed_routes.py
-python3 -m pytest tests/test_representativeness_seed.py
-python3 -m pytest tests/test_representativeness_route_only_evaluator.py
-```
-
-Current caveat: Goal 103 is route-only evidence over a synthetic seed fixture. It does not prove output quality, broad workload representativeness, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
-
-## Last Completed Goal
-
-Goal 102 - Broader Workload Representativeness Plan and Fixture Expansion Seed.
-
-Goal 102 starts workload representativeness broadening by adding a public-safe synthetic seed fixture and a shape-only validator. PR #252 was squash-merged into `origin/main` at `5e2a9cab9e5d3c8aca25fa2ec11cd6f06e060726`.
-
-Primary report:
-
-- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
-- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
-
-Claim boundary: Goal 102 is fixture-design evidence and planning support only. It does not prove broader workload representativeness, output quality, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
+Claim boundary: Goal 103 is route-only evidence over a synthetic seed fixture. It does not prove output quality, broad workload representativeness, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
 
 Goal 100 - Review Goal 099 Evidence Package and Evidence Index Decision.
 
@@ -510,16 +515,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
+Goal 105 - Apply the Codex bounded-loop protocol to the next approved KORA task.
 
 Recommended scope:
 
-- add bounded-loop protocol guidance for future Codex goal execution and review cleanup.
-- add claim-boundary automation guidance that keeps provider/H100/output-quality claims explicit and gated.
-- keep the work documentation/protocol focused unless a later goal explicitly approves code automation.
-- do not add provider calls, H100 execution, output-quality proof, production workload proof, or broad workload superiority claims.
+- use the Goal 104 runbooks as the execution checklist.
+- verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- run the claim-boundary checklist before PR-open.
+- stop at PR-open unless a separate merge-gate prompt is provided.
 
-Alternative Goal 104 options remain public-safe output-quality methodology design or a second route-only fixture slice, but only after explicit approval.
+Alternative future goals remain public-safe output-quality methodology design or a second route-only fixture slice, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 

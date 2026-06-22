@@ -82,6 +82,8 @@ This package generalizes:
 - [KORA OPEN_THIS_FIRST.md](../../OPEN_THIS_FIRST.md)
 - [KORA REVIEW_HUB.md](../../REVIEW_HUB.md)
 - [KORA Project Documentation Operating Standard](../runbooks/project-documentation-operating-standard.md)
+- [KORA Codex bounded loop protocol](../runbooks/codex_bounded_loop_protocol.md)
+- [KORA claim-boundary checklist](../runbooks/kora_claim_boundary_checklist.md)
 - [KORA ADR-001](../adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
 
 ## Adoption Rule
