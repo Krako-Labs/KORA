@@ -40,6 +40,8 @@ This documentation index is for readers who want more detail than the root [READ
 - [Goal 099 AI Champion H100 server run](reports/goal099_ai_champion_h100_server_run.md) - controlled server-run packet execution with aggregate CPU/non-GPU and bounded H100 summaries.
 - [Goal 100 Goal 099 evidence index review](reports/goal100_goal099_evidence_index_review.md) - evidence-index decision after Goal 099; narrow index refresh only.
 - [Goal 102 workload representativeness seed](reports/goal102_workload_representativeness_seed.md) - public-safe fixture-design seed for broader workload coverage planning; not production workload proof.
+- [Goal 103 representativeness route-only evaluator](reports/goal103_representativeness_route_only_evaluator.md) - aggregate route-only counters over the Goal 102 seed; not output-quality or broader representativeness proof.
+- [Goal 104 Codex bounded loop protocol](reports/goal104_codex_bounded_loop_protocol.md) - operating protocol for PR-open bounded-loop execution with human approval gates.
 
 KORA uses narrow evidence language. Offline examples and reports may describe sample workloads and simulated avoided provider/model invocations, but they do not prove production cost reduction or production readiness.
 
@@ -49,3 +51,7 @@ KORA uses narrow evidence language. Offline examples and reports may describe sa
 - [Security](../SECURITY.md)
 - [Governance](../GOVERNANCE.md)
 - [Runbooks](runbooks/)
+- [Codex bounded loop protocol](runbooks/codex_bounded_loop_protocol.md)
+- [KORA claim-boundary checklist](runbooks/kora_claim_boundary_checklist.md)
+- [KORA PR completion format](runbooks/kora_pr_completion_format.md)
+- [Next goal queue](context/NEXT_GOAL_QUEUE.md)
