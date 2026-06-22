@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 105.
+Last updated by: Goal 106.
 
 ## Current Status
 
@@ -41,24 +41,27 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 105 public-safe output-quality methodology for fixture-derived work. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 106 tiny public-safe fixture-based quality-check scaffold. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal105-public-safe-output-quality-methodology`
+- branch: `goal106-fixture-quality-check-scaffold`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal105-public-safe-output-quality-methodology`
-- open PR: [#255 Goal 105 - Public-safe output-quality methodology](https://github.com/Krako-Labs/KORA/pull/255)
-- base commit: `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`
+- branch pushed to: `origin/goal106-fixture-quality-check-scaffold`
+- open PR: [#256 Goal 106 - Fixture quality-check scaffold](https://github.com/Krako-Labs/KORA/pull/256)
+- base commit: `c90d5463967394f9cda3cb6a0126e37363f1d95e`
 
 ## Active Goal
 
-Goal 105 - Public-Safe Output-Quality Methodology.
+Goal 106 - Tiny Public-Safe Fixture-Based Quality-Check Scaffold.
 
-Goal 105 adds a public-safe methodology for future fixture-derived output-quality validation without executing evaluation or turning Goal 103 route-only counters into output-quality proof. It is methodology/design documentation only and adds no runtime feature code or executable automation.
+Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks, aggregate JSON output, and focused tests. It does not execute semantic judging, provider calls, model inference, human review, H100/GPU/CUDA/server/remote execution, production validation, or output-quality proof.
 
 Primary report:
 
+- [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
+- [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
+- [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
 - [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
@@ -80,7 +83,20 @@ python3 -m pytest
 
 Current caveat: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
+Current caveat: Goal 106 is a tiny bounded scaffold over a public-safe synthetic fixture. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production cost reduction, H100/GPU/CPU superiority, customer savings, provider replacement, GPU-serving replacement, or published `getkora`.
+
 ## Last Completed Goal
+
+Goal 105 - Public-Safe Output-Quality Methodology.
+
+Goal 105 added a public-safe methodology for future fixture-derived output-quality validation without executing evaluation or turning Goal 103 route-only counters into output-quality proof. PR #255 was squash-merged into `origin/main` at `c90d5463967394f9cda3cb6a0126e37363f1d95e`.
+
+Primary report:
+
+- [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
+- [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
+
+Claim boundary: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
 Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
 
@@ -480,6 +496,9 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
+- [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
+- [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
 - [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
@@ -534,14 +553,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 106 - Tiny public-safe fixture-based quality-check scaffold, only after explicit approval.
+Goal 107 - Review the tiny scaffold and decide whether to add one more public-safe fixture-check slice, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
 - run the claim-boundary checklist before PR-open.
-- keep any scaffold public-safe and fixture-derived.
+- keep any follow-on work public-safe and fixture-derived.
 - do not add semantic, human, provider, H100, GPU, server, remote, or production-like validation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
