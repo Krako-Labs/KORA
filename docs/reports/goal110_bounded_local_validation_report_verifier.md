@@ -150,4 +150,9 @@ The expected full-suite baseline after Goal 109 was `418 passed`; this branch ob
 
 ## Final PR Status
 
-Pending push and PR creation.
+- PR: `https://github.com/Krako-Labs/KORA/pull/260`
+- branch: `codex/goal110-bounded-validation-report-verifier`
+- state: open for review
+- merge status: not merged by this task
+
+This report does not merge the PR.
