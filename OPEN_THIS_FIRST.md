@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 104.
+Last updated by: Goal 105.
 
 ## Current Status
 
@@ -41,24 +41,26 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 104 Codex bounded-loop protocol and claim-boundary automation guidance. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 105 public-safe output-quality methodology for fixture-derived work. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal104-codex-bounded-loop-protocol`
+- branch: `goal105-public-safe-output-quality-methodology`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal104-codex-bounded-loop-protocol`
-- open PR: [#254 Goal 104 - Codex bounded loop protocol](https://github.com/Krako-Labs/KORA/pull/254)
-- base commit: `9d4fff45a448a16c23e2907db68ce68f91e77865`
+- branch pushed to: `origin/goal105-public-safe-output-quality-methodology`
+- open PR: [#255 Goal 105 - Public-safe output-quality methodology](https://github.com/Krako-Labs/KORA/pull/255)
+- base commit: `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`
 
 ## Active Goal
 
-Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
+Goal 105 - Public-Safe Output-Quality Methodology.
 
-Goal 104 adds KORA-specific runbooks for semi-autonomous Codex execution with human approval gates, claim-boundary review, PR-open then stop behavior, fix-loop cleanup, merge-gate separation, and local source-refresh after merge. It is documentation/protocol only and adds no runtime feature code.
+Goal 105 adds a public-safe methodology for future fixture-derived output-quality validation without executing evaluation or turning Goal 103 route-only counters into output-quality proof. It is methodology/design documentation only and adds no runtime feature code or executable automation.
 
 Primary report:
 
+- [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
+- [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
 - [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
 - [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
 - [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
@@ -76,9 +78,23 @@ git diff --check
 python3 -m pytest
 ```
 
-Current caveat: Goal 104 is a bounded-loop operating protocol and claim-boundary checklist. It does not authorize merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, claim expansion, or local-only source refresh without separate explicit approval.
+Current caveat: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
 ## Last Completed Goal
+
+Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
+
+Goal 104 added KORA-specific runbooks for semi-autonomous Codex execution with human approval gates, claim-boundary review, PR-open then stop behavior, fix-loop cleanup, merge-gate separation, and local source-refresh after merge. PR #254 was squash-merged into `origin/main` at `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`.
+
+Primary report:
+
+- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
+- [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
+- [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
+- [KORA PR completion format](docs/runbooks/kora_pr_completion_format.md)
+- [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md)
+
+Claim boundary: Goal 104 is protocol documentation only. It does not authorize merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
 Goal 103 - Representativeness Route-Only Evaluator.
 
@@ -464,6 +480,9 @@ Primary report:
 ## Primary Reports
 
 - [Review hub](REVIEW_HUB.md)
+- [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
+- [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
+- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
 - [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
 - [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
 - [Cache reuse example README](examples/cache_reuse/README.md)
@@ -515,16 +534,18 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 105 - Apply the Codex bounded-loop protocol to the next approved KORA task.
+Goal 106 - Tiny public-safe fixture-based quality-check scaffold, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
 - run the claim-boundary checklist before PR-open.
+- keep any scaffold public-safe and fixture-derived.
+- do not add semantic, human, provider, H100, GPU, server, remote, or production-like validation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
-Alternative future goals remain public-safe output-quality methodology design or a second route-only fixture slice, but only after explicit approval.
+Alternative future goals remain a second route-only fixture slice or documentation movement for one small bucket, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 
