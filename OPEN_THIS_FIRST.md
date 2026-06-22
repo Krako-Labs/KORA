@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 102.
+Last updated by: Goal 103.
 
 ## Current Status
 
@@ -41,21 +41,50 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 102 broader workload representativeness planning and a public-safe fixture seed. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 103 route-only evaluation of the Goal 102 public-safe representativeness seed. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal102-workload-representativeness-seed`
+- branch: `goal103-representativeness-route-only-evaluator`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal102-workload-representativeness-seed`
-- open PR: Goal 102 PR for this branch
-- base commit: `5adb19044a697bdb6bfd57b342ba3699efc579c5`
+- branch pushed to: `origin/goal103-representativeness-route-only-evaluator`
+- open PR: [#253 Goal 103 - Representativeness route-only evaluator](https://github.com/Krako-Labs/KORA/pull/253)
+- base commit: `5e2a9cab9e5d3c8aca25fa2ec11cd6f06e060726`
 
 ## Active Goal
 
+Goal 103 - Representativeness Route-Only Evaluator.
+
+Goal 103 adds a route-only evaluator for the Goal 102 public-safe synthetic representativeness seed fixture. It reads the seed, reuses shape-only validation, and emits aggregate public-safe route counters only. It does not run H100 workloads, make provider calls, execute model inference, prove output quality, add production workload proof, or claim broad workload representativeness.
+
+Primary report:
+
+- [Goal 103 representativeness route-only evaluator](docs/reports/goal103_representativeness_route_only_evaluator.md)
+- [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
+- [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
+
+Evaluator command:
+
+```bash
+python3 scripts/evaluate_representativeness_seed_routes.py
+```
+
+Validation commands:
+
+```bash
+python3 scripts/validate_representativeness_seed.py
+python3 scripts/evaluate_representativeness_seed_routes.py
+python3 -m pytest tests/test_representativeness_seed.py
+python3 -m pytest tests/test_representativeness_route_only_evaluator.py
+```
+
+Current caveat: Goal 103 is route-only evidence over a synthetic seed fixture. It does not prove output quality, broad workload representativeness, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
+
+## Last Completed Goal
+
 Goal 102 - Broader Workload Representativeness Plan and Fixture Expansion Seed.
 
-Goal 102 starts workload representativeness broadening by adding a public-safe synthetic seed fixture and a shape-only validator. It does not run H100 workloads, make provider calls, prove output quality, add production workload proof, or claim broad workload superiority.
+Goal 102 starts workload representativeness broadening by adding a public-safe synthetic seed fixture and a shape-only validator. PR #252 was squash-merged into `origin/main` at `5e2a9cab9e5d3c8aca25fa2ec11cd6f06e060726`.
 
 Primary report:
 
@@ -63,8 +92,6 @@ Primary report:
 - [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
 
 Claim boundary: Goal 102 is fixture-design evidence and planning support only. It does not prove broader workload representativeness, output quality, production readiness, production workload handling, production cost reduction, H100/GPU/CPU superiority, both-GPU active use, multi-GPU scaling, broad workload superiority, customer savings, provider replacement, general GPU-serving replacement, or published `getkora`.
-
-## Last Completed Goal
 
 Goal 100 - Review Goal 099 Evidence Package and Evidence Index Decision.
 
