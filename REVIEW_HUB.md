@@ -17,7 +17,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - active verification branch: `goal106-fixture-quality-check-scaffold`
 - worktree label: `goal106-fixture-quality-check-scaffold`
 - branch pushed to: `origin/goal106-fixture-quality-check-scaffold`
-- open PR: pending branch push
+- open PR: [#256 Goal 106 - Fixture quality-check scaffold](https://github.com/Krako-Labs/KORA/pull/256)
 - base commit: `c90d5463967394f9cda3cb6a0126e37363f1d95e`
 
 ## Current State Summary
