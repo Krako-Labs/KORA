@@ -48,7 +48,7 @@ Current state:
 - branch: `goal105-public-safe-output-quality-methodology`
 - public truth: `origin/main`
 - branch pushed to: `origin/goal105-public-safe-output-quality-methodology`
-- open PR: pending branch push
+- open PR: [#255 Goal 105 - Public-safe output-quality methodology](https://github.com/Krako-Labs/KORA/pull/255)
 - base commit: `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`
 
 ## Active Goal

@@ -17,7 +17,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - active verification branch: `goal105-public-safe-output-quality-methodology`
 - worktree label: `goal105-public-safe-output-quality-methodology`
 - branch pushed to: `origin/goal105-public-safe-output-quality-methodology`
-- open PR: pending branch push
+- open PR: [#255 Goal 105 - Public-safe output-quality methodology](https://github.com/Krako-Labs/KORA/pull/255)
 - base commit: `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`
 
 ## Current State Summary
