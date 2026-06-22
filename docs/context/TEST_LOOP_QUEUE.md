@@ -8,11 +8,12 @@ This queue records candidate bounded local test loops for future KORA goals. A l
 
 ## Current Candidate
 
-1. Goal 108 - Apply the long-run test loop protocol to one bounded local-only test batch.
+1. Goal 109 - Review the bounded local test loop result and decide whether another bounded local-only batch is useful.
 
 Suggested future scope:
 
-- start from the then-current `origin/main`.
+- review [Goal 108 bounded local test loop](../reports/goal108_bounded_local_test_loop.md).
+- start any approved follow-on loop from the then-current `origin/main`.
 - run only approved local validation commands.
 - record pass, fail, skip, and gated outcomes.
 - keep a finite loop count and finite repair budget.
