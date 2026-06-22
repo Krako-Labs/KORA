@@ -8,22 +8,24 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Goal 107 - Review the tiny scaffold and decide whether to add one more public-safe fixture-check slice.
+1. Goal 108 - Apply the long-run test loop protocol to one bounded local-only test batch.
 
 Suggested scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
-- start from the Goal 106 fixture quality-check scaffold.
-- decide whether the next approved slice should add a few more deterministic fixture-only checks or stop.
-- keep any follow-on checks public-safe and fixture-derived.
-- do not add semantic, human, provider, H100, GPU, server, remote, or production-like validation without separate explicit approval.
+- use [Long-run test loop protocol](../runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](../runbooks/test_failure_triage_checklist.md).
+- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before starting.
+- run one bounded local-only validation batch.
+- record pass, fail, skip, and gated outcomes.
+- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, or merge automation without separate explicit approval.
 - run the claim-boundary checklist before PR-open.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
 ## Approved Alternatives Only After Explicit Prompt
 
 - A second route-only fixture slice.
+- A second public-safe fixture-check slice.
 - Documentation movement for one small bucket.
 - Larger bounded H100 or provider validation work.
 
@@ -48,3 +50,5 @@ Goal 103 route-only counters do not prove output quality, broader workload repre
 Goal 105 methodology documentation does not execute evaluation, prove output quality, prove broader workload representativeness, prove production workload handling, prove production readiness, or prove cost reduction.
 
 Goal 106 aggregate scaffold counts do not prove output quality, broader workload representativeness, production workload handling, production readiness, cost reduction, H100/GPU/CPU superiority, customer savings, provider replacement, GPU-serving replacement, or published `getkora`.
+
+Goal 107 protocol documentation does not execute long-run validation, create background automation, prove output quality, prove broader workload representativeness, prove production workload handling, prove production readiness, or prove cost reduction.

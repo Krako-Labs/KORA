@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 106.
+Last updated by: Goal 107.
 
 ## Current Status
 
@@ -41,24 +41,28 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 106 tiny public-safe fixture-based quality-check scaffold. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 107 long-run test loop protocol and failure triage. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal106-fixture-quality-check-scaffold`
+- branch: `goal107-long-run-test-loop-protocol`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal106-fixture-quality-check-scaffold`
-- open PR: [#256 Goal 106 - Fixture quality-check scaffold](https://github.com/Krako-Labs/KORA/pull/256)
-- base commit: `c90d5463967394f9cda3cb6a0126e37363f1d95e`
+- branch pushed to: `origin/goal107-long-run-test-loop-protocol`
+- open PR: [#257 Goal 107 - Long-run test loop protocol](https://github.com/Krako-Labs/KORA/pull/257)
+- base commit: `a2e1164b397fbac0a35186db08348fc80a3fcbab`
 
 ## Active Goal
 
-Goal 106 - Tiny Public-Safe Fixture-Based Quality-Check Scaffold.
+Goal 107 - Long-Run Test Loop Protocol and Failure Triage.
 
-Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks, aggregate JSON output, and focused tests. It does not execute semantic judging, provider calls, model inference, human review, H100/GPU/CUDA/server/remote execution, production validation, or output-quality proof.
+Goal 107 adds a public-safe long-run test loop protocol and failure-triage checklist for future bounded local validation loops. It does not create a scheduler, daemon, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
 
 Primary report:
 
+- [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
+- [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
+- [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md)
+- [KORA test loop queue](docs/context/TEST_LOOP_QUEUE.md)
 - [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
 - [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
 - [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
@@ -85,7 +89,21 @@ Current caveat: Goal 105 is future validation design only. It does not execute o
 
 Current caveat: Goal 106 is a tiny bounded scaffold over a public-safe synthetic fixture. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production cost reduction, H100/GPU/CPU superiority, customer savings, provider replacement, GPU-serving replacement, or published `getkora`.
 
+Current caveat: Goal 107 is protocol documentation only. It does not execute long-run validation, create background automation, call providers, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
+
 ## Last Completed Goal
+
+Goal 106 - Tiny Public-Safe Fixture-Based Quality-Check Scaffold.
+
+Goal 106 added a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks, aggregate JSON output, and focused tests. PR #256 was squash-merged into `origin/main` at `a2e1164b397fbac0a35186db08348fc80a3fcbab`.
+
+Primary report:
+
+- [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md)
+- [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
+- [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
+
+Claim boundary: Goal 106 is a tiny bounded scaffold over a public-safe synthetic fixture. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production cost reduction, H100/GPU/CPU superiority, customer savings, provider replacement, GPU-serving replacement, or published `getkora`.
 
 Goal 105 - Public-Safe Output-Quality Methodology.
 
@@ -553,15 +571,17 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 107 - Review the tiny scaffold and decide whether to add one more public-safe fixture-check slice, only after explicit approval.
+Goal 108 - Apply the long-run test loop protocol to one bounded local-only test batch, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- use [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md).
+- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before starting.
 - run the claim-boundary checklist before PR-open.
-- keep any follow-on work public-safe and fixture-derived.
-- do not add semantic, human, provider, H100, GPU, server, remote, or production-like validation without separate explicit approval.
+- keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
+- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
 Alternative future goals remain a second route-only fixture slice or documentation movement for one small bucket, but only after explicit approval.
