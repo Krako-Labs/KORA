@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 107.
+Last updated by: Goal 108.
 
 ## Current Status
 
@@ -41,24 +41,25 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 107 long-run test loop protocol and failure triage. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Goal 108 bounded local-only test loop reporting. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal107-long-run-test-loop-protocol`
+- branch: `goal108-bounded-local-test-loop`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal107-long-run-test-loop-protocol`
-- open PR: [#257 Goal 107 - Long-run test loop protocol](https://github.com/Krako-Labs/KORA/pull/257)
-- base commit: `a2e1164b397fbac0a35186db08348fc80a3fcbab`
+- branch pushed to: `origin/goal108-bounded-local-test-loop`
+- open PR: [#258 Goal 108 - Bounded local test loop](https://github.com/Krako-Labs/KORA/pull/258)
+- base commit: `7511e3050d4ad33b9274434cf25897da5b1f5406`
 
 ## Active Goal
 
-Goal 107 - Long-Run Test Loop Protocol and Failure Triage.
+Goal 108 - Apply Long-Run Test Loop To One Bounded Local-Only Test Batch.
 
-Goal 107 adds a public-safe long-run test loop protocol and failure-triage checklist for future bounded local validation loops. It does not create a scheduler, daemon, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
+Goal 108 applies the Goal 107 long-run test loop protocol to one bounded local-only validation batch. It records pass/fail/skip/gated outcomes and final status, and it does not create a scheduler, daemon, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
 
 Primary report:
 
+- [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
 - [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
 - [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md)
@@ -91,7 +92,22 @@ Current caveat: Goal 106 is a tiny bounded scaffold over a public-safe synthetic
 
 Current caveat: Goal 107 is protocol documentation only. It does not execute long-run validation, create background automation, call providers, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
+Current caveat: Goal 108 is one bounded local-only validation batch over approved commands. It does not execute provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, output-quality proof, broader workload representativeness proof, production proof, background automation, merge automation, file movement, release, publication, repository settings changes, or local-only source refresh.
+
 ## Last Completed Goal
+
+Goal 107 - Long-Run Test Loop Protocol and Failure Triage.
+
+Goal 107 added a public-safe long-run test loop protocol, failure-triage checklist, and test-loop queue template for future bounded local validation loops. PR #257 was squash-merged into `origin/main` at `7511e3050d4ad33b9274434cf25897da5b1f5406`.
+
+Primary report:
+
+- [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
+- [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
+- [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md)
+- [KORA test loop queue](docs/context/TEST_LOOP_QUEUE.md)
+
+Claim boundary: Goal 107 is protocol documentation only. It does not execute long-run validation, create background automation, call providers, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
 Goal 106 - Tiny Public-Safe Fixture-Based Quality-Check Scaffold.
 
@@ -571,14 +587,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 108 - Apply the long-run test loop protocol to one bounded local-only test batch, only after explicit approval.
+Goal 109 - Review the bounded local test loop result and decide whether another bounded local-only batch is useful, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
 - use [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md).
-- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before starting.
+- review [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md).
+- decide whether another bounded local-only test batch is useful before starting it.
+- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before any new loop.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, or merge automation without separate explicit approval.
