@@ -510,18 +510,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 103 - Implement a route-only evaluator for the Goal 102 representativeness seed without provider calls or H100 execution.
+Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
 
 Recommended scope:
 
-- load `examples/workloads/kora-representativeness-seed-v0.json`.
-- evaluate route labels or route-only expectations without provider calls.
-- do not run H100 workloads.
-- do not claim production workload proof, output-quality proof, or broad workload superiority.
-- keep any future larger H100 samples bounded, public-safe, fixture-derived, and explicitly approved.
-- exclude raw logs and private infrastructure details.
-- keep claims bounded to fixture-design and route-only evaluation evidence.
-- do not claim both-GPU active use, multi-GPU scaling, H100 superiority, GPU superiority, CPU superiority, production benchmark proof, production readiness, output-quality proof, energy reduction, customer savings, production cost reduction proof, real API-cost proof, real GPU-cost proof, provider replacement, general GPU-serving replacement, or broad workload superiority.
+- add bounded-loop protocol guidance for future Codex goal execution and review cleanup.
+- add claim-boundary automation guidance that keeps provider/H100/output-quality claims explicit and gated.
+- keep the work documentation/protocol focused unless a later goal explicitly approves code automation.
+- do not add provider calls, H100 execution, output-quality proof, production workload proof, or broad workload superiority claims.
+
+Alternative Goal 104 options remain public-safe output-quality methodology design or a second route-only fixture slice, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 
