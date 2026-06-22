@@ -131,3 +131,13 @@ The expected full-suite baseline from Goal 108 was `410 passed`; this branch obs
 - merge status: not merged by this task
 
 This report does not merge the PR.
+
+## R1 Hidden/Control Unicode Normalization
+
+R1 inspected the three Goal 109 files for hidden, bidirectional, control, and non-ASCII Unicode characters:
+
+- `scripts/run_bounded_local_validation.py`
+- `tests/test_bounded_local_validation_runner.py`
+- `docs/reports/goal109_bounded_local_validation_runner.md`
+
+The scan found no hidden, bidirectional, control, or non-ASCII Unicode code points in the three files. No functionality, command list, safety boundary, or claim boundary changes were made.
