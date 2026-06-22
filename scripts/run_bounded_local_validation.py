@@ -9,6 +9,7 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+REPORT_SCHEMA = "kora.bounded_local_validation.v1"
 
 
 @dataclass(frozen=True)
@@ -65,6 +66,7 @@ def _step_record(step: ValidationStep, return_code: int | None, status: str) -> 
 def build_report(profile: str, dry_run: bool = False) -> tuple[int, dict[str, Any]]:
     if profile not in PROFILES:
         return 2, {
+            "report_schema": REPORT_SCHEMA,
             "profile": profile,
             "final_status": "failed",
             "error": f"unknown profile: {profile}",
@@ -75,6 +77,7 @@ def build_report(profile: str, dry_run: bool = False) -> tuple[int, dict[str, An
     steps = PROFILES[profile]
     if dry_run:
         return 0, {
+            "report_schema": REPORT_SCHEMA,
             "profile": profile,
             "final_status": "dry-run",
             "repo_root": str(REPO_ROOT),
@@ -100,6 +103,7 @@ def build_report(profile: str, dry_run: bool = False) -> tuple[int, dict[str, An
             break
 
     return exit_code, {
+        "report_schema": REPORT_SCHEMA,
         "profile": profile,
         "final_status": final_status,
         "repo_root": str(REPO_ROOT),

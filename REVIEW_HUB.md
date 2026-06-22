@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 108.
+Last updated by: Goal 110.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal108-bounded-local-test-loop`
-- worktree label: `goal108-bounded-local-test-loop`
-- branch pushed to: `origin/goal108-bounded-local-test-loop`
-- open PR: [#258 Goal 108 - Bounded local test loop](https://github.com/Krako-Labs/KORA/pull/258)
-- base commit: `7511e3050d4ad33b9274434cf25897da5b1f5406`
+- active verification branch: `codex/goal110-bounded-validation-report-verifier`
+- worktree label: `goal110_bounded_validation_report_verifier`
+- branch pushed to: pending PR open
+- open PR: pending PR open
+- base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
 
 ## Current State Summary
 
@@ -63,10 +63,12 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
 - Goal 107 adds a public-safe long-run test loop protocol, failure-triage checklist, and test-loop queue template for future bounded local validation loops.
 - Goal 108 applies the Goal 107 protocol to one bounded local-only validation batch with pass/fail/skip/gated outcomes and no repairs.
+- Goal 109 adds a bounded local validation runner for the approved `kora-local-core` command profile.
+- Goal 110 adds a report verifier for JSON output from the bounded local validation runner.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Goal 108: bounded local-only test loop reporting. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Goal 110: bounded local validation report verification. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -124,6 +126,8 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 106 | Added a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks. | [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md) |
 | Goal 107 | Added long-run test loop protocol and failure triage for future bounded local validation loops. | [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md) |
 | Goal 108 | Applied the Goal 107 protocol to one bounded local-only validation batch with zero repairs. | [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md) |
+| Goal 109 | Added the bounded local validation runner for the approved `kora-local-core` command profile. | [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md) |
+| Goal 110 | Added a verifier for bounded local validation JSON report structure and command lists. | [Goal 110 bounded local validation report verifier](docs/reports/goal110_bounded_local_validation_report_verifier.md) |
 
 ## Evidence Index
 
@@ -153,6 +157,8 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Goal 110 bounded local validation report verifier](docs/reports/goal110_bounded_local_validation_report_verifier.md)
+- [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
 - [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
 - [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
