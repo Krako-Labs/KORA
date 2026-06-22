@@ -1,6 +1,6 @@
 # Goal 109 Bounded Local Validation Runner
 
-Status: implemented with local validation passing before PR open.
+Status: implemented with local validation passing and PR open.
 
 ## Objective
 
@@ -125,4 +125,9 @@ The expected full-suite baseline from Goal 108 was `410 passed`; this branch obs
 
 ## Final PR Status
 
-Ready for PR open after push. This report does not merge the PR.
+- PR: `https://github.com/Krako-Labs/KORA/pull/259`
+- branch: `codex/goal109-bounded-local-validation-runner`
+- state: open for review
+- merge status: not merged by this task
+
+This report does not merge the PR.
