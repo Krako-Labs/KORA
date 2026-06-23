@@ -1,6 +1,6 @@
 # Group 111 Validation Report Control Block
 
-Status: implemented with local validation passing and PR pending.
+Status: implemented with local validation passing and PR open.
 
 ## Objective
 
@@ -17,7 +17,7 @@ The tools inspect report content only. They do not execute commands stored in re
 - base public HEAD: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
 - branch: `codex/group111-validation-report-control-block`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group111_validation_report_control_block`
-- PR: pending
+- PR: `https://github.com/Krako-Labs/KORA/pull/263`
 
 ## PR #261 Inspection Result
 

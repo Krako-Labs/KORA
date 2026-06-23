@@ -47,8 +47,8 @@ Current state:
 
 - branch: `codex/group111-validation-report-control-block`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/group111-validation-report-control-block`
+- open PR: [#263 Group 111 - Validation report control block](https://github.com/Krako-Labs/KORA/pull/263)
 - base commit: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
 
 ## Active Goal

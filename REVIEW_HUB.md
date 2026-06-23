@@ -16,8 +16,8 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 - public truth branch: `origin/main`
 - active verification branch: `codex/group111-validation-report-control-block`
 - worktree label: `group111_validation_report_control_block`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/group111-validation-report-control-block`
+- open PR: [#263 Group 111 - Validation report control block](https://github.com/Krako-Labs/KORA/pull/263)
 - base commit: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
 
 ## Current State Summary
