@@ -94,6 +94,7 @@ This queue records public-safe and local-only work blocks. It is not approval to
 - validation commands: focused checker tests, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: checker, tests, report.
+- Group 112 status: completed by `codex/group112-approval-report-consistency`.
 - stop gates: any automatic approval or merge recommendation not backed by risk classification.
 - claim boundaries: packet completeness only; no quality/prod proof.
 - completion status expected: `merge-ready` if deterministic and narrow.
@@ -109,6 +110,7 @@ This queue records public-safe and local-only work blocks. It is not approval to
 - validation commands: focused consistency tests, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: checker, tests, report.
+- Group 112 status: completed by `codex/group112-approval-report-consistency`.
 - stop gates: checker attempts to infer claims beyond literal docs.
 - claim boundaries: document consistency only; no production proof or output-quality proof.
 - completion status expected: `merge-ready` if checker is read-only and deterministic.

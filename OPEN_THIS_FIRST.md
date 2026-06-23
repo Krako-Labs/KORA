@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 111.
+Last updated by: Group 112.
 
 ## Current Status
 
@@ -41,24 +41,27 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 111 validation report control-block tooling over the bounded local validation runner. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 112 approval-packet and report-consistency checks. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group111-validation-report-control-block`
+- branch: `codex/group112-approval-report-consistency`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group111-validation-report-control-block`
-- open PR: [#263 Group 111 - Validation report control block](https://github.com/Krako-Labs/KORA/pull/263)
-- base commit: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
+- branch pushed to: pending
+- open PR: pending
+- base commit: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
 
 ## Active Goal
 
-Group 111 - Queue-Driven Validation Report Control Block.
+Group 112 - PR Approval and Report Consistency Control Block.
 
-Group 111 implements the first queue-driven Codex inner-loop work block after Group 110: a static bounded-local-validation report verifier and deterministic failure classifier. It reconciles open PR #261 by leaving that conflicted branch untouched and superseding it with a clean Group 111 branch from current `origin/main`. It does not execute commands from reports, auto-repair, create background automation, call providers, run H100/server work, or expand claims.
+Group 112 implements two low-risk queue-driven Codex inner-loop work blocks: `CIL-006` PR approval packet checking and `CIL-007` report consistency checking. It keeps `CIL-003` deferred because that profile-registry item is medium risk and requires separate explicit approval. It does not call GitHub APIs, mutate PRs, execute report commands, auto-repair, create background automation, call providers, run H100/server work, or expand claims.
 
 Primary report:
 
+- [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
+- [PR approval packet checker](scripts/check_pr_approval_packet.py)
+- [Report consistency checker](scripts/check_report_consistency.py)
 - [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md)
 - [Bounded local validation report verifier](scripts/verify_bounded_local_validation_report.py)
 - [Bounded local validation failure classifier](scripts/classify_bounded_local_validation_failure.py)
@@ -112,7 +115,19 @@ Current caveat: Group 110 is repo-local operating guidance and validation for th
 
 Current caveat: Group 111 is static validation-report control-block tooling over local JSON reports. It does not execute report commands, auto-repair, schedule background work, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
 
+Current caveat: Group 112 validates approval-packet and report/breadcrumb consistency only. It does not call GitHub APIs, approve PRs, merge PRs, close PRs, create issues, execute report commands, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
+
 ## Last Completed Goal
+
+Group 111 - Queue-Driven Validation Report Control Block.
+
+Group 111 added static bounded-local-validation report verification and deterministic failure classification without executing report commands. PR #263 was squash-merged into `origin/main` at `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`.
+
+Primary report:
+
+- [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md)
+
+Claim boundary: Group 111 is static report-control tooling over local bounded-validation JSON. It does not execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 
 Group 110 - Codex Inner Loop Ownership with Risk-Gated Self Review.
 
@@ -625,16 +640,17 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Group 112 - Review Group 111 validation report control block and decide whether to run the next queued work block, only after explicit approval.
+Group 113 - Review Group 112 approval/report consistency checks and decide whether to explicitly approve `CIL-003`, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
-- decide whether to run `CIL-003` or defer it because the bounded validation profile registry is medium risk.
+- decide whether to run `CIL-003` or continue deferring it because the bounded validation profile registry is medium risk.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
