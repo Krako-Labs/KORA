@@ -645,14 +645,14 @@ For a future Goal:
 2. Read this file and [REVIEW_HUB.md](REVIEW_HUB.md).
 3. Do the scoped work.
 4. Update this file and [REVIEW_HUB.md](REVIEW_HUB.md) before committing, unless the Goal explicitly exempts breadcrumb updates.
-## Goal 091B — Exact Public Documentation Replacement
+## Goal 091B - Exact Public Documentation Replacement
 
 - Replaced selected public landing and index documents with exact authored Markdown files.
 - Kept README focused on a short landing-page experience.
 - Added or refreshed documentation index and example catalog pages.
 - Preserved existing project history and avoided root directory moves.
 
-## Goal 092 — Repository Public Surface Alignment Audit
+## Goal 092 - Repository Public Surface Alignment Audit
 
 - Audited GitHub metadata, root structure, examples, docs, and public first impression after the Goal 091B replacement.
 - Proposed a metadata-only Goal 093 as the next approved step.

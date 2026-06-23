@@ -162,3 +162,18 @@ This group creates repo-grounded Codex inner-loop operating guidance. It does no
 ## Next Recommended Work Block
 
 After review/merge, the next recommended work block is to run `CIL-001` or reconcile it with any existing bounded validation report verifier PR if one is already open. Do not start follow-on work without explicit approval.
+
+## R1 Byte-Level Normalization
+
+R1 normalized the Group 110 changed files for strict ASCII/LF content:
+
+- UTF-8 text.
+- LF line endings only.
+- no CR.
+- no BOM.
+- no NUL.
+- no C0/C1 control characters except LF and horizontal tab.
+- no bidirectional formatting characters.
+- no hidden Unicode separators.
+
+The cleanup changed punctuation only in `OPEN_THIS_FIRST.md` and `docs/README.md`. Group 110 substance, risk classification, approval packet, self-review protocol, escalation gates, multi-agent operating model, and claim boundaries are unchanged.
