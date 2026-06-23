@@ -17,6 +17,7 @@ This queue records public-safe and local-only work blocks. It is not approval to
 - validation commands: verifier tests, runner tests, dry-run runner, verifier on generated report, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: verifier CLI, focused tests, report, approval packet.
+- Group 111 status: completed by `codex/group111-validation-report-control-block`; PR #261 was inspected and left untouched because it was conflicted after Group 110.
 - stop gates: unknown profile semantics, command execution risk, claim expansion.
 - claim boundaries: report structure only; no output-quality proof, broader workload representativeness proof, production proof, or production validation.
 - completion status expected: `merge-ready` only if no command-execution or claim risk remains; otherwise `needs-r1` or `needs-cto-review`.
@@ -32,6 +33,7 @@ This queue records public-safe and local-only work blocks. It is not approval to
 - validation commands: focused classifier tests, dry-run runner, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: classifier, tests, report, approval packet.
+- Group 111 status: completed by `codex/group111-validation-report-control-block` as part of the same static report-control block.
 - stop gates: any attempt to infer semantic quality or execute failed commands.
 - claim boundaries: failure classification only; no production validation or output-quality proof.
 - completion status expected: `merge-ready` only for deterministic local classification over static report inputs.
