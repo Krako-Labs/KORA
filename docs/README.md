@@ -38,6 +38,8 @@ This documentation index is for readers who want more detail than the root [READ
 - [Goal 106 fixture quality-check scaffold](reports/goal106_fixture_quality_check_scaffold.md) - tiny deterministic fixture-only scaffold with aggregate counts; does not prove output quality.
 - [Goal 107 long-run test loop protocol](reports/goal107_long_run_test_loop_protocol.md) - protocol documentation for future bounded local validation loops; does not execute long-run validation or create automation.
 - [Goal 108 bounded local test loop](reports/goal108_bounded_local_test_loop.md) - one bounded local-only validation batch; does not prove output quality or production readiness.
+- [Goal 109 bounded local validation runner](reports/goal109_bounded_local_validation_runner.md) - approved-command local validation runner; does not prove output quality or production readiness.
+- [Goal 110 bounded local validation report verifier](reports/goal110_bounded_local_validation_report_verifier.md) - JSON report-structure verifier for Goal 109 reports; does not execute report commands.
 - [Goal 096 documentation navigation and archive-bucket proposal](reports/goal096_documentation_navigation_archive_bucket_proposal.md) - proposal-only navigation buckets; no files moved.
 - [Group 097 H100 evidence inventory and gap audit](reports/group097_h100_evidence_inventory_gap_audit.md) - bounded H100 evidence inventory; no new H100 benchmark claim.
 - [Goal 098 controlled CPU/GPU evidence regeneration](reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) - server-run packet with local no-CUDA `not_run` status; no fresh H100 execution claim.
