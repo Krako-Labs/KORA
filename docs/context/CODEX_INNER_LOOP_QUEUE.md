@@ -4,6 +4,40 @@ Status: repo-local planning queue for future Codex-owned bounded work blocks.
 
 This queue records public-safe and local-only work blocks. It is not approval to merge, release, call providers, execute H100/server work, or expand claims.
 
+## Queue Hardening Policy
+
+Future queue items should be sized as coherent control blocks rather than 5-15 minute micro-tasks.
+
+Each new or revised queue item should record an expected duration band:
+
+- `30-60 min`
+- `1-2 hr`
+- `2-4 hr`
+- `half-day`
+
+Bundling policy:
+
+- low-risk adjacent checkers may be bundled when they share the same input surface, validation path, report, and claim boundary.
+- medium-risk command-surface changes should not be bundled with unrelated work.
+- high-risk work must not be bundled.
+
+Micro-task prevention:
+
+- do not split a checker, tests, docs, report, and breadcrumb into separate tasks unless separation is necessary for risk or ownership.
+- prefer coherent control blocks that leave one reviewable report and one clear approval packet.
+- every PR should leave the next queue state clearer than before.
+
+Stop conditions:
+
+- if work becomes high-risk, stop and classify `needs-cto-review` or `blocked`.
+- if validation requires unsafe broadening, stop.
+- if command execution, GitHub mutation, provider/H100/server execution, report-command execution, or claim expansion becomes necessary, stop.
+
+Review friction reduction:
+
+- every future work block should be checkable with the Group 111 report verifier/classifier and Group 112 approval-packet/report-consistency checkers when applicable.
+- queue items should name the expected report, validation commands, final classification options, and approval-gated follow-up.
+
 ## Queue Items
 
 ### CIL-001 - Bounded Validation Report Verifier
@@ -44,11 +78,14 @@ This queue records public-safe and local-only work blocks. It is not approval to
 - title: Bounded validation profile registry
 - objective: make approved local validation profiles discoverable without enabling arbitrary user commands.
 - risk level: medium.
+- expected duration band: `1-2 hr` for checklist-only design; `2-4 hr` if implementation is explicitly approved later.
 - allowed files: runner profile registry module, tests, report docs, narrow breadcrumbs.
 - forbidden files/actions: no dynamic shell command loading, no external config execution, no provider/H100/server execution.
 - validation commands: runner tests, registry tests, dry-run runner, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: static profile registry, tests, report.
+- approval checklist: [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
+- Group 113 status: deferred; checklist added before execution.
 - stop gates: any design that permits arbitrary command injection.
 - claim boundaries: approved local validation profiles only; no production validation or broader workload proof.
 - completion status expected: `needs-cto-review` unless the command surface remains clearly static and claim boundaries are unchanged.

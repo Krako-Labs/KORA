@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 112.
+Last updated by: Group 113.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/group112-approval-report-consistency`
-- worktree label: `group112_approval_report_consistency`
+- active verification branch: `codex/group113-inner-loop-queue-hardening`
+- worktree label: `group113_inner_loop_queue_hardening`
 - branch pushed to: pending
-- open PR: [#264](https://github.com/Krako-Labs/KORA/pull/264)
-- base commit: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
+- open PR: pending
+- base commit: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
 
 ## Current State Summary
 
@@ -67,10 +67,11 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Group 110 adds repo-local Codex inner-loop operating guidance with self-review, risk classification, escalation gates, approval packets, and a validator.
 - Group 111 adds a static bounded-local-validation report verifier and deterministic failure classifier for queue items `CIL-001` and `CIL-002`, leaving conflicted PR #261 untouched.
 - Group 112 adds deterministic approval-packet and report-consistency checkers for queue items `CIL-006` and `CIL-007`, while keeping `CIL-003` deferred.
+- Group 113 applies the Group 110-112 operating layer, confirms the Group 112 checkers pass on the merged Group 112 report, adds a medium-risk `CIL-003` checklist, and hardens queue sizing guidance.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 112: approval-packet and report-consistency checks. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 113: inner-loop applied review and queue hardening. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -132,6 +133,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 110 | Added repo-local Codex inner-loop operating guidance, queue, self-review, risk classification, escalation gates, approval packet, multi-agent model, run template, validator, and tests. | [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md) |
 | Group 111 | Added static bounded-local-validation report verification and deterministic failure classification without executing report commands. | [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md) |
 | Group 112 | Added PR approval packet and report-consistency checks without GitHub API mutation or report-command execution. | [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md) |
+| Group 113 | Applied the inner-loop tools, added the medium-risk profile-registry checklist, and hardened queue sizing guidance without implementing `CIL-003`. | [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md) |
 
 ## Evidence Index
 
@@ -161,6 +163,8 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
+- [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
 - [PR approval packet checker](scripts/check_pr_approval_packet.py)
 - [Report consistency checker](scripts/check_report_consistency.py)
@@ -302,6 +306,7 @@ Supported:
 - Group 110 supports repo-local Codex inner-loop operating guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 - Group 111 supports static report verification and deterministic triage over bounded local validation JSON; it does not execute report commands, auto-repair, call providers, run H100/server work, or prove output quality.
 - Group 112 supports approval-packet and report-consistency checking only; it does not call GitHub APIs, mutate PRs, execute report commands, auto-repair, call providers, run H100/server work, or prove output quality.
+- Group 113 supports operating review and queue hardening only; it does not implement `CIL-003`, change validation profiles, execute report commands, mutate GitHub, call providers, run H100/server work, or prove output quality.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
 Not supported:
@@ -313,7 +318,7 @@ Not supported:
 - output quality from Goal 103 route-only counters.
 - output quality from Goal 105 methodology documentation.
 - output quality from Goal 106 aggregate scaffold counts.
-- output quality, broader workload representativeness, or production readiness from Goal 108 local validation results, Goal 109 runner results, Group 110 operating guidance, Group 111 report-control tooling, or Group 112 consistency checks.
+- output quality, broader workload representativeness, or production readiness from Goal 108 local validation results, Goal 109 runner results, Group 110 operating guidance, Group 111 report-control tooling, Group 112 consistency checks, or Group 113 queue hardening.
 - self-approval by Codex or any execution agent.
 - merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, or public claim expansion without explicit approval.
 - model replacement.
@@ -512,6 +517,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 110 is repo-local operating guidance and validation for that guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 - Group 111 is static report-control tooling over local bounded-validation JSON; it does not execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 - Group 112 is approval-packet and report-consistency tooling only; it does not call GitHub APIs, approve PRs, merge PRs, close PRs, create issues, execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
+- Group 113 is operating review and queue hardening only; it does not implement `CIL-003`, change validation profiles, execute report commands, mutate GitHub, create issues, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -531,7 +537,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Group 113 - Review Group 112 approval/report consistency checks and decide whether to explicitly approve `CIL-003`, only after explicit approval.
+1. Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
 2. A second route-only fixture slice, only after explicit approval.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
@@ -542,7 +548,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/group112-approval-report-consistency for the current Group 112 review packet, or create a new scoped branch from origin/main for a new Group after Group 112 is merged.
+Use the active branch codex/group113-inner-loop-queue-hardening for the current Group 113 review packet, or create a new scoped branch from origin/main for a new Group after Group 113 is merged.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
