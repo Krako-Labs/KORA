@@ -8,18 +8,18 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Goal 109 - Review the bounded local test loop result and decide whether another bounded local-only batch is useful.
+1. Group 111 - Review Group 110 Codex inner-loop operating layer and decide whether to run the first queued work block.
 
 Suggested scope:
 
-- use the Goal 104 runbooks as the execution checklist.
+- use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
-- use [Long-run test loop protocol](../runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](../runbooks/test_failure_triage_checklist.md).
-- review [Goal 108 bounded local test loop](../reports/goal108_bounded_local_test_loop.md).
-- decide whether another bounded local-only validation batch is useful before starting it.
-- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before any new loop.
-- record pass, fail, skip, and gated outcomes for any approved follow-on loop.
-- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, or merge automation without separate explicit approval.
+- review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
+- review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
+- decide whether to run `CIL-001` or reconcile it with any existing bounded validation report verifier PR.
+- preserve the requirement that Codex pass is not merge-ready pass.
+- require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
+- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - run the claim-boundary checklist before PR-open.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
@@ -29,6 +29,7 @@ Suggested scope:
 - A second public-safe fixture-check slice.
 - Documentation movement for one small bucket.
 - Larger bounded H100 or provider validation work.
+- Any high-risk work from [Codex risk classification](CODEX_RISK_CLASSIFICATION.md).
 
 ## Standing Stop Gates
 
@@ -55,3 +56,7 @@ Goal 106 aggregate scaffold counts do not prove output quality, broader workload
 Goal 107 protocol documentation does not execute long-run validation, create background automation, prove output quality, prove broader workload representativeness, prove production workload handling, prove production readiness, or prove cost reduction.
 
 Goal 108 bounded local validation results do not prove output quality, broader workload representativeness, production workload handling, production readiness, or cost reduction.
+
+Goal 109 bounded local validation runner results do not prove output quality, broader workload representativeness, production workload handling, production readiness, or cost reduction.
+
+Group 110 Codex inner-loop operating guidance does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, output-quality proof, broader workload representativeness proof, production proof, or claim expansion.

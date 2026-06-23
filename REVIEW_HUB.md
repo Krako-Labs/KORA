@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Goal 108.
+Last updated by: Group 110.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `goal108-bounded-local-test-loop`
-- worktree label: `goal108-bounded-local-test-loop`
-- branch pushed to: `origin/goal108-bounded-local-test-loop`
-- open PR: [#258 Goal 108 - Bounded local test loop](https://github.com/Krako-Labs/KORA/pull/258)
-- base commit: `7511e3050d4ad33b9274434cf25897da5b1f5406`
+- active verification branch: `codex/group110-codex-inner-loop-operating-layer`
+- worktree label: `group110_codex_inner_loop_operating_layer`
+- branch pushed to: pending
+- open PR: pending
+- base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
 
 ## Current State Summary
 
@@ -63,10 +63,12 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
 - Goal 107 adds a public-safe long-run test loop protocol, failure-triage checklist, and test-loop queue template for future bounded local validation loops.
 - Goal 108 applies the Goal 107 protocol to one bounded local-only validation batch with pass/fail/skip/gated outcomes and no repairs.
+- Goal 109 adds a bounded local validation runner over the approved `kora-local-core` command profile.
+- Group 110 adds repo-local Codex inner-loop operating guidance with self-review, risk classification, escalation gates, approval packets, and a validator.
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Goal 108: bounded local-only test loop reporting. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 110: Codex inner-loop operating guidance. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -124,6 +126,8 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 106 | Added a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks. | [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md) |
 | Goal 107 | Added long-run test loop protocol and failure triage for future bounded local validation loops. | [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md) |
 | Goal 108 | Applied the Goal 107 protocol to one bounded local-only validation batch with zero repairs. | [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md) |
+| Goal 109 | Added a bounded local validation runner over the approved local command profile. | [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md) |
+| Group 110 | Added repo-local Codex inner-loop operating guidance, queue, self-review, risk classification, escalation gates, approval packet, multi-agent model, run template, validator, and tests. | [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md) |
 
 ## Evidence Index
 
@@ -153,6 +157,15 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
+- [Codex inner loop run template](docs/reports/codex_inner_loop_run_template.md)
+- [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md)
+- [Codex self-review protocol](docs/context/CODEX_SELF_REVIEW_PROTOCOL.md)
+- [Codex risk classification](docs/context/CODEX_RISK_CLASSIFICATION.md)
+- [Codex escalation gates](docs/context/CODEX_ESCALATION_GATES.md)
+- [Codex approval packet](docs/context/CODEX_APPROVAL_PACKET.md)
+- [Codex multi-agent operating model](docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)
+- [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
 - [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
 - [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
@@ -275,6 +288,8 @@ Supported:
 - Goal 106 supports a tiny bounded scaffold over a public-safe synthetic fixture with deterministic fixture-only checks and aggregate counts.
 - Goal 107 supports a long-run test loop protocol and failure-triage checklist for future bounded local validation loops; it does not execute those loops or create automation.
 - Goal 108 supports that one bounded local-only validation batch ran approved local commands and passed on loop 1 with zero repairs; it does not prove output quality, broader workload representativeness, or production readiness.
+- Goal 109 supports a bounded local validation runner over the approved `kora-local-core` command profile; it does not prove output quality, broader workload representativeness, or production readiness.
+- Group 110 supports repo-local Codex inner-loop operating guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 - KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
 
 Not supported:
@@ -286,7 +301,7 @@ Not supported:
 - output quality from Goal 103 route-only counters.
 - output quality from Goal 105 methodology documentation.
 - output quality from Goal 106 aggregate scaffold counts.
-- output quality, broader workload representativeness, or production readiness from Goal 108 local validation results.
+- output quality, broader workload representativeness, or production readiness from Goal 108 local validation results, Goal 109 runner results, or Group 110 operating guidance.
 - self-approval by Codex or any execution agent.
 - merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, or public claim expansion without explicit approval.
 - model replacement.
@@ -481,6 +496,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Goal 106 is a tiny deterministic fixture-only scaffold; it does not prove output quality, broader workload representativeness, production workload handling, or broad workload superiority.
 - Goal 107 is protocol documentation only; it does not execute long-run validation, create background automation, prove output quality, prove broader workload representativeness, or prove production workload handling.
 - Goal 108 is one bounded local-only validation batch; it does not prove output quality, broader workload representativeness, production workload handling, or broad workload superiority.
+- Goal 109 is a bounded local validation runner over approved commands; it does not prove output quality, broader workload representativeness, production workload handling, or broad workload superiority.
+- Group 110 is repo-local operating guidance and validation for that guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -500,7 +517,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Goal 109 - Review the bounded local test loop result and decide whether another bounded local-only batch is useful, only after explicit approval.
+1. Group 111 - Review Group 110 Codex inner-loop operating layer and decide whether to run the first queued work block, only after explicit approval.
 2. A second route-only fixture slice, only after explicit approval.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
@@ -511,10 +528,11 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch goal108-bounded-local-test-loop for the current Goal 108 review packet, or create a new scoped branch from origin/main for a new Goal after Goal 108 is merged.
+Use the active branch codex/group110-codex-inner-loop-operating-layer for the current Group 110 review packet, or create a new scoped branch from origin/main for a new Group after Group 110 is merged.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
+Use AGENTS.md and docs/context/CODEX_SELF_REVIEW_PROTOCOL.md for repo-local Codex inner-loop work.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
 
