@@ -1,6 +1,6 @@
 # Group 110 Codex Inner Loop Ownership
 
-Status: implemented with local validation passing and PR open pending.
+Status: implemented with local validation passing and PR open.
 
 ## Objective
 
@@ -121,6 +121,8 @@ Expected full-suite baseline after Goal 109 was `418 passed`; Group 110 observes
 
 ## Final Status
 
+- PR: `https://github.com/Krako-Labs/KORA/pull/262`
+- branch: `codex/group110-codex-inner-loop-operating-layer`
 - risk level: medium.
 - final status classification: `needs-cto-review`.
 

@@ -47,8 +47,8 @@ Current state:
 
 - branch: `codex/group110-codex-inner-loop-operating-layer`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/group110-codex-inner-loop-operating-layer`
+- open PR: [#262 Group 110 - Add Codex inner-loop operating layer](https://github.com/Krako-Labs/KORA/pull/262)
 - base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
 
 ## Active Goal
