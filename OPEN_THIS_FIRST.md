@@ -48,7 +48,7 @@ Current state:
 - branch: `codex/group112-approval-report-consistency`
 - public truth: `origin/main`
 - branch pushed to: pending
-- open PR: pending
+- open PR: [#264](https://github.com/Krako-Labs/KORA/pull/264)
 - base commit: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
 
 ## Active Goal

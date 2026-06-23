@@ -1,6 +1,6 @@
 # Group 112 PR Approval and Report Consistency
 
-Status: implemented with local validation complete; PR open pending.
+Status: implemented with local validation complete; PR open.
 
 ## Objective
 
@@ -17,7 +17,7 @@ This group validates approval-packet and report/breadcrumb consistency only. It 
 - base public HEAD: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
 - branch: `codex/group112-approval-report-consistency`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group112_approval_report_consistency`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/264
 
 ## Queue-State Check
 
