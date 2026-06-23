@@ -1,6 +1,6 @@
 # Goal 110 Bounded Local Validation Report Verifier
 
-Status: implemented with local validation passing and PR open pending.
+Status: implemented with local validation passing and PR open.
 
 ## Objective
 
@@ -154,7 +154,8 @@ The expected full-suite baseline after Goal 109 was `418 passed`; Goal 110 obser
 ## Final PR Status
 
 - branch: `codex/goal110-bounded-local-validation-report-verifier`
-- state: pending PR open
+- PR: `https://github.com/Krako-Labs/KORA/pull/261`
+- state: open for review
 - merge status: not merged by this task
 
 This report does not merge the PR.

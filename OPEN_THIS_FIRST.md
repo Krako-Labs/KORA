@@ -47,8 +47,8 @@ Current state:
 
 - branch: `codex/goal110-bounded-local-validation-report-verifier`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/goal110-bounded-local-validation-report-verifier`
+- open PR: [#261 Goal 110 - Add bounded validation report verifier](https://github.com/Krako-Labs/KORA/pull/261)
 - base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
 
 ## Active Goal
