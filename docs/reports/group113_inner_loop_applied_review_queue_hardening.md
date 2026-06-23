@@ -1,6 +1,6 @@
 # Group 113 Inner Loop Applied Review and Queue Hardening
 
-Status: implemented with local validation complete; PR open pending.
+Status: implemented with local validation complete; PR open.
 
 ## Objective
 
@@ -12,17 +12,17 @@ This group is operating review and queue hardening only. It does not implement `
 
 Decision needed: review and decide whether to merge Group 113 queue hardening.
 
-Risk level: low.
+Risk level: low
 
-Final status classification: `merge-ready`.
+Final status classification: `merge-ready`
 
 Changed files: Group 113 report, medium-risk profile-registry checklist, inner-loop queue hardening, next-goal queue hardening, docs index, and narrow breadcrumbs.
 
 Validation summary: Group 112 checker application, inner-loop docs validation, focused checker tests, bounded local dry-run/report verifier/classifier, markdown links, whitespace diff check, and full pytest passed.
 
-Repair attempts: 0.
+Repair attempts: 1.
 
-Failures encountered: none so far.
+Failures encountered: Group 113 report consistency check initially failed because the report approval packet used punctuation on the `risk level` and `final status classification` fields.
 
 Self-review summary: scope is operating review, checklist documentation, queue hardening, report, and breadcrumbs; `CIL-003` remains deferred and no validation profile registry implementation was added.
 
@@ -42,7 +42,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 - base public HEAD: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
 - branch: `codex/group113-inner-loop-queue-hardening`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group113_inner_loop_queue_hardening`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/265
 
 ## Queue-State Check
 
@@ -179,8 +179,8 @@ Expected full-suite baseline after Group 112 was `474 passed`; Group 113 observe
 
 ## Loop Count And Repairs
 
-- loop count: 1
-- repair attempts: 0
+- loop count: 2
+- repair attempts: 1
 - max loop count: 5
 - max repair attempts per failing subtask: 2
 
@@ -190,6 +190,8 @@ Expected full-suite baseline after Group 112 was `474 passed`; Group 113 observe
 - final status classification: `merge-ready`
 
 Rationale: this group is documentation, review, and queue hardening only. It does not implement `CIL-003`, change validation profile code, add runtime features, add executable automation, or expand public claims.
+
+Repair note: the Group 113 report consistency check initially failed on approval-packet field punctuation. The smallest safe fix removed trailing punctuation from the `risk level` and `final status classification` field values in this report.
 
 ## Self-Review
 

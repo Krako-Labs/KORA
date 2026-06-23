@@ -47,8 +47,8 @@ Current state:
 
 - branch: `codex/group113-inner-loop-queue-hardening`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/group113-inner-loop-queue-hardening`
+- open PR: [#265](https://github.com/Krako-Labs/KORA/pull/265)
 - base commit: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
 
 ## Active Goal
