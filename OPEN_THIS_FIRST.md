@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Goal 108.
+Last updated by: Group 110.
 
 ## Current Status
 
@@ -41,24 +41,33 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Goal 108 bounded local-only test loop reporting. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 110 Codex inner-loop operating guidance. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `goal108-bounded-local-test-loop`
+- branch: `codex/group110-codex-inner-loop-operating-layer`
 - public truth: `origin/main`
-- branch pushed to: `origin/goal108-bounded-local-test-loop`
-- open PR: [#258 Goal 108 - Bounded local test loop](https://github.com/Krako-Labs/KORA/pull/258)
-- base commit: `7511e3050d4ad33b9274434cf25897da5b1f5406`
+- branch pushed to: `origin/codex/group110-codex-inner-loop-operating-layer`
+- open PR: [#262 Group 110 - Add Codex inner-loop operating layer](https://github.com/Krako-Labs/KORA/pull/262)
+- base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
 
 ## Active Goal
 
-Goal 108 - Apply Long-Run Test Loop To One Bounded Local-Only Test Batch.
+Group 110 - Codex Inner Loop Ownership with Risk-Gated Self Review.
 
-Goal 108 applies the Goal 107 long-run test loop protocol to one bounded local-only validation batch. It records pass/fail/skip/gated outcomes and final status, and it does not create a scheduler, daemon, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
+Group 110 adds repo-local operating guidance for Codex-owned bounded inner-loop work: queue selection, validation, repair, self-review, risk classification, escalation gates, approval packets, and PR-open stop behavior. It does not create auto-merge, background execution, actual multi-agent execution, provider calls, H100/server execution, or claim expansion.
 
 Primary report:
 
+- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
+- [Codex inner loop run template](docs/reports/codex_inner_loop_run_template.md)
+- [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md)
+- [Codex self-review protocol](docs/context/CODEX_SELF_REVIEW_PROTOCOL.md)
+- [Codex risk classification](docs/context/CODEX_RISK_CLASSIFICATION.md)
+- [Codex escalation gates](docs/context/CODEX_ESCALATION_GATES.md)
+- [Codex approval packet](docs/context/CODEX_APPROVAL_PACKET.md)
+- [Codex multi-agent operating model](docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)
+- [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
 - [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
 - [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md)
@@ -94,7 +103,21 @@ Current caveat: Goal 107 is protocol documentation only. It does not execute lon
 
 Current caveat: Goal 108 is one bounded local-only validation batch over approved commands. It does not execute provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, output-quality proof, broader workload representativeness proof, production proof, background automation, merge automation, file movement, release, publication, repository settings changes, or local-only source refresh.
 
+Current caveat: Goal 109 is a bounded local validation runner over approved commands. It does not add production validation, output-quality proof, broader workload representativeness proof, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, release, publication, repository settings changes, or local-only source refresh.
+
+Current caveat: Group 110 is repo-local operating guidance and validation for that guidance. It does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
+
 ## Last Completed Goal
+
+Goal 109 - Add Bounded Local Validation Runner.
+
+Goal 109 added a public-safe bounded local validation runner for the `kora-local-core` profile. PR #259 was squash-merged into `origin/main` at `3ea3c9f520fdc70370f28f51a7979b918b0599eb`.
+
+Primary report:
+
+- [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
+
+Claim boundary: Goal 109 is a bounded local validation runner over approved commands. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production cost reduction, H100/GPU/CPU superiority, customer savings, provider replacement, GPU-serving replacement, or published `getkora`.
 
 Goal 107 - Long-Run Test Loop Protocol and Failure Triage.
 
@@ -587,19 +610,19 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Goal 109 - Review the bounded local test loop result and decide whether another bounded local-only batch is useful, only after explicit approval.
+Group 111 - Review Group 110 Codex inner-loop operating layer and decide whether to run the first queued work block, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
-- use [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md).
-- review [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md).
-- decide whether another bounded local-only test batch is useful before starting it.
-- define allowed commands, max loop count, max repair attempts, timeout or practical stop condition, allowed files, forbidden files, and stop gates before any new loop.
+- review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
+- review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
+- decide whether to run `CIL-001` or reconcile it with any existing bounded validation report verifier PR.
+- preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
-- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, or merge automation without separate explicit approval.
+- do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
 Alternative future goals remain a second route-only fixture slice or documentation movement for one small bucket, but only after explicit approval.
@@ -622,14 +645,14 @@ For a future Goal:
 2. Read this file and [REVIEW_HUB.md](REVIEW_HUB.md).
 3. Do the scoped work.
 4. Update this file and [REVIEW_HUB.md](REVIEW_HUB.md) before committing, unless the Goal explicitly exempts breadcrumb updates.
-## Goal 091B — Exact Public Documentation Replacement
+## Goal 091B - Exact Public Documentation Replacement
 
 - Replaced selected public landing and index documents with exact authored Markdown files.
 - Kept README focused on a short landing-page experience.
 - Added or refreshed documentation index and example catalog pages.
 - Preserved existing project history and avoided root directory moves.
 
-## Goal 092 — Repository Public Surface Alignment Audit
+## Goal 092 - Repository Public Surface Alignment Audit
 
 - Audited GitHub metadata, root structure, examples, docs, and public first impression after the Goal 091B replacement.
 - Proposed a metadata-only Goal 093 as the next approved step.
