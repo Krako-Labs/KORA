@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 110.
+Last updated by: Group 111.
 
 ## Current Status
 
@@ -41,24 +41,27 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 110 Codex inner-loop operating guidance. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 111 validation report control-block tooling over the bounded local validation runner. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group110-codex-inner-loop-operating-layer`
+- branch: `codex/group111-validation-report-control-block`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group110-codex-inner-loop-operating-layer`
-- open PR: [#262 Group 110 - Add Codex inner-loop operating layer](https://github.com/Krako-Labs/KORA/pull/262)
-- base commit: `3ea3c9f520fdc70370f28f51a7979b918b0599eb`
+- branch pushed to: `origin/codex/group111-validation-report-control-block`
+- open PR: [#263 Group 111 - Validation report control block](https://github.com/Krako-Labs/KORA/pull/263)
+- base commit: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
 
 ## Active Goal
 
-Group 110 - Codex Inner Loop Ownership with Risk-Gated Self Review.
+Group 111 - Queue-Driven Validation Report Control Block.
 
-Group 110 adds repo-local operating guidance for Codex-owned bounded inner-loop work: queue selection, validation, repair, self-review, risk classification, escalation gates, approval packets, and PR-open stop behavior. It does not create auto-merge, background execution, actual multi-agent execution, provider calls, H100/server execution, or claim expansion.
+Group 111 implements the first queue-driven Codex inner-loop work block after Group 110: a static bounded-local-validation report verifier and deterministic failure classifier. It reconciles open PR #261 by leaving that conflicted branch untouched and superseding it with a clean Group 111 branch from current `origin/main`. It does not execute commands from reports, auto-repair, create background automation, call providers, run H100/server work, or expand claims.
 
 Primary report:
 
+- [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md)
+- [Bounded local validation report verifier](scripts/verify_bounded_local_validation_report.py)
+- [Bounded local validation failure classifier](scripts/classify_bounded_local_validation_failure.py)
 - [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
 - [Codex inner loop run template](docs/reports/codex_inner_loop_run_template.md)
 - [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md)
@@ -107,7 +110,19 @@ Current caveat: Goal 109 is a bounded local validation runner over approved comm
 
 Current caveat: Group 110 is repo-local operating guidance and validation for that guidance. It does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 
+Current caveat: Group 111 is static validation-report control-block tooling over local JSON reports. It does not execute report commands, auto-repair, schedule background work, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
+
 ## Last Completed Goal
+
+Group 110 - Codex Inner Loop Ownership with Risk-Gated Self Review.
+
+Group 110 added repo-local operating guidance for Codex-owned bounded inner-loop work: queue selection, validation, repair, self-review, risk classification, escalation gates, approval packets, and PR-open stop behavior. PR #262 was squash-merged into `origin/main` at `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`.
+
+Primary report:
+
+- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
+
+Claim boundary: Group 110 is repo-local operating guidance and validation for that guidance. It does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 
 Goal 109 - Add Bounded Local Validation Runner.
 
@@ -610,15 +625,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Group 111 - Review Group 110 Codex inner-loop operating layer and decide whether to run the first queued work block, only after explicit approval.
+Group 112 - Review Group 111 validation report control block and decide whether to run the next queued work block, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
-- decide whether to run `CIL-001` or reconcile it with any existing bounded validation report verifier PR.
+- decide whether to run `CIL-003` or defer it because the bounded validation profile registry is medium risk.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
