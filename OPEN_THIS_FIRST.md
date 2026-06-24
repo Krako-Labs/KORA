@@ -48,8 +48,8 @@ Current state:
 
 - branch: `codex/group115-source-install-readiness`
 - public truth: `origin/main`
-- branch pushed to: pending PR open
-- open PR: pending PR open
+- branch pushed to: `origin/codex/group115-source-install-readiness`
+- open PR: [#267](https://github.com/Krako-Labs/KORA/pull/267)
 - base commit: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
 
 ## Active Goal

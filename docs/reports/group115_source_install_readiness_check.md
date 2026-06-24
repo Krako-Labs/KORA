@@ -42,7 +42,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 - base public HEAD: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
 - branch: `codex/group115-source-install-readiness`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group115_source_install_readiness`
-- PR: pending until PR open
+- PR: https://github.com/Krako-Labs/KORA/pull/267
 
 ## Subtasks
 
