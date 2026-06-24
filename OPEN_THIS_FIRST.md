@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 114.
+Last updated by: Group 115.
 
 ## Current Status
 
@@ -17,6 +17,7 @@ Current state:
 - baseline equivalence and output-fidelity evidence exists over public fixtures.
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
+- source-install readiness is now checked by an isolated local temporary-venv checker over the current source tree, import surface, `python -m kora`, `kora` CLI entry point, and no-provider `kora examples list` smoke path.
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
@@ -41,24 +42,27 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 114 first-run CLI smoke validation. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 115 source-install readiness review. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group114-first-run-cli-smoke-validation`
+- branch: `codex/group115-source-install-readiness`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group114-first-run-cli-smoke-validation`
-- open PR: [#266](https://github.com/Krako-Labs/KORA/pull/266)
-- base commit: `bbc673d256f005201925051310342fa78c4af4d2`
+- branch pushed to: pending PR open
+- open PR: pending PR open
+- base commit: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
 
 ## Active Goal
 
-Group 114 - First-Run CLI Smoke Validation Expansion.
+Group 115 - Source-Install Readiness Check.
 
-Group 114 implements `CIL-004` by adding a deterministic local first-run CLI smoke checker over existing offline commands, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/server work, or expand claims.
+Group 115 implements `CIL-005` by adding an isolated local source-install readiness checker over the current source tree, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, publish packages, claim PyPI installation support, claim `getkora` is published, call providers, run H100/server work, or expand claims.
 
 Primary report:
 
+- [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md)
+- [Source-install readiness checker](scripts/check_source_install_readiness.py)
+- [Source-install readiness tests](tests/test_source_install_readiness.py)
 - [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md)
 - [First-run CLI smoke checker](scripts/check_first_run_cli_smoke.py)
 - [First-run CLI smoke tests](tests/test_first_run_cli_smoke.py)
@@ -125,6 +129,8 @@ Current caveat: Group 112 validates approval-packet and report/breadcrumb consis
 Current caveat: Group 113 is operating review and queue hardening only. It does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, create issues, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
 
 Current caveat: Group 114 is local first-run CLI smoke validation only. It does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
+
+Current caveat: Group 115 is local source-install readiness only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, create releases or tags, claim `getkora` is published, claim install-from-PyPI support, call providers, require H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or expand claims.
 
 ## Last Completed Goal
 
@@ -669,13 +675,14 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Group 115 - Consider `CIL-005 - Source-Install Readiness Check`, only after explicit approval.
+Review Group 115 - `CIL-005 - Source-Install Readiness Check`.
 
 Recommended scope:
 
-- use the Goal 104 runbooks as the execution checklist.
-- verify the goal envelope, base SHA, KORA identity, and clean worktree.
-- review [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md).
+- review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
+- review [Source-install readiness checker](scripts/check_source_install_readiness.py).
+- review [Source-install readiness tests](tests/test_source_install_readiness.py).
+- verify the real local source-install readiness result if needed with `python3 scripts/check_source_install_readiness.py`.
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
@@ -683,8 +690,7 @@ Recommended scope:
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- verify source-install readiness from local repo state without publishing packages.
-- do not claim that `getkora` is published.
+- confirm the report keeps the local source-install boundary and does not claim that `getkora` is published.
 - expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
