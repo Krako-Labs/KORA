@@ -8,12 +8,16 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Group 115 - Consider `CIL-005 - Source-Install Readiness Check`, only after explicit approval.
+1. Review Group 115 - `CIL-005 - Source-Install Readiness Check`.
 
 Suggested scope:
 
 - use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 115 source-install readiness check](../reports/group115_source_install_readiness_check.md).
+- review [Source-install readiness checker](../../scripts/check_source_install_readiness.py).
+- review [Source-install readiness tests](../../tests/test_source_install_readiness.py).
+- rerun `python3 scripts/check_source_install_readiness.py` if reviewer wants to reproduce the isolated local source-install check.
 - review [Group 114 first-run CLI smoke validation](../reports/group114_first_run_cli_smoke_validation.md).
 - review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
@@ -22,8 +26,7 @@ Suggested scope:
 - review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- for `CIL-005`, verify source-install readiness from local repo state without publishing packages.
-- do not claim that `getkora` is published.
+- confirm `CIL-005` remains local source-install readiness only, without PyPI checks, package publication, or a `getkora` published claim.
 - expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
@@ -84,3 +87,5 @@ Group 112 approval-packet and report-consistency checks do not call GitHub APIs,
 Group 113 queue hardening does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, create issues, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or expand claims.
 
 Group 114 first-run CLI smoke validation does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
+
+Group 115 source-install readiness checking does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, create releases or tags, claim that `getkora` is published, claim install-from-PyPI support, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or prove broader workload representativeness.

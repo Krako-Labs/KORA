@@ -118,6 +118,7 @@ Review friction reduction:
 - validation commands: focused readiness tests, source-install smoke in local environment if approved by prompt, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: readiness checker, report, approval packet.
+- Group 115 status: completed by `codex/group115-source-install-readiness` with an isolated local temporary-venv checker over editable source install, import, module CLI, console script, and no-provider command smoke.
 - stop gates: package publication, external index upload, claim that `getkora` is published.
 - claim boundaries: local source-install readiness only; no release or publication claim.
 - completion status expected: `needs-cto-review` if user-facing install docs change.
