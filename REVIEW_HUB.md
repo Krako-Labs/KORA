@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 115.
+Last updated by: Group 116.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/group115-source-install-readiness`
-- worktree label: `group115_source_install_readiness`
-- branch pushed to: `origin/codex/group115-source-install-readiness`
-- open PR: [#267](https://github.com/Krako-Labs/KORA/pull/267)
-- base commit: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
+- active verification branch: `codex/group116-route-only-fixture-slice`
+- worktree label: `group116_route_only_fixture_slice`
+- branch pushed to: `origin/codex/group116-route-only-fixture-slice`
+- open PR: [#268](https://github.com/Krako-Labs/KORA/pull/268)
+- base commit: `49affdfb25bb7551e30255839a4816047971ced9`
 
 ## Current State Summary
 
@@ -59,6 +59,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 099 executed the Goal 098 server-run packet through SSH remote execution on the AI Champion H100 server, separating CPU/non-GPU and bounded GPU/H100 paths.
 - Goal 102 starts broader workload representativeness planning with a public-safe synthetic seed fixture and shape-only validator.
 - Goal 103 adds a route-only evaluator over the Goal 102 seed fixture, producing aggregate public-safe route and workload-category counters only.
+- Group 116 adds a second public-safe synthetic route-only fixture slice with aggregate counters only.
 - Goal 104 adds a KORA-specific Codex bounded-loop protocol, claim-boundary checklist, PR completion format, and next-goal queue for semi-autonomous execution with human approval gates.
 - Goal 105 adds a public-safe output-quality methodology for future fixture-derived checks without executing evaluation or turning Goal 103 route-only counters into output-quality proof.
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
@@ -72,7 +73,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 115: source-install readiness checking. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 116: second route-only fixture slice. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -137,6 +138,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 113 | Applied the inner-loop tools, added the medium-risk profile-registry checklist, and hardened queue sizing guidance without implementing `CIL-003`. | [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md) |
 | Group 114 | Adds deterministic local first-run CLI smoke validation over existing offline commands without implementing `CIL-003`, publishing packages, or expanding claims. | [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md) |
 | Group 115 | Adds isolated local source-install readiness checking without checking PyPI, publishing packages, claiming `getkora` is published, or expanding claims. | [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md) |
+| Group 116 | Adds a second synthetic route-only fixture slice with aggregate counters only, without output-quality or broader representativeness claims. | [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md) |
 
 ## Evidence Index
 
@@ -166,6 +168,10 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md)
+- [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json)
+- [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py)
+- [Second slice route-only evaluator tests](tests/test_representativeness_slice_route_only_evaluator.py)
 - [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md)
 - [Source-install readiness checker](scripts/check_source_install_readiness.py)
 - [Source-install readiness tests](tests/test_source_install_readiness.py)
@@ -529,6 +535,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 113 is operating review and queue hardening only; it does not implement `CIL-003`, change validation profiles, execute report commands, mutate GitHub, create issues, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 - Group 114 is local first-run CLI smoke validation only; it does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/server work, or prove output quality.
 - Group 115 is local source-install readiness only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, claim `getkora` is published, claim install-from-PyPI support, call providers, run H100/server work, or prove output quality.
+- Group 116 is route-only aggregate fixture evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -548,8 +555,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review Group 115 - `CIL-005 - Source-Install Readiness Check`.
-2. A second route-only fixture slice, only after explicit approval.
+1. Review Group 116 - Second Route-Only Fixture Slice.
+2. Another bounded public-safe fixture/check slice, only after explicit approval.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
@@ -561,7 +568,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/group115-source-install-readiness for the current Group 115 review packet, or create a new scoped branch from origin/main for a new Group after Group 115 is merged.
+Use the active branch codex/group116-route-only-fixture-slice for the current Group 116 review packet, or create a new scoped branch from origin/main for a new Group after Group 116 is merged.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.

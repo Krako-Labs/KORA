@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 115.
+Last updated by: Group 116.
 
 ## Current Status
 
@@ -18,6 +18,7 @@ Current state:
 - first-value CLI commands exist and the editable-install path has been revalidated for local public-safe onboarding.
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
 - source-install readiness is now checked by an isolated local temporary-venv checker over the current source tree, import surface, `python -m kora`, `kora` CLI entry point, and no-provider `kora examples list` smoke path.
+- a second public-safe route-only fixture slice exists at `examples/workloads/kora-representativeness-slice-v1.json`, with aggregate-only evaluation through `scripts/evaluate_representativeness_slice_routes.py`.
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
@@ -42,24 +43,28 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 115 source-install readiness review. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 116 second route-only fixture slice review. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group115-source-install-readiness`
+- branch: `codex/group116-route-only-fixture-slice`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group115-source-install-readiness`
-- open PR: [#267](https://github.com/Krako-Labs/KORA/pull/267)
-- base commit: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
+- branch pushed to: `origin/codex/group116-route-only-fixture-slice`
+- open PR: [#268](https://github.com/Krako-Labs/KORA/pull/268)
+- base commit: `49affdfb25bb7551e30255839a4816047971ced9`
 
 ## Active Goal
 
-Group 115 - Source-Install Readiness Check.
+Group 116 - Second Route-Only Fixture Slice.
 
-Group 115 implements `CIL-005` by adding an isolated local source-install readiness checker over the current source tree, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, publish packages, claim PyPI installation support, claim `getkora` is published, call providers, run H100/server work, or expand claims.
+Group 116 adds a second synthetic route-only fixture slice, an aggregate route-only evaluator, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, or expand claims.
 
 Primary report:
 
+- [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md)
+- [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json)
+- [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py)
+- [Second slice route-only evaluator tests](tests/test_representativeness_slice_route_only_evaluator.py)
 - [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md)
 - [Source-install readiness checker](scripts/check_source_install_readiness.py)
 - [Source-install readiness tests](tests/test_source_install_readiness.py)
@@ -131,6 +136,8 @@ Current caveat: Group 113 is operating review and queue hardening only. It does 
 Current caveat: Group 114 is local first-run CLI smoke validation only. It does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
 
 Current caveat: Group 115 is local source-install readiness only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, create releases or tags, claim `getkora` is published, claim install-from-PyPI support, call providers, require H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or expand claims.
+
+Current caveat: Group 116 is route-only aggregate fixture evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 ## Last Completed Goal
 
@@ -675,14 +682,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Review Group 115 - `CIL-005 - Source-Install Readiness Check`.
+Review Group 116 - Second Route-Only Fixture Slice.
 
 Recommended scope:
 
+- review [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md).
+- review [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json).
+- review [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py).
+- review [Second slice route-only evaluator tests](tests/test_representativeness_slice_route_only_evaluator.py).
+- verify the real local route-only result if needed with `python3 scripts/evaluate_representativeness_slice_routes.py`.
 - review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
-- review [Source-install readiness checker](scripts/check_source_install_readiness.py).
-- review [Source-install readiness tests](tests/test_source_install_readiness.py).
-- verify the real local source-install readiness result if needed with `python3 scripts/check_source_install_readiness.py`.
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
@@ -690,15 +699,15 @@ Recommended scope:
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- confirm the report keeps the local source-install boundary and does not claim that `getkora` is published.
-- expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
+- confirm the report keeps the route-only aggregate boundary and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
+- expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
-Alternative future goals remain `CIL-003`, a second route-only fixture slice, or documentation movement for one small bucket, but only after explicit approval.
+Alternative future goals remain `CIL-003`, another bounded public-safe fixture/check slice, or documentation movement for one small bucket, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 

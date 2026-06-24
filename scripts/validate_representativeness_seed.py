@@ -7,6 +7,10 @@ from typing import Any
 
 
 DEFAULT_FIXTURE = Path("examples/workloads/kora-representativeness-seed-v0.json")
+ALLOWED_SCHEMA_VERSIONS = {
+    "kora_representativeness_seed_v0",
+    "kora_representativeness_slice_v1",
+}
 REQUIRED_ITEM_FIELDS = {
     "id",
     "category",
@@ -40,7 +44,7 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def validate_seed(path: Path = DEFAULT_FIXTURE) -> dict[str, Any]:
     data = _load_json(path)
-    if data.get("schema_version") != "kora_representativeness_seed_v0":
+    if data.get("schema_version") not in ALLOWED_SCHEMA_VERSIONS:
         raise ValueError("unsupported schema_version")
     if data.get("public_safe") is not True:
         raise ValueError("fixture public_safe must be true")
