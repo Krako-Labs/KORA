@@ -47,8 +47,8 @@ Current state:
 
 - branch: `codex/group114-first-run-cli-smoke-validation`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: pending
+- branch pushed to: `origin/codex/group114-first-run-cli-smoke-validation`
+- open PR: [#266](https://github.com/Krako-Labs/KORA/pull/266)
 - base commit: `bbc673d256f005201925051310342fa78c4af4d2`
 
 ## Active Goal

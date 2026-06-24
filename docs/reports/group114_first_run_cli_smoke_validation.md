@@ -42,7 +42,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 - base public HEAD: `bbc673d256f005201925051310342fa78c4af4d2`
 - branch: `codex/group114-first-run-cli-smoke-validation`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group114_first_run_cli_smoke_validation`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/266
 
 ## Queue-State Check
 
