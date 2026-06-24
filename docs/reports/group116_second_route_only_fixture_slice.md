@@ -42,7 +42,7 @@ Albert action options: Merge / Request R1 / Stop.
 - base public HEAD: `49affdfb25bb7551e30255839a4816047971ced9`
 - branch: `codex/group116-route-only-fixture-slice`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group116_route_only_fixture_slice`
-- PR: pending until PR open
+- PR: https://github.com/Krako-Labs/KORA/pull/268
 
 ## Subtasks
 

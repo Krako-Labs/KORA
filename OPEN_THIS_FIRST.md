@@ -49,8 +49,8 @@ Current state:
 
 - branch: `codex/group116-route-only-fixture-slice`
 - public truth: `origin/main`
-- branch pushed to: pending PR open
-- open PR: pending PR open
+- branch pushed to: `origin/codex/group116-route-only-fixture-slice`
+- open PR: [#268](https://github.com/Krako-Labs/KORA/pull/268)
 - base commit: `49affdfb25bb7551e30255839a4816047971ced9`
 
 ## Active Goal
