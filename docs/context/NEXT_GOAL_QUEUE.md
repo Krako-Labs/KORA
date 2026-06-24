@@ -8,22 +8,34 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Group 113 - Review Group 112 approval/report consistency checks and decide whether to explicitly approve `CIL-003`.
+1. Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
 
 Suggested scope:
 
 - use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
+- review [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](../reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](../reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
-- decide whether to run `CIL-003` or continue deferring it because the bounded validation profile registry is medium risk.
+- approve `CIL-003` only if the checklist constraints are accepted explicitly.
+- otherwise defer `CIL-003` and choose a lower-risk 2-4 hour operating block later.
+- if approved, expect final classification `needs-cto-review` unless the scope is extremely narrow.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - run the claim-boundary checklist before PR-open.
 - stop at PR-open unless a separate merge-gate prompt is provided.
+
+## Future Queue Item Sizing
+
+Future queue items should record one expected duration band: `30-60 min`, `1-2 hr`, `2-4 hr`, or `half-day`.
+
+Low-risk adjacent checkers may be bundled when they share the same input surface and validation path. Medium-risk command-surface changes should not be bundled with unrelated work. High-risk work must not be bundled.
+
+Do not split a checker, tests, docs, report, and breadcrumbs into separate tasks unless risk or ownership requires separation. Prefer coherent control blocks that leave the next queue state clearer than before.
 
 ## Approved Alternatives Only After Explicit Prompt
 

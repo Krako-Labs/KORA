@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 112.
+Last updated by: Group 113.
 
 ## Current Status
 
@@ -41,24 +41,26 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 112 approval-packet and report-consistency checks. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 113 inner-loop applied review and queue hardening. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group112-approval-report-consistency`
+- branch: `codex/group113-inner-loop-queue-hardening`
 - public truth: `origin/main`
-- branch pushed to: pending
-- open PR: [#264](https://github.com/Krako-Labs/KORA/pull/264)
-- base commit: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
+- branch pushed to: `origin/codex/group113-inner-loop-queue-hardening`
+- open PR: [#265](https://github.com/Krako-Labs/KORA/pull/265)
+- base commit: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
 
 ## Active Goal
 
-Group 112 - PR Approval and Report Consistency Control Block.
+Group 113 - Inner Loop Applied Review and Queue Hardening Audit.
 
-Group 112 implements two low-risk queue-driven Codex inner-loop work blocks: `CIL-006` PR approval packet checking and `CIL-007` report consistency checking. It keeps `CIL-003` deferred because that profile-registry item is medium risk and requires separate explicit approval. It does not call GitHub APIs, mutate PRs, execute report commands, auto-repair, create background automation, call providers, run H100/server work, or expand claims.
+Group 113 applies the Group 110-112 operating layer, runs the Group 112 checkers against the merged Group 112 report, records the PR #261 supersession state, adds a medium-risk `CIL-003` checklist, and hardens queue sizing guidance to avoid micro-task collapse. It does not implement `CIL-003`, change validation profiles, execute report commands, call providers, run H100/server work, mutate GitHub, or expand claims.
 
 Primary report:
 
+- [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
+- [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
 - [PR approval packet checker](scripts/check_pr_approval_packet.py)
 - [Report consistency checker](scripts/check_report_consistency.py)
@@ -117,7 +119,19 @@ Current caveat: Group 111 is static validation-report control-block tooling over
 
 Current caveat: Group 112 validates approval-packet and report/breadcrumb consistency only. It does not call GitHub APIs, approve PRs, merge PRs, close PRs, create issues, execute report commands, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
 
+Current caveat: Group 113 is operating review and queue hardening only. It does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, create issues, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
+
 ## Last Completed Goal
+
+Group 112 - PR Approval and Report Consistency Control Block.
+
+Group 112 added deterministic approval-packet and report-consistency checks. PR #264 was squash-merged into `origin/main` at `11232af9027209c0cfd4ae7a5edee79c91d791d4`.
+
+Primary report:
+
+- [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
+
+Claim boundary: Group 112 validates approval-packet and report/breadcrumb consistency only. It does not call GitHub APIs, mutate PRs, execute report commands, call providers, run H100/server work, or prove output quality.
 
 Group 111 - Queue-Driven Validation Report Control Block.
 
@@ -640,17 +654,21 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Group 113 - Review Group 112 approval/report consistency checks and decide whether to explicitly approve `CIL-003`, only after explicit approval.
+Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
+- review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
-- decide whether to run `CIL-003` or continue deferring it because the bounded validation profile registry is medium risk.
+- approve `CIL-003` only if the checklist constraints are accepted explicitly.
+- otherwise defer `CIL-003` and choose a lower-risk 2-4 hour operating block later.
+- if approved, expect final classification `needs-cto-review` unless the scope is extremely narrow.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
