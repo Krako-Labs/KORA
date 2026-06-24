@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 113.
+Last updated by: Group 114.
 
 ## Current Status
 
@@ -41,24 +41,27 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 113 inner-loop applied review and queue hardening. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 114 first-run CLI smoke validation. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group113-inner-loop-queue-hardening`
+- branch: `codex/group114-first-run-cli-smoke-validation`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group113-inner-loop-queue-hardening`
-- open PR: [#265](https://github.com/Krako-Labs/KORA/pull/265)
-- base commit: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
+- branch pushed to: `origin/codex/group114-first-run-cli-smoke-validation`
+- open PR: [#266](https://github.com/Krako-Labs/KORA/pull/266)
+- base commit: `bbc673d256f005201925051310342fa78c4af4d2`
 
 ## Active Goal
 
-Group 113 - Inner Loop Applied Review and Queue Hardening Audit.
+Group 114 - First-Run CLI Smoke Validation Expansion.
 
-Group 113 applies the Group 110-112 operating layer, runs the Group 112 checkers against the merged Group 112 report, records the PR #261 supersession state, adds a medium-risk `CIL-003` checklist, and hardens queue sizing guidance to avoid micro-task collapse. It does not implement `CIL-003`, change validation profiles, execute report commands, call providers, run H100/server work, mutate GitHub, or expand claims.
+Group 114 implements `CIL-004` by adding a deterministic local first-run CLI smoke checker over existing offline commands, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/server work, or expand claims.
 
 Primary report:
 
+- [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md)
+- [First-run CLI smoke checker](scripts/check_first_run_cli_smoke.py)
+- [First-run CLI smoke tests](tests/test_first_run_cli_smoke.py)
 - [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
 - [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
@@ -121,7 +124,19 @@ Current caveat: Group 112 validates approval-packet and report/breadcrumb consis
 
 Current caveat: Group 113 is operating review and queue hardening only. It does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, create issues, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, or prove output quality.
 
+Current caveat: Group 114 is local first-run CLI smoke validation only. It does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
+
 ## Last Completed Goal
+
+Group 113 - Inner Loop Applied Review and Queue Hardening Audit.
+
+Group 113 applied the Group 110-112 operating layer, confirmed the Group 112 checkers pass on the merged Group 112 report, added a medium-risk `CIL-003` checklist, and hardened queue sizing guidance. PR #265 was squash-merged into `origin/main` at `bbc673d256f005201925051310342fa78c4af4d2`.
+
+Primary report:
+
+- [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
+
+Claim boundary: Group 113 is operating review and queue hardening only. It does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, call providers, run H100/server work, or prove output quality.
 
 Group 112 - PR Approval and Report Consistency Control Block.
 
@@ -654,28 +669,30 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
+Group 115 - Consider `CIL-005 - Source-Install Readiness Check`, only after explicit approval.
 
 Recommended scope:
 
 - use the Goal 104 runbooks as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md).
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
-- approve `CIL-003` only if the checklist constraints are accepted explicitly.
-- otherwise defer `CIL-003` and choose a lower-risk 2-4 hour operating block later.
-- if approved, expect final classification `needs-cto-review` unless the scope is extremely narrow.
+- keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
+- verify source-install readiness from local repo state without publishing packages.
+- do not claim that `getkora` is published.
+- expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
-Alternative future goals remain a second route-only fixture slice or documentation movement for one small bucket, but only after explicit approval.
+Alternative future goals remain `CIL-003`, a second route-only fixture slice, or documentation movement for one small bucket, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 

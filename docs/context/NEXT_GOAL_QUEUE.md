@@ -8,21 +8,23 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
+1. Group 115 - Consider `CIL-005 - Source-Install Readiness Check`, only after explicit approval.
 
 Suggested scope:
 
 - use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 114 first-run CLI smoke validation](../reports/group114_first_run_cli_smoke_validation.md).
 - review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](../reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](../reports/group111_validation_report_control_block.md).
 - review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
-- approve `CIL-003` only if the checklist constraints are accepted explicitly.
-- otherwise defer `CIL-003` and choose a lower-risk 2-4 hour operating block later.
-- if approved, expect final classification `needs-cto-review` unless the scope is extremely narrow.
+- keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
+- for `CIL-005`, verify source-install readiness from local repo state without publishing packages.
+- do not claim that `getkora` is published.
+- expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
@@ -78,3 +80,7 @@ Group 110 Codex inner-loop operating guidance does not create production automat
 Group 111 validation report control-block tooling does not execute report commands, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or expand claims.
 
 Group 112 approval-packet and report-consistency checks do not call GitHub APIs, approve PRs, merge PRs, close PRs, create issues, execute report commands, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or expand claims.
+
+Group 113 queue hardening does not implement `CIL-003`, change validation profiles, execute report commands, call GitHub APIs, mutate PRs, create issues, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or expand claims.
+
+Group 114 first-run CLI smoke validation does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
