@@ -45,6 +45,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Group 113 inner loop applied review and queue hardening](reports/group113_inner_loop_applied_review_queue_hardening.md) - operating review and queue hardening; does not implement `CIL-003` or change validation profiles.
 - [Group 114 first-run CLI smoke validation](reports/group114_first_run_cli_smoke_validation.md) - deterministic local first-run CLI smoke checks over existing offline commands; does not publish packages or prove production readiness.
 - [Group 115 source-install readiness check](reports/group115_source_install_readiness_check.md) - isolated local source-install readiness checking; does not check PyPI, publish packages, or claim `getkora` is published.
+- [Group 116 second route-only fixture slice](reports/group116_second_route_only_fixture_slice.md) - second synthetic route-only fixture slice with aggregate counters only; does not prove output quality or broader representativeness.
 - [Goal 096 documentation navigation and archive-bucket proposal](reports/goal096_documentation_navigation_archive_bucket_proposal.md) - proposal-only navigation buckets; no files moved.
 - [Group 097 H100 evidence inventory and gap audit](reports/group097_h100_evidence_inventory_gap_audit.md) - bounded H100 evidence inventory; no new H100 benchmark claim.
 - [Goal 098 controlled CPU/GPU evidence regeneration](reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) - server-run packet with local no-CUDA `not_run` status; no fresh H100 execution claim.
@@ -70,6 +71,7 @@ KORA uses narrow evidence language. Offline examples and reports may describe sa
 - [Codex escalation gates](context/CODEX_ESCALATION_GATES.md)
 - [Codex approval packet](context/CODEX_APPROVAL_PACKET.md)
 - [Codex medium-risk profile registry checklist](context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
+- [Second slice route-only evaluator](../scripts/evaluate_representativeness_slice_routes.py)
 - [Source-install readiness checker](../scripts/check_source_install_readiness.py)
 - [First-run CLI smoke checker](../scripts/check_first_run_cli_smoke.py)
 - [Codex multi-agent operating model](context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)

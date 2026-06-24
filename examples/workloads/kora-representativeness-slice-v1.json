@@ -1,0 +1,368 @@
+{
+  "schema_version": "kora_representativeness_slice_v1",
+  "description": "Public-safe synthetic second route-only fixture slice for KORA workload-control route-shape evidence. This fixture is not output-quality proof, broader workload representativeness proof, production readiness proof, or provider/model execution evidence.",
+  "claim_scope": "fixture_only",
+  "public_safe": true,
+  "items": [
+    {
+      "id": "rep-slice-v1-001",
+      "category": "multi_step_app_workflow",
+      "input": "Synthetic app workflow: normalize a checkout event, classify retry eligibility, and prepare a local audit row.",
+      "expected_route": "cpu",
+      "rationale": "Structured multi-step local transforms can be represented as CPU-routed route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-002",
+      "category": "multi_step_app_workflow",
+      "input": "Synthetic app workflow: map a known onboarding status sequence to deterministic next-step labels.",
+      "expected_route": "deterministic",
+      "rationale": "Known status transitions fit deterministic route-shape handling.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-003",
+      "category": "multi_step_app_workflow",
+      "input": "Synthetic app workflow: repeat a previously completed local route summary for the same fixture batch.",
+      "expected_route": "cache",
+      "rationale": "Repeated workflow summary work is represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-004",
+      "category": "multi_step_app_workflow",
+      "input": "Synthetic app workflow: decide a novel roadmap sequence from ambiguous stakeholder notes.",
+      "expected_route": "provider_needed",
+      "rationale": "Ambiguous planning remains provider-needed in this route-only fixture.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-005",
+      "category": "document_intake_normalization",
+      "input": "Synthetic document intake: normalize a public-safe changelog stub into title, section, and status fields.",
+      "expected_route": "cpu",
+      "rationale": "Local document parsing and normalization can be represented as CPU route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-006",
+      "category": "document_intake_normalization",
+      "input": "Synthetic document intake: classify a short note as report, runbook, checklist, or index.",
+      "expected_route": "deterministic",
+      "rationale": "Bounded document-type classification fits deterministic route-shape handling.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-007",
+      "category": "document_intake_normalization",
+      "input": "Synthetic document intake: retrieve a referenced local section before assigning the control label.",
+      "expected_route": "retrieval_needed",
+      "rationale": "The route shape depends on local retrieval, not provider execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-008",
+      "category": "document_intake_normalization",
+      "input": "Synthetic document intake: placeholder-restricted content requests external summarization.",
+      "expected_route": "fallback",
+      "rationale": "Restricted placeholder content plus external handling should fall back safely.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-009",
+      "category": "local_policy_checks",
+      "input": "Synthetic policy check: no-provider mode is active and a request asks for external model use.",
+      "expected_route": "fallback",
+      "rationale": "A policy conflict is represented as fallback control work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-010",
+      "category": "local_policy_checks",
+      "input": "Synthetic policy check: route a known safe local transformation under a no-network policy.",
+      "expected_route": "deterministic",
+      "rationale": "Known policy-compliant local work can use deterministic routing.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-011",
+      "category": "local_policy_checks",
+      "input": "Synthetic policy check: inspect local fixture metadata before allowing the next step.",
+      "expected_route": "tool_needed",
+      "rationale": "Local metadata inspection is represented as tool-needed route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-012",
+      "category": "local_policy_checks",
+      "input": "Synthetic policy check: repeated allow/deny decision for the same public-safe fixture request.",
+      "expected_route": "cache",
+      "rationale": "Repeated policy classification is represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-013",
+      "category": "schema_validation",
+      "input": "Synthetic schema task: validate required keys and route labels in a local JSON fixture.",
+      "expected_route": "tool_needed",
+      "rationale": "Schema validation uses local tooling rather than provider execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-014",
+      "category": "schema_validation",
+      "input": "Synthetic schema task: coerce simple scalar values into a known report schema.",
+      "expected_route": "cpu",
+      "rationale": "Local coercion and structural validation can be represented as CPU work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-015",
+      "category": "schema_validation",
+      "input": "Synthetic schema task: route a missing mandatory field to a safe invalid-input branch.",
+      "expected_route": "fallback",
+      "rationale": "Invalid shape should use fallback control rather than provider reasoning.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-016",
+      "category": "schema_validation",
+      "input": "Synthetic schema task: repeated validation of an unchanged local fixture manifest.",
+      "expected_route": "cache",
+      "rationale": "Repeated validation result is represented as cache-routable route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-017",
+      "category": "retry_fallback_control",
+      "input": "Synthetic retry task: failed local parse should retry once then route to fallback.",
+      "expected_route": "fallback",
+      "rationale": "Retry exhaustion is represented as fallback control work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-018",
+      "category": "retry_fallback_control",
+      "input": "Synthetic retry task: deterministic retry policy maps known error code 2 to a usage hint.",
+      "expected_route": "deterministic",
+      "rationale": "Known error-code handling fits deterministic route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-019",
+      "category": "retry_fallback_control",
+      "input": "Synthetic retry task: inspect a local status file before deciding whether retry is allowed.",
+      "expected_route": "tool_needed",
+      "rationale": "The route shape requires local inspection via tooling.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-020",
+      "category": "retry_fallback_control",
+      "input": "Synthetic retry task: repeated transient error already classified in this fixture batch.",
+      "expected_route": "cache",
+      "rationale": "Repeated error classification can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-021",
+      "category": "cache_reuse_candidates",
+      "input": "Synthetic cache task: exact repeat of a public-safe document classification request.",
+      "expected_route": "cache",
+      "rationale": "Exact repeated work is represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-022",
+      "category": "cache_reuse_candidates",
+      "input": "Synthetic cache task: semantically equivalent route summary already exists locally.",
+      "expected_route": "cache",
+      "rationale": "Equivalent repeated work is represented as cache reuse.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-023",
+      "category": "cache_reuse_candidates",
+      "input": "Synthetic cache task: repeated route-only evaluator counter lookup.",
+      "expected_route": "cache",
+      "rationale": "Repeated aggregate counter lookup can be represented as cache-routable.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-024",
+      "category": "tool_needed_local_actions",
+      "input": "Synthetic tool task: list local fixture files before choosing the route-only evaluator.",
+      "expected_route": "tool_needed",
+      "rationale": "Local file listing is represented as tool-needed work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-025",
+      "category": "tool_needed_local_actions",
+      "input": "Synthetic tool task: run a local markdown-link check after a report update.",
+      "expected_route": "tool_needed",
+      "rationale": "Local validation tooling is represented as tool-needed route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-026",
+      "category": "tool_needed_local_actions",
+      "input": "Synthetic tool task: inspect a generated JSON report before recording counters.",
+      "expected_route": "tool_needed",
+      "rationale": "Local report inspection requires tooling rather than provider execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-027",
+      "category": "retrieval_needed_candidates",
+      "input": "Synthetic retrieval task: answer depends on a local README section about source install.",
+      "expected_route": "retrieval_needed",
+      "rationale": "The route shape requires local retrieval before any answer path.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-028",
+      "category": "retrieval_needed_candidates",
+      "input": "Synthetic retrieval task: locate the report that describes the prior first-run smoke checker.",
+      "expected_route": "retrieval_needed",
+      "rationale": "The route shape depends on retrieving a local report reference.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-029",
+      "category": "retrieval_needed_candidates",
+      "input": "Synthetic retrieval task: find the fixture route label from a local manifest excerpt.",
+      "expected_route": "retrieval_needed",
+      "rationale": "Local retrieval is required before route labeling.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-030",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic ambiguous task: write a persuasive customer-facing narrative from sparse notes.",
+      "expected_route": "provider_needed",
+      "rationale": "Ambiguous generative work is marked provider-needed in this route-only fixture.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-031",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic ambiguous task: infer unstated owner intent from a vague one-line request.",
+      "expected_route": "provider_needed",
+      "rationale": "Unstructured intent inference is provider-needed rather than deterministic.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-032",
+      "category": "provider_needed_ambiguous_tasks",
+      "input": "Synthetic ambiguous task: choose tradeoffs for a new feature without enough constraints.",
+      "expected_route": "provider_needed",
+      "rationale": "Open-ended tradeoff selection is outside deterministic fixture-only routing.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-033",
+      "category": "gpu_candidate_batch_labels",
+      "input": "Synthetic GPU-candidate label: large batch embedding refresh is marked as GPU-candidate only.",
+      "expected_route": "gpu",
+      "rationale": "This is a label-only GPU candidate with no GPU execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-034",
+      "category": "gpu_candidate_batch_labels",
+      "input": "Synthetic GPU-candidate label: bulk local vector scoring is marked as GPU-candidate only.",
+      "expected_route": "gpu",
+      "rationale": "This records route-shape labeling only and does not execute GPU work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-035",
+      "category": "gpu_candidate_batch_labels",
+      "input": "Synthetic GPU-candidate label: batched image-like placeholder processing is marked as GPU-candidate only.",
+      "expected_route": "gpu",
+      "rationale": "The fixture records a GPU-candidate label without H100, CUDA, or server execution.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-036",
+      "category": "cpu_local_transforms",
+      "input": "Synthetic CPU transform: normalize dates and status strings in a public-safe task list.",
+      "expected_route": "cpu",
+      "rationale": "Structured local normalization is represented as CPU-routed work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-037",
+      "category": "cpu_local_transforms",
+      "input": "Synthetic CPU transform: aggregate route labels into local counters for a report draft.",
+      "expected_route": "cpu",
+      "rationale": "Aggregate counting is local CPU route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-038",
+      "category": "cpu_local_transforms",
+      "input": "Synthetic CPU transform: sort fixture rows by route group and category.",
+      "expected_route": "cpu",
+      "rationale": "Sorting and grouping public-safe rows is represented as CPU-routed work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-039",
+      "category": "report_generation_control",
+      "input": "Synthetic report control: assemble route-only counters into a local evidence note.",
+      "expected_route": "deterministic",
+      "rationale": "Templated counter reporting can be represented as deterministic route-shape work.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "rep-slice-v1-040",
+      "category": "report_generation_control",
+      "input": "Synthetic report control: retrieve prior report context before recording next recommendations.",
+      "expected_route": "retrieval_needed",
+      "rationale": "The report-control route shape needs local retrieval before updating context.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    }
+  ]
+}

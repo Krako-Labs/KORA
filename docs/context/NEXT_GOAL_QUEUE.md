@@ -8,16 +8,18 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Review Group 115 - `CIL-005 - Source-Install Readiness Check`.
+1. Review Group 116 - Second Route-Only Fixture Slice.
 
 Suggested scope:
 
 - use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
 - verify the goal envelope, base SHA, KORA identity, and clean worktree.
+- review [Group 116 second route-only fixture slice](../reports/group116_second_route_only_fixture_slice.md).
+- review [Second route-only fixture](../../examples/workloads/kora-representativeness-slice-v1.json).
+- review [Second slice route-only evaluator](../../scripts/evaluate_representativeness_slice_routes.py).
+- review [Second slice route-only evaluator tests](../../tests/test_representativeness_slice_route_only_evaluator.py).
+- rerun `python3 scripts/evaluate_representativeness_slice_routes.py` if reviewer wants to reproduce the aggregate route-only counters.
 - review [Group 115 source-install readiness check](../reports/group115_source_install_readiness_check.md).
-- review [Source-install readiness checker](../../scripts/check_source_install_readiness.py).
-- review [Source-install readiness tests](../../tests/test_source_install_readiness.py).
-- rerun `python3 scripts/check_source_install_readiness.py` if reviewer wants to reproduce the isolated local source-install check.
 - review [Group 114 first-run CLI smoke validation](../reports/group114_first_run_cli_smoke_validation.md).
 - review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
@@ -26,8 +28,8 @@ Suggested scope:
 - review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- confirm `CIL-005` remains local source-install readiness only, without PyPI checks, package publication, or a `getkora` published claim.
-- expect final classification `needs-cto-review` if user-facing install docs or onboarding language change.
+- confirm Group 116 remains route-only aggregate fixture evidence only, without output-quality, broader representativeness, production readiness, cost-reduction, provider-replacement, or GPU-serving-replacement claims.
+- expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
@@ -44,7 +46,7 @@ Do not split a checker, tests, docs, report, and breadcrumbs into separate tasks
 
 ## Approved Alternatives Only After Explicit Prompt
 
-- A second route-only fixture slice.
+- Another bounded public-safe fixture/check slice.
 - A second public-safe fixture-check slice.
 - Documentation movement for one small bucket.
 - Larger bounded H100 or provider validation work.
@@ -89,3 +91,5 @@ Group 113 queue hardening does not implement `CIL-003`, change validation profil
 Group 114 first-run CLI smoke validation does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, or claim that `getkora` is published.
 
 Group 115 source-install readiness checking does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, create releases or tags, claim that `getkora` is published, claim install-from-PyPI support, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or prove broader workload representativeness.
+
+Group 116 second route-only fixture slice does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove production readiness, prove cost reduction, claim provider replacement, claim GPU-serving replacement, or expand claims.
