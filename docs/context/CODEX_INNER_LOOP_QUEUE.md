@@ -96,14 +96,16 @@ Review friction reduction:
 - title: First-run CLI smoke validation expansion
 - objective: expand local first-run CLI smoke checks using existing offline commands.
 - risk level: medium.
+- expected duration band: `2-4 hr`.
 - allowed files: smoke validation script/tests/report docs/narrow breadcrumbs.
 - forbidden files/actions: no provider calls, no network-dependent smoke tests, no packaging publication, no broad README rewrite.
 - validation commands: focused smoke tests, selected offline CLI commands, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: smoke checks, tests, report, approval packet.
+- Group 114 status: completed by `codex/group114-first-run-cli-smoke-validation` with a static local-only `first-run-cli-core` smoke profile.
 - stop gates: public install-claim expansion, release/PyPI implication, network dependency.
 - claim boundaries: local source-install readiness only; no published package claim.
-- completion status expected: `needs-cto-review` if public onboarding language changes.
+- completion status expected: `needs-cto-review` because first-run validation can affect public onboarding confidence.
 
 ### CIL-005 - Source-Install Readiness Check
 

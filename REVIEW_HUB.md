@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 113.
+Last updated by: Group 114.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/group113-inner-loop-queue-hardening`
-- worktree label: `group113_inner_loop_queue_hardening`
-- branch pushed to: `origin/codex/group113-inner-loop-queue-hardening`
-- open PR: [#265](https://github.com/Krako-Labs/KORA/pull/265)
-- base commit: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
+- active verification branch: `codex/group114-first-run-cli-smoke-validation`
+- worktree label: `group114_first_run_cli_smoke_validation`
+- branch pushed to: pending
+- open PR: pending
+- base commit: `bbc673d256f005201925051310342fa78c4af4d2`
 
 ## Current State Summary
 
@@ -71,7 +71,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 113: inner-loop applied review and queue hardening. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 114: first-run CLI smoke validation expansion. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -134,6 +134,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 111 | Added static bounded-local-validation report verification and deterministic failure classification without executing report commands. | [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md) |
 | Group 112 | Added PR approval packet and report-consistency checks without GitHub API mutation or report-command execution. | [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md) |
 | Group 113 | Applied the inner-loop tools, added the medium-risk profile-registry checklist, and hardened queue sizing guidance without implementing `CIL-003`. | [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md) |
+| Group 114 | Adds deterministic local first-run CLI smoke validation over existing offline commands without implementing `CIL-003`, publishing packages, or expanding claims. | [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md) |
 
 ## Evidence Index
 
@@ -163,6 +164,9 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md)
+- [First-run CLI smoke checker](scripts/check_first_run_cli_smoke.py)
+- [First-run CLI smoke tests](tests/test_first_run_cli_smoke.py)
 - [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
 - [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
@@ -518,6 +522,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 111 is static report-control tooling over local bounded-validation JSON; it does not execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 - Group 112 is approval-packet and report-consistency tooling only; it does not call GitHub APIs, approve PRs, merge PRs, close PRs, create issues, execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 - Group 113 is operating review and queue hardening only; it does not implement `CIL-003`, change validation profiles, execute report commands, mutate GitHub, create issues, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
+- Group 114 is local first-run CLI smoke validation only; it does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/server work, or prove output quality.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -537,10 +542,12 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Group 114 - Decide whether to explicitly approve `CIL-003` using the medium-risk profile-registry checklist, or defer it.
+1. Group 115 - Consider `CIL-005 - Source-Install Readiness Check`, only after explicit approval.
 2. A second route-only fixture slice, only after explicit approval.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
+
+`CIL-003` remains deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
 
 ## How To Resume Review
 
@@ -548,7 +555,7 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/group113-inner-loop-queue-hardening for the current Group 113 review packet, or create a new scoped branch from origin/main for a new Group after Group 113 is merged.
+Use the active branch codex/group114-first-run-cli-smoke-validation for the current Group 114 review packet, or create a new scoped branch from origin/main for a new Group after Group 114 is merged.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
