@@ -561,8 +561,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review Group 116 - Second Route-Only Fixture Slice.
-2. Another bounded public-safe fixture/check slice, only after explicit approval.
+1. Review and merge-gate Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
+2. After Group 117 is merged, refresh local ChatGPT source context for Group 117 only if explicitly approved.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 

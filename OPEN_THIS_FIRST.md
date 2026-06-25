@@ -689,15 +689,16 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Review Group 116 - Second Route-Only Fixture Slice.
+Review Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
 
 Recommended scope:
 
-- review [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md).
-- review [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json).
-- review [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py).
-- review [Second slice route-only evaluator tests](tests/test_representativeness_slice_route_only_evaluator.py).
-- verify the real local route-only result if needed with `python3 scripts/evaluate_representativeness_slice_routes.py`.
+- review [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md).
+- review [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json).
+- review [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py).
+- review [Methodology fixture-check tests](tests/test_methodology_fixture_check_slice.py).
+- verify the real local deterministic fixture-check result if needed with `python3 scripts/evaluate_methodology_fixture_checks.py`.
+- after Group 117 is merged, refresh local ChatGPT source context for Group 117 only if explicitly approved.
 - review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
