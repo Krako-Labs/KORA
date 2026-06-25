@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 116.
+Last updated by: Group 117.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `codex/group116-route-only-fixture-slice`
-- worktree label: `group116_route_only_fixture_slice`
-- branch pushed to: `origin/codex/group116-route-only-fixture-slice`
-- open PR: [#268](https://github.com/Krako-Labs/KORA/pull/268)
-- base commit: `49affdfb25bb7551e30255839a4816047971ced9`
+- active verification branch: `group117-methodology-fixture-check-slice`
+- worktree label: `group117-methodology-fixture-check-slice`
+- branch pushed to: `origin/group117-methodology-fixture-check-slice`
+- open PR: [#270](https://github.com/Krako-Labs/KORA/pull/270)
+- base commit: `a73b153e87cc43c66f9e79b0e920616e808cae30`
 
 ## Current State Summary
 
@@ -60,6 +60,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 102 starts broader workload representativeness planning with a public-safe synthetic seed fixture and shape-only validator.
 - Goal 103 adds a route-only evaluator over the Goal 102 seed fixture, producing aggregate public-safe route and workload-category counters only.
 - Group 116 adds a second public-safe synthetic route-only fixture slice with aggregate counters only.
+- Group 117 adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples.
 - Goal 104 adds a KORA-specific Codex bounded-loop protocol, claim-boundary checklist, PR completion format, and next-goal queue for semi-autonomous execution with human approval gates.
 - Goal 105 adds a public-safe output-quality methodology for future fixture-derived checks without executing evaluation or turning Goal 103 route-only counters into output-quality proof.
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
@@ -73,7 +74,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 116: second route-only fixture slice. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 117: methodology-aligned deterministic fixture-check slice. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -139,6 +140,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 114 | Adds deterministic local first-run CLI smoke validation over existing offline commands without implementing `CIL-003`, publishing packages, or expanding claims. | [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md) |
 | Group 115 | Adds isolated local source-install readiness checking without checking PyPI, publishing packages, claiming `getkora` is published, or expanding claims. | [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md) |
 | Group 116 | Adds a second synthetic route-only fixture slice with aggregate counters only, without output-quality or broader representativeness claims. | [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md) |
+| Group 117 | Adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples, without output-quality proof. | [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md) |
 
 ## Evidence Index
 
@@ -168,6 +170,10 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
+- [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
+- [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py)
+- [Methodology fixture-check evaluator tests](tests/test_methodology_fixture_check_slice.py)
 - [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md)
 - [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json)
 - [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py)
@@ -555,8 +561,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review Group 116 - Second Route-Only Fixture Slice.
-2. Another bounded public-safe fixture/check slice, only after explicit approval.
+1. Review and merge-gate Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
+2. After Group 117 is merged, refresh local ChatGPT source context for Group 117 only if explicitly approved.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
@@ -568,7 +574,8 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/group116-route-only-fixture-slice for the current Group 116 review packet, or create a new scoped branch from origin/main for a new Group after Group 116 is merged.
+Use the active branch group117-methodology-fixture-check-slice for the current Group 117 review/merge gate.
+Create a new scoped branch from origin/main only after Group 117 is merged and local source refresh is explicitly approved or completed.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.

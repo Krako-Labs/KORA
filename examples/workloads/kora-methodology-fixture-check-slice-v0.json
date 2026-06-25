@@ -1,0 +1,247 @@
+{
+  "schema_version": "kora_methodology_fixture_check_slice_v0",
+  "description": "Small public-safe synthetic fixture for methodology-aligned deterministic fixture checks. This fixture uses exact and structured expected-output checks only; it does not use provider calls, model inference, semantic judging, human grading, H100/GPU/CUDA/server/remote execution, production data, private data, or external dataset data.",
+  "methodology_reference": "docs/methodology/public_safe_output_quality_methodology.md",
+  "claim_scope": "fixture_only",
+  "public_safe": true,
+  "items": [
+    {
+      "id": "methodology-check-001",
+      "category": "support_ticket_route_label",
+      "input": "Synthetic support ticket asks for password reset after an expired link.",
+      "status": "checked",
+      "check_type": "exact_string",
+      "expected_output": "password_reset",
+      "observed_output": "password_reset",
+      "acceptance_criteria": "The deterministic fixture label must exactly match the expected public-safe label.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-002",
+      "category": "invoice_total_normalization",
+      "input": "Synthetic invoice stub includes three line totals: 12, 8, and 5.",
+      "status": "checked",
+      "check_type": "exact_number",
+      "expected_output": 25,
+      "observed_output": 25,
+      "acceptance_criteria": "The deterministic numeric total must exactly match the expected integer.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-003",
+      "category": "tag_extraction_ordered",
+      "input": "Synthetic request asks for a billing FAQ answer with refund context.",
+      "status": "checked",
+      "check_type": "exact_list",
+      "expected_output": [
+        "billing",
+        "refund",
+        "faq"
+      ],
+      "observed_output": [
+        "billing",
+        "refund",
+        "faq"
+      ],
+      "acceptance_criteria": "The deterministic ordered tag list must exactly match.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-004",
+      "category": "routing_summary_object",
+      "input": "Synthetic routing summary for a deterministic FAQ answer.",
+      "status": "checked",
+      "check_type": "exact_object",
+      "expected_output": {
+        "route": "deterministic",
+        "answer_id": "faq-password-reset",
+        "confidence_bucket": "fixed"
+      },
+      "observed_output": {
+        "route": "deterministic",
+        "answer_id": "faq-password-reset",
+        "confidence_bucket": "fixed"
+      },
+      "acceptance_criteria": "The deterministic summary object must exactly match the expected object.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-005",
+      "category": "required_key_presence",
+      "input": "Synthetic normalized ticket object should expose the required reviewer fields.",
+      "status": "checked",
+      "check_type": "required_keys",
+      "expected_keys": [
+        "ticket_id",
+        "route",
+        "priority"
+      ],
+      "observed_output": {
+        "ticket_id": "ticket-005",
+        "route": "deterministic",
+        "priority": "low",
+        "owner": "queue-a"
+      },
+      "acceptance_criteria": "The observed public-safe object must include every required key.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-006",
+      "category": "schema_like_field_check",
+      "input": "Synthetic incident summary should expose stable field types.",
+      "status": "checked",
+      "check_type": "field_schema",
+      "expected_schema": {
+        "incident_id": "string",
+        "severity_rank": "integer",
+        "needs_provider": "boolean",
+        "labels": "list"
+      },
+      "observed_output": {
+        "incident_id": "incident-006",
+        "severity_rank": 2,
+        "needs_provider": false,
+        "labels": [
+          "synthetic",
+          "public-safe"
+        ]
+      },
+      "acceptance_criteria": "The observed public-safe object must include the declared fields with the expected simple JSON types.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-007",
+      "category": "document_type_label",
+      "input": "Synthetic document stub contains a purchase order number and delivery window.",
+      "status": "checked",
+      "check_type": "exact_string",
+      "expected_output": "purchase_order",
+      "observed_output": "purchase_order",
+      "acceptance_criteria": "The deterministic document type label must exactly match.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-008",
+      "category": "retry_budget",
+      "input": "Synthetic retry policy allows two local retries before fallback.",
+      "status": "checked",
+      "check_type": "exact_number",
+      "expected_output": 2,
+      "observed_output": 2,
+      "acceptance_criteria": "The deterministic retry budget must exactly match the expected integer.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-009",
+      "category": "workflow_step_sequence",
+      "input": "Synthetic offline workflow routes through validation, cache lookup, and deterministic answer stages.",
+      "status": "checked",
+      "check_type": "exact_list",
+      "expected_output": [
+        "validate",
+        "cache_lookup",
+        "deterministic_answer"
+      ],
+      "observed_output": [
+        "validate",
+        "cache_lookup",
+        "deterministic_answer"
+      ],
+      "acceptance_criteria": "The deterministic ordered workflow stage list must exactly match.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-010",
+      "category": "cache_hit_object",
+      "input": "Synthetic repeated request matches a local cache key.",
+      "status": "checked",
+      "check_type": "exact_object",
+      "expected_output": {
+        "route": "cache",
+        "cache_key": "synthetic-faq-010",
+        "provider_calls": 0
+      },
+      "observed_output": {
+        "route": "cache",
+        "cache_key": "synthetic-faq-010",
+        "provider_calls": 0
+      },
+      "acceptance_criteria": "The deterministic cache result object must exactly match the expected object.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-011",
+      "category": "report_row_required_keys",
+      "input": "Synthetic report row should include stable summary fields.",
+      "status": "checked",
+      "check_type": "required_keys",
+      "expected_keys": [
+        "row_id",
+        "status",
+        "claim_scope",
+        "public_safe"
+      ],
+      "observed_output": {
+        "row_id": "report-row-011",
+        "status": "checked",
+        "claim_scope": "fixture_only",
+        "public_safe": true
+      },
+      "acceptance_criteria": "The observed public-safe object must include every required key for a report row.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-012",
+      "category": "structured_result_schema",
+      "input": "Synthetic structured result should expose deterministic route metadata.",
+      "status": "checked",
+      "check_type": "field_schema",
+      "expected_schema": {
+        "result_id": "string",
+        "route": "string",
+        "provider_calls": "integer",
+        "public_safe": "boolean"
+      },
+      "observed_output": {
+        "result_id": "result-012",
+        "route": "deterministic",
+        "provider_calls": 0,
+        "public_safe": true
+      },
+      "acceptance_criteria": "The observed public-safe object must include the declared deterministic result fields with expected simple JSON types.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-013",
+      "category": "semantic_review_boundary",
+      "input": "Synthetic response-quality candidate would require semantic or human judgment in a separately approved goal.",
+      "status": "skipped",
+      "skip_reason": "Semantic or human judgment is outside deterministic fixture-check scope.",
+      "acceptance_criteria": "Skipped items must be counted separately and must not be treated as checked deterministic results.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    },
+    {
+      "id": "methodology-check-014",
+      "category": "provider_needed_boundary",
+      "input": "Synthetic ambiguous prompt lacks a public-safe expected output and would require a provider in a separately approved workflow.",
+      "status": "skipped",
+      "skip_reason": "Provider-needed work is unsupported in this deterministic fixture-check slice.",
+      "acceptance_criteria": "Unsupported provider-needed cases remain skipped and are not counted as deterministic checks.",
+      "public_safe": true,
+      "claim_scope": "fixture_only"
+    }
+  ]
+}
