@@ -574,7 +574,8 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch codex/group116-route-only-fixture-slice for the current Group 116 review packet, or create a new scoped branch from origin/main for a new Group after Group 116 is merged.
+Use the active branch group117-methodology-fixture-check-slice for the current Group 117 review/merge gate.
+Create a new scoped branch from origin/main only after Group 117 is merged and local source refresh is explicitly approved or completed.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
