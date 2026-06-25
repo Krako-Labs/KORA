@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 116.
+Last updated by: Group 117.
 
 ## Current Status
 
@@ -19,6 +19,7 @@ Current state:
 - packaging strategy now documents the PyPI `kora` collision and the planned future distribution name `getkora`; latest-feature testing remains source-install from the current repository.
 - source-install readiness is now checked by an isolated local temporary-venv checker over the current source tree, import surface, `python -m kora`, `kora` CLI entry point, and no-provider `kora examples list` smoke path.
 - a second public-safe route-only fixture slice exists at `examples/workloads/kora-representativeness-slice-v1.json`, with aggregate-only evaluation through `scripts/evaluate_representativeness_slice_routes.py`.
+- a methodology-aligned deterministic fixture-check slice exists at `examples/workloads/kora-methodology-fixture-check-slice-v0.json`, with exact and structured public-safe checks through `scripts/evaluate_methodology_fixture_checks.py`.
 - public first-run acceptance testing has been run against the README/source-install path, KORA Doctor, deterministic classification, and PyPI collision wording.
 - an offline OpenAI-compatible proxy example exists under `examples/openai_compatible_proxy/`, showing KORA routing OpenAI-style chat request objects through deterministic handlers, local cache reuse, or provider-needed fallback without provider calls.
 - the OpenAI-style proxy demo routing logic is now reusable from `kora.openai_proxy_demo`, and `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` runs the same offline no-provider-call path from the first-class CLI.
@@ -43,24 +44,28 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 116 second route-only fixture slice review. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 117 methodology-aligned deterministic fixture-check slice review. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `codex/group116-route-only-fixture-slice`
+- branch: `group117-methodology-fixture-check-slice`
 - public truth: `origin/main`
-- branch pushed to: `origin/codex/group116-route-only-fixture-slice`
-- open PR: [#268](https://github.com/Krako-Labs/KORA/pull/268)
-- base commit: `49affdfb25bb7551e30255839a4816047971ced9`
+- branch pushed to: `origin/group117-methodology-fixture-check-slice`
+- open PR: [#270](https://github.com/Krako-Labs/KORA/pull/270)
+- base commit: `a73b153e87cc43c66f9e79b0e920616e808cae30`
 
 ## Active Goal
 
-Group 116 - Second Route-Only Fixture Slice.
+Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
 
-Group 116 adds a second synthetic route-only fixture slice, an aggregate route-only evaluator, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, or expand claims.
+Group 117 adds a small synthetic deterministic fixture-check slice, an exact/structured evaluator, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, prove output quality, or expand claims.
 
 Primary report:
 
+- [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
+- [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
+- [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py)
+- [Methodology fixture-check tests](tests/test_methodology_fixture_check_slice.py)
 - [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md)
 - [Second route-only fixture](examples/workloads/kora-representativeness-slice-v1.json)
 - [Second slice route-only evaluator](scripts/evaluate_representativeness_slice_routes.py)
@@ -114,6 +119,8 @@ python3 scripts/check_markdown_links_goal082b.py
 git diff --check
 python3 -m pytest
 ```
+
+Current caveat: Group 117 is deterministic fixture-check evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 Current caveat: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
