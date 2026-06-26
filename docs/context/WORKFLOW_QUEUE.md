@@ -40,6 +40,31 @@ Review friction reduction:
 
 ## Queue Items
 
+### Primary Candidate - Group 121 Bounded Local Validation Evidence Control Block
+
+- task id: `GROUP-121`
+- title: Bounded local validation evidence control block
+- objective: improve the bounded local validation evidence path around report generation, static report verification, deterministic failure classification, focused tests, and review closeout.
+- expected duration band: `2-4 hr`.
+- risk level: medium.
+- why this is not a micro-task: the candidate should include implementation, focused tests, generated or sample validation evidence, report documentation, breadcrumbs, queue closeout, and final self-review in one coherent control block.
+- why it advances the long-work-block goal: it turns the current validation/reporting surface into a practical multi-hour reviewable task instead of another small isolated wording, link, or queue repair.
+- allowed files/families: `scripts/run_bounded_local_validation.py`, `scripts/verify_bounded_local_validation_report.py`, `scripts/classify_bounded_local_validation_failure.py`, `scripts/check_report_consistency.py` only if needed for this candidate, focused tests for those scripts, one Group 121 report under `docs/reports/`, and narrow updates to `OPEN_THIS_FIRST.md`, `REVIEW_HUB.md`, `docs/README.md`, `docs/context/WORKFLOW_QUEUE.md`, and `docs/context/NEXT_GOAL_QUEUE.md`.
+- forbidden files/actions: no `CIL-003`, no validation profile registry changes, no command profile registry changes, no dynamic command discovery, no user-provided command execution, no provider calls, no H100/GPU/CUDA/server/remote execution, no model inference, no semantic judging or human grading, no package/release behavior, no repository settings, no issues/project boards, no file movement, no local-only project context, and no claim expansion.
+- validation commands: focused pytest for changed validation/reporting scripts; `python3 scripts/run_bounded_local_validation.py --profile kora-local-core --dry-run --json-out <temp-report>` if the approved future task keeps the existing profile unchanged; `python3 scripts/verify_bounded_local_validation_report.py <temp-report> --profile kora-local-core`; `python3 scripts/classify_bounded_local_validation_failure.py <temp-report> --profile kora-local-core`; `python3 scripts/validate_workflow_docs.py`; `python3 scripts/check_markdown_links_goal082b.py`; `git diff --check`; changed-file claim and public wording audits.
+- expected final classification: `needs-cto-review` unless the approved future request is narrowed to documentation-only maintenance.
+- claim boundaries: local validation/reporting workflow evidence only; no output-quality proof, broader workload representativeness proof, production proof, production cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, GPU-serving replacement, or published package claim.
+- stop gate: open PR only, then stop. Merge, release, publication, settings changes, issues/project boards, local-only source refresh, and any follow-on queue item require separate explicit approval.
+- CTO review expected: yes, because the candidate affects validation evidence workflow and final review interpretation.
+
+### Parked Candidates
+
+- `CIL-003` remains deferred and may be considered only after explicit approval using [implementation workflow medium-risk profile registry checklist](MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
+- another bounded public-safe fixture/check slice remains parked until the validation/reporting evidence path is easier to review.
+- documentation movement for one small bucket remains parked because file moves, renames, archival, or deletion require separate explicit approval.
+- local-only source refresh remains a separate private task and must not be committed to the public repository.
+- provider, H100, GPU, server, remote, semantic, human, or production-like validation remains behind separate explicit approval.
+
 ### CIL-001 - Bounded Validation Report Verifier
 
 - task id: `CIL-001`

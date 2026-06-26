@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 119.
+Last updated by: Group 120.
 
 ## Current Status
 
@@ -44,24 +44,26 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 119 public operations wording scrub under PR review. Group 118 remains the latest merged public state until Group 119 merges.
+- Group 119 public operations wording scrub was merged in PR #272 at public HEAD `824ef643fb1d2aba40800d882c12ab5ccde32e57`.
+- current public continuation work is focused on Group 120 long work block candidate selection and queue rebuild.
 
 ## Current Branch
 
-- branch: Group 119 public wording scrub PR branch
+- branch: Group 120 long work block queue PR branch
 - public truth: `origin/main`
-- branch pushed to: PR #272 source branch
-- open PR: [#272](https://github.com/Krako-Labs/KORA/pull/272)
-- base commit: `22d91129e3ab468394f9f2b446066d61e628b70c`
+- branch pushed to: PR #273 source branch
+- open PR: [#273](https://github.com/Krako-Labs/KORA/pull/273)
+- base commit: `824ef643fb1d2aba40800d882c12ab5ccde32e57`
 
 ## Active Goal
 
-Group 119 - Public Operations Wording Scrub.
+Group 120 - Long Work Block Candidate Selection and Queue Rebuild.
 
-Group 119 neutralizes public operations wording and path names that exposed implementation workflow details. It does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run model inference, run H100/GPU/CUDA/server/remote work, perform semantic judging or human grading, change package or release behavior, prove output quality, or expand claims.
+Group 120 records Group 119 as completed, rebuilds the public workflow queue around one primary 2-4 hour candidate, and adds a public-safe selection report. It does not implement the selected candidate, implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries, call providers, run model inference, run H100/GPU/CUDA/server/remote work, perform semantic judging or human grading, change package or release behavior, prove output quality, or expand claims.
 
 Primary report:
 
+- [Group 120 long work block candidate selection](docs/reports/group120_long_work_block_candidate_selection.md)
 - [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272)
 - [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
 - [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
@@ -124,6 +126,10 @@ python3 -m pytest
 
 Current caveat: Group 118 is documentation and audit evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
+Current caveat: Group 119 is public operations wording hygiene only. It does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, change package or release behavior, or expand claims.
+
+Current caveat: Group 120 is queue and planning documentation only. It does not implement the selected long work block, implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, add production validation, change package or release behavior, or expand claims.
+
 Current caveat: Group 117 is deterministic fixture-check evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 Current caveat: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
@@ -151,6 +157,26 @@ Current caveat: Group 115 is local source-install readiness only. It does not im
 Current caveat: Group 116 is route-only aggregate fixture evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 ## Last Completed Goal
+
+Group 119 - Public Operations Wording Scrub.
+
+Group 119 neutralized public operations wording and path names while preserving runtime, provider, package, release, validation-profile, command-profile, and claim boundaries. PR #272 was merged into `origin/main` at `824ef643fb1d2aba40800d882c12ab5ccde32e57`.
+
+Primary report:
+
+- [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272)
+
+Claim boundary: Group 119 is public operations wording hygiene only. It does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run H100/server work, run model inference, perform semantic judging or human grading, change package or release behavior, or expand claims.
+
+Group 118 - Evidence, Breadcrumb, and Claim-Consistency Audit.
+
+Group 118 audited evidence breadcrumbs, review navigation, CIL status, validation references, and claim language after Group 117. PR #271 was squash-merged into `origin/main` at `22d91129e3ab468394f9f2b446066d61e628b70c`.
+
+Primary report:
+
+- [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
+
+Claim boundary: Group 118 is documentation and audit evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
 
@@ -733,37 +759,32 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Review Group 119 - Public Operations Wording Scrub.
+Implement Group 121 - Bounded Local Validation Evidence Control Block.
 
 Recommended scope:
 
-- review [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272).
-- confirm Group 118 remains the latest merged PR until Group 119 merges.
-- review [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md).
-- confirm Group 119 changes only public operations wording, mechanical references, and related public path names.
-- review [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md).
-- review [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json).
-- review [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py).
-- review [Methodology fixture-check tests](tests/test_methodology_fixture_check_slice.py).
-- verify the real local deterministic fixture-check result if needed with `python3 scripts/evaluate_methodology_fixture_checks.py`.
-- after Group 119 is merged, refresh local project source context only if explicitly approved.
-- review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
+- read [Group 120 long work block candidate selection](docs/reports/group120_long_work_block_candidate_selection.md).
+- use the 2-4 hour candidate named `Group 121 - Bounded Local Validation Evidence Control Block`.
+- improve the bounded local validation evidence path around report generation, report verification/classification consistency, focused tests, and review documentation.
+- keep work finite and local-only over existing approved local command surfaces.
+- do not implement `CIL-003`, alter validation profile registries, alter command profile registries, or add new command discovery.
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [implementation workflow medium-risk profile registry checklist](docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
 - review [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md).
 - review [implementation workflow queue](docs/context/WORKFLOW_QUEUE.md).
+- use [Long-run test loop protocol](docs/runbooks/long_run_test_loop_protocol.md) and [Test failure triage checklist](docs/runbooks/test_failure_triage_checklist.md) for failure handling.
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
 - confirm the PR keeps existing claim boundaries and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
-- expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
+- expected final classification is `needs-cto-review` unless the future task is strictly documentation-only and claim/surface risk is demonstrably low.
 - preserve the requirement that workflow pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
-- keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
+- keep any follow-on work finite, public-safe, and explicitly bounded.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate request text is provided.
 
-Alternative future goals remain local source refresh after explicit approval, `CIL-003`, another bounded public-safe fixture/check slice, or documentation movement for one small bucket, but only after explicit approval.
+Alternative future goals remain parked in [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md). `CIL-003` remains deferred.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 
