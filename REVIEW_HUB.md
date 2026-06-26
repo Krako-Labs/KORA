@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 117.
+Last updated by: Group 118.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `group117-methodology-fixture-check-slice`
-- worktree label: `group117-methodology-fixture-check-slice`
-- branch pushed to: `origin/group117-methodology-fixture-check-slice`
-- open PR: [#270](https://github.com/Krako-Labs/KORA/pull/270)
-- base commit: `a73b153e87cc43c66f9e79b0e920616e808cae30`
+- active verification branch: `group118-evidence-breadcrumb-claim-audit`
+- worktree label: `group118-evidence-breadcrumb-claim-audit`
+- branch pushed to: `origin/group118-evidence-breadcrumb-claim-audit`
+- open PR: [#271](https://github.com/Krako-Labs/KORA/pull/271)
+- base commit: `e5606535b9247dedb6a59a42ff9144373d9cedf9`
 
 ## Current State Summary
 
@@ -74,7 +74,7 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, prompts, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 117: methodology-aligned deterministic fixture-check slice. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 118: post-Group-117 evidence, breadcrumb, and claim-consistency audit. Documentation movement remains optional only after later explicit Albert approval.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -141,6 +141,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 115 | Adds isolated local source-install readiness checking without checking PyPI, publishing packages, claiming `getkora` is published, or expanding claims. | [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md) |
 | Group 116 | Adds a second synthetic route-only fixture slice with aggregate counters only, without output-quality or broader representativeness claims. | [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md) |
 | Group 117 | Adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples, without output-quality proof. | [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md) |
+| Group 118 | Audits post-Group-117 evidence breadcrumbs, review navigation, CIL status, validation references, and claim language without changing runtime behavior. | [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md) |
 
 ## Evidence Index
 
@@ -170,6 +171,7 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
 - [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
 - [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
 - [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py)
@@ -542,6 +544,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 114 is local first-run CLI smoke validation only; it does not implement `CIL-003`, change validation profile registries, publish packages, call providers, require network access, run H100/server work, or prove output quality.
 - Group 115 is local source-install readiness only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, check PyPI installation, publish packages, claim `getkora` is published, claim install-from-PyPI support, call providers, run H100/server work, or prove output quality.
 - Group 116 is route-only aggregate fixture evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
+- Group 117 is deterministic fixture-check evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
+- Group 118 is documentation and audit evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -561,8 +565,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review and merge-gate Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
-2. After Group 117 is merged, refresh local ChatGPT source context for Group 117 only if explicitly approved.
+1. Review and merge-gate Group 118 - Evidence Breadcrumb Claim Consistency Audit.
+2. After Group 118 is merged, refresh local ChatGPT source context only if explicitly approved.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
@@ -574,8 +578,8 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch group117-methodology-fixture-check-slice for the current Group 117 review/merge gate.
-Create a new scoped branch from origin/main only after Group 117 is merged and local source refresh is explicitly approved or completed.
+Use the active branch group118-evidence-breadcrumb-claim-audit for the current Group 118 review/merge gate.
+Create a new scoped branch from origin/main only after Group 118 is merged and local source refresh is explicitly approved or completed.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
