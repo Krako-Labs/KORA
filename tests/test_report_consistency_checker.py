@@ -10,7 +10,7 @@ VALID_REPORT = """# Group 112 PR Approval and Report Consistency
 
 ## Base And Branch
 
-- branch: `codex/group112-approval-report-consistency`
+- branch: `workflow/group112-approval-report-consistency`
 - PR: `https://github.com/Krako-Labs/KORA/pull/264`
 
 ## Risk And Final Classification
@@ -32,7 +32,7 @@ VALID_BREADCRUMB = """# Open This First
 
 Group 112 current work.
 
-- branch: `codex/group112-approval-report-consistency`
+- branch: `workflow/group112-approval-report-consistency`
 - open PR: [#264 Group 112](https://github.com/Krako-Labs/KORA/pull/264)
 """
 
@@ -81,7 +81,7 @@ def test_branch_mismatch_fails_when_present(tmp_path: Path) -> None:
     breadcrumb = _write(
         tmp_path,
         "OPEN_THIS_FIRST.md",
-        VALID_BREADCRUMB.replace("codex/group112-approval-report-consistency", "codex/other"),
+        VALID_BREADCRUMB.replace("workflow/group112-approval-report-consistency", "workflow/other"),
     )
 
     result = checker.validate_consistency(report, [breadcrumb])
@@ -97,12 +97,12 @@ def test_unrelated_current_branch_does_not_mismatch_historical_group(tmp_path: P
         "OPEN_THIS_FIRST.md",
         """# Open This First
 
-- active verification branch: `codex/group113-next-work`
+- active verification branch: `workflow/group113-next-work`
 
 ## History
 
 Group 112 completed the consistency checker.
-- branch: `codex/group112-approval-report-consistency`
+- branch: `workflow/group112-approval-report-consistency`
 - PR: https://github.com/Krako-Labs/KORA/pull/264
 """,
     )

@@ -441,7 +441,7 @@ Scope:
 - generated event SSE stream through `GET /api/harness/sse?run_id=<id>`
 - selected-run comparison update
 - selected-run report metadata update with disabled file export state
-- no arbitrary prompt execution unless explicitly bounded in a later task
+- no arbitrary request text execution unless explicitly bounded in a later task
 - browser-side trigger calls only `POST /api/harness/run` with approved request IDs
 - no provider calls
 - no cloud sync
@@ -480,7 +480,7 @@ Scope:
 - generated event timeline rendering for selected run through `GET /api/harness/events?run_id=<id>`
 - selected-run counters and comparison rendering
 - selected-run report metadata preview
-- no arbitrary prompt input
+- no arbitrary request text input
 - no model execution
 - no provider calls
 - no downloads
@@ -491,7 +491,7 @@ Scope:
 Acceptance criteria:
 
 - interactive UI only calls existing localhost harness endpoints
-- selector lists approved request IDs without arbitrary prompt input
+- selector lists approved request IDs without arbitrary request text input
 - Run Local Harness calls `POST /api/harness/run` with the selected approved request ID only
 - selected-run event timeline fetches generated local harness events only and does not use SSE yet
 - selected-run counters and comparison render from the selected local harness run response only
@@ -519,7 +519,7 @@ Scope:
 - clear local state action
 - optional generated-event SSE UI for existing local harness runs
 - fallback to generated event retrieval
-- no arbitrary prompt input
+- no arbitrary request text input
 - no model execution
 - no provider calls
 - no downloads
@@ -539,7 +539,7 @@ Acceptance criteria:
 
 ## Phase 3.18 — v0.7 UI/UX Board
 
-Status: Claude Design source of truth captured. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-claude-design-source-of-truth.md` as the preferred source of truth, with `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md` as supporting context. Keep older v0.7 boards as background only.
+Status: external design source of truth captured. Implementation should wait for review before changing the local preview layout. Use `docs/kora-studio/kora-studio-v0-7-design-source-of-truth.md` as the preferred source of truth, with `docs/kora-studio/kora-studio-v0-7-chat-first-minimal-ui-ux-boards.md` as supporting context. Keep older v0.7 boards as background only.
 
 Goal: Align the next KORA Studio local preview layout with a minimal chat-first web app pattern while preserving KORA Studio's local-first AI Task Execution Router positioning.
 
@@ -554,7 +554,7 @@ Scope:
 - right-side collapsible detail drawer
 - model/runtime/catalog boundary placement inside the drawer or near risky actions
 - no external CDN or font dependency copied from the reference prototype
-- no arbitrary prompt input
+- no arbitrary request text input
 - no model execution
 - no provider calls
 - no downloads
@@ -754,7 +754,7 @@ Scope:
 
 - local preview HTML/CSS/vanilla JavaScript only
 - no new frontend dependency unless explicitly approved
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -787,7 +787,7 @@ Scope:
 - right drawer as the primary place for detailed runtime, route, counter, report, and claim details
 - legacy preview collapsed, relabelled, or clearly secondary once required shell coverage exists
 - no new frontend dependency unless explicitly approved
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -821,7 +821,7 @@ Scope:
 - legacy preview retained only as collapsed compatibility/developer scaffold
 - shell-only smoke markers
 - no new frontend dependency unless explicitly approved
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -852,7 +852,7 @@ Scope:
 - no new product behavior
 - no frontend framework migration yet
 - no new dependency unless explicitly approved later
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -885,7 +885,7 @@ Scope:
 - no frontend framework migration
 - no dependency addition
 - no external static asset serving unless explicitly approved later
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -919,7 +919,7 @@ Scope:
 - no frontend framework migration
 - no dependency addition
 - no external static asset serving
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -956,7 +956,7 @@ Scope:
 - no frontend framework migration
 - no dependency addition
 - no external static asset serving
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -992,7 +992,7 @@ Scope:
 - no endpoint behavior change
 - no static asset serving implementation
 - no frontend tooling or dependency addition
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -1031,7 +1031,7 @@ Scope:
 - no static asset serving implementation
 - no CSS/JavaScript migration out of inline helpers
 - no frontend tooling or dependency addition
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -1072,7 +1072,7 @@ Scope:
 - no product behavior change
 - no endpoint behavior change
 - no UI behavior change
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads
@@ -1116,7 +1116,7 @@ Scope:
 - no external assets or CDN
 - no frontend framework or dependency addition
 - no product behavior change
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no provider calls
 - no model execution
 - no model downloads

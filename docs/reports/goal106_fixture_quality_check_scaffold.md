@@ -85,7 +85,7 @@ Goal 106 does not:
 - add superiority, customer-savings, provider-replacement, or GPU-serving replacement claims.
 - upload raw benchmark artifacts.
 - move, rename, archive, or delete files.
-- modify local-only ChatGPT context files.
+- modify local-only project context files.
 
 ## Next Recommended Goal
 

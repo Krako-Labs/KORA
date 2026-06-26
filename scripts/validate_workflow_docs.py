@@ -21,7 +21,7 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
             "AI Workload Control Layer",
             "origin/main",
             "fresh clean worktree",
-            "Codex pass is not merge-ready pass",
+            "workflow pass is not merge-ready pass",
             "merge-ready",
             "needs-r1",
             "needs-cto-review",
@@ -30,7 +30,7 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_INNER_LOOP_QUEUE.md",
+        "docs/context/WORKFLOW_QUEUE.md",
         (
             "CIL-001",
             "CIL-002",
@@ -42,10 +42,10 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_SELF_REVIEW_PROTOCOL.md",
+        "docs/context/WORKFLOW_SELF_REVIEW_PROTOCOL.md",
         (
             "changed files vs allowed scope",
-            "local-only ChatGPT context untouched",
+            "local-only project context untouched",
             "merge-ready",
             "needs-r1",
             "needs-cto-review",
@@ -54,29 +54,29 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_RISK_CLASSIFICATION.md",
+        "docs/context/WORKFLOW_RISK_CLASSIFICATION.md",
         (
             "Low Risk",
             "Medium Risk",
             "High Risk",
-            "Codex pass is not merge-ready pass",
+            "workflow pass is not merge-ready pass",
             "output-quality proof",
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_ESCALATION_GATES.md",
+        "docs/context/WORKFLOW_ESCALATION_GATES.md",
         (
             "merge",
             "release",
             "PyPI publication",
             "provider calls",
             "H100/GPU/CUDA/server/remote execution",
-            "local-only ChatGPT context changes",
+            "local-only project context changes",
             "output-quality proof",
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_APPROVAL_PACKET.md",
+        "docs/context/WORKFLOW_APPROVAL_PACKET.md",
         (
             "decision needed",
             "risk level",
@@ -86,7 +86,7 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
         ),
     ),
     RequiredDoc(
-        "docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md",
+        "docs/context/WORKFLOW_MULTI_ACTOR_OPERATING_MODEL.md",
         (
             "One writer per branch",
             "Reviewer/checker agents are read-only by default",
@@ -96,7 +96,7 @@ REQUIRED_DOCS: tuple[RequiredDoc, ...] = (
         ),
     ),
     RequiredDoc(
-        "docs/reports/codex_inner_loop_run_template.md",
+        "docs/reports/workflow_run_template.md",
         (
             "loop count",
             "repair attempts",
@@ -160,12 +160,12 @@ def validate(root: Path = REPO_ROOT) -> list[str]:
             if phrase.lower() not in lower_text:
                 errors.append(f"{required.path}: missing required phrase: {phrase}")
 
-    queue_path = root / "docs/context/CODEX_INNER_LOOP_QUEUE.md"
+    queue_path = root / "docs/context/WORKFLOW_QUEUE.md"
     if queue_path.exists():
         queue_text = queue_path.read_text(encoding="utf-8")
         task_ids = sorted(set(re.findall(r"\bCIL-\d{3}\b", queue_text)))
         if len(task_ids) < 6:
-            errors.append("docs/context/CODEX_INNER_LOOP_QUEUE.md: expected at least 6 task ids")
+            errors.append("docs/context/WORKFLOW_QUEUE.md: expected at least 6 task ids")
 
     return errors
 
@@ -173,12 +173,12 @@ def validate(root: Path = REPO_ROOT) -> list[str]:
 def main() -> int:
     errors = validate()
     if errors:
-        print("Codex inner-loop docs validation FAILED")
+        print("implementation workflow docs validation FAILED")
         for error in errors:
             print(f"- {error}")
         return 1
 
-    print("Codex inner-loop docs validation OK")
+    print("implementation workflow docs validation OK")
     return 0
 
 

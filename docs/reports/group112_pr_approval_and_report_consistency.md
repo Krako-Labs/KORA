@@ -4,7 +4,7 @@ Status: implemented with local validation complete; PR open.
 
 ## Objective
 
-Group 112 completes two low-risk queue-driven Codex inner-loop work blocks:
+Group 112 completes two low-risk queue-driven implementation workflow work blocks:
 
 - `CIL-006`: PR approval packet checker.
 - `CIL-007`: report consistency checker.
@@ -15,7 +15,7 @@ This group validates approval-packet and report/breadcrumb consistency only. It 
 
 - public truth: `origin/main`
 - base public HEAD: `4bb7a4e08b7d644a24b5370e2eeae3194c46e107`
-- branch: `codex/group112-approval-report-consistency`
+- branch: `workflow/group112-approval-report-consistency`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group112_approval_report_consistency`
 - PR: https://github.com/Krako-Labs/KORA/pull/264
 
@@ -33,7 +33,7 @@ Added `scripts/check_pr_approval_packet.py`.
 
 The checker validates Markdown text containing a KORA approval packet. It checks:
 
-- required fields from `docs/context/CODEX_APPROVAL_PACKET.md`.
+- required fields from `docs/context/WORKFLOW_APPROVAL_PACKET.md`.
 - valid final status classifications: `merge-ready`, `needs-r1`, `needs-cto-review`, and `blocked`.
 - valid risk levels: `low`, `medium`, and `high`.
 - Albert action options include `Merge`, `Request R1`, `Stop`, and `CTO Review`.
@@ -73,7 +73,7 @@ It is read-only and deterministic. It does not rewrite files, execute validation
 - `REVIEW_HUB.md`
 - `docs/README.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 
 ## Validation Results
 
@@ -85,7 +85,7 @@ Final validation before PR open:
 | `python3 -m pytest tests/test_report_consistency_checker.py` | passed after group-scoped breadcrumb comparison repair, `10 passed` |
 | `python3 scripts/check_pr_approval_packet.py docs/reports/group111_validation_report_control_block.md` | passed |
 | `python3 scripts/check_report_consistency.py docs/reports/group111_validation_report_control_block.md --breadcrumb OPEN_THIS_FIRST.md --breadcrumb REVIEW_HUB.md` | passed |
-| `python3 scripts/validate_codex_inner_loop_docs.py` | passed |
+| `python3 scripts/validate_workflow_docs.py` | passed |
 | `python3 scripts/run_bounded_local_validation.py --profile kora-local-core --dry-run --json-out /tmp/kora-group112-dry-run.json` | passed |
 | `python3 scripts/verify_bounded_local_validation_report.py /tmp/kora-group112-dry-run.json --profile kora-local-core` | passed |
 | `python3 scripts/classify_bounded_local_validation_failure.py /tmp/kora-group112-dry-run.json --profile kora-local-core` | passed with `dry_run_only` classification |
@@ -121,7 +121,7 @@ Rationale: the work is deterministic local consistency checking and focused test
 
 - changed files match the allowed CIL-006/CIL-007 and breadcrumb/report scope.
 - CIL-003 remains deferred.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 - no report-command execution was added.
 - no arbitrary shell command execution was added.
 - no GitHub API mutation was added.
@@ -150,11 +150,11 @@ Self-review summary: scope, claim boundaries, forbidden paths, forbidden actions
 
 Claim-boundary audit: no output-quality proof, broader workload representativeness proof, production proof, production cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, GPU-serving replacement, or published `getkora` claim added.
 
-Forbidden-action audit: no GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, report-command execution, arbitrary command execution, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, release, tag, GitHub Release, PyPI publication, raw artifact upload, file movement, local-only ChatGPT context changes, actual multi-agent execution, auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent added.
+Forbidden-action audit: no GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, report-command execution, arbitrary command execution, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, release, tag, GitHub Release, PyPI publication, raw artifact upload, file movement, local-only project context changes, actual multi-agent execution, auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent added.
 
 Uncertainty notes: Group 112 intentionally does not run `CIL-003`; that item remains medium risk and separately approval-gated.
 
-Codex recommendation: Merge.
+workflow recommendation: Merge.
 
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 

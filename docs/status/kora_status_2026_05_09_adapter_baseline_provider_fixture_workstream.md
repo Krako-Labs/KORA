@@ -1,4 +1,4 @@
-# KORA EOD Report - Adapter Baseline and Provider Fixture Workstream
+# KORA status closeout Report - Adapter Baseline and Provider Fixture Workstream
 
 ## Date
 

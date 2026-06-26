@@ -19,7 +19,7 @@ Group 118 audits the public repository after the Group 117 merge. The scope is d
 - public claim-language consistency.
 - CIL status consistency.
 
-Group 118 does not implement `CIL-003`, change validation profile registries, change command profile registries, publish packages, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging, perform human grading, move files, rename files, archive files, delete files, or change local-only ChatGPT context.
+Group 118 does not implement `CIL-003`, change validation profile registries, change command profile registries, publish packages, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging, perform human grading, move files, rename files, archive files, delete files, or change local-only project context.
 
 ## Files Audited
 
@@ -29,9 +29,9 @@ Group 118 does not implement `CIL-003`, change validation profile registries, ch
 - `docs/README.md`
 - `docs/claims/kora-claim-registry.md`
 - `docs/claims/kora-public-language-guide.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
-- `docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md`
+- `docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md`
 - `docs/reports/group111_validation_report_control_block.md`
 - `docs/reports/group112_pr_approval_and_report_consistency.md`
 - `docs/reports/group113_inner_loop_applied_review_queue_hardening.md`
@@ -139,13 +139,13 @@ Final validation before PR open:
 | `python3 -m pytest tests/test_methodology_fixture_check_slice.py` | passed, `4 passed` |
 | `python3 -m pytest tests/test_methodology_fixture_check_slice.py tests/test_fixture_quality_checks.py tests/test_representativeness_route_only_evaluator.py tests/test_representativeness_slice_route_only_evaluator.py` | passed, `17 passed` |
 | `python3 scripts/check_markdown_links_goal082b.py` | passed |
-| `python3 scripts/validate_codex_inner_loop_docs.py` | passed |
+| `python3 scripts/validate_workflow_docs.py` | passed |
 | `git diff --check` | passed |
 | hidden/bidi/control scan over changed text files | passed |
 | `python3 -m pytest` | passed, `505 passed` |
 
 ## Recommended Next Task After Group 118
 
-Review and merge-gate Group 118. After Group 118 is merged, refresh local ChatGPT source context only if explicitly approved.
+Review and merge-gate Group 118. After Group 118 is merged, refresh local project source context only if explicitly approved.
 
 `CIL-003` remains deferred until Albert explicitly approves the medium-risk profile-registry checklist.

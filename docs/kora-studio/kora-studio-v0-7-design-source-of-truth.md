@@ -1,8 +1,8 @@
-# KORA Studio v0.7 Claude Design Source of Truth
+# KORA Studio v0.7 external design Source of Truth
 
 ## Status
 
-This document records the Claude Design artifact review for KORA Studio v0.7 UI direction.
+This document records the external design artifact review for KORA Studio v0.7 UI direction.
 
 The approved direction is a minimal, chat-first web app surface. It should feel closer to a quiet chat workspace than to a dense model-management or settings application.
 
@@ -12,20 +12,20 @@ This is a design source of truth, not an implementation commit. Product code sho
 
 Screenshots:
 
-- [final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
-- [01 empty state](design/claude-v0-7/01-empty.png)
-- [02 empty state variant](design/claude-v0-7/02-empty.png)
-- [03 empty state variant](design/claude-v0-7/03-empty.png)
-- [mobile main composer](design/claude-v0-7/mobile-main-composer.jpg)
-- [mobile left rail](design/claude-v0-7/mobile-left-rail.jpg)
-- [mobile details drawer](design/claude-v0-7/mobile-details-drawer.jpg)
+- [final UI/UX board](design/v0-7-reference/kora-studio-final-uiux-board.png)
+- [01 empty state](design/v0-7-reference/01-empty.png)
+- [02 empty state variant](design/v0-7-reference/02-empty.png)
+- [03 empty state variant](design/v0-7-reference/03-empty.png)
+- [mobile main composer](design/v0-7-reference/mobile-main-composer.jpg)
+- [mobile left rail](design/v0-7-reference/mobile-left-rail.jpg)
+- [mobile details drawer](design/v0-7-reference/mobile-details-drawer.jpg)
 
 Reference source files:
 
-- [KORA-Studio.html](design/claude-v0-7/KORA-Studio.html)
-- [kora-app.jsx](design/claude-v0-7/kora-app.jsx)
-- [kora-panels.jsx](design/claude-v0-7/kora-panels.jsx)
-- [kora.css](design/claude-v0-7/kora.css)
+- [KORA-Studio.html](design/v0-7-reference/KORA-Studio.html)
+- [kora-app.jsx](design/v0-7-reference/kora-app.jsx)
+- [kora-panels.jsx](design/v0-7-reference/kora-panels.jsx)
+- [kora.css](design/v0-7-reference/kora.css)
 
 Important implementation note:
 
@@ -37,16 +37,16 @@ Important implementation note:
 
 Use the final UI/UX board as the primary visual target:
 
-![KORA Studio final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
+![KORA Studio final UI/UX board](design/v0-7-reference/kora-studio-final-uiux-board.png)
 
-Use the Claude Design screenshots as supporting state references.
+Use the external design screenshots as supporting state references.
 
 Core visual qualities:
 
 - sparse dark surface
 - quiet top bar
 - thin left rail available as a secondary workspace/task surface
-- centered work prompt
+- centered work request text
 - one large composer
 - small boundary pills below the composer
 - model selection in the top center

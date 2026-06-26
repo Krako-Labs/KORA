@@ -100,7 +100,7 @@ Goal 105 does not allow:
 - production readiness proof.
 - cost-reduction proof.
 
-Goal 105 also does not allow file moves, renames, archival, deletion, release, tag, GitHub Release, PyPI publication, repository settings change, issue creation, project-board creation, raw artifact upload, or local-only ChatGPT context changes.
+Goal 105 also does not allow file moves, renames, archival, deletion, release, tag, GitHub Release, PyPI publication, repository settings change, issue creation, project-board creation, raw artifact upload, or local-only project context changes.
 
 ## Future-Goal Path
 

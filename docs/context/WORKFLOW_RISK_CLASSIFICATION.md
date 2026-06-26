@@ -1,12 +1,12 @@
-# Codex Risk Classification
+# implementation workflow Risk Classification
 
-Status: repo-local risk model for KORA Codex work blocks.
+Status: repo-local risk model for KORA implementation workflow work blocks.
 
 ## Risk Levels
 
 ### Low Risk
 
-Low-risk work may be completed autonomously through PR open when the prompt permits it.
+Low-risk work may be completed autonomously through PR open when the request text permits it.
 
 Examples:
 
@@ -38,7 +38,7 @@ Medium-risk work commonly ends as `needs-cto-review` when public positioning, us
 
 ### High Risk
 
-High-risk work must stop before execution unless the prompt explicitly authorizes it. If encountered during work, classify as `needs-cto-review` or `blocked`.
+High-risk work must stop before execution unless the task brief explicitly authorizes it. If encountered during work, classify as `needs-cto-review` or `blocked`.
 
 Examples:
 
@@ -56,7 +56,7 @@ Examples:
 
 ## Classification Rule
 
-Codex pass is not merge-ready pass. Passing validation commands can support `merge-ready`, but validation alone is insufficient when claim, evidence, public-positioning, or approval-gate risk remains.
+workflow pass is not merge-ready pass. Passing validation commands can support `merge-ready`, but validation alone is insufficient when claim, evidence, public-positioning, or approval-gate risk remains.
 
 ## Claim Boundary Reminder
 

@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 118.
+Last updated by: Group 119.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: `group118-evidence-breadcrumb-claim-audit`
-- worktree label: `group118-evidence-breadcrumb-claim-audit`
-- branch pushed to: `origin/group118-evidence-breadcrumb-claim-audit`
-- open PR: [#271](https://github.com/Krako-Labs/KORA/pull/271)
-- base commit: `e5606535b9247dedb6a59a42ff9144373d9cedf9`
+- active verification branch: Group 119 public wording scrub PR branch
+- worktree label: `group119_public_wording_scrub`
+- branch pushed to: PR #272 source branch
+- open PR: [#272](https://github.com/Krako-Labs/KORA/pull/272)
+- base commit: `22d91129e3ab468394f9f2b446066d61e628b70c`
 
 ## Current State Summary
 
@@ -61,20 +61,20 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - Goal 103 adds a route-only evaluator over the Goal 102 seed fixture, producing aggregate public-safe route and workload-category counters only.
 - Group 116 adds a second public-safe synthetic route-only fixture slice with aggregate counters only.
 - Group 117 adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples.
-- Goal 104 adds a KORA-specific Codex bounded-loop protocol, claim-boundary checklist, PR completion format, and next-goal queue for semi-autonomous execution with human approval gates.
+- Goal 104 adds a KORA-specific implementation workflow bounded-loop protocol, claim-boundary checklist, PR completion format, and next-goal queue for semi-autonomous execution with human approval gates.
 - Goal 105 adds a public-safe output-quality methodology for future fixture-derived checks without executing evaluation or turning Goal 103 route-only counters into output-quality proof.
 - Goal 106 adds a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks and aggregate JSON output.
 - Goal 107 adds a public-safe long-run test loop protocol, failure-triage checklist, and test-loop queue template for future bounded local validation loops.
 - Goal 108 applies the Goal 107 protocol to one bounded local-only validation batch with pass/fail/skip/gated outcomes and no repairs.
 - Goal 109 adds a bounded local validation runner over the approved `kora-local-core` command profile.
-- Group 110 adds repo-local Codex inner-loop operating guidance with self-review, risk classification, escalation gates, approval packets, and a validator.
+- Group 110 adds repo-local implementation workflow operating guidance with self-review, risk classification, escalation gates, approval packets, and a validator.
 - Group 111 adds a static bounded-local-validation report verifier and deterministic failure classifier for queue items `CIL-001` and `CIL-002`, leaving conflicted PR #261 untouched.
 - Group 112 adds deterministic approval-packet and report-consistency checkers for queue items `CIL-006` and `CIL-007`, while keeping `CIL-003` deferred.
 - Group 113 applies the Group 110-112 operating layer, confirms the Group 112 checkers pass on the merged Group 112 report, adds a medium-risk `CIL-003` checklist, and hardens queue sizing guidance.
-- reusable Project Operating System templates, prompts, and adoption standard.
+- reusable Project Operating System templates, workflow guides, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 118: post-Group-117 evidence, breadcrumb, and claim-consistency audit. Documentation movement remains optional only after later explicit Albert approval.
+- current work is Group 119: public operations wording scrub under PR review. Group 118 remains the latest merged public state until Group 119 merges.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -127,13 +127,13 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Goal 100 | Reviewed the Goal 099 evidence package and recommended a narrow evidence-index refresh rather than a broad evidence package rewrite. | [Goal 100 Goal 099 evidence index review](docs/reports/goal100_goal099_evidence_index_review.md) |
 | Goal 102 | Added a public-safe synthetic representativeness seed fixture and shape-only validator for future route-only evaluation design. | [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md) |
 | Goal 103 | Added a route-only evaluator that validates the Goal 102 seed fixture and emits aggregate public-safe route/category counters without provider calls or H100 execution. | [Goal 103 representativeness route-only evaluator](docs/reports/goal103_representativeness_route_only_evaluator.md) |
-| Goal 104 | Added KORA-specific bounded-loop runbooks for Codex execution, claim-boundary review, PR completion, and next-goal queueing with human approval gates. | [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md) |
+| Goal 104 | Added KORA-specific bounded-loop runbooks for implementation workflow execution, claim-boundary review, PR completion, and next-goal queueing with human approval gates. | [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md) |
 | Goal 105 | Added public-safe output-quality methodology for future fixture-derived checks without executing evaluation. | [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md) |
 | Goal 106 | Added a tiny public-safe fixture-based quality-check scaffold with deterministic fixture-only checks. | [Goal 106 fixture quality-check scaffold](docs/reports/goal106_fixture_quality_check_scaffold.md) |
 | Goal 107 | Added long-run test loop protocol and failure triage for future bounded local validation loops. | [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md) |
 | Goal 108 | Applied the Goal 107 protocol to one bounded local-only validation batch with zero repairs. | [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md) |
 | Goal 109 | Added a bounded local validation runner over the approved local command profile. | [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md) |
-| Group 110 | Added repo-local Codex inner-loop operating guidance, queue, self-review, risk classification, escalation gates, approval packet, multi-agent model, run template, validator, and tests. | [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md) |
+| Group 110 | Added repo-local implementation workflow operating guidance, queue, self-review, risk classification, escalation gates, approval packet, multi-agent model, run template, validator, and tests. | [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md) |
 | Group 111 | Added static bounded-local-validation report verification and deterministic failure classification without executing report commands. | [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md) |
 | Group 112 | Added PR approval packet and report-consistency checks without GitHub API mutation or report-command execution. | [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md) |
 | Group 113 | Applied the inner-loop tools, added the medium-risk profile-registry checklist, and hardened queue sizing guidance without implementing `CIL-003`. | [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md) |
@@ -142,6 +142,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 116 | Adds a second synthetic route-only fixture slice with aggregate counters only, without output-quality or broader representativeness claims. | [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md) |
 | Group 117 | Adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples, without output-quality proof. | [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md) |
 | Group 118 | Audits post-Group-117 evidence breadcrumbs, review navigation, CIL status, validation references, and claim language without changing runtime behavior. | [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md) |
+| Group 119 | Scrubs public operations wording and path names while keeping `CIL-003` deferred and runtime, provider, package, release, and claim boundaries unchanged. | [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272) |
 
 ## Evidence Index
 
@@ -187,21 +188,21 @@ Current reviewer path:
 - [First-run CLI smoke checker](scripts/check_first_run_cli_smoke.py)
 - [First-run CLI smoke tests](tests/test_first_run_cli_smoke.py)
 - [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
-- [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
+- [implementation workflow medium-risk profile registry checklist](docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
 - [PR approval packet checker](scripts/check_pr_approval_packet.py)
 - [Report consistency checker](scripts/check_report_consistency.py)
 - [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md)
 - [Bounded local validation report verifier](scripts/verify_bounded_local_validation_report.py)
 - [Bounded local validation failure classifier](scripts/classify_bounded_local_validation_failure.py)
-- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
-- [Codex inner loop run template](docs/reports/codex_inner_loop_run_template.md)
-- [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md)
-- [Codex self-review protocol](docs/context/CODEX_SELF_REVIEW_PROTOCOL.md)
-- [Codex risk classification](docs/context/CODEX_RISK_CLASSIFICATION.md)
-- [Codex escalation gates](docs/context/CODEX_ESCALATION_GATES.md)
-- [Codex approval packet](docs/context/CODEX_APPROVAL_PACKET.md)
-- [Codex multi-agent operating model](docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)
+- [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md)
+- [implementation workflow run template](docs/reports/workflow_run_template.md)
+- [implementation workflow queue](docs/context/WORKFLOW_QUEUE.md)
+- [implementation workflow self-review protocol](docs/context/WORKFLOW_SELF_REVIEW_PROTOCOL.md)
+- [implementation workflow risk classification](docs/context/WORKFLOW_RISK_CLASSIFICATION.md)
+- [implementation workflow escalation gates](docs/context/WORKFLOW_ESCALATION_GATES.md)
+- [implementation workflow approval packet](docs/context/WORKFLOW_APPROVAL_PACKET.md)
+- [implementation workflow multi-agent operating model](docs/context/WORKFLOW_MULTI_ACTOR_OPERATING_MODEL.md)
 - [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
 - [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
@@ -213,8 +214,8 @@ Current reviewer path:
 - [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
-- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
-- [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
+- [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md)
+- [bounded workflow protocol](docs/runbooks/bounded_workflow_protocol.md)
 - [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
 - [KORA PR completion format](docs/runbooks/kora_pr_completion_format.md)
 - [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md)
@@ -277,7 +278,7 @@ Current evidence path:
 - [KORA quality-check seed fixture v0](examples/workloads/kora-quality-check-seed-v0.json)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
-- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
+- [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md)
 - [Goal 103 representativeness route-only evaluator](docs/reports/goal103_representativeness_route_only_evaluator.md)
 - [Goal 102 workload representativeness seed](docs/reports/goal102_workload_representativeness_seed.md)
 - [KORA representativeness seed fixture v0](examples/workloads/kora-representativeness-seed-v0.json)
@@ -290,9 +291,9 @@ Current evidence path:
 - [Generated Goal 098 H100 controlled summary](docs/evidence/generated/goal098_h100_controlled_summary.md)
 - [Group 097 H100 evidence inventory and gap audit](docs/reports/group097_h100_evidence_inventory_gap_audit.md)
 - [Project Operating Standard v0](docs/project-operating-system/project-operating-standard-v0.md)
-- [Project initialization prompt](docs/project-operating-system/prompts/project-initialization-prompt.md)
-- [Project gap analysis prompt](docs/project-operating-system/prompts/project-gap-analysis-prompt.md)
-- [Project documentation refresh prompt](docs/project-operating-system/prompts/project-doc-refresh-prompt.md)
+- [Project initialization request text](docs/project-operating-system/templates/workflow-guides/project-initialization-template.md)
+- [Project gap analysis request text](docs/project-operating-system/templates/workflow-guides/project-gap-analysis-template.md)
+- [Project documentation refresh request text](docs/project-operating-system/templates/workflow-guides/project-doc-refresh-template.md)
 - [KRK Goal 060 baseline equivalence and output fidelity](docs/reports/krk-goal060-baseline-equivalence-output-fidelity-v0.md)
 - [KRK Goal 059 expanded H100 representativeness](docs/reports/krk-goal059-expanded-h100-representativeness-v0.md)
 - [KRK Goal 058C H100 bounded execution](docs/reports/krk-goal058c-h100-bounded-execution-v0.md)
@@ -326,11 +327,11 @@ Supported:
 - Goal 107 supports a long-run test loop protocol and failure-triage checklist for future bounded local validation loops; it does not execute those loops or create automation.
 - Goal 108 supports that one bounded local-only validation batch ran approved local commands and passed on loop 1 with zero repairs; it does not prove output quality, broader workload representativeness, or production readiness.
 - Goal 109 supports a bounded local validation runner over the approved `kora-local-core` command profile; it does not prove output quality, broader workload representativeness, or production readiness.
-- Group 110 supports repo-local Codex inner-loop operating guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
+- Group 110 supports repo-local implementation workflow operating guidance; it does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 - Group 111 supports static report verification and deterministic triage over bounded local validation JSON; it does not execute report commands, auto-repair, call providers, run H100/server work, or prove output quality.
 - Group 112 supports approval-packet and report-consistency checking only; it does not call GitHub APIs, mutate PRs, execute report commands, auto-repair, call providers, run H100/server work, or prove output quality.
 - Group 113 supports operating review and queue hardening only; it does not implement `CIL-003`, change validation profiles, execute report commands, mutate GitHub, call providers, run H100/server work, or prove output quality.
-- KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project prompts.
+- KORA has reusable public-safe Project Operating System templates for breadcrumbs, review hubs, ADRs, reports, evidence, claim registries, bootstrap checklists, and project workflow guides.
 
 Not supported:
 
@@ -342,7 +343,7 @@ Not supported:
 - output quality from Goal 105 methodology documentation.
 - output quality from Goal 106 aggregate scaffold counts.
 - output quality, broader workload representativeness, or production readiness from Goal 108 local validation results, Goal 109 runner results, Group 110 operating guidance, Group 111 report-control tooling, Group 112 consistency checks, or Group 113 queue hardening.
-- self-approval by Codex or any execution agent.
+- self-approval by the implementation workflow or any execution role.
 - merge, release, publication, repository settings changes, provider calls, H100/GPU/server execution, file movement, or public claim expansion without explicit approval.
 - model replacement.
 - production diagnostic accuracy from the KORA Doctor example.
@@ -546,6 +547,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 116 is route-only aggregate fixture evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Group 117 is deterministic fixture-check evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Group 118 is documentation and audit evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
+- Group 119 is public operations wording hygiene only; it does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, change package or release behavior, or expand claims.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -565,8 +567,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review and merge-gate Group 118 - Evidence Breadcrumb Claim Consistency Audit.
-2. After Group 118 is merged, refresh local ChatGPT source context only if explicitly approved.
+1. Review Group 119 - Public Operations Wording Scrub.
+2. After Group 119 is merged, refresh local project source context only if explicitly approved.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
@@ -578,12 +580,12 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active branch group118-evidence-breadcrumb-claim-audit for the current Group 118 review/merge gate.
-Create a new scoped branch from origin/main only after Group 118 is merged and local source refresh is explicitly approved or completed.
+Use the active Group 119 public wording scrub PR branch for the current Group 119 review.
+Create a new scoped branch from origin/main only after Group 119 is merged and local source refresh is explicitly approved or completed.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
-Use docs/runbooks/codex_bounded_loop_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
+Use docs/runbooks/bounded_workflow_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.
-Use AGENTS.md and docs/context/CODEX_SELF_REVIEW_PROTOCOL.md for repo-local Codex inner-loop work.
+Use AGENTS.md and docs/context/WORKFLOW_SELF_REVIEW_PROTOCOL.md for repo-local implementation workflow work.
 Update OPEN_THIS_FIRST.md and REVIEW_HUB.md before committing unless explicitly exempted.
 ```
 
@@ -607,7 +609,7 @@ Every completed Goal must update:
 - [OPEN_THIS_FIRST.md](OPEN_THIS_FIRST.md)
 - [REVIEW_HUB.md](REVIEW_HUB.md)
 
-Exemptions must be explicit in the Goal prompt or final report. This rule exists so reviewers, owners, future sessions, and contributors can quickly reconstruct the current state without reading every historical report.
+Exemptions must be explicit in the Task brief or final report. This rule exists so reviewers, owners, future sessions, and contributors can quickly reconstruct the current state without reading every historical report.
 ## Goal 091B Review Entry
 
 Review these files for public readability and link integrity:

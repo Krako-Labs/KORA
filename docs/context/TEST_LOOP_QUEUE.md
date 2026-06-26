@@ -4,7 +4,7 @@ Status: planning template only; not an approval record.
 
 ## Purpose
 
-This queue records candidate bounded local test loops for future KORA goals. A listed item is not approved until Albert provides an explicit goal prompt with base SHA, branch, allowed commands, loop budget, repair budget, allowed files, forbidden files, claim boundaries, and stop gates.
+This queue records candidate bounded local test loops for future KORA goals. A listed item is not approved until Albert provides an explicit goal request text with base SHA, branch, allowed commands, loop budget, repair budget, allowed files, forbidden files, claim boundaries, and stop gates.
 
 ## Current Candidate
 
@@ -35,4 +35,4 @@ The queue does not approve:
 - claim expansion.
 - background daemon, scheduler, GitHub Actions workflow, remote runner, or self-merging automation.
 - release, tag, GitHub Release, PyPI publication, repository settings change, issue/project-board creation, raw artifact upload, file move, rename, archive, or delete operation.
-- local-only ChatGPT context changes.
+- local-only project context changes.

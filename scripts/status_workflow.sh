@@ -9,7 +9,7 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
 if [[ -n "$(git status --porcelain)" ]]; then
   git add -A
-  git commit -m "chore: eod workflow sync (${TODAY})"
+  git commit -m "chore: status workflow sync (${TODAY})"
   git push origin "${BRANCH}"
   echo "[git] committed and pushed changes on ${BRANCH}"
 else
@@ -33,6 +33,6 @@ else
   echo "[linear] LINEAR_API_KEY not found; skipping Linear update (manual step)"
 fi
 
-bash scripts/eod_send_report.sh
+bash scripts/send_status_report.sh
 
-echo "[eod] completed"
+echo "[status] completed"

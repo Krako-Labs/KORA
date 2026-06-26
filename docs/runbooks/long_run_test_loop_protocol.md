@@ -4,7 +4,7 @@ Status: public-safe protocol for future bounded local validation loops.
 
 ## Purpose
 
-This runbook defines how a future KORA goal may run a longer validation loop without widening scope, making unsupported claims, or turning Codex into a background runner.
+This runbook defines how a future KORA goal may run a longer validation loop without widening scope, making unsupported claims, or turning implementation workflow into a background runner.
 
 A bounded long-run test loop is a scoped, finite validation loop. It runs known approved commands, records pass, fail, skip, and gated outcomes, stops after the approved loop budget, opens a PR, and stops. It does not merge.
 
@@ -12,7 +12,7 @@ This protocol is documentation only. It does not create a scheduler, daemon, Git
 
 ## Required Inputs
 
-Every future long-run loop prompt must provide or explicitly approve:
+Every future long-run loop request text must provide or explicitly approve:
 
 - goal id.
 - base SHA.
@@ -26,7 +26,7 @@ Every future long-run loop prompt must provide or explicitly approve:
 - claim-boundary checklist.
 - explicit stop gates.
 
-If any required input is missing, Codex must stop before starting the loop and request a bounded goal prompt.
+If any required input is missing, the implementation workflow must stop before starting the loop and request a bounded task brief.
 
 ## Loop Definition
 
@@ -41,7 +41,7 @@ For each approved loop iteration:
 7. Rerun full validation only after focused repair passes.
 8. Stop when the loop budget, repair budget, timeout, or stop gate is reached.
 9. Open a PR when the approved task is complete.
-10. Stop after PR-open unless a separate merge-gate prompt is provided.
+10. Stop after PR-open unless a separate merge-gate request text is provided.
 
 ## Repair Rules
 
@@ -61,7 +61,7 @@ Required repair order:
 4. Stop if the same failure repeats after the maximum repair attempts.
 5. Stop if the needed repair leaves the approved file set.
 
-Codex must stop before any repair that requires:
+the implementation workflow must stop before any repair that requires:
 
 - provider calls.
 - H100/GPU/CUDA/server/remote execution.

@@ -16,7 +16,7 @@ Any cleanup must preserve:
 - EIC/grant evidence
 - investor diligence evidence
 - community onboarding value
-- EOD/SOD continuity
+- status closeout/start-of-work continuity
 
 ## 2. Current Repository Baseline
 
@@ -58,7 +58,7 @@ Do-not-claim reminder:
 | `docs/` | Needs better linking | Documentation value is high but navigation is fragmented. Priority next step is a docs index/navigation map. |
 | `.github/` | Keep as-is | Issue templates, PR template, and CI exist. Future work may add CODEOWNERS and additional workflows. |
 | `tests/` | Keep as-is | Test suite supports current package and benchmark behavior. |
-| `scripts/` | Needs cleanup audit | Contains EOD, release, Linear, metrics, and reporting scripts. Needs ownership and current-use review before any cleanup. |
+| `scripts/` | Needs cleanup audit | Contains status closeout, release, Linear, metrics, and reporting scripts. Needs ownership and current-use review before any cleanup. |
 | `tools/` | Keep as-is | Small utility surface; keep until broader tooling audit. |
 | `assets/` | Keep as-is | Logo assets used by README. |
 | `artifacts/` | Needs later technical review | Contains metrics artifacts. Determine whether these are historical evidence, generated outputs, or should move to docs/metrics policy. |
@@ -74,12 +74,12 @@ Do-not-claim reminder:
 | `docs/community` | Community workflow, roles, AI-assisted contribution | High | Overlaps with GitHub setup and open roles | Keep; create community index later |
 | `docs/paper` | Paper authorship and contribution policy | High | Paper source material also exists in root/docs research | Expand into paper index later |
 | `docs/benchmarks` | Benchmark summaries and workload expansion plans | High | Overlaps with reports, experiments README, technical preview docs | Preserve; add benchmark index and evidence map |
-| `docs/reports` | Release readiness, EOD, artifact policy, validation packets | High | Mixed release reports and sample telemetry input | Preserve; consider reports index |
-| `docs/eod` | Earlier end-of-day reports | High for continuity | Overlaps with `docs/reports` EOD content | Preserve; decide whether EOD reports belong under one folder |
+| `docs/reports` | Release readiness, status closeout, artifact policy, validation packets | High | Mixed release reports and sample telemetry input | Preserve; consider reports index |
+| `docs/status` | Earlier end-of-day reports | High for continuity | Overlaps with `docs/reports` status closeout content | Preserve; decide whether status closeout reports belong under one folder |
 | `docs/vision` | Category thesis | High | Overlaps with root `VISION.md` and docs/VISION.md | Keep new dated thesis; review older vision docs later |
 | `docs/specs` | Architecture, contracts, governance, studio specs | High but broad | May contain Krako Cloud/studio material beyond current public core | Preserve; add spec index and status labels |
 | `docs/metrics` | Metrics benchmark artifacts and reports | Medium/high | May overlap with `artifacts/metrics` and benchmarks | Preserve; review artifact policy and source-of-truth |
-| `docs/progress` | Historical progress reports | Medium | Overlaps with EOD/reports | Preserve until history consolidation |
+| `docs/progress` | Historical progress reports | Medium | Overlaps with status closeout/reports | Preserve until history consolidation |
 | `docs/strategy` | Pitch/source strategy materials | Medium/high | Potential public/private sensitivity | Review public/private boundary before linking |
 | Root-level `docs/*.md` | Foundational architecture, philosophy, benchmark, research docs | High but disorganized | Duplicates root docs and newer structured docs | Priority docs index should classify these before move/rename |
 
@@ -93,7 +93,7 @@ Release history:
 - `docs/release_note_v0_1_alpha.md`
 - `docs/release_note_v0_1_1_alpha.md`
 - `docs/reports/v0.2.0-alpha-*`
-- `docs/reports/kora_eod_2026-05-05_v0.2.0-alpha.md`
+- `docs/reports/kora_status_2026-05-05_v0.2.0-alpha.md`
 
 Benchmark evidence:
 
@@ -106,10 +106,10 @@ Benchmark evidence:
 - `docs/benchmarks/kora_benchmark_result_v1_100.md`
 - `docs/reports/benchmark_artifact_policy.md`
 
-EOD/SOD continuity:
+status closeout/start-of-work continuity:
 
-- `docs/eod/*`
-- `docs/reports/kora_eod_*`
+- `docs/status/*`
+- `docs/reports/kora_status_*`
 - Former `docs/context/*` local handoff files, now private-only material
 
 Paper preparation:
@@ -152,9 +152,9 @@ Benchmark reports:
 
 - `docs/benchmarks/*`, `docs/reports/*`, `docs/technical_preview_results.md`, and `experiments/README.md` overlap. Risk: readers may see older skeleton language beside newer v1_100 evidence.
 
-EOD reports:
+status closeout reports:
 
-- `docs/eod/*` and `docs/reports/kora_eod_*` overlap. Risk: multiple history locations make continuity hard to follow.
+- `docs/status/*` and `docs/reports/kora_status_*` overlap. Risk: multiple history locations make continuity hard to follow.
 
 Technical preview docs:
 
@@ -239,7 +239,7 @@ Benchmark-related scripts:
 
 Telemetry/reporting files:
 
-- `kora/telemetry.py`, `docs/reports/sample_telemetry_input.json`, and EOD/report scripts should be preserved.
+- `kora/telemetry.py`, `docs/reports/sample_telemetry_input.json`, and status closeout/report scripts should be preserved.
 - Generated telemetry outputs should remain ignored or ephemeral unless explicitly selected as evidence.
 
 Needs technical review:
@@ -268,7 +268,7 @@ Future cleanup:
 
 - stale README/CHANGELOG/experiments README wording
 - root docs versus docs folder duplication
-- EOD/report folder split
+- status closeout/report folder split
 
 Preservation as benchmark artifact:
 
@@ -299,7 +299,7 @@ Priority 2: safe rename/move candidates after review.
 Priority 3: archive candidates after stronger review.
 
 - stale strategy text files
-- old progress/EOD drafts after index and preservation decision
+- old progress/status closeout drafts after index and preservation decision
 - legacy pitch source copies
 
 Priority 4: possible removal candidates, only after explicit approval.

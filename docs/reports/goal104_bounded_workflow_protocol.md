@@ -1,10 +1,10 @@
-# Goal 104 Codex Bounded Loop Protocol
+# Goal 104 implementation workflow Bounded Loop Protocol
 
 Status: KORA-specific bounded-loop protocol added; documentation/protocol only.
 
 ## Objective
 
-Goal 104 adds public-safe runbooks for how KORA should use ChatGPT, Codex, and Albert across scoped implementation, validation, documentation, audit, PR opening, review cleanup, merge gates, and local source refresh.
+Goal 104 adds public-safe runbooks for how KORA should use planning gate, implementation workflow, and Albert across scoped implementation, validation, documentation, audit, PR opening, review cleanup, merge gates, and local source refresh.
 
 This is a documentation/protocol goal. It adds no runtime feature code and no executable automation.
 
@@ -14,8 +14,8 @@ Goal 103 introduced a route-only evaluator, then needed a cleanup pass, a merge-
 
 - PR-open implementation should stop before merge.
 - stale breadcrumb cleanup should patch the same PR and stop again.
-- merge requires a separate merge-gate prompt.
-- local ChatGPT source refresh belongs after merge and must stay local-only.
+- merge requires a separate merge-gate request text.
+- local planning gate source refresh belongs after merge and must stay local-only.
 - route-only evidence must not become output-quality or broader representativeness claims.
 
 Goal 104 turns that pattern into a reusable KORA protocol.
@@ -24,7 +24,7 @@ Goal 104 turns that pattern into a reusable KORA protocol.
 
 Added:
 
-- [Codex bounded loop protocol](../runbooks/codex_bounded_loop_protocol.md)
+- [bounded workflow protocol](../runbooks/bounded_workflow_protocol.md)
 - [KORA claim-boundary checklist](../runbooks/kora_claim_boundary_checklist.md)
 - [KORA PR completion format](../runbooks/kora_pr_completion_format.md)
 - [KORA next goal queue](../context/NEXT_GOAL_QUEUE.md)
@@ -94,7 +94,7 @@ The checklist preserves these non-claims unless later evidence and approval chan
 
 Goal 104 does not:
 
-- make Codex self-approving.
+- make implementation workflow self-approving.
 - authorize unapproved merge or release.
 - add runtime feature code.
 - add provider calls.
@@ -106,12 +106,12 @@ Goal 104 does not:
 - add superiority, customer-savings, provider-replacement, or GPU-serving replacement claims.
 - publish `getkora`.
 - move, rename, archive, or delete files.
-- modify or commit local-only ChatGPT context files.
+- modify or commit local-only project context files.
 
 ## Next Recommended Goal
 
 Recommended next goal:
 
-- Goal 105 - Apply the Codex bounded-loop protocol to the next approved KORA task.
+- Goal 105 - Apply the implementation workflow bounded-loop protocol to the next approved KORA task.
 
 Alternative next goals require explicit approval and should start from the queue in [KORA next goal queue](../context/NEXT_GOAL_QUEUE.md).

@@ -1,25 +1,25 @@
-# Codex Bounded Loop Protocol
+# Implementation Workflow Bounded Loop Protocol
 
 Status: KORA-specific operating protocol for semi-autonomous execution with human approval gates.
 
 ## Purpose
 
-This runbook defines how KORA uses ChatGPT, Codex, and Albert across scoped implementation, validation, documentation, audit, and PR-opening work.
+This runbook defines how KORA uses planning gate, implementation workflow, and Albert across scoped implementation, validation, documentation, audit, and PR-opening work.
 
-The protocol is a bounded loop: Codex may execute a scoped goal through PR-open, then stop. It does not authorize merge, release, publication, repository settings changes, claim expansion, provider calls, H100 execution, file movement, or major public narrative rewrites without an explicit later approval prompt.
+The protocol is a bounded loop: the implementation workflow may execute a scoped goal through PR-open, then stop. It does not authorize merge, release, publication, repository settings changes, claim expansion, provider calls, H100 execution, file movement, or major public narrative rewrites without an explicit later approval gate.
 
 ## Role Split
 
-ChatGPT is responsible for:
+The planning gate is responsible for:
 
 - planning the goal envelope.
-- writing or refining prompts.
-- reviewing Codex output and PRs.
+- writing or refining workflow guides.
+- reviewing implementation workflow output and PRs.
 - identifying stale breadcrumbs, weak validation, scope drift, and missing claim boundaries.
 - keeping claim boundaries explicit.
 - advising on merge, release, or source-refresh gates.
 
-Codex is responsible for:
+The implementation workflow is responsible for:
 
 - verifying repository identity, branch, base SHA, and clean worktree state.
 - implementing scoped public-safe changes.
@@ -27,7 +27,7 @@ Codex is responsible for:
 - auditing changed files for claim-boundary and public/private risks.
 - updating `OPEN_THIS_FIRST.md`, `REVIEW_HUB.md`, and task reports when the goal requires them.
 - opening a PR when requested.
-- stopping after PR-open unless a separate merge-gate prompt is provided.
+- stopping after PR-open unless a separate merge-gate request text is provided.
 
 Albert is the approval gate for:
 
@@ -72,7 +72,7 @@ Stop and request or wait for explicit approval before any of these actions:
 - squash merge, merge commit, rebase merge, or branch deletion tied to a merge.
 - release, tag, GitHub Release, release asset, or PyPI/package publication.
 - repository settings, metadata, topics, homepage, visibility, or branch protection changes.
-- issue or project-board creation unless the prompt explicitly approves it.
+- issue or project-board creation unless the task brief explicitly approves it.
 - raw benchmark artifact upload.
 - provider calls to OpenAI, Anthropic, Gemini, local model servers, or other inference providers.
 - H100/GPU/CUDA/server/remote execution.
@@ -80,11 +80,11 @@ Stop and request or wait for explicit approval before any of these actions:
 - file moves, renames, archival, or deletion.
 - claim expansion beyond the approved evidence.
 - public-facing README or major narrative rewrite beyond the goal scope.
-- local-only ChatGPT context refresh after merge, unless the prompt is specifically a local-only source refresh task.
+- local-only project context refresh after merge, unless the task brief is specifically a local-only source refresh task.
 
 ## Fix-Loop Behavior
 
-If ChatGPT or review feedback finds stale breadcrumbs, missing claim boundaries, weak validation, broken links, or scope drift:
+If planning gate or review feedback finds stale breadcrumbs, missing claim boundaries, weak validation, broken links, or scope drift:
 
 1. Patch the same PR branch.
 2. Keep the patch scoped to the review finding.
@@ -92,7 +92,7 @@ If ChatGPT or review feedback finds stale breadcrumbs, missing claim boundaries,
 4. Push the update.
 5. Stop again.
 
-Do not merge after a fix-loop patch unless a separate merge-gate prompt is provided.
+Do not merge after a fix-loop patch unless a separate merge-gate request text is provided.
 
 ## Local Source Refresh After Merge
 
@@ -100,15 +100,15 @@ After a PR is merged, run a separate local-only source refresh task when request
 
 Local source refresh rules:
 
-- update only files under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/chatgpt_context/`.
-- prefer the canonical files `ChatGPT_project_source.md` and `source_manifest.md`.
-- leave `ChatGPT_instructions.md` unchanged unless it is clearly stale and the prompt allows a narrow factual refresh.
+- update only files under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/project_context/`.
+- prefer the canonical files `project_source.md` and `source_manifest.md`.
+- leave `project_instructions.md` unchanged unless it is clearly stale and the task brief allows a narrow factual refresh.
 - never commit local-only files.
 - never use local-only files as public repo source material without public-safe rewriting and approval.
 
 ## Completion Format
 
-Use [KORA PR completion format](kora_pr_completion_format.md) for final Codex responses and PR bodies.
+Use [KORA PR completion format](kora_pr_completion_format.md) for final implementation workflow responses and PR bodies.
 
 Completion must identify:
 

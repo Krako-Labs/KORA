@@ -43,7 +43,7 @@ The docs tree is useful but broad. Current confusion points:
 - current user-facing docs, historical reports, implementation plans, evidence snapshots, and project operating materials appear at similar depth.
 - `docs/reports/` contains both current reviewer reports and older release-readiness or planning reports.
 - `docs/evidence/`, `docs/benchmarks/`, `docs/metrics/`, and generated evidence summaries are important for review but should not be mistaken for the first-run path.
-- `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, and `docs/eod/` contain planning or historical continuity material that can overwhelm a new visitor.
+- `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, and `docs/status/` contain planning or historical continuity material that can overwhelm a new visitor.
 - root strategic documents now have orientation stubs, but future movement would still need link-preserving stubs or redirects before any future move.
 - KORA Studio and paper-related docs are substantial surfaces and should not be moved or reclassified without dedicated review.
 
@@ -56,7 +56,7 @@ These are navigation problems, not validity problems. Older docs are not invalid
 | Current public entry path | Understand KORA quickly and run the first examples. | `README.md`, `docs/README.md`, `docs/vision/kora_workload_control_layer.md`, `examples/README.md`, `docs/examples/kora_example_guide.md`, `docs/packaging/getkora_distribution_strategy.md` |
 | Examples and first-value path | Run and understand source-install examples. | `examples/kora_doctor/`, `examples/deterministic_classification/`, `examples/openai_compatible_proxy/`, `examples/rag_routing/`, `examples/agent_workflow_optimization/`, `examples/cache_reuse/`, `docs/quickstart-five-minute-first-value.md` |
 | Evidence and reports path | Review bounded evidence, claim support, and validation history. | `docs/reports/`, `docs/evidence/`, `docs/benchmarks/`, `docs/metrics/`, `docs/claims/` |
-| Historical/planning path | Preserve strategy, planning, progress, release-readiness, and implementation continuity. | `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, `docs/eod/`, older files in `docs/reports/` |
+| Historical/planning path | Preserve strategy, planning, progress, release-readiness, and implementation continuity. | `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, `docs/status/`, older files in `docs/reports/` |
 | Project operations path | Continue project work and contribution/review operations. | `OPEN_THIS_FIRST.md`, `REVIEW_HUB.md`, `docs/project-operating-system/`, `docs/runbooks/`, `CONTRIBUTING.md`, `SECURITY.md`, `GOVERNANCE.md` |
 | Product/surface-specific path | Keep specialized product, paper, and Studio material discoverable without making it the default first-read path. | `docs/kora-studio/`, `docs/product/`, `docs/design/`, `docs/paper/`, `studio/` |
 
@@ -68,10 +68,10 @@ Candidate archive bucket proposals for a later owner-approved movement task:
 
 | Candidate archive bucket | Candidate contents | Requirement before movement |
 | --- | --- | --- |
-| `docs/archive/reports/` | Older release-readiness reports, older PR packets, superseded EOD reports, and historical planning reports that are not part of the current reviewer path. | Full link inventory, link-preserving stubs or redirects, and report index update. |
+| `docs/archive/reports/` | Older release-readiness reports, older PR packets, superseded status closeout reports, and historical planning reports that are not part of the current reviewer path. | Full link inventory, link-preserving stubs or redirects, and report index update. |
 | `docs/archive/evidence/` | Superseded evidence snapshots or generated summaries no longer used in the current evidence path. | Evidence-owner review and explicit note preserving the active evidence package. |
 | `docs/archive/strategy/` | Older strategy, manifesto, roadmap, and launch-planning documents that predate the current AI Workload Control Layer narrative. | Root-stub review and clear historical-context labeling. |
-| `docs/archive/planning/` | Older implementation plans, progress reports, and EOD material after current references are mapped. | Link check, breadcrumb review, and continuity note. |
+| `docs/archive/planning/` | Older implementation plans, progress reports, and status closeout material after current references are mapped. | Link check, breadcrumb review, and continuity note. |
 
 These archive paths do not exist as active destinations in Task 096. This task creates no archive directories and moves no files.
 
@@ -99,7 +99,7 @@ Treat these as non-first-read material unless a reviewer is specifically checkin
 
 - older release-readiness reports under `docs/reports/`.
 - older PR packets under `docs/reports/`.
-- `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, and `docs/eod/`.
+- `docs/planning/`, `docs/progress/`, `docs/implementation/`, `docs/strategy/`, and `docs/status/`.
 - generated evidence summaries under `docs/evidence/generated/`.
 - benchmark-specific material under `docs/benchmarks/`.
 - metrics-specific material under `docs/metrics/`.

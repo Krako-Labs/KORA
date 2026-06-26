@@ -19,7 +19,7 @@ Self-review summary: scope and boundaries checked.
 Claim-boundary audit: no output-quality proof or production proof added.
 Forbidden-action audit: no provider calls, no report-command execution, no releases.
 Uncertainty notes: none.
-Codex recommendation: Merge.
+workflow recommendation: Merge.
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 """
 

@@ -12,7 +12,7 @@ from urllib import error, request
 LINEAR_API_URL = "https://api.linear.app/graphql"
 PROJECT_NAME = "KORA v1 Runtime"
 
-COMMENT_BODY = """EOD update (2026-02-17)
+COMMENT_BODY = """Status update (2026-02-17)
 
 Studio commits:
 - e0b55f1 scaffold

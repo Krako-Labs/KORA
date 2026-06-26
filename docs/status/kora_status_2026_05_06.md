@@ -1,4 +1,4 @@
-# KORA EOD Report - 2026-05-06
+# KORA status closeout Report - 2026-05-06
 
 ## 1. Date And Purpose
 

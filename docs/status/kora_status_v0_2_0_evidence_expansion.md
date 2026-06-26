@@ -1,4 +1,4 @@
-# KORA EOD Report - v0.2.0-alpha Evidence Expansion
+# KORA status closeout Report - v0.2.0-alpha Evidence Expansion
 
 Date: 2026-05-04
 

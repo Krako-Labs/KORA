@@ -15,8 +15,8 @@ The target is a minimal chat-like local workspace:
 
 The source of truth is:
 
-- [KORA Studio final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
-- [KORA Studio v0.7 Claude Design source of truth](kora-studio-v0-7-claude-design-source-of-truth.md)
+- [KORA Studio final UI/UX board](design/v0-7-reference/kora-studio-final-uiux-board.png)
+- [KORA Studio v0.7 external design source of truth](kora-studio-v0-7-design-source-of-truth.md)
 
 v0.8 is an implementation milestone for the local preview UI. It remains a local preview/demo readiness milestone, not a production release.
 
@@ -65,7 +65,7 @@ Allowed:
 
 Forbidden:
 
-- arbitrary prompt execution
+- arbitrary request text execution
 - real model execution
 - provider calls
 - model downloads
@@ -159,7 +159,7 @@ Required copy:
 - supporting copy: `Choose a local model once. KORA keeps routing details out of the way.`
 - placeholder: `Ask KORA...`
 
-The composer may continue to trigger only approved local harness behavior until arbitrary prompt execution is explicitly scoped. It must not accept or execute arbitrary prompts as a real model/provider path.
+The composer may continue to trigger only approved local harness behavior until arbitrary request text execution is explicitly scoped. It must not accept or execute arbitrary workflow guides as a real model/provider path.
 
 ## Right Details Drawer
 
@@ -245,7 +245,7 @@ Update or add tests for:
 - Run Local Harness still calls only `POST /api/harness/run`
 - selected-run event fetch still uses `GET /api/harness/events?run_id=<id>`
 - optional generated event stream still uses `GET /api/harness/sse?run_id=<id>`
-- no arbitrary prompt execution endpoint is introduced
+- no arbitrary request text execution endpoint is introduced
 - no external script source is introduced
 - no provider/model/download/cloud endpoints are introduced
 - no report export/download endpoint is introduced
@@ -303,9 +303,9 @@ Status: implemented. The compact top selector is now a local catalog scaffold th
 
 Align the existing approved local harness trigger with the new composer surface.
 
-Do not add arbitrary prompt execution.
+Do not add arbitrary request text execution.
 
-Status: implemented. The centered composer action now reuses the approved local harness request path and updates a compact composer selected-run summary. It sends only the selected approved request ID to the existing local harness endpoint and does not add arbitrary prompt execution, model execution, provider calls, downloads, or cloud sync.
+Status: implemented. The centered composer action now reuses the approved local harness request path and updates a compact composer selected-run summary. It sends only the selected approved request ID to the existing local harness endpoint and does not add arbitrary request text execution, model execution, provider calls, downloads, or cloud sync.
 
 ### Task 461: Responsive/mobile layout pass
 
@@ -375,5 +375,5 @@ KORA Studio v0.9 should focus on local usability polish after the final layout i
 - visual QA screenshots from local preview
 - read-only selected-run refresh by run ID
 - clearer model picker search behavior
-- no arbitrary prompt execution unless separately scoped
+- no arbitrary request text execution unless separately scoped
 - no model execution/provider/download/cloud behavior

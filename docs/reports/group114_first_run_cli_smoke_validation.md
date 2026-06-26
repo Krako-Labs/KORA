@@ -28,11 +28,11 @@ Self-review summary: scope is deterministic local first-run CLI smoke validation
 
 Claim-boundary audit: no output-quality proof, broader workload representativeness proof, production proof, production validation, production cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, GPU-serving replacement, or published `getkora` claim added.
 
-Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, dynamic shell loading, external config execution, user command text execution, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, actual multi-agent execution, GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, release, tag, GitHub Release, PyPI publication, raw artifact upload, file movement, local-only ChatGPT context change, or claim expansion added.
+Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, dynamic shell loading, external config execution, user command text execution, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, actual multi-agent execution, GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, release, tag, GitHub Release, PyPI publication, raw artifact upload, file movement, local-only project context change, or claim expansion added.
 
 Uncertainty notes: this group touches the local first-run validation surface, so it is classified as medium risk and `needs-cto-review` even though the implementation is deterministic and local-only.
 
-Codex recommendation: CTO Review.
+workflow recommendation: CTO Review.
 
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 
@@ -40,7 +40,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 - public truth: `origin/main`
 - base public HEAD: `bbc673d256f005201925051310342fa78c4af4d2`
-- branch: `codex/group114-first-run-cli-smoke-validation`
+- branch: `workflow/group114-first-run-cli-smoke-validation`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group114_first_run_cli_smoke_validation`
 - PR: https://github.com/Krako-Labs/KORA/pull/266
 
@@ -130,7 +130,7 @@ These results are local first-run smoke validation only. They do not prove outpu
 - `OPEN_THIS_FIRST.md`
 - `REVIEW_HUB.md`
 - `docs/README.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
 
 ## Validation Results
@@ -144,7 +144,7 @@ Final validation before PR open:
 | `python3 scripts/check_first_run_cli_smoke.py --profile first-run-cli-core --json-out /tmp/kora-group114-smoke.json --md-out /tmp/kora-group114-smoke.md` | passed; reported 7 passed commands |
 | `python3 scripts/check_pr_approval_packet.py docs/reports/group113_inner_loop_applied_review_queue_hardening.md` | passed |
 | `python3 scripts/check_report_consistency.py docs/reports/group113_inner_loop_applied_review_queue_hardening.md --breadcrumb OPEN_THIS_FIRST.md --breadcrumb REVIEW_HUB.md` | passed |
-| `python3 scripts/validate_codex_inner_loop_docs.py` | passed |
+| `python3 scripts/validate_workflow_docs.py` | passed |
 | `python3 scripts/run_bounded_local_validation.py --profile kora-local-core --dry-run --json-out /tmp/kora-group114-bounded-dry-run.json` | passed |
 | `python3 scripts/verify_bounded_local_validation_report.py /tmp/kora-group114-bounded-dry-run.json --profile kora-local-core` | passed |
 | `python3 scripts/classify_bounded_local_validation_failure.py /tmp/kora-group114-bounded-dry-run.json --profile kora-local-core` | passed with `dry_run_only` classification |
@@ -179,7 +179,7 @@ Rationale: this group is deterministic, local-only tooling plus tests and docs, 
 - no external config execution was added.
 - no user-provided command text execution was added.
 - no `shell=True` execution was added.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 - no GitHub API mutation was added.
 - no PR close, approval, merge, issue creation, project-board update, repository settings change, or collaborator change was added.
 - no auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, or actual multi-agent execution was added.

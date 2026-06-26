@@ -28,11 +28,11 @@ Self-review summary: scope is source-install readiness checking, tests, report, 
 
 Claim-boundary audit: this checks local source installation only. It does not check PyPI installation, publish a package, claim `getkora` is published, claim install-from-PyPI support, prove production readiness, prove output quality, prove broader workload representativeness, prove production workload handling, prove production validation, prove production cost reduction, claim customer savings, claim H100/GPU/CPU superiority, claim provider replacement, or claim GPU-serving replacement.
 
-Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, PyPI command, release/tag/GitHub Release/package upload step, package publication, version change, provider call, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, GitHub Actions workflow, scheduler, daemon, background runner, GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, file movement, file rename, file archive, file deletion, or local-only ChatGPT context change was added.
+Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, PyPI command, release/tag/GitHub Release/package upload step, package publication, version change, provider call, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, GitHub Actions workflow, scheduler, daemon, background runner, GitHub API mutation, PR approval, PR merge, PR close, issue creation, project-board update, repository settings change, collaborator change, file movement, file rename, file archive, file deletion, or local-only project context change was added.
 
 Uncertainty notes: this group touches source-install and CLI availability confidence, so it is classified as medium risk and `needs-cto-review` even though the checker is local-only and deterministic after dependency installation succeeds.
 
-Codex recommendation: CTO Review.
+workflow recommendation: CTO Review.
 
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 
@@ -40,7 +40,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 - public truth: `origin/main`
 - base public HEAD: `a3c9db3f54e17e3d0e292bae4ffce56d8c9262bf`
-- branch: `codex/group115-source-install-readiness`
+- branch: `workflow/group115-source-install-readiness`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group115_source_install_readiness`
 - PR: https://github.com/Krako-Labs/KORA/pull/267
 
@@ -104,7 +104,7 @@ The real run installed KORA from the local Group 115 worktree path. It did not i
 - `OPEN_THIS_FIRST.md`
 - `REVIEW_HUB.md`
 - `docs/README.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
 
 ## Validation Results
@@ -146,7 +146,7 @@ Rationale: this group is bounded local tooling plus tests and docs, but it touch
 - no provider calls were added or executed.
 - no H100/GPU/CUDA/server/remote execution was added or executed.
 - no model inference, semantic judging, or human grading was added.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 - no repository settings, collaborator, issue, project-board, PR approval, PR merge, or PR close mutation was performed.
 - no file was moved, renamed, archived, or deleted.
 

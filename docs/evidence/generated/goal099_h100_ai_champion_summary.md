@@ -7,7 +7,7 @@ This public-safe aggregate summary records the bounded GPU/H100 phase of Goal 09
 ## Sanitized Environment Summary
 
 - execution environment: `AI Champion H100 server`
-- controller environment: `local Codex controller`
+- controller environment: `local implementation workflow controller`
 - remote OS family: `remote Linux server`
 - remote architecture: `x86_64`
 - Python runtime: `3.11.15`

@@ -1,4 +1,4 @@
-# KORA EOD Report - 2026-05-05 - v0.2.0-alpha
+# KORA status closeout Report - 2026-05-05 - v0.2.0-alpha
 
 Date: `2026-05-05`
 
@@ -127,4 +127,4 @@ None for `v0.2.0-alpha`.
 
 ## Next Development Note
 
-Internal task prompts and local operating handoff material have been removed from the public report. Future local continuity material belongs outside the public KORA repository.
+Internal task workflow guides and local operating handoff material have been removed from the public report. Future local continuity material belongs outside the public KORA repository.

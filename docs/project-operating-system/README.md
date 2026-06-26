@@ -55,11 +55,11 @@ Optional but recommended:
 - [Claim registry template](templates/CLAIM_REGISTRY.template.md)
 - [Project bootstrap checklist template](templates/PROJECT_BOOTSTRAP_CHECKLIST.template.md)
 
-## Prompts
+## Workflow Guides
 
-- [Project initialization prompt](prompts/project-initialization-prompt.md)
-- [Project gap analysis prompt](prompts/project-gap-analysis-prompt.md)
-- [Project documentation refresh prompt](prompts/project-doc-refresh-prompt.md)
+- [Project initialization request text](templates/workflow-guides/project-initialization-template.md)
+- [Project gap analysis request text](templates/workflow-guides/project-gap-analysis-template.md)
+- [Project documentation refresh request text](templates/workflow-guides/project-doc-refresh-template.md)
 
 ## Operating Standard
 
@@ -82,7 +82,7 @@ This package generalizes:
 - [KORA OPEN_THIS_FIRST.md](../../OPEN_THIS_FIRST.md)
 - [KORA REVIEW_HUB.md](../../REVIEW_HUB.md)
 - [KORA Project Documentation Operating Standard](../runbooks/project-documentation-operating-standard.md)
-- [KORA Codex bounded loop protocol](../runbooks/codex_bounded_loop_protocol.md)
+- [KORA bounded workflow protocol](../runbooks/bounded_workflow_protocol.md)
 - [KORA claim-boundary checklist](../runbooks/kora_claim_boundary_checklist.md)
 - [KORA ADR-001](../adr/ADR-001-project-breadcrumb-and-review-hub-standard.md)
 

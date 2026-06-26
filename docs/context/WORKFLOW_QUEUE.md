@@ -1,6 +1,6 @@
-# Codex Inner Loop Queue
+# implementation workflow Inner Loop Queue
 
-Status: repo-local planning queue for future Codex-owned bounded work blocks.
+Status: repo-local planning queue for future implementation-workflow-owned bounded work blocks.
 
 This queue records public-safe and local-only work blocks. It is not approval to merge, release, call providers, execute H100/server work, or expand claims.
 
@@ -47,11 +47,11 @@ Review friction reduction:
 - objective: verify JSON reports produced by `scripts/run_bounded_local_validation.py` without executing report commands.
 - risk level: low.
 - allowed files: `scripts/verify_bounded_local_validation_report.py`, `tests/test_bounded_local_validation_report_verifier.py`, `docs/reports/*bounded*validation*report*verifier*.md`, narrow breadcrumbs.
-- forbidden files/actions: no local-only ChatGPT context, no GitHub Actions workflow, no provider calls, no H100/GPU/CUDA/server/remote execution, no arbitrary shell execution, no report-command execution.
+- forbidden files/actions: no local-only project context, no GitHub Actions workflow, no provider calls, no H100/GPU/CUDA/server/remote execution, no arbitrary shell execution, no report-command execution.
 - validation commands: verifier tests, runner tests, dry-run runner, verifier on generated report, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: verifier CLI, focused tests, report, approval packet.
-- Group 111 status: completed by `codex/group111-validation-report-control-block`; PR #261 was inspected and left untouched because it was conflicted after Group 110.
+- Group 111 status: completed by `workflow/group111-validation-report-control-block`; PR #261 was inspected and left untouched because it was conflicted after Group 110.
 - stop gates: unknown profile semantics, command execution risk, claim expansion.
 - claim boundaries: report structure only; no output-quality proof, broader workload representativeness proof, production proof, or production validation.
 - completion status expected: `merge-ready` only if no command-execution or claim risk remains; otherwise `needs-r1` or `needs-cto-review`.
@@ -67,7 +67,7 @@ Review friction reduction:
 - validation commands: focused classifier tests, dry-run runner, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: classifier, tests, report, approval packet.
-- Group 111 status: completed by `codex/group111-validation-report-control-block` as part of the same static report-control block.
+- Group 111 status: completed by `workflow/group111-validation-report-control-block` as part of the same static report-control block.
 - stop gates: any attempt to infer semantic quality or execute failed commands.
 - claim boundaries: failure classification only; no production validation or output-quality proof.
 - completion status expected: `merge-ready` only for deterministic local classification over static report inputs.
@@ -84,7 +84,7 @@ Review friction reduction:
 - validation commands: runner tests, registry tests, dry-run runner, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: static profile registry, tests, report.
-- approval checklist: [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
+- approval checklist: [implementation workflow medium-risk profile registry checklist](MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - Group 113 status: deferred; checklist added before execution.
 - stop gates: any design that permits arbitrary command injection.
 - claim boundaries: approved local validation profiles only; no production validation or broader workload proof.
@@ -102,7 +102,7 @@ Review friction reduction:
 - validation commands: focused smoke tests, selected offline CLI commands, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: smoke checks, tests, report, approval packet.
-- Group 114 status: completed by `codex/group114-first-run-cli-smoke-validation` with a static local-only `first-run-cli-core` smoke profile.
+- Group 114 status: completed by `workflow/group114-first-run-cli-smoke-validation` with a static local-only `first-run-cli-core` smoke profile.
 - stop gates: public install-claim expansion, release/PyPI implication, network dependency.
 - claim boundaries: local source-install readiness only; no published package claim.
 - completion status expected: `needs-cto-review` because first-run validation can affect public onboarding confidence.
@@ -115,10 +115,10 @@ Review friction reduction:
 - risk level: medium.
 - allowed files: readiness checker, tests, report docs, narrow breadcrumbs.
 - forbidden files/actions: no PyPI publication, no tag, no release asset, no repo settings, no external publication.
-- validation commands: focused readiness tests, source-install smoke in local environment if approved by prompt, markdown links, `git diff --check`, full pytest.
+- validation commands: focused readiness tests, source-install smoke in local environment if approved by request text, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: readiness checker, report, approval packet.
-- Group 115 status: completed by `codex/group115-source-install-readiness` with an isolated local temporary-venv checker over editable source install, import, module CLI, console script, and no-provider command smoke.
+- Group 115 status: completed by `workflow/group115-source-install-readiness` with an isolated local temporary-venv checker over editable source install, import, module CLI, console script, and no-provider command smoke.
 - stop gates: package publication, external index upload, claim that `getkora` is published.
 - claim boundaries: local source-install readiness only; no release or publication claim.
 - completion status expected: `needs-cto-review` if user-facing install docs change.
@@ -134,7 +134,7 @@ Review friction reduction:
 - validation commands: focused checker tests, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: checker, tests, report.
-- Group 112 status: completed by `codex/group112-approval-report-consistency`.
+- Group 112 status: completed by `workflow/group112-approval-report-consistency`.
 - stop gates: any automatic approval or merge recommendation not backed by risk classification.
 - claim boundaries: packet completeness only; no quality/prod proof.
 - completion status expected: `merge-ready` if deterministic and narrow.
@@ -150,7 +150,7 @@ Review friction reduction:
 - validation commands: focused consistency tests, markdown links, `git diff --check`, full pytest.
 - repair limits: max loop count 5; max repair attempts per failing subtask 2.
 - expected outputs: checker, tests, report.
-- Group 112 status: completed by `codex/group112-approval-report-consistency`.
+- Group 112 status: completed by `workflow/group112-approval-report-consistency`.
 - stop gates: checker attempts to infer claims beyond literal docs.
 - claim boundaries: document consistency only; no production proof or output-quality proof.
 - completion status expected: `merge-ready` if checker is read-only and deterministic.

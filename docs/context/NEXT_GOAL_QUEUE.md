@@ -4,7 +4,7 @@ Status: public-safe planning queue; proposals only.
 
 ## Purpose
 
-This queue records likely next KORA work without starting it. It is not an approval record. Each item still needs an explicit goal prompt and the usual bounded-loop checks.
+This queue records likely next KORA work without starting it. It is not an approval record. Each item still needs an explicit goal request text and the usual bounded-loop checks.
 
 ## Current Recommended Next Goal
 
@@ -24,20 +24,20 @@ Suggested scope:
 - review [Group 115 source-install readiness check](../reports/group115_source_install_readiness_check.md).
 - review [Group 114 first-run CLI smoke validation](../reports/group114_first_run_cli_smoke_validation.md).
 - review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
-- review [Codex medium-risk profile registry checklist](CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
+- review [implementation workflow medium-risk profile registry checklist](MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](../reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](../reports/group111_validation_report_control_block.md).
-- review [Group 110 Codex inner loop ownership](../reports/group110_codex_inner_loop_ownership.md).
-- review [Codex inner loop queue](CODEX_INNER_LOOP_QUEUE.md).
+- review [Group 110 implementation workflow ownership](../reports/group110_implementation_workflow_ownership.md).
+- review [implementation workflow queue](WORKFLOW_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
 - confirm Group 117 remains bounded deterministic fixture-check evidence only, without output-quality, broader representativeness, production readiness, production validation, cost-reduction, provider-replacement, or GPU-serving-replacement claims.
 - confirm Group 118 is documentation and audit evidence only.
 - expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
-- preserve the requirement that Codex pass is not merge-ready pass.
+- preserve the requirement that workflow pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - run the claim-boundary checklist before PR-open.
-- stop at PR-open unless a separate merge-gate prompt is provided.
+- stop at PR-open unless a separate merge-gate request text is provided.
 
 ## Future Queue Item Sizing
 
@@ -47,13 +47,13 @@ Low-risk adjacent checkers may be bundled when they share the same input surface
 
 Do not split a checker, tests, docs, report, and breadcrumbs into separate tasks unless risk or ownership requires separation. Prefer coherent control blocks that leave the next queue state clearer than before.
 
-## Approved Alternatives Only After Explicit Prompt
+## Approved Alternatives Only After Explicit Workflow Guide
 
 - Another bounded public-safe fixture/check slice.
 - A second public-safe fixture-check slice.
 - Documentation movement for one small bucket.
 - Larger bounded H100 or provider validation work.
-- Any high-risk work from [Codex risk classification](CODEX_RISK_CLASSIFICATION.md).
+- Any high-risk work from [implementation workflow risk classification](WORKFLOW_RISK_CLASSIFICATION.md).
 
 ## Standing Stop Gates
 
@@ -83,7 +83,7 @@ Goal 108 bounded local validation results do not prove output quality, broader w
 
 Goal 109 bounded local validation runner results do not prove output quality, broader workload representativeness, production workload handling, production readiness, or cost reduction.
 
-Group 110 Codex inner-loop operating guidance does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, output-quality proof, broader workload representativeness proof, production proof, or claim expansion.
+Group 110 implementation workflow operating guidance does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, output-quality proof, broader workload representativeness proof, production proof, or claim expansion.
 
 Group 111 validation report control-block tooling does not execute report commands, auto-repair, create background automation, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, or expand claims.
 

@@ -1,4 +1,4 @@
-# KORA EOD Report - 2026-04-17
+# KORA status closeout Report - 2026-04-17
 
 ## Executive Summary
 

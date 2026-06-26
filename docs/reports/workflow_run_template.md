@@ -1,4 +1,4 @@
-# Codex Inner Loop Run Template
+# implementation workflow Inner Loop Run Template
 
 Status: reusable run report template.
 
@@ -46,7 +46,7 @@ Status: reusable run report template.
 - forbidden paths/actions:
 - breadcrumbs:
 - report consistency:
-- local-only ChatGPT context untouched:
+- local-only project context untouched:
 - provider/H100/server/model/semantic/human/production gates:
 - claim-boundary audit:
 - uncertainty notes:
@@ -64,7 +64,7 @@ Status: reusable run report template.
 - claim-boundary audit:
 - forbidden-action audit:
 - uncertainty notes:
-- Codex recommendation:
+- workflow recommendation:
 - Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 ## Next Recommended Queue Updates
