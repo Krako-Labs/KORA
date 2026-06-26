@@ -7,7 +7,7 @@ This public-safe aggregate summary records the CPU/non-GPU phase of Goal 099. Co
 ## Sanitized Environment Summary
 
 - execution environment: `AI Champion H100 server`
-- controller environment: `local Codex controller`
+- controller environment: `local implementation workflow controller`
 - remote OS family: `remote Linux server`
 - remote architecture: `x86_64`
 - Python runtime: `3.11.15`

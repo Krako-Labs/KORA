@@ -1,21 +1,21 @@
-# Codex Self-Review Protocol
+# Implementation Workflow Self-Review Protocol
 
 Status: required review protocol before KORA PR creation.
 
 ## Purpose
 
-Codex self-review is a repo-grounded check before PR creation. It does not replace Albert review, CTO review, merge gates, or release approval.
+Implementation workflow self-review is a repo-grounded check before PR creation. It does not replace Albert review, CTO review, merge gates, or release approval.
 
 ## Required Checks
 
-Before PR open, Codex must review:
+Before PR open, the implementation workflow must review:
 
 - changed files vs allowed scope.
 - forbidden paths and forbidden actions.
 - validation commands and exact results.
 - report consistency.
 - breadcrumb consistency.
-- local-only ChatGPT context untouched.
+- local-only project context untouched.
 - no provider calls.
 - no H100/GPU/CUDA/server/remote execution.
 - no model inference.
@@ -32,7 +32,7 @@ Before PR open, Codex must review:
 
 ## Validation Review
 
-Codex must record:
+The implementation workflow must record:
 
 - commands run.
 - pass/fail result.
@@ -43,7 +43,7 @@ Codex must record:
 
 ## Report Review
 
-Codex must confirm the report includes:
+The implementation workflow must confirm the report includes:
 
 - objective.
 - files added and changed.

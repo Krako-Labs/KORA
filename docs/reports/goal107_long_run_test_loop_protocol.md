@@ -4,7 +4,7 @@ Status: public-safe protocol documentation added.
 
 ## Objective
 
-Goal 107 adds a KORA long-run test loop protocol and failure-triage checklist so future Codex tasks can safely run longer local validation loops while preserving finite budgets, stop gates, and claim boundaries.
+Goal 107 adds a KORA long-run test loop protocol and failure-triage checklist so future implementation workflow tasks can safely run longer local validation loops while preserving finite budgets, stop gates, and claim boundaries.
 
 This is documentation and protocol work only. It does not create a scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
 
@@ -88,7 +88,7 @@ Goal 107 does not:
 - add superiority, customer-savings, provider-replacement, or GPU-serving replacement claims.
 - create a scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, or self-merging agent.
 - create a release, tag, GitHub Release, PyPI publication, repository settings change, issue, project board, raw artifact upload, file move, rename, archive, or delete operation.
-- modify local-only ChatGPT context files.
+- modify local-only project context files.
 
 ## Next Recommended Goal
 

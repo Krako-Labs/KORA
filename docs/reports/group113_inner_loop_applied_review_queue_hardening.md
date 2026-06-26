@@ -4,7 +4,7 @@ Status: implemented with local validation complete; PR open.
 
 ## Objective
 
-Group 113 applies the Group 110-112 Codex inner-loop operating layer and hardens the queue so future work blocks are less likely to collapse into 5-15 minute micro-tasks.
+Group 113 applies the Group 110-112 implementation workflow operating layer and hardens the queue so future work blocks are less likely to collapse into 5-15 minute micro-tasks.
 
 This group is operating review and queue hardening only. It does not implement `CIL-003`, change validation profiles, add command profiles, execute report commands, call providers, run H100/server work, mutate GitHub, or expand claims.
 
@@ -28,11 +28,11 @@ Self-review summary: scope is operating review, checklist documentation, queue h
 
 Claim-boundary audit: no output-quality proof, broader workload representativeness proof, production proof, production cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, GPU-serving replacement, or published `getkora` claim added.
 
-Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile change, dynamic shell loading, external config execution, report-command execution, GitHub API mutation, PR approval, PR merge, PR close, issue creation, auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, file movement, local-only ChatGPT context change, release, tag, GitHub Release, PyPI publication, repository settings change, project-board change, collaborator change, or actual multi-agent execution added.
+Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile change, dynamic shell loading, external config execution, report-command execution, GitHub API mutation, PR approval, PR merge, PR close, issue creation, auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, file movement, local-only project context change, release, tag, GitHub Release, PyPI publication, repository settings change, project-board change, collaborator change, or actual multi-agent execution added.
 
 Uncertainty notes: `CIL-003` remains medium risk because it touches the validation command/profile surface; it should be run only after explicit approval with the checklist.
 
-Codex recommendation: Merge.
+workflow recommendation: Merge.
 
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 
@@ -40,7 +40,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 - public truth: `origin/main`
 - base public HEAD: `11232af9027209c0cfd4ae7a5edee79c91d791d4`
-- branch: `codex/group113-inner-loop-queue-hardening`
+- branch: `workflow/group113-workflow-queue-hardening`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group113_inner_loop_queue_hardening`
 - PR: https://github.com/Krako-Labs/KORA/pull/265
 
@@ -55,7 +55,7 @@ Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 ## Operating Layer Audit
 
-Group 110 successfully moved operating rules into the repository. It created the repo-local operating contract, queue, self-review protocol, risk classification, escalation gates, approval packet format, rules-only multi-agent model, reusable run template, validator, and tests. This reduced reliance on private chat history and made future Codex work reviewable through versioned docs.
+Group 110 successfully moved operating rules into the repository. It created the repo-local operating contract, queue, self-review protocol, risk classification, escalation gates, approval packet format, rules-only multi-agent model, reusable run template, validator, and tests. This reduced reliance on private chat history and made future implementation workflow work reviewable through versioned docs.
 
 Group 111 validated static bounded local validation reports without executing report commands. It implemented the report verifier and failure classifier over JSON report content only, inspected PR #261, left it untouched, and superseded its clean subset with merged Group 111 functionality.
 
@@ -95,7 +95,7 @@ PR #261 was already inspected by Group 111.
 
 ## CIL-003 Approval Checklist
 
-Group 113 added [Codex medium-risk profile registry checklist](../context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md) before any `CIL-003` implementation.
+Group 113 added [implementation workflow medium-risk profile registry checklist](../context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md) before any `CIL-003` implementation.
 
 Minimum checklist requirements:
 
@@ -148,14 +148,14 @@ Review friction reduction:
 ## Files Added
 
 - `docs/reports/group113_inner_loop_applied_review_queue_hardening.md`
-- `docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md`
+- `docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md`
 
 ## Files Updated
 
 - `OPEN_THIS_FIRST.md`
 - `REVIEW_HUB.md`
 - `docs/README.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
 
 ## Validation Results
@@ -166,7 +166,7 @@ Final validation before PR open:
 | --- | --- |
 | `python3 scripts/check_pr_approval_packet.py docs/reports/group112_pr_approval_and_report_consistency.md` | passed |
 | `python3 scripts/check_report_consistency.py docs/reports/group112_pr_approval_and_report_consistency.md --breadcrumb OPEN_THIS_FIRST.md --breadcrumb REVIEW_HUB.md` | passed |
-| `python3 scripts/validate_codex_inner_loop_docs.py` | passed |
+| `python3 scripts/validate_workflow_docs.py` | passed |
 | `python3 -m pytest tests/test_pr_approval_packet_checker.py tests/test_report_consistency_checker.py` | passed, `19 passed` |
 | `python3 scripts/run_bounded_local_validation.py --profile kora-local-core --dry-run --json-out /tmp/kora-group113-dry-run.json` | passed |
 | `python3 scripts/verify_bounded_local_validation_report.py /tmp/kora-group113-dry-run.json --profile kora-local-core` | passed |
@@ -199,7 +199,7 @@ Repair note: the Group 113 report consistency check initially failed on approval
 - `CIL-003` remains deferred and was not run.
 - no validation profile registry code changed.
 - no command profile changed.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 - no report-command execution was added.
 - no arbitrary command execution was added.
 - no GitHub API mutation was added.

@@ -1,4 +1,4 @@
-# KORA EOD Report — Validation Workstream
+# KORA status closeout Report — Validation Workstream
 
 ## Date
 

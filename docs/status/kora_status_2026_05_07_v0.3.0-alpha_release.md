@@ -1,4 +1,4 @@
-# KORA EOD - 2026-05-07 v0.3.0-alpha Release
+# KORA status closeout - 2026-05-07 v0.3.0-alpha Release
 
 Date: 2026-05-07
 

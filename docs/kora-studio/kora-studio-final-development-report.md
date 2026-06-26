@@ -130,7 +130,7 @@ The static preview gained minimal vanilla JavaScript interaction:
 - selected-run generated counters
 - selected-run Standard Mode vs KORA Boost comparison
 - selected-run report metadata preview
-- no arbitrary prompt input
+- no arbitrary request text input
 - no frontend framework dependency
 - v0.5 readiness report and consolidated goal report
 
@@ -152,8 +152,8 @@ The local interaction layer was hardened:
 
 The UI/UX direction was consolidated around a minimal chat-like workspace:
 
-- final UI/UX board: `docs/kora-studio/design/claude-v0-7/kora-studio-final-uiux-board.png`
-- Claude Design source-of-truth document
+- final UI/UX board: `docs/kora-studio/design/v0-7-reference/kora-studio-final-uiux-board.png`
+- external design source-of-truth document
 - supporting screenshots for empty states, mobile main composer, mobile left rail, and mobile details drawer
 - reference prototype files preserved as design artifacts
 - explicit warning not to copy external CDN, Babel, Google Fonts, or prototype dependencies into product code
@@ -172,11 +172,11 @@ The approved visual target is:
 
 Primary visual target:
 
-- [KORA Studio final UI/UX board](design/claude-v0-7/kora-studio-final-uiux-board.png)
+- [KORA Studio final UI/UX board](design/v0-7-reference/kora-studio-final-uiux-board.png)
 
 Primary specification:
 
-- [KORA Studio v0.7 Claude Design source of truth](kora-studio-v0-7-claude-design-source-of-truth.md)
+- [KORA Studio v0.7 external design source of truth](kora-studio-v0-7-design-source-of-truth.md)
 
 Implementation direction:
 
@@ -304,7 +304,7 @@ KORA Studio currently preserves these boundaries:
 - browser-local selected-run state only
 - browser-local run history is page-memory only
 - in-memory server run records only
-- no arbitrary prompt execution
+- no arbitrary request text execution
 - no real model execution
 - no provider calls
 - no model downloads
@@ -359,8 +359,8 @@ KORA Studio does not currently claim:
 - `scripts/check_kora_studio_preview.py`
 - `docs/kora-studio/kora-studio-v0-6-readiness-report.md`
 - `docs/kora-studio/kora-studio-v0-6-goal-report.md`
-- `docs/kora-studio/kora-studio-v0-7-claude-design-source-of-truth.md`
-- `docs/kora-studio/design/claude-v0-7/kora-studio-final-uiux-board.png`
+- `docs/kora-studio/kora-studio-v0-7-design-source-of-truth.md`
+- `docs/kora-studio/design/v0-7-reference/kora-studio-final-uiux-board.png`
 
 ## Next Recommended Goal
 

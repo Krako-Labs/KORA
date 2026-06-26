@@ -79,7 +79,7 @@ Goal 109 keeps the runner within these boundaries:
 - no semantic judging.
 - no human grading.
 - no file movement.
-- no local-only ChatGPT context changes.
+- no local-only project context changes.
 - no releases, tags, release assets, GitHub issues, project boards, repository settings, or collaborator changes.
 
 ## Claim Boundaries
@@ -126,7 +126,7 @@ The expected full-suite baseline from Goal 108 was `410 passed`; this branch obs
 ## Final PR Status
 
 - PR: `https://github.com/Krako-Labs/KORA/pull/259`
-- branch: `codex/goal109-bounded-local-validation-runner`
+- branch: `workflow/goal109-bounded-local-validation-runner`
 - state: open for review
 - merge status: not merged by this task
 

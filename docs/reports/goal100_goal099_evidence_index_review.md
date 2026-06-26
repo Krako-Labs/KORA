@@ -111,7 +111,7 @@ Any future both-GPU or multi-GPU claim would require a separate public-safe meth
 
 Recommended next goal:
 
-- Goal 101 - Local ChatGPT context refresh after Goal 100 merge, if this PR is merged.
+- Goal 101 - local project context refresh after Goal 100 merge, if this PR is merged.
 
 Optional later work remains separate:
 

@@ -80,7 +80,7 @@ Goal 105 does not:
 - add cost-reduction proof.
 - add superiority, customer-savings, provider-replacement, or GPU-serving replacement claims.
 - move, rename, archive, or delete files.
-- modify local-only ChatGPT context files.
+- modify local-only project context files.
 
 ## Next Recommended Goal
 

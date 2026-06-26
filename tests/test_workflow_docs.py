@@ -3,7 +3,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from scripts import validate_codex_inner_loop_docs as validator
+from scripts import validate_workflow_docs as validator
 
 
 def _copy_required_docs(tmp_path: Path) -> Path:
@@ -30,7 +30,7 @@ def test_missing_required_file_fails(tmp_path: Path) -> None:
 
 def test_missing_queue_task_ids_fails(tmp_path: Path) -> None:
     root = _copy_required_docs(tmp_path)
-    queue = root / "docs/context/CODEX_INNER_LOOP_QUEUE.md"
+    queue = root / "docs/context/WORKFLOW_QUEUE.md"
     queue.write_text(
         queue.read_text(encoding="utf-8").replace("CIL-006", "TASK-006").replace("CIL-007", "TASK-007"),
         encoding="utf-8",
@@ -43,7 +43,7 @@ def test_missing_queue_task_ids_fails(tmp_path: Path) -> None:
 
 def test_missing_risk_levels_fails(tmp_path: Path) -> None:
     root = _copy_required_docs(tmp_path)
-    risk = root / "docs/context/CODEX_RISK_CLASSIFICATION.md"
+    risk = root / "docs/context/WORKFLOW_RISK_CLASSIFICATION.md"
     risk.write_text(risk.read_text(encoding="utf-8").replace("High Risk", "Escalated Risk"), encoding="utf-8")
 
     errors = validator.validate(root)
@@ -53,7 +53,7 @@ def test_missing_risk_levels_fails(tmp_path: Path) -> None:
 
 def test_missing_final_classifications_fails(tmp_path: Path) -> None:
     root = _copy_required_docs(tmp_path)
-    protocol = root / "docs/context/CODEX_SELF_REVIEW_PROTOCOL.md"
+    protocol = root / "docs/context/WORKFLOW_SELF_REVIEW_PROTOCOL.md"
     protocol.write_text(protocol.read_text(encoding="utf-8").replace("needs-r1", "requires patch"), encoding="utf-8")
 
     errors = validator.validate(root)
@@ -63,7 +63,7 @@ def test_missing_final_classifications_fails(tmp_path: Path) -> None:
 
 def test_missing_approval_gates_fails(tmp_path: Path) -> None:
     root = _copy_required_docs(tmp_path)
-    gates = root / "docs/context/CODEX_ESCALATION_GATES.md"
+    gates = root / "docs/context/WORKFLOW_ESCALATION_GATES.md"
     gates.write_text(gates.read_text(encoding="utf-8").replace("provider calls", "external calls"), encoding="utf-8")
 
     errors = validator.validate(root)
@@ -73,7 +73,7 @@ def test_missing_approval_gates_fails(tmp_path: Path) -> None:
 
 def test_missing_multi_agent_one_writer_or_read_only_language_fails(tmp_path: Path) -> None:
     root = _copy_required_docs(tmp_path)
-    model = root / "docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md"
+    model = root / "docs/context/WORKFLOW_MULTI_ACTOR_OPERATING_MODEL.md"
     text = model.read_text(encoding="utf-8")
     text = text.replace("One writer per branch", "Single active editor")
     text = text.replace("Reviewer/checker agents are read-only by default", "Reviewers inspect by default")

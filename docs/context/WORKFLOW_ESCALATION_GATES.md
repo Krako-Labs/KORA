@@ -1,10 +1,10 @@
-# Codex Escalation Gates
+# implementation workflow Escalation Gates
 
-Status: approval boundaries for KORA Codex work.
+Status: approval boundaries for KORA implementation workflow work.
 
-## Codex May Do Without Additional Approval
+## implementation workflow May Do Without Additional Approval
 
-When the prompt authorizes a bounded public-safe work block, Codex may:
+When the task brief authorizes a bounded public-safe work block, the implementation workflow may:
 
 - implement within allowed files.
 - add or update tests.
@@ -16,9 +16,9 @@ When the prompt authorizes a bounded public-safe work block, Codex may:
 - create an approval packet.
 - open a PR and stop.
 
-## Codex Must Stop For Approval
+## implementation workflow Must Stop For Approval
 
-Codex must stop for explicit Albert approval before:
+the implementation workflow must stop for explicit Albert approval before:
 
 - merge.
 - release, tag, GitHub Release, release asset, or PyPI publication.
@@ -32,7 +32,7 @@ Codex must stop for explicit Albert approval before:
 - public claim expansion.
 - major file movement, archive, delete, or rename.
 - large public-facing document replacement.
-- local-only ChatGPT context changes.
+- local-only project context changes.
 - auto-merge, self-merging agent, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, or H100 runner.
 
 ## Stop Classifications

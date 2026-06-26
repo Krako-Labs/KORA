@@ -1,6 +1,6 @@
 # KORA Claim-Boundary Checklist
 
-Status: KORA-specific public claim gate for Codex and reviewer use.
+Status: KORA-specific public claim gate for implementation workflow and reviewer use.
 
 ## Purpose
 
@@ -81,7 +81,7 @@ Before completion, confirm no unapproved:
 - issue or project-board creation.
 - raw benchmark artifact upload.
 - file move, rename, archive, or delete operation.
-- local-only ChatGPT context commit.
+- local-only project context commit.
 
 ## Changed-File Scan
 
@@ -96,7 +96,7 @@ Then review changed Markdown for risky terms in context. The presence of a prohi
 
 ## Completion Statement
 
-Every Goal PR body and final Codex response should include a boundary audit such as:
+Every Goal PR body and final implementation workflow response should include a boundary audit such as:
 
 ```text
 Boundary audit: no provider calls, H100/GPU/CUDA/server/remote execution, model inference, output-quality proof, broader workload representativeness proof, production proof, superiority/customer-savings/provider-replacement claims, releases, tags, publications, repository settings changes, raw artifacts, file moves, renames, archives, deletes, or local-only context commits were added or performed.

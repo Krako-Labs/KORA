@@ -1,6 +1,6 @@
-# KORA Codex Operating Contract
+# KORA Implementation Workflow Operating Contract
 
-This file is the repo-local operating contract for Codex work in KORA.
+This file is the repo-local operating contract for KORA implementation workflow work in KORA.
 
 ## Project Positioning
 
@@ -12,13 +12,13 @@ KORA is an AI Workload Control Layer for inspecting and routing AI workloads bef
 - New public work must start from a fresh clean worktree under `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/`.
 - Do not use the legacy dirty repo `/Users/albertkim/02_PROJECTS/05_KORA`.
 - Do not mutate dirty local `main`.
-- Do not touch local-only ChatGPT context under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/chatgpt_context/` during public PR work.
+- Do not touch local-only project context under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/project_context/` during public PR work.
 
 ## Inner Loop Ownership
 
-Codex owns the repo-grounded inner development loop:
+The implementation workflow owns the repo-grounded inner development loop:
 
-1. Read repo-local operating docs and the current goal prompt.
+1. Read repo-local operating docs and the current task brief.
 2. Confirm the base SHA, branch, allowed files, forbidden files, and validation commands.
 3. Implement within scope.
 4. Validate.
@@ -28,11 +28,11 @@ Codex owns the repo-grounded inner development loop:
 8. Produce an approval packet.
 9. Open a PR and stop.
 
-ChatGPT and Albert are escalation and approval gates, not micro-task schedulers for ordinary bounded implementation details.
+Albert and designated reviewers are escalation and approval gates, not micro-task schedulers for ordinary bounded implementation details.
 
 ## Completion Classifications
 
-Codex pass is not merge-ready pass. Every completed work block must end with exactly one of:
+Workflow pass is not merge-ready pass. Every completed work block must end with exactly one of:
 
 - `merge-ready`
 - `needs-r1`
@@ -43,14 +43,14 @@ Do not mark `merge-ready` merely because tests passed. If semantic, claim, scope
 
 ## Required Validation And Self-Review
 
-Before PR creation, Codex must:
+Before PR creation, the implementation workflow must:
 
 - confirm changed files match the allowed scope.
 - confirm forbidden files and actions were not touched.
 - run the required validation commands or stop with a clear failure.
 - update required report and breadcrumb docs.
 - run claim-boundary review.
-- confirm local-only ChatGPT context is unchanged.
+- confirm local-only project context is unchanged.
 - confirm no provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, or production validation were added.
 - confirm no release, tag, GitHub Release, PyPI publication, repo settings, issues, project boards, collaborator changes, raw artifacts, or file movement occurred.
 
@@ -69,7 +69,7 @@ Stop for explicit Albert approval before:
 - public claim expansion.
 - major file movement, archive, delete, or rename work.
 - large public-facing document replacement.
-- local-only ChatGPT context changes.
+- local-only project context changes.
 
 ## Claim Boundaries
 

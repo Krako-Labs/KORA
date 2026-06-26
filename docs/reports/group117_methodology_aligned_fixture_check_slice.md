@@ -30,11 +30,11 @@ Self-review summary: scope is deterministic fixture checking only. `CIL-003` rem
 
 Claim-boundary audit: Group 117 is bounded fixture evidence over public-safe synthetic examples. It does not call providers, run model inference, run H100/GPU/CUDA/server/remote execution, perform semantic judging or human grading, publish packages, claim `getkora` is published, claim install-from-PyPI support, or make production/output-quality/broader-representativeness/cost-reduction/provider-replacement/GPU-serving-replacement claims.
 
-Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, provider call, model inference, H100/GPU/CUDA/server/remote execution, semantic judging, human grading, release, tag, GitHub Release, release asset, PyPI publication, package publication, issue, project board, repository settings change, collaborator change, file movement, file rename, file archive, file deletion, or local-only ChatGPT context change was added.
+Forbidden-action audit: no `CIL-003` implementation, validation profile registry change, command profile registry change, provider call, model inference, H100/GPU/CUDA/server/remote execution, semantic judging, human grading, release, tag, GitHub Release, release asset, PyPI publication, package publication, issue, project board, repository settings change, collaborator change, file movement, file rename, file archive, file deletion, or local-only project context change was added.
 
 Uncertainty notes: none. The fixture and evaluator are deterministic and fixture-only.
 
-Codex recommendation: Merge after normal review.
+workflow recommendation: Merge after normal review.
 
 Albert action options: Merge / Request R1 / Stop.
 
@@ -142,7 +142,7 @@ Rationale: this group adds a synthetic fixture, deterministic fixture-only evalu
 - no PyPI/package publication/release/tag action was added.
 - no `getkora` published or install-from-PyPI support claim was added.
 - no production readiness, production validation, output-quality proof, broader workload representativeness proof, cost-reduction proof, customer-savings claim, provider replacement claim, or GPU-serving replacement claim was added.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 
 ## Next Recommendation
 

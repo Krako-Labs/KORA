@@ -123,7 +123,7 @@ Historical, planning, and operating docs:
 - `docs/progress/`
 - `docs/implementation/`
 - `docs/strategy/`
-- `docs/eod/`
+- `docs/status/`
 - `docs/project-operating-system/`
 - older release and readiness reports under `docs/reports/`
 

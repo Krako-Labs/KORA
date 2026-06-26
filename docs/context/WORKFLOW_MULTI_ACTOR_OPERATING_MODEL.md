@@ -1,4 +1,4 @@
-# Codex Multi-Agent Operating Model
+# implementation workflow Multi-Agent Operating Model
 
 Status: future operating rules only. This file does not create actual multi-agent automation.
 

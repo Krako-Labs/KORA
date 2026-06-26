@@ -4,7 +4,7 @@ Status: implemented with local validation passing and PR open.
 
 ## Objective
 
-Group 111 executes the first queue-driven Codex inner-loop work block after Group 110. It implements static control tooling for JSON reports produced by `scripts/run_bounded_local_validation.py`:
+Group 111 executes the first queue-driven implementation workflow work block after Group 110. It implements static control tooling for JSON reports produced by `scripts/run_bounded_local_validation.py`:
 
 - `CIL-001`: bounded validation report verifier.
 - `CIL-002`: bounded validation failure classifier.
@@ -15,7 +15,7 @@ The tools inspect report content only. They do not execute commands stored in re
 
 - public truth: `origin/main`
 - base public HEAD: `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`
-- branch: `codex/group111-validation-report-control-block`
+- branch: `workflow/group111-validation-report-control-block`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group111_validation_report_control_block`
 - PR: `https://github.com/Krako-Labs/KORA/pull/263`
 
@@ -27,7 +27,7 @@ PR #261 was inspected before implementation:
 - title: `Goal 110 - Add bounded validation report verifier`
 - state: open
 - draft: false
-- branch: `codex/goal110-bounded-local-validation-report-verifier`
+- branch: `workflow/goal110-bounded-local-validation-report-verifier`
 - head: `ae45f992ce6880c75660c4883e79d3c3ac61795e`
 - base: `main`
 - merge state: `DIRTY`
@@ -58,7 +58,7 @@ Decision: PR #261 was left untouched. Group 111 supersedes it on a fresh current
 - `REVIEW_HUB.md`
 - `docs/README.md`
 - `docs/context/NEXT_GOAL_QUEUE.md`
-- `docs/context/CODEX_INNER_LOOP_QUEUE.md`
+- `docs/context/WORKFLOW_QUEUE.md`
 
 ## CIL-001 Summary
 
@@ -119,7 +119,7 @@ Final validation before PR open:
 | `python3 scripts/run_bounded_local_validation.py --profile kora-local-core --json-out /tmp/kora-group111-bounded-local-validation.json --md-out /tmp/kora-group111-bounded-local-validation.md` | passed; bounded runner full suite reported `455 passed` |
 | `python3 scripts/verify_bounded_local_validation_report.py /tmp/kora-group111-bounded-local-validation.json --profile kora-local-core` | passed |
 | `python3 scripts/classify_bounded_local_validation_failure.py /tmp/kora-group111-bounded-local-validation.json --profile kora-local-core` | passed; category `all_passed` |
-| `python3 scripts/validate_codex_inner_loop_docs.py` | passed |
+| `python3 scripts/validate_workflow_docs.py` | passed |
 | `python3 scripts/check_markdown_links_goal082b.py` | passed |
 | `git diff --check` | passed |
 | `python3 -m pytest` | passed, `455 passed` |
@@ -142,7 +142,7 @@ Rationale: the work is deterministic local report-control tooling and focused te
 
 - changed files match the allowed CIL-001/CIL-002 and breadcrumb/report scope.
 - PR #261 was inspected and left untouched.
-- no local-only ChatGPT context changed.
+- no local-only project context changed.
 - no report-command execution was added.
 - no auto-repair, scheduler, daemon, background runner, GitHub Actions workflow, remote runner, provider-calling runner, H100 runner, self-merging agent, or actual multi-agent execution was added.
 - no provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, output-quality proof, broader workload representativeness proof, production proof, or claim expansion was added.
@@ -168,11 +168,11 @@ Self-review summary: scope, claim boundaries, forbidden paths, and forbidden act
 
 Claim-boundary audit: no output-quality proof, broader workload representativeness proof, production proof, production cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, GPU-serving replacement, or published `getkora` claim added.
 
-Forbidden-action audit: no provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, release, tag, GitHub Release, PyPI publication, repo settings, issues, project boards, collaborator changes, raw artifact uploads, file movement, local-only ChatGPT context changes, actual multi-agent execution, auto-merge, scheduler, daemon, background runner, GitHub Actions workflow, or report-command execution added.
+Forbidden-action audit: no provider calls, H100/GPU/CUDA/server/remote execution, model inference, semantic judging, human grading, production validation, release, tag, GitHub Release, PyPI publication, repo settings, issues, project boards, collaborator changes, raw artifact uploads, file movement, local-only project context changes, actual multi-agent execution, auto-merge, scheduler, daemon, background runner, GitHub Actions workflow, or report-command execution added.
 
 Uncertainty notes: PR #261 remains open and conflicted; this branch supersedes it but does not close or modify it.
 
-Codex recommendation: Merge.
+workflow recommendation: Merge.
 
 Albert action options: Merge / Request R1 / Stop / CTO Review.
 

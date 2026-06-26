@@ -25,7 +25,7 @@ Goal 072 generalizes that structure by:
 - using neutral roles: planning agent, execution agent, reviewer, and project owner.
 - adding explicit public GitHub repo, private GitHub repo, and local-only project context sections.
 - separating evidence, report, claim registry, ADR, and bootstrap checklist templates.
-- adding prompts for initialization, gap analysis, and documentation refresh.
+- adding workflow guides for initialization, gap analysis, and documentation refresh.
 
 ## Files Created
 
@@ -38,9 +38,9 @@ Goal 072 generalizes that structure by:
 - [Evidence template](../project-operating-system/templates/EVIDENCE.template.md)
 - [Claim registry template](../project-operating-system/templates/CLAIM_REGISTRY.template.md)
 - [Project bootstrap checklist template](../project-operating-system/templates/PROJECT_BOOTSTRAP_CHECKLIST.template.md)
-- [Project initialization prompt](../project-operating-system/prompts/project-initialization-prompt.md)
-- [Project gap analysis prompt](../project-operating-system/prompts/project-gap-analysis-prompt.md)
-- [Project documentation refresh prompt](../project-operating-system/prompts/project-doc-refresh-prompt.md)
+- [Project initialization request text](../project-operating-system/templates/workflow-guides/project-initialization-template.md)
+- [Project gap analysis request text](../project-operating-system/templates/workflow-guides/project-gap-analysis-template.md)
+- [Project documentation refresh request text](../project-operating-system/templates/workflow-guides/project-doc-refresh-template.md)
 
 ## Files Updated
 
@@ -99,7 +99,7 @@ This report intentionally does not include private operational details for any o
 Supported:
 
 - KORA now contains a reusable Project Operating System package.
-- The package includes templates, prompts, and a project operating standard.
+- The package includes templates, workflow guides, and a project operating standard.
 - The package can guide future project breadcrumb/review-hub adoption.
 
 Not supported:

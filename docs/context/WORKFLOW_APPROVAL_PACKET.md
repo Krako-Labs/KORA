@@ -1,10 +1,10 @@
-# Codex Approval Packet
+# Implementation Workflow Approval Packet
 
 Status: standard KORA PR approval packet format.
 
 ## Required Packet Fields
 
-Every Codex-owned work block should provide:
+Every implementation-workflow-owned work block should provide:
 
 - decision needed.
 - risk level.
@@ -17,7 +17,7 @@ Every Codex-owned work block should provide:
 - claim-boundary audit.
 - forbidden-action audit.
 - uncertainty notes.
-- Codex recommendation.
+- workflow recommendation.
 - Albert action options: Merge / Request R1 / Stop / CTO Review.
 
 ## Packet Template
@@ -34,13 +34,13 @@ Self-review summary:
 Claim-boundary audit:
 Forbidden-action audit:
 Uncertainty notes:
-Codex recommendation:
+workflow recommendation:
 Albert action options: Merge / Request R1 / Stop / CTO Review
 ```
 
 ## Recommendation Guidance
 
-Codex may recommend `Merge` only when final classification is `merge-ready`. If final classification is `needs-r1`, recommend `Request R1`. If final classification is `needs-cto-review`, recommend `CTO Review`. If final classification is `blocked`, recommend `Stop` or `CTO Review`.
+The implementation workflow may recommend `Merge` only when final classification is `merge-ready`. If final classification is `needs-r1`, recommend `Request R1`. If final classification is `needs-cto-review`, recommend `CTO Review`. If final classification is `blocked`, recommend `Stop` or `CTO Review`.
 
 ## Claim Boundary Reminder
 

@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 118.
+Last updated by: Group 119.
 
 ## Current Status
 
@@ -44,24 +44,25 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 118 post-Group-117 evidence, breadcrumb, and claim-consistency audit. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 119 public operations wording scrub under PR review. Group 118 remains the latest merged public state until Group 119 merges.
 
 ## Current Branch
 
-- branch: `group118-evidence-breadcrumb-claim-audit`
+- branch: Group 119 public wording scrub PR branch
 - public truth: `origin/main`
-- branch pushed to: `origin/group118-evidence-breadcrumb-claim-audit`
-- open PR: [#271](https://github.com/Krako-Labs/KORA/pull/271)
-- base commit: `e5606535b9247dedb6a59a42ff9144373d9cedf9`
+- branch pushed to: PR #272 source branch
+- open PR: [#272](https://github.com/Krako-Labs/KORA/pull/272)
+- base commit: `22d91129e3ab468394f9f2b446066d61e628b70c`
 
 ## Active Goal
 
-Group 118 - Post-Group-117 Evidence, Breadcrumb, and Claim-Consistency Audit.
+Group 119 - Public Operations Wording Scrub.
 
-Group 118 audits public evidence breadcrumbs, review navigation, report references, claim language, and CIL status after the Group 117 merge. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, prove output quality, or expand claims.
+Group 119 neutralizes public operations wording and path names that exposed implementation workflow details. It does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run model inference, run H100/GPU/CUDA/server/remote work, perform semantic judging or human grading, change package or release behavior, prove output quality, or expand claims.
 
 Primary report:
 
+- [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272)
 - [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
 - [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
 - [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
@@ -78,21 +79,21 @@ Primary report:
 - [First-run CLI smoke checker](scripts/check_first_run_cli_smoke.py)
 - [First-run CLI smoke tests](tests/test_first_run_cli_smoke.py)
 - [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md)
-- [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
+- [implementation workflow medium-risk profile registry checklist](docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md)
 - [PR approval packet checker](scripts/check_pr_approval_packet.py)
 - [Report consistency checker](scripts/check_report_consistency.py)
 - [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md)
 - [Bounded local validation report verifier](scripts/verify_bounded_local_validation_report.py)
 - [Bounded local validation failure classifier](scripts/classify_bounded_local_validation_failure.py)
-- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
-- [Codex inner loop run template](docs/reports/codex_inner_loop_run_template.md)
-- [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md)
-- [Codex self-review protocol](docs/context/CODEX_SELF_REVIEW_PROTOCOL.md)
-- [Codex risk classification](docs/context/CODEX_RISK_CLASSIFICATION.md)
-- [Codex escalation gates](docs/context/CODEX_ESCALATION_GATES.md)
-- [Codex approval packet](docs/context/CODEX_APPROVAL_PACKET.md)
-- [Codex multi-agent operating model](docs/context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)
+- [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md)
+- [implementation workflow run template](docs/reports/workflow_run_template.md)
+- [implementation workflow queue](docs/context/WORKFLOW_QUEUE.md)
+- [implementation workflow self-review protocol](docs/context/WORKFLOW_SELF_REVIEW_PROTOCOL.md)
+- [implementation workflow risk classification](docs/context/WORKFLOW_RISK_CLASSIFICATION.md)
+- [implementation workflow escalation gates](docs/context/WORKFLOW_ESCALATION_GATES.md)
+- [implementation workflow approval packet](docs/context/WORKFLOW_APPROVAL_PACKET.md)
+- [implementation workflow multi-agent operating model](docs/context/WORKFLOW_MULTI_ACTOR_OPERATING_MODEL.md)
 - [Goal 109 bounded local validation runner](docs/reports/goal109_bounded_local_validation_runner.md)
 - [Goal 108 bounded local test loop](docs/reports/goal108_bounded_local_test_loop.md)
 - [Goal 107 long-run test loop protocol](docs/reports/goal107_long_run_test_loop_protocol.md)
@@ -104,8 +105,8 @@ Primary report:
 - [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
-- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
-- [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
+- [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md)
+- [bounded workflow protocol](docs/runbooks/bounded_workflow_protocol.md)
 - [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
 - [KORA PR completion format](docs/runbooks/kora_pr_completion_format.md)
 - [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md)
@@ -221,13 +222,13 @@ Primary report:
 
 Claim boundary: Group 111 is static report-control tooling over local bounded-validation JSON. It does not execute report commands, auto-repair, create background automation, call providers, run H100/server work, or prove output quality.
 
-Group 110 - Codex Inner Loop Ownership with Risk-Gated Self Review.
+Group 110 - implementation workflow Inner Loop Ownership with Risk-Gated Self Review.
 
-Group 110 added repo-local operating guidance for Codex-owned bounded inner-loop work: queue selection, validation, repair, self-review, risk classification, escalation gates, approval packets, and PR-open stop behavior. PR #262 was squash-merged into `origin/main` at `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`.
+Group 110 added repo-local operating guidance for implementation-workflow-owned bounded inner-loop work: queue selection, validation, repair, self-review, risk classification, escalation gates, approval packets, and PR-open stop behavior. PR #262 was squash-merged into `origin/main` at `a7f5fedc6be534a30818a5b9fc5a877a901f5db7`.
 
 Primary report:
 
-- [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md)
+- [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md)
 
 Claim boundary: Group 110 is repo-local operating guidance and validation for that guidance. It does not create production automation, auto-merge, background execution, provider calls, H100/server execution, actual multi-agent execution, or claim expansion.
 
@@ -277,14 +278,14 @@ Primary report:
 
 Claim boundary: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
 
-Goal 104 - Codex Bounded Loop Protocol and Claim-Boundary Automation.
+Goal 104 - implementation workflow Bounded Loop Protocol and Claim-Boundary Automation.
 
-Goal 104 added KORA-specific runbooks for semi-autonomous Codex execution with human approval gates, claim-boundary review, PR-open then stop behavior, fix-loop cleanup, merge-gate separation, and local source-refresh after merge. PR #254 was squash-merged into `origin/main` at `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`.
+Goal 104 added KORA-specific runbooks for semi-autonomous implementation workflow execution with human approval gates, claim-boundary review, PR-open then stop behavior, fix-loop cleanup, merge-gate separation, and local source-refresh after merge. PR #254 was squash-merged into `origin/main` at `2dfcabb2e1949fae12fb41e5d21ae093f3e0802d`.
 
 Primary report:
 
-- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
-- [Codex bounded loop protocol](docs/runbooks/codex_bounded_loop_protocol.md)
+- [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md)
+- [bounded workflow protocol](docs/runbooks/bounded_workflow_protocol.md)
 - [KORA claim-boundary checklist](docs/runbooks/kora_claim_boundary_checklist.md)
 - [KORA PR completion format](docs/runbooks/kora_pr_completion_format.md)
 - [KORA next goal queue](docs/context/NEXT_GOAL_QUEUE.md)
@@ -656,12 +657,12 @@ Goal 073 report:
 
 Previous completed documentation Goal: Goal 072 - Project Operating System extraction.
 
-Goal 072 extracted the Goal 071 breadcrumb/review-hub pattern into reusable templates, prompts, and a project operating standard:
+Goal 072 extracted the Goal 071 breadcrumb/review-hub pattern into reusable templates, workflow guides, and a project operating standard:
 
 - [Project Operating System README](docs/project-operating-system/README.md).
 - [Project Operating Standard v0](docs/project-operating-system/project-operating-standard-v0.md).
 - [Project Operating System templates](docs/project-operating-system/templates/OPEN_THIS_FIRST.template.md).
-- [Project Operating System prompts](docs/project-operating-system/prompts/project-initialization-prompt.md).
+- [Project Operating System workflow guides](docs/project-operating-system/templates/workflow-guides/project-initialization-template.md).
 
 Previous completed breadcrumb Goal: Goal 071 - project breadcrumb and documentation operating standard.
 
@@ -680,7 +681,7 @@ Primary report:
 - [Fixture quality-check evaluator](scripts/evaluate_fixture_quality_checks.py)
 - [Goal 105 public-safe output-quality methodology](docs/reports/goal105_public_safe_output_quality_methodology.md)
 - [Public-safe output-quality methodology](docs/methodology/public_safe_output_quality_methodology.md)
-- [Goal 104 Codex bounded loop protocol](docs/reports/goal104_codex_bounded_loop_protocol.md)
+- [Goal 104 bounded workflow protocol](docs/reports/goal104_bounded_workflow_protocol.md)
 - [Goal 091 README compression](docs/reports/goal091_readme_compression.md)
 - [Goal 088 cache reuse example](docs/reports/goal088_cache_reuse_example.md)
 - [Cache reuse example README](examples/cache_reuse/README.md)
@@ -732,33 +733,35 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Review Group 118 - Post-Group-117 Evidence, Breadcrumb, and Claim-Consistency Audit.
+Review Group 119 - Public Operations Wording Scrub.
 
 Recommended scope:
 
+- review [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272).
+- confirm Group 118 remains the latest merged PR until Group 119 merges.
 - review [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md).
-- confirm Group 117 remains the latest completed merged group at `e5606535b9247dedb6a59a42ff9144373d9cedf9`.
+- confirm Group 119 changes only public operations wording, mechanical references, and related public path names.
 - review [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md).
 - review [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json).
 - review [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py).
 - review [Methodology fixture-check tests](tests/test_methodology_fixture_check_slice.py).
 - verify the real local deterministic fixture-check result if needed with `python3 scripts/evaluate_methodology_fixture_checks.py`.
-- after Group 118 is merged, refresh local ChatGPT source context only if explicitly approved.
+- after Group 119 is merged, refresh local project source context only if explicitly approved.
 - review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
-- review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
+- review [implementation workflow medium-risk profile registry checklist](docs/context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](docs/reports/group112_pr_approval_and_report_consistency.md).
 - review [Group 111 validation report control block](docs/reports/group111_validation_report_control_block.md).
-- review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
-- review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
+- review [Group 110 implementation workflow ownership](docs/reports/group110_implementation_workflow_ownership.md).
+- review [implementation workflow queue](docs/context/WORKFLOW_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- confirm the report keeps the bounded deterministic fixture-check boundary and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
+- confirm the PR keeps existing claim boundaries and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
 - expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
-- preserve the requirement that Codex pass is not merge-ready pass.
+- preserve the requirement that workflow pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
 - keep any follow-on work local-only, finite, public-safe, and explicitly bounded.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
-- stop at PR-open unless a separate merge-gate prompt is provided.
+- stop at PR-open unless a separate merge-gate request text is provided.
 
 Alternative future goals remain local source refresh after explicit approval, `CIL-003`, another bounded public-safe fixture/check slice, or documentation movement for one small bucket, but only after explicit approval.
 

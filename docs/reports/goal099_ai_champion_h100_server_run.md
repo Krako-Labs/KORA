@@ -10,7 +10,7 @@ This report is about controlled workload-path execution. It is not a CPU versus 
 
 ## Controller And Evidence Environment
 
-- controller: `local Codex controller`.
+- controller: `local implementation workflow controller`.
 - remote evidence environment: `AI Champion H100 server`.
 - remote OS family: `remote Linux server`.
 - remote architecture: `x86_64`.
@@ -117,7 +117,7 @@ This evidence cannot support claims of:
 
 Recommended next task:
 
-- Goal 100 - Review Goal 099 evidence package and decide whether to refresh the broader public evidence index and local ChatGPT context.
+- Goal 100 - Review Goal 099 evidence package and decide whether to refresh the broader public evidence index and local project context.
 
 Any future larger H100 sample must remain bounded, public-safe, fixture-derived, and claim-bounded.
 

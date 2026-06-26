@@ -1,14 +1,14 @@
 # KORA PR Completion Format
 
-Status: required completion shape for KORA Codex PR-open tasks.
+Status: required completion shape for KORA implementation workflow PR-open tasks.
 
 ## Purpose
 
-This format keeps KORA PRs and final responses reviewable. It records what changed, what was validated, what was not claimed, and where Codex stopped.
+This format keeps KORA PRs and final responses reviewable. It records what changed, what was validated, what was not claimed, and where implementation workflow stopped.
 
 ## Final Response Shape
 
-Start with the exact implemented-task label from the goal prompt. Example:
+Start with the exact implemented-task label from the goal request text. Example:
 
 ```text
 Implemented Task 104
@@ -60,7 +60,7 @@ Use this structure for KORA PR bodies:
 - No broader workload representativeness proof added.
 - No production proof, superiority, customer-savings, provider-replacement, or GPU-serving replacement claims added.
 - No release, tag, GitHub Release, PyPI/package publication, repository settings change, issue/project-board creation, raw artifact upload, file move, rename, archive, or delete operation performed.
-- No local-only ChatGPT context files modified or committed.
+- No local-only project context files modified or committed.
 
 ## Explicit non-claims
 
@@ -85,7 +85,7 @@ For cleanup commits on the same PR, start with the exact cleanup label requested
 
 ## Merge-Gate Response Shape
 
-For a separate merge-gate task, start with the exact merge-gate completion label requested by the prompt. Include:
+For a separate merge-gate task, start with the exact merge-gate completion label requested by the request text. Include:
 
 - PR URL.
 - merged or not merged status.
@@ -96,13 +96,13 @@ For a separate merge-gate task, start with the exact merge-gate completion label
 - changed files confirmed.
 - explicit non-claims confirmed.
 - confirmation that no release, tag, GitHub Release, PyPI/package publication, repository settings change, issue/project-board creation, release asset, raw artifact, or unapproved file movement occurred.
-- next required task, usually local ChatGPT source refresh after merge.
+- next required task, usually local planning gate source refresh after merge.
 
 ## Local Source Refresh Response Shape
 
 For a separate local-only source refresh task, include:
 
-- files updated under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/chatgpt_context/`.
+- files updated under `/Users/albertkim/02_PROJECTS/05_KORA_Project/local/project_context/`.
 - public HEAD verified.
 - refresh reason.
 - latest goal summary added.

@@ -22,11 +22,11 @@ Primary source:
 | `docs/paper` | Paper authorship and contribution policy | researchers, contributors, paper readers | High | Low now; likely to grow | Add paper index before more paper docs |
 | `docs/benchmarks` | Benchmark summaries and workload plans | developers, researchers, reviewers | High | Medium due overlap with reports/experiments README | Add benchmark index and canonical evidence path |
 | `docs/reports` | Readiness, release, policy, and validation reports | maintainers, reviewers, diligence readers | High | Medium due mixed report types | Add reports index; preserve all release evidence |
-| `docs/eod` | Earlier EOD reports | maintainers, internal continuity | Medium/high | Medium due overlap with reports | Decide later whether EOD stays separate |
+| `docs/status` | Earlier status closeout reports | maintainers, internal continuity | Medium/high | Medium due overlap with reports | Decide later whether status closeout stays separate |
 | `docs/specs` | Architecture, contracts, governance, studio specs | technical maintainers, architects | High | Medium due broad Krako/studio scope | Add specs index and status notes |
 | `docs/vision` | Category thesis and future vision docs | public readers, investors/EIC, community | High | Low | Link from README and claim docs |
 | `docs/metrics` | Metrics reports and CSV artifacts | technical reviewers, benchmark reviewers | Medium/high | Medium due overlap with artifacts/metrics | Review artifact policy and source-of-truth |
-| `docs/progress` | Historical progress reports | maintainers, continuity | Medium | Medium if duplicated with EOD/reports | Preserve; index later |
+| `docs/progress` | Historical progress reports | maintainers, continuity | Medium | Medium if duplicated with status closeout/reports | Preserve; index later |
 | `docs/strategy` | Strategy and pitch source material | maintainers, investor/EIC prep | Medium/high | High if private strategy accumulates publicly | Review public/private boundary before linking broadly |
 | root-level `docs/*.md` | Foundational docs, architecture, philosophy, benchmark, research | developers, researchers, public readers | High | Medium due flat structure and duplicate root docs | Index first; move only after review |
 
@@ -67,13 +67,13 @@ Primary source:
 - Root strategic docs such as `VISION.md`, `ROADMAP.md`, `GOVERNANCE.md`, and `EXECUTIVE-SUMMARY.md`.
 - Root appendix files.
 - Older root-level docs duplicated under `docs/`.
-- EOD files split across `docs/eod` and `docs/reports`.
+- status closeout files split across `docs/status` and `docs/reports`.
 - Strategy files under root and `docs/strategy`.
 
 ### Archive Candidates
 
 - Legacy pitch source copies after public/private review.
-- Older progress/EOD drafts after a history index exists.
+- Older progress/status closeout drafts after a history index exists.
 - Superseded planning docs after canonical links are created.
 
 ### Removal Candidates Requiring Explicit Approval

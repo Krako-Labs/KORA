@@ -19,7 +19,7 @@ REQUIRED_FIELDS: tuple[str, ...] = (
     "claim-boundary audit",
     "forbidden-action audit",
     "uncertainty notes",
-    "codex recommendation",
+    "workflow recommendation",
     "albert action options",
 )
 VALID_FINAL_STATUSES = {"merge-ready", "needs-r1", "needs-cto-review", "blocked"}

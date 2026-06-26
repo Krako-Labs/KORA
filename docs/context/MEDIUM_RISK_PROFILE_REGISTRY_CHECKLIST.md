@@ -1,4 +1,4 @@
-# Codex Medium-Risk Profile Registry Checklist
+# implementation workflow Medium-Risk Profile Registry Checklist
 
 Status: required checklist before any `CIL-003` bounded validation profile registry work.
 
@@ -23,11 +23,11 @@ This checklist is not approval to implement `CIL-003`. It records the minimum re
 - no broader workload representativeness proof.
 - no production proof.
 - no release, tag, GitHub Release, PyPI publication, repository settings change, issue creation, project-board change, or collaborator change.
-- no local-only ChatGPT context changes during the public PR.
+- no local-only project context changes during the public PR.
 
 ## Expected Classification
 
-`CIL-003` should normally end with final status classification `needs-cto-review` because it touches the approved validation command surface. It may be classified `merge-ready` only if a future explicit prompt keeps the implementation extremely narrow, fully static, read-only for discovery, and unchanged in claim boundaries.
+`CIL-003` should normally end with final status classification `needs-cto-review` because it touches the approved validation command surface. It may be classified `merge-ready` only if a future explicit request text keeps the implementation extremely narrow, fully static, read-only for discovery, and unchanged in claim boundaries.
 
 ## Stop Conditions
 

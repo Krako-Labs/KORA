@@ -62,7 +62,7 @@ Connected the centered composer action to the approved local harness request pat
 
 - sends selected approved `request_id`
 - updates compact composer selected-run summary
-- preserves no arbitrary prompt execution
+- preserves no arbitrary request text execution
 - preserves no model/provider/download behavior
 
 ### Task 461: responsive/mobile layout pass
@@ -112,8 +112,8 @@ Key v0.8 public artifacts:
 
 Related v0.7 source-of-truth artifacts used by v0.8:
 
-- `docs/kora-studio/kora-studio-v0-7-claude-design-source-of-truth.md`
-- `docs/kora-studio/design/claude-v0-7/kora-studio-final-uiux-board.png`
+- `docs/kora-studio/kora-studio-v0-7-design-source-of-truth.md`
+- `docs/kora-studio/design/v0-7-reference/kora-studio-final-uiux-board.png`
 
 ## Implemented v0.8 Surface
 
@@ -168,7 +168,7 @@ Task 463 validation repeated:
 - Model recommendations are estimates until validated.
 - KORA does not remove model memory requirements.
 - The composer action sends only an approved local harness request ID.
-- Arbitrary prompt execution is not connected.
+- Arbitrary request text execution is not connected.
 - Local harness output is generated deterministic harness output only.
 - SSE streams generated harness events only.
 - SSE is not model token streaming, provider streaming, or model output streaming.
@@ -190,7 +190,7 @@ Task 463 validation repeated:
 - The right details drawer is still visually off-canvas by default and needs a full open/close interaction pass.
 - The left rail and drawer mobile behavior are CSS/marker scaffolds, not full persisted navigation.
 - The top selector is a local catalog scaffold, not a real installed-model picker.
-- The composer does not accept arbitrary prompts.
+- The composer does not accept arbitrary workflow guides.
 - Local harness runs remain generated deterministic harness output.
 - Run records are in-memory only.
 - Report metadata remains preview-only and does not export files.

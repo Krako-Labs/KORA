@@ -39,7 +39,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Goal 107 long-run test loop protocol](reports/goal107_long_run_test_loop_protocol.md) - protocol documentation for future bounded local validation loops; does not execute long-run validation or create automation.
 - [Goal 108 bounded local test loop](reports/goal108_bounded_local_test_loop.md) - one bounded local-only validation batch; does not prove output quality or production readiness.
 - [Goal 109 bounded local validation runner](reports/goal109_bounded_local_validation_runner.md) - approved-command local validation runner; does not prove output quality or production readiness.
-- [Group 110 Codex inner loop ownership](reports/group110_codex_inner_loop_ownership.md) - repo-local Codex operating guidance; does not create auto-merge, production automation, or claim expansion.
+- [Group 110 implementation workflow ownership](reports/group110_implementation_workflow_ownership.md) - repo-local implementation workflow operating guidance; does not create auto-merge, production automation, or claim expansion.
 - [Group 111 validation report control block](reports/group111_validation_report_control_block.md) - static bounded-validation report verifier and failure classifier; does not execute report commands or prove output quality.
 - [Group 112 PR approval and report consistency](reports/group112_pr_approval_and_report_consistency.md) - approval-packet and report-consistency checks; does not mutate GitHub or execute report commands.
 - [Group 113 inner loop applied review and queue hardening](reports/group113_inner_loop_applied_review_queue_hardening.md) - operating review and queue hardening; does not implement `CIL-003` or change validation profiles.
@@ -48,6 +48,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Group 116 second route-only fixture slice](reports/group116_second_route_only_fixture_slice.md) - second synthetic route-only fixture slice with aggregate counters only; does not prove output quality or broader representativeness.
 - [Group 117 methodology-aligned deterministic fixture-check slice](reports/group117_methodology_aligned_fixture_check_slice.md) - exact and structured deterministic fixture checks over public-safe synthetic examples; does not prove output quality.
 - [Group 118 evidence, breadcrumb, and claim-consistency audit](reports/group118_evidence_breadcrumb_claim_consistency_audit.md) - post-Group-117 documentation and audit-evidence consistency pass; does not implement `CIL-003` or expand claims.
+- [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272) - current public wording hygiene review; Group 118 remains the latest merged PR until Group 119 merges.
 - [Goal 096 documentation navigation and archive-bucket proposal](reports/goal096_documentation_navigation_archive_bucket_proposal.md) - proposal-only navigation buckets; no files moved.
 - [Group 097 H100 evidence inventory and gap audit](reports/group097_h100_evidence_inventory_gap_audit.md) - bounded H100 evidence inventory; no new H100 benchmark claim.
 - [Goal 098 controlled CPU/GPU evidence regeneration](reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) - server-run packet with local no-CUDA `not_run` status; no fresh H100 execution claim.
@@ -55,7 +56,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Goal 100 Goal 099 evidence index review](reports/goal100_goal099_evidence_index_review.md) - evidence-index decision after Goal 099; narrow index refresh only.
 - [Goal 102 workload representativeness seed](reports/goal102_workload_representativeness_seed.md) - public-safe fixture-design seed for broader workload coverage planning; not production workload proof.
 - [Goal 103 representativeness route-only evaluator](reports/goal103_representativeness_route_only_evaluator.md) - aggregate route-only counters over the Goal 102 seed; not output-quality or broader representativeness proof.
-- [Goal 104 Codex bounded loop protocol](reports/goal104_codex_bounded_loop_protocol.md) - operating protocol for PR-open bounded-loop execution with human approval gates.
+- [Goal 104 bounded workflow protocol](reports/goal104_bounded_workflow_protocol.md) - operating protocol for PR-open bounded-loop execution with human approval gates.
 - [Goal 105 public-safe output-quality methodology](reports/goal105_public_safe_output_quality_methodology.md) - methodology for future public-safe fixture-derived checks.
 
 KORA uses narrow evidence language. Offline examples and reports may describe sample workloads and simulated avoided provider/model invocations, but they do not prove production cost reduction or production readiness.
@@ -66,17 +67,17 @@ KORA uses narrow evidence language. Offline examples and reports may describe sa
 - [Security](../SECURITY.md)
 - [Governance](../GOVERNANCE.md)
 - [Runbooks](runbooks/)
-- [Codex bounded loop protocol](runbooks/codex_bounded_loop_protocol.md)
-- [Codex inner loop queue](context/CODEX_INNER_LOOP_QUEUE.md)
-- [Codex self-review protocol](context/CODEX_SELF_REVIEW_PROTOCOL.md)
-- [Codex risk classification](context/CODEX_RISK_CLASSIFICATION.md)
-- [Codex escalation gates](context/CODEX_ESCALATION_GATES.md)
-- [Codex approval packet](context/CODEX_APPROVAL_PACKET.md)
-- [Codex medium-risk profile registry checklist](context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
+- [bounded workflow protocol](runbooks/bounded_workflow_protocol.md)
+- [implementation workflow queue](context/WORKFLOW_QUEUE.md)
+- [implementation workflow self-review protocol](context/WORKFLOW_SELF_REVIEW_PROTOCOL.md)
+- [implementation workflow risk classification](context/WORKFLOW_RISK_CLASSIFICATION.md)
+- [implementation workflow escalation gates](context/WORKFLOW_ESCALATION_GATES.md)
+- [implementation workflow approval packet](context/WORKFLOW_APPROVAL_PACKET.md)
+- [implementation workflow medium-risk profile registry checklist](context/MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md)
 - [Second slice route-only evaluator](../scripts/evaluate_representativeness_slice_routes.py)
 - [Source-install readiness checker](../scripts/check_source_install_readiness.py)
 - [First-run CLI smoke checker](../scripts/check_first_run_cli_smoke.py)
-- [Codex multi-agent operating model](context/CODEX_MULTI_AGENT_OPERATING_MODEL.md)
+- [implementation workflow multi-agent operating model](context/WORKFLOW_MULTI_ACTOR_OPERATING_MODEL.md)
 - [Long-run test loop protocol](runbooks/long_run_test_loop_protocol.md)
 - [Test failure triage checklist](runbooks/test_failure_triage_checklist.md)
 - [KORA claim-boundary checklist](runbooks/kora_claim_boundary_checklist.md)
