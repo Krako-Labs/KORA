@@ -2,7 +2,7 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 117.
+Last updated by: Group 118.
 
 ## Current Status
 
@@ -44,24 +44,25 @@ Current state:
 - `kora doctor` is now a first-class CLI command for running the offline Doctor workload-control report against a workload JSON file or all bundled Doctor workloads.
 - the public README and docs index now position KORA as an AI Workload Control Layer, with examples-first onboarding and explicit claim boundaries.
 - the breadcrumb/review-hub pattern has been extracted into a reusable Project Operating System package and validated on KORA as a continuation surface.
-- current public continuation work is focused on Group 117 methodology-aligned deterministic fixture-check slice review. Documentation movement remains optional only after later explicit Albert approval.
+- current public continuation work is focused on Group 118 post-Group-117 evidence, breadcrumb, and claim-consistency audit. Documentation movement remains optional only after later explicit Albert approval.
 
 ## Current Branch
 
-- branch: `group117-methodology-fixture-check-slice`
+- branch: `group118-evidence-breadcrumb-claim-audit`
 - public truth: `origin/main`
-- branch pushed to: `origin/group117-methodology-fixture-check-slice`
-- open PR: [#270](https://github.com/Krako-Labs/KORA/pull/270)
-- base commit: `a73b153e87cc43c66f9e79b0e920616e808cae30`
+- branch pushed to: `origin/group118-evidence-breadcrumb-claim-audit`
+- open PR: [#271](https://github.com/Krako-Labs/KORA/pull/271)
+- base commit: `e5606535b9247dedb6a59a42ff9144373d9cedf9`
 
 ## Active Goal
 
-Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
+Group 118 - Post-Group-117 Evidence, Breadcrumb, and Claim-Consistency Audit.
 
-Group 117 adds a small synthetic deterministic fixture-check slice, an exact/structured evaluator, focused tests, and a public-safe report. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, prove output quality, or expand claims.
+Group 118 audits public evidence breadcrumbs, review navigation, report references, claim language, and CIL status after the Group 117 merge. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run model inference, run H100/server work, perform semantic judging or human grading, prove output quality, or expand claims.
 
 Primary report:
 
+- [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
 - [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
 - [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
 - [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py)
@@ -120,6 +121,8 @@ git diff --check
 python3 -m pytest
 ```
 
+Current caveat: Group 118 is documentation and audit evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
+
 Current caveat: Group 117 is deterministic fixture-check evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 Current caveat: Goal 105 is future validation design only. It does not execute output-quality evaluation, make provider calls, run model inference, perform H100/GPU/CUDA/server/remote execution, add output-quality proof, add broader workload representativeness proof, add production proof, or authorize merge, release, publication, repository settings changes, file movement, claim expansion, or local-only source refresh without separate explicit approval.
@@ -147,6 +150,46 @@ Current caveat: Group 115 is local source-install readiness only. It does not im
 Current caveat: Group 116 is route-only aggregate fixture evidence only. It does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove cost reduction, or expand claims.
 
 ## Last Completed Goal
+
+Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
+
+Group 117 added a small synthetic deterministic fixture-check slice, an exact/structured evaluator, focused tests, and a public-safe report. PR #270 was squash-merged into `origin/main` at `e5606535b9247dedb6a59a42ff9144373d9cedf9`.
+
+Primary report:
+
+- [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
+
+Claim boundary: Group 117 is deterministic fixture-check evidence over synthetic public-safe examples only. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production validation, cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, or GPU-serving replacement.
+
+Group 116 - Second Route-Only Fixture Slice.
+
+Group 116 added a second public-safe synthetic route-only fixture slice with aggregate counters only. PR #268 was squash-merged into `origin/main` at `a73b153e87cc43c66f9e79b0e920616e808cae30`.
+
+Primary report:
+
+- [Group 116 second route-only fixture slice](docs/reports/group116_second_route_only_fixture_slice.md)
+
+Claim boundary: Group 116 is route-only aggregate fixture evidence only. It does not prove output quality, broader workload representativeness, production workload handling, production readiness, production validation, cost reduction, customer savings, H100/GPU/CPU superiority, provider replacement, or GPU-serving replacement.
+
+Group 115 - Source-Install Readiness Check.
+
+Group 115 added isolated local source-install readiness checking without package publication. PR #267 was squash-merged into `origin/main` at `49affdfb62a7e62b715721e82d4d6db790a4748b`.
+
+Primary report:
+
+- [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md)
+
+Claim boundary: Group 115 is local source-install readiness only. It does not check PyPI installation, publish packages, claim `getkora` is published, claim install-from-PyPI support, call providers, run H100/server work, or prove output quality.
+
+Group 114 - First-Run CLI Smoke Validation.
+
+Group 114 added deterministic local first-run CLI smoke validation over existing offline commands. PR #266 was squash-merged into `origin/main` at `a3c9db33fa8c27c5b9a1e0aab7cc36c82e1c1bb0`.
+
+Primary report:
+
+- [Group 114 first-run CLI smoke validation](docs/reports/group114_first_run_cli_smoke_validation.md)
+
+Claim boundary: Group 114 is local first-run CLI smoke validation only. It does not publish packages, call providers, require H100/server work, or prove output quality.
 
 Group 113 - Inner Loop Applied Review and Queue Hardening Audit.
 
@@ -689,16 +732,18 @@ KORA makes AI workloads routable. The current KRK public alpha shows how workloa
 
 ## Recommended Next Goal
 
-Review Group 117 - Methodology-Aligned Deterministic Fixture Check Slice.
+Review Group 118 - Post-Group-117 Evidence, Breadcrumb, and Claim-Consistency Audit.
 
 Recommended scope:
 
+- review [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md).
+- confirm Group 117 remains the latest completed merged group at `e5606535b9247dedb6a59a42ff9144373d9cedf9`.
 - review [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md).
 - review [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json).
 - review [Methodology fixture-check evaluator](scripts/evaluate_methodology_fixture_checks.py).
 - review [Methodology fixture-check tests](tests/test_methodology_fixture_check_slice.py).
 - verify the real local deterministic fixture-check result if needed with `python3 scripts/evaluate_methodology_fixture_checks.py`.
-- after Group 117 is merged, refresh local ChatGPT source context for Group 117 only if explicitly approved.
+- after Group 118 is merged, refresh local ChatGPT source context only if explicitly approved.
 - review [Group 115 source-install readiness check](docs/reports/group115_source_install_readiness_check.md).
 - review [Group 113 inner loop applied review and queue hardening](docs/reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [Codex medium-risk profile registry checklist](docs/context/CODEX_MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
@@ -707,7 +752,7 @@ Recommended scope:
 - review [Group 110 Codex inner loop ownership](docs/reports/group110_codex_inner_loop_ownership.md).
 - review [Codex inner loop queue](docs/context/CODEX_INNER_LOOP_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- confirm the report keeps the route-only aggregate boundary and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
+- confirm the report keeps the bounded deterministic fixture-check boundary and does not claim output quality, broader representativeness, production readiness, cost reduction, provider replacement, or GPU-serving replacement.
 - expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
 - preserve the requirement that Codex pass is not merge-ready pass.
 - run the claim-boundary checklist before PR-open.
@@ -715,7 +760,7 @@ Recommended scope:
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - stop at PR-open unless a separate merge-gate prompt is provided.
 
-Alternative future goals remain `CIL-003`, another bounded public-safe fixture/check slice, or documentation movement for one small bucket, but only after explicit approval.
+Alternative future goals remain local source refresh after explicit approval, `CIL-003`, another bounded public-safe fixture/check slice, or documentation movement for one small bucket, but only after explicit approval.
 
 Optional docs-navigation movement remains a separate future track only if Albert explicitly approves movement.
 

@@ -1,6 +1,6 @@
 # Group 117 Methodology-Aligned Deterministic Fixture Check Slice
 
-Status: implemented with local validation complete; PR open.
+Status: implemented with local validation complete; PR #270 merged into `origin/main`.
 
 ## Objective
 
@@ -12,7 +12,7 @@ This group does not prove output quality, broader workload representativeness, p
 
 ## Approval Packet
 
-Decision needed: review and decide whether to merge Group 117 methodology-aligned deterministic fixture-check slice.
+Decision needed: none for Group 117. PR #270 was merged into `origin/main` at `e5606535b9247dedb6a59a42ff9144373d9cedf9`.
 
 Risk level: low
 
@@ -42,6 +42,7 @@ Albert action options: Merge / Request R1 / Stop.
 
 - public truth: `origin/main`
 - base public HEAD: `a73b153e87cc43c66f9e79b0e920616e808cae30`
+- merged public HEAD: `e5606535b9247dedb6a59a42ff9144373d9cedf9`
 - branch: `group117-methodology-fixture-check-slice`
 - worktree: `/Users/albertkim/02_PROJECTS/05_KORA_Project/worktrees/group117-methodology-fixture-check-slice`
 - PR: https://github.com/Krako-Labs/KORA/pull/270
@@ -145,7 +146,7 @@ Rationale: this group adds a synthetic fixture, deterministic fixture-only evalu
 
 ## Next Recommendation
 
-Recommended next action: review and merge Group 117 if the PR passes CI and the merge gate confirms the same boundaries.
+Recommended next action: use Group 117 as the latest completed deterministic fixture-check evidence and keep follow-on work bounded unless separately approved.
 
 `CIL-003` remains deferred until Albert explicitly approves the medium-risk profile-registry checklist.
 
