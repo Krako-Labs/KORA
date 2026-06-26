@@ -2,7 +2,7 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Group 119.
+Last updated by: Group 120.
 
 ## Project Identity
 
@@ -14,11 +14,11 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 - repository: `https://github.com/Krako-Labs/KORA`
 - public truth branch: `origin/main`
-- active verification branch: Group 119 public wording scrub PR branch
-- worktree label: `group119_public_wording_scrub`
-- branch pushed to: PR #272 source branch
-- open PR: [#272](https://github.com/Krako-Labs/KORA/pull/272)
-- base commit: `22d91129e3ab468394f9f2b446066d61e628b70c`
+- active verification branch: Group 120 long work block queue PR branch
+- worktree label: `group120_long_work_block_queue`
+- branch pushed to: PR #273 source branch
+- open PR: [#273](https://github.com/Krako-Labs/KORA/pull/273)
+- base commit: `824ef643fb1d2aba40800d882c12ab5ccde32e57`
 
 ## Current State Summary
 
@@ -74,7 +74,8 @@ KORA now has a public-safe first-value path and an evidence package that covers:
 - reusable Project Operating System templates, workflow guides, and adoption standard.
 - validated Project Operating System continuation path for KORA.
 - no repository settings should be changed further without explicit owner approval.
-- current work is Group 119: public operations wording scrub under PR review. Group 118 remains the latest merged public state until Group 119 merges.
+- Group 119 public operations wording scrub was merged in PR #272 at public HEAD `824ef643fb1d2aba40800d882c12ab5ccde32e57`.
+- current work is Group 120: long work block candidate selection and queue rebuild.
 
 Current status is evidence-centered and local-first. It is not production-readiness evidence.
 
@@ -143,6 +144,7 @@ This is a sufficient recent history backfill, not a complete reconstruction.
 | Group 117 | Adds a methodology-aligned deterministic fixture-check slice with exact and structured checks over public-safe synthetic examples, without output-quality proof. | [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md) |
 | Group 118 | Audits post-Group-117 evidence breadcrumbs, review navigation, CIL status, validation references, and claim language without changing runtime behavior. | [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md) |
 | Group 119 | Scrubs public operations wording and path names while keeping `CIL-003` deferred and runtime, provider, package, release, and claim boundaries unchanged. | [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272) |
+| Group 120 | Rebuilds the public workflow queue around one 2-4 hour candidate without implementing it or changing runtime behavior. | [Group 120 long work block candidate selection](docs/reports/group120_long_work_block_candidate_selection.md) |
 
 ## Evidence Index
 
@@ -172,6 +174,8 @@ Generated summaries:
 
 Current reviewer path:
 
+- [Group 120 long work block candidate selection](docs/reports/group120_long_work_block_candidate_selection.md)
+- [Group 119 public operations wording scrub PR](https://github.com/Krako-Labs/KORA/pull/272)
 - [Group 118 evidence, breadcrumb, and claim-consistency audit](docs/reports/group118_evidence_breadcrumb_claim_consistency_audit.md)
 - [Group 117 methodology-aligned deterministic fixture-check slice](docs/reports/group117_methodology_aligned_fixture_check_slice.md)
 - [Methodology-aligned fixture-check slice](examples/workloads/kora-methodology-fixture-check-slice-v0.json)
@@ -548,6 +552,7 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 - Group 117 is deterministic fixture-check evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Group 118 is documentation and audit evidence only; it does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/server work, run model inference, perform semantic judging or human grading, prove output quality, prove broader workload representativeness, or expand claims.
 - Group 119 is public operations wording hygiene only; it does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, change package or release behavior, or expand claims.
+- Group 120 is queue and planning documentation only; it does not implement the selected long work block, implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, add production validation, change package or release behavior, or expand claims.
 - Output fidelity is deterministic rule-based over public fixtures, not live semantic judging.
 - The deterministic classification example pack is intentionally synthetic and small; broader workload representativeness remains unproven.
 - The KORA Doctor example is synthetic and does not inspect arbitrary repositories or prove diagnostic accuracy.
@@ -567,8 +572,8 @@ Boundary: this is positioning grounded in current examples and evidence. It does
 
 ## Recommended Next Goals
 
-1. Review Group 119 - Public Operations Wording Scrub.
-2. After Group 119 is merged, refresh local project source context only if explicitly approved.
+1. Implement Group 121 - Bounded Local Validation Evidence Control Block, if explicitly requested.
+2. Keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
 3. Semantic, human, provider, H100, GPU, server, remote, or production-like validation only after separate explicit approval.
 4. Optional documentation movement proposal for one small bucket only after later explicit Albert approval.
 
@@ -580,8 +585,8 @@ Paste a new Goal with this instruction:
 
 ```text
 Start by reading OPEN_THIS_FIRST.md and REVIEW_HUB.md.
-Use the active Group 119 public wording scrub PR branch for the current Group 119 review.
-Create a new scoped branch from origin/main only after Group 119 is merged and local source refresh is explicitly approved or completed.
+Use the current Group 120 queue rebuild PR for planning review.
+Create a new scoped branch from origin/main only after Group 120 is merged or explicitly superseded.
 Keep public/private and claim boundaries from REVIEW_HUB.md.
 Use docs/runbooks/bounded_workflow_protocol.md and docs/runbooks/kora_claim_boundary_checklist.md for execution and review gates.
 Use docs/runbooks/long_run_test_loop_protocol.md and docs/runbooks/test_failure_triage_checklist.md for future bounded local test-loop goals.

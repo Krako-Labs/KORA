@@ -8,21 +8,22 @@ This queue records likely next KORA work without starting it. It is not an appro
 
 ## Current Recommended Next Goal
 
-1. Review Group 118 - Evidence Breadcrumb Claim Consistency Audit.
+1. Group 121 - Bounded Local Validation Evidence Control Block.
 
 Suggested scope:
 
-- use the Goal 104 runbooks and `AGENTS.md` as the execution checklist.
-- verify the goal envelope, base SHA, KORA identity, and clean worktree.
-- review [Group 118 evidence, breadcrumb, and claim-consistency audit](../reports/group118_evidence_breadcrumb_claim_consistency_audit.md).
-- review [Group 117 methodology-aligned deterministic fixture-check slice](../reports/group117_methodology_aligned_fixture_check_slice.md).
-- review [Methodology-aligned fixture-check slice](../../examples/workloads/kora-methodology-fixture-check-slice-v0.json).
-- review [Methodology fixture-check evaluator](../../scripts/evaluate_methodology_fixture_checks.py).
-- review [Methodology fixture-check evaluator tests](../../tests/test_methodology_fixture_check_slice.py).
-- rerun `python3 scripts/evaluate_methodology_fixture_checks.py` if reviewer wants to reproduce the deterministic fixture-check counters.
-- review [Group 116 second route-only fixture slice](../reports/group116_second_route_only_fixture_slice.md).
-- review [Group 115 source-install readiness check](../reports/group115_source_install_readiness_check.md).
-- review [Group 114 first-run CLI smoke validation](../reports/group114_first_run_cli_smoke_validation.md).
+- use the Goal 104 runbooks, `AGENTS.md`, and [Group 120 long work block candidate selection](../reports/group120_long_work_block_candidate_selection.md) as the execution checklist.
+- expected duration band: `2-4 hr`.
+- risk level: medium, because this candidate touches validation/reporting workflow evidence and review interpretation even if the implementation stays local and bounded.
+- objective: improve the bounded local validation evidence path around report generation, report verification/classification consistency, focused tests, report documentation, and breadcrumb/queue closeout.
+- allowed file families: bounded local validation runner/verifier/classifier scripts; focused tests for those scripts; report-consistency or approval-packet checks only if needed for this candidate; one Group 121 report; narrow breadcrumb and queue updates.
+- forbidden files/actions: no `CIL-003`, no validation profile registry changes, no command profile registry changes, no dynamic command discovery, no provider calls, no H100/GPU/CUDA/server/remote execution, no model inference, no semantic judging or human grading, no package/release behavior, no file movement, and no claim expansion.
+- validation commands should include focused tests for changed scripts, `python3 scripts/validate_workflow_docs.py`, `python3 scripts/check_markdown_links_goal082b.py`, `git diff --check`, and changed-file claim/public wording audits.
+- expected final classification: `needs-cto-review` unless the approved future request keeps the change strictly documentation-only and low-risk.
+- stop gate: open PR only; do not merge, release, publish, alter settings, create issues/project boards, refresh local-only context, or start another queue item.
+- CTO review expected: yes, unless the future implementation is narrowed to documentation-only maintenance.
+- why not a micro-task: the work should combine implementation, focused tests, report consistency, validation evidence, breadcrumbs, and queue closeout in one reviewable control block.
+- why it advances the long-work-block goal: it exercises a practical 2-4 hour local validation/reporting workflow rather than another small isolated wording or link repair.
 - review [Group 113 inner loop applied review and queue hardening](../reports/group113_inner_loop_applied_review_queue_hardening.md).
 - review [implementation workflow medium-risk profile registry checklist](MEDIUM_RISK_PROFILE_REGISTRY_CHECKLIST.md).
 - review [Group 112 PR approval and report consistency](../reports/group112_pr_approval_and_report_consistency.md).
@@ -30,14 +31,21 @@ Suggested scope:
 - review [Group 110 implementation workflow ownership](../reports/group110_implementation_workflow_ownership.md).
 - review [implementation workflow queue](WORKFLOW_QUEUE.md).
 - keep `CIL-003` deferred unless Albert explicitly approves the medium-risk profile-registry checklist.
-- confirm Group 117 remains bounded deterministic fixture-check evidence only, without output-quality, broader representativeness, production readiness, production validation, cost-reduction, provider-replacement, or GPU-serving-replacement claims.
-- confirm Group 118 is documentation and audit evidence only.
-- expected final classification is `merge-ready` if CI passes and claim boundaries remain unchanged.
+- confirm Group 119 remains public operations wording hygiene only.
+- confirm Group 120 remains queue and planning documentation only.
 - preserve the requirement that workflow pass is not merge-ready pass.
 - require final classification as `merge-ready`, `needs-r1`, `needs-cto-review`, or `blocked`.
 - do not add semantic judging, human grading, provider calls, H100/GPU/CUDA/server/remote execution, model inference, production validation, claim expansion, background automation, actual multi-agent execution, or merge automation without separate explicit approval.
 - run the claim-boundary checklist before PR-open.
 - stop at PR-open unless a separate merge-gate request text is provided.
+
+## Parked Candidates
+
+- `CIL-003` bounded validation profile registry remains deferred until Albert explicitly approves the medium-risk profile-registry checklist.
+- another public-safe fixture/check slice remains useful later, but is parked because it risks extending fixture evidence before the validation/reporting workflow is made easier to review.
+- documentation movement for one small bucket remains parked because Group 120 did not approve file moves, renames, archival, or deletion.
+- local-only source refresh remains a separate private task after merge request text, not a public queue implementation item.
+- provider, H100, GPU, server, remote, semantic, human, or production-like validation remains parked behind separate explicit approval.
 
 ## Future Queue Item Sizing
 
@@ -100,3 +108,7 @@ Group 116 second route-only fixture slice does not implement `CIL-003`, change v
 Group 117 methodology-aligned deterministic fixture-check slice does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove production readiness, prove cost reduction, claim provider replacement, claim GPU-serving replacement, or expand claims.
 
 Group 118 evidence, breadcrumb, and claim-consistency audit does not implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote execution, run model inference, perform semantic judging or human grading, add production validation, prove output quality, prove broader workload representativeness, prove production readiness, prove cost reduction, claim provider replacement, claim GPU-serving replacement, publish packages, or expand claims.
+
+Group 119 public operations wording hygiene does not implement `CIL-003`, change runtime behavior, change validation profile registries, change command profile registries except mechanical public reference updates, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, change package or release behavior, or expand claims.
+
+Group 120 long work block candidate selection does not implement the selected candidate, implement `CIL-003`, change validation profile registries, change command profile registries, call providers, run H100/GPU/CUDA/server/remote work, run model inference, perform semantic judging or human grading, add production validation, change package or release behavior, or expand claims.
