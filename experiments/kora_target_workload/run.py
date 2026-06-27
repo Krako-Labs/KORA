@@ -456,10 +456,10 @@ def main() -> None:
     ap.add_argument("--base-url", default=DEFAULT_BASE_URL)
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--backend", choices=["openai", "bedrock"], default="openai",
-                    help="openai=vLLM/로컬, bedrock=AWS Converse")
+                    help="openai=vLLM/local, bedrock=AWS Converse")
     ap.add_argument("--region", default="us-east-1", help="Bedrock region")
     ap.add_argument("--judge-model", default=None,
-                    help="FAQ judge 고정 모델 (미지정시 서빙모델과 동일). 모델비교시 전 arm 동일값 권장")
+                    help="Fixed FAQ judge model (defaults to the served model). For cross-model comparison, use the same value across all arms.")
     ap.add_argument("--temperature", type=float, default=0.0, help="accuracy-pass temperature")
     ap.add_argument("--k", type=int, default=1, help="LLM resamples per case (>=2 enables consistency)")
     ap.add_argument("--consistency-temperature", type=float, default=0.7)
@@ -470,7 +470,7 @@ def main() -> None:
     ap.add_argument("--price-out", type=float, default=0.0, help="USD per 1M output tokens")
     ap.add_argument("--out", default=None)
     ap.add_argument("--routing-only", action="store_true",
-                    help="결정형 라우팅만 계산/저장하고 종료 (LLM·키·GPU 불필요, 100%% 재현)")
+                    help="Compute/save deterministic routing only and exit (no LLM/key/GPU; fully reproducible)")
     args = ap.parse_args()
 
     wl_path = Path(args.workload)
@@ -494,7 +494,7 @@ def main() -> None:
         out = args.out or 'results/routing_only.json'
         import os as _os; _os.makedirs(_os.path.dirname(out), exist_ok=True) if _os.path.dirname(out) else None
         open(out, 'w').write(json.dumps(payload, indent=2, ensure_ascii=False))
-        print(f"[routing-only] deflection 계산 완료 (LLM 0 호출). -> {out}")
+        print(f"[routing-only] deflection computed (0 LLM calls). -> {out}")
         print(f"  precision={routing['precision']:.3f} recall={routing['recall']:.3f}")
         return
 
@@ -503,7 +503,7 @@ def main() -> None:
     else:
         client = OpenAI(base_url=args.base_url, api_key=os.getenv("VLLM_API_KEY", "EMPTY"))
     llm = LLM(client, args.model)
-    # judge 고정: --judge-model 지정시 별도 채점관 LLM (전 arm 동일). 미지정시 서빙 llm 재사용.
+    # Fixed judge: when --judge-model is set, use a separate grader LLM (same across all arms); otherwise reuse the served llm.
     if args.judge_model:
         if args.backend == "bedrock":
             judge_client = BedrockClient(region=args.region)

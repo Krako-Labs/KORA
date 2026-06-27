@@ -2,14 +2,14 @@
 set -u
 cd "$(dirname "$0")"
 
-if [ -z "${BEDROCK_KEY:-}" ]; then echo "ERROR: BEDROCK_KEY 없음"; exit 1; fi
+if [ -z "${BEDROCK_KEY:-}" ]; then echo "ERROR: BEDROCK_KEY is not set"; exit 1; fi
 export BEDROCK_KEY
 
 JUDGE="anthropic.claude-sonnet-4-6"
 TS=$(date +%Y%m%d_%H%M%S)
 LOG="results/full_run_${TS}.log"
 
-# name|modelId  (name은 결과 파일명용)
+# name|modelId  (name is used for the result filename)
 MODELS=(
   "sonnet46|anthropic.claude-sonnet-4-6"
   "haiku45|anthropic.claude-haiku-4-5-20251001-v1:0"

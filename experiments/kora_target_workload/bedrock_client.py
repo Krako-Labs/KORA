@@ -1,10 +1,12 @@
-"""Bedrock Converse → OpenAI-compatible shim.
+"""Bedrock Converse -> OpenAI-compatible shim.
 
-LLM 클래스가 부르는 `.chat.completions.create(model=, messages=, temperature=, max_tokens=)`
-인터페이스만 흉내낸다. 응답도 OpenAI 모양(`choices[0].message.content`, `usage.prompt_tokens/
-completion_tokens`)으로 돌려준다. → run.py 본체/LLM/grader/router 0줄 수정으로 Bedrock 사용.
+Mimics only the `.chat.completions.create(model=, messages=, temperature=,
+max_tokens=)` interface that the LLM class calls, and returns an OpenAI-shaped
+response (`choices[0].message.content`, `usage.prompt_tokens/completion_tokens`).
+This lets run.py use Bedrock with zero changes to the runner/LLM/grader/router.
 
-키는 환경변수 BEDROCK_KEY(Bearer)에서만 읽는다. 파일/코드에 키 저장 안 함.
+The key is read only from the BEDROCK_KEY environment variable (Bearer token);
+it is never stored in a file or in code.
 """
 import json
 import os
@@ -42,7 +44,7 @@ class _Completions:
         self.region = region
 
     def create(self, model, messages, temperature=0.0, max_tokens=256, **_):
-        # Converse는 system을 messages 밖 별도 필드로 받는다 (OpenAI는 messages[0]).
+        # Converse takes `system` as a top-level field, not inside messages (OpenAI puts it in messages[0]).
         system = [{"text": m["content"]} for m in messages if m["role"] == "system"]
         convo = [{"role": m["role"], "content": [{"text": m["content"]}]}
                  for m in messages if m["role"] != "system"]
@@ -85,9 +87,9 @@ class _Chat:
 
 
 class BedrockClient:
-    """OpenAI() 자리에 그대로 끼우는 드롭인."""
+    """Drop-in replacement that slots into the OpenAI() position."""
     def __init__(self, api_key=None, region=REGION):
         key = api_key or os.getenv("BEDROCK_KEY")
         if not key:
-            raise RuntimeError("BEDROCK_KEY 환경변수가 없음 (export BEDROCK_KEY=...)")
+            raise RuntimeError("BEDROCK_KEY environment variable is not set (export BEDROCK_KEY=...)")
         self.chat = _Chat(key, region)
