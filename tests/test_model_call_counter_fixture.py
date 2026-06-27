@@ -6,20 +6,20 @@ from pathlib import Path
 
 
 def _load_example_module():
-    script_path = Path("examples/real_model_call_validation_fake/run.py")
-    spec = importlib.util.spec_from_file_location("real_model_call_validation_fake_run", script_path)
+    script_path = Path("examples/model_call_counter_fixture/run.py")
+    spec = importlib.util.spec_from_file_location("model_call_counter_fixture_run", script_path)
     if spec is None or spec.loader is None:
-        raise RuntimeError("failed to load real_model_call_validation_fake module")
+        raise RuntimeError("failed to load model_call_counter_fixture module")
     module = importlib.util.module_from_spec(spec)
     sys.modules[str(spec.name)] = module
     spec.loader.exec_module(module)
     return module
 
 
-def test_fake_model_call_validation_summary_counts() -> None:
+def test_model_call_counter_fixture_summary_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_fake_model_call_validation_summary(offline=True)
+    summary = module.build_model_call_counter_fixture_summary(offline=True)
 
     assert summary["ok"] is True
     assert summary["mode"] == "local_no_network_model_call_validation"
@@ -38,10 +38,10 @@ def test_fake_model_call_validation_summary_counts() -> None:
     assert summary["fallback_count"] == 0
 
 
-def test_fake_model_call_validation_explicit_local_validation_counts() -> None:
+def test_model_call_counter_fixture_explicit_local_validation_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_fake_model_call_validation_summary(
+    summary = module.build_model_call_counter_fixture_summary(
         offline=True,
         adapter_kind="local_validation",
     )
@@ -53,10 +53,10 @@ def test_fake_model_call_validation_explicit_local_validation_counts() -> None:
     assert summary["avoided_model_calls"] == 6
 
 
-def test_fake_model_call_validation_explicit_local_runtime_counts() -> None:
+def test_model_call_counter_fixture_explicit_local_runtime_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_fake_model_call_validation_summary(
+    summary = module.build_model_call_counter_fixture_summary(
         offline=True,
         adapter_kind="local_runtime",
     )
@@ -69,10 +69,10 @@ def test_fake_model_call_validation_explicit_local_runtime_counts() -> None:
     assert summary["validation_pass_count"] == 10
 
 
-def test_fake_model_call_validation_does_not_emit_raw_inputs_or_outputs() -> None:
+def test_model_call_counter_fixture_does_not_emit_raw_inputs_or_outputs() -> None:
     module = _load_example_module()
 
-    summary = module.build_fake_model_call_validation_summary(offline=True)
+    summary = module.build_model_call_counter_fixture_summary(offline=True)
 
     assert summary["privacy_class"] == "synthetic"
     assert summary["raw_prompts_emitted"] is False
@@ -80,39 +80,39 @@ def test_fake_model_call_validation_does_not_emit_raw_inputs_or_outputs() -> Non
     assert "raw provider responses" in summary["notes"][-1]
 
 
-def test_fake_model_call_validation_requires_no_provider_environment(
+def test_model_call_counter_fixture_requires_no_provider_environment(
     monkeypatch,
 ) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     module = _load_example_module()
 
-    summary = module.build_fake_model_call_validation_summary(offline=True)
+    summary = module.build_model_call_counter_fixture_summary(offline=True)
 
     assert summary["ok"] is True
     assert "OPENAI_API_KEY" not in os.environ
     assert "ANTHROPIC_API_KEY" not in os.environ
 
 
-def test_fake_model_call_validation_rejects_non_offline_mode() -> None:
+def test_model_call_counter_fixture_rejects_non_offline_mode() -> None:
     module = _load_example_module()
 
     try:
-        module.build_fake_model_call_validation_summary(offline=False)
+        module.build_model_call_counter_fixture_summary(offline=False)
     except ValueError as exc:
         assert "--offline only" in str(exc)
     else:
         raise AssertionError("expected offline-only guard")
 
 
-def test_fake_model_call_validation_cli_runs() -> None:
+def test_model_call_counter_fixture_cli_runs() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
         ],
@@ -127,14 +127,14 @@ def test_fake_model_call_validation_cli_runs() -> None:
     assert '"kora_model_calls": 4' in completed.stdout
 
 
-def test_fake_model_call_validation_cli_explicit_local_validation_runs() -> None:
+def test_model_call_counter_fixture_cli_explicit_local_validation_runs() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--adapter",
@@ -151,14 +151,14 @@ def test_fake_model_call_validation_cli_explicit_local_validation_runs() -> None
     assert '"kora_model_calls": 4' in completed.stdout
 
 
-def test_fake_model_call_validation_cli_explicit_local_runtime_runs() -> None:
+def test_model_call_counter_fixture_cli_explicit_local_runtime_runs() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--adapter",
@@ -176,7 +176,7 @@ def test_fake_model_call_validation_cli_explicit_local_runtime_runs() -> None:
     assert '"kora_model_calls": 4' in completed.stdout
 
 
-def test_fake_model_call_validation_blocked_adapter_fails_closed(tmp_path: Path) -> None:
+def test_model_call_counter_fixture_blocked_adapter_fails_closed(tmp_path: Path) -> None:
     report_path = tmp_path / "blocked.md"
 
     completed = subprocess.run(
@@ -185,7 +185,7 @@ def test_fake_model_call_validation_blocked_adapter_fails_closed(tmp_path: Path)
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--adapter",
@@ -204,7 +204,7 @@ def test_fake_model_call_validation_blocked_adapter_fails_closed(tmp_path: Path)
     assert not report_path.exists()
 
 
-def test_fake_model_call_validation_local_runtime_placeholder_fails_closed(
+def test_model_call_counter_fixture_local_runtime_placeholder_fails_closed(
     tmp_path: Path,
 ) -> None:
     report_path = tmp_path / "placeholder.md"
@@ -215,7 +215,7 @@ def test_fake_model_call_validation_local_runtime_placeholder_fails_closed(
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--adapter",
@@ -235,14 +235,14 @@ def test_fake_model_call_validation_local_runtime_placeholder_fails_closed(
     assert not report_path.exists()
 
 
-def test_fake_model_call_validation_unknown_adapter_lists_available_kinds() -> None:
+def test_model_call_counter_fixture_unknown_adapter_lists_available_kinds() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--adapter",
@@ -261,14 +261,14 @@ def test_fake_model_call_validation_unknown_adapter_lists_available_kinds() -> N
     assert "local_runtime_placeholder" in completed.stderr
 
 
-def test_fake_model_call_validation_help_lists_available_adapter_kinds() -> None:
+def test_model_call_counter_fixture_help_lists_available_adapter_kinds() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--help",
         ],

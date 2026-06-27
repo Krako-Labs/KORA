@@ -54,7 +54,7 @@ def _summary() -> dict[str, object]:
             "contains_secret_material": False,
             "notes": ["Synthetic metadata only."],
         },
-        "command": "python3 -m kora run customer_support_triage_fake_validation -- --offline",
+        "command": "python3 -m kora run customer_support_triage_synthetic -- --offline",
         "notes": ["Synthetic workload only."],
     }
 
@@ -144,7 +144,7 @@ def test_customer_support_example_writes_markdown_report(tmp_path: Path) -> None
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--report-md",
@@ -178,7 +178,7 @@ def test_real_model_call_example_writes_markdown_report(tmp_path: Path) -> None:
             "-m",
             "kora",
             "run",
-            "real_model_call_validation_fake",
+            "model_call_counter_fixture",
             "--",
             "--offline",
             "--report-md",

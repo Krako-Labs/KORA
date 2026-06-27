@@ -8,9 +8,9 @@ def test_local_validation_reviewer_packet_exists_and_has_report_commands() -> No
     content = PACKET_PATH.read_text(encoding="utf-8")
 
     assert "# Local No-Network Validation Reviewer Packet" in content
-    assert "python3 -m kora run real_model_call_validation_fake -- --offline --report-md" in content
+    assert "python3 -m kora run model_call_counter_fixture -- --offline --report-md" in content
     assert (
-        "python3 -m kora run customer_support_triage_fake_validation -- --offline --report-md"
+        "python3 -m kora run customer_support_triage_synthetic -- --offline --report-md"
         in content
     )
 

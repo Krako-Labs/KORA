@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from kora.model_call import (
-    DeterministicFakeModelCallAdapter,
+    DeterministicStubModelCallAdapter,
     DeterministicLocalRuntimeModelCallAdapter,
     LOCAL_VALIDATION_ADAPTER,
     ModelCallRequest,
@@ -59,7 +59,7 @@ def _select_validation_adapter(kind: str) -> ModelCallAdapter:
         )
     if not isinstance(
         adapter,
-        (DeterministicFakeModelCallAdapter, DeterministicLocalRuntimeModelCallAdapter),
+        (DeterministicStubModelCallAdapter, DeterministicLocalRuntimeModelCallAdapter),
     ):
         supported = ", ".join(available_model_call_adapters())
         raise ValueError(f"Unsupported validation adapter {kind!r}. Supported: {supported}")
@@ -197,14 +197,14 @@ def _provider_fixture_contract_fields(
     return validate_provider_fixture(fixture).report_fields()
 
 
-def build_customer_support_triage_fake_validation_summary(
+def build_customer_support_triage_synthetic_summary(
     *,
     offline: bool = True,
     adapter_kind: str = LOCAL_VALIDATION_ADAPTER,
     workload_path: Path = DEFAULT_WORKLOAD,
 ) -> dict[str, Any]:
     if not offline:
-        raise ValueError("customer_support_triage_fake_validation supports --offline only")
+        raise ValueError("customer_support_triage_synthetic supports --offline only")
 
     workload = load_workload(workload_path)
     requests = _requests(workload)
@@ -277,7 +277,7 @@ def build_customer_support_triage_fake_validation_summary(
             avoided_model_call_events=avoided_model_calls,
         ),
         "command": (
-            "python3 -m kora run customer_support_triage_fake_validation -- "
+            "python3 -m kora run customer_support_triage_synthetic -- "
             f"--offline --adapter {adapter_kind}"
         ),
         "claim_boundary": CLAIM_BOUNDARY,
@@ -318,10 +318,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if not args.offline:
-        raise SystemExit("customer_support_triage_fake_validation requires --offline.")
+        raise SystemExit("customer_support_triage_synthetic requires --offline.")
 
     try:
-        summary = build_customer_support_triage_fake_validation_summary(
+        summary = build_customer_support_triage_synthetic_summary(
             offline=True,
             adapter_kind=args.adapter,
             workload_path=Path(args.workload),

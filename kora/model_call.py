@@ -69,7 +69,7 @@ class ModelCallAdapter(Protocol):
         """Execute one model-call request and return measured counters."""
 
 
-class DeterministicFakeModelCallAdapter:
+class DeterministicStubModelCallAdapter:
     """Local no-network adapter for deterministic validation tests."""
 
     provider = LOCAL_VALIDATION_ADAPTER
@@ -77,7 +77,7 @@ class DeterministicFakeModelCallAdapter:
 
     def call(self, request: ModelCallRequest) -> ModelCallResponse:
         start = time.perf_counter()
-        output = f"fake:{request.request_id}:{request.prompt.strip()[:80]}"
+        output = f"stub:{request.request_id}:{request.prompt.strip()[:80]}"
         latency_ms = (time.perf_counter() - start) * 1000.0
         return ModelCallResponse(
             request_id=request.request_id,
@@ -177,7 +177,7 @@ def select_model_call_adapter(kind: str | None = None) -> ModelCallAdapter:
 
     selected_kind = kind or LOCAL_VALIDATION_ADAPTER
     if selected_kind == LOCAL_VALIDATION_ADAPTER:
-        return DeterministicFakeModelCallAdapter()
+        return DeterministicStubModelCallAdapter()
     if selected_kind == LOCAL_RUNTIME_ADAPTER:
         return DeterministicLocalRuntimeModelCallAdapter()
     if selected_kind == BLOCKED_ADAPTER:
