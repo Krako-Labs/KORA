@@ -6,7 +6,7 @@ from kora.model_call import (
     BLOCKED_ADAPTER,
     BlockedLocalRuntimeModelCallAdapter,
     BlockedModelCallAdapter,
-    DeterministicFakeModelCallAdapter,
+    DeterministicStubModelCallAdapter,
     DeterministicLocalRuntimeModelCallAdapter,
     LOCAL_RUNTIME_ADAPTER,
     LOCAL_RUNTIME_PLACEHOLDER_ADAPTER,
@@ -19,8 +19,8 @@ from kora.model_call import (
 )
 
 
-def test_fake_adapter_returns_deterministic_response() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+def test_stub_adapter_returns_deterministic_response() -> None:
+    adapter = DeterministicStubModelCallAdapter()
     request = ModelCallRequest(request_id="req-1", prompt="Classify this request")
 
     first = adapter.call(request)
@@ -28,11 +28,11 @@ def test_fake_adapter_returns_deterministic_response() -> None:
 
     assert first.output == second.output
     assert first.request_id == "req-1"
-    assert first.output == "fake:req-1:Classify this request"
+    assert first.output == "stub:req-1:Classify this request"
 
 
-def test_fake_adapter_records_one_model_call_per_call() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+def test_stub_adapter_records_one_model_call_per_call() -> None:
+    adapter = DeterministicStubModelCallAdapter()
 
     response = adapter.call(ModelCallRequest(request_id="req-2", prompt="Hello"))
 
@@ -41,8 +41,8 @@ def test_fake_adapter_records_one_model_call_per_call() -> None:
     assert response.latency_ms >= 0
 
 
-def test_fake_adapter_token_estimates_are_stable() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+def test_stub_adapter_token_estimates_are_stable() -> None:
+    adapter = DeterministicStubModelCallAdapter()
     request = ModelCallRequest(request_id="req-3", prompt="one two three")
 
     response = adapter.call(request)
@@ -51,8 +51,8 @@ def test_fake_adapter_token_estimates_are_stable() -> None:
     assert response.output_tokens == 3
 
 
-def test_fake_adapter_provider_model_and_metadata_are_local_safe() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+def test_stub_adapter_provider_model_and_metadata_are_local_safe() -> None:
+    adapter = DeterministicStubModelCallAdapter()
     request = ModelCallRequest(
         request_id="req-4",
         prompt="safe synthetic prompt",
@@ -68,11 +68,11 @@ def test_fake_adapter_provider_model_and_metadata_are_local_safe() -> None:
     assert response.metadata["deterministic"] is True
 
 
-def test_fake_adapter_requires_no_secrets_or_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_stub_adapter_requires_no_secrets_or_environment(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
 
-    response = DeterministicFakeModelCallAdapter().call(
+    response = DeterministicStubModelCallAdapter().call(
         ModelCallRequest(request_id="req-5", prompt="local only")
     )
 
@@ -121,7 +121,7 @@ def test_local_runtime_adapter_requires_no_secrets_or_environment(
 
 
 def test_model_call_summary_aggregates_counters() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+    adapter = DeterministicStubModelCallAdapter()
     responses = [
         adapter.call(ModelCallRequest(request_id="req-6", prompt="alpha beta")),
         adapter.call(ModelCallRequest(request_id="req-7", prompt="gamma")),
@@ -138,7 +138,7 @@ def test_model_call_summary_aggregates_counters() -> None:
 
 
 def test_model_call_summary_preserves_unknown_token_totals() -> None:
-    adapter = DeterministicFakeModelCallAdapter()
+    adapter = DeterministicStubModelCallAdapter()
     response = adapter.call(ModelCallRequest(request_id="req-8", prompt="known"))
     response_without_tokens = type(response)(
         request_id=response.request_id,
@@ -220,13 +220,13 @@ def test_blocked_local_runtime_adapter_accepts_inert_config() -> None:
 def test_select_model_call_adapter_defaults_to_local_validation() -> None:
     adapter = select_model_call_adapter()
 
-    assert isinstance(adapter, DeterministicFakeModelCallAdapter)
+    assert isinstance(adapter, DeterministicStubModelCallAdapter)
 
 
 def test_select_model_call_adapter_returns_local_validation_adapter() -> None:
     adapter = select_model_call_adapter(LOCAL_VALIDATION_ADAPTER)
 
-    assert isinstance(adapter, DeterministicFakeModelCallAdapter)
+    assert isinstance(adapter, DeterministicStubModelCallAdapter)
     response = adapter.call(ModelCallRequest(request_id="req-10", prompt="local validation"))
     assert response.provider == "local_validation"
     assert response.model == "deterministic-local"

@@ -6,19 +6,19 @@ from pathlib import Path
 
 
 def _load_example_module():
-    script_path = Path("examples/customer_support_triage_fake_validation/run.py")
+    script_path = Path("examples/customer_support_triage_synthetic/run.py")
     spec = importlib.util.spec_from_file_location(
-        "customer_support_triage_fake_validation_run", script_path
+        "customer_support_triage_synthetic_run", script_path
     )
     if spec is None or spec.loader is None:
-        raise RuntimeError("failed to load customer_support_triage_fake_validation module")
+        raise RuntimeError("failed to load customer_support_triage_synthetic module")
     module = importlib.util.module_from_spec(spec)
     sys.modules[str(spec.name)] = module
     spec.loader.exec_module(module)
     return module
 
 
-def test_customer_support_triage_fake_validation_loads_workload() -> None:
+def test_customer_support_triage_synthetic_loads_workload() -> None:
     module = _load_example_module()
 
     workload = module.load_workload()
@@ -28,10 +28,10 @@ def test_customer_support_triage_fake_validation_loads_workload() -> None:
     assert len(workload["requests"]) == 12
 
 
-def test_customer_support_triage_fake_validation_summary_counts() -> None:
+def test_customer_support_triage_synthetic_summary_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_customer_support_triage_fake_validation_summary(offline=True)
+    summary = module.build_customer_support_triage_synthetic_summary(offline=True)
 
     assert summary["ok"] is True
     assert summary["mode"] == "customer_support_triage_local_validation"
@@ -52,10 +52,10 @@ def test_customer_support_triage_fake_validation_summary_counts() -> None:
     assert summary["fallback_count"] == 0
 
 
-def test_customer_support_triage_fake_validation_explicit_local_validation_counts() -> None:
+def test_customer_support_triage_synthetic_explicit_local_validation_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_customer_support_triage_fake_validation_summary(
+    summary = module.build_customer_support_triage_synthetic_summary(
         offline=True,
         adapter_kind="local_validation",
     )
@@ -67,10 +67,10 @@ def test_customer_support_triage_fake_validation_explicit_local_validation_count
     assert summary["avoided_model_calls"] == 8
 
 
-def test_customer_support_triage_fake_validation_explicit_local_runtime_counts() -> None:
+def test_customer_support_triage_synthetic_explicit_local_runtime_counts() -> None:
     module = _load_example_module()
 
-    summary = module.build_customer_support_triage_fake_validation_summary(
+    summary = module.build_customer_support_triage_synthetic_summary(
         offline=True,
         adapter_kind="local_runtime",
     )
@@ -83,49 +83,49 @@ def test_customer_support_triage_fake_validation_explicit_local_runtime_counts()
     assert summary["validation_pass_count"] == 12
 
 
-def test_customer_support_triage_fake_validation_requires_no_provider_environment(
+def test_customer_support_triage_synthetic_requires_no_provider_environment(
     monkeypatch,
 ) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     module = _load_example_module()
 
-    summary = module.build_customer_support_triage_fake_validation_summary(offline=True)
+    summary = module.build_customer_support_triage_synthetic_summary(offline=True)
 
     assert summary["ok"] is True
     assert "OPENAI_API_KEY" not in os.environ
     assert "ANTHROPIC_API_KEY" not in os.environ
 
 
-def test_customer_support_triage_fake_validation_does_not_emit_raw_inputs_or_outputs() -> None:
+def test_customer_support_triage_synthetic_does_not_emit_raw_inputs_or_outputs() -> None:
     module = _load_example_module()
 
-    summary = module.build_customer_support_triage_fake_validation_summary(offline=True)
+    summary = module.build_customer_support_triage_synthetic_summary(offline=True)
 
     assert summary["raw_prompts_emitted"] is False
     assert summary["raw_responses_emitted"] is False
     assert "raw provider responses" in summary["notes"][-1]
 
 
-def test_customer_support_triage_fake_validation_rejects_non_offline_mode() -> None:
+def test_customer_support_triage_synthetic_rejects_non_offline_mode() -> None:
     module = _load_example_module()
 
     try:
-        module.build_customer_support_triage_fake_validation_summary(offline=False)
+        module.build_customer_support_triage_synthetic_summary(offline=False)
     except ValueError as exc:
         assert "--offline only" in str(exc)
     else:
         raise AssertionError("expected offline-only guard")
 
 
-def test_customer_support_triage_fake_validation_cli_runs() -> None:
+def test_customer_support_triage_synthetic_cli_runs() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
         ],
@@ -140,14 +140,14 @@ def test_customer_support_triage_fake_validation_cli_runs() -> None:
     assert '"kora_model_calls": 4' in completed.stdout
 
 
-def test_customer_support_triage_fake_validation_cli_explicit_local_validation_runs() -> None:
+def test_customer_support_triage_synthetic_cli_explicit_local_validation_runs() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -164,7 +164,7 @@ def test_customer_support_triage_fake_validation_cli_explicit_local_validation_r
     assert '"kora_model_calls": 4' in completed.stdout
 
 
-def test_customer_support_triage_fake_validation_report_with_explicit_adapter(
+def test_customer_support_triage_synthetic_report_with_explicit_adapter(
     tmp_path: Path,
 ) -> None:
     report_path = tmp_path / "customer_support_validation.md"
@@ -175,7 +175,7 @@ def test_customer_support_triage_fake_validation_report_with_explicit_adapter(
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -209,7 +209,7 @@ def test_customer_support_triage_fake_validation_report_with_explicit_adapter(
     assert "production cost reduction proof." not in report
 
 
-def test_customer_support_triage_fake_validation_report_with_local_runtime_adapter(
+def test_customer_support_triage_synthetic_report_with_local_runtime_adapter(
     tmp_path: Path,
 ) -> None:
     report_path = tmp_path / "customer_support_local_runtime.md"
@@ -220,7 +220,7 @@ def test_customer_support_triage_fake_validation_report_with_local_runtime_adapt
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -257,7 +257,7 @@ def test_customer_support_triage_report_fixture_validation_failure_fails_closed(
     monkeypatch.setattr(module, "validate_provider_fixture", fail_validation)
 
     try:
-        module.build_customer_support_triage_fake_validation_summary(
+        module.build_customer_support_triage_synthetic_summary(
             offline=True,
             adapter_kind="local_runtime",
         )
@@ -267,7 +267,7 @@ def test_customer_support_triage_report_fixture_validation_failure_fails_closed(
         raise AssertionError("expected fixture validation failure")
 
 
-def test_customer_support_triage_fake_validation_blocked_adapter_fails_closed(
+def test_customer_support_triage_synthetic_blocked_adapter_fails_closed(
     tmp_path: Path,
 ) -> None:
     report_path = tmp_path / "blocked.md"
@@ -278,7 +278,7 @@ def test_customer_support_triage_fake_validation_blocked_adapter_fails_closed(
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -297,7 +297,7 @@ def test_customer_support_triage_fake_validation_blocked_adapter_fails_closed(
     assert not report_path.exists()
 
 
-def test_customer_support_triage_fake_validation_local_runtime_placeholder_fails_closed(
+def test_customer_support_triage_synthetic_local_runtime_placeholder_fails_closed(
     tmp_path: Path,
 ) -> None:
     report_path = tmp_path / "placeholder.md"
@@ -308,7 +308,7 @@ def test_customer_support_triage_fake_validation_local_runtime_placeholder_fails
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -328,14 +328,14 @@ def test_customer_support_triage_fake_validation_local_runtime_placeholder_fails
     assert not report_path.exists()
 
 
-def test_customer_support_triage_fake_validation_unknown_adapter_lists_available_kinds() -> None:
+def test_customer_support_triage_synthetic_unknown_adapter_lists_available_kinds() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--offline",
             "--adapter",
@@ -354,14 +354,14 @@ def test_customer_support_triage_fake_validation_unknown_adapter_lists_available
     assert "local_runtime_placeholder" in completed.stderr
 
 
-def test_customer_support_triage_fake_validation_help_lists_available_adapter_kinds() -> None:
+def test_customer_support_triage_synthetic_help_lists_available_adapter_kinds() -> None:
     completed = subprocess.run(
         [
             sys.executable,
             "-m",
             "kora",
             "run",
-            "customer_support_triage_fake_validation",
+            "customer_support_triage_synthetic",
             "--",
             "--help",
         ],

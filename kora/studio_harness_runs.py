@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 from uuid import uuid4
 
@@ -112,7 +112,7 @@ def trigger_local_harness_run(request_id: str) -> dict[str, Any]:
     if selected_request is None:
         raise ValueError(f"Unknown approved local harness request id: {request_id}")
 
-    created_at = datetime.now(UTC).isoformat().replace("+00:00", "Z")
+    created_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     run_id = f"local-harness-trigger-{uuid4().hex}"
     harness_run = build_local_harness_events(selected_request, run_id=run_id)
     comparison = build_local_harness_comparison(selected_request)
@@ -124,7 +124,7 @@ def trigger_local_harness_run(request_id: str) -> dict[str, Any]:
     generated_counters = deepcopy(harness_run["counters_snapshot"])
     model_needed = bool(selected_request["expected_model_needed"])
     model_execution_status = "execution_not_connected" if model_needed else "not_needed"
-    completed_at = datetime.now(UTC).isoformat().replace("+00:00", "Z")
+    completed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     event_count = len(generated_events)
     comparison_status = str(comparison["comparison_status"])
     report_metadata_summary = _report_metadata_summary(

@@ -48,8 +48,8 @@ This mode is useful for testing KORA's routing, counters, reports, and validatio
 python3 -m kora --help
 python3 -m kora examples list
 
-python3 -m kora run real_model_call_validation_fake -- --offline
-python3 -m kora run customer_support_triage_fake_validation -- --offline
+python3 -m kora run model_call_counter_fixture -- --offline
+python3 -m kora run customer_support_triage_synthetic -- --offline
 ```
 
 ## No-Network Baseline Checklist
@@ -64,12 +64,12 @@ python3 -m kora examples list
 python3 -m kora run direct_vs_kora -- --offline
 python3 -m kora run runtime_integrated_benchmark -- --offline
 
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter local_validation
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_validation
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter local_runtime
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_runtime
+python3 -m kora run model_call_counter_fixture -- --offline --adapter local_validation
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_validation
+python3 -m kora run model_call_counter_fixture -- --offline --adapter local_runtime
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_runtime
 
-python3 -m kora run customer_support_triage_fake_validation -- --offline --report-md /tmp/kora_customer_support_validation.md
+python3 -m kora run customer_support_triage_synthetic -- --offline --report-md /tmp/kora_customer_support_validation.md
 ```
 
 Observed local/no-network baseline examples from the current reviewer pass:
@@ -78,17 +78,17 @@ Observed local/no-network baseline examples from the current reviewer pass:
 |---|---:|
 | `direct_vs_kora --offline` | direct calls `2`, KORA calls `1` |
 | `runtime_integrated_benchmark --offline` | avoided simulated invocations `80/100` |
-| `real_model_call_validation_fake --offline --adapter local_validation` | baseline `10`, KORA `4`, avoided `6` |
-| `customer_support_triage_fake_validation --offline --adapter local_validation` | baseline `12`, KORA `4`, avoided `8` |
+| `model_call_counter_fixture --offline --adapter local_validation` | baseline `10`, KORA `4`, avoided `6` |
+| `customer_support_triage_synthetic --offline --adapter local_validation` | baseline `12`, KORA `4`, avoided `8` |
 
 ## Generate Reviewer Reports
 
 ```bash
-python3 -m kora run real_model_call_validation_fake -- --offline --report-md /tmp/kora_local_validation.md
+python3 -m kora run model_call_counter_fixture -- --offline --report-md /tmp/kora_local_validation.md
 
-python3 -m kora run customer_support_triage_fake_validation -- --offline --report-md /tmp/kora_customer_support_validation.md
+python3 -m kora run customer_support_triage_synthetic -- --offline --report-md /tmp/kora_customer_support_validation.md
 
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_runtime --report-md /tmp/kora_customer_support_local_runtime.md
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_runtime --report-md /tmp/kora_customer_support_local_runtime.md
 ```
 
 Reports are written only when `--report-md` is provided. Use `/tmp` or another local output path for generated artifacts unless a report is intentionally selected for review.
@@ -123,15 +123,15 @@ If fixture validation fails, report generation must stop rather than writing a m
 The local validation examples default to the `local_validation` adapter.
 
 ```bash
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter local_validation
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_validation
+python3 -m kora run model_call_counter_fixture -- --offline --adapter local_validation
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_validation
 ```
 
 The `local_runtime` adapter is an explicit opt-in local/no-network runtime stub. It uses deterministic in-process behavior, records the same aggregate counter shape as `local_validation`, and does not call local HTTP endpoints, subprocess runtimes, remote providers, provider APIs, or external model downloads.
 
 ```bash
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter local_runtime
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_runtime
+python3 -m kora run model_call_counter_fixture -- --offline --adapter local_runtime
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_runtime
 ```
 
 The `blocked` and `local_runtime_placeholder` adapter kinds are fail-closed safety paths. `blocked` represents an unconfigured model-call path. `local_runtime_placeholder` is design-only, makes no runtime calls, and does not contact local HTTP endpoints, subprocess runtimes, remote providers, or provider APIs.
@@ -139,17 +139,17 @@ The `blocked` and `local_runtime_placeholder` adapter kinds are fail-closed safe
 Fail-closed checks:
 
 ```bash
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter blocked
-python3 -m kora run real_model_call_validation_fake -- --offline --adapter local_runtime_placeholder
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter blocked
-python3 -m kora run customer_support_triage_fake_validation -- --offline --adapter local_runtime_placeholder
+python3 -m kora run model_call_counter_fixture -- --offline --adapter blocked
+python3 -m kora run model_call_counter_fixture -- --offline --adapter local_runtime_placeholder
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter blocked
+python3 -m kora run customer_support_triage_synthetic -- --offline --adapter local_runtime_placeholder
 ```
 
 These commands are expected to exit non-zero. The `local_runtime_placeholder` path reports that no provider call was attempted. Reviewers should treat this as a safety check, not as a validation failure.
 
 ## Expected Generic Local Validation Counters
 
-For `real_model_call_validation_fake`, expected counters are:
+For `model_call_counter_fixture`, expected counters are:
 
 | Counter | Expected value |
 |---|---:|
@@ -173,7 +173,7 @@ With explicit `--adapter local_runtime`, the expected counters are the same and 
 
 ## Expected Customer-Support Triage Counters
 
-For `customer_support_triage_fake_validation`, expected counters are:
+For `customer_support_triage_synthetic`, expected counters are:
 
 | Counter | Expected value |
 |---|---:|
