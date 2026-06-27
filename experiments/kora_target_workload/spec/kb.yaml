@@ -1,0 +1,156 @@
+# Knowledge Base — TRUTH SOURCE (FREEZE BEFORE TEST GENERATION)
+#
+# 15 fixed facts for a fictional online store "Northwind Goods". These are the
+# canonical answers for the FAQ-lookup category. Both sides derive from here:
+#   - generate.py writes FAQ test cases as PARAPHRASES of `canonical_question`
+#     and uses `answer_key` as the gradeable ground truth (never hand-typed per
+#     case).
+#   - kora/handlers.py matches an incoming query against `match.all_of` /
+#     `match.any_of` (minus `match.none_of`) keyword signals and returns `answer`
+#     on a confident match; otherwise it ABSTAINS (-> LLM escalate).
+#
+# GRADING: `answer_key` is the list of lowercased substrings a correct answer
+# MUST all contain. It is the distinctive value(s) of `answer`, taken from the
+# fact's MEANING (Safety Guard #3) — not from the generated paraphrases and not
+# from any model output. KORA's deterministic reply is `answer` verbatim, so it
+# contains its own key by construction; the LLM arm is graded by the same key.
+#
+# IMPORTANT (Safety Guard #3): match keywords are chosen from the *meaning of the
+# fact*, NOT by looking at the generated paraphrases. Some paraphrases may not
+# match -> KORA abstains and escalates -> that case is still scored (and exposed
+# in the routing-quality report). Do not patch keywords to chase paraphrases.
+#
+# FREEZE RULE (Safety Guard #1): after the blind run starts, facts, answers,
+# answer_keys, and match signals are frozen; unavoidable changes go to
+# results/RULE_CHANGES.log.
+
+store_name: Northwind Goods
+
+facts:
+  - id: weekday_hours
+    canonical_question: "What are your weekday opening hours?"
+    answer: "Our stores are open Monday to Friday, 9:00 AM to 6:00 PM."
+    answer_key: ["monday", "friday"]
+    match:
+      all_of: [["hour", "hours", "open", "opening", "close", "closing", "time"]]
+      any_of: [["weekday", "weekdays", "monday", "friday", "during the week"]]
+
+  - id: weekend_hours
+    canonical_question: "What are your weekend opening hours?"
+    answer: "On weekends we are open Saturday 10:00 AM to 4:00 PM and closed on Sunday."
+    answer_key: ["saturday"]
+    match:
+      all_of: [["hour", "hours", "open", "opening", "close", "closing", "time"]]
+      any_of: [["weekend", "saturday", "sunday"]]
+
+  - id: refund_window
+    canonical_question: "How long do I have to request a refund?"
+    answer: "You can request a refund within 30 days of delivery."
+    answer_key: ["30"]
+    match:
+      all_of: [["refund", "return", "money back"]]
+      any_of: [["how long", "window", "days", "period", "deadline", "time limit"]]
+
+  - id: shipping_fee
+    canonical_question: "How much is shipping?"
+    answer: "Standard shipping is a flat $5, and free on orders over $50."
+    answer_key: ["5", "50"]
+    match:
+      all_of: [["shipping", "delivery", "postage"]]
+      any_of: [["fee", "cost", "price", "how much", "charge", "free"]]
+
+  - id: shipping_time_domestic
+    canonical_question: "How long does domestic delivery take?"
+    answer: "Domestic orders arrive in 3 to 5 business days."
+    answer_key: ["3", "5"]
+    # NOTE (design refinement, pre-freeze): a domestic-delivery-time fact requires
+    # a POSITIVE domestic marker, symmetric with international requiring an
+    # international marker. A bare "how long does delivery take?" therefore matches
+    # neither fact (ambiguous) and the dispatcher abstains, rather than defaulting
+    # to domestic. Derived from the fact's meaning, not from any test case.
+    match:
+      all_of:
+        - ["shipping", "delivery", "arrive", "ship"]
+        - ["domestic", "local", "within the country", "in-country", "domestically", "locally"]
+      any_of: [["how long", "days", "time", "fast", "when", "how many"]]
+      none_of: [["international", "overseas", "abroad"]]
+
+  - id: shipping_time_international
+    canonical_question: "How long does international delivery take?"
+    answer: "International orders arrive in 10 to 14 business days."
+    answer_key: ["10", "14"]
+    match:
+      all_of: [["shipping", "delivery", "arrive", "ship"]]
+      any_of: [["international", "overseas", "abroad"]]
+
+  - id: support_email
+    canonical_question: "What is your support email address?"
+    answer: "You can reach support at support@northwindgoods.example."
+    answer_key: ["support@northwindgoods.example"]
+    match:
+      all_of: [["email", "e-mail", "address"]]
+      any_of: [["support", "contact", "help", "reach"]]
+
+  - id: support_phone
+    canonical_question: "What is your support phone number?"
+    answer: "Our support line is +1-800-555-0100."
+    answer_key: ["555-0100"]
+    match:
+      all_of: [["phone", "call", "telephone", "number"]]
+      any_of: [["support", "contact", "help", "reach", "customer service"]]
+
+  - id: payment_methods
+    canonical_question: "Which payment methods do you accept?"
+    answer: "We accept Visa, Mastercard, American Express, and PayPal."
+    answer_key: ["visa", "paypal"]
+    match:
+      all_of: [["pay", "payment", "card", "checkout"]]
+      any_of: [["method", "methods", "accept", "options", "way", "how"]]
+
+  - id: warranty_period
+    canonical_question: "How long is the warranty on electronics?"
+    answer: "Electronics carry a 12-month manufacturer warranty."
+    answer_key: ["12"]
+    match:
+      all_of: [["warranty", "guarantee"]]
+      any_of: [["how long", "period", "electronics", "months", "year", "cover"]]
+
+  - id: loyalty_program
+    canonical_question: "How does your loyalty program work?"
+    answer: "You earn 1 point per $1 spent, and 100 points equals a $5 reward."
+    answer_key: ["100"]
+    match:
+      all_of: [["loyalty", "points", "rewards", "reward"]]
+      any_of: [["program", "earn", "work", "how", "point"]]
+
+  - id: password_reset
+    canonical_question: "How do I reset my password?"
+    answer: "Reset your password under Account > Security > Reset Password."
+    answer_key: ["security"]
+    match:
+      all_of: [["password"]]
+      any_of: [["reset", "forgot", "change", "recover", "can't log", "cannot log"]]
+
+  - id: order_tracking
+    canonical_question: "How do I track my order?"
+    answer: "Track your order under Account > Orders > Track Shipment."
+    answer_key: ["orders"]
+    match:
+      all_of: [["track", "tracking", "where is"]]
+      any_of: [["order", "package", "shipment", "parcel"]]
+
+  - id: gift_card_expiry
+    canonical_question: "Do gift cards expire?"
+    answer: "Gift cards never expire."
+    answer_key: ["never"]
+    match:
+      all_of: [["gift card", "gift cards", "giftcard"]]
+      any_of: [["expire", "expiry", "expiration", "valid", "how long"]]
+
+  - id: return_address
+    canonical_question: "Where do I send returns?"
+    answer: "Send returns to: Northwind Returns, 500 Commerce Way, Columbus, OH 43215."
+    answer_key: ["columbus"]
+    match:
+      all_of: [["return", "returns", "send back"]]
+      any_of: [["where", "address", "ship to", "send to", "location", "mail"]]

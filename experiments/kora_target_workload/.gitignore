@@ -1,0 +1,20 @@
+# Local-only: strategy notes (Korean), backups, caches, logs
+notes/
+*.bak_*
+__pycache__/
+kora/__pycache__/
+*.log
+nohup_full.out
+
+# Intermediate artifacts from single-model (Qwen) dev runs — not part of
+# the published 5-model benchmark. Kept locally, excluded from the repo.
+results/plumbing.json
+results/run_full.json
+results/run_smoke.json
+results/run_smoke_substring_blind.json
+results/smoke_sonnet46.json
+results/smoke_judge_test.json
+results/RULE_CHANGES.log
+
+# Bedrock 5-model results, routing_only, SUMMARY, and REPORT are intentionally
+# committed below (see what `git add` stages).

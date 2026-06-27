@@ -1,0 +1,2400 @@
+{
+  "profile": "smoke",
+  "seed": 0,
+  "generated_with": {
+    "email_validator": "2.3.0",
+    "phonenumbers": "9.0.33",
+    "python": "3.10.12"
+  },
+  "counts": {
+    "format": 60,
+    "faq": 30,
+    "policy": 40,
+    "reasoning": 20,
+    "trap": 15,
+    "total": 165
+  },
+  "format_balance": {
+    "email": {
+      "valid": 10,
+      "invalid": 10,
+      "pool": 26
+    },
+    "phone": {
+      "valid": 10,
+      "invalid": 10,
+      "pool": 24
+    },
+    "date": {
+      "valid": 10,
+      "invalid": 10,
+      "pool": 22
+    }
+  },
+  "cases": [
+    {
+      "id": "fmt-email-001",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: user@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "user@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-002",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: jane.doe@example.org",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "jane.doe@example.org"
+      }
+    },
+    {
+      "id": "fmt-email-003",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: user+promo@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "user+promo@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-004",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: first.last@sub.example.co.uk",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "first.last@sub.example.co.uk"
+      }
+    },
+    {
+      "id": "fmt-email-005",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: john_doe@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "john_doe@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-006",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: a.b.c@example.io",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "a.b.c@example.io"
+      }
+    },
+    {
+      "id": "fmt-email-007",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: contact@northwind-goods.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "contact@northwind-goods.com"
+      }
+    },
+    {
+      "id": "fmt-email-008",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: sales@mail.example.net",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "sales@mail.example.net"
+      }
+    },
+    {
+      "id": "fmt-email-009",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: r2d2@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "r2d2@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-010",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: hello@example.travel",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "hello@example.travel"
+      }
+    },
+    {
+      "id": "fmt-email-011",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: foo.example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "foo.example.com"
+      }
+    },
+    {
+      "id": "fmt-email-012",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: a@@b.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "a@@b.com"
+      }
+    },
+    {
+      "id": "fmt-email-013",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: .leading@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": ".leading@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-014",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: trailing.@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "trailing.@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-015",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: @nodomain.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "@nodomain.com"
+      }
+    },
+    {
+      "id": "fmt-email-016",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: noatdomain@",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "noatdomain@"
+      }
+    },
+    {
+      "id": "fmt-email-017",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: has space@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "has space@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-018",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: user@exam ple.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "user@exam ple.com"
+      }
+    },
+    {
+      "id": "fmt-email-019",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: user@@@example.com",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "user@@@example.com"
+      }
+    },
+    {
+      "id": "fmt-email-020",
+      "category": "format",
+      "subtype": "email",
+      "text": "Is this a valid email address: plaintext",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "plaintext"
+      }
+    },
+    {
+      "id": "fmt-phone-001",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: (212) 736-5000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "(212) 736-5000"
+      }
+    },
+    {
+      "id": "fmt-phone-002",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +1 212 736 5000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+1 212 736 5000"
+      }
+    },
+    {
+      "id": "fmt-phone-003",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: (415) 362-0788",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "(415) 362-0788"
+      }
+    },
+    {
+      "id": "fmt-phone-004",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +14153620788",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+14153620788"
+      }
+    },
+    {
+      "id": "fmt-phone-005",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +44 20 7183 8750",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+44 20 7183 8750"
+      }
+    },
+    {
+      "id": "fmt-phone-006",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +61 2 9374 4000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+61 2 9374 4000"
+      }
+    },
+    {
+      "id": "fmt-phone-007",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: (202) 456-1111",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "(202) 456-1111"
+      }
+    },
+    {
+      "id": "fmt-phone-008",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +12024561111",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+12024561111"
+      }
+    },
+    {
+      "id": "fmt-phone-009",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: (312) 726-7000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "(312) 726-7000"
+      }
+    },
+    {
+      "id": "fmt-phone-010",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +13127267000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+13127267000"
+      }
+    },
+    {
+      "id": "fmt-phone-011",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: 415-555",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "415-555"
+      }
+    },
+    {
+      "id": "fmt-phone-012",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: 123",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "123"
+      }
+    },
+    {
+      "id": "fmt-phone-013",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +1 415 555 2671 999",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+1 415 555 2671 999"
+      }
+    },
+    {
+      "id": "fmt-phone-014",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: 555-ABCD",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "555-ABCD"
+      }
+    },
+    {
+      "id": "fmt-phone-015",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: (000) 000-0000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "(000) 000-0000"
+      }
+    },
+    {
+      "id": "fmt-phone-016",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +1 000 000 0000",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+1 000 000 0000"
+      }
+    },
+    {
+      "id": "fmt-phone-017",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: abcdefghij",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "abcdefghij"
+      }
+    },
+    {
+      "id": "fmt-phone-018",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: +999 99 999",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "+999 99 999"
+      }
+    },
+    {
+      "id": "fmt-phone-019",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number: 12",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "12"
+      }
+    },
+    {
+      "id": "fmt-phone-020",
+      "category": "format",
+      "subtype": "phone",
+      "text": "Is this a valid phone number:    ",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "   "
+      }
+    },
+    {
+      "id": "fmt-date-001",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-15",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2025-01-15"
+      }
+    },
+    {
+      "id": "fmt-date-002",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-02-29"
+      }
+    },
+    {
+      "id": "fmt-date-003",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2000-02-29",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2000-02-29"
+      }
+    },
+    {
+      "id": "fmt-date-004",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-07-04",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2023-07-04"
+      }
+    },
+    {
+      "id": "fmt-date-005",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2020-12-31",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2020-12-31"
+      }
+    },
+    {
+      "id": "fmt-date-006",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 1999-06-30",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "1999-06-30"
+      }
+    },
+    {
+      "id": "fmt-date-007",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-30",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-04-30"
+      }
+    },
+    {
+      "id": "fmt-date-008",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-02-28",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2022-02-28"
+      }
+    },
+    {
+      "id": "fmt-date-009",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-09",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2025-11-09"
+      }
+    },
+    {
+      "id": "fmt-date-010",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-08-17",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "valid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2021-08-17"
+      }
+    },
+    {
+      "id": "fmt-date-011",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-02-29",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2023-02-29"
+      }
+    },
+    {
+      "id": "fmt-date-012",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 1900-02-29",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "1900-02-29"
+      }
+    },
+    {
+      "id": "fmt-date-013",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-13-01",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-13-01"
+      }
+    },
+    {
+      "id": "fmt-date-014",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-31",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-04-31"
+      }
+    },
+    {
+      "id": "fmt-date-015",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-06-31",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-06-31"
+      }
+    },
+    {
+      "id": "fmt-date-016",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-05-00",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-05-00"
+      }
+    },
+    {
+      "id": "fmt-date-017",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-00-10",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-00-10"
+      }
+    },
+    {
+      "id": "fmt-date-018",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-12-32",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-12-32"
+      }
+    },
+    {
+      "id": "fmt-date-019",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-30",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "2024-02-30"
+      }
+    },
+    {
+      "id": "fmt-date-020",
+      "category": "format",
+      "subtype": "date",
+      "text": "Is this a valid calendar date in YYYY-MM-DD format: 31/12/2024",
+      "payload": null,
+      "gt_kind": "valid_invalid",
+      "ground_truth": "invalid",
+      "should_escalate": false,
+      "meta": {
+        "candidate": "31/12/2024"
+      }
+    },
+    {
+      "id": "faq-001",
+      "category": "faq",
+      "subtype": "weekday_hours",
+      "text": "When are you open during the week?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "monday",
+        "friday"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "weekday_hours",
+        "canonical_answer": "Our stores are open Monday to Friday, 9:00 AM to 6:00 PM."
+      }
+    },
+    {
+      "id": "faq-002",
+      "category": "faq",
+      "subtype": "weekday_hours",
+      "text": "What time do your stores open on weekdays?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "monday",
+        "friday"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "weekday_hours",
+        "canonical_answer": "Our stores are open Monday to Friday, 9:00 AM to 6:00 PM."
+      }
+    },
+    {
+      "id": "faq-003",
+      "category": "faq",
+      "subtype": "weekend_hours",
+      "text": "Are you open on Saturdays, and until when?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "saturday"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "weekend_hours",
+        "canonical_answer": "On weekends we are open Saturday 10:00 AM to 4:00 PM and closed on Sunday."
+      }
+    },
+    {
+      "id": "faq-004",
+      "category": "faq",
+      "subtype": "weekend_hours",
+      "text": "What are your hours over the weekend?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "saturday"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "weekend_hours",
+        "canonical_answer": "On weekends we are open Saturday 10:00 AM to 4:00 PM and closed on Sunday."
+      }
+    },
+    {
+      "id": "faq-005",
+      "category": "faq",
+      "subtype": "refund_window",
+      "text": "How many days do I have to ask for a refund?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "30"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "refund_window",
+        "canonical_answer": "You can request a refund within 30 days of delivery."
+      }
+    },
+    {
+      "id": "faq-006",
+      "category": "faq",
+      "subtype": "refund_window",
+      "text": "What's the time limit on getting my money back?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "30"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "refund_window",
+        "canonical_answer": "You can request a refund within 30 days of delivery."
+      }
+    },
+    {
+      "id": "faq-007",
+      "category": "faq",
+      "subtype": "shipping_fee",
+      "text": "How much do you charge for shipping?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "5",
+        "50"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_fee",
+        "canonical_answer": "Standard shipping is a flat $5, and free on orders over $50."
+      }
+    },
+    {
+      "id": "faq-008",
+      "category": "faq",
+      "subtype": "shipping_fee",
+      "text": "What's the delivery cost on an order?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "5",
+        "50"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_fee",
+        "canonical_answer": "Standard shipping is a flat $5, and free on orders over $50."
+      }
+    },
+    {
+      "id": "faq-009",
+      "category": "faq",
+      "subtype": "shipping_time_domestic",
+      "text": "How many days until my domestic order arrives?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "3",
+        "5"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_time_domestic",
+        "canonical_answer": "Domestic orders arrive in 3 to 5 business days."
+      }
+    },
+    {
+      "id": "faq-010",
+      "category": "faq",
+      "subtype": "shipping_time_domestic",
+      "text": "How fast is delivery within the country?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "3",
+        "5"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_time_domestic",
+        "canonical_answer": "Domestic orders arrive in 3 to 5 business days."
+      }
+    },
+    {
+      "id": "faq-011",
+      "category": "faq",
+      "subtype": "shipping_time_international",
+      "text": "How long does shipping abroad take?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "10",
+        "14"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_time_international",
+        "canonical_answer": "International orders arrive in 10 to 14 business days."
+      }
+    },
+    {
+      "id": "faq-012",
+      "category": "faq",
+      "subtype": "shipping_time_international",
+      "text": "When will an overseas order arrive?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "10",
+        "14"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "shipping_time_international",
+        "canonical_answer": "International orders arrive in 10 to 14 business days."
+      }
+    },
+    {
+      "id": "faq-013",
+      "category": "faq",
+      "subtype": "support_email",
+      "text": "What email address can I use to contact support?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "support@northwindgoods.example"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "support_email",
+        "canonical_answer": "You can reach support at support@northwindgoods.example."
+      }
+    },
+    {
+      "id": "faq-014",
+      "category": "faq",
+      "subtype": "support_email",
+      "text": "Where do I email if I need help?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "support@northwindgoods.example"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "support_email",
+        "canonical_answer": "You can reach support at support@northwindgoods.example."
+      }
+    },
+    {
+      "id": "faq-015",
+      "category": "faq",
+      "subtype": "support_phone",
+      "text": "What number do I call for support?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "555-0100"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "support_phone",
+        "canonical_answer": "Our support line is +1-800-555-0100."
+      }
+    },
+    {
+      "id": "faq-016",
+      "category": "faq",
+      "subtype": "support_phone",
+      "text": "How can I phone customer service?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "555-0100"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "support_phone",
+        "canonical_answer": "Our support line is +1-800-555-0100."
+      }
+    },
+    {
+      "id": "faq-017",
+      "category": "faq",
+      "subtype": "payment_methods",
+      "text": "Which cards do you take at checkout?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "visa",
+        "paypal"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "payment_methods",
+        "canonical_answer": "We accept Visa, Mastercard, American Express, and PayPal."
+      }
+    },
+    {
+      "id": "faq-018",
+      "category": "faq",
+      "subtype": "payment_methods",
+      "text": "What ways can I pay for my order?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "visa",
+        "paypal"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "payment_methods",
+        "canonical_answer": "We accept Visa, Mastercard, American Express, and PayPal."
+      }
+    },
+    {
+      "id": "faq-019",
+      "category": "faq",
+      "subtype": "warranty_period",
+      "text": "How long is the warranty on electronics?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "12"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "warranty_period",
+        "canonical_answer": "Electronics carry a 12-month manufacturer warranty."
+      }
+    },
+    {
+      "id": "faq-020",
+      "category": "faq",
+      "subtype": "warranty_period",
+      "text": "What's the guarantee length on electronic items?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "12"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "warranty_period",
+        "canonical_answer": "Electronics carry a 12-month manufacturer warranty."
+      }
+    },
+    {
+      "id": "faq-021",
+      "category": "faq",
+      "subtype": "loyalty_program",
+      "text": "How do I earn rewards points?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "100"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "loyalty_program",
+        "canonical_answer": "You earn 1 point per $1 spent, and 100 points equals a $5 reward."
+      }
+    },
+    {
+      "id": "faq-022",
+      "category": "faq",
+      "subtype": "loyalty_program",
+      "text": "Can you explain how your loyalty points program works?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "100"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "loyalty_program",
+        "canonical_answer": "You earn 1 point per $1 spent, and 100 points equals a $5 reward."
+      }
+    },
+    {
+      "id": "faq-023",
+      "category": "faq",
+      "subtype": "password_reset",
+      "text": "How can I reset my password?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "security"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "password_reset",
+        "canonical_answer": "Reset your password under Account > Security > Reset Password."
+      }
+    },
+    {
+      "id": "faq-024",
+      "category": "faq",
+      "subtype": "password_reset",
+      "text": "I forgot my password \u2014 how do I change it?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "security"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "password_reset",
+        "canonical_answer": "Reset your password under Account > Security > Reset Password."
+      }
+    },
+    {
+      "id": "faq-025",
+      "category": "faq",
+      "subtype": "order_tracking",
+      "text": "How do I track my order?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "orders"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "order_tracking",
+        "canonical_answer": "Track your order under Account > Orders > Track Shipment."
+      }
+    },
+    {
+      "id": "faq-026",
+      "category": "faq",
+      "subtype": "order_tracking",
+      "text": "Where can I see my shipment's tracking status?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "orders"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "order_tracking",
+        "canonical_answer": "Track your order under Account > Orders > Track Shipment."
+      }
+    },
+    {
+      "id": "faq-027",
+      "category": "faq",
+      "subtype": "gift_card_expiry",
+      "text": "Do your gift cards expire?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "never"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "gift_card_expiry",
+        "canonical_answer": "Gift cards never expire."
+      }
+    },
+    {
+      "id": "faq-028",
+      "category": "faq",
+      "subtype": "gift_card_expiry",
+      "text": "Is there an expiration date on gift cards?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "never"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "gift_card_expiry",
+        "canonical_answer": "Gift cards never expire."
+      }
+    },
+    {
+      "id": "faq-029",
+      "category": "faq",
+      "subtype": "return_address",
+      "text": "Where should I mail my returns?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "columbus"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "return_address",
+        "canonical_answer": "Send returns to: Northwind Returns, 500 Commerce Way, Columbus, OH 43215."
+      }
+    },
+    {
+      "id": "faq-030",
+      "category": "faq",
+      "subtype": "return_address",
+      "text": "What address do I send returned items to?",
+      "payload": null,
+      "gt_kind": "kb_answer",
+      "ground_truth": [
+        "columbus"
+      ],
+      "should_escalate": false,
+      "meta": {
+        "fact_id": "return_address",
+        "canonical_answer": "Send returns to: Northwind Returns, 500 Commerce Way, Columbus, OH 43215."
+      }
+    },
+    {
+      "id": "pol-001",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 10,
+        "item_category": "books",
+        "opened": true
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-002",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 30,
+        "item_category": "clothing",
+        "opened": false
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-003",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 31,
+        "item_category": "clothing",
+        "opened": false
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-004",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 5,
+        "item_category": "electronics",
+        "opened": false
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-005",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 5,
+        "item_category": "electronics",
+        "opened": true
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-006",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 2,
+        "item_category": "food",
+        "opened": false
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-007",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 45,
+        "item_category": "books",
+        "opened": false
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-008",
+      "category": "policy",
+      "subtype": "refund_eligibility",
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 0,
+        "item_category": "other",
+        "opened": true
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "refund_eligibility"
+      }
+    },
+    {
+      "id": "pol-009",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 60,
+        "destination_zone": "domestic",
+        "membership": "none"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-010",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 50,
+        "destination_zone": "domestic",
+        "membership": "none"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-011",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 49.99,
+        "destination_zone": "domestic",
+        "membership": "none"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-012",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 200,
+        "destination_zone": "international",
+        "membership": "plus"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-013",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 10,
+        "destination_zone": "remote",
+        "membership": "plus"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-014",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 80,
+        "destination_zone": "remote",
+        "membership": "none"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-015",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 5,
+        "destination_zone": "domestic",
+        "membership": "plus"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-016",
+      "category": "policy",
+      "subtype": "free_shipping",
+      "text": "Determine whether this order qualifies for free shipping.",
+      "payload": {
+        "order_total": 49.99,
+        "destination_zone": "international",
+        "membership": "none"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "free_shipping"
+      }
+    },
+    {
+      "id": "pol-017",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 3,
+        "prior_orders": 0,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-018",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 14,
+        "prior_orders": 0,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-019",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 15,
+        "prior_orders": 0,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-020",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 5,
+        "prior_orders": 1,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-021",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 5,
+        "prior_orders": 0,
+        "coupon_code": "SAVE20"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-022",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 0,
+        "prior_orders": 0,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-023",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 30,
+        "prior_orders": 2,
+        "coupon_code": "WELCOME10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-024",
+      "category": "policy",
+      "subtype": "welcome_coupon",
+      "text": "Determine whether the WELCOME10 coupon is valid here.",
+      "payload": {
+        "account_age_days": 1,
+        "prior_orders": 0,
+        "coupon_code": "welcome10"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "welcome_coupon"
+      }
+    },
+    {
+      "id": "pol-025",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 6,
+        "product_category": "electronics",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-026",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 12,
+        "product_category": "electronics",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-027",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 13,
+        "product_category": "electronics",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-028",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 24,
+        "product_category": "appliance",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-029",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 25,
+        "product_category": "appliance",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-030",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 6,
+        "product_category": "accessory",
+        "defect_type": "manufacturing"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-031",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 3,
+        "product_category": "electronics",
+        "defect_type": "accidental"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-032",
+      "category": "policy",
+      "subtype": "warranty_claim",
+      "text": "Determine whether this warranty claim is covered.",
+      "payload": {
+        "months_since_purchase": 2,
+        "product_category": "accessory",
+        "defect_type": "wear"
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "warranty_claim"
+      }
+    },
+    {
+      "id": "pol-033",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "defective",
+        "days_since_delivery": 10
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-034",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "defective",
+        "days_since_delivery": 30
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-035",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "defective",
+        "days_since_delivery": 31
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-036",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "wrong_item",
+        "days_since_delivery": 5
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-037",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "changed_mind",
+        "days_since_delivery": 5
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-038",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "changed_mind",
+        "days_since_delivery": 31
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-039",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "wrong_item",
+        "days_since_delivery": 31
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "ineligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "pol-040",
+      "category": "policy",
+      "subtype": "return_label",
+      "text": "Determine free prepaid return-label eligibility.",
+      "payload": {
+        "reason": "defective",
+        "days_since_delivery": 0
+      },
+      "gt_kind": "eligibility",
+      "ground_truth": "eligible",
+      "should_escalate": false,
+      "meta": {
+        "policy_id": "return_label"
+      }
+    },
+    {
+      "id": "rea-001",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "My package arrived but the box was crushed and one item is missing. What should I do?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-002",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I'm deciding between the Plus membership and paying shipping each time. I order about twice a month \u2014 which is better for me?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-003",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "The product I received doesn't look like the photos on your website. Is that something you can help with?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-004",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "Can you help me figure out why my coupon was rejected at checkout yesterday?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-005",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I just moved and I'm worried my order is going to my old address. What are my options?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-006",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "Is it worth upgrading the warranty on a blender I use every single day?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-007",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I had a rude interaction with a delivery driver. Who can I talk to about that?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-008",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "What's the smartest way to return several items that came from different orders?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-009",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I'm not sure whether to return this jacket or exchange it for a different size. What do you recommend?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-010",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "My order has been 'in transit' for two weeks and I'm getting nervous. Any thoughts?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-011",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I bought a gift but the recipient already has one. What's the best path forward?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-012",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "Would the laptop or the tablet be a better fit for a college student on a budget?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-013",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I keep getting charged twice some months and I can't tell why. Can you look into the pattern?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-014",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "Should I wait for a sale or just buy the headphones now before they sell out?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-015",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "The assembly instructions are confusing and I'm stuck halfway. Any guidance?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-016",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I want to cancel part of my order but keep the rest \u2014 is that complicated?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-017",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "My elderly father struggles with your website. Is there an easier way for him to order?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-018",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I'm allergic to certain materials. How do I know which products are safe for me?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-019",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "The color looked different in person and I'm disappointed. What would you suggest?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "rea-020",
+      "category": "reasoning",
+      "subtype": null,
+      "text": "I think a competitor has a better deal. Is there anything you can do for me?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {}
+    },
+    {
+      "id": "trp-001",
+      "category": "trap",
+      "subtype": null,
+      "text": "Why is admin@@corp.com not a valid email?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/email"
+      }
+    },
+    {
+      "id": "trp-002",
+      "category": "trap",
+      "subtype": null,
+      "text": "Can you fix this email for me: john doe@gmail,com",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/email"
+      }
+    },
+    {
+      "id": "trp-003",
+      "category": "trap",
+      "subtype": null,
+      "text": "Is 12345678 a valid number?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/phone"
+      }
+    },
+    {
+      "id": "trp-004",
+      "category": "trap",
+      "subtype": null,
+      "text": "Is next Monday a valid date for delivery?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/date"
+      }
+    },
+    {
+      "id": "trp-005",
+      "category": "trap",
+      "subtype": null,
+      "text": "Are these the same person: bob@x.com and Bob@X.com?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/email"
+      }
+    },
+    {
+      "id": "trp-006",
+      "category": "trap",
+      "subtype": null,
+      "text": "Is +44 7911 123456 a valid US phone number?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/phone"
+      }
+    },
+    {
+      "id": "trp-007",
+      "category": "trap",
+      "subtype": null,
+      "text": "Which date is earlier, 03-04-2024 or 04-03-2024?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "format/date"
+      }
+    },
+    {
+      "id": "trp-008",
+      "category": "trap",
+      "subtype": null,
+      "text": "What are your hours?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "faq/hours"
+      }
+    },
+    {
+      "id": "trp-009",
+      "category": "trap",
+      "subtype": null,
+      "text": "How long does delivery take?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "faq/shipping_time"
+      }
+    },
+    {
+      "id": "trp-010",
+      "category": "trap",
+      "subtype": null,
+      "text": "How do I contact you?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "faq/support"
+      }
+    },
+    {
+      "id": "trp-011",
+      "category": "trap",
+      "subtype": null,
+      "text": "Do you offer free returns?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "faq/unknown"
+      }
+    },
+    {
+      "id": "trp-012",
+      "category": "trap",
+      "subtype": null,
+      "text": "What's your policy on opened electronics?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "faq/refund"
+      }
+    },
+    {
+      "id": "trp-013",
+      "category": "trap",
+      "subtype": null,
+      "text": "Determine refund eligibility for this order.",
+      "payload": {
+        "days_since_delivery": 10,
+        "opened": false
+      },
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "policy/refund"
+      }
+    },
+    {
+      "id": "trp-014",
+      "category": "trap",
+      "subtype": null,
+      "text": "Am I eligible for free shipping?",
+      "payload": null,
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "policy/free_shipping"
+      }
+    },
+    {
+      "id": "trp-015",
+      "category": "trap",
+      "subtype": null,
+      "text": "Is this refundable?",
+      "payload": {
+        "days_since_delivery": 12,
+        "item_category": "furniture",
+        "opened": false
+      },
+      "gt_kind": "freeform",
+      "ground_truth": null,
+      "should_escalate": true,
+      "meta": {
+        "looks_like": "policy/refund"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1649 @@
+{
+  "config": {
+    "workload": "full.json",
+    "profile": "full",
+    "n_cases": 330,
+    "model": "anthropic.claude-haiku-4-5-20251001-v1:0",
+    "base_url": "http://localhost:8000/v1",
+    "temperature": 0.0,
+    "k": 1,
+    "consistency_temperature": 0.7,
+    "faq_grader": "judge",
+    "judge_model": "anthropic.claude-sonnet-4-6",
+    "conditions": [
+      "with_kb",
+      "without_kb"
+    ],
+    "price_in_per_1m": 0.0,
+    "price_out_per_1m": 0.0,
+    "generated_with": {
+      "email_validator": "2.3.0",
+      "phonenumbers": "9.0.33",
+      "python": "3.10.12"
+    }
+  },
+  "routing": {
+    "positive_class": "should_escalate",
+    "tp": 68,
+    "fp": 9,
+    "tn": 251,
+    "fn": 2,
+    "precision": 0.8831168831168831,
+    "recall": 0.9714285714285714,
+    "by_category": {
+      "format": {
+        "n": 120,
+        "routed": 119,
+        "abstain": 1
+      },
+      "faq": {
+        "n": 60,
+        "routed": 52,
+        "abstain": 8
+      },
+      "policy": {
+        "n": 80,
+        "routed": 80,
+        "abstain": 0
+      },
+      "reasoning": {
+        "n": 40,
+        "routed": 1,
+        "abstain": 39
+      },
+      "trap": {
+        "n": 30,
+        "routed": 1,
+        "abstain": 29
+      }
+    },
+    "over_routed_cases": [
+      {
+        "id": "rea-030",
+        "category": "reasoning",
+        "handler": "faq:support_phone",
+        "answer": "Our support line is +1-800-555-0100."
+      },
+      {
+        "id": "trp-030",
+        "category": "trap",
+        "handler": "policy:refund_eligibility",
+        "answer": "eligible"
+      }
+    ]
+  },
+  "conditions": {
+    "with_kb": {
+      "direct": {
+        "arm": "direct",
+        "n_total": 330,
+        "n_scorable": 260,
+        "accuracy": 0.9807692307692307,
+        "correct": 255,
+        "accuracy_by_category": {
+          "format": {
+            "n": 120,
+            "correct": 118,
+            "accuracy": 0.9833333333333333
+          },
+          "faq": {
+            "n": 60,
+            "correct": 60,
+            "accuracy": 1.0
+          },
+          "policy": {
+            "n": 80,
+            "correct": 77,
+            "accuracy": 0.9625
+          }
+        },
+        "llm_calls": 330,
+        "deterministic_answers": 0,
+        "deflection_rate": 0.0,
+        "tokens_in": 362883,
+        "tokens_out": 19329,
+        "estimated_cost_usd": 0.0,
+        "latency_s_total": 663.6056416034698,
+        "latency_p50_s": 1.8748736381530762,
+        "latency_p95_s": 2.9560765624046326
+      },
+      "kora": {
+        "arm": "kora",
+        "n_total": 330,
+        "n_scorable": 260,
+        "accuracy": 1.0,
+        "correct": 260,
+        "accuracy_by_category": {
+          "format": {
+            "n": 120,
+            "correct": 120,
+            "accuracy": 1.0
+          },
+          "faq": {
+            "n": 60,
+            "correct": 60,
+            "accuracy": 1.0
+          },
+          "policy": {
+            "n": 80,
+            "correct": 80,
+            "accuracy": 1.0
+          }
+        },
+        "llm_calls": 77,
+        "deterministic_answers": 253,
+        "deflection_rate": 0.7666666666666667,
+        "tokens_in": 84304,
+        "tokens_out": 7219,
+        "estimated_cost_usd": 0.0,
+        "latency_s_total": 188.58727431297302,
+        "latency_p50_s": 0.0,
+        "latency_p95_s": 2.851854836940766
+      },
+      "comparison": {
+        "accuracy_delta_kora_minus_direct": 0.019230769230769273,
+        "llm_calls_saved": 253,
+        "llm_calls_saved_pct": 0.7666666666666667,
+        "tokens_in_saved": 278579,
+        "tokens_out_saved": 12110,
+        "cost_saved_usd": 0.0,
+        "latency_s_saved": 475.0183672904968
+      },
+      "consistency_direct": {
+        "k": 1,
+        "measured": false
+      },
+      "direct_errors": [
+        {
+          "id": "fmt-email-034",
+          "category": "format",
+          "gt_kind": "valid_invalid",
+          "ground_truth": "invalid",
+          "verdict": "valid",
+          "answer": "",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is this a valid email address: user@example.com.",
+          "payload": null
+        },
+        {
+          "id": "fmt-phone-025",
+          "category": "format",
+          "gt_kind": "valid_invalid",
+          "ground_truth": "invalid",
+          "verdict": "valid",
+          "answer": "This follows the standard North American phone number format (XXX) XXX-XXXX, so it is technically valid as a format. However, 000-0000 is not a real, functional phone number.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is this a valid phone number: (000) 000-0000",
+          "payload": null
+        },
+        {
+          "id": "pol-023",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Your order does not qualify for free shipping. While you have a Plus membership, your order total of $5 is below the $50 threshold for free domestic shipping. Standard shipping is $5 flat. Plus member",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this order qualifies for free shipping.",
+          "payload": {
+            "order_total": 5,
+            "destination_zone": "domestic",
+            "membership": "plus"
+          }
+        },
+        {
+          "id": "pol-061",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "Your warranty claim is covered. The defect is a manufacturing defect on an accessory, which is within the 6-month warranty period for accessories.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this warranty claim is covered.",
+          "payload": {
+            "months_since_purchase": 7,
+            "product_category": "accessory",
+            "defect_type": "manufacturing"
+          }
+        },
+        {
+          "id": "pol-063",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Your warranty claim is not covered. While the defect is a manufacturing issue (which is covered), your appliance was purchased 13 months ago. Appliances carry a 24-month manufacturer warranty, but you",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this warranty claim is covered.",
+          "payload": {
+            "months_since_purchase": 13,
+            "product_category": "appliance",
+            "defect_type": "manufacturing"
+          }
+        }
+      ],
+      "kora_errors": []
+    },
+    "without_kb": {
+      "direct": {
+        "arm": "direct",
+        "n_total": 330,
+        "n_scorable": 260,
+        "accuracy": 0.676923076923077,
+        "correct": 176,
+        "accuracy_by_category": {
+          "format": {
+            "n": 120,
+            "correct": 118,
+            "accuracy": 0.9833333333333333
+          },
+          "faq": {
+            "n": 60,
+            "correct": 8,
+            "accuracy": 0.13333333333333333
+          },
+          "policy": {
+            "n": 80,
+            "correct": 50,
+            "accuracy": 0.625
+          }
+        },
+        "llm_calls": 330,
+        "deterministic_answers": 0,
+        "deflection_rate": 0.0,
+        "tokens_in": 59613,
+        "tokens_out": 22999,
+        "estimated_cost_usd": 0.0,
+        "latency_s_total": 687.9555213451385,
+        "latency_p50_s": 2.0137503147125244,
+        "latency_p95_s": 2.94883793592453
+      },
+      "kora": {
+        "arm": "kora",
+        "n_total": 330,
+        "n_scorable": 260,
+        "accuracy": 0.9769230769230769,
+        "correct": 254,
+        "accuracy_by_category": {
+          "format": {
+            "n": 120,
+            "correct": 120,
+            "accuracy": 1.0
+          },
+          "faq": {
+            "n": 60,
+            "correct": 54,
+            "accuracy": 0.9
+          },
+          "policy": {
+            "n": 80,
+            "correct": 80,
+            "accuracy": 1.0
+          }
+        },
+        "llm_calls": 77,
+        "deterministic_answers": 253,
+        "deflection_rate": 0.7666666666666667,
+        "tokens_in": 13541,
+        "tokens_out": 7051,
+        "estimated_cost_usd": 0.0,
+        "latency_s_total": 178.16726732254028,
+        "latency_p50_s": 0.0,
+        "latency_p95_s": 2.5903663635253906
+      },
+      "comparison": {
+        "accuracy_delta_kora_minus_direct": 0.29999999999999993,
+        "llm_calls_saved": 253,
+        "llm_calls_saved_pct": 0.7666666666666667,
+        "tokens_in_saved": 46072,
+        "tokens_out_saved": 15948,
+        "cost_saved_usd": 0.0,
+        "latency_s_saved": 509.78825402259827
+      },
+      "consistency_direct": {
+        "k": 1,
+        "measured": false
+      },
+      "direct_errors": [
+        {
+          "id": "fmt-email-034",
+          "category": "format",
+          "gt_kind": "valid_invalid",
+          "ground_truth": "invalid",
+          "verdict": "valid",
+          "answer": "",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is this a valid email address: user@example.com.",
+          "payload": null
+        },
+        {
+          "id": "fmt-phone-025",
+          "category": "format",
+          "gt_kind": "valid_invalid",
+          "ground_truth": "invalid",
+          "verdict": "valid",
+          "answer": "This follows the standard US phone number format with area code in parentheses and hyphenated number. However, 000-0000 is not a real phone number in use, as it's a placeholder format. If you're askin",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is this a valid phone number: (000) 000-0000",
+          "payload": null
+        },
+        {
+          "id": "faq-001",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "monday",
+            "friday"
+          ],
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current business hours. Please check our website's contact page or call our customer service team directly for our weekday hours of operation.",
+          "llm_called": true,
+          "handler": null,
+          "text": "When are you open during the week?",
+          "payload": null
+        },
+        {
+          "id": "faq-002",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "monday",
+            "friday"
+          ],
+          "verdict": null,
+          "answer": "Northwind Goods operates primarily as an online store. For specific store locations and their weekday hours, please visit our website or contact our customer support team directly. We're available to ",
+          "llm_called": true,
+          "handler": null,
+          "text": "What time do your stores open on weekdays?",
+          "payload": null
+        },
+        {
+          "id": "faq-003",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "monday",
+            "friday"
+          ],
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current store hours. Please check our website, call customer service, or visit the store location page for weekday hours. You can also contact us directly and w",
+          "llm_called": true,
+          "handler": null,
+          "text": "I want to visit on a Wednesday \u2014 what are your weekday hours?",
+          "payload": null
+        },
+        {
+          "id": "faq-004",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "monday",
+            "friday"
+          ],
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current business hours. Please check our website, call our customer service line, or visit our store location for Monday-Friday closing times.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Until when are you open Monday through Friday?",
+          "payload": null
+        },
+        {
+          "id": "faq-005",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "saturday"
+          ],
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current store hours. Please check our website, call customer service, or visit your local store for Saturday hours and closing times.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Are you open on Saturdays, and until when?",
+          "payload": null
+        },
+        {
+          "id": "faq-006",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "saturday"
+          ],
+          "verdict": null,
+          "answer": "Northwind Goods customer support is available Monday through Friday, 9 AM to 6 PM EST. We're closed on weekends, but you can submit inquiries anytime and we'll respond first thing Monday morning. For ",
+          "llm_called": true,
+          "handler": null,
+          "text": "What are your hours over the weekend?",
+          "payload": null
+        },
+        {
+          "id": "faq-007",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "saturday"
+          ],
+          "verdict": null,
+          "answer": "I don't have information about Northwind Goods' store hours or whether we're open on weekends. Please check our website, call customer service, or visit us to confirm Saturday and Sunday availability.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Can I come by on a Saturday or Sunday?",
+          "payload": null
+        },
+        {
+          "id": "faq-008",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "saturday"
+          ],
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current store hours. Please check our website's contact page or call our customer service team directly for weekend closing times.",
+          "llm_called": true,
+          "handler": null,
+          "text": "What time do you close on the weekend?",
+          "payload": null
+        },
+        {
+          "id": "faq-009",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "30"
+          ],
+          "verdict": null,
+          "answer": "Our standard refund policy allows returns within 30 days of purchase. Please check your order confirmation email or visit our Returns & Refunds page for specific details about your order. If you need ",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many days do I have to ask for a refund?",
+          "payload": null
+        },
+        {
+          "id": "faq-010",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "30"
+          ],
+          "verdict": null,
+          "answer": "Our standard return window is 30 days from the date of purchase for a full refund. Items must be unused and in original condition. For specific details about your order or to discuss your situation, p",
+          "llm_called": true,
+          "handler": null,
+          "text": "What's the time limit on getting my money back?",
+          "payload": null
+        },
+        {
+          "id": "faq-011",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "30"
+          ],
+          "verdict": null,
+          "answer": "Our standard return window is 30 days from the date of purchase for most items. Some items may have different policies. Please check your order confirmation email or visit our Returns & Refunds page f",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is there a deadline to return something for a refund?",
+          "payload": null
+        },
+        {
+          "id": "faq-013",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "5",
+            "50"
+          ],
+          "verdict": null,
+          "answer": "Shipping costs at Northwind Goods vary based on your order total, destination, and shipping method selected. Standard shipping is typically free on orders over $50. For specific shipping rates, please",
+          "llm_called": true,
+          "handler": null,
+          "text": "How much do you charge for shipping?",
+          "payload": null
+        },
+        {
+          "id": "faq-014",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "5",
+            "50"
+          ],
+          "verdict": null,
+          "answer": "Delivery costs vary based on your location, order total, and shipping method selected. Standard shipping is often free on orders over a certain amount. You can see the exact delivery cost during check",
+          "llm_called": true,
+          "handler": null,
+          "text": "What's the delivery cost on an order?",
+          "payload": null
+        },
+        {
+          "id": "faq-015",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "5",
+            "50"
+          ],
+          "verdict": null,
+          "answer": "Shipping fees depend on several factors including your location, order total, and shipping method selected. Please check your cart or contact our customer support team with your specific order details",
+          "llm_called": true,
+          "handler": null,
+          "text": "Do I have to pay a shipping fee, and how much?",
+          "payload": null
+        },
+        {
+          "id": "faq-016",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "5",
+            "50"
+          ],
+          "verdict": null,
+          "answer": "Shipping costs depend on your location, order total, and delivery method. Many orders qualify for free shipping above a certain threshold. Please check your cart or contact our support team with your ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is there a postage charge, or is delivery free?",
+          "payload": null
+        },
+        {
+          "id": "faq-017",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "3",
+            "5"
+          ],
+          "verdict": null,
+          "answer": "I'd be happy to help! To provide an estimated delivery date for your domestic order, I'll need your order number. Please share that, and I can look up the shipping status and expected arrival date for",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many days until my domestic order arrives?",
+          "payload": null
+        },
+        {
+          "id": "faq-018",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "3",
+            "5"
+          ],
+          "verdict": null,
+          "answer": "Delivery times within the country typically range from 3-7 business days depending on your location and the shipping method selected at checkout. For faster delivery options, we offer expedited shippi",
+          "llm_called": true,
+          "handler": null,
+          "text": "How fast is delivery within the country?",
+          "payload": null
+        },
+        {
+          "id": "faq-019",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "3",
+            "5"
+          ],
+          "verdict": null,
+          "answer": "I'd be happy to help! To provide shipping and delivery information for your order, I'll need your order number. Once you share that, I can look up the current status and estimated delivery date for yo",
+          "llm_called": true,
+          "handler": null,
+          "text": "When will my order ship and get here domestically?",
+          "payload": null
+        },
+        {
+          "id": "faq-021",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "10",
+            "14"
+          ],
+          "verdict": null,
+          "answer": "Shipping times abroad vary depending on the destination country and shipping method selected. Typically, international shipping takes 7-21 business days. For specific details about your order, please ",
+          "llm_called": true,
+          "handler": null,
+          "text": "How long does shipping abroad take?",
+          "payload": null
+        },
+        {
+          "id": "faq-022",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "10",
+            "14"
+          ],
+          "verdict": null,
+          "answer": "Overseas delivery times vary by destination country and shipping method. Typically, international orders take 10-21 business days after dispatch. For a specific delivery estimate, please provide your ",
+          "llm_called": true,
+          "handler": null,
+          "text": "When will an overseas order arrive?",
+          "payload": null
+        },
+        {
+          "id": "faq-023",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "10",
+            "14"
+          ],
+          "verdict": null,
+          "answer": "International delivery times typically range from 10-21 business days depending on the destination country and shipping method selected. For specific details about your order, please provide your dest",
+          "llm_called": true,
+          "handler": null,
+          "text": "What's the delivery time for international orders?",
+          "payload": null
+        },
+        {
+          "id": "faq-024",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "10",
+            "14"
+          ],
+          "verdict": null,
+          "answer": "International shipping typically takes 7-14 business days depending on the destination country. For specific details about your order, please provide your shipping address or order number, and I can g",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many days to ship internationally?",
+          "payload": null
+        },
+        {
+          "id": "faq-025",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "support@northwindgoods.example"
+          ],
+          "verdict": null,
+          "answer": "You can reach our support team at support@northwindgoods.com. We typically respond to inquiries within 24 business hours.",
+          "llm_called": true,
+          "handler": null,
+          "text": "What email address can I use to contact support?",
+          "payload": null
+        },
+        {
+          "id": "faq-026",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "support@northwindgoods.example"
+          ],
+          "verdict": null,
+          "answer": "You can reach our customer support team at support@northwindgoods.com. We typically respond to emails within 24 business hours. For faster assistance, you can also contact us through our website's liv",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where do I email if I need help?",
+          "payload": null
+        },
+        {
+          "id": "faq-027",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "support@northwindgoods.example"
+          ],
+          "verdict": null,
+          "answer": "I don't have a specific customer support email address to provide. Please visit the Northwind Goods website's 'Contact Us' page to find the current support email, phone number, or submit a support tic",
+          "llm_called": true,
+          "handler": null,
+          "text": "What is your customer support e-mail address?",
+          "payload": null
+        },
+        {
+          "id": "faq-028",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "support@northwindgoods.example"
+          ],
+          "verdict": null,
+          "answer": "You can reach Northwind Goods customer support at support@northwindgoods.com. We typically respond to emails within 24 business hours. Is there something specific I can help you with today?",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is there a support email I can reach you at?",
+          "payload": null
+        },
+        {
+          "id": "faq-029",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "555-0100"
+          ],
+          "verdict": null,
+          "answer": "You can reach Northwind Goods customer support by visiting our website's contact page or checking your order confirmation email for the support phone number. Alternatively, many issues can be resolved",
+          "llm_called": true,
+          "handler": null,
+          "text": "What number do I call for support?",
+          "payload": null
+        },
+        {
+          "id": "faq-030",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "555-0100"
+          ],
+          "verdict": null,
+          "answer": "You can reach our customer service team by calling 1-800-NORTHWIND (1-800-668-7946) Monday-Friday, 9 AM-6 PM EST. You can also email support@northwindgoods.com or use the live chat feature on our webs",
+          "llm_called": true,
+          "handler": null,
+          "text": "How can I phone customer service?",
+          "payload": null
+        },
+        {
+          "id": "faq-031",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "555-0100"
+          ],
+          "verdict": null,
+          "answer": "Yes, you can reach our customer support team by phone. Please visit our website's Contact Us page or check your order confirmation email for the current support telephone number. Our hours are typical",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is there a support telephone number I can call?",
+          "payload": null
+        },
+        {
+          "id": "faq-032",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "555-0100"
+          ],
+          "verdict": null,
+          "answer": "You can reach Northwind Goods customer support by calling 1-800-NORTHWIND (1-800-667-8946) or visiting our website's contact page for additional support options including email and live chat.",
+          "llm_called": true,
+          "handler": null,
+          "text": "What's the phone number to reach your help line?",
+          "payload": null
+        },
+        {
+          "id": "faq-033",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "visa",
+            "paypal"
+          ],
+          "verdict": null,
+          "answer": "We accept all major credit cards at checkout, including Visa, Mastercard, American Express, and Discover. We also accept digital payment methods like PayPal and Apple Pay. If you have questions about ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Which cards do you take at checkout?",
+          "payload": null
+        },
+        {
+          "id": "faq-034",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "visa",
+            "paypal"
+          ],
+          "verdict": null,
+          "answer": "We accept multiple payment methods including credit cards (Visa, Mastercard, American Express), debit cards, PayPal, and Apple Pay. You can select your preferred payment method at checkout. If you hav",
+          "llm_called": true,
+          "handler": null,
+          "text": "What ways can I pay for my order?",
+          "payload": null
+        },
+        {
+          "id": "faq-035",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "visa",
+            "paypal"
+          ],
+          "verdict": null,
+          "answer": "Northwind Goods accepts the following payment methods: credit cards (Visa, Mastercard, American Express), debit cards, PayPal, and Apple Pay. For specific questions about payment options or issues, pl",
+          "llm_called": true,
+          "handler": null,
+          "text": "What payment methods do you accept?",
+          "payload": null
+        },
+        {
+          "id": "faq-039",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "12"
+          ],
+          "verdict": null,
+          "answer": "Electronics at Northwind Goods are typically covered by our standard warranty. Could you please specify which product you're asking about? Different electronics may have different coverage periods. Yo",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many months are electronics covered for?",
+          "payload": null
+        },
+        {
+          "id": "faq-040",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "12"
+          ],
+          "verdict": null,
+          "answer": "Most electronics at Northwind Goods come with a manufacturer's warranty, typically ranging from 1-3 years depending on the product type. For specific warranty details on an item you're interested in, ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Do electronics come with a warranty, and for how long?",
+          "payload": null
+        },
+        {
+          "id": "faq-041",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "100"
+          ],
+          "verdict": null,
+          "answer": "At Northwind Goods, you earn rewards points on every purchase. Points are typically awarded based on your spending amount. You can accumulate these points in your account and redeem them for discounts",
+          "llm_called": true,
+          "handler": null,
+          "text": "How do I earn rewards points?",
+          "payload": null
+        },
+        {
+          "id": "faq-042",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "100"
+          ],
+          "verdict": null,
+          "answer": "I'd be happy to help! Our loyalty points program rewards customers for purchases and engagement. Typically, you earn points on every purchase, which can be redeemed for discounts or exclusive items. P",
+          "llm_called": true,
+          "handler": null,
+          "text": "Can you explain how your loyalty points program works?",
+          "payload": null
+        },
+        {
+          "id": "faq-043",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "100"
+          ],
+          "verdict": null,
+          "answer": "I'd be happy to help you understand our rewards program! However, I need more information. Could you please provide details such as: your account status, recent purchase history, or current point bala",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many points do I get and what are they worth?",
+          "payload": null
+        },
+        {
+          "id": "faq-044",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "100"
+          ],
+          "verdict": null,
+          "answer": "At Northwind Goods, customers typically earn rewards points on purchases, which can be redeemed for discounts or special offers. For specific details about our current rewards program\u2014such as points p",
+          "llm_called": true,
+          "handler": null,
+          "text": "How does earning and redeeming rewards work?",
+          "payload": null
+        },
+        {
+          "id": "faq-045",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "security"
+          ],
+          "verdict": null,
+          "answer": "To reset your password, visit our login page and click 'Forgot Password?' Enter your email address associated with your Northwind Goods account. You'll receive an email with a link to create a new pas",
+          "llm_called": true,
+          "handler": null,
+          "text": "How can I reset my password?",
+          "payload": null
+        },
+        {
+          "id": "faq-046",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "security"
+          ],
+          "verdict": null,
+          "answer": "To change your password, visit our login page and click 'Forgot Password?' Enter your email address, and we'll send you a reset link. Follow the instructions in the email to create a new password. If ",
+          "llm_called": true,
+          "handler": null,
+          "text": "I forgot my password \u2014 how do I change it?",
+          "payload": null
+        },
+        {
+          "id": "faq-047",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "security"
+          ],
+          "verdict": null,
+          "answer": "To reset your password, visit our login page and click the 'Forgot Password?' link. Enter your email address, and we'll send you a password reset link. Follow the instructions in the email to create a",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where do I go to reset my account password?",
+          "payload": null
+        },
+        {
+          "id": "faq-048",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "security"
+          ],
+          "verdict": null,
+          "answer": "To recover access to your Northwind Goods account, click the 'Forgot Password' link on the login page. Enter your email address and we'll send you a password reset link. Follow the instructions in the",
+          "llm_called": true,
+          "handler": null,
+          "text": "How do I recover access when I can't log in with my password?",
+          "payload": null
+        },
+        {
+          "id": "faq-049",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "orders"
+          ],
+          "verdict": null,
+          "answer": "To track your order, please visit our website and log into your account, then go to 'Order History' or 'My Orders'. You can also use the tracking link sent to your email after your order shipped. If y",
+          "llm_called": true,
+          "handler": null,
+          "text": "How do I track my order?",
+          "payload": null
+        },
+        {
+          "id": "faq-052",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "orders"
+          ],
+          "verdict": null,
+          "answer": "You can find tracking for your order by logging into your Northwind Goods account and going to 'My Orders' or 'Order History'. Look for your order and click on it to view the tracking number and statu",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where do I find tracking for my order?",
+          "payload": null
+        },
+        {
+          "id": "faq-054",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "never"
+          ],
+          "verdict": null,
+          "answer": "Gift card expiration policies vary by retailer. For Northwind Goods gift cards specifically, please check your gift card terms and conditions or contact our customer service team directly for the most",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is there an expiration date on gift cards?",
+          "payload": null
+        },
+        {
+          "id": "faq-055",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "never"
+          ],
+          "verdict": null,
+          "answer": "Northwind Goods gift cards are typically valid for 5 years from the date of purchase. For specific terms and conditions, please check the back of your gift card or visit our website's gift card policy",
+          "llm_called": true,
+          "handler": null,
+          "text": "How long is a gift card valid for?",
+          "payload": null
+        },
+        {
+          "id": "faq-056",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "never"
+          ],
+          "verdict": null,
+          "answer": "Yes, gift cards have a balance that decreases with each purchase. Once the balance reaches zero, the card cannot be used until it's reloaded or replaced. Most gift cards don't expire, but we recommend",
+          "llm_called": true,
+          "handler": null,
+          "text": "Will my gift card ever run out?",
+          "payload": null
+        },
+        {
+          "id": "faq-057",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "columbus"
+          ],
+          "verdict": null,
+          "answer": "Please contact our customer support team at support@northwindgoods.com or call our helpline for the current return shipping address. Return instructions are also typically included with your order con",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where should I mail my returns?",
+          "payload": null
+        },
+        {
+          "id": "faq-058",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "columbus"
+          ],
+          "verdict": null,
+          "answer": "For return shipping information, please check your order confirmation email or visit our Returns & Exchanges page at northwindgoods.com/returns. You can also contact our customer support team directly",
+          "llm_called": true,
+          "handler": null,
+          "text": "What address do I send returned items to?",
+          "payload": null
+        },
+        {
+          "id": "faq-059",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "columbus"
+          ],
+          "verdict": null,
+          "answer": "Returns should be shipped to our returns center. Please check your order confirmation email or visit our Returns & Exchanges page at northwindgoods.com/returns for the specific return shipping address",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where do returns need to be shipped?",
+          "payload": null
+        },
+        {
+          "id": "faq-060",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "columbus"
+          ],
+          "verdict": null,
+          "answer": "For return shipping information, please check your order confirmation email or visit the Returns & Shipping section on our website at northwindgoods.com/returns. You can also contact our customer supp",
+          "llm_called": true,
+          "handler": null,
+          "text": "What is the return shipping address?",
+          "payload": null
+        },
+        {
+          "id": "pol-001",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. While the item was delivered within 10 days (within typical refund windows), books that have been opened are generally not eligible for return at Northwind Goods. ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 10,
+            "item_category": "books",
+            "opened": true
+          }
+        },
+        {
+          "id": "pol-002",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. While the item is unopened clothing, it has been 30 days since delivery. Northwind Goods typically allows refunds within 30 days of delivery. Since exactly 30 days",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 30,
+            "item_category": "clothing",
+            "opened": false
+          }
+        },
+        {
+          "id": "pol-005",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "This order is eligible for refund. The item was delivered 5 days ago (within typical 30-day refund windows), and electronics are generally refundable even if opened. Please contact our support team wi",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 5,
+            "item_category": "electronics",
+            "opened": true
+          }
+        },
+        {
+          "id": "pol-009",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. While clothing is typically refundable, the item was opened and it has been 20 days since delivery. Northwind Goods' standard refund policy allows returns within 1",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 20,
+            "item_category": "clothing",
+            "opened": true
+          }
+        },
+        {
+          "id": "pol-010",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. Most electronics have a 30-day return window, and this item was delivered 29 days ago, leaving only 1 day remaining. Additionally, our standard policy requires ref",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 29,
+            "item_category": "electronics",
+            "opened": false
+          }
+        },
+        {
+          "id": "pol-011",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. While the item is unopened, it has been 30 days since delivery. Northwind Goods typically allows refunds within 30 days of delivery for unopened items. Since exact",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 30,
+            "item_category": "electronics",
+            "opened": false
+          }
+        },
+        {
+          "id": "pol-014",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. Our standard refund policy allows returns within 14 days of delivery. Since 15 days have passed, the return window has closed.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 15,
+            "item_category": "other",
+            "opened": false
+          }
+        },
+        {
+          "id": "pol-015",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order is ineligible for refund. While books are typically refundable, the item has been opened and 30 days have passed since delivery, exceeding our standard 30-day return window for opened items",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 30,
+            "item_category": "books",
+            "opened": true
+          }
+        },
+        {
+          "id": "pol-021",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order does not qualify for free shipping. While you have a Plus membership, the order total of $10 is below the typical minimum threshold for free shipping, and the remote destination zone may ha",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this order qualifies for free shipping.",
+          "payload": {
+            "order_total": 10,
+            "destination_zone": "remote",
+            "membership": "plus"
+          }
+        },
+        {
+          "id": "pol-023",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "This order does not qualify for free shipping. While you have a Plus membership (which typically includes free shipping benefits), your order total of $5 is below the minimum threshold. Most free ship",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this order qualifies for free shipping.",
+          "payload": {
+            "order_total": 5,
+            "destination_zone": "domestic",
+            "membership": "plus"
+          }
+        },
+        {
+          "id": "pol-027",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current shipping policies. To determine if this order qualifies for free shipping, please check our shipping policy page or contact our support team with your o",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this order qualifies for free shipping.",
+          "payload": {
+            "order_total": 50,
+            "destination_zone": "remote",
+            "membership": "plus"
+          }
+        },
+        {
+          "id": "pol-034",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team, or ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 14,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-035",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "The WELCOME10 coupon is valid for your account. You meet the eligibility criteria: your account is 15 days old and you have no prior orders, which qualifies you as a new customer for this welcome offe",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 15,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-036",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team, or ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 5,
+            "prior_orders": 1,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-037",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team, or ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 5,
+            "prior_orders": 0,
+            "coupon_code": "SAVE20"
+          }
+        },
+        {
+          "id": "pol-039",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team dire",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 30,
+            "prior_orders": 2,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-040",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "The WELCOME10 coupon is valid for your account. As a new customer (1 day old) with no prior orders, you qualify for this welcome discount.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 1,
+            "prior_orders": 0,
+            "coupon_code": "welcome10"
+          }
+        },
+        {
+          "id": "pol-041",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team, or ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 7,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-043",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team dire",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 14,
+            "prior_orders": 1,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-044",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "I don't have access to Northwind Goods' current coupon database or promotion rules. To verify if WELCOME10 is valid, please check your account's promotions page, contact our customer support team, or ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 20,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME10"
+          }
+        },
+        {
+          "id": "pol-046",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "The coupon code provided is WELCOME20, not WELCOME10. WELCOME20 is typically our standard welcome coupon for new customers with no prior orders. Your account age of 10 days and 0 prior orders make you",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 10,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME20"
+          }
+        },
+        {
+          "id": "pol-048",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": null,
+          "answer": "The coupon code provided is WELCOME11, not WELCOME10. Additionally, I don't have access to Northwind Goods' current coupon database or validity rules. Please check your coupon code spelling and contac",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 14,
+            "prior_orders": 0,
+            "coupon_code": "WELCOME11"
+          }
+        },
+        {
+          "id": "pol-052",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Northwind Goods appliances typically include a 12-month manufacturer's warranty covering manufacturing defects. Since your purchase was 24 months ago, this claim falls outside the standard warranty pe",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this warranty claim is covered.",
+          "payload": {
+            "months_since_purchase": 24,
+            "product_category": "appliance",
+            "defect_type": "manufacturing"
+          }
+        },
+        {
+          "id": "pol-061",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "Your warranty claim is eligible. Accessories typically have a 12-month warranty covering manufacturing defects, and your claim at 7 months falls within this coverage period.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this warranty claim is covered.",
+          "payload": {
+            "months_since_purchase": 7,
+            "product_category": "accessory",
+            "defect_type": "manufacturing"
+          }
+        },
+        {
+          "id": "pol-063",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Warranty claims for appliances typically cover 12 months from purchase. Since 13 months have passed, this claim falls outside the standard warranty period and is ineligible.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this warranty claim is covered.",
+          "payload": {
+            "months_since_purchase": 13,
+            "product_category": "appliance",
+            "defect_type": "manufacturing"
+          }
+        },
+        {
+          "id": "pol-066",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Free prepaid return labels are typically available within 30 days of delivery for defective items, but your return is exactly at the 30-day boundary. Most policies require returns within 30 days (not ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "defective",
+            "days_since_delivery": 30
+          }
+        },
+        {
+          "id": "pol-069",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "Customer is eligible for a free prepaid return label. The return reason (changed mind) is acceptable, and at 5 days since delivery, the customer is within the standard 30-day return window.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "changed_mind",
+            "days_since_delivery": 5
+          }
+        },
+        {
+          "id": "pol-074",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Free prepaid return labels are typically available within 30 days of delivery for most reasons. Since it has been exactly 30 days, this falls outside our standard 30-day return window. Please contact ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "wrong_item",
+            "days_since_delivery": 30
+          }
+        },
+        {
+          "id": "pol-076",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "Customer is eligible for a free prepaid return label. The item was delivered today (0 days since delivery), and 'changed mind' returns are typically eligible for free return labels within our standard",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "changed_mind",
+            "days_since_delivery": 0
+          }
+        },
+        {
+          "id": "pol-077",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "Customer is eligible for a free prepaid return label. Items changed due to customer preference within 30 days of delivery qualify for our standard return service with prepaid shipping.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "changed_mind",
+            "days_since_delivery": 30
+          }
+        }
+      ],
+      "kora_errors": [
+        {
+          "id": "faq-007",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "saturday"
+          ],
+          "verdict": null,
+          "answer": "I don't have information about Northwind Goods' store hours or whether we're open on weekends. Please check our website, call customer service, or visit us to confirm Saturday and Sunday availability.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Can I come by on a Saturday or Sunday?",
+          "payload": null
+        },
+        {
+          "id": "faq-015",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "5",
+            "50"
+          ],
+          "verdict": null,
+          "answer": "Shipping fees depend on several factors including your location, order total, and shipping method selected. Please check your cart or contact our customer support team with your specific order details",
+          "llm_called": true,
+          "handler": null,
+          "text": "Do I have to pay a shipping fee, and how much?",
+          "payload": null
+        },
+        {
+          "id": "faq-033",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "visa",
+            "paypal"
+          ],
+          "verdict": null,
+          "answer": "We accept all major credit cards at checkout, including Visa, Mastercard, American Express, and Discover. We also accept digital payment methods like PayPal and Apple Pay. If you have questions about ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Which cards do you take at checkout?",
+          "payload": null
+        },
+        {
+          "id": "faq-039",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "12"
+          ],
+          "verdict": null,
+          "answer": "Electronics at Northwind Goods are typically covered by our standard warranty. Could you please specify which product you're asking about? Different electronics may have different coverage periods. Yo",
+          "llm_called": true,
+          "handler": null,
+          "text": "How many months are electronics covered for?",
+          "payload": null
+        },
+        {
+          "id": "faq-055",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "never"
+          ],
+          "verdict": null,
+          "answer": "Northwind Goods gift cards are typically valid for 5 years from the date of purchase. For specific terms and conditions, please check the back of your gift card or visit our website's gift card policy",
+          "llm_called": true,
+          "handler": null,
+          "text": "How long is a gift card valid for?",
+          "payload": null
+        },
+        {
+          "id": "faq-056",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "never"
+          ],
+          "verdict": null,
+          "answer": "Yes, gift cards have a balance that decreases with each purchase. Once the balance reaches zero, the card cannot be used until it's reloaded or replaced. Most gift cards don't expire, but we recommend",
+          "llm_called": true,
+          "handler": null,
+          "text": "Will my gift card ever run out?",
+          "payload": null
+        }
+      ]
+    }
+  }
+}
