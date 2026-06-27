@@ -1,0 +1,96 @@
+# Policies — TRUTH SOURCE (FREEZE BEFORE TEST GENERATION)
+#
+# 5 eligibility policies for "Northwind Goods". Each policy is a deterministic
+# decision over a STRUCTURED JSON input. Both sides derive from here:
+#   - generate.py builds structured cases (incl. boundary values) and computes
+#     ground truth by evaluating the SAME rule expressed below (one shared
+#     reference implementation in generate.py / kora handler).
+#   - kora/handlers.py evaluates the rule when it can confidently identify the
+#     policy and all required fields are present & well-typed; otherwise ABSTAIN.
+#
+# Decision values: "eligible" | "ineligible". The rule text below is the
+# authoritative semantics; the reference Python implementation must match it
+# exactly. Boundary values (== threshold) are called out so the test set covers
+# both sides of every cutoff.
+#
+# Safety Guard #3: rules come from THIS document only, never from test answers.
+# Safety Guard #1: frozen once the blind run begins; changes -> RULE_CHANGES.log.
+
+policies:
+  - id: refund_eligibility
+    title: "Order refund eligibility"
+    fields:
+      days_since_delivery: int          # >= 0
+      item_category: enum               # electronics | clothing | food | books | other
+      opened: bool
+    rule: |
+      INELIGIBLE if item_category == "food" (perishable, non-refundable).
+      Else INELIGIBLE if days_since_delivery > 30.
+      Else INELIGIBLE if item_category == "electronics" and opened == true.
+      Else ELIGIBLE.
+    boundaries:
+      - "days_since_delivery == 30 -> eligible; == 31 -> ineligible"
+      - "electronics opened==false within window -> eligible; opened==true -> ineligible"
+      - "food -> ineligible regardless of days/opened"
+
+  - id: free_shipping
+    title: "Free-shipping qualification"
+    fields:
+      order_total: number               # USD, >= 0
+      destination_zone: enum            # domestic | remote | international
+      membership: enum                  # none | plus
+    rule: |
+      INELIGIBLE if destination_zone == "international" (never free).
+      Else ELIGIBLE if membership == "plus" (covers domestic and remote).
+      Else ELIGIBLE if destination_zone == "domestic" and order_total >= 50.
+      Else INELIGIBLE.
+    boundaries:
+      - "domestic, none, order_total == 50.00 -> eligible; == 49.99 -> ineligible"
+      - "remote, none, any total -> ineligible; remote, plus -> eligible"
+      - "international -> ineligible even if plus or total huge"
+
+  - id: welcome_coupon
+    title: "WELCOME10 coupon validity"
+    fields:
+      account_age_days: int             # >= 0
+      prior_orders: int                 # >= 0
+      coupon_code: str
+    rule: |
+      INELIGIBLE if coupon_code != "WELCOME10".
+      Else INELIGIBLE if prior_orders > 0 (new customers only).
+      Else INELIGIBLE if account_age_days > 14 (must redeem in first 14 days).
+      Else ELIGIBLE.
+    boundaries:
+      - "prior_orders == 0 and account_age_days == 14 -> eligible; == 15 -> ineligible"
+      - "prior_orders == 1 -> ineligible regardless of age"
+      - "wrong code -> ineligible"
+
+  - id: warranty_claim
+    title: "Manufacturer warranty claim coverage"
+    fields:
+      months_since_purchase: int        # >= 0
+      product_category: enum            # electronics | appliance | accessory
+      defect_type: enum                 # manufacturing | accidental | wear
+    rule: |
+      Warranty period by category: electronics = 12, appliance = 24, accessory = 6 (months).
+      INELIGIBLE if defect_type != "manufacturing" (accidental/wear not covered).
+      Else INELIGIBLE if months_since_purchase > period(product_category).
+      Else ELIGIBLE.
+    boundaries:
+      - "electronics, manufacturing, months == 12 -> eligible; == 13 -> ineligible"
+      - "appliance period 24; accessory period 6 (check == and +1)"
+      - "accidental or wear -> ineligible even if within period"
+
+  - id: return_label
+    title: "Free prepaid return-label eligibility"
+    fields:
+      reason: enum                      # defective | wrong_item | changed_mind
+      days_since_delivery: int          # >= 0
+    rule: |
+      INELIGIBLE if days_since_delivery > 30 (return window closed).
+      Else ELIGIBLE if reason in {"defective", "wrong_item"} (our fault, we pay).
+      Else INELIGIBLE (changed_mind -> customer pays return shipping).
+    boundaries:
+      - "defective, days == 30 -> eligible; == 31 -> ineligible"
+      - "changed_mind, any days within window -> ineligible (customer pays)"
+      - "wrong_item within window -> eligible"
