@@ -73,12 +73,12 @@ The included examples are offline and make zero provider calls.
 
 ## Evidence Boundaries
 
-KORA currently demonstrates offline sample workloads and simulated provider/model invocation avoidance.
+KORA ships offline sample workloads (simulated provider/model invocation avoidance) **and** one real, measured benchmark on a single synthetic domain: deterministic front-door routing across 5 models (Qwen2.5-32B, Claude Sonnet 4.6, Claude Haiku 4.5, Llama 3.3 70B, Llama 3.1 8B), giving an identical **76.7% deflection** (LLM calls 330 → 77). The routing result reproduces with no API key, no GPU, and zero LLM calls. See [experiments/kora_target_workload](experiments/kora_target_workload/README.md).
 
 The repository does **not** claim:
 
 - production cost reduction proof
-- real API-cost reduction proof
+- real API-cost reduction proof beyond the single-domain benchmark above
 - production readiness
 - benchmark superiority
 - full OpenAI API compatibility
