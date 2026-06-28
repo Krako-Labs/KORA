@@ -1,0 +1,3200 @@
+{
+  "workload": "workloads/full.json",
+  "n_cases": 330,
+  "original": {
+    "n": 330,
+    "routed": 253,
+    "deflection_rate": 0.7666666666666667,
+    "tp": 68,
+    "fp": 9,
+    "tn": 251,
+    "fn": 2,
+    "precision": 0.8831168831168831,
+    "recall": 0.9714285714285714
+  },
+  "variants": {
+    "whitespace": {
+      "metrics": {
+        "n": 330,
+        "routed": 128,
+        "deflection_rate": 0.3878787878787879,
+        "tp": 68,
+        "fp": 134,
+        "tn": 126,
+        "fn": 2,
+        "precision": 0.33663366336633666,
+        "recall": 0.9714285714285714
+      },
+      "n_dangerous": 0,
+      "n_benign": 126,
+      "n_other": 1,
+      "flips": {
+        "dangerous": [],
+        "benign": [
+          {
+            "id": "fmt-email-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com"
+          },
+          {
+            "id": "fmt-email-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jane.doe@example.org"
+          },
+          {
+            "id": "fmt-email-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user+promo@example.com"
+          },
+          {
+            "id": "fmt-email-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: first.last@sub.example.co.uk"
+          },
+          {
+            "id": "fmt-email-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: john_doe@example.com"
+          },
+          {
+            "id": "fmt-email-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a.b.c@example.io"
+          },
+          {
+            "id": "fmt-email-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: sales@mail.example.net"
+          },
+          {
+            "id": "fmt-email-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: r2d2@example.com"
+          },
+          {
+            "id": "fmt-email-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: hello@example.travel"
+          },
+          {
+            "id": "fmt-email-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: customer123@shop.example.com"
+          },
+          {
+            "id": "fmt-email-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: q@example.com"
+          },
+          {
+            "id": "fmt-email-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a1@example.com"
+          },
+          {
+            "id": "fmt-email-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: b2@example.net"
+          },
+          {
+            "id": "fmt-email-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: c.d@example.org"
+          },
+          {
+            "id": "fmt-email-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: e_f@example.io"
+          },
+          {
+            "id": "fmt-email-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: g+h@example.com"
+          },
+          {
+            "id": "fmt-email-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ian@mail.example.com"
+          },
+          {
+            "id": "fmt-email-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jkl@example.co"
+          },
+          {
+            "id": "fmt-email-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@example.us"
+          },
+          {
+            "id": "fmt-email-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: foo.example.com"
+          },
+          {
+            "id": "fmt-email-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@@b.com"
+          },
+          {
+            "id": "fmt-email-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: .leading@example.com"
+          },
+          {
+            "id": "fmt-email-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: trailing.@example.com"
+          },
+          {
+            "id": "fmt-email-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @nodomain.com"
+          },
+          {
+            "id": "fmt-email-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: noatdomain@"
+          },
+          {
+            "id": "fmt-email-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: has space@example.com"
+          },
+          {
+            "id": "fmt-email-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@exam ple.com"
+          },
+          {
+            "id": "fmt-email-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@@@example.com"
+          },
+          {
+            "id": "fmt-email-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: plaintext"
+          },
+          {
+            "id": "fmt-email-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@.com"
+          },
+          {
+            "id": "fmt-email-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@domain..com"
+          },
+          {
+            "id": "fmt-email-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@localhost"
+          },
+          {
+            "id": "fmt-email-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com."
+          },
+          {
+            "id": "fmt-email-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: abc@"
+          },
+          {
+            "id": "fmt-email-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @def.com"
+          },
+          {
+            "id": "fmt-email-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ghi@"
+          },
+          {
+            "id": "fmt-email-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@@pqr.com"
+          },
+          {
+            "id": "fmt-email-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: stu vwx@example.com"
+          },
+          {
+            "id": "fmt-email-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@b@c.com"
+          },
+          {
+            "id": "fmt-phone-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (212) 736-5000"
+          },
+          {
+            "id": "fmt-phone-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 212 736 5000"
+          },
+          {
+            "id": "fmt-phone-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (415) 362-0788"
+          },
+          {
+            "id": "fmt-phone-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14153620788"
+          },
+          {
+            "id": "fmt-phone-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +44 20 7183 8750"
+          },
+          {
+            "id": "fmt-phone-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +61 2 9374 4000"
+          },
+          {
+            "id": "fmt-phone-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (202) 456-1111"
+          },
+          {
+            "id": "fmt-phone-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +12024561111"
+          },
+          {
+            "id": "fmt-phone-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 726-7000"
+          },
+          {
+            "id": "fmt-phone-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +13127267000"
+          },
+          {
+            "id": "fmt-phone-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (305) 358-5900"
+          },
+          {
+            "id": "fmt-phone-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (404) 521-5000"
+          },
+          {
+            "id": "fmt-phone-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14045215000"
+          },
+          {
+            "id": "fmt-phone-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 744-5000"
+          },
+          {
+            "id": "fmt-phone-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 312 744 5000"
+          },
+          {
+            "id": "fmt-phone-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (617) 267-9300"
+          },
+          {
+            "id": "fmt-phone-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 617 267 9300"
+          },
+          {
+            "id": "fmt-phone-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (206) 684-4000"
+          },
+          {
+            "id": "fmt-phone-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 206 684 4000"
+          },
+          {
+            "id": "fmt-phone-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (702) 731-7110"
+          },
+          {
+            "id": "fmt-phone-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 415-555"
+          },
+          {
+            "id": "fmt-phone-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123"
+          },
+          {
+            "id": "fmt-phone-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 415 555 2671 999"
+          },
+          {
+            "id": "fmt-phone-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 555-ABCD"
+          },
+          {
+            "id": "fmt-phone-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (000) 000-0000"
+          },
+          {
+            "id": "fmt-phone-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 000 000 0000"
+          },
+          {
+            "id": "fmt-phone-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: abcdefghij"
+          },
+          {
+            "id": "fmt-phone-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +999 99 999"
+          },
+          {
+            "id": "fmt-phone-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 12"
+          },
+          {
+            "id": "fmt-phone-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1-23"
+          },
+          {
+            "id": "fmt-phone-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 00000"
+          },
+          {
+            "id": "fmt-phone-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 1"
+          },
+          {
+            "id": "fmt-phone-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 1"
+          },
+          {
+            "id": "fmt-phone-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (999) 999-99999"
+          },
+          {
+            "id": "fmt-phone-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: phone"
+          },
+          {
+            "id": "fmt-phone-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: ++1234"
+          },
+          {
+            "id": "fmt-phone-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 555 555 5555 5555"
+          },
+          {
+            "id": "fmt-phone-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123-45-6789"
+          },
+          {
+            "id": "fmt-phone-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (12) 34"
+          },
+          {
+            "id": "fmt-date-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-15"
+          },
+          {
+            "id": "fmt-date-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29"
+          },
+          {
+            "id": "fmt-date-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2000-02-29"
+          },
+          {
+            "id": "fmt-date-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-07-04"
+          },
+          {
+            "id": "fmt-date-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2020-12-31"
+          },
+          {
+            "id": "fmt-date-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1999-06-30"
+          },
+          {
+            "id": "fmt-date-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-30"
+          },
+          {
+            "id": "fmt-date-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-02-28"
+          },
+          {
+            "id": "fmt-date-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-09"
+          },
+          {
+            "id": "fmt-date-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-08-17"
+          },
+          {
+            "id": "fmt-date-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-03-14"
+          },
+          {
+            "id": "fmt-date-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-21"
+          },
+          {
+            "id": "fmt-date-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-10-31"
+          },
+          {
+            "id": "fmt-date-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-11-30"
+          },
+          {
+            "id": "fmt-date-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-09-15"
+          },
+          {
+            "id": "fmt-date-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-01-01"
+          },
+          {
+            "id": "fmt-date-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2019-12-25"
+          },
+          {
+            "id": "fmt-date-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2018-07-04"
+          },
+          {
+            "id": "fmt-date-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2016-02-29"
+          },
+          {
+            "id": "fmt-date-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2012-02-29"
+          },
+          {
+            "id": "fmt-date-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-02-29"
+          },
+          {
+            "id": "fmt-date-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1900-02-29"
+          },
+          {
+            "id": "fmt-date-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-13-01"
+          },
+          {
+            "id": "fmt-date-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-31"
+          },
+          {
+            "id": "fmt-date-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-06-31"
+          },
+          {
+            "id": "fmt-date-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-05-00"
+          },
+          {
+            "id": "fmt-date-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-00-10"
+          },
+          {
+            "id": "fmt-date-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-12-32"
+          },
+          {
+            "id": "fmt-date-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-30"
+          },
+          {
+            "id": "fmt-date-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 31/12/2024"
+          },
+          {
+            "id": "fmt-date-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024.12.31"
+          },
+          {
+            "id": "fmt-date-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: Dec-31-2024"
+          },
+          {
+            "id": "fmt-date-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-02-29"
+          },
+          {
+            "id": "fmt-date-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2100-02-29"
+          },
+          {
+            "id": "fmt-date-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-13-15"
+          },
+          {
+            "id": "fmt-date-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-04-31"
+          },
+          {
+            "id": "fmt-date-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-09-31"
+          },
+          {
+            "id": "fmt-date-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-31"
+          },
+          {
+            "id": "fmt-date-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-00"
+          },
+          {
+            "id": "fmt-date-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-32"
+          },
+          {
+            "id": "faq-001",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "When are you open during the week?"
+          },
+          {
+            "id": "faq-010",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "What's the time limit on getting my money back?"
+          },
+          {
+            "id": "faq-012",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "How long after delivery can I still request a refund?"
+          },
+          {
+            "id": "faq-018",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "How fast is delivery within the country?"
+          },
+          {
+            "id": "faq-020",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "How long does standard local delivery take?"
+          },
+          {
+            "id": "faq-030",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "How can I phone customer service?"
+          },
+          {
+            "id": "faq-053",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Do your gift cards expire?"
+          },
+          {
+            "id": "faq-054",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is there an expiration date on gift cards?"
+          }
+        ],
+        "other": [
+          {
+            "id": "faq-055",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "escalate",
+            "variant": "deflect",
+            "text": "How long is a gift card valid for?"
+          }
+        ]
+      }
+    },
+    "punct": {
+      "metrics": {
+        "n": 330,
+        "routed": 254,
+        "deflection_rate": 0.7696969696969697,
+        "tp": 68,
+        "fp": 8,
+        "tn": 252,
+        "fn": 2,
+        "precision": 0.8947368421052632,
+        "recall": 0.9714285714285714
+      },
+      "n_dangerous": 0,
+      "n_benign": 0,
+      "n_other": 1,
+      "flips": {
+        "dangerous": [],
+        "benign": [],
+        "other": [
+          {
+            "id": "fmt-phone-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "escalate",
+            "variant": "deflect",
+            "text": "Is this a valid phone number:    "
+          }
+        ]
+      }
+    },
+    "case": {
+      "metrics": {
+        "n": 330,
+        "routed": 253,
+        "deflection_rate": 0.7666666666666667,
+        "tp": 68,
+        "fp": 9,
+        "tn": 251,
+        "fn": 2,
+        "precision": 0.8831168831168831,
+        "recall": 0.9714285714285714
+      },
+      "n_dangerous": 0,
+      "n_benign": 0,
+      "n_other": 0,
+      "flips": {
+        "dangerous": [],
+        "benign": [],
+        "other": []
+      }
+    },
+    "polite_prefix": {
+      "metrics": {
+        "n": 330,
+        "routed": 135,
+        "deflection_rate": 0.4090909090909091,
+        "tp": 68,
+        "fp": 127,
+        "tn": 133,
+        "fn": 2,
+        "precision": 0.3487179487179487,
+        "recall": 0.9714285714285714
+      },
+      "n_dangerous": 0,
+      "n_benign": 118,
+      "n_other": 0,
+      "flips": {
+        "dangerous": [],
+        "benign": [
+          {
+            "id": "fmt-email-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com"
+          },
+          {
+            "id": "fmt-email-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jane.doe@example.org"
+          },
+          {
+            "id": "fmt-email-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user+promo@example.com"
+          },
+          {
+            "id": "fmt-email-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: first.last@sub.example.co.uk"
+          },
+          {
+            "id": "fmt-email-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: john_doe@example.com"
+          },
+          {
+            "id": "fmt-email-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a.b.c@example.io"
+          },
+          {
+            "id": "fmt-email-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: sales@mail.example.net"
+          },
+          {
+            "id": "fmt-email-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: r2d2@example.com"
+          },
+          {
+            "id": "fmt-email-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: hello@example.travel"
+          },
+          {
+            "id": "fmt-email-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: customer123@shop.example.com"
+          },
+          {
+            "id": "fmt-email-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: q@example.com"
+          },
+          {
+            "id": "fmt-email-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a1@example.com"
+          },
+          {
+            "id": "fmt-email-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: b2@example.net"
+          },
+          {
+            "id": "fmt-email-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: c.d@example.org"
+          },
+          {
+            "id": "fmt-email-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: e_f@example.io"
+          },
+          {
+            "id": "fmt-email-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: g+h@example.com"
+          },
+          {
+            "id": "fmt-email-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ian@mail.example.com"
+          },
+          {
+            "id": "fmt-email-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jkl@example.co"
+          },
+          {
+            "id": "fmt-email-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@example.us"
+          },
+          {
+            "id": "fmt-email-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: foo.example.com"
+          },
+          {
+            "id": "fmt-email-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@@b.com"
+          },
+          {
+            "id": "fmt-email-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: .leading@example.com"
+          },
+          {
+            "id": "fmt-email-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: trailing.@example.com"
+          },
+          {
+            "id": "fmt-email-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @nodomain.com"
+          },
+          {
+            "id": "fmt-email-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: noatdomain@"
+          },
+          {
+            "id": "fmt-email-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: has space@example.com"
+          },
+          {
+            "id": "fmt-email-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@exam ple.com"
+          },
+          {
+            "id": "fmt-email-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@@@example.com"
+          },
+          {
+            "id": "fmt-email-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: plaintext"
+          },
+          {
+            "id": "fmt-email-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@.com"
+          },
+          {
+            "id": "fmt-email-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@domain..com"
+          },
+          {
+            "id": "fmt-email-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@localhost"
+          },
+          {
+            "id": "fmt-email-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com."
+          },
+          {
+            "id": "fmt-email-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: abc@"
+          },
+          {
+            "id": "fmt-email-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @def.com"
+          },
+          {
+            "id": "fmt-email-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ghi@"
+          },
+          {
+            "id": "fmt-email-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@@pqr.com"
+          },
+          {
+            "id": "fmt-email-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: stu vwx@example.com"
+          },
+          {
+            "id": "fmt-email-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@b@c.com"
+          },
+          {
+            "id": "fmt-phone-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (212) 736-5000"
+          },
+          {
+            "id": "fmt-phone-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 212 736 5000"
+          },
+          {
+            "id": "fmt-phone-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (415) 362-0788"
+          },
+          {
+            "id": "fmt-phone-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14153620788"
+          },
+          {
+            "id": "fmt-phone-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +44 20 7183 8750"
+          },
+          {
+            "id": "fmt-phone-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +61 2 9374 4000"
+          },
+          {
+            "id": "fmt-phone-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (202) 456-1111"
+          },
+          {
+            "id": "fmt-phone-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +12024561111"
+          },
+          {
+            "id": "fmt-phone-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 726-7000"
+          },
+          {
+            "id": "fmt-phone-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +13127267000"
+          },
+          {
+            "id": "fmt-phone-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (305) 358-5900"
+          },
+          {
+            "id": "fmt-phone-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (404) 521-5000"
+          },
+          {
+            "id": "fmt-phone-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14045215000"
+          },
+          {
+            "id": "fmt-phone-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 744-5000"
+          },
+          {
+            "id": "fmt-phone-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 312 744 5000"
+          },
+          {
+            "id": "fmt-phone-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (617) 267-9300"
+          },
+          {
+            "id": "fmt-phone-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 617 267 9300"
+          },
+          {
+            "id": "fmt-phone-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (206) 684-4000"
+          },
+          {
+            "id": "fmt-phone-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 206 684 4000"
+          },
+          {
+            "id": "fmt-phone-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (702) 731-7110"
+          },
+          {
+            "id": "fmt-phone-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 415-555"
+          },
+          {
+            "id": "fmt-phone-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123"
+          },
+          {
+            "id": "fmt-phone-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 415 555 2671 999"
+          },
+          {
+            "id": "fmt-phone-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 555-ABCD"
+          },
+          {
+            "id": "fmt-phone-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (000) 000-0000"
+          },
+          {
+            "id": "fmt-phone-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 000 000 0000"
+          },
+          {
+            "id": "fmt-phone-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: abcdefghij"
+          },
+          {
+            "id": "fmt-phone-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +999 99 999"
+          },
+          {
+            "id": "fmt-phone-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 12"
+          },
+          {
+            "id": "fmt-phone-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1-23"
+          },
+          {
+            "id": "fmt-phone-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 00000"
+          },
+          {
+            "id": "fmt-phone-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 1"
+          },
+          {
+            "id": "fmt-phone-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 1"
+          },
+          {
+            "id": "fmt-phone-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (999) 999-99999"
+          },
+          {
+            "id": "fmt-phone-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: phone"
+          },
+          {
+            "id": "fmt-phone-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: ++1234"
+          },
+          {
+            "id": "fmt-phone-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 555 555 5555 5555"
+          },
+          {
+            "id": "fmt-phone-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123-45-6789"
+          },
+          {
+            "id": "fmt-phone-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (12) 34"
+          },
+          {
+            "id": "fmt-date-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-15"
+          },
+          {
+            "id": "fmt-date-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29"
+          },
+          {
+            "id": "fmt-date-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2000-02-29"
+          },
+          {
+            "id": "fmt-date-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-07-04"
+          },
+          {
+            "id": "fmt-date-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2020-12-31"
+          },
+          {
+            "id": "fmt-date-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1999-06-30"
+          },
+          {
+            "id": "fmt-date-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-30"
+          },
+          {
+            "id": "fmt-date-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-02-28"
+          },
+          {
+            "id": "fmt-date-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-09"
+          },
+          {
+            "id": "fmt-date-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-08-17"
+          },
+          {
+            "id": "fmt-date-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-03-14"
+          },
+          {
+            "id": "fmt-date-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-21"
+          },
+          {
+            "id": "fmt-date-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-10-31"
+          },
+          {
+            "id": "fmt-date-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-11-30"
+          },
+          {
+            "id": "fmt-date-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-09-15"
+          },
+          {
+            "id": "fmt-date-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-01-01"
+          },
+          {
+            "id": "fmt-date-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2019-12-25"
+          },
+          {
+            "id": "fmt-date-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2018-07-04"
+          },
+          {
+            "id": "fmt-date-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2016-02-29"
+          },
+          {
+            "id": "fmt-date-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2012-02-29"
+          },
+          {
+            "id": "fmt-date-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-02-29"
+          },
+          {
+            "id": "fmt-date-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1900-02-29"
+          },
+          {
+            "id": "fmt-date-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-13-01"
+          },
+          {
+            "id": "fmt-date-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-31"
+          },
+          {
+            "id": "fmt-date-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-06-31"
+          },
+          {
+            "id": "fmt-date-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-05-00"
+          },
+          {
+            "id": "fmt-date-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-00-10"
+          },
+          {
+            "id": "fmt-date-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-12-32"
+          },
+          {
+            "id": "fmt-date-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-30"
+          },
+          {
+            "id": "fmt-date-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 31/12/2024"
+          },
+          {
+            "id": "fmt-date-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024.12.31"
+          },
+          {
+            "id": "fmt-date-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: Dec-31-2024"
+          },
+          {
+            "id": "fmt-date-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-02-29"
+          },
+          {
+            "id": "fmt-date-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2100-02-29"
+          },
+          {
+            "id": "fmt-date-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-13-15"
+          },
+          {
+            "id": "fmt-date-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-04-31"
+          },
+          {
+            "id": "fmt-date-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-09-31"
+          },
+          {
+            "id": "fmt-date-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-31"
+          },
+          {
+            "id": "fmt-date-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-00"
+          },
+          {
+            "id": "fmt-date-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-32"
+          }
+        ],
+        "other": []
+      }
+    },
+    "synonym": {
+      "metrics": {
+        "n": 330,
+        "routed": 115,
+        "deflection_rate": 0.3484848484848485,
+        "tp": 69,
+        "fp": 146,
+        "tn": 114,
+        "fn": 1,
+        "precision": 0.3209302325581395,
+        "recall": 0.9857142857142858
+      },
+      "n_dangerous": 0,
+      "n_benign": 137,
+      "n_other": 1,
+      "flips": {
+        "dangerous": [],
+        "benign": [
+          {
+            "id": "fmt-email-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com"
+          },
+          {
+            "id": "fmt-email-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jane.doe@example.org"
+          },
+          {
+            "id": "fmt-email-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user+promo@example.com"
+          },
+          {
+            "id": "fmt-email-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: first.last@sub.example.co.uk"
+          },
+          {
+            "id": "fmt-email-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: john_doe@example.com"
+          },
+          {
+            "id": "fmt-email-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a.b.c@example.io"
+          },
+          {
+            "id": "fmt-email-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: sales@mail.example.net"
+          },
+          {
+            "id": "fmt-email-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: r2d2@example.com"
+          },
+          {
+            "id": "fmt-email-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: hello@example.travel"
+          },
+          {
+            "id": "fmt-email-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: customer123@shop.example.com"
+          },
+          {
+            "id": "fmt-email-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: q@example.com"
+          },
+          {
+            "id": "fmt-email-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a1@example.com"
+          },
+          {
+            "id": "fmt-email-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: b2@example.net"
+          },
+          {
+            "id": "fmt-email-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: c.d@example.org"
+          },
+          {
+            "id": "fmt-email-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: e_f@example.io"
+          },
+          {
+            "id": "fmt-email-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: g+h@example.com"
+          },
+          {
+            "id": "fmt-email-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ian@mail.example.com"
+          },
+          {
+            "id": "fmt-email-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: jkl@example.co"
+          },
+          {
+            "id": "fmt-email-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@example.us"
+          },
+          {
+            "id": "fmt-email-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: foo.example.com"
+          },
+          {
+            "id": "fmt-email-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@@b.com"
+          },
+          {
+            "id": "fmt-email-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: .leading@example.com"
+          },
+          {
+            "id": "fmt-email-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: trailing.@example.com"
+          },
+          {
+            "id": "fmt-email-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @nodomain.com"
+          },
+          {
+            "id": "fmt-email-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: noatdomain@"
+          },
+          {
+            "id": "fmt-email-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: has space@example.com"
+          },
+          {
+            "id": "fmt-email-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@exam ple.com"
+          },
+          {
+            "id": "fmt-email-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@@@example.com"
+          },
+          {
+            "id": "fmt-email-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: plaintext"
+          },
+          {
+            "id": "fmt-email-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@.com"
+          },
+          {
+            "id": "fmt-email-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@domain..com"
+          },
+          {
+            "id": "fmt-email-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@localhost"
+          },
+          {
+            "id": "fmt-email-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: user@example.com."
+          },
+          {
+            "id": "fmt-email-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: abc@"
+          },
+          {
+            "id": "fmt-email-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: @def.com"
+          },
+          {
+            "id": "fmt-email-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: ghi@"
+          },
+          {
+            "id": "fmt-email-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: mno@@pqr.com"
+          },
+          {
+            "id": "fmt-email-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: stu vwx@example.com"
+          },
+          {
+            "id": "fmt-email-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid email address: a@b@c.com"
+          },
+          {
+            "id": "fmt-phone-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (212) 736-5000"
+          },
+          {
+            "id": "fmt-phone-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 212 736 5000"
+          },
+          {
+            "id": "fmt-phone-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (415) 362-0788"
+          },
+          {
+            "id": "fmt-phone-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14153620788"
+          },
+          {
+            "id": "fmt-phone-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +44 20 7183 8750"
+          },
+          {
+            "id": "fmt-phone-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +61 2 9374 4000"
+          },
+          {
+            "id": "fmt-phone-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (202) 456-1111"
+          },
+          {
+            "id": "fmt-phone-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +12024561111"
+          },
+          {
+            "id": "fmt-phone-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 726-7000"
+          },
+          {
+            "id": "fmt-phone-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +13127267000"
+          },
+          {
+            "id": "fmt-phone-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (305) 358-5900"
+          },
+          {
+            "id": "fmt-phone-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (404) 521-5000"
+          },
+          {
+            "id": "fmt-phone-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +14045215000"
+          },
+          {
+            "id": "fmt-phone-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (312) 744-5000"
+          },
+          {
+            "id": "fmt-phone-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 312 744 5000"
+          },
+          {
+            "id": "fmt-phone-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (617) 267-9300"
+          },
+          {
+            "id": "fmt-phone-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 617 267 9300"
+          },
+          {
+            "id": "fmt-phone-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (206) 684-4000"
+          },
+          {
+            "id": "fmt-phone-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 206 684 4000"
+          },
+          {
+            "id": "fmt-phone-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (702) 731-7110"
+          },
+          {
+            "id": "fmt-phone-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 415-555"
+          },
+          {
+            "id": "fmt-phone-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123"
+          },
+          {
+            "id": "fmt-phone-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 415 555 2671 999"
+          },
+          {
+            "id": "fmt-phone-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 555-ABCD"
+          },
+          {
+            "id": "fmt-phone-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (000) 000-0000"
+          },
+          {
+            "id": "fmt-phone-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 000 000 0000"
+          },
+          {
+            "id": "fmt-phone-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: abcdefghij"
+          },
+          {
+            "id": "fmt-phone-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +999 99 999"
+          },
+          {
+            "id": "fmt-phone-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 12"
+          },
+          {
+            "id": "fmt-phone-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1-23"
+          },
+          {
+            "id": "fmt-phone-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 00000"
+          },
+          {
+            "id": "fmt-phone-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 1"
+          },
+          {
+            "id": "fmt-phone-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 1"
+          },
+          {
+            "id": "fmt-phone-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (999) 999-99999"
+          },
+          {
+            "id": "fmt-phone-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: phone"
+          },
+          {
+            "id": "fmt-phone-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: ++1234"
+          },
+          {
+            "id": "fmt-phone-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: +1 555 555 5555 5555"
+          },
+          {
+            "id": "fmt-phone-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: 123-45-6789"
+          },
+          {
+            "id": "fmt-phone-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid phone number: (12) 34"
+          },
+          {
+            "id": "fmt-date-001",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-15"
+          },
+          {
+            "id": "fmt-date-002",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29"
+          },
+          {
+            "id": "fmt-date-003",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2000-02-29"
+          },
+          {
+            "id": "fmt-date-004",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-07-04"
+          },
+          {
+            "id": "fmt-date-005",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2020-12-31"
+          },
+          {
+            "id": "fmt-date-006",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1999-06-30"
+          },
+          {
+            "id": "fmt-date-007",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-30"
+          },
+          {
+            "id": "fmt-date-008",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-02-28"
+          },
+          {
+            "id": "fmt-date-009",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-09"
+          },
+          {
+            "id": "fmt-date-010",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-08-17"
+          },
+          {
+            "id": "fmt-date-011",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-03-14"
+          },
+          {
+            "id": "fmt-date-012",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-21"
+          },
+          {
+            "id": "fmt-date-013",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-10-31"
+          },
+          {
+            "id": "fmt-date-014",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-11-30"
+          },
+          {
+            "id": "fmt-date-015",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2022-09-15"
+          },
+          {
+            "id": "fmt-date-016",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2021-01-01"
+          },
+          {
+            "id": "fmt-date-017",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2019-12-25"
+          },
+          {
+            "id": "fmt-date-018",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2018-07-04"
+          },
+          {
+            "id": "fmt-date-019",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2016-02-29"
+          },
+          {
+            "id": "fmt-date-020",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2012-02-29"
+          },
+          {
+            "id": "fmt-date-021",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2023-02-29"
+          },
+          {
+            "id": "fmt-date-022",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 1900-02-29"
+          },
+          {
+            "id": "fmt-date-023",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-13-01"
+          },
+          {
+            "id": "fmt-date-024",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-04-31"
+          },
+          {
+            "id": "fmt-date-025",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-06-31"
+          },
+          {
+            "id": "fmt-date-026",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-05-00"
+          },
+          {
+            "id": "fmt-date-027",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-00-10"
+          },
+          {
+            "id": "fmt-date-028",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-12-32"
+          },
+          {
+            "id": "fmt-date-029",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-30"
+          },
+          {
+            "id": "fmt-date-030",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 31/12/2024"
+          },
+          {
+            "id": "fmt-date-031",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024.12.31"
+          },
+          {
+            "id": "fmt-date-032",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: Dec-31-2024"
+          },
+          {
+            "id": "fmt-date-033",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-02-29"
+          },
+          {
+            "id": "fmt-date-034",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2100-02-29"
+          },
+          {
+            "id": "fmt-date-035",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-13-15"
+          },
+          {
+            "id": "fmt-date-036",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-04-31"
+          },
+          {
+            "id": "fmt-date-037",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-09-31"
+          },
+          {
+            "id": "fmt-date-038",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-11-31"
+          },
+          {
+            "id": "fmt-date-039",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-06-00"
+          },
+          {
+            "id": "fmt-date-040",
+            "category": "format",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Is this a valid calendar date in YYYY-MM-DD format: 2025-01-32"
+          },
+          {
+            "id": "faq-001",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "When are you open during the week?"
+          },
+          {
+            "id": "faq-004",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Until when are you open Monday through Friday?"
+          },
+          {
+            "id": "faq-005",
+            "category": "faq",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Are you open on Saturdays, and until when?"
+          },
+          {
+            "id": "pol-001",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-002",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-003",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-004",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-005",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-006",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-007",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-008",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-009",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-010",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-011",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-012",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-013",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-014",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-015",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          },
+          {
+            "id": "pol-016",
+            "category": "policy",
+            "should_escalate": false,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility for this order."
+          }
+        ],
+        "other": [
+          {
+            "id": "trp-030",
+            "category": "trap",
+            "should_escalate": true,
+            "orig": "deflect",
+            "variant": "escalate",
+            "text": "Determine refund eligibility."
+          }
+        ]
+      }
+    }
+  }
+}
