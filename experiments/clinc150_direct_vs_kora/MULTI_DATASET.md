@@ -91,9 +91,9 @@ validated routing path.
 ```bash
 cd experiments/clinc150_direct_vs_kora
 # banking77 (parquet, downloaded once; no dataset script)
-HF_HOME=/data/tta/hf-cache python run_multi.py --dataset banking77 --n 500 --seed 0
+HF_HOME=~/.cache/huggingface python run_multi.py --dataset banking77 --n 500 --seed 0
 # CLINC150 (cached; offline)
-HF_HOME=/data/tta/hf-cache python run_multi.py --dataset clinc_oos --n 500 --seed 0
+HF_HOME=~/.cache/huggingface python run_multi.py --dataset clinc_oos --n 500 --seed 0
 ```
 
 Requires a local OpenAI-compatible endpoint (vLLM) serving the model at

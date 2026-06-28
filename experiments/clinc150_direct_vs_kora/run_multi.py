@@ -23,7 +23,7 @@ Datasets:
                  intents, no out-of-scope label.
 
 Run:
-    HF_HOME=/data/tta/hf-cache \
+    HF_HOME=~/.cache/huggingface \
     ~/kora-ai-champion/envs/kora-benchmark/bin/python \
     experiments/clinc150_direct_vs_kora/run_multi.py \
         --dataset banking77 --n 20 --seed 0
