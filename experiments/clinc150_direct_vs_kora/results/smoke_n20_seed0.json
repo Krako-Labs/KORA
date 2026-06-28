@@ -1,0 +1,465 @@
+{
+  "config": {
+    "n": 20,
+    "seed": 0,
+    "model": "Qwen/Qwen2.5-32B-Instruct",
+    "base_url": "http://localhost:8000/v1",
+    "min_score": 2.0,
+    "min_margin": 1.0,
+    "num_labels": 151
+  },
+  "direct": {
+    "arm": "direct",
+    "n": 20,
+    "accuracy": 0.95,
+    "correct": 19,
+    "llm_calls": 20,
+    "deterministic_answers": 0,
+    "tokens_in": 11357,
+    "tokens_out": 165,
+    "latency_s_total": 7.736473792698234
+  },
+  "kora": {
+    "arm": "kora",
+    "n": 20,
+    "accuracy": 0.95,
+    "correct": 19,
+    "llm_calls": 18,
+    "deterministic_answers": 2,
+    "tokens_in": 10224,
+    "tokens_out": 151,
+    "latency_s_total": 6.759741730056703
+  },
+  "comparison": {
+    "accuracy_delta": 0.0,
+    "llm_calls_saved": 2,
+    "llm_calls_saved_pct": 0.1,
+    "tokens_in_saved": 1133,
+    "tokens_out_saved": 14,
+    "latency_s_saved": 0.9767320626415312
+  },
+  "direct_records": [
+    {
+      "text": "find a credit counseling service for me on the web",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 569,
+      "tokens_out": 8,
+      "latency_s": 0.6421970510855317
+    },
+    {
+      "text": "where is te lawrence",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 564,
+      "tokens_out": 8,
+      "latency_s": 0.363652893807739
+    },
+    {
+      "text": "where is wells fargo's routing number listed",
+      "gold": "routing",
+      "pred": "routing",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 568,
+      "tokens_out": 7,
+      "latency_s": 0.3489850708283484
+    },
+    {
+      "text": "going to work, will there be traffic",
+      "gold": "traffic",
+      "pred": "traffic",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 7,
+      "latency_s": 0.34884732216596603
+    },
+    {
+      "text": "nope not it",
+      "gold": "no",
+      "pred": "no",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 563,
+      "tokens_out": 7,
+      "latency_s": 0.3482624227181077
+    },
+    {
+      "text": "include rap god on the motivational playlist",
+      "gold": "update_playlist",
+      "pred": "update_playlist",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 566,
+      "tokens_out": 8,
+      "latency_s": 0.37036996940150857
+    },
+    {
+      "text": "i watched \"were the millers\" on netflix last night",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 572,
+      "tokens_out": 8,
+      "latency_s": 0.37053861003369093
+    },
+    {
+      "text": "nice seeing you bye",
+      "gold": "goodbye",
+      "pred": "goodbye",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 563,
+      "tokens_out": 8,
+      "latency_s": 0.3666994837112725
+    },
+    {
+      "text": "can i sub bacon for ham",
+      "gold": "ingredient_substitution",
+      "pred": "ingredient_substitution",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 9,
+      "latency_s": 0.3864620109088719
+    },
+    {
+      "text": "add eggs to my shopping list if it's not already there",
+      "gold": "shopping_list_update",
+      "pred": "shopping_list_update",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 571,
+      "tokens_out": 9,
+      "latency_s": 0.3892864570952952
+    },
+    {
+      "text": "could you suggest a french restaurant, please",
+      "gold": "restaurant_suggestion",
+      "pred": "restaurant_suggestion",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 9,
+      "latency_s": 0.38747882191091776
+    },
+    {
+      "text": "i think all my bills are paid, but can you double check",
+      "gold": "bill_balance",
+      "pred": "bill_balance",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 572,
+      "tokens_out": 8,
+      "latency_s": 0.37019368540495634
+    },
+    {
+      "text": "can you see if paying garbage bill is on my todo list for this week",
+      "gold": "todo_list",
+      "pred": "todo_list_update",
+      "correct": false,
+      "llm_called": true,
+      "tokens_in": 574,
+      "tokens_out": 9,
+      "latency_s": 0.3885335847735405
+    },
+    {
+      "text": "do the romans still use the colosseum for anything today",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 573,
+      "tokens_out": 8,
+      "latency_s": 0.3702566619031131
+    },
+    {
+      "text": "can you retrieve client d's file please",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 8,
+      "latency_s": 0.3682247460819781
+    },
+    {
+      "text": "is it possible to change oil, if so how and what do i use",
+      "gold": "oil_change_how",
+      "pred": "oil_change_how",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 574,
+      "tokens_out": 10,
+      "latency_s": 0.4083284023217857
+    },
+    {
+      "text": "can i call you james instead",
+      "gold": "change_ai_name",
+      "pred": "change_ai_name",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 9,
+      "latency_s": 0.388000869192183
+    },
+    {
+      "text": "what's a good chili recipe",
+      "gold": "recipe",
+      "pred": "recipe",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 7,
+      "latency_s": 0.3479002541862428
+    },
+    {
+      "text": "may you please say that again",
+      "gold": "repeat",
+      "pred": "repeat",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 7,
+      "latency_s": 0.34844340290874243
+    },
+    {
+      "text": "what kind of things can you help with",
+      "gold": "what_can_i_ask_you",
+      "pred": "what_can_i_ask_you",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 11,
+      "latency_s": 0.42381207225844264
+    }
+  ],
+  "kora_records": [
+    {
+      "text": "find a credit counseling service for me on the web",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 569,
+      "tokens_out": 8,
+      "latency_s": 0.3686102512292564,
+      "route": "below_min_score(1.50<2.0)"
+    },
+    {
+      "text": "where is te lawrence",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 564,
+      "tokens_out": 8,
+      "latency_s": 0.36757255299016833,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "where is wells fargo's routing number listed",
+      "gold": "routing",
+      "pred": "routing",
+      "correct": true,
+      "llm_called": false,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "latency_s": 0.0,
+      "route": "routed(score=2.00,margin=2.00)"
+    },
+    {
+      "text": "going to work, will there be traffic",
+      "gold": "traffic",
+      "pred": "traffic",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 7,
+      "latency_s": 0.3502412880770862,
+      "route": "ambiguous_margin(0.00<1.0)"
+    },
+    {
+      "text": "nope not it",
+      "gold": "no",
+      "pred": "no",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 563,
+      "tokens_out": 7,
+      "latency_s": 0.34756711032241583,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "include rap god on the motivational playlist",
+      "gold": "update_playlist",
+      "pred": "update_playlist",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 566,
+      "tokens_out": 8,
+      "latency_s": 0.3669622903689742,
+      "route": "ambiguous_margin(0.50<1.0)"
+    },
+    {
+      "text": "i watched \"were the millers\" on netflix last night",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 572,
+      "tokens_out": 8,
+      "latency_s": 0.36913509480655193,
+      "route": "below_min_score(1.50<2.0)"
+    },
+    {
+      "text": "nice seeing you bye",
+      "gold": "goodbye",
+      "pred": "goodbye",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 563,
+      "tokens_out": 8,
+      "latency_s": 0.36669737519696355,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "can i sub bacon for ham",
+      "gold": "ingredient_substitution",
+      "pred": "ingredient_substitution",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 9,
+      "latency_s": 0.3854627921245992,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "add eggs to my shopping list if it's not already there",
+      "gold": "shopping_list_update",
+      "pred": "shopping_list_update",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 571,
+      "tokens_out": 9,
+      "latency_s": 0.3871367620304227,
+      "route": "ambiguous_margin(0.00<1.0)"
+    },
+    {
+      "text": "could you suggest a french restaurant, please",
+      "gold": "restaurant_suggestion",
+      "pred": "restaurant_suggestion",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 9,
+      "latency_s": 0.3868904821574688,
+      "route": "below_min_score(1.50<2.0)"
+    },
+    {
+      "text": "i think all my bills are paid, but can you double check",
+      "gold": "bill_balance",
+      "pred": "bill_balance",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 572,
+      "tokens_out": 8,
+      "latency_s": 0.3688413850031793,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "can you see if paying garbage bill is on my todo list for this week",
+      "gold": "todo_list",
+      "pred": "todo_list_update",
+      "correct": false,
+      "llm_called": true,
+      "tokens_in": 574,
+      "tokens_out": 9,
+      "latency_s": 0.3895619590766728,
+      "route": "ambiguous_margin(0.00<1.0)"
+    },
+    {
+      "text": "do the romans still use the colosseum for anything today",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 573,
+      "tokens_out": 8,
+      "latency_s": 0.36933401320129633,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "can you retrieve client d's file please",
+      "gold": "oos",
+      "pred": "oos",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 8,
+      "latency_s": 0.36688710283488035,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "is it possible to change oil, if so how and what do i use",
+      "gold": "oil_change_how",
+      "pred": "oil_change_how",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 574,
+      "tokens_out": 10,
+      "latency_s": 0.40845381701365113,
+      "route": "ambiguous_margin(0.00<1.0)"
+    },
+    {
+      "text": "can i call you james instead",
+      "gold": "change_ai_name",
+      "pred": "change_ai_name",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 9,
+      "latency_s": 0.38778980588540435,
+      "route": "below_min_score(1.50<2.0)"
+    },
+    {
+      "text": "what's a good chili recipe",
+      "gold": "recipe",
+      "pred": "recipe",
+      "correct": true,
+      "llm_called": false,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "latency_s": 0.0,
+      "route": "routed(score=2.00,margin=2.00)"
+    },
+    {
+      "text": "may you please say that again",
+      "gold": "repeat",
+      "pred": "repeat",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 565,
+      "tokens_out": 7,
+      "latency_s": 0.3481686329469085,
+      "route": "no_keyword_overlap"
+    },
+    {
+      "text": "what kind of things can you help with",
+      "gold": "what_can_i_ask_you",
+      "pred": "what_can_i_ask_you",
+      "correct": true,
+      "llm_called": true,
+      "tokens_in": 567,
+      "tokens_out": 11,
+      "latency_s": 0.4244290147908032,
+      "route": "no_keyword_overlap"
+    }
+  ]
+}
