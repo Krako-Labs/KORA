@@ -14,7 +14,7 @@ router deflects, and at what accuracy cost.
 
 - **venv:** `~/kora-ai-champion/envs/kora-benchmark` (vllm 0.6.6.post1, datasets 5.0.0, openai 2.44.0)
 - **model / server:** `Qwen/Qwen2.5-32B-Instruct` on `http://localhost:8000/v1` (api key `EMPTY`)
-- **dataset cache:** `HF_HOME=/data/tta/hf-cache` (CLINC150 `clinc_oos` / `plus` config, offline)
+- **dataset cache:** `HF_HOME=~/.cache/huggingface` (CLINC150 `clinc_oos` / `plus` config, offline)
 
 ### Starting the vLLM server
 
@@ -36,7 +36,7 @@ nohup ~/kora-ai-champion/envs/kora-benchmark/bin/python -m vllm.entrypoints.open
 ## Running
 
 ```bash
-HF_HOME=/data/tta/hf-cache \
+HF_HOME=~/.cache/huggingface \
 ~/kora-ai-champion/envs/kora-benchmark/bin/python \
 experiments/clinc150_direct_vs_kora/run.py --n 20 --seed 0
 ```
