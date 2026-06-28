@@ -89,6 +89,18 @@ Architectural pattern where every request triggers a model invocation without ev
 
 ---
 
+## Model Escalation
+
+The path a task takes when deterministic handling is not safe or sufficient.
+
+In KORA, tasks first attempt deterministic routing — arithmetic, lookup, structural transformation. When those routes cannot satisfy the task's type or schema requirements, the task escalates to a model invocation.
+
+Model escalation is not a fallback. It is a deliberate routing decision made by the orchestrator based on task type, budget, and validation constraints.
+
+The ratio of deterministic routes to model escalations is a key architectural metric.
+
+---
+
 ## Model Task
 
 A task requiring probabilistic reasoning through a model invocation.
