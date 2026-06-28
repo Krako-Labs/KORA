@@ -22,3 +22,10 @@ artifacts/*.json
 artifacts/metrics/best_configs.json
 artifacts/metrics/best_configs*.json
 docs/metrics/*.jsonl
+
+# local virtualenvs
+.venv-goal058b-cuda/
+# smoke-run benchmark results (n=20)
+experiments/clinc150_direct_vs_kora/results/*_n20_seed0.json
+# local task specs (not for the public repo)
+*_TASK.md
