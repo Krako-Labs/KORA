@@ -228,7 +228,7 @@ $PY generate.py --profile full --seed 0
 $PY -m kora.dispatcher workloads/full.json
 
 # 3. full run, both KB conditions, judge grader, k=3 (needs the vLLM server up)
-HF_HOME=/data/tta/hf-cache $PY run.py \
+HF_HOME=~/.cache/huggingface $PY run.py \
     --workload workloads/full.json --conditions both --k 3 \
     --faq-grader judge --out results/run_full.json
 

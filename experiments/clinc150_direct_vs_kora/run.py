@@ -11,7 +11,7 @@ We report accuracy, LLM-call count, token usage and latency for both arms so the
 routing economics (fewer LLM calls / tokens at comparable accuracy) are visible.
 
 Run:
-    HF_HOME=/data/tta/hf-cache \
+    HF_HOME=~/.cache/huggingface \
     ~/kora-ai-champion/envs/kora-benchmark/bin/python \
     experiments/clinc150_direct_vs_kora/run.py --n 20 --seed 0
 """

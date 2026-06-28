@@ -22,7 +22,7 @@ precision/recall (deterministic, KB-independent), and optional consistency
 (K resamples of the LLM arm at a higher temperature -> answer variance).
 
 Run (smoke):
-    HF_HOME=/data/tta/hf-cache \
+    HF_HOME=~/.cache/huggingface \
     ~/kora-ai-champion/envs/kora-benchmark/bin/python \
         experiments/kora_target_workload/run.py --workload workloads/smoke.json
 """
