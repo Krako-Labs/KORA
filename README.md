@@ -98,4 +98,4 @@ See the [claim registry](docs/claims/kora-claim-registry.md) and [public languag
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+Apache License 2.0. See [LICENSE](LICENSE).
