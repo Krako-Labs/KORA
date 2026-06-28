@@ -10,7 +10,7 @@ vs the direct (always-LLM) baseline. The keyword dictionary in router.py is used
 unchanged — only the confidence thresholds vary.
 
 Run:
-    HF_HOME=/data/tta/hf-cache \
+    HF_HOME=~/.cache/huggingface \
     ~/kora-ai-champion/envs/kora-benchmark/bin/python \
     experiments/clinc150_direct_vs_kora/sweep.py \
       --cached results/run_n500_seed0.json
