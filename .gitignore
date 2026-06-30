@@ -29,3 +29,6 @@ docs/metrics/*.jsonl
 experiments/clinc150_direct_vs_kora/results/*_n20_seed0.json
 # local task specs (not for the public repo)
 *_TASK.md
+
+# local smoke / connectivity scripts (not for the public repo)
+smoke/
