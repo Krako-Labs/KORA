@@ -19,13 +19,13 @@ router deflects, and at what accuracy cost.
 ### Starting the vLLM server
 
 ```bash
-cd /data/tta/kora-runs
+cd /data/kora-runs
 nohup ~/kora-ai-champion/envs/kora-benchmark/bin/python -m vllm.entrypoints.openai.api_server \
   --model Qwen/Qwen2.5-32B-Instruct \
   --tensor-parallel-size 2 \
   --port 8000 \
   --gpu-memory-utilization 0.90 \
-  > /data/tta/kora-runs/vllm_server.log 2>&1 &
+  > /data/kora-runs/vllm_server.log 2>&1 &
 ```
 
 > **Note — guided decoding is disabled on purpose.** vLLM 0.6.6.post1's xgrammar

@@ -191,7 +191,7 @@ calls are evaluation infrastructure and are **excluded** from the serving-cost
 metrics in §2.
 
 **Hardware evidence.** `nvidia-smi` captured mid-run (2× H100 80GB, 93% / 98%
-utilization, ~72 GB each) → `/data/tta/kora-runs/nvidia_smi_full_run_20260627_175109.txt`.
+utilization, ~72 GB each) → `/data/kora-runs/nvidia_smi_full_run_20260627_175109.txt`.
 
 ---
 
