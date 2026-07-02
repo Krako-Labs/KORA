@@ -89,9 +89,90 @@ def _adapt_banking77(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str]
     return rows, label_names, None
 
 
+
+def _norm_label(name: str) -> str:
+    """Normalize a raw label to the underscore convention the router expects.
+
+    The keyword router derives its keyword sets from label.split("_"), so
+    labels arriving as free text ("peptic ulcer disease") or hyphenated tags
+    ("criminal-law") are mapped to lowercase underscore form. This is format
+    adaptation only -- no per-dataset semantics are injected.
+    """
+    return name.strip().lower().replace("-", " ").replace("/", " ").replace("  ", " ").replace(" ", "_")
+
+
+def _adapt_symptom(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
+    """gretelai/symptom_to_diagnosis test split (medical domain).
+
+    Patient-style symptom descriptions labeled with one of 22 diagnoses.
+    Small test split (212 rows); n is capped accordingly. No out-of-scope label.
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("gretelai/symptom_to_diagnosis")["test"]
+    label_names = sorted({_norm_label(l) for l in ds["output_text"]})
+    n = min(n, len(ds))
+    sample = ds.shuffle(seed=seed).select(range(n))
+    rows = [
+        {"text": ex["input_text"], "gold": _norm_label(ex["output_text"])}
+        for ex in sample
+    ]
+    return rows, label_names, None
+
+
+def _adapt_tickets(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
+    """Tobi-Bueck/customer-support-tickets, English subset (IT helpdesk domain).
+
+    Real-style support tickets routed to one of 10 destination queues; the
+    queue is the routing target, which matches the KORA dispatch use case.
+    Single train split upstream, so a seeded shuffle provides the eval sample.
+    License: CC-BY-NC-4.0 (research benchmark use). No out-of-scope label.
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("Tobi-Bueck/customer-support-tickets")["train"]
+    ds = ds.filter(lambda x: x["language"] == "en" and x["queue"])
+    label_names = sorted({_norm_label(q) for q in ds["queue"]})
+    sample = ds.shuffle(seed=seed).select(range(n))
+    rows = [
+        {
+            "text": f"{ex['subject'] or ''}\n{ex['body'] or ''}".strip(),
+            "gold": _norm_label(ex["queue"]),
+        }
+        for ex in sample
+    ]
+    return rows, label_names, None
+
+
+def _adapt_law(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
+    """jonathanli/law-stack-exchange test split (legal domain).
+
+    Law Stack Exchange questions labeled with one of 16 topic tags. Labels are
+    kept exactly as upstream (including semantically overlapping pairs such as
+    contract vs contract-law); merging them would amount to per-dataset tuning.
+    Text is title + body, following the source paper. No out-of-scope label.
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("jonathanli/law-stack-exchange")["test"]
+    label_names = sorted({_norm_label(l) for l in ds["text_label"]})
+    sample = ds.shuffle(seed=seed).select(range(n))
+    rows = [
+        {
+            "text": f"{ex['title'] or ''}\n{ex['body'] or ''}".strip(),
+            "gold": _norm_label(ex["text_label"]),
+        }
+        for ex in sample
+    ]
+    return rows, label_names, None
+
+
 DATASETS: dict[str, Callable[[int, int], tuple[list[dict[str, Any]], list[str], str | None]]] = {
     "clinc_oos": _adapt_clinc,
     "banking77": _adapt_banking77,
+    "symptom": _adapt_symptom,
+    "tickets": _adapt_tickets,
+    "law": _adapt_law,
 }
 
 
