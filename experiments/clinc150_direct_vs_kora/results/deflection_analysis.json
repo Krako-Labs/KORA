@@ -1,0 +1,511 @@
+[
+  {
+    "file": "banking77_n500_seed0.json",
+    "dataset": "banking77",
+    "seed": 0,
+    "n": 500,
+    "deflected": 119,
+    "escalated": 381,
+    "deflection_rate": 0.238,
+    "router_acc_on_deflected": 0.7478991596638656,
+    "llm_acc_on_escalated": 0.6614173228346457,
+    "net_loss_cases": 14,
+    "net_gain_cases": 5,
+    "accuracy_delta": -0.017999999999999905,
+    "top_loss_pairs": [
+      {
+        "gold": "transfer_timing",
+        "pred": "transfer_into_account",
+        "count": 3
+      },
+      {
+        "gold": "Refund_not_showing_up",
+        "pred": "extra_charge_on_statement",
+        "count": 2
+      },
+      {
+        "gold": "card_about_to_expire",
+        "pred": "order_physical_card",
+        "count": 2
+      },
+      {
+        "gold": "order_physical_card",
+        "pred": "get_physical_card",
+        "count": 2
+      },
+      {
+        "gold": "getting_virtual_card",
+        "pred": "get_disposable_virtual_card",
+        "count": 2
+      },
+      {
+        "gold": "request_refund",
+        "pred": "wrong_amount_of_cash_received",
+        "count": 1
+      },
+      {
+        "gold": "virtual_card_not_working",
+        "pred": "getting_virtual_card",
+        "count": 1
+      },
+      {
+        "gold": "activate_my_card",
+        "pred": "card_about_to_expire",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "clinc_oos_n500_seed0.json",
+    "dataset": "clinc_oos",
+    "seed": 0,
+    "n": 500,
+    "deflected": 104,
+    "escalated": 396,
+    "deflection_rate": 0.208,
+    "router_acc_on_deflected": 0.8173076923076923,
+    "llm_acc_on_escalated": 0.8080808080808081,
+    "net_loss_cases": 15,
+    "net_gain_cases": 2,
+    "accuracy_delta": -0.025999999999999912,
+    "top_loss_pairs": [
+      {
+        "gold": "oos",
+        "pred": "where_are_you_from",
+        "count": 4
+      },
+      {
+        "gold": "min_payment",
+        "pred": "pay_bill",
+        "count": 2
+      },
+      {
+        "gold": "translate",
+        "pred": "thank_you",
+        "count": 2
+      },
+      {
+        "gold": "food_last",
+        "pred": "no",
+        "count": 1
+      },
+      {
+        "gold": "who_do_you_work_for",
+        "pred": "where_are_you_from",
+        "count": 1
+      },
+      {
+        "gold": "oos",
+        "pred": "who_do_you_work_for",
+        "count": 1
+      },
+      {
+        "gold": "bill_due",
+        "pred": "pay_bill",
+        "count": 1
+      },
+      {
+        "gold": "meeting_schedule",
+        "pred": "where_are_you_from",
+        "count": 1
+      },
+      {
+        "gold": "oos",
+        "pred": "how_old_are_you",
+        "count": 1
+      },
+      {
+        "gold": "change_user_name",
+        "pred": "change_ai_name",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "law_n500_seed0.json",
+    "dataset": "law",
+    "seed": 0,
+    "n": 500,
+    "deflected": 194,
+    "escalated": 306,
+    "deflection_rate": 0.388,
+    "router_acc_on_deflected": 0.7474226804123711,
+    "llm_acc_on_escalated": 0.7189542483660131,
+    "net_loss_cases": 31,
+    "net_gain_cases": 16,
+    "accuracy_delta": -0.030000000000000027,
+    "top_loss_pairs": [
+      {
+        "gold": "employment",
+        "pred": "contract_law",
+        "count": 4
+      },
+      {
+        "gold": "copyright",
+        "pred": "intellectual_property",
+        "count": 4
+      },
+      {
+        "gold": "copyright",
+        "pred": "contract_law",
+        "count": 2
+      },
+      {
+        "gold": "employment",
+        "pred": "business",
+        "count": 2
+      },
+      {
+        "gold": "contract_law",
+        "pred": "intellectual_property",
+        "count": 2
+      },
+      {
+        "gold": "criminal_law",
+        "pred": "internet",
+        "count": 2
+      },
+      {
+        "gold": "copyright",
+        "pred": "business",
+        "count": 2
+      },
+      {
+        "gold": "contract_law",
+        "pred": "software",
+        "count": 1
+      },
+      {
+        "gold": "copyright",
+        "pred": "software",
+        "count": 1
+      },
+      {
+        "gold": "trademark",
+        "pred": "software",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "law_n500_seed1.json",
+    "dataset": "law",
+    "seed": 1,
+    "n": 500,
+    "deflected": 178,
+    "escalated": 322,
+    "deflection_rate": 0.356,
+    "router_acc_on_deflected": 0.6966292134831461,
+    "llm_acc_on_escalated": 0.7236024844720497,
+    "net_loss_cases": 32,
+    "net_gain_cases": 13,
+    "accuracy_delta": -0.038000000000000034,
+    "top_loss_pairs": [
+      {
+        "gold": "employment",
+        "pred": "business",
+        "count": 3
+      },
+      {
+        "gold": "employment",
+        "pred": "contract_law",
+        "count": 3
+      },
+      {
+        "gold": "tax_law",
+        "pred": "business",
+        "count": 3
+      },
+      {
+        "gold": "copyright",
+        "pred": "internet",
+        "count": 3
+      },
+      {
+        "gold": "licensing",
+        "pred": "software",
+        "count": 2
+      },
+      {
+        "gold": "trademark",
+        "pred": "intellectual_property",
+        "count": 2
+      },
+      {
+        "gold": "criminal_law",
+        "pred": "internet",
+        "count": 2
+      },
+      {
+        "gold": "business",
+        "pred": "liability",
+        "count": 1
+      },
+      {
+        "gold": "criminal_law",
+        "pred": "civil_law",
+        "count": 1
+      },
+      {
+        "gold": "copyright",
+        "pred": "criminal_law",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "law_n500_seed2.json",
+    "dataset": "law",
+    "seed": 2,
+    "n": 500,
+    "deflected": 171,
+    "escalated": 329,
+    "deflection_rate": 0.342,
+    "router_acc_on_deflected": 0.7368421052631579,
+    "llm_acc_on_escalated": 0.7082066869300911,
+    "net_loss_cases": 28,
+    "net_gain_cases": 14,
+    "accuracy_delta": -0.028000000000000025,
+    "top_loss_pairs": [
+      {
+        "gold": "tax_law",
+        "pred": "business",
+        "count": 3
+      },
+      {
+        "gold": "employment",
+        "pred": "business",
+        "count": 3
+      },
+      {
+        "gold": "employment",
+        "pred": "contract_law",
+        "count": 3
+      },
+      {
+        "gold": "copyright",
+        "pred": "internet",
+        "count": 3
+      },
+      {
+        "gold": "copyright",
+        "pred": "intellectual_property",
+        "count": 2
+      },
+      {
+        "gold": "trademark",
+        "pred": "intellectual_property",
+        "count": 2
+      },
+      {
+        "gold": "trademark",
+        "pred": "software",
+        "count": 1
+      },
+      {
+        "gold": "contract_law",
+        "pred": "intellectual_property",
+        "count": 1
+      },
+      {
+        "gold": "criminal_law",
+        "pred": "internet",
+        "count": 1
+      },
+      {
+        "gold": "employment",
+        "pred": "software",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "run_n500_seed0.json",
+    "dataset": "clinc_oos",
+    "seed": 0,
+    "n": 500,
+    "deflected": 104,
+    "escalated": 396,
+    "deflection_rate": 0.208,
+    "router_acc_on_deflected": 0.8173076923076923,
+    "llm_acc_on_escalated": 0.8358585858585859,
+    "net_loss_cases": 15,
+    "net_gain_cases": 2,
+    "accuracy_delta": -0.026000000000000023,
+    "top_loss_pairs": [
+      {
+        "gold": "oos",
+        "pred": "where_are_you_from",
+        "count": 4
+      },
+      {
+        "gold": "min_payment",
+        "pred": "pay_bill",
+        "count": 2
+      },
+      {
+        "gold": "translate",
+        "pred": "thank_you",
+        "count": 2
+      },
+      {
+        "gold": "food_last",
+        "pred": "no",
+        "count": 1
+      },
+      {
+        "gold": "who_do_you_work_for",
+        "pred": "where_are_you_from",
+        "count": 1
+      },
+      {
+        "gold": "oos",
+        "pred": "who_do_you_work_for",
+        "count": 1
+      },
+      {
+        "gold": "bill_due",
+        "pred": "pay_bill",
+        "count": 1
+      },
+      {
+        "gold": "meeting_schedule",
+        "pred": "where_are_you_from",
+        "count": 1
+      },
+      {
+        "gold": "oos",
+        "pred": "how_old_are_you",
+        "count": 1
+      },
+      {
+        "gold": "change_user_name",
+        "pred": "change_ai_name",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "file": "smoke_n20_seed0.json",
+    "dataset": "clinc_oos",
+    "seed": 0,
+    "n": 20,
+    "deflected": 2,
+    "escalated": 18,
+    "deflection_rate": 0.1,
+    "router_acc_on_deflected": 1.0,
+    "llm_acc_on_escalated": 0.9444444444444444,
+    "net_loss_cases": 0,
+    "net_gain_cases": 0,
+    "accuracy_delta": 0.0,
+    "top_loss_pairs": []
+  },
+  {
+    "file": "symptom_n212_seed0.json",
+    "dataset": "symptom",
+    "seed": 0,
+    "n": 212,
+    "deflected": 4,
+    "escalated": 208,
+    "deflection_rate": 0.018867924528301886,
+    "router_acc_on_deflected": 1.0,
+    "llm_acc_on_escalated": 0.6105769230769231,
+    "net_loss_cases": 0,
+    "net_gain_cases": 0,
+    "accuracy_delta": 0.0,
+    "top_loss_pairs": []
+  },
+  {
+    "file": "symptom_n212_seed1.json",
+    "dataset": "symptom",
+    "seed": 1,
+    "n": 212,
+    "deflected": 4,
+    "escalated": 208,
+    "deflection_rate": 0.018867924528301886,
+    "router_acc_on_deflected": 1.0,
+    "llm_acc_on_escalated": 0.6105769230769231,
+    "net_loss_cases": 0,
+    "net_gain_cases": 0,
+    "accuracy_delta": 0.0,
+    "top_loss_pairs": []
+  },
+  {
+    "file": "symptom_n212_seed2.json",
+    "dataset": "symptom",
+    "seed": 2,
+    "n": 212,
+    "deflected": 4,
+    "escalated": 208,
+    "deflection_rate": 0.018867924528301886,
+    "router_acc_on_deflected": 1.0,
+    "llm_acc_on_escalated": 0.6105769230769231,
+    "net_loss_cases": 0,
+    "net_gain_cases": 0,
+    "accuracy_delta": 0.0,
+    "top_loss_pairs": []
+  },
+  {
+    "file": "tickets_n500_seed0.json",
+    "dataset": "tickets",
+    "seed": 0,
+    "n": 500,
+    "deflected": 34,
+    "escalated": 466,
+    "deflection_rate": 0.068,
+    "router_acc_on_deflected": 0.7058823529411765,
+    "llm_acc_on_escalated": 0.2703862660944206,
+    "net_loss_cases": 2,
+    "net_gain_cases": 4,
+    "accuracy_delta": 0.0040000000000000036,
+    "top_loss_pairs": [
+      {
+        "gold": "technical_support",
+        "pred": "service_outages_and_maintenance",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "file": "tickets_n500_seed1.json",
+    "dataset": "tickets",
+    "seed": 1,
+    "n": 500,
+    "deflected": 38,
+    "escalated": 462,
+    "deflection_rate": 0.076,
+    "router_acc_on_deflected": 0.5,
+    "llm_acc_on_escalated": 0.31385281385281383,
+    "net_loss_cases": 2,
+    "net_gain_cases": 3,
+    "accuracy_delta": 0.0020000000000000018,
+    "top_loss_pairs": [
+      {
+        "gold": "technical_support",
+        "pred": "service_outages_and_maintenance",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "file": "tickets_n500_seed2.json",
+    "dataset": "tickets",
+    "seed": 2,
+    "n": 500,
+    "deflected": 27,
+    "escalated": 473,
+    "deflection_rate": 0.054,
+    "router_acc_on_deflected": 0.6666666666666666,
+    "llm_acc_on_escalated": 0.3023255813953488,
+    "net_loss_cases": 2,
+    "net_gain_cases": 3,
+    "accuracy_delta": 0.0020000000000000018,
+    "top_loss_pairs": [
+      {
+        "gold": "technical_support",
+        "pred": "service_outages_and_maintenance",
+        "count": 2
+      }
+    ]
+  }
+]
