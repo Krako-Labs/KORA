@@ -96,7 +96,7 @@ facts:
     answer: "Our support line is +1-800-555-0100."
     answer_key: ["555-0100"]
     match:
-      all_of: [["phone", "call", "telephone", "number"]]
+      all_of: [["phone", "call", "telephone"]]
       any_of: [["support", "contact", "help", "reach", "customer service"]]
 
   - id: payment_methods

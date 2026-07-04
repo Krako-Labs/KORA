@@ -37,6 +37,17 @@ FREE_SHIP_THRESHOLD = 50  # USD, domestic non-member
 
 
 # --- typed field extraction ------------------------------------------------- #
+# Fields whose domain forbids negative values (elapsed time / counts). A
+# negative here is a malformed input, so extraction abstains (-> escalate)
+# rather than letting an impossible value fall through to a verdict.
+_NON_NEGATIVE_FIELDS = frozenset({
+    "days_since_delivery",
+    "months_since_purchase",
+    "account_age_days",
+    "prior_orders",
+})
+
+
 def _get(payload: dict, field: str):
     if not isinstance(payload, dict) or field not in payload:
         raise PolicyInputError(f"missing field: {field}")
@@ -48,6 +59,8 @@ def _as_int(payload: dict, field: str) -> int:
     # bool is a subclass of int — reject it as a wrong type for int fields.
     if isinstance(v, bool) or not isinstance(v, int):
         raise PolicyInputError(f"field {field} must be an int, got {type(v).__name__}")
+    if field in _NON_NEGATIVE_FIELDS and v < 0:
+        raise PolicyInputError(f"field {field}={v!r} is negative; impossible value")
     return v
 
 
