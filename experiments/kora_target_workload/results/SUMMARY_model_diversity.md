@@ -10,4 +10,4 @@
 
 - **deflection 76.7% identical across all models** (set by the deterministic router, model-independent)
 - **without-KB**: direct varies with model strength; KORA stays ~0.98 -> larger gain for weaker models
-- over-routed: 2 cases (routing precision=0.883)
+- over-routed: 2 cases (routing precision=0.883) — later guarded to 0 (recall 1.000); see REPORT.md §5c-guardrail

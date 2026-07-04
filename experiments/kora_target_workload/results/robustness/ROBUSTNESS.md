@@ -148,6 +148,11 @@ limitations of the current workload + reference evaluator.
   and ground-truth generation stable. Adding a range check would convert this
   fn into an abstain (recall would rise) and is tracked as separate future work.
 
+> **Update.** Both `rea-030` and `trp-030` were subsequently resolved by a
+> versioned guardrail change (input range-check + FAQ-signal fix); see
+> `results/REPORT.md` §5c-guardrail. This robustness run predates that change
+> and reflects the frozen rules (recall 0.971, fn=2).
+
 Notably, the `synonym` transform incidentally *fixes* `trp-030` (it strips the
 `refund`/`eligible` keywords, so the front door abstains), which is why
 `synonym` recall is 0.986 vs 0.971 elsewhere. We report this as an artifact, not
