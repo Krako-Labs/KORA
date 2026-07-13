@@ -1,3 +1,5 @@
-이 디렉토리는 KORA v1 논문 초안의 아카이브다. 해당 초안들은 신규성/평가 방법론 재검토를 위해
-보류되었으며, 향후 v2 논문은 실측 벤치마크(N=330, 5-model) 기반으로 새로 작성된다.
-여기 문서들은 히스토리 보존 목적이며 현재 KORA의 주장을 대표하지 않는다.
+This directory archives KORA v1 paper drafts. These drafts are on hold
+pending a re-evaluation of novelty and evaluation methodology; a future
+v2 paper will be written from scratch based on measured benchmarks
+(N=330, 5-model). Documents here are kept for historical record and do
+not represent KORA's current claims.
