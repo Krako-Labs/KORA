@@ -47,6 +47,15 @@ DEFAULT_BASE_URL = "http://localhost:8000/v1"
 DEFAULT_MODEL = "Qwen/Qwen2.5-32B-Instruct"
 RESULTS_DIR = Path(__file__).with_name("results")
 
+_TELCO_CSV = (
+    "hf://datasets/bitext/Bitext-telco-llm-chatbot-training-dataset/"
+    "bitext-telco-llm-chatbot-training-dataset.csv"
+)
+_ISSUES_TEST_URL = (
+    "https://tickettagger.blob.core.windows.net/datasets/"
+    "nlbse23-issue-classification-test.csv.tar.gz"
+)
+
 
 def _adapt_clinc(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
     """CLINC150 (plus) test split. Cached script-based dataset; offline."""
@@ -168,12 +177,100 @@ def _adapt_law(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str 
     return rows, label_names, None
 
 
+def _adapt_telco(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
+    """bitext/Bitext-telco-llm-chatbot-training-dataset (telecom support domain).
+
+    Customer utterances labeled with one of 26 telco intents (7 categories).
+    Read straight from the CSV; a single split upstream, so a seeded shuffle
+    provides the eval sample, as for the tickets adapter.
+
+    The corpus deliberately seeds typos and offensive phrasing (the `tags`
+    column marks them Z and W). Those rows are kept: they are real customer
+    input, and dropping them would make the workload easier than the thing it
+    stands in for. No out-of-scope label.
+
+    License: CDLA-Sharing-1.0 (permits benchmark use and publishing results).
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("csv", data_files={"train": _TELCO_CSV})["train"]
+    label_names = sorted({_norm_label(i) for i in ds["intent"]})
+    sample = ds.shuffle(seed=seed).select(range(min(n, len(ds))))
+    rows = [
+        {"text": ex["instruction"], "gold": _norm_label(ex["intent"])}
+        for ex in sample
+    ]
+    return rows, label_names, None
+
+
+def _issues_cache_dir() -> Path:
+    """Cache location for the issue-report archive.
+
+    The dataset is not redistributed with this repository, so it is fetched on
+    first use and cached outside the tree. HF_HOME is honoured because the
+    benchmark hosts already point it at a large volume; the root filesystem is
+    typically too small for datasets of this size.
+    """
+    root = os.getenv("KORA_DATASET_CACHE") or os.path.join(
+        os.getenv("HF_HOME") or os.path.expanduser("~/.cache/huggingface"),
+        "kora-datasets",
+    )
+    path = Path(root) / "nlbse2023"
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _adapt_issues(n: int, seed: int) -> tuple[list[dict[str, Any]], list[str], str | None]:
+    """nlbse2023 issue-report classification, test split (developer-tool domain).
+
+    GitHub issue reports labeled with one issue type: bug, feature, question or
+    documentation. Multi-label issues are excluded upstream and the corpus is
+    English only. Text is title + body, as for the law adapter.
+
+    The data is downloaded on first use and cached (see _issues_cache_dir); it
+    is deliberately not committed to this repository. No out-of-scope label.
+
+    Source: https://github.com/nlbse2023/issue-report-classification (AGPL-3.0).
+    The task competition grants use of the data for evaluating classification
+    approaches and publishing the comparison.
+    """
+    import tarfile
+    import urllib.request
+
+    from datasets import load_dataset
+
+    cache = _issues_cache_dir()
+    csv_path = cache / "nlbse23-issue-classification-test.csv"
+    if not csv_path.exists():
+        archive = cache / "nlbse23-issue-classification-test.csv.tar.gz"
+        if not archive.exists():
+            urllib.request.urlretrieve(_ISSUES_TEST_URL, archive)
+        with tarfile.open(archive) as tf:
+            member = next(m for m in tf.getmembers() if m.name.endswith(".csv"))
+            member.name = csv_path.name
+            tf.extract(member, path=cache)
+
+    ds = load_dataset("csv", data_files={"test": str(csv_path)})["test"]
+    label_names = sorted({_norm_label(l) for l in ds["labels"]})
+    sample = ds.shuffle(seed=seed).select(range(min(n, len(ds))))
+    rows = [
+        {
+            "text": f"{ex['title'] or ''}\n{ex['body'] or ''}".strip(),
+            "gold": _norm_label(ex["labels"]),
+        }
+        for ex in sample
+    ]
+    return rows, label_names, None
+
+
 DATASETS: dict[str, Callable[[int, int], tuple[list[dict[str, Any]], list[str], str | None]]] = {
     "clinc_oos": _adapt_clinc,
     "banking77": _adapt_banking77,
     "symptom": _adapt_symptom,
     "tickets": _adapt_tickets,
     "law": _adapt_law,
+    "telco": _adapt_telco,
+    "issues": _adapt_issues,
 }
 
 
