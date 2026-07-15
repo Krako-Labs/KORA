@@ -27,6 +27,7 @@ from typing import Any
 
 from openai import OpenAI
 
+from intent_parser import parse_intent
 from router import KeywordRouter
 
 DEFAULT_BASE_URL = "http://localhost:8000/v1"
@@ -77,7 +78,7 @@ class LLMClassifier:
         # NOTE: we deliberately do NOT use response_format / guided decoding here.
         # vLLM 0.6.6.post1's xgrammar backend crashes the engine with
         # "TokenizerInfo has no attribute 'from_huggingface'" on guided requests,
-        # so we rely on prompt-enforced JSON + robust parsing in _parse_intent.
+        # so we rely on prompt-enforced JSON + robust parsing in intent_parser.
         start = time.monotonic()
         resp = self.client.chat.completions.create(
             model=self.model,
@@ -91,30 +92,18 @@ class LLMClassifier:
         latency_s = time.monotonic() - start
 
         raw = resp.choices[0].message.content or ""
-        intent = self._parse_intent(raw)
+        intent, parse_path = parse_intent(
+            raw, self.label_names, self._label_set, "oos"
+        )
         usage = resp.usage
         return {
             "intent": intent,
             "raw": raw,
+            "parse_path": parse_path,
             "tokens_in": int(usage.prompt_tokens) if usage else 0,
             "tokens_out": int(usage.completion_tokens) if usage else 0,
             "latency_s": latency_s,
         }
-
-    def _parse_intent(self, raw: str) -> str:
-        try:
-            obj = json.loads(raw)
-            intent = str(obj.get("intent", "")).strip()
-        except (json.JSONDecodeError, AttributeError):
-            intent = raw.strip().strip('"')
-        # Snap to a known label when possible; otherwise fall back to oos.
-        if intent in self._label_set:
-            return intent
-        lowered = intent.lower()
-        for label in self.label_names:
-            if label.lower() == lowered:
-                return label
-        return "oos"
 
 
 # --------------------------------------------------------------------------- #
@@ -134,6 +123,8 @@ def run_direct(rows: list[dict[str, Any]], clf: LLMClassifier) -> dict[str, Any]
                 "tokens_in": out["tokens_in"],
                 "tokens_out": out["tokens_out"],
                 "latency_s": out["latency_s"],
+                "raw": out["raw"],
+                "parse_path": out["parse_path"],
             }
         )
     return _aggregate("direct", records)
@@ -157,6 +148,8 @@ def run_kora(
                 "tokens_out": 0,
                 "latency_s": 0.0,
                 "route": decision.reason,
+                "raw": "",
+                "parse_path": "routed",
             }
         else:
             out = clf.classify(row["text"])
@@ -170,6 +163,8 @@ def run_kora(
                 "tokens_out": out["tokens_out"],
                 "latency_s": out["latency_s"],
                 "route": decision.reason,
+                "raw": out["raw"],
+                "parse_path": out["parse_path"],
             }
         records.append(rec)
     return _aggregate("kora", records)
