@@ -40,6 +40,7 @@ from typing import Any, Callable
 
 from openai import OpenAI
 
+from intent_parser import parse_intent
 from router import KeywordRouter
 
 DEFAULT_BASE_URL = "http://localhost:8000/v1"
@@ -223,30 +224,19 @@ class LLMClassifier:
         latency_s = time.monotonic() - start
 
         raw = resp.choices[0].message.content or ""
-        intent = self._parse_intent(raw)
+        fallback = self.oos_label if self.oos_label is not None else ""
+        intent, parse_path = parse_intent(
+            raw, self.label_names, self._label_set, fallback
+        )
         usage = resp.usage
         return {
             "intent": intent,
             "raw": raw,
+            "parse_path": parse_path,
             "tokens_in": int(usage.prompt_tokens) if usage else 0,
             "tokens_out": int(usage.completion_tokens) if usage else 0,
             "latency_s": latency_s,
         }
-
-    def _parse_intent(self, raw: str) -> str:
-        fallback = self.oos_label if self.oos_label is not None else ""
-        try:
-            obj = json.loads(raw)
-            intent = str(obj.get("intent", "")).strip()
-        except (json.JSONDecodeError, AttributeError):
-            intent = raw.strip().strip('"')
-        if intent in self._label_set:
-            return intent
-        lowered = intent.lower()
-        for label in self.label_names:
-            if label.lower() == lowered:
-                return label
-        return fallback
 
 
 def run_direct(rows: list[dict[str, Any]], clf: LLMClassifier) -> dict[str, Any]:
@@ -263,6 +253,8 @@ def run_direct(rows: list[dict[str, Any]], clf: LLMClassifier) -> dict[str, Any]
                 "tokens_in": out["tokens_in"],
                 "tokens_out": out["tokens_out"],
                 "latency_s": out["latency_s"],
+                "raw": out["raw"],
+                "parse_path": out["parse_path"],
             }
         )
     return _aggregate("direct", records)
@@ -286,6 +278,8 @@ def run_kora(
                 "tokens_out": 0,
                 "latency_s": 0.0,
                 "route": decision.reason,
+                "raw": "",
+                "parse_path": "routed",
             }
         else:
             out = clf.classify(row["text"])
@@ -299,6 +293,8 @@ def run_kora(
                 "tokens_out": out["tokens_out"],
                 "latency_s": out["latency_s"],
                 "route": decision.reason,
+                "raw": out["raw"],
+                "parse_path": out["parse_path"],
             }
         records.append(rec)
     return _aggregate("kora", records)
