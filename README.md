@@ -73,7 +73,7 @@ The included examples are offline and make zero provider calls.
 
 ## Evidence Boundaries
 
-KORA ships offline sample workloads (simulated provider/model invocation avoidance) **and** one real, measured benchmark on a single synthetic domain: deterministic front-door routing across 5 models (Qwen2.5-32B, Claude Sonnet 4.6, Claude Haiku 4.5, Llama 3.3 70B, Llama 3.1 8B), giving an identical **76.7% deflection** (LLM calls 330 → 77). The routing result reproduces with no API key, no GPU, and zero LLM calls. See [experiments/kora_target_workload](experiments/kora_target_workload/README.md).
+KORA ships offline sample workloads (simulated provider/model invocation avoidance) **and** one real, measured benchmark on a single synthetic domain: deterministic front-door routing across 5 models (Qwen2.5-32B, Claude Sonnet 4.6, Claude Haiku 4.5, Llama 3.3 70B, Llama 3.1 8B), giving an identical **76.06% deflection** (LLM calls 330 → 79). The routing result reproduces with no API key, no GPU, and zero LLM calls. See [experiments/kora_target_workload](experiments/kora_target_workload/README.md).
 
 The repository does **not** claim:
 

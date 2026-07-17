@@ -35,7 +35,7 @@ print("    committed : precision=%.3f recall=%.3f (tp=%d fp=%d tn=%d fn=%d)" %
 print("    reproduced: precision=%.3f recall=%.3f (tp=%d fp=%d tn=%d fn=%d)" %
       (got["precision"],got["recall"],got["tp"],got["fp"],got["tn"],got["fn"]))
 if ok:
-    print("\n✅ REPRODUCED: routing metrics match exactly (deflection 76.7%, no LLM, no key).")
+    print("\n✅ REPRODUCED: routing metrics match exactly (deflection 76.06%, no LLM, no key).")
     sys.exit(0)
 else:
     print("\n❌ MISMATCH: routing metrics differ from the committed result.")
