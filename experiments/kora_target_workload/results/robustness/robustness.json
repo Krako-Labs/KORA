@@ -3,27 +3,27 @@
   "n_cases": 330,
   "original": {
     "n": 330,
-    "routed": 253,
-    "deflection_rate": 0.7666666666666667,
-    "tp": 68,
+    "routed": 251,
+    "deflection_rate": 0.7606060606060606,
+    "tp": 70,
     "fp": 9,
     "tn": 251,
-    "fn": 2,
-    "precision": 0.8831168831168831,
-    "recall": 0.9714285714285714
+    "fn": 0,
+    "precision": 0.8860759493670886,
+    "recall": 1.0
   },
   "variants": {
     "whitespace": {
       "metrics": {
         "n": 330,
-        "routed": 128,
-        "deflection_rate": 0.3878787878787879,
-        "tp": 68,
+        "routed": 126,
+        "deflection_rate": 0.38181818181818183,
+        "tp": 70,
         "fp": 134,
         "tn": 126,
-        "fn": 2,
-        "precision": 0.33663366336633666,
-        "recall": 0.9714285714285714
+        "fn": 0,
+        "precision": 0.3431372549019608,
+        "recall": 1.0
       },
       "n_dangerous": 0,
       "n_benign": 126,
@@ -1055,14 +1055,14 @@
     "punct": {
       "metrics": {
         "n": 330,
-        "routed": 254,
-        "deflection_rate": 0.7696969696969697,
-        "tp": 68,
+        "routed": 252,
+        "deflection_rate": 0.7636363636363637,
+        "tp": 70,
         "fp": 8,
         "tn": 252,
-        "fn": 2,
-        "precision": 0.8947368421052632,
-        "recall": 0.9714285714285714
+        "fn": 0,
+        "precision": 0.8974358974358975,
+        "recall": 1.0
       },
       "n_dangerous": 0,
       "n_benign": 0,
@@ -1085,14 +1085,14 @@
     "case": {
       "metrics": {
         "n": 330,
-        "routed": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tp": 68,
+        "routed": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tp": 70,
         "fp": 9,
         "tn": 251,
-        "fn": 2,
-        "precision": 0.8831168831168831,
-        "recall": 0.9714285714285714
+        "fn": 0,
+        "precision": 0.8860759493670886,
+        "recall": 1.0
       },
       "n_dangerous": 0,
       "n_benign": 0,
@@ -1106,14 +1106,14 @@
     "polite_prefix": {
       "metrics": {
         "n": 330,
-        "routed": 135,
-        "deflection_rate": 0.4090909090909091,
-        "tp": 68,
+        "routed": 133,
+        "deflection_rate": 0.403030303030303,
+        "tp": 70,
         "fp": 127,
         "tn": 133,
-        "fn": 2,
-        "precision": 0.3487179487179487,
-        "recall": 0.9714285714285714
+        "fn": 0,
+        "precision": 0.3553299492385787,
+        "recall": 1.0
       },
       "n_dangerous": 0,
       "n_benign": 118,
@@ -2072,18 +2072,18 @@
     "synonym": {
       "metrics": {
         "n": 330,
-        "routed": 115,
-        "deflection_rate": 0.3484848484848485,
-        "tp": 69,
+        "routed": 114,
+        "deflection_rate": 0.34545454545454546,
+        "tp": 70,
         "fp": 146,
         "tn": 114,
-        "fn": 1,
-        "precision": 0.3209302325581395,
-        "recall": 0.9857142857142858
+        "fn": 0,
+        "precision": 0.32407407407407407,
+        "recall": 1.0
       },
       "n_dangerous": 0,
       "n_benign": 137,
-      "n_other": 1,
+      "n_other": 0,
       "flips": {
         "dangerous": [],
         "benign": [
@@ -3184,16 +3184,7 @@
             "text": "Determine refund eligibility for this order."
           }
         ],
-        "other": [
-          {
-            "id": "trp-030",
-            "category": "trap",
-            "should_escalate": true,
-            "orig": "deflect",
-            "variant": "escalate",
-            "text": "Determine refund eligibility."
-          }
-        ]
+        "other": []
       }
     }
   }
