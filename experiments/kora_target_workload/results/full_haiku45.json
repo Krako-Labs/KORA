@@ -24,12 +24,12 @@
   },
   "routing": {
     "positive_class": "should_escalate",
-    "tp": 68,
+    "tp": 70,
     "fp": 9,
     "tn": 251,
-    "fn": 2,
-    "precision": 0.8831168831168831,
-    "recall": 0.9714285714285714,
+    "fn": 0,
+    "precision": 0.8860759493670886,
+    "recall": 1.0,
     "by_category": {
       "format": {
         "n": 120,
@@ -48,29 +48,16 @@
       },
       "reasoning": {
         "n": 40,
-        "routed": 1,
-        "abstain": 39
+        "routed": 0,
+        "abstain": 40
       },
       "trap": {
         "n": 30,
-        "routed": 1,
-        "abstain": 29
+        "routed": 0,
+        "abstain": 30
       }
     },
-    "over_routed_cases": [
-      {
-        "id": "rea-030",
-        "category": "reasoning",
-        "handler": "faq:support_phone",
-        "answer": "Our support line is +1-800-555-0100."
-      },
-      {
-        "id": "trp-030",
-        "category": "trap",
-        "handler": "policy:refund_eligibility",
-        "answer": "eligible"
-      }
-    ]
+    "over_routed_cases": []
   },
   "conditions": {
     "with_kb": {
@@ -103,9 +90,9 @@
         "tokens_in": 362883,
         "tokens_out": 19329,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 663.6056416034698,
-        "latency_p50_s": 1.8748736381530762,
-        "latency_p95_s": 2.9560765624046326
+        "latency_s_total": 739.7753622531891,
+        "latency_p50_s": 2.140468955039978,
+        "latency_p95_s": 3.0125031590461733
       },
       "kora": {
         "arm": "kora",
@@ -130,24 +117,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 84304,
-        "tokens_out": 7219,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 86519,
+        "tokens_out": 7403,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 188.58727431297302,
+        "latency_s_total": 203.43286395072937,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 2.851854836940766
+        "latency_p95_s": 2.911456334590912
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.019230769230769273,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 278579,
-        "tokens_out_saved": 12110,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 276364,
+        "tokens_out_saved": 11926,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 475.0183672904968
+        "latency_s_saved": 536.3424983024597
       },
       "consistency_direct": {
         "k": 1,
@@ -259,9 +246,9 @@
         "tokens_in": 59613,
         "tokens_out": 22999,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 687.9555213451385,
-        "latency_p50_s": 2.0137503147125244,
-        "latency_p95_s": 2.94883793592453
+        "latency_s_total": 755.298332452774,
+        "latency_p50_s": 2.256555438041687,
+        "latency_p95_s": 2.898733174800873
       },
       "kora": {
         "arm": "kora",
@@ -286,24 +273,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 13541,
-        "tokens_out": 7051,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 13918,
+        "tokens_out": 7199,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 178.16726732254028,
+        "latency_s_total": 202.96333146095276,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 2.5903663635253906
+        "latency_p95_s": 2.8344682693481444
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.29999999999999993,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 46072,
-        "tokens_out_saved": 15948,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 45695,
+        "tokens_out_saved": 15800,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 509.78825402259827
+        "latency_s_saved": 552.3350009918213
       },
       "consistency_direct": {
         "k": 1,

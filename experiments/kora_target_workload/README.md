@@ -30,10 +30,10 @@ the served model — and it grows as the model gets weaker.
 
 | Served model | tier | deflection | LLM calls saved | with-KB Δacc | without-KB Δacc |
 |---|---|---|---|---|---|
-| Llama 3.1 8B | tiny | 76.06% | 76.06% | +0.123 | **+0.335** |
+| Llama 3.1 8B | tiny | 76.06% | 76.06% | +0.123 | **+0.342** |
 | Llama 3.3 70B | large | 76.06% | 76.06% | +0.050 | +0.319 |
 | Claude Haiku 4.5 | small | 76.06% | 76.06% | +0.019 | +0.300 |
-| Nova Pro | mid | 76.06% | 76.06% | +0.031 | +0.265 |
+| Nova Pro | mid | 76.06% | 76.06% | +0.027 | +0.277 |
 | Claude Sonnet 4.6 | frontier | 76.06% | 76.06% | +0.012 | +0.223 |
 
 Absolute accuracy (direct → KORA):
@@ -41,10 +41,10 @@ Absolute accuracy (direct → KORA):
 | Served model | with-KB direct → KORA | without-KB direct → KORA |
 |---|---|---|
 | Claude Sonnet 4.6 | 0.988 → 1.000 | 0.765 → 0.988 |
-| Nova Pro | 0.969 → 1.000 | 0.715 → 0.981 |
+| Nova Pro | 0.973 → 1.000 | 0.704 → 0.981 |
 | Claude Haiku 4.5 | 0.981 → 1.000 | 0.677 → 0.977 |
 | Llama 3.3 70B | 0.950 → 1.000 | 0.658 → 0.977 |
-| Llama 3.1 8B | 0.877 → 1.000 | 0.646 → 0.981 |
+| Llama 3.1 8B | 0.877 → 1.000 | 0.638 → 0.981 |
 
 Setup: N=330, k=1, FAQ semantic grader **held fixed at Claude Sonnet 4.6 across
 all arms** (so grading never varies with the served model). Models served via AWS

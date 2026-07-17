@@ -24,12 +24,12 @@
   },
   "routing": {
     "positive_class": "should_escalate",
-    "tp": 68,
+    "tp": 70,
     "fp": 9,
     "tn": 251,
-    "fn": 2,
-    "precision": 0.8831168831168831,
-    "recall": 0.9714285714285714,
+    "fn": 0,
+    "precision": 0.8860759493670886,
+    "recall": 1.0,
     "by_category": {
       "format": {
         "n": 120,
@@ -48,29 +48,16 @@
       },
       "reasoning": {
         "n": 40,
-        "routed": 1,
-        "abstain": 39
+        "routed": 0,
+        "abstain": 40
       },
       "trap": {
         "n": 30,
-        "routed": 1,
-        "abstain": 29
+        "routed": 0,
+        "abstain": 30
       }
     },
-    "over_routed_cases": [
-      {
-        "id": "rea-030",
-        "category": "reasoning",
-        "handler": "faq:support_phone",
-        "answer": "Our support line is +1-800-555-0100."
-      },
-      {
-        "id": "trp-030",
-        "category": "trap",
-        "handler": "policy:refund_eligibility",
-        "answer": "eligible"
-      }
-    ]
+    "over_routed_cases": []
   },
   "conditions": {
     "with_kb": {
@@ -101,11 +88,11 @@
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 363213,
-        "tokens_out": 25130,
+        "tokens_out": 25039,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 897.7538371086121,
-        "latency_p50_s": 2.3104801177978516,
-        "latency_p95_s": 5.627322101593019
+        "latency_s_total": 1019.8618960380554,
+        "latency_p50_s": 2.6228402853012085,
+        "latency_p95_s": 6.248898148536683
       },
       "kora": {
         "arm": "kora",
@@ -130,24 +117,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 84381,
-        "tokens_out": 11771,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 86598,
+        "tokens_out": 12169,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 315.4464211463928,
+        "latency_s_total": 363.64089608192444,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 5.550071442127229
+        "latency_p95_s": 6.248898148536683
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.011538461538461497,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 278832,
-        "tokens_out_saved": 13359,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 276615,
+        "tokens_out_saved": 12870,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 582.3074159622192
+        "latency_s_saved": 656.220999956131
       },
       "consistency_direct": {
         "k": 1,
@@ -160,7 +147,7 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "invalid",
           "verdict": "valid",
-          "answer": "Yes, 'user@example.com' is a properly formatted email address.",
+          "answer": "Yes, \"user@example.com\" is a valid email address format.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid email address: user@example.com.",
@@ -172,7 +159,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "The warranty claim is covered. Appliances carry a 24-month manufacturer warranty, and your claim is for a manufacturing defect at 25 months \u2014 wait, let me re-evaluate: 25 months exceeds the 24-month w",
+          "answer": "The warranty claim is covered. Appliances carry a 24-month manufacturer warranty, and your claim is for a manufacturing defect at 25 months \u2014 wait, let me re-check: 25 months exceeds the 24-month warr",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -188,7 +175,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Unfortunately this warranty claim is not covered. Accessories carry only a 6-month warranty, but your purchase was 5 months ago \u2014 wait, that's within 6 months. Let me re-evaluate: 5 months \u2264 6 months,",
+          "answer": "This warranty claim is not covered. Accessories carry only a 6-month warranty, but your claim is at 5 months \u2014 wait, that's within range. However, let me re-evaluate: the warranty period for accessori",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -229,11 +216,11 @@
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 59943,
-        "tokens_out": 27402,
+        "tokens_out": 27487,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 963.5918209552765,
-        "latency_p50_s": 2.568184494972229,
-        "latency_p95_s": 5.4408120036125185
+        "latency_s_total": 1089.0044581890106,
+        "latency_p50_s": 2.955274224281311,
+        "latency_p95_s": 6.0548428177833555
       },
       "kora": {
         "arm": "kora",
@@ -258,24 +245,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 13618,
-        "tokens_out": 10495,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 13997,
+        "tokens_out": 10918,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 312.2474009990692,
+        "latency_s_total": 356.816659450531,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 5.41948037147522
+        "latency_p95_s": 5.991264367103578
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.22307692307692317,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 46325,
-        "tokens_out_saved": 16907,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 45946,
+        "tokens_out_saved": 16569,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 651.3444199562073
+        "latency_s_saved": 732.1877987384796
       },
       "consistency_direct": {
         "k": 1,
@@ -318,7 +305,7 @@
             "friday"
           ],
           "verdict": null,
-          "answer": "I'm sorry, I don't have specific information about Northwind Goods' business hours. I recommend checking the website or contacting the store directly for the most accurate and up-to-date hours of oper",
+          "answer": "I'm sorry, I don't have specific information about Northwind Goods' store hours. I recommend checking the official Northwind Goods website or contacting customer support directly for the most accurate",
           "llm_called": true,
           "handler": null,
           "text": "Until when are you open Monday through Friday?",
@@ -332,7 +319,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "I'm sorry, I don't have specific information about Northwind Goods' store hours. I'd recommend checking the official Northwind Goods website or contacting their customer support directly for the most ",
+          "answer": "I'm sorry, I don't have specific information about Northwind Goods' store hours. I recommend checking the official Northwind Goods website or contacting customer support directly to confirm Saturday h",
           "llm_called": true,
           "handler": null,
           "text": "Are you open on Saturdays, and until when?",
@@ -360,7 +347,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "I'm sorry, but I don't have specific information about Northwind Goods' physical location hours. I'd recommend checking the store's website or contacting customer support directly to confirm weekend a",
+          "answer": "I'm sorry, but I don't have specific information about Northwind Goods' physical store hours or whether we are open on weekends. I'd recommend checking our website or contacting us directly for the mo",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
@@ -374,7 +361,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our customer support team is available 7 days a week, but I don't have specific store hours on hand. I'd recommend checking the Northwind Goods website or contacting us directly for the most accurate ",
+          "answer": "Our customer support team is available 7 days a week, including weekends, from 9:00 AM to 6:00 PM (Eastern Time). If you need assistance outside of those hours, you can also reach us via email and we'",
           "llm_called": true,
           "handler": null,
           "text": "What time do you close on the weekend?",
@@ -402,7 +389,7 @@
             "30"
           ],
           "verdict": null,
-          "answer": "Yes, at Northwind Goods you typically have 30 days from the date of purchase to return an item for a refund. The item must be in its original condition and packaging. If you have your order number han",
+          "answer": "Yes, at Northwind Goods you typically have 30 days from the date of purchase to return an item for a refund. The item should be in its original condition and packaging. If you have your order number h",
           "llm_called": true,
           "handler": null,
           "text": "Is there a deadline to return something for a refund?",
@@ -447,7 +434,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "At Northwind Goods, delivery charges depend on your order total and chosen shipping method. Generally, orders over a certain threshold qualify for free standard shipping, while smaller orders may incu",
+          "answer": "At Northwind Goods, delivery charges depend on your order total and chosen shipping method. Unfortunately, I don't have the specific current details of our shipping policy on hand. I'd recommend check",
           "llm_called": true,
           "handler": null,
           "text": "Is there a postage charge, or is delivery free?",
@@ -462,7 +449,7 @@
             "5"
           ],
           "verdict": null,
-          "answer": "Domestic orders at Northwind Goods typically arrive within 3\u20137 business days, depending on your location and the shipping method selected at checkout. For a more precise estimate, you can check your o",
+          "answer": "Domestic orders at Northwind Goods typically arrive within 3\u20137 business days, depending on your location and the shipping method selected at checkout. You can check the exact estimated delivery date b",
           "llm_called": true,
           "handler": null,
           "text": "How many days until my domestic order arrives?",
@@ -492,7 +479,7 @@
             "5"
           ],
           "verdict": null,
-          "answer": "Domestic orders at Northwind Goods typically ship within 1-3 business days after your order is placed. Once shipped, standard delivery usually takes 5-7 business days, while expedited options (if sele",
+          "answer": "Domestic orders at Northwind Goods typically ship within 1-3 business days after your order is placed. Once shipped, standard domestic delivery usually takes 5-7 business days, while expedited options",
           "llm_called": true,
           "handler": null,
           "text": "When will my order ship and get here domestically?",
@@ -566,7 +553,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "You can contact Northwind Goods support at support@northwindgoods.com. Our team is happy to help with any questions or concerns you may have!",
+          "answer": "You can contact Northwind Goods support at support@northwindgoods.com. Our team is happy to assist you with any questions or concerns!",
           "llm_called": true,
           "handler": null,
           "text": "What email address can I use to contact support?",
@@ -594,7 +581,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "I'm sorry, I don't have the specific customer support email address for Northwind Goods readily available. I recommend visiting the official Northwind Goods website and navigating to the 'Contact Us' ",
+          "answer": "I'm sorry, I don't have the specific customer support email address for Northwind Goods on hand. I recommend visiting the official Northwind Goods website and navigating to the 'Contact Us' page to fi",
           "llm_called": true,
           "handler": null,
           "text": "What is your customer support e-mail address?",
@@ -622,7 +609,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "I'm sorry, I don't have specific contact details for Northwind Goods support readily available. I'd recommend visiting the Northwind Goods website and navigating to the 'Contact Us' page to find the o",
+          "answer": "I'm sorry, I don't have specific contact details for Northwind Goods support readily available. I'd recommend visiting the Northwind Goods website and checking the 'Contact Us' page for the most up-to",
           "llm_called": true,
           "handler": null,
           "text": "What number do I call for support?",
@@ -650,7 +637,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "I'm sorry, I don't have specific contact details for Northwind Goods' support telephone number available to me right now. I'd recommend visiting the Northwind Goods website and checking the 'Contact U",
+          "answer": "I'm sorry, but I don't have specific contact details for Northwind Goods' support telephone number available to me right now. I'd recommend visiting the Northwind Goods website and checking the 'Conta",
           "llm_called": true,
           "handler": null,
           "text": "Is there a support telephone number I can call?",
@@ -737,7 +724,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "{\"verdict\": null, \"answer\": \"Our loyalty points program lets you earn points on every purchase at Northwind Goods. Here's how it generally works:\\n\\n1. **Earning Points**: You earn points for every do",
+          "answer": "Our loyalty points program lets you earn points on every purchase at Northwind Goods. Here's how it generally works:\n\n1. **Earning Points**: You earn points for every dollar spent. For example, you mi",
           "llm_called": true,
           "handler": null,
           "text": "Can you explain how your loyalty points program works?",
@@ -751,7 +738,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "Great question! At Northwind Goods, our rewards program lets you earn points on every purchase. However, I don't have the specific details of our current points program readily available. I'd recommen",
+          "answer": "Great question! However, I don't have specific details about your account or our current loyalty/rewards program points structure in front of me. I'd recommend:\n\n1. **Checking your account dashboard**",
           "llm_called": true,
           "handler": null,
           "text": "How many points do I get and what are they worth?",
@@ -793,7 +780,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "To reset your password, go to the Northwind Goods login page and click 'Forgot Password.' Enter your registered email address, and we'll send you a password reset link. Follow the instructions in the ",
+          "answer": "To reset your password, follow these steps:\n1. Go to the Northwind Goods login page.\n2. Click on 'Forgot Password?' below the login form.\n3. Enter the email address associated with your account.\n4. Ch",
           "llm_called": true,
           "handler": null,
           "text": "I forgot my password \u2014 how do I change it?",
@@ -835,7 +822,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "To track your order at Northwind Goods, you can: \n1. Visit our website and log into your account, then go to 'Order History' to view your order status.\n2. Use the tracking number provided in your ship",
+          "answer": "To track your order at Northwind Goods, you can: \n1. **Visit our website** and log into your account, then go to 'My Orders' to see the status of your order.\n2. **Use the tracking number** provided in",
           "llm_called": true,
           "handler": null,
           "text": "How do I track my order?",
@@ -905,7 +892,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "To get the correct return address for Northwind Goods, please contact our customer support team directly, as return addresses may vary depending on your location, the item being returned, or the reaso",
+          "answer": "To get the correct return address for Northwind Goods, please contact our customer support team directly, as return addresses can vary depending on your location and the type of item being returned. Y",
           "llm_called": true,
           "handler": null,
           "text": "What address do I send returned items to?",
@@ -961,7 +948,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "This order is not eligible for a refund. Our standard return window is 30 days, but for opened books, refunds are generally not accepted unless the item is defective or damaged. Since the book has bee",
+          "answer": "This order is not eligible for a refund. Our standard return window is 30 days, but for books, opened items cannot be returned. Since the book has been opened, it does not qualify for a refund.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1009,7 +996,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "This order does not qualify for free shipping. While a Plus membership provides shipping benefits, orders to remote destination zones typically require a higher minimum order total than $10 to qualify",
+          "answer": "This order does not qualify for free shipping. While a Plus membership provides shipping benefits, orders to remote destination zones typically require a higher minimum order total than the standard t",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1041,7 +1028,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "The WELCOME10 coupon is valid for your account. Since you are a new customer (account age of 15 days) with no prior orders, you qualify for the WELCOME10 welcome discount. You can apply it at checkout",
+          "answer": "The WELCOME10 coupon is valid for your account. Since you are a new customer with an account less than 30 days old and no prior orders, you qualify for the WELCOME10 welcome discount. You can apply it",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether the WELCOME10 coupon is valid here.",
@@ -1121,7 +1108,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "Your warranty claim is covered. Northwind Goods covers manufacturing defects on accessories within the standard 12-month warranty period, and your purchase was only 7 months ago. Please proceed with y",
+          "answer": "The warranty claim is covered. Northwind Goods covers manufacturing defects on accessories within the standard 12-month warranty period, and your claim falls within that window at 7 months since purch",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -1153,7 +1140,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "The return meets our criteria: the reason is 'changed mind' (an accepted return reason) and the item was delivered only 5 days ago, which is within our standard 30-day return window. A free prepaid re",
+          "answer": "The return meets our criteria: the reason is 'changed mind' (a standard return reason) and the item was delivered only 5 days ago, which is within our 30-day return window. A free prepaid return label",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1187,7 +1174,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "I'm sorry, but I don't have specific information about Northwind Goods' physical location hours. I'd recommend checking the store's website or contacting customer support directly to confirm weekend a",
+          "answer": "I'm sorry, but I don't have specific information about Northwind Goods' physical store hours or whether we are open on weekends. I'd recommend checking our website or contacting us directly for the mo",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
