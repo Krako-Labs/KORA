@@ -68,10 +68,11 @@ This is the heart of KORA's claim, and it is fully reproducible offline.
 ## Reproduce
 
 ```bash
-# From this directory. Requires Python 3.10+ and pyyaml.
-pip install pyyaml
-# For workload regeneration, pin the validators used to build it:
-#   pip install email_validator==2.3.0 phonenumbers==9.0.33   (Python 3.10)
+# From this directory. Requires Python 3.10+.
+# The deterministic dispatcher validates emails and phone numbers with the same
+# libraries that built the workload, so routing-only needs them too (pinned to the
+# versions in the workload's `generated_with` field for byte-identical verdicts):
+pip install pyyaml email_validator==2.3.0 phonenumbers==9.0.33
 
 # (1) Routing only — no LLM, no key, no GPU. Reproduces deflection/precision/recall.
 python run.py --routing-only --workload workloads/full.json --out /tmp/routing.json

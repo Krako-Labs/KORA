@@ -43,7 +43,9 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 import yaml  # noqa: E402
-from openai import OpenAI  # noqa: E402
+# `openai` is imported lazily, only when an OpenAI/vLLM client is actually
+# constructed (see main()). The --routing-only path and the bedrock backend make
+# no OpenAI calls, so they must not require the `openai` package to be installed.
 from bedrock_client import BedrockClient  # noqa: E402
 
 from kora import dispatcher  # noqa: E402
@@ -501,6 +503,7 @@ def main() -> None:
     if args.backend == "bedrock":
         client = BedrockClient(region=args.region)
     else:
+        from openai import OpenAI  # lazy: only the vLLM/OpenAI backend needs it
         client = OpenAI(base_url=args.base_url, api_key=os.getenv("VLLM_API_KEY", "EMPTY"))
     llm = LLM(client, args.model)
     # Fixed judge: when --judge-model is set, use a separate grader LLM (same across all arms); otherwise reuse the served llm.
@@ -508,6 +511,7 @@ def main() -> None:
         if args.backend == "bedrock":
             judge_client = BedrockClient(region=args.region)
         else:
+            from openai import OpenAI  # lazy: only the vLLM/OpenAI backend needs it
             judge_client = OpenAI(base_url=args.base_url, api_key=os.getenv("VLLM_API_KEY", "EMPTY"))
         judge_llm = LLM(judge_client, args.judge_model)
     else:
