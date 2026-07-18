@@ -45,10 +45,14 @@ validated routing path.
 
 2. **Routing on pure intent classification trades a little accuracy for fewer
    calls.** Both datasets show ~20–24% fewer LLM calls and tokens at a 1–3 point
-   accuracy cost. This is KORA's *weak* setting: pure judgment tasks where there
+   accuracy cost. This ~20-24% is the conservative per-domain band measured on
+   these two intent domains (CLINC150 20.8%, banking77 23.8%), not a
+   domain-agnostic constant: per-domain deflection tracks how much the label
+   vocabulary overlaps the query text, and varies widely across domains.
+   This is KORA's *weak* setting: pure judgment tasks where there
    is no deterministic, rule-answerable structure to exploit. It contrasts with
    the rule-rich single-domain workload (northwindgoods), where the front door
-   deflects 76.7% with no accuracy loss because the deflected queries have
+   deflects 76.06% with no accuracy loss because the deflected queries have
    deterministic answers (format/FAQ/policy). The honest summary: KORA pays off
    most where queries have deterministic answers, and least on pure
    classification.

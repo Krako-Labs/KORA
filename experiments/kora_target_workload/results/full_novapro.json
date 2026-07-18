@@ -24,12 +24,12 @@
   },
   "routing": {
     "positive_class": "should_escalate",
-    "tp": 68,
+    "tp": 70,
     "fp": 9,
     "tn": 251,
-    "fn": 2,
-    "precision": 0.8831168831168831,
-    "recall": 0.9714285714285714,
+    "fn": 0,
+    "precision": 0.8860759493670886,
+    "recall": 1.0,
     "by_category": {
       "format": {
         "n": 120,
@@ -48,29 +48,16 @@
       },
       "reasoning": {
         "n": 40,
-        "routed": 1,
-        "abstain": 39
+        "routed": 0,
+        "abstain": 40
       },
       "trap": {
         "n": 30,
-        "routed": 1,
-        "abstain": 29
+        "routed": 0,
+        "abstain": 30
       }
     },
-    "over_routed_cases": [
-      {
-        "id": "rea-030",
-        "category": "reasoning",
-        "handler": "faq:support_phone",
-        "answer": "Our support line is +1-800-555-0100."
-      },
-      {
-        "id": "trp-030",
-        "category": "trap",
-        "handler": "policy:refund_eligibility",
-        "answer": "eligible"
-      }
-    ]
+    "over_routed_cases": []
   },
   "conditions": {
     "with_kb": {
@@ -78,8 +65,8 @@
         "arm": "direct",
         "n_total": 330,
         "n_scorable": 260,
-        "accuracy": 0.9692307692307692,
-        "correct": 252,
+        "accuracy": 0.9730769230769231,
+        "correct": 253,
         "accuracy_by_category": {
           "format": {
             "n": 120,
@@ -88,8 +75,8 @@
           },
           "faq": {
             "n": 60,
-            "correct": 59,
-            "accuracy": 0.9833333333333333
+            "correct": 60,
+            "accuracy": 1.0
           },
           "policy": {
             "n": 80,
@@ -101,11 +88,11 @@
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 361391,
-        "tokens_out": 13231,
+        "tokens_out": 12547,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 436.5557508468628,
-        "latency_p50_s": 1.3007687330245972,
-        "latency_p95_s": 1.6784626841545105
+        "latency_s_total": 450.49545907974243,
+        "latency_p50_s": 1.3492830991744995,
+        "latency_p95_s": 1.7122800469398498
       },
       "kora": {
         "arm": "kora",
@@ -130,24 +117,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 83938,
-        "tokens_out": 4431,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 86140,
+        "tokens_out": 4106,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 110.51468539237976,
+        "latency_s_total": 115.45294547080994,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 1.5900098443031312
+        "latency_p95_s": 1.6129996776580813
       },
       "comparison": {
-        "accuracy_delta_kora_minus_direct": 0.03076923076923077,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 277453,
-        "tokens_out_saved": 8800,
+        "accuracy_delta_kora_minus_direct": 0.02692307692307694,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 275251,
+        "tokens_out_saved": 8441,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 326.04106545448303
+        "latency_s_saved": 335.0425136089325
       },
       "consistency_direct": {
         "k": 1,
@@ -160,7 +147,7 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "invalid",
           "verdict": "valid",
-          "answer": "Yes, 'a@localhost' is a valid email address format.",
+          "answer": "Yes, 'a@localhost' is a valid email address.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid email address: a@localhost",
@@ -172,7 +159,7 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "invalid",
           "verdict": "valid",
-          "answer": "Yes, user@example.com is a valid email address.",
+          "answer": "The email address user@example.com is valid.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid email address: user@example.com.",
@@ -184,25 +171,27 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "valid",
           "verdict": "invalid",
-          "answer": "The date 2024-02-29 is invalid because 2024 is a leap year, but February only has 28 days in non-leap years and 29 days in leap years. The correct date should be 2024-02-29.",
+          "answer": "The date 2024-02-29 is invalid because 2024 is a leap year, and February has only 29 days. The correct date should be 2024-02-29.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29",
           "payload": null
         },
         {
-          "id": "faq-048",
-          "category": "faq",
-          "gt_kind": "kb_answer",
-          "ground_truth": [
-            "security"
-          ],
-          "verdict": null,
-          "answer": "To recover access, go to the login page and click on 'Forgot Password'. Follow the instructions to reset your password via the email associated with your account. If you no longer have access to that ",
+          "id": "pol-040",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "The WELCOME10 coupon is valid for your account.",
           "llm_called": true,
           "handler": null,
-          "text": "How do I recover access when I can't log in with my password?",
-          "payload": null
+          "text": "Determine whether the WELCOME10 coupon is valid here.",
+          "payload": {
+            "account_age_days": 1,
+            "prior_orders": 0,
+            "coupon_code": "welcome10"
+          }
         },
         {
           "id": "pol-044",
@@ -226,7 +215,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "Your warranty claim is covered. Electronics have a 12-month warranty, and your defect is manufacturing-related.",
+          "answer": "Your warranty claim is covered.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -237,28 +226,12 @@
           }
         },
         {
-          "id": "pol-053",
-          "category": "policy",
-          "gt_kind": "eligibility",
-          "ground_truth": "ineligible",
-          "verdict": "eligible",
-          "answer": "Your warranty claim is covered. Appliances have a 24-month warranty period, and your claim is within this period for a manufacturing defect.",
-          "llm_called": true,
-          "handler": null,
-          "text": "Determine whether this warranty claim is covered.",
-          "payload": {
-            "months_since_purchase": 25,
-            "product_category": "appliance",
-            "defect_type": "manufacturing"
-          }
-        },
-        {
           "id": "pol-061",
           "category": "policy",
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "Your warranty claim is covered. Accessories have a 6-month warranty period, and your claim is within this timeframe for a manufacturing defect.",
+          "answer": "Your warranty claim is covered.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -276,8 +249,8 @@
         "arm": "direct",
         "n_total": 330,
         "n_scorable": 260,
-        "accuracy": 0.7153846153846154,
-        "correct": 186,
+        "accuracy": 0.7038461538461539,
+        "correct": 183,
         "accuracy_by_category": {
           "format": {
             "n": 120,
@@ -286,24 +259,24 @@
           },
           "faq": {
             "n": 60,
-            "correct": 15,
-            "accuracy": 0.25
+            "correct": 13,
+            "accuracy": 0.21666666666666667
           },
           "policy": {
             "n": 80,
-            "correct": 55,
-            "accuracy": 0.6875
+            "correct": 54,
+            "accuracy": 0.675
           }
         },
         "llm_calls": 330,
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 54668,
-        "tokens_out": 13228,
+        "tokens_out": 12749,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 436.69351291656494,
-        "latency_p50_s": 1.3165202140808105,
-        "latency_p95_s": 1.586396646499634
+        "latency_s_total": 447.99653816223145,
+        "latency_p50_s": 1.345454216003418,
+        "latency_p95_s": 1.63741934299469
       },
       "kora": {
         "arm": "kora",
@@ -328,24 +301,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 12387,
-        "tokens_out": 3228,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 12729,
+        "tokens_out": 3037,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 104.91836738586426,
+        "latency_s_total": 109.5938150882721,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 1.4404577493667605
+        "latency_p95_s": 1.4838306903839111
       },
       "comparison": {
-        "accuracy_delta_kora_minus_direct": 0.26538461538461533,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 42281,
-        "tokens_out_saved": 10000,
+        "accuracy_delta_kora_minus_direct": 0.2769230769230768,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 41939,
+        "tokens_out_saved": 9712,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 331.7751455307007
+        "latency_s_saved": 338.40272307395935
       },
       "consistency_direct": {
         "k": 1,
@@ -358,7 +331,7 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "invalid",
           "verdict": "valid",
-          "answer": "Yes, 'a@localhost' is a valid email address. It follows the standard email format and can be used for local testing purposes.",
+          "answer": "Yes, 'a@localhost' is a valid email address format, though it may not be routable on the public internet.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid email address: a@localhost",
@@ -370,22 +343,10 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "invalid",
           "verdict": "valid",
-          "answer": "The email address user@example.com is valid.",
+          "answer": "Yes, user@example.com is a valid email address.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid email address: user@example.com.",
-          "payload": null
-        },
-        {
-          "id": "fmt-phone-026",
-          "category": "format",
-          "gt_kind": "valid_invalid",
-          "ground_truth": "invalid",
-          "verdict": "valid",
-          "answer": "Yes, +1 000 000 0000 is a valid phone number format.",
-          "llm_called": true,
-          "handler": null,
-          "text": "Is this a valid phone number: +1 000 000 0000",
           "payload": null
         },
         {
@@ -394,10 +355,22 @@
           "gt_kind": "valid_invalid",
           "ground_truth": "valid",
           "verdict": "invalid",
-          "answer": "The date 2024-02-29 is invalid because 2024 is a leap year and February has only 29 days. The correct date should be 2024-02-29.",
+          "answer": "February 29th is only valid in leap years. 2024 is a leap year, but the date is still invalid as February only has 29 days in leap years. The correct date should be 2024-02-29.",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid calendar date in YYYY-MM-DD format: 2024-02-29",
+          "payload": null
+        },
+        {
+          "id": "fmt-date-019",
+          "category": "format",
+          "gt_kind": "valid_invalid",
+          "ground_truth": "valid",
+          "verdict": "invalid",
+          "answer": "February 29th is only valid in leap years. 2016 was a leap year, but the date is invalid because it is out of range for February, which has 28 days in non-leap years and 29 days in leap years. Please ",
+          "llm_called": true,
+          "handler": null,
+          "text": "Is this a valid calendar date in YYYY-MM-DD format: 2016-02-29",
           "payload": null
         },
         {
@@ -409,7 +382,7 @@
             "friday"
           ],
           "verdict": null,
-          "answer": "Our weekday hours are 10 AM to 6 PM. We're closed on weekends.",
+          "answer": "Our weekday hours are 10 AM to 6 PM. We look forward to your visit!",
           "llm_called": true,
           "handler": null,
           "text": "I want to visit on a Wednesday \u2014 what are your weekday hours?",
@@ -452,7 +425,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our customer support is available 24/7, including weekends. How can I assist you today?",
+          "answer": "Our customer support is available 24/7, including weekends. Feel free to reach out anytime!",
           "llm_called": true,
           "handler": null,
           "text": "What are your hours over the weekend?",
@@ -466,7 +439,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our store is open on weekends, including Saturdays and Sundays, from 10 AM to 6 PM. Feel free to visit us during these hours.",
+          "answer": "Our store is open from Monday to Friday, 9 AM to 5 PM. We are closed on weekends.",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
@@ -494,7 +467,7 @@
             "30"
           ],
           "verdict": null,
-          "answer": "You have 30 days from the date of purchase to request a refund. Please ensure you review our refund policy for any specific conditions that may apply. If you need assistance, feel free to contact our ",
+          "answer": "You have 30 days from the date of purchase to request a refund. Please refer to our return policy for more details.",
           "llm_called": true,
           "handler": null,
           "text": "How many days do I have to ask for a refund?",
@@ -508,24 +481,10 @@
             "30"
           ],
           "verdict": null,
-          "answer": "You have 30 days from the purchase date to request a refund. Please refer to our return policy for more details.",
+          "answer": "You have 30 days from the purchase date to request a return or exchange. Please refer to our return policy for more details.",
           "llm_called": true,
           "handler": null,
           "text": "What's the time limit on getting my money back?",
-          "payload": null
-        },
-        {
-          "id": "faq-011",
-          "category": "faq",
-          "gt_kind": "kb_answer",
-          "ground_truth": [
-            "30"
-          ],
-          "verdict": null,
-          "answer": "Yes, returns for a refund must be made within 30 days of purchase. Please refer to our return policy for more details.",
-          "llm_called": true,
-          "handler": null,
-          "text": "Is there a deadline to return something for a refund?",
           "payload": null
         },
         {
@@ -567,7 +526,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Shipping fees vary based on the destination and the items ordered. Please check the product page or your cart for specific shipping costs.",
+          "answer": "Shipping fees vary based on your location and the items ordered. Check the product page or your cart for specific details.",
           "llm_called": true,
           "handler": null,
           "text": "Do I have to pay a shipping fee, and how much?",
@@ -582,7 +541,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Delivery charges vary by product and location. Check the product page for details.",
+          "answer": "Delivery charges depend on the item and destination. Check the product page for details.",
           "llm_called": true,
           "handler": null,
           "text": "Is there a postage charge, or is delivery free?",
@@ -597,10 +556,25 @@
             "5"
           ],
           "verdict": null,
-          "answer": "Delivery times vary by location and product. Check your order details for an estimated arrival date.",
+          "answer": "Delivery times vary by location and product. Check your order details for estimated arrival dates.",
           "llm_called": true,
           "handler": null,
           "text": "How many days until my domestic order arrives?",
+          "payload": null
+        },
+        {
+          "id": "faq-019",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "3",
+            "5"
+          ],
+          "verdict": null,
+          "answer": "Domestic orders typically ship within 1-2 business days and arrive within 3-7 business days. Please check your order confirmation for specific details.",
+          "llm_called": true,
+          "handler": null,
+          "text": "When will my order ship and get here domestically?",
           "payload": null
         },
         {
@@ -627,7 +601,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "Shipping times abroad vary by destination and shipping method. Please check our shipping policy for more details.",
+          "answer": "Shipping abroad typically takes 10-20 business days, depending on the destination and shipping method chosen.",
           "llm_called": true,
           "handler": null,
           "text": "How long does shipping abroad take?",
@@ -642,7 +616,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "Overseas orders typically arrive within 10-15 business days. Please note that delivery times may vary due to customs processing and other factors.",
+          "answer": "Delivery times for overseas orders vary based on destination and shipping method. Please check the estimated delivery date provided during checkout or contact our support for more specific information",
           "llm_called": true,
           "handler": null,
           "text": "When will an overseas order arrive?",
@@ -657,7 +631,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "Delivery times for international orders vary by destination and shipping method. Typically, it ranges from 7 to 21 business days. For precise estimates, please check our shipping policy or contact our",
+          "answer": "International orders typically take 10-20 business days for delivery.",
           "llm_called": true,
           "handler": null,
           "text": "What's the delivery time for international orders?",
@@ -672,7 +646,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "International shipping typically takes 7-21 business days. For more precise estimates, please check our shipping policy page.",
+          "answer": "International shipping typically takes 10-20 business days. For exact timelines, check our shipping policy page.",
           "llm_called": true,
           "handler": null,
           "text": "How many days to ship internationally?",
@@ -686,7 +660,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "You can contact support using the email address support@northwindgoods.com.",
+          "answer": "You can contact support at support@northwindgoods.com.",
           "llm_called": true,
           "handler": null,
           "text": "What email address can I use to contact support?",
@@ -700,7 +674,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "For assistance, please email us at support@northwindgoods.com.",
+          "answer": "For help, email our customer support at support@northwindgoods.com.",
           "llm_called": true,
           "handler": null,
           "text": "Where do I email if I need help?",
@@ -714,7 +688,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "You can reach our customer support via email at support@northwindgoods.com. We're here to help!",
+          "answer": "You can reach our customer support team by emailing support@northwindgoods.com.",
           "llm_called": true,
           "handler": null,
           "text": "What is your customer support e-mail address?",
@@ -756,7 +730,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "You can reach our customer service by phone at 1-800-555-3663.",
+          "answer": "You can reach our customer service by phone at 1-800-555-1234.",
           "llm_called": true,
           "handler": null,
           "text": "How can I phone customer service?",
@@ -770,7 +744,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "You can reach our support team by email at support@northwindgoods.com or through our online chat available on our website. We do not have a dedicated telephone support line.",
+          "answer": "You can reach our support team by email at support@northwindgoods.com or through our online chat available on our website.",
           "llm_called": true,
           "handler": null,
           "text": "Is there a support telephone number I can call?",
@@ -799,7 +773,7 @@
             "paypal"
           ],
           "verdict": null,
-          "answer": "We accept Visa, Mastercard, American Express, and Discover. For more details, visit our payment methods page.",
+          "answer": "We accept Visa, Mastercard, American Express, and Discover.",
           "llm_called": true,
           "handler": null,
           "text": "Which cards do you take at checkout?",
@@ -836,6 +810,20 @@
           "payload": null
         },
         {
+          "id": "faq-041",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "100"
+          ],
+          "verdict": null,
+          "answer": "You earn rewards points by making purchases on our website. Points are typically awarded based on the amount spent, with specific details available in our rewards program terms.",
+          "llm_called": true,
+          "handler": null,
+          "text": "How do I earn rewards points?",
+          "payload": null
+        },
+        {
           "id": "faq-042",
           "category": "faq",
           "gt_kind": "kb_answer",
@@ -857,7 +845,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "Points earned and their value depend on your membership level and purchase amount. Please check your account for specific details or contact us for more information.",
+          "answer": "Points vary by purchase and are worth a percentage off future purchases. Check your account for details.",
           "llm_called": true,
           "handler": null,
           "text": "How many points do I get and what are they worth?",
@@ -871,7 +859,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "You earn rewards by making purchases, which can later be redeemed for discounts on future orders. Check your account for current rewards and eligible redemptions.",
+          "answer": "You earn rewards by making purchases, which can later be redeemed for discounts on future orders. Check your account for current rewards balance and redemption options.",
           "llm_called": true,
           "handler": null,
           "text": "How does earning and redeeming rewards work?",
@@ -885,7 +873,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "To reset your password, visit our login page and click on 'Forgot Password'. Follow the instructions sent to your registered email address. If you need further assistance, contact our support team.",
+          "answer": "To reset your password, visit our login page and click on 'Forgot Password'. Follow the instructions sent to your registered email address.",
           "llm_called": true,
           "handler": null,
           "text": "How can I reset my password?",
@@ -899,7 +887,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "To reset your password, visit our login page and click on 'Forgot Password'. Follow the instructions sent to your registered email address. If you encounter issues, contact our support team.",
+          "answer": "You can reset your password by clicking on 'Forgot Password' on the login page and following the instructions sent to your email.",
           "llm_called": true,
           "handler": null,
           "text": "I forgot my password \u2014 how do I change it?",
@@ -913,7 +901,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "You can reset your account password by visiting the 'Forgot Password' link on our login page. Follow the instructions provided to create a new password.",
+          "answer": "You can reset your account password by visiting the 'Forgot Password' link on our login page.",
           "llm_called": true,
           "handler": null,
           "text": "Where do I go to reset my account password?",
@@ -927,7 +915,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "To recover access, visit our login page and click on 'Forgot Password'. Follow the instructions sent to your registered email to reset your password. If you need further assistance, contact our suppor",
+          "answer": "Please use the 'Forgot Password' option on the login page to reset your password. If you continue to experience issues, contact our support team with your account details for further assistance.",
           "llm_called": true,
           "handler": null,
           "text": "How do I recover access when I can't log in with my password?",
@@ -941,10 +929,24 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can track your order by logging into your account on our website and navigating to the 'Order History' section. There, you'll find tracking information for your recent purchases. If you need furth",
+          "answer": "You can track your order by logging into your account on our website and navigating to the 'Order History' section. There, you'll find tracking information for your order. If you need further assistan",
           "llm_called": true,
           "handler": null,
           "text": "How do I track my order?",
+          "payload": null
+        },
+        {
+          "id": "faq-050",
+          "category": "faq",
+          "gt_kind": "kb_answer",
+          "ground_truth": [
+            "orders"
+          ],
+          "verdict": null,
+          "answer": "You can view your shipment's tracking status on the 'My Orders' page of your account. Enter your order number for detailed tracking information.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Where can I see my shipment's tracking status?",
           "payload": null
         },
         {
@@ -955,7 +957,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can track your package using the tracking number provided in your shipping confirmation email on our website's tracking page.",
+          "answer": "You can track your package using the tracking number provided in your shipment confirmation email on our website.",
           "llm_called": true,
           "handler": null,
           "text": "How can I follow where my package is?",
@@ -983,7 +985,7 @@
             "never"
           ],
           "verdict": null,
-          "answer": "Gift cards are valid for 2 years from the date of purchase. Please check your card for the specific expiration date.",
+          "answer": "Gift cards are valid for 2 years from the date of purchase.",
           "llm_called": true,
           "handler": null,
           "text": "How long is a gift card valid for?",
@@ -997,7 +999,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Please visit our returns page for detailed instructions on how to mail your returns: https://www.northwindgoods.com/returns",
+          "answer": "Please mail your returns to the following address: Northwind Goods, Returns Department, 12345 Return Lane, Anytown, USA.",
           "llm_called": true,
           "handler": null,
           "text": "Where should I mail my returns?",
@@ -1011,7 +1013,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Please send returned items to the following address: Northwind Goods, Returns Department, 1234 Elm Street, Springfield, IL 62701.",
+          "answer": "Please send returned items to our returns department at 1234 Returns Lane, Anytown, USA.",
           "llm_called": true,
           "handler": null,
           "text": "What address do I send returned items to?",
@@ -1025,7 +1027,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Returns should be shipped to the address provided in the return instructions sent via email after your request for a return is approved. Please check your email for the specific address. If you cannot",
+          "answer": "Please ship returns to the address provided in your order confirmation email. If you cannot find it, contact our customer support for assistance.",
           "llm_called": true,
           "handler": null,
           "text": "Where do returns need to be shipped?",
@@ -1039,7 +1041,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Please visit our Returns page for detailed instructions and the shipping address: https://northwindgoods.com/returns",
+          "answer": "Please visit our Returns page for detailed instructions and the return shipping address: https://www.northwindgoods.com/returns",
           "llm_called": true,
           "handler": null,
           "text": "What is the return shipping address?",
@@ -1051,7 +1053,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Refund not eligible: books are non-returnable if opened, and it's past the 7-day return window.",
+          "answer": "Refund not eligible: books opened over 7 days since delivery.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1067,7 +1069,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "The order is eligible for a refund as it was returned within 30 days and the item is unopened.",
+          "answer": "The order is eligible for a refund as it was returned within 30 days, the item is unopened, and food items are generally returnable if unopened.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1083,7 +1085,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Refund not eligible: item has been opened and is outside the return window.",
+          "answer": "Refund not eligible: item opened and within return period.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1115,29 +1117,13 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Refunds for electronics are only eligible within 30 days of delivery if unopened.",
+          "answer": "Refund not eligible: electronics category has a 30-day return policy.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
           "payload": {
             "days_since_delivery": 29,
             "item_category": "electronics",
-            "opened": false
-          }
-        },
-        {
-          "id": "pol-014",
-          "category": "policy",
-          "gt_kind": "eligibility",
-          "ground_truth": "eligible",
-          "verdict": "ineligible",
-          "answer": "Refund not eligible: order is beyond 14 days since delivery.",
-          "llm_called": true,
-          "handler": null,
-          "text": "Determine refund eligibility for this order.",
-          "payload": {
-            "days_since_delivery": 15,
-            "item_category": "other",
             "opened": false
           }
         },
@@ -1163,7 +1149,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Free shipping is not available for this order. It requires an order total of at least $100 or an active membership.",
+          "answer": "Orders qualify for free shipping with a total of $100 or more, or with an active membership. Your order does not meet these criteria.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1179,7 +1165,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Orders qualify for free shipping with a total of $75 or more, or with a premium membership. Your order does not meet these criteria.",
+          "answer": "Orders qualify for free shipping with a total of $100 or more, or with an active membership. Your order does not meet these criteria.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1195,7 +1181,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Orders to remote zones require a total of at least $50 for free shipping, regardless of membership status.",
+          "answer": "Orders to remote zones require a total of at least $50 for free shipping, even with a plus membership.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1206,12 +1192,28 @@
           }
         },
         {
+          "id": "pol-023",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Orders under $25 do not qualify for free shipping, regardless of membership status.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine whether this order qualifies for free shipping.",
+          "payload": {
+            "order_total": 5,
+            "destination_zone": "domestic",
+            "membership": "plus"
+          }
+        },
+        {
           "id": "pol-025",
           "category": "policy",
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Free shipping requires an order total of $150 or a premium membership.",
+          "answer": "Orders qualify for free shipping with a total of $150 or more, or with a premium membership. Your order does not meet these criteria.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1243,7 +1245,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Orders with a total of $0 do not qualify for free shipping, regardless of membership or destination zone.",
+          "answer": "Orders with a total of $0 do not qualify for free shipping, regardless of membership or destination zone. Please add items to your cart to check out.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1259,7 +1261,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Orders qualify for free shipping with a total of $100 or more, or with a premium membership. Your order does not meet these criteria.",
+          "answer": "Orders qualify for free shipping with a total of $100 or more, or with an active membership. Your order does not meet these criteria.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1275,7 +1277,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "The WELCOME10 coupon is valid for new accounts with no prior orders.",
+          "answer": "The WELCOME10 coupon is valid for new customers with no prior orders.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether the WELCOME10 coupon is valid here.",
@@ -1323,7 +1325,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Warranty claims for appliances are only covered for manufacturing defects within 12 months of purchase.",
+          "answer": "Warranty claims for appliances are only covered for manufacturing defects within 12 months of purchase. Your claim is ineligible.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -1355,7 +1357,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Your warranty claim is ineligible as it exceeds the 12-month coverage period for appliances.",
+          "answer": "Warranty claims for appliances are only covered for 12 months after purchase. Your claim is ineligible.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -1371,7 +1373,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Free prepaid return label is not eligible as it has been more than 30 days since delivery.",
+          "answer": "Free prepaid return labels are only provided within 30 days of delivery. Since it's exactly 30 days, you may still be eligible, but please contact us for confirmation.",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1381,12 +1383,27 @@
           }
         },
         {
+          "id": "pol-069",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "You are eligible for a free prepaid return label as it's within 7 days of delivery.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "changed_mind",
+            "days_since_delivery": 5
+          }
+        },
+        {
           "id": "pol-073",
           "category": "policy",
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Free prepaid return label is not eligible as it's beyond 14 days since delivery.",
+          "answer": "Free prepaid return labels are only eligible within 14 days of delivery. Your return request is beyond the eligible timeframe.",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1401,7 +1418,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Returns due to receiving the wrong item are eligible for a free prepaid return label within 14 days of delivery. Since it's been 30 days, you are ineligible for a free prepaid return label.",
+          "answer": "Free prepaid return label is not eligible as it has been more than 30 days since delivery.",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1416,7 +1433,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Free prepaid return labels are only eligible within 30 days of delivery. Since it's been 29 days, you're just outside the window. You can still return the item, but a return label won't be provided.",
+          "answer": "Free prepaid return labels are only provided for returns within 30 days of delivery. Since it's been 29 days, you'll need to cover the return shipping cost.",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1431,7 +1448,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Returns due to receiving the wrong item are eligible for a free prepaid return label within 14 days of delivery. Since it's been 15 days, you are ineligible for a free prepaid return label. You can st",
+          "answer": "Free prepaid return labels are only eligible within 14 days of delivery. Please contact support for further assistance.",
           "llm_called": true,
           "handler": null,
           "text": "Determine free prepaid return-label eligibility.",
@@ -1450,7 +1467,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our store is open on weekends, including Saturdays and Sundays, from 10 AM to 6 PM. Feel free to visit us during these hours.",
+          "answer": "Our store is open from Monday to Friday, 9 AM to 5 PM. We are closed on weekends.",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
@@ -1465,7 +1482,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Shipping fees vary based on the destination and the items ordered. Please check the product page or your cart for specific shipping costs.",
+          "answer": "Shipping fees vary based on your location and the items ordered. Check the product page or your cart for specific details.",
           "llm_called": true,
           "handler": null,
           "text": "Do I have to pay a shipping fee, and how much?",
@@ -1480,7 +1497,7 @@
             "paypal"
           ],
           "verdict": null,
-          "answer": "We accept Visa, Mastercard, American Express, and Discover. For more details, visit our payment methods page.",
+          "answer": "We accept Visa, Mastercard, American Express, and Discover.",
           "llm_called": true,
           "handler": null,
           "text": "Which cards do you take at checkout?",
@@ -1494,7 +1511,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can track your package using the tracking number provided in your shipping confirmation email on our website's tracking page.",
+          "answer": "You can track your package using the tracking number provided in your shipment confirmation email on our website.",
           "llm_called": true,
           "handler": null,
           "text": "How can I follow where my package is?",
@@ -1508,7 +1525,7 @@
             "never"
           ],
           "verdict": null,
-          "answer": "Gift cards are valid for 2 years from the date of purchase. Please check your card for the specific expiration date.",
+          "answer": "Gift cards are valid for 2 years from the date of purchase.",
           "llm_called": true,
           "handler": null,
           "text": "How long is a gift card valid for?",

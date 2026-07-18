@@ -181,41 +181,6 @@ became newly mis-routed. The genuine `support_phone` FAQ cases (`faq-029`–`faq
 and every well-formed policy case are unaffected. Deflection drops only by the two
 now-escalated cases (2 / 330).
 
-### 5c-guardrail. Fixing the two over-routing cases (versioned change)
-
-The two cases above were left in the frozen full-benchmark run on purpose, so the
-headline numbers in §5a–§5b are reported against unpatched rules. As a *separate,
-versioned* change, both cases were then registered as named regression tests and
-the underlying rules were guarded. The benchmark numbers above are not edited; the
-system was changed and re-measured, and both results are reported side by side.
-
-- **Named tests first.** `experiments/kora_target_workload/tests/test_over_routing_guardrails.py`
-  loads `rea-030` and `trp-030` from the canonical workload and asserts each
-  escalates (`Decision.routed is False`, the same criterion `run.py` uses). At the
-  test commit these fail on purpose, fixing the gap as a record before any fix.
-- **Guard 1 — input range-check (`policy_rules`).** Negative elapsed-time / count
-  fields (`days_since_delivery`, `months_since_purchase`, `account_age_days`,
-  `prior_orders`) now raise `PolicyInputError`, so a malformed payload abstains
-  instead of producing a verdict. Fixes `trp-030` (`days_since_delivery = -5`).
-- **Guard 2 — FAQ signal (`spec/kb.yaml`).** `"number"` was dropped from the
-  `support_phone` `all_of` signal. Genuine phone requests match on
-  `phone` / `call` / `telephone`; `"number"` only produced false matches on
-  order / tracking / account numbers. Fixes `rea-030`.
-
-Full 330-case routing (`run.py --routing-only`, 0 LLM calls), before → after:
-
-| metric | before (frozen rules) | after (guards) |
-|---|---|---|
-| over-routing (should-escalate but handled) | 2 (`rea-030`, `trp-030`) | **0** |
-| recall | 0.971 | **1.000** |
-| precision | 0.883 | 0.886 |
-| deflection | 0.767 | 0.761 |
-
-Routing changed for exactly these two cases — no other case flipped, and no case
-became newly mis-routed. The genuine `support_phone` FAQ cases (`faq-029`–`faq-032`)
-and every well-formed policy case are unaffected. Deflection drops only by the two
-now-escalated cases (2 / 330).
-
 ### 5d. Other honest caveats
 - **Synthetic KB/policies.** "Northwind Goods" facts and policy thresholds are
   invented for the demo; the point is the *mechanism*, not these specific values.

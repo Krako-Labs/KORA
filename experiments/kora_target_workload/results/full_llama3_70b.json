@@ -24,12 +24,12 @@
   },
   "routing": {
     "positive_class": "should_escalate",
-    "tp": 68,
+    "tp": 70,
     "fp": 9,
     "tn": 251,
-    "fn": 2,
-    "precision": 0.8831168831168831,
-    "recall": 0.9714285714285714,
+    "fn": 0,
+    "precision": 0.8860759493670886,
+    "recall": 1.0,
     "by_category": {
       "format": {
         "n": 120,
@@ -48,29 +48,16 @@
       },
       "reasoning": {
         "n": 40,
-        "routed": 1,
-        "abstain": 39
+        "routed": 0,
+        "abstain": 40
       },
       "trap": {
         "n": 30,
-        "routed": 1,
-        "abstain": 29
+        "routed": 0,
+        "abstain": 30
       }
     },
-    "over_routed_cases": [
-      {
-        "id": "rea-030",
-        "category": "reasoning",
-        "handler": "faq:support_phone",
-        "answer": "Our support line is +1-800-555-0100."
-      },
-      {
-        "id": "trp-030",
-        "category": "trap",
-        "handler": "policy:refund_eligibility",
-        "answer": "eligible"
-      }
-    ]
+    "over_routed_cases": []
   },
   "conditions": {
     "with_kb": {
@@ -101,11 +88,11 @@
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 329067,
-        "tokens_out": 9110,
+        "tokens_out": 8727,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 382.717280626297,
-        "latency_p50_s": 1.086154818534851,
-        "latency_p95_s": 1.6086236596107486
+        "latency_s_total": 387.6004989147186,
+        "latency_p50_s": 1.1271754503250122,
+        "latency_p95_s": 1.6498385310173038
       },
       "kora": {
         "arm": "kora",
@@ -130,24 +117,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 76534,
-        "tokens_out": 3972,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 78542,
+        "tokens_out": 3916,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 103.03662252426147,
+        "latency_s_total": 104.45572757720947,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 1.4779364228248597
+        "latency_p95_s": 1.5201613903045654
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.050000000000000044,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 252533,
-        "tokens_out_saved": 5138,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 250525,
+        "tokens_out_saved": 4811,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 279.6806581020355
+        "latency_s_saved": 283.14477133750916
       },
       "consistency_direct": {
         "k": 1,
@@ -219,8 +206,8 @@
           "category": "policy",
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
-          "verdict": null,
-          "answer": "{\"verdict\": \"ineligible\", \"answer\": \"The item is not eligible for a refund because it is opened and falls under the electronics rule, however since the item category is 'other', the general 30-day rul",
+          "verdict": "ineligible",
+          "answer": "The item is not eligible for a refund because it has been opened and is in the 'other' category, which is subject to the standard 30-day return window but is not eligible due to being opened, similar ",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -236,7 +223,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "The item is not eligible for a refund because it was opened and the refund request is at the 30-day limit.",
+          "answer": "The item is outside the 30-day return window or is an opened non-electronic item, which is still eligible for return but since it is opened and not electronics, the 30-day window applies and has been ",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -252,7 +239,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "The warranty period for electronics is 12 months, and since it has been 12 months since purchase, the claim is ineligible.",
+          "answer": "The warranty claim is not covered because the electronics warranty period is 12 months and the claim is being made after this period.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -268,7 +255,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "The warranty period for appliances is 24 months, and since the defect is manufacturing-related, the claim would normally be eligible. However, given the claim is exactly at the 24-month mark, it is ri",
+          "answer": "The warranty period for appliances is 24 months, and since the defect is manufacturing-related, the claim would normally be eligible. However, since the months since purchase equals the warranty perio",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -353,29 +340,29 @@
         "accuracy_by_category": {
           "format": {
             "n": 120,
-            "correct": 114,
-            "accuracy": 0.95
+            "correct": 115,
+            "accuracy": 0.9583333333333334
           },
           "faq": {
             "n": 60,
-            "correct": 14,
-            "accuracy": 0.23333333333333334
+            "correct": 15,
+            "accuracy": 0.25
           },
           "policy": {
             "n": 80,
-            "correct": 43,
-            "accuracy": 0.5375
+            "correct": 41,
+            "accuracy": 0.5125
           }
         },
         "llm_calls": 330,
         "deterministic_answers": 0,
         "deflection_rate": 0.0,
         "tokens_in": 64737,
-        "tokens_out": 10157,
+        "tokens_out": 9971,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 376.55631923675537,
-        "latency_p50_s": 1.1242525577545166,
-        "latency_p95_s": 1.428698515892029
+        "latency_s_total": 433.6472132205963,
+        "latency_p50_s": 1.2553330659866333,
+        "latency_p95_s": 1.8065745115280156
       },
       "kora": {
         "arm": "kora",
@@ -400,24 +387,24 @@
             "accuracy": 1.0
           }
         },
-        "llm_calls": 77,
-        "deterministic_answers": 253,
-        "deflection_rate": 0.7666666666666667,
-        "tokens_in": 14857,
-        "tokens_out": 3278,
+        "llm_calls": 79,
+        "deterministic_answers": 251,
+        "deflection_rate": 0.7606060606060606,
+        "tokens_in": 15263,
+        "tokens_out": 3325,
         "estimated_cost_usd": 0.0,
-        "latency_s_total": 96.93669700622559,
+        "latency_s_total": 120.01074814796448,
         "latency_p50_s": 0.0,
-        "latency_p95_s": 1.3809044718742371
+        "latency_p95_s": 1.5820069432258614
       },
       "comparison": {
         "accuracy_delta_kora_minus_direct": 0.3192307692307692,
-        "llm_calls_saved": 253,
-        "llm_calls_saved_pct": 0.7666666666666667,
-        "tokens_in_saved": 49880,
-        "tokens_out_saved": 6879,
+        "llm_calls_saved": 251,
+        "llm_calls_saved_pct": 0.7606060606060606,
+        "tokens_in_saved": 49474,
+        "tokens_out_saved": 6646,
         "cost_saved_usd": 0.0,
-        "latency_s_saved": 279.6196222305298
+        "latency_s_saved": 313.63646507263184
       },
       "consistency_direct": {
         "k": 1,
@@ -473,24 +460,12 @@
           "payload": null
         },
         {
-          "id": "fmt-date-006",
-          "category": "format",
-          "gt_kind": "valid_invalid",
-          "ground_truth": "valid",
-          "verdict": "invalid",
-          "answer": "June only has 30 days in some years, but 1999 is not a leap year and June has 30 days, however, June has 30 days every year, so the date is valid, actually, the date is valid.",
-          "llm_called": true,
-          "handler": null,
-          "text": "Is this a valid calendar date in YYYY-MM-DD format: 1999-06-30",
-          "payload": null
-        },
-        {
           "id": "fmt-date-020",
           "category": "format",
           "gt_kind": "valid_invalid",
           "ground_truth": "valid",
           "verdict": "invalid",
-          "answer": "2012 is not a leap year, so February does not have 29 days in this year.",
+          "answer": "",
           "llm_called": true,
           "handler": null,
           "text": "Is this a valid calendar date in YYYY-MM-DD format: 2012-02-29",
@@ -505,7 +480,7 @@
             "friday"
           ],
           "verdict": null,
-          "answer": "Our customer support is available Monday through Friday, 9am to 5pm. Please note that hours may vary on holidays.",
+          "answer": "Our customer support is available Monday through Friday, 9am to 5pm EST. You can also check our website for holiday hours and other important notices.",
           "llm_called": true,
           "handler": null,
           "text": "When are you open during the week?",
@@ -520,7 +495,7 @@
             "friday"
           ],
           "verdict": null,
-          "answer": "Our customer support is available Monday through Friday from 9 AM to 5 PM EST.",
+          "answer": "Our customer support is available Monday through Friday from 9am to 5pm EST.",
           "llm_called": true,
           "handler": null,
           "text": "Until when are you open Monday through Friday?",
@@ -534,7 +509,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our customer service is available 7 days a week. For specific store hours, please check our website or contact your local Northwind Goods store for their Saturday hours.",
+          "answer": "Our customer support is available 24/7, but for store hours, please check our website's contact page or call us for specific Saturday hours at your local Northwind Goods store.",
           "llm_called": true,
           "handler": null,
           "text": "Are you open on Saturdays, and until when?",
@@ -548,7 +523,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our customer support hours over the weekend are Saturday 9am-5pm and Sunday 10am-4pm. Please note that these hours may be subject to change on holidays.",
+          "answer": "Our customer support hours over the weekend are Saturday 9am-5pm and Sunday 10am-4pm. You can also contact us via email or our website's contact form for assistance outside of these hours.",
           "llm_called": true,
           "handler": null,
           "text": "What are your hours over the weekend?",
@@ -562,7 +537,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our store hours are Monday through Friday. Please check our website for specific hours and consider visiting us on a weekday.",
+          "answer": "Our store hours are Monday to Friday. Please check our website for specific hours and consider visiting us on a weekday.",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
@@ -576,7 +551,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our weekend hours are from 9am to 6pm. Please note that hours may vary on holidays or special events. You can check our website for the most up-to-date information.",
+          "answer": "Our weekend hours are Saturday 9am-6pm and Sunday 10am-5pm. Please note that hours may vary on holidays.",
           "llm_called": true,
           "handler": null,
           "text": "What time do you close on the weekend?",
@@ -621,7 +596,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Shipping fees vary depending on your location and order total. Please check our website for more information or contact us with your order details for a quote.",
+          "answer": "Shipping fees vary depending on your location and order total. Please add items to your cart and enter your shipping address to see the estimated shipping cost.",
           "llm_called": true,
           "handler": null,
           "text": "Do I have to pay a shipping fee, and how much?",
@@ -636,7 +611,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Delivery charges vary depending on the order and location. For more information, please check our shipping policy or contact us with your order details.",
+          "answer": "Delivery charges vary depending on the order and location. You can check the shipping costs on our website during checkout or contact us for more information.",
           "llm_called": true,
           "handler": null,
           "text": "Is there a postage charge, or is delivery free?",
@@ -655,21 +630,6 @@
           "llm_called": true,
           "handler": null,
           "text": "How many days until my domestic order arrives?",
-          "payload": null
-        },
-        {
-          "id": "faq-018",
-          "category": "faq",
-          "gt_kind": "kb_answer",
-          "ground_truth": [
-            "3",
-            "5"
-          ],
-          "verdict": null,
-          "answer": "Delivery within the country typically takes 2-5 business days, but please note that this may vary depending on your location and the shipping method chosen at checkout.",
-          "llm_called": true,
-          "handler": null,
-          "text": "How fast is delivery within the country?",
           "payload": null
         },
         {
@@ -696,7 +656,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "Shipping times abroad vary depending on the destination. For more accurate information, please check our shipping policy or contact us with your specific order details.",
+          "answer": "Shipping times abroad vary depending on the destination. For more information, please check our shipping policy or contact us with your specific order details.",
           "llm_called": true,
           "handler": null,
           "text": "How long does shipping abroad take?",
@@ -726,7 +686,7 @@
             "14"
           ],
           "verdict": null,
-          "answer": "For international orders, delivery time typically ranges from 7 to 21 business days, depending on the destination and shipping method chosen. You can track your order for more precise updates.",
+          "answer": "For international orders, delivery time typically ranges from 7-21 business days, depending on the destination and shipping method chosen. You can track your order for more accurate updates.",
           "llm_called": true,
           "handler": null,
           "text": "What's the delivery time for international orders?",
@@ -797,7 +757,7 @@
             "support@northwindgoods.example"
           ],
           "verdict": null,
-          "answer": "You can reach us at support@northwindgoods.com for any questions or concerns.",
+          "answer": "Yes, you can reach us at support@northwindgoods.com for assistance with your inquiries or concerns.",
           "llm_called": true,
           "handler": null,
           "text": "Is there a support email I can reach you at?",
@@ -825,7 +785,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "You can find our customer service phone number at the bottom of our website or by clicking 'Contact Us' on the Northwind Goods homepage.",
+          "answer": "You can find our customer service phone number at the bottom of the Northwind Goods website or by clicking 'Contact Us' in the main menu.",
           "llm_called": true,
           "handler": null,
           "text": "How can I phone customer service?",
@@ -839,7 +799,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "Yes, you can call us at 1-800-NORTH-01 (1-800-667-8401) for assistance.",
+          "answer": "Yes, you can call us at 1-800-NORTH-01 (1-800-667-8401) for assistance with your order or any questions you may have.",
           "llm_called": true,
           "handler": null,
           "text": "Is there a support telephone number I can call?",
@@ -853,7 +813,7 @@
             "555-0100"
           ],
           "verdict": null,
-          "answer": "You can reach our help line at 1-800-555-5555. Our customer support team is available 24/7 to assist you with any questions or concerns.",
+          "answer": "You can reach our help line at 1-800-555-5555. Our customer support team is available to assist you Monday through Friday, 9am to 5pm EST.",
           "llm_called": true,
           "handler": null,
           "text": "What's the phone number to reach your help line?",
@@ -954,7 +914,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "To determine your points and their value, could you please provide more details about the type of points you're referring to, such as rewards points from a specific purchase or loyalty program?",
+          "answer": "To determine your points and their value, could you please provide more information about the rewards program or promotion you're referring to? This will help me give you a more accurate answer.",
           "llm_called": true,
           "handler": null,
           "text": "How many points do I get and what are they worth?",
@@ -968,7 +928,7 @@
             "100"
           ],
           "verdict": null,
-          "answer": "Earning and redeeming rewards at Northwind Goods typically involves creating an account, making purchases to accumulate points, and then using those points for discounts or free items on future purcha",
+          "answer": "Earning and redeeming rewards at Northwind Goods is based on our loyalty program. For every dollar spent, you earn points. These points can be redeemed for discounts on future purchases. You can find ",
           "llm_called": true,
           "handler": null,
           "text": "How does earning and redeeming rewards work?",
@@ -1010,7 +970,7 @@
             "security"
           ],
           "verdict": null,
-          "answer": "To reset your account password, please go to the Northwind Goods website, click on 'Login' and then 'Forgot Password', and follow the prompts to reset your password.",
+          "answer": "To reset your account password, please click on 'Forgot Password' on the Northwind Goods login page and follow the prompts.",
           "llm_called": true,
           "handler": null,
           "text": "Where do I go to reset my account password?",
@@ -1038,7 +998,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "To track your order, please log in to your account, go to the 'My Orders' section, and click on the order number you'd like to track. You can also contact our customer support team for assistance.",
+          "answer": "To track your order, please log in to your Northwind Goods account, go to the 'My Orders' section, and click on the order number you'd like to track. You can also contact our customer support team wit",
           "llm_called": true,
           "handler": null,
           "text": "How do I track my order?",
@@ -1052,7 +1012,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can view your shipment's tracking status by logging into your account, going to the 'Order History' section, and clicking on the 'Track' button next to your order.",
+          "answer": "You can view your shipment's tracking status by logging into your account on our website and navigating to the 'Order History' or 'Track Orders' section.",
           "llm_called": true,
           "handler": null,
           "text": "Where can I see my shipment's tracking status?",
@@ -1066,7 +1026,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can track your package by logging into your Northwind Goods account, going to 'Order History', and clicking on 'Track Package' next to your order. You will need your order number and the email add",
+          "answer": "You can track your package by logging into your Northwind Goods account, going to 'Order History', and clicking on 'Track Package' next to your order. You will also receive email updates with tracking",
           "llm_called": true,
           "handler": null,
           "text": "How can I follow where my package is?",
@@ -1094,7 +1054,7 @@
             "never"
           ],
           "verdict": null,
-          "answer": "Northwind Goods gift cards are valid for 2 years from the date of purchase.",
+          "answer": "Northwind Goods gift cards are valid for 12 months from the date of purchase.",
           "llm_called": true,
           "handler": null,
           "text": "How long is a gift card valid for?",
@@ -1108,7 +1068,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Please mail your returns to the address listed on our website under 'Contact Us' or on the packing slip included with your order. If you can't find it, you can also contact us for assistance.",
+          "answer": "Please mail your returns to the address listed on our website's return policy page or on the packing slip included with your order. If you can't find it, contact us for assistance.",
           "llm_called": true,
           "handler": null,
           "text": "Where should I mail my returns?",
@@ -1136,7 +1096,7 @@
             "columbus"
           ],
           "verdict": null,
-          "answer": "Returns should be shipped to our warehouse at the address listed on our website under the 'Returns and Refunds' section. Please contact us for the most up-to-date information.",
+          "answer": "Returns should be shipped to the address listed on our website under 'Return Policy' or on the packing slip included with your order. If you can't find it, please contact us for assistance.",
           "llm_called": true,
           "handler": null,
           "text": "Where do returns need to be shipped?",
@@ -1178,7 +1138,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Refund window has closed",
+          "answer": "Refunds are typically only available within 15-20 days of delivery, depending on the item category.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1189,12 +1149,28 @@
           }
         },
         {
+          "id": "pol-006",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "ineligible",
+          "verdict": "eligible",
+          "answer": "You are eligible for a refund.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine refund eligibility for this order.",
+          "payload": {
+            "days_since_delivery": 2,
+            "item_category": "food",
+            "opened": false
+          }
+        },
+        {
           "id": "pol-008",
           "category": "policy",
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Most items must be returned in their original packaging to be eligible for a refund.",
+          "answer": "Opened items are generally not eligible for refunds.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1210,7 +1186,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Most clothing items must be returned within 15 days and in their original packaging to be eligible for a refund.",
+          "answer": "According to our policy, clothing items that have been opened are not eligible for refunds after 14 days.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1242,7 +1218,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Most items in electronics category can be returned within 15 days.",
+          "answer": "Most electronics have a 15-day return window.",
           "llm_called": true,
           "handler": null,
           "text": "Determine refund eligibility for this order.",
@@ -1338,7 +1314,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Order total must be at least $25 for free shipping, or $10 for Plus members, to qualify.",
+          "answer": "Order total must be at least $25 for free shipping, or $10 for Plus members with domestic destinations.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1370,7 +1346,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Orders to remote zones require a minimum of $100 for free shipping, even with a plus membership.",
+          "answer": "Free shipping typically requires an order total of $100 or more for remote zones, or $75 or more for plus members in non-remote zones.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1386,7 +1362,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Order total must be $50 or more for free shipping.",
+          "answer": "Order total must be $50 or more for free shipping",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this order qualifies for free shipping.",
@@ -1466,7 +1442,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": null,
-          "answer": "The coupon you're trying to use is WELCOME10, but the details provided are for SAVE20. Please check the coupon code and try again.",
+          "answer": "The coupon you're trying to use is WELCOME10, but the details provided mention a different coupon code, SAVE20. Please check the coupon code and try again.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether the WELCOME10 coupon is valid here.",
@@ -1482,7 +1458,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Account age is 0 days and there are no prior orders, so the WELCOME10 coupon is not applicable.",
+          "answer": "The WELCOME10 coupon is typically for new customers with some prior activity, but your account is too new.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether the WELCOME10 coupon is valid here.",
@@ -1546,7 +1522,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "You are eligible for the WELCOME10 coupon as it is typically offered to new customers with no prior orders.",
+          "answer": "The WELCOME10 coupon is valid for new customers with no prior orders.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether the WELCOME10 coupon is valid here.",
@@ -1626,7 +1602,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "eligible",
           "verdict": "ineligible",
-          "answer": "Warranty claims for electronics are only covered up to 12 months after purchase, and since this claim is for 11 months, it is still within the timeframe, but the answer is based on the assumption that",
+          "answer": "Warranty claims for electronics are only covered up to 12 months after purchase, but since the defect is manufacturing-related, you may want to contact our support team for further assistance.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -1642,7 +1618,7 @@
           "gt_kind": "eligibility",
           "ground_truth": "ineligible",
           "verdict": "eligible",
-          "answer": "Most accessories have a 6-12 month warranty covering manufacturing defects, so this claim is likely covered.",
+          "answer": "Based on the provided details, the warranty claim is covered.",
           "llm_called": true,
           "handler": null,
           "text": "Determine whether this warranty claim is covered.",
@@ -1696,6 +1672,21 @@
           "payload": {
             "reason": "changed_mind",
             "days_since_delivery": 5
+          }
+        },
+        {
+          "id": "pol-073",
+          "category": "policy",
+          "gt_kind": "eligibility",
+          "ground_truth": "eligible",
+          "verdict": "ineligible",
+          "answer": "Prepaid return labels are only available within 15 days of delivery for defective items.",
+          "llm_called": true,
+          "handler": null,
+          "text": "Determine free prepaid return-label eligibility.",
+          "payload": {
+            "reason": "defective",
+            "days_since_delivery": 20
           }
         },
         {
@@ -1765,7 +1756,7 @@
             "saturday"
           ],
           "verdict": null,
-          "answer": "Our store hours are Monday through Friday. Please check our website for specific hours and consider visiting us on a weekday.",
+          "answer": "Our store hours are Monday to Friday. Please check our website for specific hours and consider visiting us on a weekday.",
           "llm_called": true,
           "handler": null,
           "text": "Can I come by on a Saturday or Sunday?",
@@ -1780,7 +1771,7 @@
             "50"
           ],
           "verdict": null,
-          "answer": "Shipping fees vary depending on your location and order total. Please check our website for more information or contact us with your order details for a quote.",
+          "answer": "Shipping fees vary depending on your location and order total. Please add items to your cart and enter your shipping address to see the estimated shipping cost.",
           "llm_called": true,
           "handler": null,
           "text": "Do I have to pay a shipping fee, and how much?",
@@ -1809,7 +1800,7 @@
             "orders"
           ],
           "verdict": null,
-          "answer": "You can track your package by logging into your Northwind Goods account, going to 'Order History', and clicking on 'Track Package' next to your order. You will need your order number and the email add",
+          "answer": "You can track your package by logging into your Northwind Goods account, going to 'Order History', and clicking on 'Track Package' next to your order. You will also receive email updates with tracking",
           "llm_called": true,
           "handler": null,
           "text": "How can I follow where my package is?",
@@ -1823,7 +1814,7 @@
             "never"
           ],
           "verdict": null,
-          "answer": "Northwind Goods gift cards are valid for 2 years from the date of purchase.",
+          "answer": "Northwind Goods gift cards are valid for 12 months from the date of purchase.",
           "llm_called": true,
           "handler": null,
           "text": "How long is a gift card valid for?",

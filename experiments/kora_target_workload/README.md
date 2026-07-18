@@ -24,32 +24,32 @@ cost and accuracy, independent of which model you pay for?*
 ## TL;DR
 
 Deterministic routing is decided by the dispatcher, not the model, so the
-deflection rate is **identical across all five models**: KORA makes **76.7% fewer
-LLM calls** (330 → 77) on this workload. The accuracy effect, however, depends on
+deflection rate is **identical across all five models**: KORA makes **76.06% fewer
+LLM calls** (330 → 79) on this workload. The accuracy effect, however, depends on
 the served model — and it grows as the model gets weaker.
 
 | Served model | tier | deflection | LLM calls saved | with-KB Δacc | without-KB Δacc |
 |---|---|---|---|---|---|
-| Llama 3.1 8B | tiny | 76.7% | 76.7% | +0.123 | **+0.335** |
-| Llama 3.3 70B | large | 76.7% | 76.7% | +0.050 | +0.319 |
-| Claude Haiku 4.5 | small | 76.7% | 76.7% | +0.019 | +0.300 |
-| Nova Pro | mid | 76.7% | 76.7% | +0.031 | +0.265 |
-| Claude Sonnet 4.6 | frontier | 76.7% | 76.7% | +0.012 | +0.223 |
+| Llama 3.1 8B | tiny | 76.06% | 76.06% | +0.123 | **+0.342** |
+| Llama 3.3 70B | large | 76.06% | 76.06% | +0.050 | +0.319 |
+| Claude Haiku 4.5 | small | 76.06% | 76.06% | +0.019 | +0.300 |
+| Nova Pro | mid | 76.06% | 76.06% | +0.027 | +0.277 |
+| Claude Sonnet 4.6 | frontier | 76.06% | 76.06% | +0.012 | +0.223 |
 
 Absolute accuracy (direct → KORA):
 
 | Served model | with-KB direct → KORA | without-KB direct → KORA |
 |---|---|---|
 | Claude Sonnet 4.6 | 0.988 → 1.000 | 0.765 → 0.988 |
-| Nova Pro | 0.969 → 1.000 | 0.715 → 0.981 |
+| Nova Pro | 0.973 → 1.000 | 0.704 → 0.981 |
 | Claude Haiku 4.5 | 0.981 → 1.000 | 0.677 → 0.977 |
 | Llama 3.3 70B | 0.950 → 1.000 | 0.658 → 0.977 |
-| Llama 3.1 8B | 0.877 → 1.000 | 0.646 → 0.981 |
+| Llama 3.1 8B | 0.877 → 1.000 | 0.638 → 0.981 |
 
 Setup: N=330, k=1, FAQ semantic grader **held fixed at Claude Sonnet 4.6 across
 all arms** (so grading never varies with the served model). Models served via AWS
 Bedrock Converse. A local **Qwen2.5-32B** run (vLLM, 2× H100) reproduces the same
-**deflection = 76.7%** (deflection is independent of the judge and of k, since
+**deflection = 76.06%** (deflection is independent of the judge and of k, since
 it is fixed by the deterministic router), confirming the routing result is not
 specific to hosted APIs.
 
@@ -60,7 +60,7 @@ dispatcher — **zero LLM calls, no API key, no GPU**. Anyone can reproduce them
 
 ```bash
 python run.py --routing-only --workload workloads/full.json --out /tmp/routing.json
-# -> precision=0.883 recall=0.971  (deflection 76.7%)
+# -> precision=0.886 recall=1.000  (deflection 76.06%)
 ```
 
 This is the heart of KORA's claim, and it is fully reproducible offline.
@@ -92,9 +92,10 @@ python run.py \
 python aggregate_results.py
 ```
 
-The committed `results/full_*.json` let you verify every number above without
-running anything: each file lists per-category accuracy and **every** wrong
-answer and routing miss for both arms.
+The committed `results/routing_only.json` reproduces the routing numbers
+(precision, recall, deflection) with no credentials, and each committed
+`results/full_*.json` lists per-category accuracy and **every** wrong answer for
+both arms, so you can inspect the underlying data without running anything.
 
 ## What "without-KB" actually means
 
@@ -116,10 +117,10 @@ that genuinely need one.
   330-case set.
 - **Answer-blind router.** The dispatcher never sees the case category or the
   ground truth — only what a real front door sees (user text + optional payload).
-- **Errors are public.** Each `results/full_*.json` enumerates every wrong answer
-  and every routing miss, including KORA's own (e.g. over-routed cases where the
-  deterministic path answered something it should have escalated — 2 such cases
-  here, surfaced in the routing report).
+- **Errors are public.** Each `results/full_*.json` enumerates every wrong answer,
+  and the routing report enumerates every routing miss, including KORA's own
+  over-routing. The 2 cases that originally over-routed (rea-030, trp-030) are now
+  escalated by a versioned guardrail, so the canonical routing report shows 0.
 - **Fixed judge.** The FAQ semantic grader is held at one model (Sonnet 4.6)
   across all arms, so accuracy differences reflect the served model, not the
   grader.
@@ -141,7 +142,8 @@ Roadmap toward promoting this into the root package as a first-class
 1. **Generalize** the dispatcher to arbitrary domains (user-supplied KB/rules)
    rather than one hard-coded domain.
 2. **Quantify over-routing safety** — formal bounds on when deterministic
-   answering is safe (the 2 over-routed cases here are the starting point).
+   answering is safe (the 2 over-routed cases here have since been guarded to 0 and
+   kept as named regression tests; formal bounds remain future work).
 3. **Integrate** with the root task-graph engine as its deterministic-path stage.
 
 Until those land, this stays an independent, reproducible benchmark rather than a

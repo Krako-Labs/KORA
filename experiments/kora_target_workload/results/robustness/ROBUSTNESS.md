@@ -59,18 +59,18 @@ abstains (`not routed`). Flips are bucketed as:
 
 ## Results
 
-Original workload (full, 330 cases): deflection **0.767**, precision **0.883**,
-recall **0.971** (tp=68 fp=9 tn=251 fn=2). This matches the committed
+Original workload (full, 330 cases): deflection **0.761**, precision **0.886**,
+recall **1.000** (tp=70 fp=9 tn=251 fn=0). This matches the committed
 `results/routing_only.json`, confirming the harness shares the production
 routing path.
 
 | transform | deflection | precision | recall | **dangerous** | benign | other |
 |-----------|-----------:|----------:|-------:|--------------:|-------:|------:|
-| `whitespace`    | 0.388 | 0.337 | 0.971 | **0** | 126 | 1 |
-| `punct`         | 0.770 | 0.895 | 0.971 | **0** |   0 | 1 |
-| `case`          | 0.767 | 0.883 | 0.971 | **0** |   0 | 0 |
-| `polite_prefix` | 0.409 | 0.349 | 0.971 | **0** | 118 | 0 |
-| `synonym`       | 0.348 | 0.321 | 0.986 | **0** | 137 | 1 |
+| `whitespace`    | 0.382 | 0.343 | 1.000 | **0** | 126 | 1 |
+| `punct`         | 0.764 | 0.897 | 1.000 | **0** |   0 | 1 |
+| `case`          | 0.761 | 0.886 | 1.000 | **0** |   0 | 0 |
+| `polite_prefix` | 0.403 | 0.355 | 1.000 | **0** | 118 | 0 |
+| `synonym`       | 0.345 | 0.324 | 1.000 | **0** | 137 | 0 |
 
 **Dangerous flips: 0 across all transforms.** No should-escalate case was ever
 paraphrased into a deflection.
@@ -118,45 +118,36 @@ internally).
    without touching the safety guarantee, since all FORMAT flips are benign.
 
 3. **Lower deflection here is a cost signal, not a safety signal.** The drop from
-   0.767 to ~0.39 under disruptive transforms means more queries reach the LLM —
+   0.761 to ~0.38 under disruptive transforms means more queries reach the LLM;
    it does not mean any query was mishandled.
 
 ---
 
-## Honest limitations
+## Over-routing cases (resolved by guardrail)
 
-Two original false-negatives (should_escalate cases that the front door already
-routed *before* any paraphrase) surfaced during this experiment. They are
-pre-existing, not caused by the transforms, and are retained here as honest
-limitations of the current workload + reference evaluator.
+Two cases that a `should_escalate` query routed *before* any paraphrase surfaced
+in the original version of this experiment: `rea-030` and `trp-030`. Under the
+frozen rules they were false-negatives (fn=2, recall 0.971). A versioned
+guardrail change (input range-check + FAQ-signal fix; see `results/REPORT.md`
+§5c-guardrail) now escalates both, which is why this run shows **fn=0, recall
+1.000**. They are documented below as the failure mode the guardrail closes.
 
 - **`rea-030` (reasoning, no payload).** Text: *"I got a damaged item as a gift
-  but I don't have the order number. Can you still help?"* A single KB signal
-  matches `faq:support_phone`, so the front door deflects and returns the support
-  phone number for a query that should have escalated. A genuine over-route; the
-  answer is an innocuous fallback, but the routing decision is wrong.
+  but I don't have the order number. Can you still help?"* Under the frozen rules
+  a single KB signal matched `faq:support_phone`, so the front door deflected and
+  returned the support phone number for a query that should escalate. The guard
+  dropped `"number"` from the `support_phone` signal, so the case now abstains and
+  escalates.
 
 - **`trp-030` (trap, payload present).** Text: *"Determine refund eligibility."*
   with `payload={"days_since_delivery": -5, "item_category": "books",
-  "opened": false}`. The refund evaluator's `_as_int` checks type but not range,
-  so a physically impossible negative delivery age passes validation and the
-  policy returns "eligible". The trap was designed to probe exactly this input
-  hole; the shared evaluator (used by both `generate.py` for ground truth and the
-  dispatcher for routing) does not reject out-of-range integers, so the front door
-  routes instead of abstaining. This is an input-validation gap in the reference
-  evaluator, reported but not patched here to keep the committed routing numbers
-  and ground-truth generation stable. Adding a range check would convert this
-  fn into an abstain (recall would rise) and is tracked as separate future work.
-
-> **Update.** Both `rea-030` and `trp-030` were subsequently resolved by a
-> versioned guardrail change (input range-check + FAQ-signal fix); see
-> `results/REPORT.md` §5c-guardrail. This robustness run predates that change
-> and reflects the frozen rules (recall 0.971, fn=2).
-
-Notably, the `synonym` transform incidentally *fixes* `trp-030` (it strips the
-`refund`/`eligible` keywords, so the front door abstains), which is why
-`synonym` recall is 0.986 vs 0.971 elsewhere. We report this as an artifact, not
-as a robustness benefit.
+  "opened": false}`. The refund evaluator's `_as_int` checked type but not range,
+  so a physically impossible negative delivery age passed validation and the
+  policy returned "eligible". The trap was designed to probe exactly this input
+  hole. The guard now range-checks elapsed-time fields, so the malformed payload
+  abstains and the case escalates. The range check lives in the shared evaluator
+  used by both `generate.py` (ground truth) and the dispatcher (routing), so it is
+  applied consistently.
 
 ---
 
