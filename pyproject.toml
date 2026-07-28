@@ -3,8 +3,8 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kora"
-version = "0.1.0a0"
+name = "getkora"
+version = "0.1.0"
 description = "Open-source execution control for AI systems"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -38,6 +38,7 @@ Issues = "https://github.com/Krako-Labs/KORA/issues"
 
 [project.scripts]
 kora = "kora.cli:main"
+getkora = "kora.cli:main"
 
 [project.optional-dependencies]
 openai = [
@@ -51,7 +52,7 @@ dev = [
 include = ["kora*"]
 
 [tool.setuptools.package-data]
-kora = ["studio_assets/*.css", "studio_assets/*.js"]
+kora = ["studio_assets/*.css", "studio_assets/*.js", "data/workloads/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

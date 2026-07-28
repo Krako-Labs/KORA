@@ -323,9 +323,28 @@ def _run_first_value_step(step_id: str, *, json_out: str | None = None) -> int:
     return 0
 
 
+def _getkora_version() -> str:
+    try:
+        from importlib.metadata import version as _v
+    except Exception:
+        return "0.1.0"
+    for name in ("getkora", "kora"):
+        try:
+            return _v(name)
+        except Exception:
+            continue
+    return "0.1.0"
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="kora", description="KORA CLI")
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"getkora {_getkora_version()}",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=False)
 
     examples_parser = subparsers.add_parser("examples", help="list available runnable examples")
     examples_subparsers = examples_parser.add_subparsers(dest="examples_command", required=True)
@@ -422,6 +441,12 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
 
+
+    if not getattr(args, "command", None):
+
+        parser.print_help()
+
+        return 0
     if args.command == "examples" and args.examples_command == "list":
         _print_examples_list()
         return 0

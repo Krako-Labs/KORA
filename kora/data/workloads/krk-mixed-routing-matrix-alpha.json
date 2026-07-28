@@ -1,0 +1,133 @@
+{
+  "schema_version": "krk_routing_matrix_alpha_v0",
+  "profile_id": "mixed-realistic",
+  "description": "Small public-safe dry-run matrix covering deterministic, cache, CPU, provider, GPU, and fallback routes.",
+  "items": [
+    {
+      "request_id": "mixed-001",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "known-template-response",
+      "router_visible_metadata": {
+        "input_size": "small",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "high",
+        "privacy_preference": "local",
+        "estimated_complexity": "low",
+        "compute_weight": 1
+      },
+      "oracle_labels": {
+        "expected_route": "deterministic",
+        "acceptable_routes": ["deterministic"],
+        "disallowed_routes": ["provider", "GPU"],
+        "oracle_reason": "Known template can be resolved without model execution."
+      }
+    },
+    {
+      "request_id": "mixed-002",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "repeat-request",
+      "router_visible_metadata": {
+        "input_size": "small",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": true,
+        "latency_sensitivity": "high",
+        "privacy_preference": "local",
+        "estimated_complexity": "low",
+        "compute_weight": 1
+      },
+      "oracle_labels": {
+        "expected_route": "cache",
+        "acceptable_routes": ["cache", "deterministic"],
+        "disallowed_routes": ["GPU"],
+        "oracle_reason": "Cache key is available for a low-complexity repeated request."
+      }
+    },
+    {
+      "request_id": "mixed-003",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "moderate-local-analysis",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 4,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local",
+        "estimated_complexity": "medium",
+        "compute_weight": 3
+      },
+      "oracle_labels": {
+        "expected_route": "CPU",
+        "acceptable_routes": ["CPU", "provider"],
+        "disallowed_routes": ["GPU"],
+        "oracle_reason": "Moderate local analysis does not require GPU-class execution."
+      }
+    },
+    {
+      "request_id": "mixed-004",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "large-batch-embedding-like",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 64,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local_or_sanitized",
+        "estimated_complexity": "high",
+        "compute_weight": 12
+      },
+      "oracle_labels": {
+        "expected_route": "GPU",
+        "acceptable_routes": ["GPU", "provider"],
+        "disallowed_routes": ["deterministic", "cache"],
+        "oracle_reason": "Large batch and high complexity make this GPU-suitable for bounded measurement."
+      }
+    },
+    {
+      "request_id": "mixed-005",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "external-knowledge-request",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "provider_allowed",
+        "estimated_complexity": "medium",
+        "compute_weight": 4
+      },
+      "oracle_labels": {
+        "expected_route": "provider",
+        "acceptable_routes": ["provider"],
+        "disallowed_routes": ["deterministic", "cache"],
+        "oracle_reason": "Provider route is acceptable for non-private request requiring model reasoning."
+      }
+    },
+    {
+      "request_id": "mixed-006",
+      "workload_profile": "mixed-realistic",
+      "workload_class": "policy-conflict",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "low",
+        "privacy_preference": "restricted",
+        "estimated_complexity": "unknown",
+        "compute_weight": 2
+      },
+      "oracle_labels": {
+        "expected_route": "fallback",
+        "acceptable_routes": ["fallback"],
+        "disallowed_routes": ["provider", "GPU"],
+        "oracle_reason": "Privacy restriction and unknown complexity require safe fallback."
+      }
+    }
+  ]
+}

@@ -17,12 +17,32 @@ from kora.runtime_route_evaluator import evaluate_runtime_routes
 
 CLAIM_LEVEL = "five_minute_first_value_public_safe_demo"
 FINAL_CLASSIFICATION = "FIVE_MINUTE_FIRST_VALUE_PATH_MEASURED"
-DEFAULT_MATRIX_PATHS = [
-    Path("examples/workloads/krk-mixed-routing-matrix-alpha.json"),
-    Path("examples/workloads/krk-gpu-heavy-routing-matrix-alpha.json"),
-    Path("examples/workloads/krk-cache-heavy-routing-matrix-alpha.json"),
-    Path("examples/workloads/krk-adversarial-routing-matrix-alpha.json"),
+MATRIX_FILENAMES = [
+    "krk-mixed-routing-matrix-alpha.json",
+    "krk-gpu-heavy-routing-matrix-alpha.json",
+    "krk-cache-heavy-routing-matrix-alpha.json",
+    "krk-adversarial-routing-matrix-alpha.json",
 ]
+
+
+def _matrix_search_roots() -> list[Path]:
+    here = Path(__file__).resolve().parent
+    return [
+        here / "data" / "workloads",
+        here.parent / "examples" / "workloads",
+        Path("examples/workloads"),
+    ]
+
+
+def default_matrix_paths() -> list[Path]:
+    roots = _matrix_search_roots()
+    for root in roots:
+        if all((root / name).is_file() for name in MATRIX_FILENAMES):
+            return [root / name for name in MATRIX_FILENAMES]
+    return [roots[0] / name for name in MATRIX_FILENAMES]
+
+
+DEFAULT_MATRIX_PATHS = default_matrix_paths()
 CLAIM_BOUNDARY = (
     "Five-minute first-value workflow evidence only. This output demonstrates a local "
     "inspect, compare, run, and report path over committed public fixtures. It does not "
@@ -134,7 +154,7 @@ def build_five_minute_first_value(
     command: str | None = None,
     repo_commit_value: str | None = None,
 ) -> dict[str, Any]:
-    paths = matrix_paths or DEFAULT_MATRIX_PATHS
+    paths = matrix_paths or default_matrix_paths()
     runtime_result = evaluate_runtime_routes(paths, repo_commit_value=repo_commit_value)
     output_fidelity_result = evaluate_output_fidelity(paths, repo_commit_value=repo_commit_value)
     steps = [

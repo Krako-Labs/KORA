@@ -1,0 +1,91 @@
+{
+  "schema_version": "krk_routing_matrix_alpha_v0",
+  "profile_id": "cache-heavy",
+  "description": "Small public-safe dry-run matrix focused on cache correctness and avoiding unnecessary GPU routes.",
+  "items": [
+    {
+      "request_id": "cache-001",
+      "workload_profile": "cache-heavy",
+      "workload_class": "repeat-summary",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": true,
+        "latency_sensitivity": "high",
+        "privacy_preference": "local",
+        "estimated_complexity": "medium",
+        "compute_weight": 4
+      },
+      "oracle_labels": {
+        "expected_route": "cache",
+        "acceptable_routes": ["cache"],
+        "disallowed_routes": ["provider", "GPU"],
+        "oracle_reason": "Valid cache key should prevent unnecessary model or GPU execution."
+      }
+    },
+    {
+      "request_id": "cache-002",
+      "workload_profile": "cache-heavy",
+      "workload_class": "repeat-classification",
+      "router_visible_metadata": {
+        "input_size": "small",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": true,
+        "latency_sensitivity": "high",
+        "privacy_preference": "local",
+        "estimated_complexity": "low",
+        "compute_weight": 1
+      },
+      "oracle_labels": {
+        "expected_route": "cache",
+        "acceptable_routes": ["cache", "deterministic"],
+        "disallowed_routes": ["GPU"],
+        "oracle_reason": "Cache or deterministic route is acceptable for repeated low-complexity classification."
+      }
+    },
+    {
+      "request_id": "cache-003",
+      "workload_profile": "cache-heavy",
+      "workload_class": "cache-miss-complex",
+      "router_visible_metadata": {
+        "input_size": "large",
+        "batch_size": 32,
+        "request_modality": "text",
+        "cache_key_available": false,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "local_or_sanitized",
+        "estimated_complexity": "high",
+        "compute_weight": 10
+      },
+      "oracle_labels": {
+        "expected_route": "GPU",
+        "acceptable_routes": ["GPU", "provider"],
+        "disallowed_routes": ["cache", "deterministic"],
+        "oracle_reason": "Cache-heavy profile includes miss cases that should not be forced into cache."
+      }
+    },
+    {
+      "request_id": "cache-004",
+      "workload_profile": "cache-heavy",
+      "workload_class": "stale-cache-risk",
+      "router_visible_metadata": {
+        "input_size": "medium",
+        "batch_size": 1,
+        "request_modality": "text",
+        "cache_key_available": true,
+        "latency_sensitivity": "medium",
+        "privacy_preference": "provider_allowed",
+        "estimated_complexity": "medium",
+        "compute_weight": 3
+      },
+      "oracle_labels": {
+        "expected_route": "provider",
+        "acceptable_routes": ["provider", "CPU"],
+        "disallowed_routes": ["cache"],
+        "oracle_reason": "Cache key is visible but oracle marks cache as unsafe because freshness is required."
+      }
+    }
+  ]
+}
