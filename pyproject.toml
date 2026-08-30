@@ -43,6 +43,9 @@ kora = "kora.cli:main"
 openai = [
   "requests",
 ]
+research = [
+  "pypdf>=6,<7",
+]
 dev = [
   "pytest",
 ]

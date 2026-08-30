@@ -10,7 +10,9 @@ import time
 from typing import Any, Callable
 
 from kora.adapters.base import BaseAdapter
+from kora.adapters.llama_cpp_local import LlamaCppLocalAdapter
 from kora.adapters.mock import MockAdapter
+from kora.adapters.mlx_local import MLXLocalAdapter
 from kora.adapters.openai_adapter import OpenAIAdapter, OpenAIFullAdapter, OpenAIMiniAdapter
 from kora.errors import ErrorType, KoraRuntimeError, Stage
 from kora.retrieval import InMemoryRetrievalStore, build_retrieval_key
@@ -39,6 +41,8 @@ class _AdapterRegistry:
         "openai_mini": OpenAIMiniAdapter,
         "openai_full": OpenAIFullAdapter,
         "mock": MockAdapter,
+        "llama_cpp_local": LlamaCppLocalAdapter,
+        "mlx_local": MLXLocalAdapter,
     }
 
     @classmethod

@@ -1,8 +1,8 @@
 # KORA
 
-**Control AI workloads before they reach a model.**
+**Deterministic-first execution control before model inference.**
 
-KORA is an **AI Workload Control Layer**. It helps route deterministic, reusable, retrieval-needed, tool-needed, and provider-needed work before unnecessary model invocation.
+KORA is an **AI Workload Control Layer** that inspects and routes deterministic, reusable, retrieval-needed, tool-needed, and provider-needed work before model inference.
 
 Most AI systems treat every task as a model task. KORA starts one step earlier: it inspects the workload, chooses a route, and makes provider-needed work explicit.
 
@@ -17,6 +17,9 @@ Most AI systems treat every task as a model task. KORA starts one step earlier: 
 - Reuse repeated work through cache paths.
 - Separate retrieval-needed and tool-needed work.
 - Mark provider-needed tasks explicitly.
+- Inspect privacy-safe local device and runtime-candidate metadata.
+- Run optional local execution paths through explicitly configured MLX or llama.cpp runtimes.
+- Build and query a deterministic local evidence index from text-layer PDFs.
 
 ## Quick Start
 
@@ -35,6 +38,28 @@ python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
 python3 examples/cache_reuse/run.py
 ```
+
+Inspect the local system without starting a runtime or calling a provider:
+
+```bash
+python3 -m kora system inventory
+```
+
+### Research Foundry Alpha
+
+Install the optional PDF dependency, ingest your own or public text-layer PDFs, and retrieve an evidence card:
+
+```bash
+python3 -m pip install -e '.[research]'
+python3 -m kora research ingest ./papers --state-dir ./.kora-research --json
+python3 -m kora research query ./.kora-research "reflection tokens" --top-k 3 --markdown
+```
+
+The output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. State remains in the directory you explicitly select. See [Research Foundry Alpha](docs/research-foundry-alpha.md) for its Local Only boundary and limitations.
+
+### Optional local runtime adapters
+
+KORA includes fail-closed adapters named `mlx_local` and `llama_cpp_local`. They use only explicitly configured local runtimes and model files, never download a model or fall back to a remote provider. These are secondary execution adapters rather than a production-serving claim; see their environment-variable validation in the adapter modules and focused tests.
 
 ## Package Availability
 
@@ -73,7 +98,7 @@ The included examples are offline and make zero provider calls.
 
 ## Evidence Boundaries
 
-KORA ships offline sample workloads (simulated provider/model invocation avoidance) **and** one real, measured benchmark on a single synthetic domain: deterministic front-door routing across 5 models (Qwen2.5-32B, Claude Sonnet 4.6, Claude Haiku 4.5, Llama 3.3 70B, Llama 3.1 8B), giving an identical **76.06% deflection** (LLM calls 330 → 79). The routing result reproduces with no API key, no GPU, and zero LLM calls. See [experiments/kora_target_workload](experiments/kora_target_workload/README.md).
+In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline. This is a bounded simulated benchmark result, not production, cost-saving, model-quality, or broader workload evidence. See the [benchmark report](docs/benchmarks/kora_benchmark_result_v1_100.md).
 
 The repository does **not** claim:
 
@@ -83,6 +108,7 @@ The repository does **not** claim:
 - benchmark superiority
 - full OpenAI API compatibility
 - production RAG, agent, or cache correctness
+- Research Foundry extraction accuracy, retrieval relevance, factuality, or synthesis
 - model replacement
 
 See the [claim registry](docs/claims/kora-claim-registry.md) and [public language guide](docs/claims/kora-public-language-guide.md).

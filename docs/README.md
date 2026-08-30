@@ -10,6 +10,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Vision: KORA Workload Control Layer](vision/kora_workload_control_layer.md) - why workload control matters.
 - [Example catalog](../examples/README.md) - runnable examples grouped by use case.
 - [Packaging: getkora strategy](packaging/getkora_distribution_strategy.md) - package-name and install-path status.
+- [Research Foundry Alpha](research-foundry-alpha.md) - Local Only text-layer PDF ingest, lexical retrieval, and deterministic evidence cards.
 
 ## Flagship Examples
 
