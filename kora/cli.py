@@ -11,6 +11,21 @@ import sys
 from pathlib import Path
 
 from kora.cost_model import compute_savings
+from kora.foundation.device_inventory import collect_device_inventory, render_device_inventory_text
+from kora.foundation.evidence_registry import (
+    append_evidence,
+    empty_evidence_registry,
+    load_evidence_record,
+    load_evidence_registry,
+    save_evidence_registry,
+)
+from kora.foundation.fleet_inventory import load_fleet, render_fleet_text
+from kora.foundation.measurement_package import (
+    assemble_verified_evidence,
+    load_measurement_package,
+    serialize_verified_evidence,
+)
+from kora.foundation.reality_matrix import load_reality_registry, render_reality_registry_text
 from kora.five_minute_first_value import (
     build_five_minute_first_value,
     render_markdown_summary as render_first_value_markdown,
@@ -22,6 +37,7 @@ from kora.openai_proxy_demo import (
     render_report as render_proxy_report,
     write_report as write_proxy_report,
 )
+from kora.research import ResearchFoundry, ResearchFoundryError, canonical_json, render_evidence_card_markdown
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -400,6 +416,73 @@ def main(argv: list[str] | None = None) -> int:
     report_parser.add_argument("--json-out", required=True, help="output path for JSON report")
     report_parser.add_argument("--md-out", required=True, help="output path for Markdown report")
 
+    research_parser = subparsers.add_parser("research", help="local-only deterministic PDF research")
+    research_subparsers = research_parser.add_subparsers(dest="research_command", required=True)
+    research_ingest = research_subparsers.add_parser("ingest", help="ingest text-layer PDFs into local state")
+    research_ingest.add_argument("folder", help="explicit local folder containing PDFs")
+    research_ingest.add_argument("--state-dir", required=True, help="explicit local state directory")
+    research_ingest.add_argument("--json", action="store_true", help="print structured JSON")
+    research_ingest.add_argument("--json-out", help="optional path to save structured JSON")
+    research_query = research_subparsers.add_parser("query", help="query a local lexical research index")
+    research_query.add_argument("state_dir", help="local research state directory")
+    research_query.add_argument("query", help="lexical query")
+    research_query.add_argument("--top-k", type=int, default=5, help="maximum evidence records (default: 5)")
+    query_format = research_query.add_mutually_exclusive_group()
+    query_format.add_argument("--json", action="store_true", help="print canonical evidence-card JSON")
+    query_format.add_argument("--markdown", action="store_true", help="print evidence-card Markdown")
+    research_query.add_argument("--output", help="optional path to save the selected card format")
+    research_query.add_argument("--run-json-out", help="optional path to save local query events and counters")
+
+    system_parser = subparsers.add_parser(
+        "system",
+        help="inspect local KORA Foundation system metadata",
+        description="Inspect privacy-safe local device metadata without starting model runtimes or calling providers.",
+    )
+    system_subparsers = system_parser.add_subparsers(dest="system_command", required=True)
+    inventory_parser = system_subparsers.add_parser(
+        "inventory",
+        help="show local device, runtime-candidate, network, and transport inventory",
+    )
+    inventory_parser.add_argument("--json", action="store_true", help="print structured JSON instead of text")
+    inventory_parser.add_argument("--json-out", help="optional path to save structured JSON")
+    fleet_parser = system_subparsers.add_parser(
+        "fleet", help="combine one or more saved local inventory JSON files"
+    )
+    fleet_parser.add_argument("inventories", nargs="+", help="inventory JSON files")
+    fleet_parser.add_argument("--json", action="store_true", help="print structured JSON instead of text")
+    fleet_parser.add_argument("--json-out", help="optional path to save structured JSON")
+    reality_parser = system_subparsers.add_parser(
+        "reality", help="combine saved RealityObservation JSON files into an evidence registry"
+    )
+    reality_parser.add_argument("observations", nargs="+", help="RealityObservation JSON files")
+    reality_parser.add_argument("--json", action="store_true", help="print structured JSON instead of text")
+    reality_parser.add_argument("--json-out", help="optional path to save structured JSON")
+    evidence_parser = system_subparsers.add_parser(
+        "evidence", help="ingest or validate verified MEASURED evidence records"
+    )
+    evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command", required=True)
+    evidence_ingest_parser = evidence_subparsers.add_parser(
+        "ingest", help="atomically append one already-verified evidence record"
+    )
+    evidence_ingest_parser.add_argument("registry", help="persistent registry JSON path")
+    evidence_ingest_parser.add_argument("record", help="verified evidence record JSON path")
+    evidence_ingest_parser.add_argument("--json", action="store_true", help="print concise JSON status")
+    evidence_validate_parser = evidence_subparsers.add_parser(
+        "validate", help="strictly validate a persistent evidence registry"
+    )
+    evidence_validate_parser.add_argument("registry", help="persistent registry JSON path")
+    evidence_validate_parser.add_argument("--json", action="store_true", help="print concise JSON status")
+    package_parser = system_subparsers.add_parser(
+        "package", help="verify and assemble a local measurement package"
+    )
+    package_subparsers = package_parser.add_subparsers(dest="package_command", required=True)
+    package_assemble_parser = package_subparsers.add_parser(
+        "assemble", help="verify a package artifact and emit a verified evidence record"
+    )
+    package_assemble_parser.add_argument("package", help="measurement package JSON path")
+    package_assemble_parser.add_argument("artifact_root", help="explicit local artifact root")
+    package_assemble_parser.add_argument("--json-out", help="optional verified-record output path")
+
     studio_parser = subparsers.add_parser(
         "studio",
         help="launch KORA Studio local browser UI",
@@ -462,6 +545,140 @@ def main(argv: list[str] | None = None) -> int:
         print(render_first_value_markdown(result))
         print(f"Saved JSON: {args.json_out}")
         print(f"Saved Markdown: {args.md_out}")
+        return 0
+
+    if args.command == "research":
+        try:
+            if args.research_command == "ingest":
+                result = ResearchFoundry(args.state_dir).ingest(args.folder)
+                if args.json_out:
+                    output_path = Path(args.json_out)
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    output_path.write_bytes(canonical_json(result))
+                if args.json:
+                    sys.stdout.buffer.write(canonical_json(result))
+                else:
+                    counters = result["counters"]
+                    print("Research ingest complete (Local Only)")
+                    print(f"- PDFs discovered: {counters['pdfs_discovered']}")
+                    print(f"- Documents parsed/reused/duplicates: {counters['documents_parsed']}/{counters['documents_reused']}/{counters['duplicates_skipped']}")
+                    print(f"- Pages parsed/chunks indexed: {counters['pages_parsed']}/{counters['chunks_indexed']}")
+                    print("- Model calls / remote provider calls / uploads: 0 / 0 / 0")
+                return 0
+            result = ResearchFoundry(args.state_dir).query(args.query, top_k=args.top_k)
+            card = result["card"]
+            if args.run_json_out:
+                run_path = Path(args.run_json_out)
+                run_path.parent.mkdir(parents=True, exist_ok=True)
+                run_path.write_bytes(canonical_json(result))
+            rendered = render_evidence_card_markdown(card) if args.markdown else canonical_json(card)
+            if args.output:
+                output_path = Path(args.output)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                output_path.write_bytes(rendered)
+            if args.markdown:
+                sys.stdout.buffer.write(rendered)
+            elif args.json:
+                sys.stdout.buffer.write(rendered)
+            else:
+                print(render_evidence_card_markdown(card).decode("utf-8"), end="")
+            return 0
+        except (OSError, ResearchFoundryError, ValueError) as exc:
+            print(f"KORA research failed: {exc}", file=sys.stderr)
+            return 1
+
+    if args.command == "system" and args.system_command == "inventory":
+        inventory = collect_device_inventory()
+        data = inventory.to_dict()
+        if args.json_out:
+            output_path = Path(args.json_out)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        if args.json:
+            print(json.dumps(data, indent=2, sort_keys=True))
+        else:
+            print(render_device_inventory_text(inventory), end="")
+        if args.json_out:
+            print(f"Saved JSON: {args.json_out}")
+        return 0
+
+    if args.command == "system" and args.system_command == "fleet":
+        try:
+            fleet = load_fleet(args.inventories)
+        except ValueError as exc:
+            system_parser.error(str(exc))
+        data = fleet.to_dict()
+        if args.json_out:
+            output_path = Path(args.json_out)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(json.dumps(data, indent=2, sort_keys=True) if args.json else render_fleet_text(fleet), end="\n" if args.json else "")
+        if args.json_out:
+            print(f"Saved JSON: {args.json_out}")
+        return 0
+
+    if args.command == "system" and args.system_command == "reality":
+        try:
+            registry = load_reality_registry(args.observations)
+        except ValueError as exc:
+            system_parser.error(str(exc))
+        data = registry.to_dict()
+        if args.json_out:
+            output_path = Path(args.json_out)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(
+            json.dumps(data, indent=2, sort_keys=True) if args.json else render_reality_registry_text(registry),
+            end="\n" if args.json else "",
+        )
+        if args.json_out:
+            print(f"Saved JSON: {args.json_out}")
+        return 0
+
+    if args.command == "system" and args.system_command == "evidence":
+        try:
+            if args.evidence_command == "validate":
+                registry = load_evidence_registry(args.registry)
+                result = {"status": "valid", "record_count": registry.record_count}
+            else:
+                registry_path = Path(args.registry)
+                registry = load_evidence_registry(registry_path) if registry_path.exists() else empty_evidence_registry()
+                record = load_evidence_record(args.record)
+                registry, status = append_evidence(registry, record)
+                if status == "appended":
+                    save_evidence_registry(registry, registry_path)
+                result = {
+                    "status": status,
+                    "observation_id": record.observation.observation_id,
+                    "record_count": registry.record_count,
+                }
+        except ValueError as exc:
+            evidence_parser.error(str(exc))
+        if args.json:
+            print(json.dumps(result, sort_keys=True))
+        elif args.evidence_command == "validate":
+            print(f"Evidence registry valid: {result['record_count']} record(s)")
+        else:
+            print(
+                f"Evidence {result['status']}: {result['observation_id']} "
+                f"({result['record_count']} record(s))"
+            )
+        return 0
+
+    if args.command == "system" and args.system_command == "package":
+        try:
+            package = load_measurement_package(args.package)
+            record = assemble_verified_evidence(package, args.artifact_root)
+            serialized = serialize_verified_evidence(record)
+            if args.json_out:
+                output_path = Path(args.json_out)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                output_path.write_text(serialized, encoding="utf-8")
+                print(f"Verified evidence record saved: {output_path}")
+            else:
+                print(serialized, end="")
+        except (OSError, ValueError) as exc:
+            package_parser.error(str(exc))
         return 0
 
     if args.command == "studio":
