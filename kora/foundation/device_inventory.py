@@ -375,7 +375,8 @@ def collect_device_inventory(
     total_memory_gb = _detect_memory_gb(detected_os, executor)
     physical_cpu_cores, logical_cpu_cores = _detect_cpu_counts(detected_os, executor)
     gpu_models, gpu_core_counts = _detect_gpu(detected_os, executor)
-    if chip_model.lower() in {"arm", "arm64", "aarch64", UNKNOWN} and gpu_models:
+    generic_chip_labels = {"arm", "arm64", "aarch64", "x86_64", "amd64", UNKNOWN}
+    if chip_model.lower() in generic_chip_labels and gpu_models:
         chip_model = gpu_models[0]
     network_interfaces = _detect_network_interfaces(detected_os, executor)
     runtime_candidates = detect_runtime_candidates(which)

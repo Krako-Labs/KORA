@@ -48,6 +48,7 @@ research = [
 ]
 dev = [
   "pytest",
+  "pypdf>=6,<7",
 ]
 
 [tool.setuptools.packages.find]
