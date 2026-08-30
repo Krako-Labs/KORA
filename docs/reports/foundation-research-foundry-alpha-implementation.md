@@ -24,7 +24,7 @@ The added Research path performs no model call, provider call, network request, 
 ## Approval packet
 
 - Branch: `p2-001-1-foundation-device-discovery`
-- PR URL: pending until the reviewed commit is pushed and the PR is opened
+- PR URL: https://github.com/Krako-Labs/KORA/pull/287
 - Decision needed: review whether to merge the public Foundation, local-adapter, and Research Foundry Alpha surfaces
 - Risk level: medium
 - Final status classification: needs-cto-review
