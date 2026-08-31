@@ -19,6 +19,7 @@ Most AI systems treat every task as a model task. KORA starts one step earlier: 
 - Mark provider-needed tasks explicitly.
 - Inspect privacy-safe local device and runtime-candidate metadata.
 - Run optional local execution paths through explicitly configured MLX or llama.cpp runtimes.
+- Validate independently packaged AI Solutions before installation or execution.
 - Build and query a deterministic local evidence index from text-layer PDFs.
 
 ## Quick Start
@@ -45,6 +46,16 @@ Inspect the local system without starting a runtime or calling a provider:
 python3 -m kora system inventory
 ```
 
+### Solution Protocol v0alpha1
+
+Validate the bundled reference Solution without executing it:
+
+```bash
+python3 -m kora solution validate examples/solutions/hello-solution --json
+```
+
+The validator checks the manifest, referenced JSON Schemas, Task Graph, capability declarations, approvals, package paths, and SHA-256 integrity offline. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md). Host lifecycle and Solution execution are later milestones.
+
 ### Research Foundry Alpha
 
 Install the optional PDF dependency, ingest your own or public text-layer PDFs, and retrieve an evidence card:
@@ -55,7 +66,7 @@ python3 -m kora research ingest ./papers --state-dir ./.kora-research --json
 python3 -m kora research query ./.kora-research "reflection tokens" --top-k 3 --markdown
 ```
 
-The output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. State remains in the directory you explicitly select. See [Research Foundry Alpha](docs/research-foundry-alpha.md) for its Local Only boundary and limitations.
+Research Foundry is an implemented reference vertical, not the definition of the KORA platform. Its output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. State remains in the directory you explicitly select. See [Research Foundry Alpha](docs/research-foundry-alpha.md) for its Local Only boundary and limitations.
 
 ### Optional local runtime adapters
 
@@ -116,6 +127,7 @@ See the [claim registry](docs/claims/kora-claim-registry.md) and [public languag
 ## Documentation
 
 - [Documentation index](docs/README.md)
+- [Solution Protocol v0alpha1](docs/solution-protocol-v0.md)
 - [Vision: AI Workload Control Layer](docs/vision/kora_workload_control_layer.md)
 - [Example catalog](examples/README.md)
 - [Packaging: getkora strategy](docs/packaging/getkora_distribution_strategy.md)

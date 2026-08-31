@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kora.dev/schemas/solution-manifest-v0alpha1.json",
+  "title": "KORA Solution Manifest v0alpha1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "requires",
+    "inputs",
+    "graph",
+    "outputs",
+    "policy",
+    "integrity"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "kora.dev/v0alpha1"
+    },
+    "kind": {
+      "const": "Solution"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$",
+          "minLength": 3,
+          "maxLength": 128
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "requires": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kora", "capabilities"],
+      "properties": {
+        "kora": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "inputs": {
+      "$ref": "#/$defs/schemaReference"
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source"],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/packagePath"
+        }
+      }
+    },
+    "outputs": {
+      "$ref": "#/$defs/schemaReference"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["network", "sideEffects", "approvals"],
+      "properties": {
+        "network": {
+          "enum": ["denied", "allowed"]
+        },
+        "sideEffects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "approvals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "files"],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "files": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/packagePath"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "packagePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$"
+    },
+    "schemaReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema"],
+      "properties": {
+        "schema": {
+          "$ref": "#/$defs/packagePath"
+        }
+      }
+    }
+  }
+}

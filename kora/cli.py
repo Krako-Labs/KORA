@@ -38,6 +38,7 @@ from kora.openai_proxy_demo import (
     write_report as write_proxy_report,
 )
 from kora.research import ResearchFoundry, ResearchFoundryError, canonical_json, render_evidence_card_markdown
+from kora.solution import SolutionValidationError, validate_solution_package
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -433,6 +434,19 @@ def main(argv: list[str] | None = None) -> int:
     research_query.add_argument("--output", help="optional path to save the selected card format")
     research_query.add_argument("--run-json-out", help="optional path to save local query events and counters")
 
+    solution_parser = subparsers.add_parser(
+        "solution",
+        help="validate and manage KORA Solution Packages",
+    )
+    solution_subparsers = solution_parser.add_subparsers(dest="solution_command", required=True)
+    solution_validate = solution_subparsers.add_parser(
+        "validate",
+        help="validate a Solution Package offline without executing it",
+    )
+    solution_validate.add_argument("package", help="Solution Package directory containing solution.json")
+    solution_validate.add_argument("--capability", action="append", dest="capabilities")
+    solution_validate.add_argument("--json", action="store_true", help="print structured JSON")
+
     system_parser = subparsers.add_parser(
         "system",
         help="inspect local KORA Foundation system metadata",
@@ -545,6 +559,33 @@ def main(argv: list[str] | None = None) -> int:
         print(render_first_value_markdown(result))
         print(f"Saved JSON: {args.json_out}")
         print(f"Saved Markdown: {args.md_out}")
+        return 0
+
+    if args.command == "solution" and args.solution_command == "validate":
+        try:
+            result = validate_solution_package(
+                args.package,
+                available_capabilities=args.capabilities,
+            )
+        except SolutionValidationError as exc:
+            payload = exc.to_dict()
+            if args.json:
+                print(json.dumps(payload, indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print("Solution Package invalid", file=sys.stderr)
+                for issue in exc.issues:
+                    location = f" ({issue.path})" if issue.path else ""
+                    print(f"- {issue.code}{location}: {issue.message}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(result, indent=2, sort_keys=True))
+        else:
+            print("Solution Package valid")
+            print(f"- id: {result['solution_id']}")
+            print(f"- version: {result['solution_version']}")
+            print(f"- apiVersion: {result['api_version']}")
+            print(f"- verified files: {len(result['verified_files'])}")
+            print("- execution performed: false")
         return 0
 
     if args.command == "research":
