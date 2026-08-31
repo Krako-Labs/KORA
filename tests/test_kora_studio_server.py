@@ -1097,11 +1097,12 @@ def test_studio_css_helper_loads_package_controlled_source_file() -> None:
     assert "https://" not in css_source
 
 
-def test_studio_package_data_includes_only_package_controlled_css_and_javascript_assets() -> None:
+def test_package_data_includes_only_reviewed_protocol_and_studio_assets() -> None:
     pyproject_path = Path(__file__).resolve().parents[1] / "pyproject.toml"
     pyproject = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
 
     assert pyproject["tool"]["setuptools"]["package-data"]["kora"] == [
+        "solution/schemas/*.json",
         "studio_assets/*.css",
         "studio_assets/*.js",
     ]

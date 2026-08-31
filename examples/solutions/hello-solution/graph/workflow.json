@@ -1,0 +1,33 @@
+{
+  "graph_id": "example.hello",
+  "version": "0.1",
+  "root": "hello",
+  "defaults": {
+    "budget": {
+      "max_time_ms": 1000,
+      "max_tokens": 0,
+      "max_retries": 0
+    }
+  },
+  "tasks": [
+    {
+      "id": "hello",
+      "type": "deterministic",
+      "deps": [],
+      "in": {
+        "message": "$.message"
+      },
+      "run": {
+        "kind": "det",
+        "spec": {
+          "handler": "det.echo",
+          "args": {}
+        }
+      },
+      "policy": {
+        "on_fail": "fail"
+      },
+      "tags": []
+    }
+  ]
+}
