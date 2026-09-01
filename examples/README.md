@@ -4,6 +4,10 @@ This directory contains runnable examples for KORA as an **AI Workload Control L
 
 Start with the flagship examples below. They are offline, reproducible, and make zero provider calls.
 
+## Solution Protocol Fixtures
+
+The [reference Solution guide](solutions/README.md) covers `hello-solution` and `document-transform-fixture`. Both validate, install, and run through the same bounded offline Host lifecycle.
+
 ## Flagship Examples
 
 | Example | What it demonstrates | Command |

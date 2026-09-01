@@ -1,0 +1,37 @@
+{
+  "graph_id": "example.document-transform",
+  "version": "0.1",
+  "root": "normalize",
+  "defaults": {
+    "budget": {
+      "max_time_ms": 1000,
+      "max_tokens": 0,
+      "max_retries": 0
+    }
+  },
+  "tasks": [
+    {
+      "id": "normalize",
+      "type": "deterministic",
+      "deps": [],
+      "in": {
+        "text": "$.text"
+      },
+      "run": {
+        "kind": "det",
+        "spec": {
+          "handler": "text.normalize",
+          "args": {
+            "trim": true,
+            "collapse_whitespace": true,
+            "collapse_blank_lines": true
+          }
+        }
+      },
+      "policy": {
+        "on_fail": "fail"
+      },
+      "tags": []
+    }
+  ]
+}

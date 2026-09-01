@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kora.dev/schemas/solution-result-v0alpha1.json",
+  "title": "KORA Solution Result Envelope v0alpha1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "solution",
+    "run_id",
+    "lifecycle_state",
+    "validation",
+    "output",
+    "evidence_reference",
+    "error",
+    "activity",
+    "timestamps"
+  ],
+  "properties": {
+    "schema_version": {"const": "kora.solution.result/v0alpha1"},
+    "protocol_version": {"const": "kora.dev/v0alpha1"},
+    "solution": {"$ref": "#/$defs/solutionIdentity"},
+    "run_id": {"$ref": "#/$defs/runId"},
+    "lifecycle_state": {"enum": ["succeeded", "failed"]},
+    "validation": {"$ref": "#/$defs/finalValidation"},
+    "output": {"oneOf": [{"type": "object"}, {"type": "null"}]},
+    "evidence_reference": {"$ref": "#/$defs/evidenceReference"},
+    "error": {"$ref": "#/$defs/errorOrNull"},
+    "activity": {"$ref": "#/$defs/activity"},
+    "timestamps": {"$ref": "#/$defs/finalTimestamps"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"lifecycle_state": {"const": "succeeded"}},
+        "required": ["lifecycle_state"]
+      },
+      "then": {
+        "properties": {
+          "validation": {
+            "properties": {
+              "input": {"const": "valid"},
+              "output": {"const": "valid"}
+            }
+          },
+          "output": {"type": "object"},
+          "error": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"lifecycle_state": {"const": "failed"}},
+        "required": ["lifecycle_state"]
+      },
+      "then": {
+        "properties": {
+          "output": {"type": "null"},
+          "error": {"$ref": "#/$defs/error"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "solutionIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "finalValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": {"enum": ["valid", "invalid", "not_run"]},
+        "output": {"enum": ["valid", "invalid", "not_run"]}
+      }
+    },
+    "evidenceReference": {
+      "type": "string",
+      "pattern": "^runs/[a-f0-9]{32}/status\\.json$"
+    },
+    "errorCode": {
+      "enum": [
+        "approval_required",
+        "deliberate_failure",
+        "input_validation_failed",
+        "integrity_mismatch",
+        "output_validation_failed",
+        "package_validation_failed",
+        "runtime_failure"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "detail"],
+      "properties": {
+        "code": {"$ref": "#/$defs/errorCode"},
+        "detail": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    },
+    "errorOrNull": {
+      "oneOf": [{"$ref": "#/$defs/error"}, {"type": "null"}]
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_performed",
+        "network_accessed",
+        "model_inference_performed",
+        "gpu_execution_performed",
+        "capabilities_executed"
+      ],
+      "properties": {
+        "execution_performed": {"type": "boolean"},
+        "network_accessed": {"const": false},
+        "model_inference_performed": {"const": false},
+        "gpu_execution_performed": {"const": false},
+        "capabilities_executed": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "finalTimestamps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at", "started_at", "finished_at"],
+      "properties": {
+        "created_at": {"type": "string", "format": "date-time"},
+        "started_at": {
+          "oneOf": [
+            {"type": "string", "format": "date-time"},
+            {"type": "null"}
+          ]
+        },
+        "finished_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}
