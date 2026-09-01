@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kora.dev/schemas/runtime-descriptor-v0alpha1.json",
+  "title": "KORA Capability Runtime Descriptor v0alpha1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "runtime",
+    "protocol_versions",
+    "capabilities",
+    "task_kinds",
+    "priority",
+    "execution"
+  ],
+  "properties": {
+    "schema_version": {"const": "kora.runtime.descriptor/v0alpha1"},
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "protocol_versions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^kora\\.dev/v[0-9]+(?:alpha|beta)?[0-9]+$"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+      }
+    },
+    "task_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["det", "llm"]}
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": -1000,
+      "maximum": 1000
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_access",
+        "model_inference",
+        "gpu_execution"
+      ],
+      "properties": {
+        "network_access": {"type": "boolean"},
+        "model_inference": {"type": "boolean"},
+        "gpu_execution": {"type": "boolean"}
+      }
+    }
+  }
+}

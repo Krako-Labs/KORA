@@ -81,6 +81,23 @@ Local file paths reject absolute paths, parent traversal, and symlinks. Reads an
 
 No reference capability performs a provider call, model inference, network request, or GPU execution.
 
+## Local capability registry and runtime resolution
+
+The Host store contains an explicit local capability runtime registry. A runtime descriptor is validated against `kora/solution/schemas/runtime-descriptor.schema.json` and declares:
+
+- stable runtime id and semantic version;
+- compatible Solution Protocol versions;
+- the exact capabilities implemented by its binding;
+- supported Task Graph run kinds;
+- deterministic selection priority;
+- whether the runtime may use network, model inference, or GPU execution.
+
+Registration persists a canonical descriptor and a digest-bearing receipt under the isolated Host store. Descriptor files, receipts, paths, and directory contents are verified before listing, validation, installation, and every run. A persisted descriptor alone is not executable: the current Host process must also supply a matching trusted in-process binding. v0alpha1 does not dynamically import code from the registry.
+
+Resolution requires one runtime to provide every capability required by a Solution; capabilities are not split across runtimes. Candidates are filtered by protocol, Task Graph run kind, and execution policy. The unique highest-priority compatible binding is selected. No candidate, an unbound descriptor, or a highest-priority tie fails closed with a bounded machine-readable error.
+
+The bundled Host registers `kora.reference` version `0.1.0` on startup. This registry is local Host metadata, not a remote registry, package marketplace, general KORA Target Registry, or production plugin system.
+
 ## Policy and approvals
 
 Task tags beginning with `side_effect:` declare effects used by the graph. Each effect must appear in both `policy.sideEffects` and `policy.approvals`.
@@ -116,17 +133,18 @@ The reference Host adds a second installation boundary:
 3. copy the package into an isolated local store;
 4. validate the copied package again;
 5. persist a receipt containing every copied file digest and a deterministic tree digest;
-6. verify the complete installed snapshot before every run.
+6. verify the complete installed snapshot before every run;
+7. resolve and record the selected integrity-checked local runtime.
 
-This Host receipt covers `solution.json` and detects added, removed, or modified installed files before execution.
+This Host receipt covers `solution.json` and detects added, removed, or modified installed files before execution. Runtime descriptor and registration-receipt integrity are verified independently before execution.
 
 ## Bounded Host lifecycle
 
 The implemented synchronous interface is:
 
-1. `validate`: read-only package validation against runtime capabilities;
-2. `install`: isolated copy, revalidation, and full-snapshot receipt;
-3. `run`: integrity, package, input, approval, runtime, and output gates;
+1. `validate`: read-only package validation plus deterministic local runtime resolution;
+2. `install`: isolated copy, revalidation, full-snapshot receipt, and selected-runtime evidence;
+3. `run`: package and runtime integrity, fresh runtime resolution, input, approval, execution, and output gates;
 4. `status`: schema-validated persisted lifecycle status;
 5. `result`: schema-validated final result envelope.
 
@@ -164,6 +182,7 @@ Both contracts include:
 
 - schema and protocol version;
 - Solution id and version;
+- selected runtime id, version, and descriptor digest when resolution succeeds;
 - run id and lifecycle state;
 - input and output validation status;
 - a relative evidence/status reference;
@@ -180,8 +199,9 @@ Validate either reference Solution without executing it:
     kora solution validate examples/solutions/hello-solution --json
     kora solution validate examples/solutions/document-transform-fixture --json
 
-Install and run through an explicit local store:
+Inspect the integrity-verified runtime registry, then install and run through an explicit local store:
 
+    kora solution runtimes --store /tmp/kora-host --json
     kora solution install examples/solutions/hello-solution --store /tmp/kora-host --json
     kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
     kora solution status RUN_ID --store /tmp/kora-host --json
@@ -198,7 +218,7 @@ The two synthetic reference Solutions are:
 
 They use the same manifest, input/output schema, Task Graph, policy, integrity, Host lifecycle, status, and result contracts. Neither adds workflow-specific KORA Core logic.
 
-Automated conformance covers valid installation and deterministic runs, malformed input/output, missing capabilities, undeclared side effects, missing approvals, installed-package tampering, deliberate runtime failure, lifecycle transitions, isolated file operations, contract corruption, and zero network/model/GPU activity.
+Automated conformance covers descriptor validation, trusted binding requirements, deterministic priority selection, ambiguity rejection, no cross-runtime capability splitting, execution-policy filtering, registry and installed-package tampering, valid installation and deterministic runs, malformed input/output, missing capabilities, undeclared side effects, missing approvals, deliberate runtime failure, lifecycle transitions, isolated file operations, contract corruption, and zero network/model/GPU activity.
 
 ## Current boundary
 
@@ -209,6 +229,8 @@ Implemented:
 - two synthetic reference Solutions;
 - isolated local installation and full installed-snapshot verification;
 - bounded deterministic reference runtime;
+- integrity-checked local capability registry and deterministic runtime resolution;
+- runtime descriptor schema and selected-runtime evidence;
 - synchronous run, status, and result lifecycle;
 - machine-readable result and runtime-status schemas;
 - fail-closed conformance tests.
@@ -218,7 +240,7 @@ Deferred:
 - remove/update lifecycle;
 - stop/resume and checkpoints;
 - cache execution;
-- persistent external capability registry and runtime negotiation;
+- dynamic runtime discovery, loading, installation, or remote registry synchronization;
 - provider, model, network, and GPU capabilities;
 - package signing;
 - SDK scaffold and packaging;

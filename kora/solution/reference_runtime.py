@@ -179,9 +179,31 @@ def _read_local_file(workspace: Path, params: dict[str, Any]) -> dict[str, Any]:
 class ReferenceRuntime:
     """Execute only the bounded deterministic capabilities in this module."""
 
+    runtime_id = "kora.reference"
+    runtime_version = "0.1.0"
+    priority = 100
+
     @property
     def capabilities(self) -> frozenset[str]:
         return REFERENCE_CAPABILITIES
+
+    @property
+    def descriptor(self) -> dict[str, Any]:
+        """Return the validated static descriptor used by local resolution."""
+
+        return {
+            "schema_version": "kora.runtime.descriptor/v0alpha1",
+            "runtime": {"id": self.runtime_id, "version": self.runtime_version},
+            "protocol_versions": ["kora.dev/v0alpha1"],
+            "capabilities": sorted(self.capabilities),
+            "task_kinds": ["det"],
+            "priority": self.priority,
+            "execution": {
+                "network_access": False,
+                "model_inference": False,
+                "gpu_execution": False,
+            },
+        }
 
     def execute(
         self,

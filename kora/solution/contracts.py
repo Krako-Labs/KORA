@@ -10,6 +10,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 
 RESULT_ENVELOPE_SCHEMA = "result-envelope.schema.json"
+RUNTIME_DESCRIPTOR_SCHEMA = "runtime-descriptor.schema.json"
 RUNTIME_STATUS_SCHEMA = "runtime-status.schema.json"
 
 
@@ -85,6 +86,7 @@ def validate_declared_instance(schema_path: Path, payload: Any) -> tuple[str, ..
 
 __all__ = [
     "RESULT_ENVELOPE_SCHEMA",
+    "RUNTIME_DESCRIPTOR_SCHEMA",
     "RUNTIME_STATUS_SCHEMA",
     "SolutionContractError",
     "canonical_json_bytes",

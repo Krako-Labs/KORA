@@ -452,6 +452,13 @@ def main(argv: list[str] | None = None) -> int:
     solution_validate.add_argument("--capability", action="append", dest="capabilities")
     solution_validate.add_argument("--json", action="store_true", help="print structured JSON")
 
+    solution_runtimes = solution_subparsers.add_parser(
+        "runtimes",
+        help="list integrity-verified local capability runtimes",
+    )
+    solution_runtimes.add_argument("--store", required=True, help="explicit local Host store directory")
+    solution_runtimes.add_argument("--json", action="store_true", help="print structured JSON")
+
     solution_install = solution_subparsers.add_parser(
         "install",
         help="validate and install a Solution into an isolated local store",
@@ -462,7 +469,7 @@ def main(argv: list[str] | None = None) -> int:
 
     solution_run = solution_subparsers.add_parser(
         "run",
-        help="run an installed Solution through the bounded reference runtime",
+        help="run an installed Solution through a resolved local capability runtime",
     )
     solution_run.add_argument("solution_id", help="installed Solution id")
     solution_run.add_argument("--version", help="installed Solution version")
@@ -626,6 +633,29 @@ def main(argv: list[str] | None = None) -> int:
             print(f"- apiVersion: {result['api_version']}")
             print(f"- verified files: {len(result['verified_files'])}")
             print("- execution performed: false")
+        return 0
+
+    if args.command == "solution" and args.solution_command == "runtimes":
+        try:
+            payload = LocalSolutionHost(args.store).runtimes()
+        except (OSError, SolutionHostError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionHostError)
+                else SolutionHostError("runtime_registry_failed", "runtime registry failed closed")
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Runtime registry failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(payload, indent=2, sort_keys=True))
+        else:
+            print("Local capability runtimes")
+            for entry in payload["runtimes"]:
+                identity = entry["descriptor"]["runtime"]
+                print(f"- {identity['id']} {identity['version']} (bound: {str(entry['bound']).lower()})")
         return 0
 
     if args.command == "solution" and args.solution_command == "install":

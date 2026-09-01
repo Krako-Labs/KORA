@@ -2,6 +2,7 @@
 
 from .contracts import (
     RESULT_ENVELOPE_SCHEMA,
+    RUNTIME_DESCRIPTOR_SCHEMA,
     RUNTIME_STATUS_SCHEMA,
     SolutionContractError,
     validate_contract_instance,
@@ -12,6 +13,12 @@ from .reference_runtime import (
     ReferenceRuntime,
     ReferenceRuntimeError,
     RuntimeExecution,
+)
+from .runtime_registry import (
+    CapabilityRegistryError,
+    CapabilityRuntime,
+    LocalCapabilityRegistry,
+    ResolvedRuntime,
 )
 from .validator import (
     DEFAULT_REFERENCE_CAPABILITIES,
@@ -25,11 +32,16 @@ __all__ = [
     "DEFAULT_REFERENCE_CAPABILITIES",
     "REFERENCE_CAPABILITIES",
     "RESULT_ENVELOPE_SCHEMA",
+    "RUNTIME_DESCRIPTOR_SCHEMA",
     "RUNTIME_STATUS_SCHEMA",
     "SUPPORTED_API_VERSION",
+    "CapabilityRegistryError",
+    "CapabilityRuntime",
+    "LocalCapabilityRegistry",
     "LocalSolutionHost",
     "ReferenceRuntime",
     "ReferenceRuntimeError",
+    "ResolvedRuntime",
     "RuntimeExecution",
     "SolutionContractError",
     "SolutionHostError",
