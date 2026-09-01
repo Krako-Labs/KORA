@@ -4,17 +4,20 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 from kora.task_ir import TaskGraph, normalize_graph, validate_graph
 
+from .reference_runtime import REFERENCE_CAPABILITIES
+
 SUPPORTED_API_VERSION = "kora.dev/v0alpha1"
-DEFAULT_REFERENCE_CAPABILITIES = frozenset({"det.echo", "text.normalize"})
+DEFAULT_REFERENCE_CAPABILITIES = REFERENCE_CAPABILITIES
 MANIFEST_NAME = "solution.json"
 SCHEMA_NAME = "solution-manifest.schema.json"
 
@@ -126,6 +129,28 @@ def _validate_manifest_shape(manifest: Any) -> dict[str, Any]:
     return manifest
 
 
+def _external_schema_references(payload: Any) -> list[str]:
+    locations: list[str] = []
+
+    def visit(value: Any, location: str) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                child_location = f"{location}.{key}"
+                if (
+                    key in {"$ref", "$dynamicRef", "$recursiveRef"}
+                    and isinstance(child, str)
+                    and not child.startswith("#")
+                ):
+                    locations.append(child_location)
+                visit(child, child_location)
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                visit(child, f"{location}[{index}]")
+
+    visit(payload, "$")
+    return sorted(locations)
+
+
 def _validate_json_schema(path: Path, *, label: str) -> None:
     payload = _load_json(path, code="referenced_schema_error")
     if not isinstance(payload, dict):
@@ -134,6 +159,12 @@ def _validate_json_schema(path: Path, *, label: str) -> None:
         Draft202012Validator.check_schema(payload)
     except SchemaError as exc:
         raise _issue("referenced_schema_error", f"invalid {label} JSON Schema: {exc.message}", str(path)) from exc
+    if _external_schema_references(payload):
+        raise _issue(
+            "referenced_schema_error",
+            f"{label} schema contains external references; offline schemas may use fragment references only",
+            str(path),
+        )
 
 
 def _sha256(path: Path) -> str:

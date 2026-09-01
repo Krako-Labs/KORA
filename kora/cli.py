@@ -38,7 +38,12 @@ from kora.openai_proxy_demo import (
     write_report as write_proxy_report,
 )
 from kora.research import ResearchFoundry, ResearchFoundryError, canonical_json, render_evidence_card_markdown
-from kora.solution import SolutionValidationError, validate_solution_package
+from kora.solution import (
+    LocalSolutionHost,
+    SolutionHostError,
+    SolutionValidationError,
+    validate_solution_package,
+)
 from kora.studio_server import (
     DEFAULT_STUDIO_HOST,
     DEFAULT_STUDIO_PORT,
@@ -447,6 +452,41 @@ def main(argv: list[str] | None = None) -> int:
     solution_validate.add_argument("--capability", action="append", dest="capabilities")
     solution_validate.add_argument("--json", action="store_true", help="print structured JSON")
 
+    solution_install = solution_subparsers.add_parser(
+        "install",
+        help="validate and install a Solution into an isolated local store",
+    )
+    solution_install.add_argument("package", help="Solution Package directory")
+    solution_install.add_argument("--store", required=True, help="explicit local Host store directory")
+    solution_install.add_argument("--json", action="store_true", help="print structured JSON")
+
+    solution_run = solution_subparsers.add_parser(
+        "run",
+        help="run an installed Solution through the bounded reference runtime",
+    )
+    solution_run.add_argument("solution_id", help="installed Solution id")
+    solution_run.add_argument("--version", help="installed Solution version")
+    solution_run.add_argument("--store", required=True, help="explicit local Host store directory")
+    solution_run.add_argument("--input", required=True, help="UTF-8 JSON input file")
+    solution_run.add_argument("--approval", action="append", dest="approvals")
+    solution_run.add_argument("--json", action="store_true", help="print structured JSON")
+
+    solution_status = solution_subparsers.add_parser(
+        "status",
+        help="read and validate a persisted runtime status",
+    )
+    solution_status.add_argument("run_id", help="run id returned by solution run")
+    solution_status.add_argument("--store", required=True, help="explicit local Host store directory")
+    solution_status.add_argument("--json", action="store_true", help="print structured JSON")
+
+    solution_result = solution_subparsers.add_parser(
+        "result",
+        help="read and validate a persisted result envelope",
+    )
+    solution_result.add_argument("run_id", help="run id returned by solution run")
+    solution_result.add_argument("--store", required=True, help="explicit local Host store directory")
+    solution_result.add_argument("--json", action="store_true", help="print structured JSON")
+
     system_parser = subparsers.add_parser(
         "system",
         help="inspect local KORA Foundation system metadata",
@@ -586,6 +626,96 @@ def main(argv: list[str] | None = None) -> int:
             print(f"- apiVersion: {result['api_version']}")
             print(f"- verified files: {len(result['verified_files'])}")
             print("- execution performed: false")
+        return 0
+
+    if args.command == "solution" and args.solution_command == "install":
+        try:
+            receipt = LocalSolutionHost(args.store).install(args.package)
+        except SolutionValidationError as exc:
+            payload = exc.to_dict()
+            if args.json:
+                print(json.dumps(payload, indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution install failed: {exc}", file=sys.stderr)
+            return 1
+        except (OSError, SolutionHostError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionHostError)
+                else SolutionHostError("install_failed", "Solution install failed closed")
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution install failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(receipt, indent=2, sort_keys=True))
+        else:
+            identity = receipt["solution"]
+            print("Solution installed")
+            print(f"- id: {identity['id']}")
+            print(f"- version: {identity['version']}")
+            print("- execution performed: false")
+        return 0
+
+    if args.command == "solution" and args.solution_command == "run":
+        try:
+            input_payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
+            result = LocalSolutionHost(args.store).run(
+                args.solution_id,
+                input_payload,
+                version=args.version,
+                approvals=args.approvals or (),
+            )
+        except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+            error = SolutionHostError("invalid_input_file", "input must be a readable UTF-8 JSON file")
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution run failed: {error.detail}", file=sys.stderr)
+            return 1
+        except (SolutionHostError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionHostError)
+                else SolutionHostError("run_failed", "Solution run failed closed")
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution run failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(result, indent=2, sort_keys=True))
+        else:
+            print("Solution run complete")
+            print(f"- run id: {result['run_id']}")
+            print(f"- state: {result['lifecycle_state']}")
+            print(f"- execution performed: {str(result['activity']['execution_performed']).lower()}")
+        return 0 if result["lifecycle_state"] == "succeeded" else 1
+
+    if args.command == "solution" and args.solution_command in {"status", "result"}:
+        try:
+            host = LocalSolutionHost(args.store)
+            payload = host.status(args.run_id) if args.solution_command == "status" else host.result(args.run_id)
+        except (OSError, SolutionHostError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionHostError)
+                else SolutionHostError("record_read_failed", "Solution run record failed validation")
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution {args.solution_command} failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(payload, indent=2, sort_keys=True))
+        else:
+            print(f"Solution {args.solution_command}")
+            print(f"- run id: {payload['run_id']}")
+            print(f"- state: {payload['lifecycle_state']}")
         return 0
 
     if args.command == "research":

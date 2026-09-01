@@ -48,13 +48,23 @@ python3 -m kora system inventory
 
 ### Solution Protocol v0alpha1
 
-Validate the bundled reference Solution without executing it:
+Validate the two bundled reference Solutions without executing them:
 
 ```bash
 python3 -m kora solution validate examples/solutions/hello-solution --json
+python3 -m kora solution validate examples/solutions/document-transform-fixture --json
 ```
 
-The validator checks the manifest, referenced JSON Schemas, Task Graph, capability declarations, approvals, package paths, and SHA-256 integrity offline. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md). Host lifecycle and Solution execution are later milestones.
+The validator checks manifests, referenced JSON Schemas, Task Graphs, capability declarations, approvals, package paths, and SHA-256 integrity offline.
+
+A bounded reference Host can then install and run either Solution through the same local lifecycle:
+
+```bash
+python3 -m kora solution install examples/solutions/hello-solution --store /tmp/kora-host --json
+python3 -m kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
+```
+
+The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies the installed snapshot before execution and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md) and the [reference Solution guide](examples/solutions/README.md).
 
 ### Research Foundry Alpha
 
