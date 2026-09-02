@@ -38,3 +38,22 @@ def test_solution_validate_cli_reports_missing_capability(capsys) -> None:
     payload = json.loads(captured.err)
     assert payload["status"] == "invalid"
     assert payload["issues"][0]["code"] == "missing_capability"
+
+
+def test_solution_runtimes_cli_lists_bound_offline_runtime(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    exit_code = main(
+        ["solution", "runtimes", "--store", str(tmp_path / "host"), "--json"]
+    )
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    payload = json.loads(captured.out)
+    assert payload["runtimes"][0]["descriptor"]["runtime"] == {
+        "id": "kora.reference",
+        "version": "0.1.0",
+    }
+    assert payload["runtimes"][0]["bound"] is True
+    assert payload["activity"]["execution_performed"] is False

@@ -60,11 +60,12 @@ The validator checks manifests, referenced JSON Schemas, Task Graphs, capability
 A bounded reference Host can then install and run either Solution through the same local lifecycle:
 
 ```bash
+python3 -m kora solution runtimes --store /tmp/kora-host --json
 python3 -m kora solution install examples/solutions/hello-solution --store /tmp/kora-host --json
 python3 -m kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
 ```
 
-The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies the installed snapshot before execution and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md) and the [reference Solution guide](examples/solutions/README.md).
+The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies both the installed snapshot and its local runtime registry, resolves one compatible trusted runtime before every run, records the runtime descriptor digest, and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md) and the [reference Solution guide](examples/solutions/README.md).
 
 ### Research Foundry Alpha
 

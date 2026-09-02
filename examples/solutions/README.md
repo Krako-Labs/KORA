@@ -14,9 +14,10 @@ python3 -m kora solution validate examples/solutions/hello-solution --json
 python3 -m kora solution validate examples/solutions/document-transform-fixture --json
 ```
 
-Install a package into an explicit isolated store:
+Inspect the local runtime registry, then install a package into an explicit isolated store:
 
 ```bash
+python3 -m kora solution runtimes --store /tmp/kora-host --json
 python3 -m kora solution install examples/solutions/hello-solution --store /tmp/kora-host --json
 python3 -m kora solution install examples/solutions/document-transform-fixture --store /tmp/kora-host --json
 ```
@@ -30,6 +31,6 @@ python3 -m kora solution status RUN_ID --store /tmp/kora-host --json
 python3 -m kora solution result RUN_ID --store /tmp/kora-host --json
 ```
 
-The reference Host is synchronous, deterministic, and offline. It verifies package integrity and input/approval policy before execution, validates output afterward, and persists schema-validated status and result records.
+The reference Host is synchronous, deterministic, and offline. It verifies package and local runtime-registry integrity, resolves one trusted capability runtime before execution, validates input/approval policy and output, and persists schema-validated status and result records with selected-runtime evidence. The registry does not dynamically load code.
 
 These fixtures do not prove production readiness, output quality, customer savings, or commercial-product selection. Stop/resume, cache execution, provider/model/GPU capabilities, and production validation remain deferred.

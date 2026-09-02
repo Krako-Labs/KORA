@@ -8,6 +8,7 @@
     "schema_version",
     "protocol_version",
     "solution",
+    "runtime",
     "run_id",
     "lifecycle_state",
     "validation",
@@ -35,6 +36,27 @@
         }
       }
     },
+    "runtime": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "version", "descriptor_digest"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+            },
+            "descriptor_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
+        },
+        {"type": "null"}
+      ]
+    },
     "run_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
     "lifecycle_state": {
       "enum": ["created", "validating", "running", "succeeded", "failed"]
@@ -61,13 +83,18 @@
           "properties": {
             "code": {
               "enum": [
+                "ambiguous_runtime",
                 "approval_required",
                 "deliberate_failure",
+                "incompatible_runtime",
                 "input_validation_failed",
                 "integrity_mismatch",
+                "missing_capability_runtime",
                 "output_validation_failed",
                 "package_validation_failed",
-                "runtime_failure"
+                "runtime_failure",
+                "runtime_integrity_mismatch",
+                "runtime_unavailable"
               ]
             },
             "detail": {"type": "string", "minLength": 1, "maxLength": 512}

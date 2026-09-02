@@ -11,7 +11,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Example catalog](../examples/README.md) - runnable examples grouped by use case.
 - [Packaging: getkora strategy](packaging/getkora_distribution_strategy.md) - package-name and install-path status.
 - [Research Foundry Alpha](research-foundry-alpha.md) - Local Only text-layer PDF ingest, lexical retrieval, and deterministic evidence cards.
-- [Solution Protocol v0alpha1](solution-protocol-v0.md) - offline package validation, bounded deterministic Host lifecycle, status/result contracts, and conformance boundary.
+- [Solution Protocol v0alpha1](solution-protocol-v0.md) - offline package validation, integrity-checked local capability registry, deterministic runtime resolution, bounded Host lifecycle, status/result contracts, and conformance boundary.
 - [Reference Solutions](../examples/solutions/README.md) - two synthetic packages using the same Protocol and Host interface.
 
 ## Flagship Examples

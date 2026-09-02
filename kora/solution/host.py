@@ -24,6 +24,12 @@ from .contracts import (
     validate_declared_instance,
 )
 from .reference_runtime import ReferenceRuntime, ReferenceRuntimeError
+from .runtime_registry import (
+    CapabilityRegistryError,
+    CapabilityRuntime,
+    LocalCapabilityRegistry,
+    ResolvedRuntime,
+)
 from .validator import (
     SUPPORTED_API_VERSION,
     SolutionValidationError,
@@ -39,13 +45,18 @@ VERSION_PATTERN = re.compile(
 )
 RESULT_ERROR_CODES = frozenset(
     {
+        "ambiguous_runtime",
         "approval_required",
         "deliberate_failure",
+        "incompatible_runtime",
         "input_validation_failed",
         "integrity_mismatch",
+        "missing_capability_runtime",
         "output_validation_failed",
         "package_validation_failed",
         "runtime_failure",
+        "runtime_integrity_mismatch",
+        "runtime_unavailable",
     }
 )
 TRANSITIONS = {
@@ -141,7 +152,8 @@ class LocalSolutionHost:
         self,
         store_root: str | Path,
         *,
-        runtime: ReferenceRuntime | None = None,
+        runtime: CapabilityRuntime | None = None,
+        runtimes: Iterable[CapabilityRuntime] | None = None,
         clock: Callable[[], str] | None = None,
         run_id_factory: Callable[[], str] | None = None,
     ):
@@ -150,16 +162,27 @@ class LocalSolutionHost:
         if self.store_root.is_symlink() or not self.store_root.is_dir():
             raise SolutionHostError("invalid_store", "Host store root must be a regular directory")
         self.store_root = self.store_root.resolve()
-        self.runtime = runtime or ReferenceRuntime()
+        if runtime is not None and runtimes is not None:
+            raise SolutionHostError("invalid_runtime_configuration", "use runtime or runtimes, not both")
+        configured_runtimes = tuple(runtimes) if runtimes is not None else (runtime or ReferenceRuntime(),)
+        if not configured_runtimes:
+            raise SolutionHostError("invalid_runtime_configuration", "at least one runtime is required")
         self._clock = clock or _utc_now
         self._run_id_factory = run_id_factory or (lambda: uuid.uuid4().hex)
         self.installed_root = self._store_subdirectory("installed", create=True)
         self.runs_root = self._store_subdirectory("runs", create=True)
+        self.runtimes_root = self._store_subdirectory("runtimes", create=True)
+        try:
+            self.runtime_registry = LocalCapabilityRegistry(self.runtimes_root)
+            for configured_runtime in configured_runtimes:
+                self.runtime_registry.register(configured_runtime)
+        except CapabilityRegistryError as exc:
+            raise SolutionHostError(exc.code, exc.detail) from exc
 
     def validate(self, package_root: str | Path) -> dict[str, Any]:
         report = validate_solution_package(
             package_root,
-            available_capabilities=self.runtime.capabilities,
+            available_capabilities=self._available_capabilities(),
         )
         package = Path(package_root).expanduser().resolve()
         manifest = load_json_object(package / "solution.json")
@@ -174,6 +197,9 @@ class LocalSolutionHost:
                 "unsupported_runtime_task_kind",
                 "bounded reference Host accepts only deterministic Task Graph nodes",
             )
+        resolved = self._resolve_runtime(manifest, graph)
+        report = dict(report)
+        report["runtime_resolution"] = resolved.identity
         return report
 
     def install(self, package_root: str | Path) -> dict[str, Any]:
@@ -211,6 +237,7 @@ class LocalSolutionHost:
                 "schema_version": "kora.solution.install/v0alpha1",
                 "protocol_version": copied_report["api_version"],
                 "solution": {"id": solution_id, "version": version},
+                "runtime_resolution": copied_report["runtime_resolution"],
                 "package_digest": source_digest,
                 "files": copied_files,
                 "installed_at": installed_at,
@@ -250,6 +277,7 @@ class LocalSolutionHost:
             "schema_version": "kora.solution.runtime-status/v0alpha1",
             "protocol_version": SUPPORTED_API_VERSION,
             "solution": {"id": solution_id, "version": resolved_version},
+            "runtime": None,
             "run_id": run_id,
             "lifecycle_state": "created",
             "validation": {"input": "not_run", "output": "not_run"},
@@ -276,7 +304,7 @@ class LocalSolutionHost:
         try:
             self._verify_install(install_path)
             package = install_path / "package"
-            validate_solution_package(package, available_capabilities=self.runtime.capabilities)
+            validate_solution_package(package, available_capabilities=self._available_capabilities())
             manifest = load_json_object(package / "solution.json")
             if manifest["metadata"] != {"id": solution_id, "version": resolved_version}:
                 raise SolutionHostError("integrity_mismatch", "installed Solution identity changed")
@@ -285,6 +313,12 @@ class LocalSolutionHost:
                     "network_policy_not_supported",
                     "bounded reference Host accepts only network-denied Solutions",
                 )
+            graph_payload = load_json_object(package / manifest["graph"]["source"])
+            graph = normalize_graph(TaskGraph.model_validate(graph_payload))
+            validate_graph(graph)
+            resolved_runtime = self._resolve_runtime(manifest, graph)
+            status["runtime"] = resolved_runtime.identity
+            self._persist_status(run_directory, status)
 
             input_schema = package / manifest["inputs"]["schema"]
             input_errors = validate_declared_instance(input_schema, input_payload)
@@ -308,14 +342,11 @@ class LocalSolutionHost:
                     detail="one or more declared approvals were not granted",
                 )
 
-            graph_payload = load_json_object(package / manifest["graph"]["source"])
-            graph = normalize_graph(TaskGraph.model_validate(graph_payload))
-            validate_graph(graph)
             status["validation"]["output"] = "pending"
             status["activity"]["execution_performed"] = True
             self._transition(run_directory, status, "running")
 
-            execution = self.runtime.execute(
+            execution = resolved_runtime.runtime.execute(
                 graph,
                 input_payload,
                 run_directory=run_directory,
@@ -392,6 +423,42 @@ class LocalSolutionHost:
         except (OSError, TypeError, ValueError, SolutionContractError) as exc:
             raise SolutionHostError("invalid_result_envelope", "result envelope failed validation") from exc
         return payload
+
+    def runtimes(self) -> dict[str, Any]:
+        """Return integrity-verified local runtime registrations."""
+
+        try:
+            return self.runtime_registry.list()
+        except CapabilityRegistryError as exc:
+            raise SolutionHostError(exc.code, exc.detail) from exc
+
+    def _available_capabilities(self) -> frozenset[str]:
+        try:
+            return self.runtime_registry.available_capabilities
+        except CapabilityRegistryError as exc:
+            raise SolutionHostError(exc.code, exc.detail) from exc
+
+    def _resolve_runtime(
+        self,
+        manifest: dict[str, Any],
+        graph: TaskGraph,
+    ) -> ResolvedRuntime:
+        required_capabilities = {
+            task.run.spec.handler
+            for task in graph.tasks
+        }
+        task_kinds = {task.run.kind for task in graph.tasks}
+        try:
+            return self.runtime_registry.resolve(
+                required_capabilities,
+                protocol_version=manifest["apiVersion"],
+                task_kinds=task_kinds,
+                allow_network=False,
+                allow_model=False,
+                allow_gpu=False,
+            )
+        except CapabilityRegistryError as exc:
+            raise SolutionHostError(exc.code, exc.detail) from exc
 
     def _store_subdirectory(self, name: str, *, create: bool) -> Path:
         path = self.store_root / name
@@ -556,6 +623,7 @@ class LocalSolutionHost:
             "schema_version": "kora.solution.result/v0alpha1",
             "protocol_version": status["protocol_version"],
             "solution": dict(status["solution"]),
+            "runtime": None if status["runtime"] is None else dict(status["runtime"]),
             "run_id": status["run_id"],
             "lifecycle_state": status["lifecycle_state"],
             "validation": dict(status["validation"]),
