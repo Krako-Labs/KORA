@@ -1,0 +1,47 @@
+{
+  "apiVersion": "kora.dev/v0alpha1",
+  "kind": "Solution",
+  "metadata": {
+    "id": "example.research-foundry-reference",
+    "version": "0.1.0"
+  },
+  "requires": {
+    "kora": ">=0.1.0a0,<0.2",
+    "capabilities": [
+      "document.pdf.lexical-query"
+    ]
+  },
+  "inputs": {
+    "schema": "schemas/input.schema.json"
+  },
+  "graph": {
+    "source": "graph/workflow.json"
+  },
+  "outputs": {
+    "schema": "schemas/output.schema.json"
+  },
+  "policy": {
+    "network": "denied",
+    "sideEffects": [
+      "local.file.write"
+    ],
+    "approvals": [
+      "local.file.write"
+    ]
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "files": {
+      "README.md": "bf6c75426e3a626980619de104d1ed884839ed60c867f4964b62b20eb6ba9519",
+      "assets/corpus/reference.pdf": "3e8ad4abb704071c1cacd4e638ef5548c3541852ac10189141df48b90f6d4fb8",
+      "conformance/cases/invalid-input.json": "fc2a642304c5eeffec1530cd600233caa8c684dc0030d57ff557107c09c2a932",
+      "conformance/cases/missing-approval.json": "7275557bf2096fb94ef8bfd42b6fd3d83e278083c3a425b678930108031b7f83",
+      "conformance/cases/no-hit.json": "748d2c978931ec3c766d199fe8570a1df26f7ce89c4029f838e9b473dc3497d3",
+      "conformance/cases/query-success.json": "4c0e0b9a42bb9dafeb4e77d99a9475e5a6a5a3dbf6ef7717745d8a62c92296e2",
+      "examples/input.json": "ee747891dfdf200c199ae7ef0269e571f839297189182f11318a66514ca8f4d9",
+      "graph/workflow.json": "d347f111eae91e3be8f49c75e873702dfb6168cfd732cd78d6353d753880c316",
+      "schemas/input.schema.json": "39fb3f8e381df256a96c641f3ee98d61ba06b1e2af41a233ebc5da06dade7a93",
+      "schemas/output.schema.json": "cce25a52dc5d6778a2217071d729dc32344923a90a32a712be0226a358fdf0de"
+    }
+  }
+}

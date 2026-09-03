@@ -24,10 +24,15 @@ from .contracts import (
 )
 from .host import LocalSolutionHost, SolutionHostError
 from .reference_runtime import (
+    DOCUMENT_PDF_CAPABILITIES,
+    DOCUMENT_PDF_CAPABILITY,
     REFERENCE_CAPABILITIES,
+    DocumentPdfReferenceRuntime,
     ReferenceRuntime,
     ReferenceRuntimeError,
     RuntimeExecution,
+    default_reference_runtimes,
+    document_pdf_runtime_available,
 )
 from .runtime_registry import (
     CapabilityRegistryError,
@@ -48,6 +53,8 @@ __all__ = [
     "CONFORMANCE_CASE_SCHEMA",
     "CONFORMANCE_REPORT_SCHEMA",
     "DEFAULT_REFERENCE_CAPABILITIES",
+    "DOCUMENT_PDF_CAPABILITIES",
+    "DOCUMENT_PDF_CAPABILITY",
     "REFERENCE_CAPABILITIES",
     "RESULT_ENVELOPE_SCHEMA",
     "RUNTIME_DESCRIPTOR_SCHEMA",
@@ -58,6 +65,7 @@ __all__ = [
     "CapabilityRuntime",
     "LocalCapabilityRegistry",
     "LocalSolutionHost",
+    "DocumentPdfReferenceRuntime",
     "ReferenceRuntime",
     "ReferenceRuntimeError",
     "ResolvedRuntime",
@@ -71,6 +79,8 @@ __all__ = [
     "integrity_file_digests",
     "package_digest",
     "package_file_digests",
+    "default_reference_runtimes",
+    "document_pdf_runtime_available",
     "run_solution_conformance",
     "scaffold_solution",
     "validate_contract_instance",

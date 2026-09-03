@@ -1,0 +1,66 @@
+{
+  "approvals": [
+    "local.file.write"
+  ],
+  "case_id": "no-hit",
+  "expected": {
+    "capabilities_executed": [
+      "document.pdf.lexical-query"
+    ],
+    "error_code": null,
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "running",
+      "succeeded"
+    ],
+    "lifecycle_state": "succeeded",
+    "output": {
+      "card": {
+        "counters": {
+          "model_calls": 0,
+          "remote_provider_calls": 0,
+          "uploads": 0
+        },
+        "evidence": [],
+        "privacy_state": "Local Only",
+        "query": "absent-token",
+        "result_status": "insufficient_evidence",
+        "schema_version": "kora.research_evidence_card.v1",
+        "structural_validation": {
+          "result": "passed",
+          "validator_version": "kora.evidence_card_validator.v1"
+        }
+      },
+      "counters": {
+        "model_calls": 0,
+        "queries": 1,
+        "remote_provider_calls": 0,
+        "retrieval_hits": 0,
+        "uploads": 0
+      },
+      "events": [
+        {
+          "deterministic": true,
+          "event": "lexical_retrieval",
+          "hits": 0,
+          "model_calls": 0,
+          "remote_provider_calls": 0,
+          "retrieval_only": true,
+          "uploads": 0
+        }
+      ],
+      "operation": "research_query",
+      "privacy_state": "Local Only"
+    },
+    "validation": {
+      "input": "valid",
+      "output": "valid"
+    }
+  },
+  "input": {
+    "query": "absent-token",
+    "top_k": 3
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}

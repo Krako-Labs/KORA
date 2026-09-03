@@ -82,9 +82,10 @@ Install the optional PDF dependency, ingest your own or public text-layer PDFs, 
 python3 -m pip install -e '.[research]'
 python3 -m kora research ingest ./papers --state-dir ./.kora-research --json
 python3 -m kora research query ./.kora-research "reflection tokens" --top-k 3 --markdown
+python3 -m kora solution conform examples/solutions/research-foundry-reference --json
 ```
 
-Research Foundry is an implemented reference vertical, not the definition of the KORA platform. Its output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. State remains in the directory you explicitly select. See [Research Foundry Alpha](docs/research-foundry-alpha.md) for its Local Only boundary and limitations.
+Research Foundry is an implemented reference vertical, not the definition of the KORA platform or a commercial-Solution selection. Its output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. The standalone CLI uses the state directory you explicitly select; the bounded Solution reference instead rebuilds state inside each isolated run workspace from one integrity-bound synthetic PDF. See [Research Foundry Alpha](docs/research-foundry-alpha.md) and the [Task 022 migration report](docs/reports/task022-existing-vertical-migration-readiness.md) for their Local Only boundaries and limitations.
 
 ### Optional local runtime adapters
 

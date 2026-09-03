@@ -1,0 +1,24 @@
+{
+  "approvals": [],
+  "case_id": "missing-approval",
+  "expected": {
+    "capabilities_executed": [],
+    "error_code": "approval_required",
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "failed"
+    ],
+    "lifecycle_state": "failed",
+    "output": null,
+    "validation": {
+      "input": "valid",
+      "output": "not_run"
+    }
+  },
+  "input": {
+    "query": "deterministic routing",
+    "top_k": 3
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}

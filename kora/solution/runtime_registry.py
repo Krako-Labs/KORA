@@ -38,6 +38,18 @@ class CapabilityRuntime(Protocol):
     def descriptor(self) -> dict[str, Any]:
         """Return a machine-readable runtime descriptor."""
 
+    def execute(
+        self,
+        graph: Any,
+        input_payload: dict[str, Any],
+        *,
+        run_directory: Path,
+        package_root: Path | None = None,
+        approvals: Iterable[str] = (),
+        declared_side_effects: Iterable[str] = (),
+    ) -> Any:
+        """Execute a validated graph inside one Host-managed run directory."""
+
 
 class CapabilityRegistryError(RuntimeError):
     """Bounded local registry or resolution failure."""

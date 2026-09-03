@@ -1,0 +1,76 @@
+{
+  "approvals": [
+    "local.file.write"
+  ],
+  "case_id": "query-success",
+  "expected": {
+    "capabilities_executed": [
+      "document.pdf.lexical-query"
+    ],
+    "error_code": null,
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "running",
+      "succeeded"
+    ],
+    "lifecycle_state": "succeeded",
+    "output": {
+      "card": {
+        "counters": {
+          "model_calls": 0,
+          "remote_provider_calls": 0,
+          "uploads": 0
+        },
+        "evidence": [
+          {
+            "chunk_id": "doc-reference-3e8ad4abb704:p001:c001",
+            "document_id": "doc-reference-3e8ad4abb704",
+            "evidence_id": "doc-reference-3e8ad4abb704:p001:c001",
+            "page": 1,
+            "retrieval_rank": 1,
+            "source_title": "Task 022 Reference Paper",
+            "verbatim_retrieved_excerpt": "deterministic routing evidence remains local"
+          }
+        ],
+        "privacy_state": "Local Only",
+        "query": "deterministic routing",
+        "result_status": "evidence_found",
+        "schema_version": "kora.research_evidence_card.v1",
+        "structural_validation": {
+          "result": "passed",
+          "validator_version": "kora.evidence_card_validator.v1"
+        }
+      },
+      "counters": {
+        "model_calls": 0,
+        "queries": 1,
+        "remote_provider_calls": 0,
+        "retrieval_hits": 1,
+        "uploads": 0
+      },
+      "events": [
+        {
+          "deterministic": true,
+          "event": "lexical_retrieval",
+          "hits": 1,
+          "model_calls": 0,
+          "remote_provider_calls": 0,
+          "retrieval_only": true,
+          "uploads": 0
+        }
+      ],
+      "operation": "research_query",
+      "privacy_state": "Local Only"
+    },
+    "validation": {
+      "input": "valid",
+      "output": "valid"
+    }
+  },
+  "input": {
+    "query": "deterministic routing",
+    "top_k": 3
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}

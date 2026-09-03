@@ -1,0 +1,38 @@
+{
+  "graph_id": "example.research-foundry-reference",
+  "version": "0.1",
+  "root": "retrieve",
+  "defaults": {
+    "budget": {
+      "max_time_ms": 5000,
+      "max_tokens": 0,
+      "max_retries": 0
+    }
+  },
+  "tasks": [
+    {
+      "id": "retrieve",
+      "type": "deterministic",
+      "deps": [],
+      "in": {
+        "query": "$.query",
+        "top_k": "$.top_k"
+      },
+      "run": {
+        "kind": "det",
+        "spec": {
+          "handler": "document.pdf.lexical-query",
+          "args": {
+            "corpus": "assets/corpus"
+          }
+        }
+      },
+      "policy": {
+        "on_fail": "fail"
+      },
+      "tags": [
+        "side_effect:local.file.write"
+      ]
+    }
+  ]
+}
