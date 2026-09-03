@@ -37,7 +37,9 @@ A v0alpha1 package uses JSON for its canonical hashed representation:
         input.schema.json
         output.schema.json
 
-YAML authoring and canonical conversion may be added by the SDK later. JSON is the only canonical v0alpha1 validation format.
+A package checked by the Conformance Kit also contains integrity-bound JSON cases under `conformance/cases/`. The deterministic SDK scaffold adds that directory, an example input, and a package README.
+
+JSON is the only canonical v0alpha1 validation format. YAML authoring and canonical conversion remain deferred.
 
 ## Manifest
 
@@ -194,7 +196,12 @@ Runtime status also includes transition history. A successful result must have v
 
 ## CLI
 
-Validate either reference Solution without executing it:
+Create a deterministic offline package scaffold and run its declared conformance cases:
+
+    kora solution scaffold example.my-solution --output ./my-solution --json
+    kora solution conform ./my-solution --json
+
+Validate either hand-authored reference Solution without executing it:
 
     kora solution validate examples/solutions/hello-solution --json
     kora solution validate examples/solutions/document-transform-fixture --json
@@ -209,16 +216,30 @@ Inspect the integrity-verified runtime registry, then install and run through an
 
 The input file for `example.hello` is a JSON object such as `{"message":"Hello"}`. The document-transform input is a JSON object such as `{"text":"  Alpha   value  "}`.
 
+## Solution SDK and Conformance Kit
+
+The bounded SDK creates one deterministic JSON echo template, rejects existing output paths, hashes the complete package tree, and binds every generated non-manifest file in `integrity.files`.
+
+The Conformance Kit requires schema-valid, integrity-bound case files under `conformance/cases/`. It validates and installs the package in a fresh isolated Host store, runs cases through the same lifecycle, retrieves persisted status and result contracts, and emits a machine-readable report. A report records package and runtime digests, per-case checks, aggregate results, activity facts, and timestamps.
+
+The bundled schemas are:
+
+- `kora/solution/schemas/conformance-case.schema.json`;
+- `kora/solution/schemas/conformance-report.schema.json`.
+
+See [Solution SDK and Conformance Kit](solution-sdk-conformance-kit.md) for the complete authoring and exit-status contract.
+
 ## Reference Solutions and conformance
 
-The two synthetic reference Solutions are:
+The synthetic reference set is:
 
-- `examples/solutions/hello-solution`, using `det.echo`;
-- `examples/solutions/document-transform-fixture`, using `text.normalize`.
+- `examples/solutions/hello-solution`, a hand-authored `det.echo` package;
+- `examples/solutions/document-transform-fixture`, a hand-authored `text.normalize` package;
+- `examples/solutions/generated-echo-fixture`, deterministic SDK scaffold output.
 
-They use the same manifest, input/output schema, Task Graph, policy, integrity, Host lifecycle, status, and result contracts. Neither adds workflow-specific KORA Core logic.
+They use the same manifest, input/output schema, Task Graph, policy, integrity, Host lifecycle, status, and result contracts. None adds workflow-specific KORA Core logic.
 
-Automated conformance covers descriptor validation, trusted binding requirements, deterministic priority selection, ambiguity rejection, no cross-runtime capability splitting, execution-policy filtering, registry and installed-package tampering, valid installation and deterministic runs, malformed input/output, missing capabilities, undeclared side effects, missing approvals, deliberate runtime failure, lifecycle transitions, isolated file operations, contract corruption, and zero network/model/GPU activity.
+Automated conformance covers deterministic scaffold reproduction, descriptor validation, trusted binding requirements, deterministic priority selection, ambiguity rejection, no cross-runtime capability splitting, execution-policy filtering, registry and installed-package tampering, valid installation and deterministic runs, malformed cases and input/output, missing capabilities, undeclared side effects, missing approvals, deliberate runtime failure, lifecycle transitions, isolated file operations, contract corruption, and zero network/model/GPU activity.
 
 ## Current boundary
 
@@ -226,14 +247,16 @@ Implemented:
 
 - strict manifest and referenced-schema validation;
 - Task Graph, capability, side-effect, approval, path, and SHA-256 checks;
-- two synthetic reference Solutions;
+- two hand-authored and one scaffold-generated synthetic Solution;
+- deterministic scaffold and complete package-tree digest helpers;
+- integrity-bound conformance case and report schemas;
 - isolated local installation and full installed-snapshot verification;
 - bounded deterministic reference runtime;
 - integrity-checked local capability registry and deterministic runtime resolution;
 - runtime descriptor schema and selected-runtime evidence;
 - synchronous run, status, and result lifecycle;
 - machine-readable result and runtime-status schemas;
-- fail-closed conformance tests.
+- fail-closed standalone conformance execution and negative tests.
 
 Deferred:
 
@@ -242,10 +265,9 @@ Deferred:
 - cache execution;
 - dynamic runtime discovery, loading, installation, or remote registry synchronization;
 - provider, model, network, and GPU capabilities;
-- package signing;
-- SDK scaffold and packaging;
-- registry/marketplace;
-- YAML authoring;
+- archive packaging, signing, trust roots, and publication;
+- Registry/marketplace;
+- arbitrary templates and YAML authoring;
 - production validation;
 - commercial Solution selection.
 

@@ -48,14 +48,21 @@ python3 -m kora system inventory
 
 ### Solution Protocol v0alpha1
 
-Validate the two bundled reference Solutions without executing them:
+Create a deterministic offline Solution scaffold, then run its package-declared conformance suite:
+
+```bash
+python3 -m kora solution scaffold example.my-solution --output ./my-solution --json
+python3 -m kora solution conform ./my-solution --json
+```
+
+The scaffold command refuses to overwrite an existing path and generates a manifest, Task Graph, input/output schemas, example input, and an integrity-bound conformance case. The conformance runner uses a fresh isolated Host store and emits a schema-validated report covering install, run, status, result, lifecycle, and offline activity facts.
+
+Validate the bundled reference Solutions without executing them:
 
 ```bash
 python3 -m kora solution validate examples/solutions/hello-solution --json
 python3 -m kora solution validate examples/solutions/document-transform-fixture --json
 ```
-
-The validator checks manifests, referenced JSON Schemas, Task Graphs, capability declarations, approvals, package paths, and SHA-256 integrity offline.
 
 A bounded reference Host can then install and run either Solution through the same local lifecycle:
 
@@ -65,7 +72,7 @@ python3 -m kora solution install examples/solutions/hello-solution --store /tmp/
 python3 -m kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
 ```
 
-The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies both the installed snapshot and its local runtime registry, resolves one compatible trusted runtime before every run, records the runtime descriptor digest, and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md) and the [reference Solution guide](examples/solutions/README.md).
+The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies both the installed snapshot and its local runtime registry, resolves one compatible trusted runtime before every run, records the runtime descriptor digest, and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md), the [SDK and Conformance Kit](docs/solution-sdk-conformance-kit.md), and the [reference Solution guide](examples/solutions/README.md).
 
 ### Research Foundry Alpha
 
@@ -139,6 +146,7 @@ See the [claim registry](docs/claims/kora-claim-registry.md) and [public languag
 
 - [Documentation index](docs/README.md)
 - [Solution Protocol v0alpha1](docs/solution-protocol-v0.md)
+- [Solution SDK and Conformance Kit](docs/solution-sdk-conformance-kit.md)
 - [Vision: AI Workload Control Layer](docs/vision/kora_workload_control_layer.md)
 - [Example catalog](examples/README.md)
 - [Packaging: getkora strategy](docs/packaging/getkora_distribution_strategy.md)

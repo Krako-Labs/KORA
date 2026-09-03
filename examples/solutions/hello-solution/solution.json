@@ -28,6 +28,7 @@
   "integrity": {
     "algorithm": "sha256",
     "files": {
+      "conformance/cases/echo-success.json": "d0e9a1fee9064105224d6ab3977041fe02cbaa492edd51626790e6013772066d",
       "graph/workflow.json": "a5733a60449f726449d4ee72f9c8a893ac8b36defc69da5c7d8b299e354b5155",
       "schemas/input.schema.json": "943d327c29d244f6626068d351f9b88a89b58197f30f2d32e80d3afac029bec2",
       "schemas/output.schema.json": "943d327c29d244f6626068d351f9b88a89b58197f30f2d32e80d3afac029bec2"

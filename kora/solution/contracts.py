@@ -9,6 +9,8 @@ from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 
+CONFORMANCE_CASE_SCHEMA = "conformance-case.schema.json"
+CONFORMANCE_REPORT_SCHEMA = "conformance-report.schema.json"
 RESULT_ENVELOPE_SCHEMA = "result-envelope.schema.json"
 RUNTIME_DESCRIPTOR_SCHEMA = "runtime-descriptor.schema.json"
 RUNTIME_STATUS_SCHEMA = "runtime-status.schema.json"
@@ -85,6 +87,8 @@ def validate_declared_instance(schema_path: Path, payload: Any) -> tuple[str, ..
 
 
 __all__ = [
+    "CONFORMANCE_CASE_SCHEMA",
+    "CONFORMANCE_REPORT_SCHEMA",
     "RESULT_ENVELOPE_SCHEMA",
     "RUNTIME_DESCRIPTOR_SCHEMA",
     "RUNTIME_STATUS_SCHEMA",

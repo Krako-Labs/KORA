@@ -1,0 +1,28 @@
+{
+  "approvals": [],
+  "case_id": "normalize-success",
+  "expected": {
+    "capabilities_executed": [
+      "text.normalize"
+    ],
+    "error_code": null,
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "running",
+      "succeeded"
+    ],
+    "lifecycle_state": "succeeded",
+    "output": {
+      "text": "Alpha\n\nBeta value"
+    },
+    "validation": {
+      "input": "valid",
+      "output": "valid"
+    }
+  },
+  "input": {
+    "text": "  Alpha\r\n\r\n\r\n  Beta    value  "
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}
