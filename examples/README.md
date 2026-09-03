@@ -6,7 +6,7 @@ Start with the flagship examples below. They are offline, reproducible, and make
 
 ## Solution Protocol Fixtures
 
-The [reference Solution guide](solutions/README.md) covers `hello-solution` and `document-transform-fixture`. Both validate, install, and run through the same bounded offline Host lifecycle.
+The [reference Solution guide](solutions/README.md) covers the hand-authored `hello-solution` and `document-transform-fixture` packages plus the SDK-produced `generated-echo-fixture`. All three validate, install, and run through the same bounded offline Host lifecycle and conformance entry point.
 
 ## Flagship Examples
 

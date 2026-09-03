@@ -1,6 +1,21 @@
 """KORA Solution Protocol validation and bounded Host primitives."""
 
+from .authoring import (
+    SCAFFOLD_SCHEMA_VERSION,
+    SolutionAuthoringError,
+    integrity_file_digests,
+    package_digest,
+    package_file_digests,
+    scaffold_solution,
+)
+from .conformance import (
+    CONFORMANCE_CASES_DIRECTORY,
+    SolutionConformanceError,
+    run_solution_conformance,
+)
 from .contracts import (
+    CONFORMANCE_CASE_SCHEMA,
+    CONFORMANCE_REPORT_SCHEMA,
     RESULT_ENVELOPE_SCHEMA,
     RUNTIME_DESCRIPTOR_SCHEMA,
     RUNTIME_STATUS_SCHEMA,
@@ -29,11 +44,15 @@ from .validator import (
 )
 
 __all__ = [
+    "CONFORMANCE_CASES_DIRECTORY",
+    "CONFORMANCE_CASE_SCHEMA",
+    "CONFORMANCE_REPORT_SCHEMA",
     "DEFAULT_REFERENCE_CAPABILITIES",
     "REFERENCE_CAPABILITIES",
     "RESULT_ENVELOPE_SCHEMA",
     "RUNTIME_DESCRIPTOR_SCHEMA",
     "RUNTIME_STATUS_SCHEMA",
+    "SCAFFOLD_SCHEMA_VERSION",
     "SUPPORTED_API_VERSION",
     "CapabilityRegistryError",
     "CapabilityRuntime",
@@ -43,10 +62,17 @@ __all__ = [
     "ReferenceRuntimeError",
     "ResolvedRuntime",
     "RuntimeExecution",
+    "SolutionAuthoringError",
+    "SolutionConformanceError",
     "SolutionContractError",
     "SolutionHostError",
     "SolutionValidationError",
     "SolutionValidationIssue",
+    "integrity_file_digests",
+    "package_digest",
+    "package_file_digests",
+    "run_solution_conformance",
+    "scaffold_solution",
     "validate_contract_instance",
     "validate_solution_package",
 ]

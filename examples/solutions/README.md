@@ -2,16 +2,32 @@
 
 These synthetic packages exercise the same KORA Solution Protocol v0alpha1 contract without workflow-specific KORA Core changes.
 
-| Solution | Capability | Input | Output |
-| --- | --- | --- | --- |
-| `hello-solution` | `det.echo` | `{"message":"Hello"}` | `{"message":"Hello"}` |
-| `document-transform-fixture` | `text.normalize` | `{"text":"  Alpha   value  "}` | `{"text":"Alpha value"}` |
+| Solution | Origin | Capability | Input | Output |
+| --- | --- | --- | --- | --- |
+| `hello-solution` | Hand-authored reference | `det.echo` | `{"message":"Hello"}` | `{"message":"Hello"}` |
+| `document-transform-fixture` | Hand-authored reference | `text.normalize` | `{"text":"  Alpha   value  "}` | `{"text":"Alpha value"}` |
+| `generated-echo-fixture` | SDK scaffold output | `det.echo` | `{"message":"..."}` | Same object |
 
-Validate both packages offline:
+Validate the packages offline:
 
 ```bash
 python3 -m kora solution validate examples/solutions/hello-solution --json
 python3 -m kora solution validate examples/solutions/document-transform-fixture --json
+python3 -m kora solution validate examples/solutions/generated-echo-fixture --json
+```
+
+Run each package-declared suite through the same isolated conformance entry point:
+
+```bash
+python3 -m kora solution conform examples/solutions/hello-solution --json
+python3 -m kora solution conform examples/solutions/document-transform-fixture --json
+python3 -m kora solution conform examples/solutions/generated-echo-fixture --json
+```
+
+Reproduce the generated package in a new path:
+
+```bash
+python3 -m kora solution scaffold example.generated-echo --output ./generated-echo --json
 ```
 
 Inspect the local runtime registry, then install a package into an explicit isolated store:
@@ -22,7 +38,7 @@ python3 -m kora solution install examples/solutions/hello-solution --store /tmp/
 python3 -m kora solution install examples/solutions/document-transform-fixture --store /tmp/kora-host --json
 ```
 
-Run either package with its UTF-8 JSON input file, then use the returned run id:
+Run either hand-authored package with its UTF-8 JSON input file, then use the returned run id:
 
 ```bash
 python3 -m kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
@@ -32,5 +48,7 @@ python3 -m kora solution result RUN_ID --store /tmp/kora-host --json
 ```
 
 The reference Host is synchronous, deterministic, and offline. It verifies package and local runtime-registry integrity, resolves one trusted capability runtime before execution, validates input/approval policy and output, and persists schema-validated status and result records with selected-runtime evidence. The registry does not dynamically load code.
+
+The scaffold and Conformance Kit are described in [Solution SDK and Conformance Kit](../../docs/solution-sdk-conformance-kit.md).
 
 These fixtures do not prove production readiness, output quality, customer savings, or commercial-product selection. Stop/resume, cache execution, provider/model/GPU capabilities, and production validation remain deferred.

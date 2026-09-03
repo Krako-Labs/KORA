@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kora.dev/schemas/solution-conformance-case-v0alpha1.json",
+  "title": "KORA Solution Conformance Case v0alpha1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "case_id", "input", "approvals", "expected"],
+  "properties": {
+    "schema_version": {"const": "kora.solution.conformance-case/v0alpha1"},
+    "case_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$", "minLength": 3, "maxLength": 128},
+    "input": {"type": "object"},
+    "approvals": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$"},
+      "uniqueItems": true
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lifecycle_state", "validation", "output", "error_code", "capabilities_executed", "lifecycle_history"],
+      "properties": {
+        "lifecycle_state": {"enum": ["succeeded", "failed"]},
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["input", "output"],
+          "properties": {
+            "input": {"enum": ["valid", "invalid", "not_run"]},
+            "output": {"enum": ["valid", "invalid", "not_run"]}
+          }
+        },
+        "output": {"oneOf": [{"type": "object"}, {"type": "null"}]},
+        "error_code": {
+          "oneOf": [
+            {"enum": ["ambiguous_runtime", "approval_required", "deliberate_failure", "incompatible_runtime", "input_validation_failed", "integrity_mismatch", "missing_capability_runtime", "output_validation_failed", "package_validation_failed", "runtime_failure", "runtime_integrity_mismatch", "runtime_unavailable"]},
+            {"type": "null"}
+          ]
+        },
+        "capabilities_executed": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "lifecycle_history": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"enum": ["created", "validating", "running", "succeeded", "failed"]}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "expected": {
+            "properties": {"lifecycle_state": {"const": "succeeded"}},
+            "required": ["lifecycle_state"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "properties": {"output": {"type": "object"}, "error_code": {"type": "null"}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "expected": {
+            "properties": {"lifecycle_state": {"const": "failed"}},
+            "required": ["lifecycle_state"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "properties": {"output": {"type": "null"}, "error_code": {"type": "string"}}
+          }
+        }
+      }
+    }
+  ]
+}

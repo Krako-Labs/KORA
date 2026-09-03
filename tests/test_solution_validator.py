@@ -54,6 +54,7 @@ def test_hello_solution_validates_offline() -> None:
     assert result["execution_performed"] is False
     assert result["network_accessed"] is False
     assert result["verified_files"] == [
+        "conformance/cases/echo-success.json",
         "graph/workflow.json",
         "schemas/input.schema.json",
         "schemas/output.schema.json",

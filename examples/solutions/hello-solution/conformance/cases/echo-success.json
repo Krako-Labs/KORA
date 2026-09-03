@@ -1,0 +1,28 @@
+{
+  "approvals": [],
+  "case_id": "echo-success",
+  "expected": {
+    "capabilities_executed": [
+      "det.echo"
+    ],
+    "error_code": null,
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "running",
+      "succeeded"
+    ],
+    "lifecycle_state": "succeeded",
+    "output": {
+      "message": "Hello"
+    },
+    "validation": {
+      "input": "valid",
+      "output": "valid"
+    }
+  },
+  "input": {
+    "message": "Hello"
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}

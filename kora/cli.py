@@ -40,8 +40,12 @@ from kora.openai_proxy_demo import (
 from kora.research import ResearchFoundry, ResearchFoundryError, canonical_json, render_evidence_card_markdown
 from kora.solution import (
     LocalSolutionHost,
+    SolutionAuthoringError,
+    SolutionConformanceError,
     SolutionHostError,
     SolutionValidationError,
+    run_solution_conformance,
+    scaffold_solution,
     validate_solution_package,
 )
 from kora.studio_server import (
@@ -444,6 +448,22 @@ def main(argv: list[str] | None = None) -> int:
         help="validate and manage KORA Solution Packages",
     )
     solution_subparsers = solution_parser.add_subparsers(dest="solution_command", required=True)
+    solution_scaffold = solution_subparsers.add_parser(
+        "scaffold",
+        help="create a deterministic offline Solution Package scaffold",
+    )
+    solution_scaffold.add_argument("solution_id", help="stable Solution id")
+    solution_scaffold.add_argument("--output", required=True, help="new package directory")
+    solution_scaffold.add_argument("--version", default="0.1.0", help="Solution semantic version")
+    solution_scaffold.add_argument("--json", action="store_true", help="print structured JSON")
+
+    solution_conform = solution_subparsers.add_parser(
+        "conform",
+        help="run package-declared cases through an isolated reference Host",
+    )
+    solution_conform.add_argument("package", help="Solution Package directory")
+    solution_conform.add_argument("--json", action="store_true", help="print structured JSON")
+
     solution_validate = solution_subparsers.add_parser(
         "validate",
         help="validate a Solution Package offline without executing it",
@@ -607,6 +627,66 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Saved JSON: {args.json_out}")
         print(f"Saved Markdown: {args.md_out}")
         return 0
+
+    if args.command == "solution" and args.solution_command == "scaffold":
+        try:
+            payload = scaffold_solution(
+                args.solution_id,
+                args.output,
+                version=args.version,
+            )
+        except (OSError, SolutionAuthoringError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionAuthoringError)
+                else SolutionAuthoringError(
+                    "scaffold_failed",
+                    "Solution scaffold failed closed",
+                )
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution scaffold failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(payload, indent=2, sort_keys=True))
+        else:
+            identity = payload["solution"]
+            print("Solution scaffold created")
+            print(f"- id: {identity['id']}")
+            print(f"- version: {identity['version']}")
+            print(f"- files: {len(payload['files'])}")
+            print("- execution performed: false")
+        return 0
+
+    if args.command == "solution" and args.solution_command == "conform":
+        try:
+            payload = run_solution_conformance(args.package)
+        except (OSError, SolutionConformanceError, TypeError, ValueError) as exc:
+            error = (
+                exc
+                if isinstance(exc, SolutionConformanceError)
+                else SolutionConformanceError(
+                    "conformance_failed",
+                    "Solution conformance failed closed",
+                )
+            )
+            if args.json:
+                print(json.dumps(error.to_dict(), indent=2, sort_keys=True), file=sys.stderr)
+            else:
+                print(f"Solution conformance failed: {error.detail}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(json.dumps(payload, indent=2, sort_keys=True))
+        else:
+            identity = payload["package"]
+            print(f"Solution conformance {payload['status']}")
+            print(f"- id: {identity['id']}")
+            print(f"- version: {identity['version']}")
+            print(f"- cases: {payload['summary']['passed']}/{payload['summary']['total']} passed")
+            print("- network/model/GPU activity: false/false/false")
+        return 0 if payload["status"] == "passed" else 1
 
     if args.command == "solution" and args.solution_command == "validate":
         try:
