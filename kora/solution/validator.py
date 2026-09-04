@@ -14,10 +14,10 @@ from jsonschema.exceptions import SchemaError
 
 from kora.task_ir import TaskGraph, normalize_graph, validate_graph
 
-from .reference_runtime import REFERENCE_CAPABILITIES
+from .reference_runtime import DOCUMENT_PDF_CAPABILITIES, REFERENCE_CAPABILITIES
 
 SUPPORTED_API_VERSION = "kora.dev/v0alpha1"
-DEFAULT_REFERENCE_CAPABILITIES = REFERENCE_CAPABILITIES
+DEFAULT_REFERENCE_CAPABILITIES = REFERENCE_CAPABILITIES | DOCUMENT_PDF_CAPABILITIES
 MANIFEST_NAME = "solution.json"
 SCHEMA_NAME = "solution-manifest.schema.json"
 

@@ -23,7 +23,11 @@ from .contracts import (
     validate_contract_instance,
     validate_declared_instance,
 )
-from .reference_runtime import ReferenceRuntime, ReferenceRuntimeError
+from .reference_runtime import (
+    ReferenceRuntime,
+    ReferenceRuntimeError,
+    default_reference_runtimes,
+)
 from .runtime_registry import (
     CapabilityRegistryError,
     CapabilityRuntime,
@@ -164,7 +168,12 @@ class LocalSolutionHost:
         self.store_root = self.store_root.resolve()
         if runtime is not None and runtimes is not None:
             raise SolutionHostError("invalid_runtime_configuration", "use runtime or runtimes, not both")
-        configured_runtimes = tuple(runtimes) if runtimes is not None else (runtime or ReferenceRuntime(),)
+        if runtimes is not None:
+            configured_runtimes = tuple(runtimes)
+        elif runtime is not None:
+            configured_runtimes = (runtime,)
+        else:
+            configured_runtimes = default_reference_runtimes()
         if not configured_runtimes:
             raise SolutionHostError("invalid_runtime_configuration", "at least one runtime is required")
         self._clock = clock or _utc_now
@@ -350,6 +359,7 @@ class LocalSolutionHost:
                 graph,
                 input_payload,
                 run_directory=run_directory,
+                package_root=package,
                 approvals=granted_approvals,
                 declared_side_effects=manifest["policy"]["sideEffects"],
             )

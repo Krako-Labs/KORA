@@ -6,7 +6,7 @@ Start with the flagship examples below. They are offline, reproducible, and make
 
 ## Solution Protocol Fixtures
 
-The [reference Solution guide](solutions/README.md) covers the hand-authored `hello-solution` and `document-transform-fixture` packages plus the SDK-produced `generated-echo-fixture`. All three validate, install, and run through the same bounded offline Host lifecycle and conformance entry point.
+The [reference Solution guide](solutions/README.md) covers the hand-authored `hello-solution` and `document-transform-fixture` packages, the SDK-produced `generated-echo-fixture`, and the bounded `research-foundry-reference` migration. All four validate, install, and run through the same offline Host lifecycle and conformance entry point; the Research Foundry path additionally requires the optional `research` extra and an explicit local-write grant.
 
 ## Flagship Examples
 

@@ -14,7 +14,7 @@ The extra adds `pypdf`. SQLite and FTS5 are provided by the Python runtime and m
 
 ## Ingest and query
 
-Use PDFs that you own or are permitted to process. No private or example paper corpus is shipped.
+Use PDFs that you own or are permitted to process. The standalone CLI ships no user or private paper corpus. The Solution Protocol reference package includes one tiny synthetic text-layer PDF solely for deterministic conformance.
 
 ```bash
 python3 -m kora research ingest ./papers --state-dir ./.kora-research --json
@@ -46,6 +46,19 @@ Cards also report `evidence_found` or `insufficient_evidence`, structural valida
 
 The Research Foundry code performs no network request, upload, cloud fallback, provider call, or model inference. The caller controls both the PDF folder and state directory. Treat those inputs and the resulting SQLite database according to your own data-handling requirements.
 
+## Solution Protocol reference migration
+
+The bounded `examples/solutions/research-foundry-reference` package maps the existing ingest-query behavior to the same local Solution Host lifecycle and Conformance Kit used by the other reference packages. It reads only its integrity-bound synthetic PDF asset, creates fresh SQLite state inside the isolated run workspace, requires an explicit `local.file.write` grant, and returns the existing query/evidence output.
+
+```bash
+python3 -m kora solution validate examples/solutions/research-foundry-reference --json
+python3 -m kora solution conform examples/solutions/research-foundry-reference --json
+python3 -m kora solution install examples/solutions/research-foundry-reference --store /tmp/kora-host --json
+python3 -m kora solution run example.research-foundry-reference --store /tmp/kora-host --input examples/solutions/research-foundry-reference/examples/input.json --approval local.file.write --json
+```
+
+This reference is not a commercial-Solution selection. Caller-selected corpus mounts and cross-run Foundry state are not part of the current Host contract and remain deferred. See [Task 022: Existing Vertical Migration Readiness](reports/task022-existing-vertical-migration-readiness.md).
+
 ## Limitations and non-goals
 
 - Text-layer PDFs only; OCR is not supported.
@@ -54,4 +67,5 @@ The Research Foundry code performs no network request, upload, cloud fallback, p
 - No cloud fallback or remote provider integration.
 - Exact-byte SHA-256 deduplication does not detect near-duplicates.
 - Extracted text quality depends on the PDF text layer and `pypdf` behavior.
-- This Alpha surface is not a production-readiness claim.
+- The Solution reference is limited to a package-local synthetic corpus and rebuilds state for every run.
+- This Alpha surface and its Solution reference are not production-readiness claims.

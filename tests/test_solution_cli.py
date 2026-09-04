@@ -51,9 +51,12 @@ def test_solution_runtimes_cli_lists_bound_offline_runtime(
 
     assert exit_code == 0
     payload = json.loads(captured.out)
-    assert payload["runtimes"][0]["descriptor"]["runtime"] == {
+    runtimes = {
+        entry["descriptor"]["runtime"]["id"]: entry for entry in payload["runtimes"]
+    }
+    assert runtimes["kora.reference"]["descriptor"]["runtime"] == {
         "id": "kora.reference",
         "version": "0.1.0",
     }
-    assert payload["runtimes"][0]["bound"] is True
+    assert runtimes["kora.reference"]["bound"] is True
     assert payload["activity"]["execution_performed"] is False

@@ -68,7 +68,7 @@ The `requires.kora` field is recorded in v0alpha1. Full version-range resolution
 
 Every handler or adapter used by the Task Graph must appear in `requires.capabilities`. Validation fails when a graph uses an undeclared capability or the Host does not provide a declared capability.
 
-The bounded reference runtime exposes only:
+The base bounded reference runtime exposes:
 
 | Capability | Behavior | Side-effect boundary |
 | --- | --- | --- |
@@ -79,7 +79,13 @@ The bounded reference runtime exposes only:
 | `fixture.fail` | Produce a deliberate bounded runtime failure for conformance tests. | Test-only failure path. |
 | `approval.require` | Require a named approval and return its granted state. | Test-only approval path. |
 
-Local file paths reject absolute paths, parent traversal, and symlinks. Reads and writes are limited to 1 MiB per file.
+When the optional `pypdf` dependency and SQLite FTS5 are available, a separate bounded runtime exposes:
+
+| Capability | Behavior | Side-effect boundary |
+| --- | --- | --- |
+| `document.pdf.lexical-query` | Ingest integrity-checked, package-local text-layer PDFs with the existing Research Foundry and return its lexical Evidence Card. | Creates fresh SQLite state in the isolated run workspace; requires `local.file.write` declaration and grant. |
+
+Local file paths reject absolute paths, parent traversal, and symlinks. Reads and writes are limited to 1 MiB per file. Package-local PDF resolution also rejects absolute paths, parent traversal, and symlinks, and is capped at 16 PDF files and 8 MiB.
 
 No reference capability performs a provider call, model inference, network request, or GPU execution.
 
@@ -98,7 +104,7 @@ Registration persists a canonical descriptor and a digest-bearing receipt under 
 
 Resolution requires one runtime to provide every capability required by a Solution; capabilities are not split across runtimes. Candidates are filtered by protocol, Task Graph run kind, and execution policy. The unique highest-priority compatible binding is selected. No candidate, an unbound descriptor, or a highest-priority tie fails closed with a bounded machine-readable error.
 
-The bundled Host registers `kora.reference` version `0.1.0` on startup. This registry is local Host metadata, not a remote registry, package marketplace, general KORA Target Registry, or production plugin system.
+The bundled Host registers `kora.reference` version `0.1.0` on startup. It conditionally registers `kora.document-pdf-reference` version `0.1.0` only when its local PDF and FTS5 dependencies are available. This registry is local Host metadata, not a remote registry, package marketplace, general KORA Target Registry, or production plugin system.
 
 ## Policy and approvals
 
@@ -205,6 +211,7 @@ Validate either hand-authored reference Solution without executing it:
 
     kora solution validate examples/solutions/hello-solution --json
     kora solution validate examples/solutions/document-transform-fixture --json
+    kora solution validate examples/solutions/research-foundry-reference --json
 
 Inspect the integrity-verified runtime registry, then install and run through an explicit local store:
 
@@ -214,7 +221,7 @@ Inspect the integrity-verified runtime registry, then install and run through an
     kora solution status RUN_ID --store /tmp/kora-host --json
     kora solution result RUN_ID --store /tmp/kora-host --json
 
-The input file for `example.hello` is a JSON object such as `{"message":"Hello"}`. The document-transform input is a JSON object such as `{"text":"  Alpha   value  "}`.
+The input file for `example.hello` is a JSON object such as `{"message":"Hello"}`. The document-transform input is a JSON object such as `{"text":"  Alpha   value  "}`. The Research Foundry reference uses `{"query":"deterministic routing","top_k":3}`, requires the `research` installation extra, and requires `--approval local.file.write` when run.
 
 ## Solution SDK and Conformance Kit
 
@@ -235,11 +242,12 @@ The synthetic reference set is:
 
 - `examples/solutions/hello-solution`, a hand-authored `det.echo` package;
 - `examples/solutions/document-transform-fixture`, a hand-authored `text.normalize` package;
-- `examples/solutions/generated-echo-fixture`, deterministic SDK scaffold output.
+- `examples/solutions/generated-echo-fixture`, deterministic SDK scaffold output;
+- `examples/solutions/research-foundry-reference`, the existing non-commercial offline vertical mapped to one bounded package-local PDF capability.
 
 They use the same manifest, input/output schema, Task Graph, policy, integrity, Host lifecycle, status, and result contracts. None adds workflow-specific KORA Core logic.
 
-Automated conformance covers deterministic scaffold reproduction, descriptor validation, trusted binding requirements, deterministic priority selection, ambiguity rejection, no cross-runtime capability splitting, execution-policy filtering, registry and installed-package tampering, valid installation and deterministic runs, malformed cases and input/output, missing capabilities, undeclared side effects, missing approvals, deliberate runtime failure, lifecycle transitions, isolated file operations, contract corruption, and zero network/model/GPU activity.
+Automated conformance covers deterministic scaffold reproduction, descriptor validation, trusted binding requirements, deterministic priority selection, ambiguity rejection, no cross-runtime capability splitting, execution-policy filtering, registry and installed-package tampering, valid installation and deterministic runs, malformed cases and input/output, missing capabilities, undeclared side effects, missing approvals, deliberate runtime failure, lifecycle transitions, isolated file operations, package-asset path escape rejection, exact PDF evidence/no-hit outputs, contract corruption, and zero network/model/GPU activity.
 
 ## Current boundary
 
@@ -247,11 +255,11 @@ Implemented:
 
 - strict manifest and referenced-schema validation;
 - Task Graph, capability, side-effect, approval, path, and SHA-256 checks;
-- two hand-authored and one scaffold-generated synthetic Solution;
+- three hand-authored references, including one existing offline vertical migration, and one scaffold-generated synthetic Solution;
 - deterministic scaffold and complete package-tree digest helpers;
 - integrity-bound conformance case and report schemas;
 - isolated local installation and full installed-snapshot verification;
-- bounded deterministic reference runtime;
+- bounded deterministic base runtime and optional package-local PDF reference runtime;
 - integrity-checked local capability registry and deterministic runtime resolution;
 - runtime descriptor schema and selected-runtime evidence;
 - synchronous run, status, and result lifecycle;
@@ -263,6 +271,7 @@ Deferred:
 - remove/update lifecycle;
 - stop/resume and checkpoints;
 - cache execution;
+- arbitrary external corpus mounts or bindings and cross-run Research Foundry state;
 - dynamic runtime discovery, loading, installation, or remote registry synchronization;
 - provider, model, network, and GPU capabilities;
 - archive packaging, signing, trust roots, and publication;
@@ -271,4 +280,6 @@ Deferred:
 - production validation;
 - commercial Solution selection.
 
-These synthetic fixtures prove a bounded architecture path. They do not establish production readiness, workload quality, customer savings, or commercial-product selection.
+These references prove only a bounded architecture path. The Research Foundry package uses one synthetic PDF and is not a commercial-Solution selection. The references do not establish production readiness, workload quality, customer savings, or commercial-product selection.
+
+See [Task 022: Existing Vertical Migration Readiness](reports/task022-existing-vertical-migration-readiness.md) for the inventory, migration gaps, frozen slice, and deferred work.

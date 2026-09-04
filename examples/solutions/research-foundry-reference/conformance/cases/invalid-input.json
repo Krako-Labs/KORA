@@ -1,0 +1,26 @@
+{
+  "approvals": [
+    "local.file.write"
+  ],
+  "case_id": "invalid-input",
+  "expected": {
+    "capabilities_executed": [],
+    "error_code": "input_validation_failed",
+    "lifecycle_history": [
+      "created",
+      "validating",
+      "failed"
+    ],
+    "lifecycle_state": "failed",
+    "output": null,
+    "validation": {
+      "input": "invalid",
+      "output": "not_run"
+    }
+  },
+  "input": {
+    "query": "",
+    "top_k": 3
+  },
+  "schema_version": "kora.solution.conformance-case/v0alpha1"
+}

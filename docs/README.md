@@ -13,7 +13,7 @@ This documentation index is for readers who want more detail than the root [READ
 - [Research Foundry Alpha](research-foundry-alpha.md) - Local Only text-layer PDF ingest, lexical retrieval, and deterministic evidence cards.
 - [Solution Protocol v0alpha1](solution-protocol-v0.md) - offline package validation, integrity-checked local capability registry, deterministic runtime resolution, and bounded Host lifecycle.
 - [Solution SDK and Conformance Kit](solution-sdk-conformance-kit.md) - deterministic scaffolding, integrity-bound cases, isolated lifecycle checks, and machine-readable reports.
-- [Reference Solutions](../examples/solutions/README.md) - two hand-authored and one scaffold-generated synthetic package using the same Protocol and Host interface.
+- [Reference Solutions](../examples/solutions/README.md) - synthetic packages and one bounded existing-vertical reference using the same Protocol and Host interface.
 
 ## Flagship Examples
 
@@ -35,6 +35,7 @@ This documentation index is for readers who want more detail than the root [READ
 ## Evidence and Reports
 
 - [Reports](reports/)
+- [Task 022 existing vertical migration readiness](reports/task022-existing-vertical-migration-readiness.md) - Research Foundry inventory, migration gaps, frozen package-local slice, conformance cases, deferrals, and claim boundary.
 - [Evidence docs](evidence/)
 - [Benchmarks](benchmarks/)
 - [Workloads](workloads/)

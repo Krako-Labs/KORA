@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import importlib.util
 import re
+import sqlite3
 import unicodedata
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from kora.research import ResearchFoundry, ResearchFoundryError
 from kora.task_ir import Task, TaskGraph
 
 REFERENCE_CAPABILITIES = frozenset(
@@ -21,7 +24,11 @@ REFERENCE_CAPABILITIES = frozenset(
         "text.normalize",
     }
 )
+DOCUMENT_PDF_CAPABILITY = "document.pdf.lexical-query"
+DOCUMENT_PDF_CAPABILITIES = frozenset({DOCUMENT_PDF_CAPABILITY})
 MAX_LOCAL_FILE_BYTES = 1024 * 1024
+MAX_PDF_FILES = 16
+MAX_PDF_CORPUS_BYTES = 8 * 1024 * 1024
 
 
 class ReferenceRuntimeError(RuntimeError):
@@ -176,6 +183,97 @@ def _read_local_file(workspace: Path, params: dict[str, Any]) -> dict[str, Any]:
     return {"content": content}
 
 
+def _package_directory(package_root: Path | None, relative: Any) -> Path:
+    if package_root is None:
+        raise ReferenceRuntimeError("runtime_failure", "package assets are unavailable")
+    if not isinstance(relative, str) or not relative:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package asset path must be a non-empty string",
+        )
+    rel = Path(relative)
+    if rel.is_absolute() or ".." in rel.parts:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package asset path must remain inside the installed package",
+        )
+    candidate = package_root / rel
+    if candidate.is_symlink() or not candidate.is_dir():
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package PDF corpus was not found",
+        )
+    resolved_root = package_root.resolve()
+    resolved = candidate.resolve()
+    if not resolved.is_relative_to(resolved_root):
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package asset path escaped the installed package",
+        )
+    return resolved
+
+
+def _document_pdf_lexical_query(
+    workspace: Path,
+    package_root: Path | None,
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    corpus = _package_directory(package_root, params.get("corpus"))
+    pdfs = sorted(
+        path
+        for path in corpus.rglob("*")
+        if path.is_file() and path.suffix.lower() == ".pdf"
+    )
+    if not pdfs or len(pdfs) > MAX_PDF_FILES:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package PDF corpus is empty or exceeds the bounded file limit",
+        )
+    if any(path.is_symlink() for path in pdfs):
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package PDF corpus contains a symbolic link",
+        )
+    if sum(path.stat().st_size for path in pdfs) > MAX_PDF_CORPUS_BYTES:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "package PDF corpus exceeds the bounded byte limit",
+        )
+
+    query = params.get("query")
+    top_k = params.get("top_k", 5)
+    if not isinstance(query, str) or not query.strip():
+        raise ReferenceRuntimeError("runtime_failure", "lexical query must not be empty")
+    if isinstance(top_k, bool) or not isinstance(top_k, int) or not 1 <= top_k <= 20:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "top_k must be an integer from 1 to 20",
+        )
+
+    try:
+        foundry = ResearchFoundry(workspace / "research-state")
+        foundry.ingest(corpus)
+        return foundry.query(query, top_k=top_k)
+    except ResearchFoundryError as exc:
+        raise ReferenceRuntimeError(
+            "runtime_failure",
+            "document PDF lexical query failed closed",
+        ) from exc
+
+
+def document_pdf_runtime_available() -> bool:
+    """Return whether the optional local PDF and SQLite FTS5 dependencies exist."""
+
+    if importlib.util.find_spec("pypdf") is None:
+        return False
+    try:
+        with sqlite3.connect(":memory:") as connection:
+            connection.execute("CREATE VIRTUAL TABLE capability_probe USING fts5(text)")
+    except sqlite3.Error:
+        return False
+    return True
+
+
 class ReferenceRuntime:
     """Execute only the bounded deterministic capabilities in this module."""
 
@@ -211,6 +309,7 @@ class ReferenceRuntime:
         input_payload: dict[str, Any],
         *,
         run_directory: Path,
+        package_root: Path | None = None,
         approvals: Iterable[str] = (),
         declared_side_effects: Iterable[str] = (),
     ) -> RuntimeExecution:
@@ -254,6 +353,7 @@ class ReferenceRuntime:
                 params,
                 workspace=workspace,
                 approvals=granted,
+                package_root=package_root,
             )
             if capability not in executed:
                 executed.append(capability)
@@ -271,6 +371,7 @@ class ReferenceRuntime:
         *,
         workspace: Path,
         approvals: frozenset[str],
+        package_root: Path | None,
     ) -> dict[str, Any]:
         if capability == "det.echo":
             return dict(params)
@@ -298,10 +399,50 @@ class ReferenceRuntime:
         raise ReferenceRuntimeError("runtime_failure", "required capability is unavailable")
 
 
+class DocumentPdfReferenceRuntime(ReferenceRuntime):
+    """Optional bounded runtime for package-local text-layer PDF retrieval."""
+
+    runtime_id = "kora.document-pdf-reference"
+    runtime_version = "0.1.0"
+
+    @property
+    def capabilities(self) -> frozenset[str]:
+        return DOCUMENT_PDF_CAPABILITIES
+
+    def _execute_capability(
+        self,
+        capability: str,
+        params: dict[str, Any],
+        *,
+        workspace: Path,
+        approvals: frozenset[str],
+        package_root: Path | None,
+    ) -> dict[str, Any]:
+        if capability == DOCUMENT_PDF_CAPABILITY:
+            return _document_pdf_lexical_query(workspace, package_root, params)
+        raise ReferenceRuntimeError("runtime_failure", "required capability is unavailable")
+
+
+def default_reference_runtimes() -> tuple[ReferenceRuntime, ...]:
+    """Return only reference runtimes whose local dependencies are available."""
+
+    runtimes: list[ReferenceRuntime] = [ReferenceRuntime()]
+    if document_pdf_runtime_available():
+        runtimes.append(DocumentPdfReferenceRuntime())
+    return tuple(runtimes)
+
+
 __all__ = [
+    "DOCUMENT_PDF_CAPABILITIES",
+    "DOCUMENT_PDF_CAPABILITY",
     "MAX_LOCAL_FILE_BYTES",
+    "MAX_PDF_CORPUS_BYTES",
+    "MAX_PDF_FILES",
     "REFERENCE_CAPABILITIES",
+    "DocumentPdfReferenceRuntime",
     "ReferenceRuntime",
     "ReferenceRuntimeError",
     "RuntimeExecution",
+    "default_reference_runtimes",
+    "document_pdf_runtime_available",
 ]
