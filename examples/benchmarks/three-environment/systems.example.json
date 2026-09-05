@@ -1,0 +1,100 @@
+{
+  "mp": {
+    "token_env": "KORA_BENCHMARK_TOKEN",
+    "identity": {
+      "model_repository": "Qwen/Qwen3-30B-A3B",
+      "model_revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+      "artifact_sha256": "0d003f6662faee786ed5da3e31b29c978de5ae5d275c8794c606a7f3c01aa8f5",
+      "runtime_commit": "4d9176092d00586775af140581bb0b558ddc4389",
+      "quantization": "Q4_K_M",
+      "context_tokens": 4096,
+      "concurrency": 1,
+      "prefix_cache": "disabled",
+      "thinking": false,
+      "tokenizer_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "template_source": "pinned-upstream-explicit-file",
+      "verification": "operator-must-verify-before-running",
+      "template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "model_worker": {
+      "url": "http://127.0.0.1:9181",
+      "worker_id": "mp"
+    },
+    "deterministic_worker": {
+      "url": "http://127.0.0.1:9181",
+      "worker_id": "mp"
+    }
+  },
+  "cluster": {
+    "token_env": "KORA_BENCHMARK_TOKEN",
+    "identity": {
+      "model_repository": "Qwen/Qwen3-30B-A3B",
+      "model_revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+      "artifact_sha256": "0d003f6662faee786ed5da3e31b29c978de5ae5d275c8794c606a7f3c01aa8f5",
+      "runtime_commit": "4d9176092d00586775af140581bb0b558ddc4389",
+      "quantization": "Q4_K_M",
+      "context_tokens": 4096,
+      "concurrency": 1,
+      "prefix_cache": "disabled",
+      "thinking": false,
+      "tokenizer_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "template_source": "pinned-upstream-explicit-file",
+      "verification": "operator-must-verify-before-running",
+      "template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "model_worker": {
+      "url": "http://127.0.0.1:9281",
+      "worker_id": "msm2-1"
+    },
+    "deterministic_worker": {
+      "url": "http://127.0.0.1:9282",
+      "worker_id": "msm2-2"
+    }
+  },
+  "h100": {
+    "backend": {
+      "url": "http://127.0.0.1:9283",
+      "model": "Qwen/Qwen3-30B-A3B",
+      "generation": {
+        "max_tokens": 128,
+        "temperature": 0.7,
+        "top_p": 0.8,
+        "top_k": 20,
+        "seed": 42,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "identity": {
+        "model_repository": "Qwen/Qwen3-30B-A3B",
+        "model_revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+        "quantization": "BF16",
+        "context_tokens": 4096,
+        "concurrency": 1,
+        "prefix_cache": "unknown",
+        "thinking": false,
+        "tokenizer_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "template_source": "pinned-upstream-pending-native-validation",
+        "verification": "operator-must-verify-before-running",
+        "runtime": "vllm",
+        "kora_execution_control": false,
+        "template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+      }
+    },
+    "identity": {
+      "model_repository": "Qwen/Qwen3-30B-A3B",
+      "model_revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+      "quantization": "BF16",
+      "context_tokens": 4096,
+      "concurrency": 1,
+      "prefix_cache": "unknown",
+      "thinking": false,
+      "tokenizer_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "template_source": "pinned-upstream-pending-native-validation",
+      "verification": "operator-must-verify-before-running",
+      "runtime": "vllm",
+      "kora_execution_control": false,
+      "template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    }
+  }
+}
