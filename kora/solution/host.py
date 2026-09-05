@@ -206,7 +206,7 @@ class LocalSolutionHost:
                 "unsupported_runtime_task_kind",
                 "bounded reference Host accepts only deterministic Task Graph nodes",
             )
-        resolved = self._resolve_runtime(manifest, graph)
+        resolved = self._resolve_runtime(manifest, graph, package)
         report = dict(report)
         report["runtime_resolution"] = resolved.identity
         return report
@@ -325,7 +325,7 @@ class LocalSolutionHost:
             graph_payload = load_json_object(package / manifest["graph"]["source"])
             graph = normalize_graph(TaskGraph.model_validate(graph_payload))
             validate_graph(graph)
-            resolved_runtime = self._resolve_runtime(manifest, graph)
+            resolved_runtime = self._resolve_runtime(manifest, graph, package)
             status["runtime"] = resolved_runtime.identity
             self._persist_status(run_directory, status)
 
@@ -434,6 +434,21 @@ class LocalSolutionHost:
             raise SolutionHostError("invalid_result_envelope", "result envelope failed validation") from exc
         return payload
 
+    def node_evidence(self, run_id: str) -> dict[str, Any]:
+        """Read the optional versioned node trace for an initialized node run."""
+        path = self._run_path(run_id) / "node-evidence.json"
+        if path.is_symlink() or not path.is_file():
+            raise SolutionHostError("node_evidence_not_found", "node evidence was not found")
+        try:
+            payload = load_json_object(path)
+            validate_contract_instance("node-evidence.schema.json", payload)
+            ids = [node["node_id"] for node in payload["nodes"]]
+            if len(ids) != len(set(ids)):
+                raise ValueError("duplicate node identities")
+        except (OSError, TypeError, ValueError, SolutionContractError) as exc:
+            raise SolutionHostError("invalid_node_evidence", "node evidence failed validation") from exc
+        return payload
+
     def runtimes(self) -> dict[str, Any]:
         """Return integrity-verified local runtime registrations."""
 
@@ -452,7 +467,17 @@ class LocalSolutionHost:
         self,
         manifest: dict[str, Any],
         graph: TaskGraph,
+        package: Path,
     ) -> ResolvedRuntime:
+        if "execution" in manifest["graph"]:
+            from .node_execution import NodeCoordinator, load_node_plan
+
+            try:
+                plan = load_node_plan(package, manifest["graph"]["execution"], graph)
+                return NodeCoordinator(plan, graph, self.runtime_registry).resolve()
+            except CapabilityRegistryError as exc:
+                raise SolutionHostError(exc.code, exc.detail) from exc
+
         required_capabilities = {
             task.run.spec.handler
             for task in graph.tasks

@@ -283,3 +283,16 @@ Deferred:
 These references prove only a bounded architecture path. The Research Foundry package uses one synthetic PDF and is not a commercial-Solution selection. The references do not establish production readiness, workload quality, customer savings, or commercial-product selection.
 
 See [Task 022: Existing Vertical Migration Readiness](reports/task022-existing-vertical-migration-readiness.md) for the inventory, migration gaps, frozen slice, and deferred work.
+
+
+## Experimental typed node execution
+
+Packages may opt into an integrity-bound `graph.execution` plan with
+`kora.node-execution/v1`. This path validates typed input/output bindings and
+resolves trusted deterministic runtimes per node. Packages without the field
+retain graph-wide resolution; older strict validators reject the new field.
+See [typed node execution](typed-node-execution.md) for the bounded contract,
+evidence schema, compatibility and limitations, and
+[benchmark scenarios](benchmark-scenario-contract.md) for measured versus planned
+comparison paths. This extension does not enable network, model, GPU or cluster
+execution.

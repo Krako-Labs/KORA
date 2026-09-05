@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "measurement_kind",
+    "system_set",
+    "timing_scope",
+    "cache_condition",
+    "package_digest",
+    "input_digest",
+    "expected_digest",
+    "samples"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "kora.benchmark.local/v1"
+    },
+    "measurement_kind": {
+      "const": "measured-local-deterministic"
+    },
+    "system_set": {
+      "const": "local-development"
+    },
+    "timing_scope": {
+      "const": "client-host-run-including-validation-and-persistence"
+    },
+    "cache_condition": {
+      "const": "no-result-reuse-page-cache-uncontrolled"
+    },
+    "package_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "input_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "expected_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sequence",
+          "run_id",
+          "status",
+          "elapsed_ms",
+          "quality_pass",
+          "output_digest",
+          "deterministic_nodes_completed",
+          "model_calls",
+          "exact_reuse_hits",
+          "input_tokens",
+          "generated_tokens",
+          "ttft_ms",
+          "error_code"
+        ],
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "run_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "status": {
+            "enum": [
+              "succeeded",
+              "failed"
+            ]
+          },
+          "elapsed_ms": {
+            "type": "number",
+            "minimum": 0
+          },
+          "quality_pass": {
+            "type": "boolean"
+          },
+          "output_digest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "deterministic_nodes_completed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "model_calls": {
+            "const": 0
+          },
+          "exact_reuse_hits": {
+            "const": 0
+          },
+          "input_tokens": {
+            "type": "null"
+          },
+          "generated_tokens": {
+            "type": "null"
+          },
+          "ttft_ms": {
+            "type": "null"
+          },
+          "error_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

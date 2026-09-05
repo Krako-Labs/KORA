@@ -183,6 +183,8 @@ def _validate_integrity(root: Path, manifest: dict[str, Any]) -> list[str]:
         manifest["graph"]["source"],
         manifest["outputs"]["schema"],
     }
+    if "execution" in manifest["graph"]:
+        referenced.add(manifest["graph"]["execution"])
     missing = sorted(referenced - set(expected_files))
     if missing:
         raise SolutionValidationError(
@@ -345,6 +347,20 @@ def validate_solution_package(
         manifest,
         available_capabilities=capabilities,
     )
+
+    if "execution" in manifest["graph"]:
+        from .node_execution import load_node_plan
+
+        execution_path = _resolve_package_file(
+            root, manifest["graph"]["execution"], code="task_graph_error"
+        )
+        try:
+            load_node_plan(
+                root, execution_path.relative_to(root).as_posix(),
+                normalize_graph(TaskGraph.model_validate(_load_json(graph_path, code="task_graph_error"))),
+            )
+        except (ValueError, TypeError, KeyError) as exc:
+            raise _issue("task_graph_error", "invalid node execution contract", manifest["graph"]["execution"]) from exc
 
     return {
         "status": "valid",

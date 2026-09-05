@@ -1,0 +1,39 @@
+{
+  "apiVersion": "kora.dev/v0alpha1",
+  "kind": "Solution",
+  "metadata": {
+    "id": "example.typed-node",
+    "version": "0.1.0"
+  },
+  "requires": {
+    "kora": ">=0.1.0a0,<0.2",
+    "capabilities": [
+      "det.echo",
+      "text.normalize"
+    ]
+  },
+  "inputs": {
+    "schema": "schemas/input.schema.json"
+  },
+  "graph": {
+    "source": "graph/workflow.json",
+    "execution": "graph/execution.json"
+  },
+  "outputs": {
+    "schema": "schemas/output.schema.json"
+  },
+  "policy": {
+    "network": "denied",
+    "sideEffects": [],
+    "approvals": []
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "files": {
+      "graph/execution.json": "18156e6dcda7ee0fd7dbcbf554780aef48f008a2829766a111ed41ce6f0025b3",
+      "graph/workflow.json": "877995c7ba300a8b64ab155be5b93d7cf84a8b8e596509aa794b03e21b709c39",
+      "schemas/input.schema.json": "93a255904f9ee520ff3ec727e0c592c76eabd113b1370db1ca548162ae2bd8b7",
+      "schemas/output.schema.json": "93a255904f9ee520ff3ec727e0c592c76eabd113b1370db1ca548162ae2bd8b7"
+    }
+  }
+}

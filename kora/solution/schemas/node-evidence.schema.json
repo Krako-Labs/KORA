@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "nodes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "kora.node-evidence/v1"
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node_id",
+          "capability",
+          "runtime",
+          "state",
+          "input_valid",
+          "output_valid",
+          "error"
+        ],
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "capability": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "version",
+              "descriptor_digest"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "descriptor_digest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          },
+          "state": {
+            "enum": [
+              "pending",
+              "validating",
+              "running",
+              "succeeded",
+              "failed",
+              "skipped"
+            ]
+          },
+          "input_valid": {
+            "type": "boolean"
+          },
+          "output_valid": {
+            "type": "boolean"
+          },
+          "error": {
+            "enum": [
+              null,
+              "node_execution_failed"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "succeeded"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "input_valid": {
+                  "const": true
+                },
+                "output_valid": {
+                  "const": true
+                },
+                "error": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "failed"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "error": {
+                  "const": "node_execution_failed"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "error": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
