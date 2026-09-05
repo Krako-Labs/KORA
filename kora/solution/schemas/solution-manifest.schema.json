@@ -68,6 +68,9 @@
       "properties": {
         "source": {
           "$ref": "#/$defs/packagePath"
+        },
+        "execution": {
+          "$ref": "#/$defs/packagePath"
         }
       }
     },

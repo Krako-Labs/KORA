@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "nodes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "kora.node-execution/v1"
+    },
+    "nodes": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 64,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bindings",
+          "input_schema",
+          "output_schema"
+        ],
+        "properties": {
+          "bindings": {
+            "type": "object",
+            "maxProperties": 128,
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "path"
+              ],
+              "properties": {
+                "source": {
+                  "enum": [
+                    "input",
+                    "node"
+                  ]
+                },
+                "node": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "path": {
+                  "type": "array",
+                  "maxItems": 16,
+                  "items": {
+                    "type": "string",
+                    "maxLength": 128
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "source": {
+                        "const": "node"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "node"
+                    ]
+                  },
+                  "else": {
+                    "not": {
+                      "required": [
+                        "node"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "input_schema": {
+            "type": "object"
+          },
+          "output_schema": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

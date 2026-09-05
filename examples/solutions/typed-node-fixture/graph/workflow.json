@@ -1,0 +1,52 @@
+{
+  "graph_id": "example.typed-node",
+  "version": "0.1",
+  "root": "echo",
+  "defaults": {
+    "budget": {
+      "max_tokens": 0,
+      "max_retries": 0,
+      "max_time_ms": 1000
+    }
+  },
+  "tasks": [
+    {
+      "id": "normalize",
+      "type": "deterministic",
+      "deps": [],
+      "in": {},
+      "run": {
+        "kind": "det",
+        "spec": {
+          "handler": "text.normalize",
+          "args": {
+            "trim": true
+          }
+        }
+      },
+      "policy": {
+        "on_fail": "fail"
+      },
+      "tags": []
+    },
+    {
+      "id": "echo",
+      "type": "deterministic",
+      "deps": [
+        "normalize"
+      ],
+      "in": {},
+      "run": {
+        "kind": "det",
+        "spec": {
+          "handler": "det.echo",
+          "args": {}
+        }
+      },
+      "policy": {
+        "on_fail": "fail"
+      },
+      "tags": []
+    }
+  ]
+}

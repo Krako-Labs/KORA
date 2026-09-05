@@ -1,0 +1,77 @@
+{
+  "schema_version": "kora.node-execution/v1",
+  "nodes": {
+    "normalize": {
+      "bindings": {
+        "text": {
+          "source": "input",
+          "path": [
+            "text"
+          ]
+        }
+      },
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "trim": {
+            "type": "boolean"
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "echo": {
+      "bindings": {
+        "text": {
+          "source": "node",
+          "node": "normalize",
+          "path": [
+            "text"
+          ]
+        }
+      },
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "kora.benchmark.plan/v1",
+  "status": "configuration-frozen-execution-unverified",
+  "model": {
+    "repository": "Qwen/Qwen3-30B-A3B",
+    "revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+    "tokenizer_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "capacity_candidate": null
+  },
+  "local": {
+    "runtime": "llama.cpp",
+    "commit": "4d9176092d00586775af140581bb0b558ddc4389",
+    "backend": "Metal",
+    "artifact": {
+      "repository": "Qwen/Qwen3-30B-A3B-GGUF",
+      "revision": "e4d4bafdfb96a411a163846265362aceb0b9c63a",
+      "file": "Qwen3-30B-A3B-Q4_K_M.gguf",
+      "bytes": 18556685824,
+      "sha256": "0d003f6662faee786ed5da3e31b29c978de5ae5d275c8794c606a7f3c01aa8f5"
+    },
+    "installed_verified": false
+  },
+  "h100_primary": {
+    "runtime": "vllm",
+    "version": "0.28.0",
+    "torch": "2.13.0",
+    "transformers": "5.16.1",
+    "dtype": "bfloat16",
+    "kora_execution_control": false,
+    "model_installed_verified": false,
+    "comparison_label": "native-configuration-work-outcome-not-hardware-only"
+  },
+  "h100_controlled": {
+    "runtime": "llama.cpp",
+    "commit": "4d9176092d00586775af140581bb0b558ddc4389",
+    "backend": "CUDA",
+    "artifact": "same-as-local",
+    "kora_execution_control": false,
+    "role": "supplementary-matched-artifact-control"
+  },
+  "generation": {
+    "context_tokens": 4096,
+    "max_new_tokens": 128,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "seed": 42,
+    "thinking": false,
+    "concurrency": 1
+  },
+  "measurement": {
+    "warmup_runs": 3,
+    "repetitions_per_case": 5,
+    "timeout_seconds": 120,
+    "primary": "quality-pass-completion-time",
+    "cold_load_measured_separately": true,
+    "failed_runs_retained": true,
+    "prefix_cache": "disabled-for-inference-control",
+    "exact_reuse": "disabled-except-explicit-workflow-reuse-arm",
+    "token_accounting": "actual-engine-tokenizer-counts-only"
+  },
+  "cluster": {
+    "mode": "task-distribution-not-model-sharding",
+    "memory_pooling": false,
+    "model_replicas": 1,
+    "deterministic_worker_nodes": 1
+  },
+  "release_gates": [
+    "runtime build verification",
+    "artifact byte-hash and tokenizer/template verification",
+    "dedicated H100 benchmark availability",
+    "cluster transport measurements",
+    "model smoke and quality validation"
+  ],
+  "sources": [
+    "https://huggingface.co/Qwen/Qwen3-30B-A3B",
+    "https://huggingface.co/Qwen/Qwen3-30B-A3B-GGUF",
+    "https://github.com/ggml-org/llama.cpp",
+    "https://docs.vllm.ai/en/stable/features/quantization/gguf/"
+  ]
+}
