@@ -106,3 +106,15 @@ requests passed6/12. All outcomes remain recorded. The worker deliberately admit
 one job at a time and refuses overlapping work; this harness has no shared queue.
 These small observations describe admission behavior, not a throughput advantage.
 Cold-start inference remains unmeasured.
+
+## Process-start follow-up
+
+Three MP model-process restarts passed18/18: first requests3/3 and subsequent
+requests15/15. First-request median557.41ms (531.39–590.95); resident median517.40ms
+(467.28–580.54). OS/file caches were not cleared. This is process-start evidence,
+not storage-cold or statistically conclusive latency evidence. An initial operational
+measurement attempt stopped on child reaping; the model was restored, the helper
+repaired and subsequent samples saved incrementally. The interrupted attempt is
+recorded separately and is not silently counted as a successful full sample.
+The available browser rejected both private-loopback and isolated-preview navigation;
+visual QA remains unverified. No workaround bypassing browser policy was used.
