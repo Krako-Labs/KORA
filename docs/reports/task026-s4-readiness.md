@@ -1,88 +1,100 @@
-# Task 026 — S4 validation, publication and rehearsal
+# Task026 — S4 exhibition readiness
 
-Status: in progress.
-Base: `e0e85aff366adedccd454cda6d11955417421dd3`.
-Feature freeze: no new product capability is part of this task.
+Status: S4 mandatory evidence gates passed on the frozen Task026 candidate. PR review remains required before merge.
+
+Classification: needs-cto-review.
+
+Frozen base and rehearsal source: `2f59cec7a6e092abc14f36124e4bc8ce246e17f4`.
+
+Feature freeze remains in effect. This report records validation evidence only; it does not add product capability, expand public claims, authorize merge, or constitute a release.
 
 ## Objective
 
-Produce a reproducible exhibition candidate from the merged three-system comparison
-without expanding performance or quality claims. S4 closes validation, recovery,
-documentation and rehearsal gaps. A failed or inaccessible gate stays visible.
+Demonstrate a repeatable exhibition path for the local three-system comparison using frozen synthetic/reference fixtures, while preserving failure visibility, native-resource ownership checks, browser interaction evidence, representative older-device evidence, and explicit claim boundaries.
 
 ## Acceptance matrix
 
-| Gate | Required evidence | Current state |
+| Gate | Result | Bounded evidence |
 |---|---|---|
-| Source and regression | Clean source checkout, dependency install, full regression and static checks | Pending on an authorized execution host |
-| Package install | Fresh environment install and packaged dashboard asset smoke | Pending |
-| Three-system smoke | Fixed D, M and W runs with failures retained | Pending S4 rerun |
-| Recovery | Controller restart, recorded-run recovery, worker restart and tunnel recovery | Pending |
-| Visual interaction QA | Controls, changed input, cards, labels, history and JSON export inspected | Blocked: the available browser rejected private loopback navigation on 2026-09-07 |
-| Older-device matrix | Representative devices measured or explicitly labelled inaccessible/incompatible | Blocked: no configured older-device endpoint |
-| Half-day rehearsal | Fixed version operated for at least four hours with incident and recovery log | Pending |
-| Public claim review | No broad quality, production, cost, energy or hardware-superiority claim | Pending final review |
-| Final readiness | All mandatory gates passed or a maintainer explicitly reduces scope | Not ready |
+| Frozen source and regression | PASS | `origin/main` was re-fetched and matched the frozen rehearsal commit. Fresh Python 3.13 validation completed with `749 passed`. |
+| Package/build path | PASS | Fresh sdist and wheel built; benchmark HTML/CSS/JS assets were present in both artifacts; the wheel installed in an isolated environment and the packaged CLI/assets smoke passed. |
+| Three-system native smoke | PASS | Five fresh HTTP batches completed across MP, two-Mac cluster, and native H100 execution. All recorded quality rows passed. Deterministic-only H100-column work is controller CPU work and is not GPU evidence. |
+| Recovery behavior | PASS, bounded | Controller restart, worker identity restart, and tunnel-loss/recovery drills were exercised during Task026/S3-close validation. Worker identity changes are boot-ID bound so stale reuse is not accepted across a restarted worker. H100 borrowing was restored to the prior shared service and the lease was released. |
+| Browser visual/interaction QA | PASS | Google Chrome interaction validation passed at 1440x900, 1024x768, and 768x900 with no horizontal overflow; controls, changed-input preview, history/recorded state, JSON export, keyboard focus order, and a deterministic UI run were exercised. |
+| Representative older-device path | PASS, bounded | Two Mac Studio M2 Max / 32 GB endpoints executed frozen fixture roles successfully. A fresh wheel also installed and passed CLI smoke on the M2 Max validation host. CLI package-path peak RSS was 43,679,744 bytes with a 121 ms observed wall time for `python -m kora --help`; this is not model-inference memory or a performance comparison. |
+| Four-hour rehearsal | PASS | The frozen candidate ran for 14,400.927 seconds with 50 periodic health samples. Controller, required listeners, and all three non-H100 worker endpoints remained healthy in every sample. Native H100 had already passed fresh preflight and was deliberately released rather than held during the long persistence window. |
+| Public claim/privacy review | PASS | Only bounded synthetic/reference evidence is summarized here. No raw provider responses, private hostnames, IP addresses, credentials, tokens, billing data, raw infrastructure logs, or local filesystem paths are added. |
+| Final S4 readiness | PASS for exhibition evidence | The frozen S4 exhibition evidence set is complete. This does not imply production readiness and does not remove the human merge/release approval gates. |
 
-## Frozen rehearsal protocol
+## Fresh native acceptance
 
-1. Record commit, machine identities, runtime/model identities, configuration hashes
-   and start time.
-2. Start authenticated workers and SSH tunnels; verify health without exposing the
-   loopback controller.
-3. Run the fixed deterministic, model and mixed scenarios. Preserve blocked and
-   failed rows in the denominator.
-4. Exercise original, exact repeat and changed-input cases. Confirm repeats report
-   zero new model calls only when the recorded reuse boundary is satisfied.
-5. Restart the controller and confirm saved runs are labelled recorded; interrupt
-   one disposable run and confirm it is labelled interrupted.
-6. Restart one worker and confirm stale identity does not reuse prior model results.
-7. Export JSON and reconcile its counts with visible cards and durable result lines.
-8. Continue a minimum four-hour operating window. Record load caveats and incidents;
-   do not infer hardware superiority from uncontrolled timings.
-9. Stop owned benchmark services, restore any borrowed native service, verify its
-   health and release its lease.
+Five fresh comparison batches were recorded against the frozen Task026 code and fixtures:
 
-## Visual checklist
+| Scenario | Reuse | Changed input | Repetitions | MP | Two-Mac cluster | Native column |
+|---|---:|---:|---:|---:|---:|---:|
+| D | off | no | 5 | 30/30 | 30/30 | 30/30 controller CPU only |
+| M | off | no | 5 | 30/30 | 30/30 | 30/30 |
+| W | on | no | 2 | 12/12 | 12/12 | 12/12 |
+| W | on | yes | 2 | 12/12 | 12/12 | 12/12 |
+| W | off | no | 5 | 30/30 | 30/30 | 30/30 |
 
-The reviewer must inspect the actual rendered page, not only API responses:
+For each reuse-enabled W batch, MP and cluster executed six model calls, generated 60 output tokens, and reused 12 task nodes. The native path executed 12 model calls and 120 output tokens because KORA exact-result reuse is not applied there. These counts describe the frozen harness only; they do not establish general cost, throughput, or quality claims.
 
-- scenario, input, repetition, reuse and changed-input controls;
-- progress and final session state;
-- all three result columns at supported viewport sizes;
-- quality, elapsed time, calls, tokens and reused-node counters;
-- blocked and failed native rows;
-- comparison-configuration disclosure;
-- saved-run ordering and recorded/interrupted labels;
-- JSON export contents and filename;
-- legibility, overflow, focus order and keyboard operation.
+A guarded-off follow-up retained H100 model rows as explicit blocked outcomes when no native execution window was active. Blocked rows were not rewritten as success or dropped from the record.
 
-A screenshot alone is insufficient for interaction acceptance. API tests remain
-useful evidence but do not pass this gate.
+## Visual and interaction evidence
 
-## Older-device protocol
+The local comparison UI was exercised in Google Chrome rather than inferred from HTTP tests. Validation covered three viewport sizes, control visibility, three result cards, changed-input preview, disabling exact reuse for the model-only scenario, recorded-history labeling, JSON export, keyboard tab order, disclosure controls, and an end-to-end deterministic UI run. The deterministic UI run collected 3/3 results and displayed completion normally.
 
-For each representative device, record model identifier, chip, memory, OS, runtime,
-model/quantization, workload, completion time, quality result, actual calls/tokens,
-peak memory when available, errors and a reproducible command. “Inaccessible” and
-“unsupported” are different outcomes; do not infer unsupported from missing access.
-Older-device work must not change the frozen three-system implementation.
+This is browser behavior evidence for the tested local UI and viewports, not proof for every browser, operating system, accessibility configuration, or device size.
 
-## Hard stops
+## Representative older-device evidence
 
-- Do not add features after freeze; move them to a later sprint.
-- Do not expose worker endpoints or the controller publicly for visual QA.
-- Do not stop or replace an unrelated GPU service without an authorized window,
-  live ownership checks, restoration and lease release.
-- Do not mark exhibition-ready while visual QA, older-device labeling or the
-  half-day rehearsal lacks evidence.
-- Do not publish general quality, production, cost, energy or hardware claims from
-  these synthetic fixtures.
+The available representative older class was Mac Studio `Mac14,13`, Apple M2 Max, 32 GB, macOS 26.6.2. Two endpoints of that class were exercised: one as the model worker for a fixed M fixture and one as the deterministic worker for a fixed D fixture. Both fixture roles passed their registered quality checks. The model-worker sample executed one actual model call; the deterministic sample executed no model call.
 
-## Initial S4 observation
+The model-worker sample did not capture model-process peak memory, so no model-memory claim is made. Separately, the final wheel was installed into an isolated Python 3.13 environment on the same representative hardware class and passed CLI/package-path smoke. That CLI-only measurement observed 43,679,744 bytes peak RSS and about 121 ms wall time for `python -m kora --help`. It must not be interpreted as inference memory, inference latency, or hardware superiority.
 
-A fresh browser attempt on 2026-09-07 could not navigate to the private loopback
-dashboard because the browser environment blocked the local address. No policy
-bypass, public exposure or alternate untrusted tunnel was attempted. The visual
-gate remains open. Work on all independent gates may proceed in parallel when an
-authorized execution host is connected.
+Both measured endpoints are the same hardware class. This evidence therefore establishes only a bounded representative older-device path, not broad Mac compatibility.
+
+## Recovery and persistence evidence
+
+Task026 validation exercised recovery at the benchmark-control layer: the controller was restarted, benchmark-worker identities were restarted during the validation sequence, and worker tunnels were recovered after connection loss. The worker protocol binds requests and reuse identity to the worker boot ID, preventing a prior worker identity from being silently treated as the restarted worker. Operational details and raw logs remain private.
+
+The native preflight was followed by restoration checks: the temporary native execution window ended, the prior shared service returned healthy with the expected model identity, and no active Task026 lease remained.
+
+The four-hour persistence rehearsal then ran without holding the shared H100 resource. It recorded 50 health samples over 14,400.927 seconds; all sampled controller, listener, and worker checks passed. Background load and warm state were uncontrolled, so this persistence result is not a latency, throughput, energy, or hardware-comparison benchmark.
+
+## Final source/package validation
+
+Fresh validation on the current frozen source produced:
+
+- `python -m pytest -q`: `749 passed`.
+- repository release smoke: PASS.
+- `ruff check kora/benchmarks`: PASS.
+- Python compile check for `kora`: PASS.
+- JavaScript syntax check for the comparison UI asset: PASS.
+- sdist + wheel build: PASS.
+- benchmark HTML/CSS/JS inclusion in both package artifacts: PASS.
+- isolated wheel install, packaged dashboard asset read, and CLI smoke: PASS.
+
+A broader advisory Ruff scan across the entire historical test tree reports pre-existing style findings and is not a repository CI gate. This documentation-only PR does not modify those test files. The full regression remains green.
+
+## Claim boundary and non-claims
+
+This evidence supports only the frozen exhibition workflow and the specific synthetic/reference cases described above. It does not establish:
+
+- production readiness or production workload coverage;
+- general output-quality superiority or broad workload representativeness;
+- production cost reduction, real API/GPU cost savings, or customer savings;
+- H100, GPU, CPU, M3 Max, or M2 Max performance superiority;
+- multi-GPU scaling or both-GPU active-use claims;
+- provider, model-serving, or GPU-serving replacement;
+- general cold-start performance, because storage/OS caches were not controlled;
+- broad browser, operating-system, or older-Mac compatibility;
+- a published package, release, or `getkora` availability.
+
+No release, tag, publication, repository-settings change, raw benchmark artifact upload, or public claim expansion is authorized by this report.
+
+## Stop gate
+
+S4 mandatory exhibition-evidence gates are complete for this frozen candidate. The PR may be opened for human review, but the classification remains `needs-cto-review` because the change summarizes claim-sensitive runtime, hardware, and H100 evidence. Merge, release, tags, publication, and any broader public positioning remain explicit approval gates.
