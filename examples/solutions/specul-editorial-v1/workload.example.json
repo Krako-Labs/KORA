@@ -1,0 +1,17 @@
+{
+  "brief": {
+    "title_seed": "A bounded editorial workload",
+    "target_reader": "Independent AI builders",
+    "reader_promise": "Show how execution choices can be made explicit without inventing evidence."
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "text": "A local workflow can separate deterministic validation from model-backed semantic work. This synthetic example is not production evidence."
+    },
+    {
+      "id": "S2",
+      "text": "Exact-result reuse is only safe when input and execution identity are unchanged. Changed inputs must invalidate reuse."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "kora.workload-template/v1",
+  "upstream": {
+    "product": "Specul.AI Content OS",
+    "frozen_revision": "de2f302326bb79ca541ccab099295c73fe2dce06"
+  },
+  "nodes": [
+    {"id":"research","tier":"routine","cacheable":true,"purpose":"Extract bounded source evidence and limitations."},
+    {"id":"synthesis","tier":"frontier","cacheable":true,"purpose":"Synthesize the argument from evidence."},
+    {"id":"draft","tier":"frontier","cacheable":true,"purpose":"Produce the canonical draft."},
+    {"id":"claim_review","tier":"routine","cacheable":true,"purpose":"Map draft claims to supplied evidence and flag unsupported claims."},
+    {"id":"editorial_review","tier":"routine","cacheable":true,"purpose":"Return bounded editorial findings."},
+    {"id":"revision","tier":"frontier","cacheable":true,"purpose":"Revise from evidence and resolved findings."}
+  ],
+  "policy_examples": {
+    "baseline_frontier": {"routine": "frontier_byok", "frontier": "frontier_byok", "exact_reuse": false, "context_mode": "full"},
+    "kora_local_first": {"routine": "local", "frontier": "frontier_byok", "exact_reuse": true, "context_mode": "brief+deps"},
+    "local_control": {"routine": "local", "frontier": "local", "exact_reuse": true, "context_mode": "brief+deps"}
+  },
+  "boundary": "This template is an integration contract, not a copy of Specul.AI source code or content."
+}

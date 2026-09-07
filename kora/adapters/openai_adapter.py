@@ -61,6 +61,22 @@ class OpenAIAdapter(BaseAdapter):
         self.max_output_tokens = max_output_tokens
         self.endpoint = "https://api.openai.com/v1/responses"
 
+
+    def cache_identity(self) -> dict[str, Any]:
+        """Return explicit non-secret identity used to bind exact-result reuse."""
+        cache_id = os.getenv("KORA_OPENAI_CACHE_ID", "").strip()
+        if not cache_id:
+            raise RuntimeError(
+                "KORA_OPENAI_CACHE_ID is required before remote OpenAI results may be reused exactly"
+            )
+        return {
+            "adapter": "openai",
+            "endpoint": self.endpoint,
+            "model": self.model,
+            "cache_id": cache_id,
+            "max_output_tokens_override": self.max_output_tokens,
+        }
+
     def run(
         self,
         *,
