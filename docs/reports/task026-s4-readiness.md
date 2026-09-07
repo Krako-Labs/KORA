@@ -1,8 +1,8 @@
 # Task026 — S4 exhibition readiness
 
-Status: S4 mandatory evidence gates passed on the frozen Task026 candidate. PR review remains required before merge.
+Status: S4 mandatory evidence gates passed on the frozen Task026 candidate. Maintainer approval for this documentation merge was granted on 2026-09-08 KST.
 
-Classification: needs-cto-review.
+Classification: merge-ready.
 
 Frozen base and rehearsal source: `2f59cec7a6e092abc14f36124e4bc8ce246e17f4`.
 
@@ -97,4 +97,4 @@ No release, tag, publication, repository-settings change, raw benchmark artifact
 
 ## Stop gate
 
-S4 mandatory exhibition-evidence gates are complete for this frozen candidate. The PR may be opened for human review, but the classification remains `needs-cto-review` because the change summarizes claim-sensitive runtime, hardware, and H100 evidence. Merge, release, tags, publication, and any broader public positioning remain explicit approval gates.
+S4 mandatory exhibition-evidence gates are complete for this frozen candidate. Maintainer approval for this bounded documentation merge was granted on 2026-09-08 KST after the evidence and claim boundaries were reviewed. Release, tags, publication, and any broader public positioning remain separate explicit approval gates.
