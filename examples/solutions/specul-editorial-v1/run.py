@@ -11,7 +11,7 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
-from kora.adapters.openai_adapter import OpenAIAdapter
+from kora.adapters.openai_adapter import OpenAIAdapter, openai_api_key_configured
 from kora.adapters.openai_compatible_local import OpenAICompatibleLocalAdapter
 from kora.solution.contracts import canonical_json_bytes
 from kora.solution.economics import (
@@ -230,8 +230,10 @@ def adapters_for(policy_name: str) -> dict[str, Any]:
         raise RuntimeError(
             "KORA_LOCAL_OPENAI_RUNTIME_ID is required when local exact reuse is enabled"
         )
-    if needs_frontier and not os.getenv("OPENAI_API_KEY", "").strip():
-        raise RuntimeError("OPENAI_API_KEY is required for the selected frontier policy")
+    if needs_frontier and not openai_api_key_configured():
+        raise RuntimeError(
+            "an OpenAI credential is required: OPENAI_API_KEY or KORA_OPENAI_API_KEY_FILE"
+        )
     frontier_model = os.getenv("KORA_OPENAI_MODEL", "").strip() if needs_frontier else ""
     if needs_frontier and not frontier_model:
         raise RuntimeError(

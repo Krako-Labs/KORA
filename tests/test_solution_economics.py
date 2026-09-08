@@ -136,3 +136,28 @@ def test_openai_cache_identity_requires_explicit_cache_id(monkeypatch):
         adapter.cache_identity()
     monkeypatch.setenv("KORA_OPENAI_CACHE_ID","frontier-test-snapshot")
     assert adapter.cache_identity()["cache_id"]=="frontier-test-snapshot"
+
+
+def test_openai_api_key_file_configuration(tmp_path, monkeypatch):
+    from kora.adapters.openai_adapter import (
+        _openai_api_key_from_environment,
+        openai_api_key_configured,
+    )
+    key_file=tmp_path/"openai.key"
+    key_file.write_text("test-key-value")
+    env={"KORA_OPENAI_API_KEY_FILE":str(key_file)}
+    assert openai_api_key_configured(env) is True
+    assert _openai_api_key_from_environment(env)=="test-key-value"
+
+
+def test_openai_api_key_sources_are_mutually_exclusive(tmp_path):
+    import pytest
+
+    from kora.adapters.openai_adapter import _openai_api_key_from_environment
+    key_file=tmp_path/"openai.key"
+    key_file.write_text("file-key")
+    with pytest.raises(ValueError,match="either"):
+        _openai_api_key_from_environment({
+            "OPENAI_API_KEY":"direct-key",
+            "KORA_OPENAI_API_KEY_FILE":str(key_file),
+        })

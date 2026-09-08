@@ -33,7 +33,8 @@ def test_workload_loader_rejects_duplicate_source_ids(tmp_path):
 def test_frontier_policy_fails_closed_without_byok(monkeypatch):
     m = module()
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    with pytest.raises(RuntimeError, match="OPENAI_API_KEY"):
+    monkeypatch.delenv("KORA_OPENAI_API_KEY_FILE", raising=False)
+    with pytest.raises(RuntimeError, match="OpenAI credential"):
         m.adapters_for("frontier-baseline")
 
 
@@ -58,6 +59,7 @@ def test_nodes_bind_provenance_to_workload_source_ids():
 def test_frontier_policy_requires_explicit_model(monkeypatch):
     m=module()
     monkeypatch.setenv("OPENAI_API_KEY","test-only")
+    monkeypatch.delenv("KORA_OPENAI_API_KEY_FILE", raising=False)
     monkeypatch.delenv("KORA_OPENAI_MODEL",raising=False)
     with pytest.raises(RuntimeError,match="KORA_OPENAI_MODEL"):
         m.adapters_for("frontier-baseline")
@@ -73,6 +75,7 @@ def test_local_exact_reuse_requires_runtime_identity(monkeypatch):
 def test_local_first_requires_explicit_remote_cache_identity(monkeypatch):
     m=module()
     monkeypatch.setenv("OPENAI_API_KEY","test-only")
+    monkeypatch.delenv("KORA_OPENAI_API_KEY_FILE", raising=False)
     monkeypatch.setenv("KORA_OPENAI_MODEL","frontier-test")
     monkeypatch.setenv("KORA_LOCAL_OPENAI_RUNTIME_ID","local-runtime-test")
     monkeypatch.delenv("KORA_OPENAI_CACHE_ID",raising=False)

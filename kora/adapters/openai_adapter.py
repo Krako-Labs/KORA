@@ -46,6 +46,31 @@ def harden_schema_for_openai(schema: dict[str, Any]) -> dict[str, Any]:
     return hardened
 
 
+def _openai_api_key_from_environment(environ: dict[str, str] | None = None) -> str | None:
+    """Load the OpenAI API key from one explicit source without exposing it."""
+    source = os.environ if environ is None else environ
+    direct = source.get("OPENAI_API_KEY", "").strip()
+    key_file_raw = source.get("KORA_OPENAI_API_KEY_FILE", "").strip()
+    if direct and key_file_raw:
+        raise ValueError(
+            "configure either OPENAI_API_KEY or KORA_OPENAI_API_KEY_FILE, not both"
+        )
+    if direct:
+        return direct
+    if not key_file_raw:
+        return None
+    key_file = Path(key_file_raw).expanduser()
+    if key_file.is_symlink() or not key_file.is_file() or key_file.stat().st_size > 8192:
+        raise ValueError("KORA_OPENAI_API_KEY_FILE must be a bounded regular file")
+    key = key_file.read_text(encoding="utf-8").strip()
+    return key or None
+
+
+def openai_api_key_configured(environ: dict[str, str] | None = None) -> bool:
+    """Return whether an explicit OpenAI credential source is configured."""
+    return _openai_api_key_from_environment(environ) is not None
+
+
 class OpenAIAdapter(BaseAdapter):
     """OpenAI Responses API adapter using requests."""
 
@@ -86,11 +111,20 @@ class OpenAIAdapter(BaseAdapter):
         output_schema: dict[str, Any],
     ) -> dict[str, Any]:
         start = time.monotonic()
-        api_key = os.getenv("OPENAI_API_KEY")
+        try:
+            api_key = _openai_api_key_from_environment()
+        except (OSError, UnicodeError, ValueError) as exc:
+            return {
+                "ok": False,
+                "error": f"OpenAI credential configuration failed: {exc}",
+                "output": {},
+                "usage": {"time_ms": 0, "tokens_in": 0, "tokens_out": 0},
+                "meta": {"adapter": "openai", "model": self.model},
+            }
         if not api_key:
             return {
                 "ok": False,
-                "error": "OPENAI_API_KEY is missing",
+                "error": "OpenAI credential is missing; configure OPENAI_API_KEY or KORA_OPENAI_API_KEY_FILE",
                 "output": {},
                 "usage": {"time_ms": 0, "tokens_in": 0, "tokens_out": 0},
                 "meta": {"adapter": "openai", "model": self.model},

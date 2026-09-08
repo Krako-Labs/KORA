@@ -88,7 +88,7 @@ Therefore the intended frontier baseline versus local-first/frontier-escalation 
 
 The implementation now includes a runnable public Specul editorial harness, a provider-neutral economics runner, a loopback-only local-model adapter, persistent exact-result storage, identity-bound invalidation, dynamic provenance schemas, explicit frontier/local policies, and fail-closed missing-credential behavior. The Specul.AI upstream repository and production database remain unchanged.
 
-Frontier comparison policies require both an explicitly configured BYOK credential and an explicitly selected frontier model. The exact-reuse local-first policy additionally requires an explicit non-secret remote cache identity so an operator can invalidate prior frontier results when the remote serving identity/configuration may have changed. Missing configuration fails before a result file is created. No remote provider request has been made in this S5 checkpoint.
+Frontier comparison policies require an explicitly configured BYOK credential and an explicitly selected frontier model. The credential may be supplied directly through `OPENAI_API_KEY` or, preferably for local operations, through the path-only `KORA_OPENAI_API_KEY_FILE`; the key contents are not part of cache identity or public evidence. The exact-reuse local-first policy additionally requires an explicit non-secret remote cache identity so an operator can invalidate prior frontier results when the remote serving identity/configuration may have changed. Missing configuration fails before a result file is created. No remote provider request has been made in this S5 checkpoint.
 
 ## Pack candidates, not Packs
 
@@ -102,8 +102,8 @@ The Solution integration, local-model execution, persistent repeat/invalidation 
 
 Validation used a supported Python 3.13 environment on the authorized development host:
 
-- targeted S5 and adjacent-provider tests: `44 passed`;
-- full repository regression: `773 passed`;
+- targeted S5 and adjacent-provider tests: `46 passed`;
+- full repository regression: `775 passed`;
 - targeted Ruff on all changed Python implementation/example/test files: PASS;
 - Python compile check: PASS;
 - `git diff --check`: PASS;
