@@ -97,6 +97,7 @@ class OpenAICompatibleLocalAdapter(BaseAdapter):
             )
         return {
             "adapter": "openai_compatible_local",
+            "contract_version": "openai-compatible-local/v2-json-schema",
             "endpoint": self.endpoint,
             "model": self.model,
             "runtime_id": self.runtime_id,
@@ -136,7 +137,14 @@ class OpenAICompatibleLocalAdapter(BaseAdapter):
             ],
             "temperature": 0,
             "max_tokens": max_tokens,
-            "response_format": {"type": "json_object"},
+            "response_format": {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "kora_local_output",
+                    "strict": True,
+                    "schema": output_schema,
+                },
+            },
         }
         headers = {"Content-Type": "application/json"}
         if self.api_key:

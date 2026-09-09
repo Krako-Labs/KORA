@@ -54,6 +54,8 @@ def test_local_prompt_uses_required_key_hint_not_full_schema(monkeypatch):
     assert user["required_output_keys"]==["answer"]
     assert user["output_shape"]=={"answer":{"type":"string"}}
     assert "output_schema" not in user
+    assert captured["response_format"]["type"]=="json_schema"
+    assert captured["response_format"]["json_schema"]["schema"]==schema
 
 
 def test_local_api_key_file_is_supported_without_exposing_value(tmp_path, monkeypatch):
@@ -103,3 +105,12 @@ def test_cache_identity_requires_runtime_id_for_local_reuse():
     import pytest
     with pytest.raises(LocalOpenAICompatibleError,match="RUNTIME_ID"):
         adapter.cache_identity()
+
+
+def test_cache_identity_versions_local_json_schema_contract():
+    adapter=OpenAICompatibleLocalAdapter(environ={
+        "KORA_LOCAL_OPENAI_ENDPOINT":"http://127.0.0.1:9999",
+        "KORA_LOCAL_OPENAI_MODEL":"qwen",
+        "KORA_LOCAL_OPENAI_RUNTIME_ID":"runtime-test",
+    })
+    assert adapter.cache_identity()["contract_version"]=="openai-compatible-local/v2-json-schema"

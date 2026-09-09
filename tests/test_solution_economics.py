@@ -161,3 +161,126 @@ def test_openai_api_key_sources_are_mutually_exclusive(tmp_path):
             "OPENAI_API_KEY":"direct-key",
             "KORA_OPENAI_API_KEY_FILE":str(key_file),
         })
+
+
+def test_local_failure_escalates_to_frontier_and_records_event():
+    class FailingAdapter(FakeAdapter):
+        def cache_identity(self):
+            return {"model": "local-fail"}
+        def run(self,*,task_id,input,budget,output_schema):
+            self.calls+=1
+            raise RuntimeError("bounded local failure")
+    class FrontierAdapter(FakeAdapter):
+        def cache_identity(self):
+            return {"model": "frontier-ok"}
+    local=FailingAdapter("local")
+    frontier=FrontierAdapter("frontier")
+    r=WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("n","x","routine"),),
+        adapters={"local":local,"frontier":frontier},
+    )
+    policy=ExecutionPolicy(
+        "local-first",
+        {"routine":"local","frontier":"frontier"},
+        fallback_routes={"routine":"frontier"},
+    )
+    result=r.run(workload={"brief":{}},policy=policy)
+    assert local.calls==1
+    assert frontier.calls==1
+    assert result["escalations"]==1
+    assert result["events"][0]["route"]=="frontier"
+    assert result["events"][0]["escalated"] is True
+    assert result["events"][0]["primary_error_class"]=="RuntimeError"
+
+
+def test_fallback_identity_change_invalidates_exact_reuse():
+    class IdentityAdapter(FakeAdapter):
+        def cache_identity(self):
+            return {"model": self.name}
+    node=EconomicsNode("n","x","routine")
+    local=IdentityAdapter("local-v1")
+    r=WorkloadEconomicsRunner(
+        nodes=(node,),
+        adapters={"local":local,"frontier":IdentityAdapter("frontier-v1")},
+    )
+    policy=ExecutionPolicy(
+        "p",
+        {"routine":"local","frontier":"frontier"},
+        exact_reuse=True,
+        fallback_routes={"routine":"frontier"},
+    )
+    first=r.run(workload={"brief":{"x":1}},policy=policy)
+    assert first["model_calls"]==1
+    r.adapters["frontier"]=IdentityAdapter("frontier-v2")
+    second=r.run(workload={"brief":{"x":1}},policy=policy)
+    assert second["model_calls"]==1
+    assert second["exact_reuse_hits"]==0
+
+
+def test_fallback_enabled_persistent_repeat_reuses_without_model_calls(tmp_path):
+    class IdentityAdapter(FakeAdapter):
+        def cache_identity(self):
+            return {"model": self.name}
+    node=EconomicsNode("n","x","routine")
+    policy=ExecutionPolicy(
+        "p",
+        {"routine":"local","frontier":"frontier"},
+        exact_reuse=True,
+        fallback_routes={"routine":"frontier"},
+    )
+    first=WorkloadEconomicsRunner(
+        nodes=(node,),
+        adapters={"local":IdentityAdapter("local"),"frontier":IdentityAdapter("frontier")},
+        cache_directory=tmp_path,
+    )
+    assert first.run(workload={"brief":{"x":1}},policy=policy)["model_calls"]==1
+    second_local=IdentityAdapter("local")
+    second_frontier=IdentityAdapter("frontier")
+    second=WorkloadEconomicsRunner(
+        nodes=(node,),
+        adapters={"local":second_local,"frontier":second_frontier},
+        cache_directory=tmp_path,
+    )
+    result=second.run(workload={"brief":{"x":1}},policy=policy)
+    assert result["model_calls"]==0
+    assert result["exact_reuse_hits"]==1
+    assert second_local.calls==0
+    assert second_frontier.calls==0
+
+
+def test_openai_strict_structured_parser_rejects_incomplete_json():
+    import pytest
+
+    from kora.adapters.openai_adapter import OpenAIAdapter
+    assert OpenAIAdapter._parse_structured_text_output('{"ok":true}')=={"ok":True}
+    with pytest.raises(ValueError,match="invalid or incomplete"):
+        OpenAIAdapter._parse_structured_text_output('{"ok":')
+
+
+def test_openai_cache_identity_binds_contract_and_prompt_cache_mode(monkeypatch):
+    from kora.adapters.openai_adapter import OpenAIAdapter
+    monkeypatch.setenv("KORA_OPENAI_CACHE_ID","snapshot-test")
+    monkeypatch.setenv("KORA_OPENAI_DISABLE_PROMPT_CACHE","1")
+    identity=OpenAIAdapter(model="frontier-test").cache_identity()
+    assert identity["contract_version"]=="openai-responses/v2-strict-structured"
+    assert identity["provider_prompt_cache_disabled"] is True
+
+
+def test_selective_full_context_node_keeps_sources_only_where_declared():
+    class InspectAdapter(FakeAdapter):
+        def __init__(self,name): super().__init__(name); self.seen={}
+        def run(self,*,task_id,input,budget,output_schema):
+            self.seen[task_id]=input["workload"]
+            return super().run(task_id=task_id,input=input,budget=budget,output_schema=output_schema)
+    a=InspectAdapter("a")
+    nodes=(
+        EconomicsNode("research","r","routine"),
+        EconomicsNode("draft","d","frontier",("research",)),
+        EconomicsNode("review","v","frontier",("draft",)),
+    )
+    r=WorkloadEconomicsRunner(nodes=nodes,adapters={"a":a})
+    p=ExecutionPolicy("p",{"routine":"a","frontier":"a"},context_mode="brief+deps",full_context_nodes=("draft",))
+    r.run(workload={"brief":{"x":1},"sources":[{"text":"evidence"}]},policy=p)
+    assert "sources" in a.seen["research"]
+    assert "sources" in a.seen["draft"]
+    assert "sources" not in a.seen["review"]

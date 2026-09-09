@@ -2,7 +2,19 @@
   "brief": {
     "title_seed": "A bounded editorial workload",
     "target_reader": "Independent AI builders",
-    "reader_promise": "Show how execution choices can be made explicit without inventing evidence."
+    "reader_promise": "Show how execution choices can be made explicit without inventing evidence.",
+    "quality_floor": {
+      "min_article_chars": 6500,
+      "max_article_chars": 12500,
+      "min_article_words": 1000,
+      "max_article_words": 1800,
+      "target_article_chars": 8500,
+      "target_article_words": 1300,
+      "required_source_ids": [
+        "S1",
+        "S2"
+      ]
+    }
   },
   "sources": [
     {

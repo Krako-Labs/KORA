@@ -1,118 +1,122 @@
 # Task027 — S5 first real KORA Solution integration and economics
 
-Status: bounded local dogfooding complete; frontier BYOK economics blocked because no provider credential is configured in the authorized execution environment. Current KORA development cycle is not closed on frontier-cost evidence.
+Status: **completed negative/learning sprint, pending maintainer merge approval**. The bounded S5 implementation and evidence package are complete. First-run context/token economics improved in the frozen final holdout, but semantic non-regression was **not established**; therefore S5 does not support a quality-preserving or general savings claim.
+
 Base: `53ab9bd6323f7c1109a06a26270e432e8908c00a`.
 
 ## Objective
 
-Use an independently developed Specul.AI Content OS editorial workflow as the first bounded real-service dogfooding workload for KORA. Preserve Specul as an independent upstream. Measure only the incremental effect of KORA routing/reuse/local execution relative to Specul's existing deterministic control plane.
+Use an independently developed Specul.AI Content OS editorial workflow as the first bounded real-service dogfooding workload for KORA. Preserve Specul as an independent upstream and measure only incremental KORA execution behavior rather than counting Specul's existing deterministic control plane as KORA savings.
 
-## Frozen upstream
+## Frozen upstream and hard boundaries
 
 - Product: Specul.AI Content OS / Publishing.
 - Canonical upstream revision for S5: `de2f302326bb79ca541ccab099295c73fe2dce06`.
-- Upstream remains read-only during this sprint.
-- Existing Specul deterministic validation/state/versioning work is baseline capability and must not be counted as KORA savings.
-
-## In scope
-
-1. Define a provider-neutral editorial workload contract and telemetry schema.
-2. Add a bounded Specul adapter that accepts immutable brief/research/evidence inputs without modifying the Specul repo.
-3. Support explicit execution policies for baseline-frontier and KORA-routed execution using already configured adapters/resources.
-4. Record per-node execution kind, provider/model identity label, calls, input/output tokens, elapsed time, reuse, and quality checks.
-5. Calibration on the already-reviewed upstream article is evaluator/harness validation only; no savings claim.
-6. Run at least one fresh unseen editorial workload through both paths when configured resources are available.
-7. Run exact-repeat and changed-input cases to verify reuse/invalidation boundaries.
-8. Preserve failures and unfavorable results.
-9. Produce a bounded S5 report and approval packet.
-
-## Quality floor
-
-The two compared paths receive the same workload inputs and are judged by the same structural/evidence requirements. No KORA result passes merely because it is cheaper. Existing Specul deterministic controls are not disabled in the baseline.
-
-## Hard boundaries
-
-- No write to the Specul.AI canonical repository or its production SQLite database.
-- No Substack/social publication or browser mutation.
-- No H100 use in S5 unless separately required and re-authorized.
-- No broad production, customer-savings, quality-superiority, representativeness, or hardware-superiority claim.
-- Raw provider responses, credentials, private endpoints, and private content are local evidence only.
-- No Pack is promoted from this one Solution; only Pack candidates may be recorded.
-
-## Done condition
-
-S5 closes only when the integration contract is tested, calibration succeeds, a fresh baseline/KORA comparison is either completed or explicitly blocked with the exact resource reason, repeat/changed-input semantics are tested, full regression passes, and the evidence/claim boundary is reviewed. A negative economics result is still a valid S5 result.
-
+- Upstream remained read-only during S5.
+- Existing Specul validation, state, versioning, and browser/draft controls are baseline capability and are not counted as KORA savings.
+- No public production-readiness, customer-savings, quality-superiority, representativeness, or hardware-superiority claim follows from S5.
+- Raw generated content, provider responses, credentials, private endpoints, and human-review artifacts remain outside the public repository unless separately reviewed and promoted.
 
 ## Implemented integration slice
 
-The S5 branch adds a provider-neutral workload-economics runner and a loopback-only OpenAI-compatible local adapter. The runner records node route, provider/model labels, actual model calls, input/output tokens reported by the runtime, elapsed time, exact-reuse hits, and output digests. It supports a full-context control and a `brief+deps` compact-context policy. Semantic outputs are schema-checked before they may enter the exact-reuse cache.
+The S5 branch adds a provider-neutral workload-economics runner, a loopback-only OpenAI-compatible local adapter, and an updated frontier adapter path. The runner records node routes, model calls, runtime-reported input/output tokens, elapsed time, exact-reuse hits, escalation events, provider token telemetry when available, and output digests. Semantic outputs are schema checked before they may be cached or propagated.
 
-The public Specul editorial template freezes only upstream revision `de2f302326bb79ca541ccab099295c73fe2dce06` and the six semantic work units: research, synthesis, draft, claim review, editorial review, and revision. No Specul source code, article text, database, credential, browser state, or raw model response is copied into the public repository.
+The public editorial template freezes the upstream revision and seven bounded semantic work units: research, synthesis, draft, claim review, editorial review, revision, and one bounded quality-repair step. Provenance fields are constrained to source IDs declared by the workload. The branch also adds node-specific output budgets and a richer bounded research-evidence contract.
 
-## Calibration evidence
+Persistent exact-result reuse binds the complete relevant execution identity, including the node instruction, dependencies, token budget, output contract, bound workload input, route, adapter identity, and declared non-secret serving identity. Cache entries are checksum checked and schema revalidated before reuse. Credentials are not part of cache identity or cache records.
 
-Calibration used the already-reviewed Specul article only to repair and verify the harness. Two early local calibration attempts exposed a provenance-contract defect: generated `claim_source_ids` could be dependency paths instead of source IDs. The attempts were retained locally as failed calibration evidence. The contract was tightened so synthesis/draft/revision preserve the upstream source-ID boundary. The third calibration passed the bounded title/article/provenance/resolved-findings checks for original, exact-repeat, and changed-input cases.
+## Execution policies
 
-Calibration results are not used as economics evidence because the source article and its prior reviewed outcome were already known.
+- `frontier-baseline`: frontier semantic execution with full context and no exact-result reuse. This is the quality/economics control.
+- `kora-auto`: frontier semantic execution with compact `brief+deps` context and persistent exact-result reuse. This was the primary S5 KORA comparison policy.
+- `kora-local-first`: bounded quality-sensitive experimental policy. Routine work may start on the explicitly configured loopback local adapter and fail over to frontier execution; semantic/frontier work remains on the frontier route. S5 does **not** establish that local-first is automatically preferable.
+- `kora-quality-auto`: frontier semantic execution with compact context while selectively retaining full context for the declared draft node. It is an experimental policy, not an accepted S5 economics result.
+- `local-control` and `local-control-no-reuse`: local-only controls used to isolate exact-reuse behavior. They are not evidence of frontier economics or broad local-model quality.
 
-## Fresh local dogfooding control
+All routes fail closed when their explicitly required configuration is absent; there is no hidden remote fallback.
 
-A new unpublished Build-to-Insight editorial candidate was assembled from bounded excerpts of three existing KORA/Specul project records. It was not an existing Specul article and no external draft or publication action occurred. Early dogfooding attempts exposed real integration defects: oversized local context, overlong research output, loose provenance instructions, and an output-shape mismatch. Each failed closed and was repaired in the integration contract rather than hidden or counted as a result.
+## Calibration and local-control learning
 
-The final public harness uses a strict six-node semantic contract: research, synthesis, draft, claim review, editorial review, and revision. Provenance fields are dynamically constrained to the source IDs declared by the workload. Local output receives a compact type-shape hint, while KORA independently applies the full JSON Schema before a result can be cached or propagated.
+Calibration used already-reviewed material only to repair and verify the harness and is not counted as savings evidence. Preserved failures included overly loose provenance constraints, oversized local context, output truncation, output-shape mismatch, and insufficient bounded research shape. These failures led to stricter provenance, schema, output-budget, and research-evidence contracts.
 
-Both successful comparison paths used the same existing Qwen3-30B-A3B Q4_K_M local runtime and the same compact semantic context. This control therefore isolates exact-result reuse; it does not measure frontier routing or API cost.
+A separate local-only control demonstrated persistent exact-result reuse under unchanged execution identity and invalidation under changed workload/runtime identity. That result is mechanism evidence only, not a claim that local execution is preferable for the semantic workload.
 
-| Case | No-reuse local control | KORA exact-reuse local control | Bounded quality/evidence result |
-|---|---:|---:|---|
-| First execution | 6 model calls; 5,592 input tokens; 1,285 output tokens | 6 model calls; 5,592 input tokens; 1,285 output tokens | Outputs identical; declared source IDs preserved |
-| Exact repeat after runner restart | 6 model calls; 5,592 input tokens; 1,285 output tokens | 0 model calls; 0 input tokens; 0 output tokens; 6 exact-reuse hits | Output identical to first run |
-| Changed-input probe | 6 model calls; 5,783 input tokens; 1,407 output tokens | 6 model calls; 5,783 input tokens; 1,407 output tokens; 0 reuse hits | Outputs identical; changed workload fully invalidated reuse |
+## Frozen final holdout
 
-For the exact repeat only, this bounded local control observed a 100% reduction in model calls and runtime-reported input/output tokens relative to the no-reuse control. First execution and changed input showed **no** call or token reduction. This result is specific to one exact repeated workload and must not be generalized to first-run workloads, customer bills, production traffic, or other Solutions.
+The final S5 holdout was frozen before its output was reviewed. It is now seen data and must not be reused as an unseen holdout for later tuning.
 
-Exact reuse is persistent rather than process-local. The first run populated a bounded checksum-protected cache; a new runner process then loaded the same cache and completed all six nodes with zero model calls. A separate probe changed only the declared local runtime identity while keeping the workload, endpoint, and model label otherwise the same. All six nodes executed again with zero reuse hits, demonstrating that a changed runtime identity invalidates the prior exact-result entries.
+Both first-run paths used seven semantic model calls and passed the declared structural/provenance quality gate:
 
-The persistent key binds the node instruction, dependency set, token budget, output contract, complete bound input, route, adapter class, and declared non-secret execution identity. Cached results are checksum checked and schema revalidated before use. Credentials are not included in cache identity or cache records. A scan of the local cache evidence found no credential markers.
+| Metric | `frontier-baseline` | `kora-auto` | Observed delta |
+|---|---:|---:|---:|
+| Model calls | 7 | 7 | 0% |
+| Input tokens | 38,558 | 22,226 | -42.36% |
+| Output tokens | 13,439 | 12,190 | -9.29% |
+| Wall time | 221,306 ms | 229,975 ms | +3.92% |
+| Token-based list-price estimate used by the local evidence script | $0.423012 | $0.332704 | -21.35% |
 
-The final generated articles and raw model responses remain local evidence. The public quality statement is intentionally narrow: the outputs satisfied the declared structural/provenance contract, used only the allowed source IDs, and preserved required title/article/review fields. It is not broad editorial-quality or factual-correctness proof.
+These figures establish only that this frozen first-run KORA path reduced measured input tokens and the associated token-based list-price estimate. KORA was slightly slower in this run. The figures do **not** establish quality-preserving savings, customer savings, production savings, or general workload savings.
 
-## Frontier BYOK gate
+### Exact repeat and changed-input invalidation
 
-S5 rechecked the authorized execution environments without exposing secret values. No OpenAI, Anthropic, Gemini, or Google provider credential is currently configured for this KORA Project 2 execution environment, and no project-local credential configuration exists. No key was searched for outside the project boundary, copied from another project, generated, or embedded.
+For an identical repeat under the same frozen execution identity, `kora-auto` produced:
 
-Therefore the intended frontier baseline versus local-first/frontier-escalation economics run is **not measured yet**. No API-cost or frontier-call-reduction percentage is claimed from S5 at this point. Once an explicit BYOK credential is registered for KORA, the same frozen workload contract can run the frontier comparison without changing Specul upstream.
+- 7/7 exact-reuse hits;
+- 0 model calls;
+- 0 input tokens;
+- 0 output tokens;
+- an output digest identical to its first run.
 
-## Current implementation boundary
+A changed-input probe produced 0 reuse hits and recomputed all seven model-backed nodes. These results support bounded persistent exact-result reuse and exact-key invalidation. They do not authorize semantic-similarity reuse.
 
-The implementation now includes a runnable public Specul editorial harness, a provider-neutral economics runner, a loopback-only local-model adapter, persistent exact-result storage, identity-bound invalidation, dynamic provenance schemas, explicit frontier/local policies, and fail-closed missing-credential behavior. The Specul.AI upstream repository and production database remain unchanged.
+## Semantic and human-review verdict
 
-Frontier comparison policies require an explicitly configured BYOK credential and an explicitly selected frontier model. The credential may be supplied directly through `OPENAI_API_KEY` or, preferably for local operations, through the path-only `KORA_OPENAI_API_KEY_FILE`; the key contents are not part of cache identity or public evidence. The exact-reuse local-first policy additionally requires an explicit non-secret remote cache identity so an operator can invalidate prior frontier results when the remote serving identity/configuration may have changed. Missing configuration fails before a result file is created. No remote provider request has been made in this S5 checkpoint.
+Structural/provenance checks alone were insufficient to establish non-regression. Independent blind semantic review in both candidate orders consistently preferred the full-context baseline. Human-readable direct comparison also remains a required acceptance input; machine counters or automated semantic review cannot override visible source-fidelity or completeness defects.
+
+Observed KORA Auto gaps in the frozen final holdout included missing or distorted low-frequency but high-importance boundaries around attribution, freshness limits, interrupted-transfer incomplete-state handling, and protections governing existing external content. The compact path already retained multiple evidence items per source, so the lesson is not simply to increase summary count.
+
+**S5 semantic non-regression: NOT ESTABLISHED.**
+
+Therefore the observed 21.35% token-based list-price delta is **not** reported as quality-preserving savings. The correct bounded lesson is that context compression can reduce token economics, but compression must be gated by semantic coverage/fidelity rather than optimized for token reduction alone.
+
+## Public claim boundary
+
+S5 supports these bounded public statements:
+
+1. Persistent exact-result reuse worked for an identical frozen execution identity.
+2. Relevant changed input invalidated prior exact-result reuse and forced recomputation.
+3. In the frozen final first-run holdout, compact context reduced measured input tokens and the local token-based list-price estimate.
+4. Semantic non-regression was not established, so the first-run economics delta is failure/learning evidence rather than successful quality-preserving savings evidence.
+
+S5 does not support claims of production readiness, customer savings, general percentage savings, representative editorial quality, general quality-preserving compression, local-model superiority, provider superiority, or hardware superiority.
+
+## Human-readable evidence boundary
+
+Actual baseline and KORA output artifacts were retained for direct maintainer review outside the public repository. Meaningful A/B acceptance requires the machine evidence plus readable actual outputs; a structural PASS or automated semantic-review PASS is not sufficient by itself.
 
 ## Pack candidates, not Packs
 
-This first Solution exposes candidate reusable patterns around evidence extraction/provenance, semantic review, context compaction, identity-bound exact-result reuse, and provider/local routing. None is promoted to a KORA Pack from one Solution. Cross-Solution reuse must be demonstrated first.
+This Solution exposes candidate reusable patterns around semantic evidence extraction, provenance, context compaction, identity-bound exact-result reuse, provider/local routing, and quality-gated compression. None is promoted to a KORA Pack from this one Solution. Cross-Solution evidence is required first.
 
-## Current stop gate
+## Final validation
 
-The Solution integration, local-model execution, persistent repeat/invalidation behavior, failure preservation, and local control comparison are complete for this bounded slice. The broader S5 frontier-economics objective remains blocked until an explicit BYOK credential is registered in the authorized KORA execution environment. No frontier API economics or production savings claim is supported yet. Merge remains a separate maintainer approval gate.
+Final engineering validation was rerun against the complete S5 implementation/documentation diff under Python 3.13:
 
-## Final validation for this checkpoint
-
-Validation used a supported Python 3.13 environment on the authorized development host:
-
-- targeted S5 and adjacent-provider tests: `46 passed`;
-- full repository regression: `775 passed`;
-- targeted Ruff on all changed Python implementation/example/test files: PASS;
-- Python compile check: PASS;
+- Ruff on all changed Python files: PASS;
+- targeted S5 tests: `40 passed`;
+- full repository regression: `789 passed`;
+- Python `compileall`: PASS;
 - `git diff --check`: PASS;
-- repository release smoke under Python 3.13: PASS;
+- repository release smoke: PASS;
 - fresh sdist and wheel build: PASS;
-- economics runner, local OpenAI-compatible adapter, and updated OpenAI adapter present in the built wheel: PASS;
-- isolated wheel installation and import: PASS;
-- public documentation/example private-path and credential-pattern scans: PASS.
+- required S5 package modules present in the wheel: PASS;
+- isolated wheel install/import from a neutral working directory: PASS;
+- Task027 changed-file scan for private `/Volumes/` or `/Users/` paths, high-confidence secret patterns, and prohibited assistant/tool names: PASS with zero findings.
 
-The first release-smoke attempt during development inherited an unsupported system Python 3.9 and failed on existing Python-3.10+ syntax. The same smoke completed under the supported Python 3.13 validation environment. No Python 3.9 compatibility claim follows.
+A repository-wide hygiene scan also surfaced inherited legacy public-tree occurrences of private-path examples and prohibited assistant/tool names. The same locations are already present at `origin/main`; Task027 introduced none of them. They remain separate repository hygiene debt and are not treated as S5 evidence.
 
-Classification for this checkpoint: **blocked** on the missing BYOK frontier execution required to finish S5 economics. The local implementation and dogfooding evidence are reviewable, but S5 is not complete and this checkpoint must not be merged as if frontier economics had passed.
+Package digests and detailed validation provenance are retained in the private closure summary.
+
+## Classification
+
+S5 is a **completed negative/learning sprint** after this engineering/evidence closure. Its negative semantic/economics verdict is an accepted sprint outcome, not a reason to rewrite the frozen holdout. PR #298 remains Draft/Open pending separate explicit maintainer merge approval.

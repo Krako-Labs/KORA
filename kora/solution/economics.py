@@ -34,6 +34,8 @@ class ExecutionPolicy:
     routes: dict[str, str]
     exact_reuse: bool = False
     context_mode: str = "full"
+    fallback_routes: dict[str, str] | None = None
+    full_context_nodes: tuple[str, ...] = ()
 
 
 class ExactResultStore:
@@ -158,6 +160,8 @@ class WorkloadEconomicsRunner:
         adapter_name: str,
         adapter: BaseAdapter,
         payload: dict[str, Any],
+        *,
+        fallback_identity: dict[str, Any] | None = None,
     ) -> str:
         bound = {
             "node": {
@@ -169,6 +173,7 @@ class WorkloadEconomicsRunner:
                 "output_schema": node.output_schema or {"type": "object"},
             },
             "adapter": cls._adapter_identity(adapter_name, adapter),
+            "fallback_adapter": copy.deepcopy(fallback_identity),
             "payload": payload,
         }
         return hashlib.sha256(canonical_json_bytes(bound)).hexdigest()
@@ -185,17 +190,36 @@ class WorkloadEconomicsRunner:
                 raise ValueError(f"policy route for {node.tier!r} is unavailable")
             effective_workload = (
                 copy.deepcopy(workload)
-                if policy.context_mode == "full" or not node.deps
+                if policy.context_mode == "full" or not node.deps or node.id in policy.full_context_nodes
                 else {"brief": copy.deepcopy(workload.get("brief", {}))}
             )
+            brief = workload.get("brief")
+            brief = brief if isinstance(brief, dict) else {}
+            quality_contract = brief.get("quality_floor")
+            quality_contract = copy.deepcopy(quality_contract) if isinstance(quality_contract, dict) else {}
             node_input = {
                 "instruction": node.instruction,
+                "quality_contract": quality_contract,
                 "workload": effective_workload,
                 "dependencies": {dep: copy.deepcopy(outputs[dep]) for dep in node.deps},
             }
             adapter = self.adapters[adapter_name]
+            fallback_name = None
+            fallback_identity = None
+            if isinstance(policy.fallback_routes, dict):
+                fallback_name = policy.fallback_routes.get(node.tier)
+                if fallback_name is not None:
+                    if fallback_name == adapter_name or fallback_name not in self.adapters:
+                        raise ValueError(f"policy fallback route for {node.tier!r} is unavailable")
+                    fallback_identity = self._adapter_identity(fallback_name, self.adapters[fallback_name])
             cache_key = (
-                self._cache_key(node, adapter_name, adapter, node_input)
+                self._cache_key(
+                    node,
+                    adapter_name,
+                    adapter,
+                    node_input,
+                    fallback_identity=fallback_identity,
+                )
                 if policy.exact_reuse and node.cacheable
                 else None
             )
@@ -212,6 +236,7 @@ class WorkloadEconomicsRunner:
                         "route": adapter_name,
                         "status": "ok",
                         "reused": True,
+                        "escalated": False,
                         "model_calls": 0,
                         "tokens_in": 0,
                         "tokens_out": 0,
@@ -220,12 +245,43 @@ class WorkloadEconomicsRunner:
                     }
                 )
                 continue
-            result = adapter.run(
-                task_id=node.id,
-                input=node_input,
-                budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
-                output_schema=schema,
-            )
+            escalated = False
+            primary_error_class = None
+            try:
+                result = adapter.run(
+                    task_id=node.id,
+                    input=node_input,
+                    budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
+                    output_schema=schema,
+                )
+            except Exception as exc:
+                if fallback_name is None:
+                    raise
+                escalated = True
+                primary_error_class = type(exc).__name__
+                adapter_name = fallback_name
+                adapter = self.adapters[fallback_name]
+                result = adapter.run(
+                    task_id=node.id,
+                    input=node_input,
+                    budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
+                    output_schema=schema,
+                )
+            if (
+                (not isinstance(result, dict) or result.get("ok") is not True or not isinstance(result.get("output"), dict))
+                and fallback_name is not None
+                and not escalated
+            ):
+                escalated = True
+                primary_error_class = "AdapterReturnedNotOk"
+                adapter_name = fallback_name
+                adapter = self.adapters[fallback_name]
+                result = adapter.run(
+                    task_id=node.id,
+                    input=node_input,
+                    budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
+                    output_schema=schema,
+                )
             if not isinstance(result, dict) or result.get("ok") is not True or not isinstance(result.get("output"), dict):
                 raise RuntimeError(f"adapter failed closed at node {node.id}")
             output = copy.deepcopy(result["output"])
@@ -242,12 +298,17 @@ class WorkloadEconomicsRunner:
                     "tier": node.tier,
                     "route": adapter_name,
                     "provider": meta.get("provider") or meta.get("adapter"),
+                    "escalated": escalated,
+                    "primary_error_class": primary_error_class,
                     "model": meta.get("model"),
                     "status": "ok",
                     "reused": False,
                     "model_calls": int(meta.get("model_calls", 1) or 1),
                     "tokens_in": int(usage.get("tokens_in", 0) or 0),
                     "tokens_out": int(usage.get("tokens_out", 0) or 0),
+                    "cached_tokens_in": int(usage.get("cached_tokens_in", 0) or 0),
+                    "cache_write_tokens_in": int(usage.get("cache_write_tokens_in", 0) or 0),
+                    "reasoning_tokens_out": int(usage.get("reasoning_tokens_out", 0) or 0),
                     "time_ms": int(usage.get("time_ms", 0) or 0),
                     "output_digest": hashlib.sha256(canonical_json_bytes(output)).hexdigest(),
                 }
@@ -261,7 +322,11 @@ class WorkloadEconomicsRunner:
             "model_calls": sum(event["model_calls"] for event in events),
             "tokens_in": sum(event["tokens_in"] for event in events),
             "tokens_out": sum(event["tokens_out"] for event in events),
+            "cached_tokens_in": sum(event.get("cached_tokens_in", 0) for event in events),
+            "cache_write_tokens_in": sum(event.get("cache_write_tokens_in", 0) for event in events),
+            "reasoning_tokens_out": sum(event.get("reasoning_tokens_out", 0) for event in events),
             "exact_reuse_hits": sum(event["reused"] for event in events),
+            "escalations": sum(1 for event in events if event.get("escalated")),
             "events": events,
             "output": outputs[self.nodes[-1].id],
         }

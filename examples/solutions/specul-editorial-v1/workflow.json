@@ -5,17 +5,93 @@
     "frozen_revision": "de2f302326bb79ca541ccab099295c73fe2dce06"
   },
   "nodes": [
-    {"id":"research","tier":"routine","cacheable":true,"purpose":"Extract bounded source evidence and limitations."},
-    {"id":"synthesis","tier":"frontier","cacheable":true,"purpose":"Synthesize the argument from evidence."},
-    {"id":"draft","tier":"frontier","cacheable":true,"purpose":"Produce the canonical draft."},
-    {"id":"claim_review","tier":"routine","cacheable":true,"purpose":"Map draft claims to supplied evidence and flag unsupported claims."},
-    {"id":"editorial_review","tier":"routine","cacheable":true,"purpose":"Return bounded editorial findings."},
-    {"id":"revision","tier":"frontier","cacheable":true,"purpose":"Revise from evidence and resolved findings."}
+    {
+      "id": "research",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Extract bounded source evidence and limitations."
+    },
+    {
+      "id": "synthesis",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Synthesize the argument from evidence."
+    },
+    {
+      "id": "draft",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Produce the canonical draft."
+    },
+    {
+      "id": "claim_review",
+      "tier": "routine",
+      "cacheable": true,
+      "purpose": "Map draft claims to supplied evidence and flag unsupported claims."
+    },
+    {
+      "id": "editorial_review",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Return bounded editorial findings."
+    },
+    {
+      "id": "revision",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Revise from evidence and resolved findings."
+    },
+    {
+      "id": "quality_repair",
+      "tier": "frontier",
+      "cacheable": true,
+      "purpose": "Enforce the bounded final quality contract once without adding new facts."
+    }
   ],
   "policy_examples": {
-    "baseline_frontier": {"routine": "frontier_byok", "frontier": "frontier_byok", "exact_reuse": false, "context_mode": "full"},
-    "kora_local_first": {"routine": "local", "frontier": "frontier_byok", "exact_reuse": true, "context_mode": "brief+deps"},
-    "local_control": {"routine": "local", "frontier": "local", "exact_reuse": true, "context_mode": "brief+deps"}
+    "frontier-baseline": {
+      "routine": "frontier_byok",
+      "frontier": "frontier_byok",
+      "exact_reuse": false,
+      "context_mode": "full",
+      "status": "quality/economics control"
+    },
+    "kora-auto": {
+      "routine": "frontier_byok",
+      "frontier": "frontier_byok",
+      "exact_reuse": true,
+      "context_mode": "brief+deps",
+      "status": "primary S5 compact-context comparison; quality-sensitive"
+    },
+    "kora-local-first": {
+      "routine": "local_then_frontier",
+      "frontier": "frontier_byok",
+      "exact_reuse": true,
+      "context_mode": "brief+deps",
+      "status": "bounded experimental policy; not automatically preferred"
+    },
+    "kora-quality-auto": {
+      "routine": "frontier_byok",
+      "frontier": "frontier_byok",
+      "exact_reuse": true,
+      "context_mode": "brief+deps with declared full-context node override",
+      "status": "experimental quality-sensitive policy"
+    },
+    "local-control": {
+      "routine": "local",
+      "frontier": "local",
+      "exact_reuse": true,
+      "context_mode": "brief+deps",
+      "status": "mechanism control only"
+    },
+    "local-control-no-reuse": {
+      "routine": "local",
+      "frontier": "local",
+      "exact_reuse": false,
+      "context_mode": "brief+deps",
+      "status": "mechanism control only"
+    }
   },
-  "boundary": "This template is an integration contract, not a copy of Specul.AI source code or content."
+  "boundary": "This template is an integration contract, not a copy of Specul.AI source code or content; local-first and compact-context policies remain quality-sensitive.",
+  "evidence_boundary": "Token/call reduction is not accepted as quality-preserving savings unless the declared semantic quality contract and direct human-readable output review also pass."
 }

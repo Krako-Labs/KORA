@@ -81,3 +81,74 @@ def test_local_first_requires_explicit_remote_cache_identity(monkeypatch):
     monkeypatch.delenv("KORA_OPENAI_CACHE_ID",raising=False)
     with pytest.raises(RuntimeError,match="CACHE_ID"):
         m.adapters_for("kora-local-first")
+
+
+def test_local_first_policy_has_bounded_routine_frontier_fallback():
+    m=module()
+    policy=m.POLICIES["kora-local-first"]
+    assert policy.routes=={"routine":"local","frontier":"frontier"}
+    assert policy.fallback_routes=={"routine":"frontier"}
+
+
+def test_quality_repair_is_frontier_and_routine_nodes_stay_local_candidates():
+    m=module()
+    tiers={node.id:node.tier for node in m.NODES}
+    assert {k for k,v in tiers.items() if v=="routine"}=={"claim_review"}
+    assert {k for k,v in tiers.items() if v=="frontier"}=={"research","synthesis","draft","editorial_review","revision","quality_repair"}
+
+
+def test_quality_gate_requires_bounded_words_chars_and_complete_ending():
+    m=module()
+    workload={"brief":{"quality_floor":{
+        "min_article_chars":100,"max_article_chars":1000,
+        "min_article_words":10,"max_article_words":100,
+        "target_article_chars":500,"target_article_words":50,
+        "required_source_ids":["S1"],
+    }},"sources":[{"id":"S1","text":"x"}]}
+    good_article=("word "*20)+"finished."
+    good={"output":{"article":good_article,"claim_source_ids":["S1"],"resolved_findings":[]}}
+    assert m.evaluate_quality(good,workload)["pass"] is True
+    broken={"output":{"article":good_article[:-1],"claim_source_ids":["S1"],"resolved_findings":[]}}
+    q=m.evaluate_quality(broken,workload)
+    assert q["pass"] is False
+    assert q["checks"]["complete_ending"] is False
+
+
+def test_frontier_node_budgets_are_task_specific():
+    m=module()
+    budgets={node.id:node.max_tokens for node in m.NODES}
+    assert budgets["research"]==1800
+    assert budgets["synthesis"]==3500
+    assert budgets["draft"]==5000
+    assert budgets["claim_review"]==2500
+    assert budgets["editorial_review"]==2500
+    assert budgets["revision"]==5000
+    assert budgets["quality_repair"]==5000
+
+
+def test_quality_auto_uses_frontier_for_all_semantic_tiers_with_compact_context():
+    m=module()
+    p=m.POLICIES["kora-quality-auto"]
+    assert p.routes=={"routine":"frontier","frontier":"frontier"}
+    assert p.context_mode=="brief+deps"
+    assert p.full_context_nodes==("draft",)
+    assert p.exact_reuse is True
+    assert p.fallback_routes is None
+
+
+def test_kora_auto_uses_frontier_semantics_with_compact_context_and_reuse():
+    m=module()
+    policy=m.POLICIES["kora-auto"]
+    assert policy.routes=={"routine":"frontier","frontier":"frontier"}
+    assert policy.exact_reuse is True
+    assert policy.context_mode=="brief+deps"
+    assert policy.fallback_routes is None
+
+
+def test_research_contract_allows_richer_bounded_evidence_density():
+    m=module()
+    research=next(node for node in m.NODES if node.id=="research")
+    evidence=research.output_schema["properties"]["evidence"]
+    assert evidence["minItems"]==1
+    assert evidence["maxItems"]==24
+    assert research.max_tokens==1800

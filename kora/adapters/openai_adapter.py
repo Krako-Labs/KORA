@@ -85,6 +85,7 @@ class OpenAIAdapter(BaseAdapter):
         self.force_json_schema = force_json_schema
         self.max_output_tokens = max_output_tokens
         self.endpoint = "https://api.openai.com/v1/responses"
+        self.disable_prompt_cache = os.getenv("KORA_OPENAI_DISABLE_PROMPT_CACHE", "").strip() == "1"
 
 
     def cache_identity(self) -> dict[str, Any]:
@@ -96,10 +97,12 @@ class OpenAIAdapter(BaseAdapter):
             )
         return {
             "adapter": "openai",
+            "contract_version": "openai-responses/v2-strict-structured",
             "endpoint": self.endpoint,
             "model": self.model,
             "cache_id": cache_id,
             "max_output_tokens_override": self.max_output_tokens,
+            "provider_prompt_cache_disabled": self.disable_prompt_cache,
         }
 
     def run(
@@ -200,6 +203,9 @@ class OpenAIAdapter(BaseAdapter):
                 }
             }
 
+        if self.disable_prompt_cache:
+            request_payload["prompt_cache_options"] = {"mode": "explicit", "ttl": "30m"}
+
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -275,10 +281,14 @@ class OpenAIAdapter(BaseAdapter):
                 debug_path.parent.mkdir(parents=True, exist_ok=True)
                 debug_path.write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
 
+            response_status = payload.get("status")
+            if isinstance(response_status, str) and response_status != "completed":
+                raise ValueError(f"OpenAI structured response status is {response_status!r}")
+
             parsed_output = self._extract_structured_json(payload)
             if parsed_output is None:
                 text_output = self._extract_text(payload)
-                parsed_output = self._parse_text_output(text_output, task_id=task_id)
+                parsed_output = self._parse_structured_text_output(text_output)
 
             validated_obj: Any = parsed_output
             if os.getenv("KORA_DEBUG_OPENAI_SHAPE", "") == "1":
@@ -304,6 +314,11 @@ class OpenAIAdapter(BaseAdapter):
                             raise ValueError(f"schema validation failed: '{field}' is a required property")
 
             usage = payload.get("usage", {})
+            usage = usage if isinstance(usage, dict) else {}
+            input_details = usage.get("input_tokens_details")
+            input_details = input_details if isinstance(input_details, dict) else {}
+            output_details = usage.get("output_tokens_details")
+            output_details = output_details if isinstance(output_details, dict) else {}
             return {
                 "ok": True,
                 "output": validated_obj,
@@ -311,10 +326,13 @@ class OpenAIAdapter(BaseAdapter):
                     "time_ms": int((time.monotonic() - start) * 1000),
                     "tokens_in": int(usage.get("input_tokens", 0)),
                     "tokens_out": int(usage.get("output_tokens", 0)),
+                    "cached_tokens_in": int(input_details.get("cached_tokens", 0) or 0),
+                    "cache_write_tokens_in": int(input_details.get("cache_write_tokens", 0) or 0),
+                    "reasoning_tokens_out": int(output_details.get("reasoning_tokens", 0) or 0),
                 },
                 "meta": {"adapter": "openai", "model": self.model},
             }
-        except (requests.RequestException, ValueError) as exc:
+        except (requests.RequestException, TypeError, ValueError) as exc:
             return {
                 "ok": False,
                 "error": f"OpenAI adapter failed: {exc}",
@@ -442,6 +460,17 @@ class OpenAIAdapter(BaseAdapter):
             return cls._extract_structured_json(nested)
 
         return None
+
+    @staticmethod
+    def _parse_structured_text_output(text_output: str) -> dict[str, Any]:
+        """Parse one complete JSON object or fail closed for structured requests."""
+        try:
+            parsed = json.loads(text_output)
+        except json.JSONDecodeError as exc:
+            raise ValueError("OpenAI structured output is invalid or incomplete JSON") from exc
+        if not isinstance(parsed, dict):
+            raise TypeError("OpenAI structured output is not an object")
+        return parsed
 
     @staticmethod
     def _parse_text_output(text_output: str, *, task_id: str) -> dict[str, Any]:

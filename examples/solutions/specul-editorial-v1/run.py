@@ -7,6 +7,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
@@ -39,9 +40,9 @@ SOURCE_IDS = {"type": "array", "items": {"type": "string", "minLength": 1}, "min
 NODES = (
     EconomicsNode(
         "research",
-        "Extract exactly one concise evidence item per supplied source. Preserve source IDs exactly. Each point must be at most 45 words and each limitation at most 25 words. Do not invent facts or source IDs.",
-        "routine",
-        max_tokens=420,
+        "Extract one to three concise evidence items per supplied source. Preserve source-defined terms, definitions, decision boundaries, workflow steps, approval scope, and measurement cadence when materially present. Prefer distinct evidence facets rather than repeating one summary. Preserve source IDs exactly. Each point must be at most 45 words and each limitation at most 25 words. Do not invent facts or source IDs, and do not expand an abbreviation unless a supplied source explicitly defines it.",
+        "frontier",
+        max_tokens=1800,
         output_schema=_object_schema(
             {
                 "evidence": {
@@ -55,7 +56,7 @@ NODES = (
                         ["source_id", "point", "limitation"],
                     ),
                     "minItems": 1,
-                    "maxItems": 8,
+                    "maxItems": 24,
                 },
                 "source_ids": SOURCE_IDS,
             },
@@ -64,10 +65,10 @@ NODES = (
     ),
     EconomicsNode(
         "synthesis",
-        "Using only the brief and research evidence, synthesize a bounded thesis and outline. Copy source IDs exactly from research evidence.",
+        "Using only the brief and research evidence, synthesize a bounded thesis and outline. Preserve source-defined domain terms and their meanings, explicit decision/approval boundaries, workflow sequences, and measurement cadence when present; do not flatten them into generic categories. Preserve undefined source terminology exactly and never infer acronym expansions. Copy source IDs exactly from research evidence.",
         "frontier",
         ("research",),
-        max_tokens=500,
+        max_tokens=3500,
         output_schema=_object_schema(
             {
                 "thesis": {"type": "string", "minLength": 1},
@@ -79,10 +80,10 @@ NODES = (
     ),
     EconomicsNode(
         "draft",
-        "Write a reader-facing English canonical draft grounded only in the supplied research and synthesis. Preserve source provenance; do not invent facts.",
+        "Write the canonical long-form article as the strongest complete reasoning artifact for this brief. Ground it only in supplied research and synthesis. Preserve source-defined domain terms and their meanings, material operational details, decision/approval boundaries, and measurement cadence represented in the evidence. Preserve source provenance, preserve undefined source terminology exactly, never infer acronym expansions, and do not invent facts. Honor quality_contract while preserving depth without expanding into an exhaustive report.",
         "frontier",
         ("research", "synthesis"),
-        max_tokens=1600,
+        max_tokens=5000,
         output_schema=_object_schema(
             {
                 "title": {"type": "string", "minLength": 8},
@@ -94,14 +95,14 @@ NODES = (
     ),
     EconomicsNode(
         "claim_review",
-        "Check the draft against research evidence. Separate grounded from unsupported claims and preserve source IDs exactly.",
+        "Check the draft against research evidence. Treat inferred expansions of undefined source acronyms as unsupported. Return at most 8 concise grounded claims and at most 8 concise unsupported claims; each item must be at most 35 words. Preserve source IDs exactly and do not rewrite the article.",
         "routine",
         ("research", "draft"),
-        max_tokens=700,
+        max_tokens=2500,
         output_schema=_object_schema(
             {
-                "grounded_claims": STRING_ARRAY,
-                "unsupported_claims": STRING_ARRAY,
+                "grounded_claims": {"type": "array", "items": {"type": "string", "maxLength": 320}, "maxItems": 8},
+                "unsupported_claims": {"type": "array", "items": {"type": "string", "maxLength": 320}, "maxItems": 8},
                 "source_ids": SOURCE_IDS,
             },
             ["grounded_claims", "unsupported_claims", "source_ids"],
@@ -109,24 +110,40 @@ NODES = (
     ),
     EconomicsNode(
         "editorial_review",
-        "Review the draft for reader value, structure, clarity, and overclaiming. Return concise actionable findings.",
-        "routine",
+        "Review the draft for reader value, structure, clarity, overclaiming, and unsupported terminology expansion. Return at most 6 concise actionable findings; each finding must be at most 35 words. Do not rewrite the article.",
+        "frontier",
         ("draft",),
-        max_tokens=600,
+        max_tokens=2500,
         output_schema=_object_schema(
             {
                 "verdict": {"type": "string", "minLength": 1},
-                "findings": STRING_ARRAY,
+                "findings": {"type": "array", "items": {"type": "string", "maxLength": 320}, "maxItems": 6},
             },
             ["verdict", "findings"],
         ),
     ),
     EconomicsNode(
         "revision",
-        "Revise the draft using claim and editorial review while preserving evidence boundaries. Copy claim source IDs from the draft; do not invent facts.",
+        "Revise the draft into a canonical long-form final article while preserving evidence boundaries. Resolve the reviews without collapsing the argument into a summary. Preserve undefined source terminology exactly, never infer acronym expansions, copy claim source IDs from the draft, and do not invent facts.",
         "frontier",
         ("draft", "claim_review", "editorial_review"),
-        max_tokens=1800,
+        max_tokens=5000,
+        output_schema=_object_schema(
+            {
+                "title": {"type": "string", "minLength": 8},
+                "article": {"type": "string", "minLength": 500},
+                "claim_source_ids": SOURCE_IDS,
+                "resolved_findings": STRING_ARRAY,
+            },
+            ["title", "article", "claim_source_ids", "resolved_findings"],
+        ),
+    ),
+    EconomicsNode(
+        "quality_repair",
+        "Produce the final canonical long-form article from the revised article. quality_contract is mandatory: the returned article MUST stay within both min/max article character and word ranges, should aim near the supplied targets, and MUST finish with a complete concluding sentence. Preserve undefined source terminology exactly and never infer acronym expansions. IMPORTANT: when the revision exceeds a maximum, deliberately compress it to roughly 90 percent of that maximum rather than landing on the boundary. Remove repetition and secondary implementation detail first. If too short, clarify only already-grounded material. Do not add facts. Preserve claim source IDs.",
+        "frontier",
+        ("revision", "research", "claim_review", "editorial_review"),
+        max_tokens=5000,
         output_schema=_object_schema(
             {
                 "title": {"type": "string", "minLength": 8},
@@ -140,7 +157,7 @@ NODES = (
 )
 
 def nodes_for(workload: dict[str, Any]) -> tuple[EconomicsNode, ...]:
-    """Bind every provenance field to source IDs declared by this workload."""
+    """Bind provenance fields to source IDs declared by this workload."""
     allowed = sorted(source["id"] for source in workload["sources"])
     bound: list[EconomicsNode] = []
     for node in NODES:
@@ -158,7 +175,7 @@ def nodes_for(workload: dict[str, Any]) -> tuple[EconomicsNode, ...]:
             properties["source_ids"]["items"]["enum"] = allowed
         elif node.id == "synthesis":
             properties["source_ids"]["items"]["enum"] = allowed
-        elif node.id in {"draft", "revision"}:
+        elif node.id in {"draft", "revision", "quality_repair"}:
             properties["claim_source_ids"]["items"]["enum"] = allowed
         elif node.id == "claim_review":
             properties["source_ids"]["items"]["enum"] = allowed
@@ -173,11 +190,25 @@ POLICIES = {
         exact_reuse=False,
         context_mode="full",
     ),
+    "kora-auto": ExecutionPolicy(
+        "kora-auto",
+        {"routine": "frontier", "frontier": "frontier"},
+        exact_reuse=True,
+        context_mode="brief+deps",
+    ),
     "kora-local-first": ExecutionPolicy(
         "kora-local-first",
         {"routine": "local", "frontier": "frontier"},
         exact_reuse=True,
         context_mode="brief+deps",
+        fallback_routes={"routine": "frontier"},
+    ),
+    "kora-quality-auto": ExecutionPolicy(
+        "kora-quality-auto",
+        {"routine": "frontier", "frontier": "frontier"},
+        exact_reuse=True,
+        context_mode="brief+deps",
+        full_context_nodes=("draft",),
     ),
     "local-control": ExecutionPolicy(
         "local-control",
@@ -222,9 +253,9 @@ def load_workload(path: Path) -> dict[str, Any]:
 
 def adapters_for(policy_name: str) -> dict[str, Any]:
     needs_local = policy_name in {"local-control", "local-control-no-reuse", "kora-local-first"}
-    needs_frontier = policy_name in {"frontier-baseline", "kora-local-first"}
+    needs_frontier = policy_name in {"frontier-baseline", "kora-auto", "kora-local-first", "kora-quality-auto"}
     local_reuse = policy_name in {"local-control", "kora-local-first"}
-    frontier_reuse = policy_name == "kora-local-first"
+    frontier_reuse = policy_name in {"kora-auto", "kora-local-first", "kora-quality-auto"}
 
     if local_reuse and not os.getenv("KORA_LOCAL_OPENAI_RUNTIME_ID", "").strip():
         raise RuntimeError(
@@ -252,6 +283,68 @@ def adapters_for(policy_name: str) -> dict[str, Any]:
     return adapters
 
 
+def evaluate_quality(result: dict[str, Any], workload: dict[str, Any]) -> dict[str, Any]:
+    """Apply bounded deterministic final-output checks declared by the workload."""
+    output = result.get("output")
+    output = output if isinstance(output, dict) else {}
+    brief = workload.get("brief")
+    brief = brief if isinstance(brief, dict) else {}
+    floor = brief.get("quality_floor")
+    floor = floor if isinstance(floor, dict) else {}
+    article = output.get("article")
+    article = article if isinstance(article, str) else ""
+    article_chars = len(article)
+    article_words = len(re.findall(r"\b\w+[\w'-]*\b", article))
+    min_chars = floor.get("min_article_chars", 0)
+    max_chars = floor.get("max_article_chars", 0)
+    min_words = floor.get("min_article_words", 0)
+    max_words = floor.get("max_article_words", 0)
+    target_chars = floor.get("target_article_chars", 0)
+    target_words = floor.get("target_article_words", 0)
+    for name, value in (
+        ("min_article_chars", min_chars),
+        ("max_article_chars", max_chars),
+        ("min_article_words", min_words),
+        ("max_article_words", max_words),
+        ("target_article_chars", target_chars),
+        ("target_article_words", target_words),
+    ):
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            raise ValueError(f"brief.quality_floor.{name} must be a non-negative integer")
+    if max_chars and max_chars < min_chars:
+        raise ValueError("brief.quality_floor.max_article_chars must be at least min_article_chars")
+    if max_words and max_words < min_words:
+        raise ValueError("brief.quality_floor.max_article_words must be at least min_article_words")
+    required_ids = floor.get("required_source_ids", [])
+    if not isinstance(required_ids, list) or any(not isinstance(x, str) or not x for x in required_ids):
+        raise ValueError("brief.quality_floor.required_source_ids must be a string array")
+    actual_ids = output.get("claim_source_ids")
+    actual_ids = actual_ids if isinstance(actual_ids, list) else []
+    ending_body = re.sub(r"(?:\s*\[S[^\]]+\])+$", "", article.rstrip()).rstrip()
+    complete_ending = bool(ending_body) and ending_body[-1] in '.!?…”’"'
+    checks = {
+        "article_min_chars": article_chars >= min_chars,
+        "article_max_chars": max_chars == 0 or article_chars <= max_chars,
+        "article_min_words": article_words >= min_words,
+        "article_max_words": max_words == 0 or article_words <= max_words,
+        "complete_ending": complete_ending,
+        "required_source_ids": set(required_ids) <= set(actual_ids),
+        "resolved_findings_present": isinstance(output.get("resolved_findings"), list),
+    }
+    return {
+        "pass": all(checks.values()),
+        "checks": checks,
+        "article_chars": article_chars,
+        "article_words": article_words,
+        "min_article_chars": min_chars,
+        "max_article_chars": max_chars,
+        "min_article_words": min_words,
+        "max_article_words": max_words,
+        "target_article_chars": target_chars,
+        "target_article_words": target_words,
+    }
+
+
 def public_summary(result: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": result["schema_version"],
@@ -262,7 +355,10 @@ def public_summary(result: dict[str, Any]) -> dict[str, Any]:
         "tokens_in": result["tokens_in"],
         "tokens_out": result["tokens_out"],
         "exact_reuse_hits": result["exact_reuse_hits"],
+        "escalations": result.get("escalations", 0),
         "total_time_ms": result["total_time_ms"],
+        "quality_pass": bool((result.get("quality") or {}).get("pass", False)),
+        "article_chars": int((result.get("quality") or {}).get("article_chars", 0)),
     }
 
 
@@ -282,10 +378,11 @@ def main() -> int:
         cache_directory=args.cache_dir if policy.exact_reuse else None,
     )
     result = runner.run(workload=workload, policy=policy)
+    result["quality"] = evaluate_quality(result, workload)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(canonical_json_bytes(result))
     print(json.dumps(public_summary(result), indent=2))
-    return 0
+    return 0 if result["quality"]["pass"] else 2
 
 
 if __name__ == "__main__":
