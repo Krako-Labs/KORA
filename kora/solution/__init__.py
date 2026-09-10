@@ -23,6 +23,12 @@ from .contracts import (
     validate_contract_instance,
 )
 from .host import LocalSolutionHost, SolutionHostError
+from .orchestration import (
+    CapabilityTier,
+    TaskContract,
+    TierRecommendation,
+    recommend_capability_tier,
+)
 from .reference_runtime import (
     DOCUMENT_PDF_CAPABILITIES,
     DOCUMENT_PDF_CAPABILITY,
@@ -63,9 +69,10 @@ __all__ = [
     "SUPPORTED_API_VERSION",
     "CapabilityRegistryError",
     "CapabilityRuntime",
+    "CapabilityTier",
+    "DocumentPdfReferenceRuntime",
     "LocalCapabilityRegistry",
     "LocalSolutionHost",
-    "DocumentPdfReferenceRuntime",
     "ReferenceRuntime",
     "ReferenceRuntimeError",
     "ResolvedRuntime",
@@ -76,11 +83,14 @@ __all__ = [
     "SolutionHostError",
     "SolutionValidationError",
     "SolutionValidationIssue",
+    "TaskContract",
+    "TierRecommendation",
+    "default_reference_runtimes",
+    "document_pdf_runtime_available",
     "integrity_file_digests",
     "package_digest",
     "package_file_digests",
-    "default_reference_runtimes",
-    "document_pdf_runtime_available",
+    "recommend_capability_tier",
     "run_solution_conformance",
     "scaffold_solution",
     "validate_contract_instance",
