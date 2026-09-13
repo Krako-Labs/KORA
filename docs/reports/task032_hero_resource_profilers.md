@@ -4,10 +4,10 @@ Status: needs-cto-review
 Risk: medium — new local metadata collection and artifact inspection
 Base: f15f3f639a85a13b75d53d80b9fda128ec0fda79
 
-- branch: feat/task032-resource-profilers
-- PR: pending
+- branch: `feat/task032-resource-profilers`
+- PR: https://github.com/Krako-Labs/KORA/pull/301
 - risk level: medium
-- final status classification: needs-cto-review
+- final status classification: `needs-cto-review`
 
 ## Outcome
 

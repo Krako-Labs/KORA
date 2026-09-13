@@ -5,7 +5,7 @@ Status: current public review and continuation hub.
 Last updated by: Task032.
 
 - branch: `feat/task032-resource-profilers`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/301
 
 ## Project Identity
 
