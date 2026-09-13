@@ -5,7 +5,7 @@ Status: current public project breadcrumb.
 Last updated by: Task033.
 
 - branch: `feat/task033-runtime-planner`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/302
 
 ## Current Status
 

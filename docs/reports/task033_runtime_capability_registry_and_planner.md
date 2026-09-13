@@ -5,7 +5,7 @@ Risk: medium — new public planner integration and runtime declarations
 Base: `f6de32c80b994b9f92248eeaa19b9f66d4792e3d`
 
 - branch: `feat/task033-runtime-planner`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/302
 - risk level: medium
 - final status classification: `needs-cto-review`
 
