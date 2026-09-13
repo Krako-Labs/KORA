@@ -4,6 +4,11 @@ Status: needs-cto-review
 Risk: medium — new public runtime contracts, no execution integration  
 Base: `7c7a6b4c57eab15816560cb405fa99f2599dc465`
 
+- branch: `feat/task031-hero-runtime-contract`
+- PR: https://github.com/Krako-Labs/KORA/pull/300
+- risk level: medium
+- final status classification: `needs-cto-review`
+
 ## Outcome
 
 Task031 adds a fail-closed foundation for a future dynamic workload-control viewer:
@@ -71,6 +76,8 @@ Confirmed:
 - no Krako Reach integration;
 - fixture evidence remains labeled `fixture`;
 - feasibility is planning evidence only, not execution proof.
+
+Forbidden-action audit: no provider calls, model inference, model download, H100/GPU/CUDA/server/remote execution, semantic judging, human grading, production validation, release, publication, repository setting change, file movement, or public claim expansion was performed.
 
 ## Review focus
 

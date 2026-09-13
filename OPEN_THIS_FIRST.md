@@ -4,6 +4,9 @@ Status: current public project breadcrumb.
 
 Last updated by: Task031.
 
+- branch: `feat/task031-hero-runtime-contract`
+- PR: https://github.com/Krako-Labs/KORA/pull/300
+
 ## Current Status
 
 KORA is a public open-source project for making AI workloads routable. The current public alpha is KRK-oriented: deterministic-first workload routing, local first-value CLI workflows, and bounded public evidence reporting through the KORA Routing Kernel.

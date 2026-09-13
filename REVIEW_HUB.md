@@ -4,6 +4,9 @@ Status: current public review and continuation hub.
 
 Last updated by: Task031.
 
+- branch: `feat/task031-hero-runtime-contract`
+- PR: https://github.com/Krako-Labs/KORA/pull/300
+
 ## Project Identity
 
 KORA makes AI workloads routable.
