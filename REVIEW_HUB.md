@@ -2,10 +2,10 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task031.
+Last updated by: Task032.
 
-- branch: `feat/task031-hero-runtime-contract`
-- PR: https://github.com/Krako-Labs/KORA/pull/300
+- branch: `feat/task032-resource-profilers`
+- PR: https://github.com/Krako-Labs/KORA/pull/301
 
 ## Project Identity
 
@@ -27,6 +27,7 @@ KRK means KORA Routing Kernel. KRK is the deterministic-first execution routing 
 
 KORA now has a public-safe first-value path and an evidence package that covers:
 
+- non-inference, byte-based hardware and model-resource profiling with claim-bounded evidence export: [Task032 report](docs/reports/task032_hero_resource_profilers.md).
 - fail-closed Hero runtime data contracts, feasibility planning, ordered events, deterministic replay, and SSE serialization without connected execution: [Task031 report](docs/reports/task031_hero_runtime_contracts.md).
 - deterministic-heavy benchmark evidence.
 - route-selectivity metrics over four public matrix profiles.
