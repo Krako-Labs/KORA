@@ -49,6 +49,8 @@ class HeroRunProjection(BaseModel):
 _KNOWN_NON_STATE_EVENTS = {
     "workload.analyzed",
     "graph.created",
+    "runtime.capabilities.registered",
+    "execution.plan.created",
     "task.progress",
     "telemetry.sampled",
     "evidence.sealed",

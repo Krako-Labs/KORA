@@ -2,10 +2,10 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Task032.
+Last updated by: Task033.
 
-- branch: `feat/task032-resource-profilers`
-- PR: https://github.com/Krako-Labs/KORA/pull/301
+- branch: `feat/task033-runtime-planner`
+- PR: pending
 
 ## Current Status
 
@@ -13,6 +13,7 @@ KORA is a public open-source project for making AI workloads routable. The curre
 
 Current state:
 
+- Task033 connects profiler outputs to a detection-only runtime registry, deterministic Execution Planner v1, and evidence-linked replay events without runtime or model execution: [Task033 report](docs/reports/task033_runtime_capability_registry_and_planner.md).
 - Task032 adds non-inference, byte-based hardware and model-resource profiling with claim-bounded evidence export: [Task032 report](docs/reports/task032_hero_resource_profilers.md).
 - Task031 adds fail-closed Hero runtime contracts, feasibility planning, ordered events, deterministic replay, and SSE serialization without connecting model/provider/GPU execution: [Task031 report](docs/reports/task031_hero_runtime_contracts.md).
 - route-selectivity evidence exists for four public matrix profiles.
