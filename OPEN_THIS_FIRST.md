@@ -2,7 +2,10 @@
 
 Status: current public project breadcrumb.
 
-Last updated by: Group 120.
+Last updated by: Task031.
+
+- branch: `feat/task031-hero-runtime-contract`
+- PR: https://github.com/Krako-Labs/KORA/pull/300
 
 ## Current Status
 
@@ -10,6 +13,7 @@ KORA is a public open-source project for making AI workloads routable. The curre
 
 Current state:
 
+- Task031 adds fail-closed Hero runtime contracts, feasibility planning, ordered events, deterministic replay, and SSE serialization without connecting model/provider/GPU execution: [Task031 report](docs/reports/task031_hero_runtime_contracts.md).
 - route-selectivity evidence exists for four public matrix profiles.
 - runtime-integrated dry-run route evaluation exists.
 - bounded provider-path validation exists.
