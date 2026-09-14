@@ -191,7 +191,7 @@ def test_http_hero_assets_metadata_events_and_last_event_id(hero_server):
     [
         "/api/hero/fixture?scenario=arbitrary",
         "/api/hero/events?after=-2",
-        "/api/hero/events?after=31",
+        "/api/hero/events?after=999",
         "/api/hero/sse?after=nan",
     ],
 )
