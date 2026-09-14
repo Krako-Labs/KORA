@@ -5,7 +5,7 @@ Status: current public review and continuation hub.
 Last updated by: Task037.
 
 - branch: `feat/hero-s01-mock-execution-bridge`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/306
 
 Task037 joins the planner, exact effective configuration, mock adapter lifecycle and task/service fixture events in one canonical replay, including failure, cancellation, cleanup retry, bounded replan and pre-task hybrid rejection: [Task037 report](docs/reports/task037_hero_s01_mock_execution_bridge.md).
 

@@ -5,7 +5,7 @@
 - Goal / Sprint: G1 / HERO-S01
 - Branch: `feat/hero-s01-mock-execution-bridge`
 - Base: `681fcdfebc49cef85c1fa432c5feb6a983753998`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/306
 - Classification: `needs-cto-review`
 - Risk: medium
 
