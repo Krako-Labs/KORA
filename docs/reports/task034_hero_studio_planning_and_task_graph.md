@@ -1,7 +1,7 @@
 # Task034 — Hero Studio Planning and Task Graph
 
 - branch: `feat/task034-hero-studio`
-- PR: pending creation
+- PR: https://github.com/Krako-Labs/KORA/pull/303
 - base: `581440094001dd776d35a071c8243dac6ba5553b`
 - risk level: medium
 - final status classification: `needs-cto-review`
@@ -89,10 +89,9 @@ never combined into an improvement multiplier.
 - Unexpected browser console errors: zero. External browser requests: zero.
 - Desktop and mobile screenshots were directly inspected. Human Visual Review
   has not been performed; this is automated visual review, not semantic grading.
-- An offline review copy uses the same fixture frames and renderer; it is
-  review material, not a separate execution result.
-- Markdown links and report/breadcrumb consistency are checked in the PR
-  completion pass.
+- An offline review copy uses the same fixture frames and renderer; its complete
+  file-based playback passed with no page errors. It is review material, not a separate execution result.
+- Markdown links and report/breadcrumb consistency: passed with two breadcrumbs.
 
 Validation/repair rounds: four. Repairs were limited to generated-source newline
 escaping, the HTTP JavaScript MIME expectation, the package-data allowlist for

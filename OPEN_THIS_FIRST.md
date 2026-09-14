@@ -5,7 +5,7 @@ Status: current public project breadcrumb.
 Last updated by: Task034.
 
 - branch: `feat/task034-hero-studio`
-- PR: pending creation
+- PR: https://github.com/Krako-Labs/KORA/pull/303
 
 Task034 adds a fixture-only Hero Studio planning/task graph with canonical event replay, service-coupled acceptance and separate A/B evidence: [Task034 report](docs/reports/task034_hero_studio_planning_and_task_graph.md).
 
