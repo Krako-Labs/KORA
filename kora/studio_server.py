@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Callable
 from urllib.parse import parse_qs, unquote, urlparse
 
+from kora.studio_festa import preflight as festa_preflight
 from kora.hero_hybrid_evidence import hybrid_payload
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_execution_fixture import get_execution_viewer_fixture_summary, get_standard_vs_kora_status_fields
@@ -1125,6 +1126,15 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
         def do_GET(self) -> None:
             parsed_path = urlparse(self.path)
             path = parsed_path.path
+            if path == "/hero/festa":
+                self._write_html(hero_asset("hero-festa.html"))
+                return
+            if path == "/api/hero/festa":
+                if parsed_path.query:
+                    self._write_json({"error": "unexpected_festa_query"}, 400)
+                else:
+                    self._write_json(festa_preflight())
+                return
             if path == "/hero/hybrid":
                 self._write_html(hero_asset("hero-hybrid.html"))
                 return
@@ -1171,6 +1181,8 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
                 self._write_html(hero_asset("hero.html"))
                 return
             if path in {
+                "/hero-assets/hero-festa.css",
+                "/hero-assets/hero-festa.js",
                 "/hero-assets/hero.css",
                 "/hero-assets/hero.js",
                 "/hero-assets/hero-live.js",
