@@ -38,7 +38,7 @@
     $("history").replaceChildren(); history=[];
     text("memory","—"); text("footprint","—"); text("memory-detail","Waiting for the analysis event");
     text("model-detail","Model-weight bytes · not runtime peak memory");
-    text("selected","Awaiting analysis"); text("plan-detail","Candidate decisions appear when the plan event arrives.");
+    text("selected","Awaiting analysis"); text("plan-detail","Candidate decisions appear when the plan event arrives."); text("bridge-detail","Mock execution bridge has not started.");
     text("phase","Intake"); text("event-position","No events played"); text("event-kind","");
     text("merge","Not started"); text("verification","Not started"); text("outcome","Pending · fixture");
     for(const id of ["merge-node","verify-node","outcome-node"]) $(id).dataset.state="not_started";
@@ -115,6 +115,10 @@
       const parent=lane ? document.querySelector('[data-lane="'+lane+'"] .tasks') : $("pending");
       if(node.parentElement !== parent) parent.append(node);
     }
+    const bridge=v.mock_execution_bridge;
+    const configDigest=fixture.mock_execution_bridge?.effective_config_digest;
+    const bridgeStatus=bridge.adapter_state==="not_started"?"Mock execution bridge has not started.":"Mock bridge · "+bridge.adapter_state.replaceAll("_"," ")+" · attempt "+bridge.attempt;
+    text("bridge-detail",bridgeStatus+(configDigest?" · config "+configDigest.slice(0,12):"")+(bridge.failures.length?" · preserved failures "+bridge.failures.length:""));
     text("merge",p.merge_state.replaceAll("_"," "));
     text("verification",p.verification_state+" · fixture");
     text("outcome",v.fixture_accepted_outcome?"Accepted · fixture":p.run_state==="failed"?"Not accepted · fixture":"Pending · fixture");

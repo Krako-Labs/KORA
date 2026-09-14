@@ -2,12 +2,14 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task036.
+Last updated by: Task037.
 
-- branch: `feat/task036-studio-mock-lifecycle`
-- PR: https://github.com/Krako-Labs/KORA/pull/305
+- branch: `feat/hero-s01-mock-execution-bridge`
+- PR: pending
 
-Task036 adds an opt-in mock adapter lifecycle review with canonical replay, failure/cleanup history and no service acceptance promotion: [Task036 report](docs/reports/task036_studio_mock_lifecycle.md).
+Task037 joins the planner, exact effective configuration, mock adapter lifecycle and task/service fixture events in one canonical replay, including failure, cancellation, cleanup retry, bounded replan and pre-task hybrid rejection: [Task037 report](docs/reports/task037_hero_s01_mock_execution_bridge.md).
+
+Task036 added an opt-in mock adapter lifecycle review with canonical replay, failure/cleanup history and no service acceptance promotion; it was merged in [PR #305](https://github.com/Krako-Labs/KORA/pull/305) at `681fcdfebc49cef85c1fa432c5feb6a983753998`: [Task036 report](docs/reports/task036_studio_mock_lifecycle.md).
 
 Task035 adds an opt-in inert/mock runtime adapter contract with integrity-bound plans, lifecycle cleanup and fixture-only events: [Task035 report](docs/reports/task035_runtime_adapter_v2.md).
 

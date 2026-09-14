@@ -1,11 +1,13 @@
 """Fixture-only Hero planning and event projection for Studio.
 
-No runtime adapter, model loader, provider, or host probe is imported here.
+Only the inert mock adapter contract is joined here. No executable runtime, model loader,
+provider, host probe, or network client is imported.
 """
 
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from datetime import datetime, timezone
 from importlib import resources
 from typing import Any
@@ -18,12 +20,24 @@ from kora.hero_contracts import (
     ModelResourceProfile,
     WorkloadRequirements,
 )
+from kora.hero_mock_execution import build_mock_execution_bridge
 from kora.hero_planner import build_hero_planning_bundle
 from kora.hero_replay import apply_hero_event
 
 GIB = 1024**3
 NOW = datetime(2026, 9, 14, tzinfo=timezone.utc)
-SCENARIOS = ("apple", "pc", "unknown", "quality-failed")
+SCENARIOS = (
+    "apple",
+    "pc",
+    "unknown",
+    "quality-failed",
+    "cancelled",
+    "load-failed",
+    "execute-failed",
+    "finish-failed",
+    "cleanup-retried",
+    "replanned",
+)
 REQUEST = (
     "Prepare a launch brief: check the supplied facts, reuse the approved brand "
     "notes, draft a local summary, and request an independent review before acceptance."
@@ -114,144 +128,26 @@ def build_studio_hero_fixture(scenario: str = "apple") -> dict[str, Any]:
         model=model,
         workload=workload,
     )
-    events = list(bundle.events)
-
-    def emit(kind: str, phase: str, status: str, **fields: Any) -> None:
-        payload = fields.pop("payload", {})
-        payload["fixture_only"] = True
-        events.append(
-            HeroEvent(
-                event_id=f"{events[0].run_id}:{len(events):04d}",
-                run_id=events[0].run_id,
-                sequence=len(events),
-                occurred_at=NOW,
-                event_type=kind,
-                phase=phase,
-                status=status,
-                source="kora.studio_hero.fixture",
-                evidence_level="fixture",
-                evidence_refs=("fixture:studio-story-v1",),
-                payload=payload,
-                **fields,
-            )
-        )
-
-    if bundle.plan.selected_adapter_id is None:
-        emit(
-            "run.failed",
-            "fail",
-            "failed",
-            payload={
-                "reason": "No feasible runtime plan; fixture stops before task execution."
-            },
-        )
-    else:
-        tasks = [
-            (
-                "facts",
-                "Check supplied facts",
-                "Apply the supplied structural rules.",
-                [],
-                "deterministic",
-                "deterministic_core",
-            ),
-            (
-                "reuse",
-                "Reuse approved brand notes",
-                "Reuse an exact matching approved input.",
-                [],
-                "exact_reuse",
-                "exact_reuse_store",
-            ),
-            (
-                "draft",
-                "Draft the launch summary",
-                "Combine checked facts with approved notes.",
-                ["facts", "reuse"],
-                "local_ai",
-                bundle.plan.selected_adapter_id,
-            ),
-            (
-                "review",
-                "Independent review",
-                "Illustrate an explicitly gated frontier review.",
-                ["draft"],
-                "frontier_ai",
-                "frontier_provider",
-            ),
-        ]
-        emit(
-            "graph.created",
-            "decompose",
-            "completed",
-            payload={"task_ids": [task[0] for task in tasks]},
-        )
-        for task_id, label, purpose, deps, lane, adapter in tasks:
-            emit(
-                "task.created",
-                "decompose",
-                "created",
-                task_id=task_id,
-                payload={"label": label, "purpose": purpose, "dependencies": deps},
-            )
-        for task_id, label, purpose, deps, lane, adapter in tasks:
-            emit("task.ready", "execute", "ready", task_id=task_id)
-            emit(
-                "task.routed",
-                "plan",
-                "ready",
-                task_id=task_id,
-                executor_class=lane,
-                adapter_id=adapter,
-            )
-            emit(
-                "task.started",
-                "execute",
-                "running",
-                task_id=task_id,
-                executor_class=lane,
-                adapter_id=adapter,
-            )
-            emit(
-                "task.completed",
-                "execute",
-                "completed",
-                task_id=task_id,
-                payload={"result": f"Illustrative output: {label}."},
-            )
-        emit("merge.started", "merge", "running")
-        emit(
-            "merge.completed",
-            "merge",
-            "completed",
-            payload={
-                "answer": (
-                    "Launch brief — illustrative output\n"
-                    "Lead with the supplied product facts. Keep the approved brand voice. "
-                    "Prepare one concise announcement and retain the evidence behind each claim."
-                )
-            },
-        )
-        emit("verification.started", "verify", "running")
-        passed = scenario != "quality-failed"
-        emit(
-            "verification.passed" if passed else "verification.failed",
-            "verify",
-            "completed" if passed else "failed",
-            payload={
-                "service_acceptance": "fixture_pass" if passed else "fixture_fail",
-                "structural_acceptance": "fixture_pass",
-                "semantic_non_regression": "not_measured",
-                "reason": "Synthetic service contract passes."
-                if passed
-                else "Synthetic service-quality failure: required source coverage missing.",
-            },
-        )
-        emit(
-            "run.completed" if passed else "run.failed",
-            "complete" if passed else "fail",
-            "completed" if passed else "failed",
-        )
+    bridge_scenario = {
+        "apple": "success",
+        "pc": "success",
+        "unknown": "success",
+        "quality-failed": "quality_failed",
+        "cancelled": "cancelled",
+        "load-failed": "load_failed",
+        "execute-failed": "execute_failed",
+        "finish-failed": "finish_failed",
+        "cleanup-retried": "cleanup_failed_then_retried",
+        "replanned": "replanned",
+    }[scenario]
+    bridge = build_mock_execution_bridge(
+        bundle=bundle,
+        hardware=hardware,
+        model=model,
+        workload=workload,
+        scenario=bridge_scenario,
+    )
+    events = bridge["events"]
 
     frames = project_studio_hero_events(events)
     return {
@@ -265,13 +161,19 @@ def build_studio_hero_fixture(scenario: str = "apple") -> dict[str, Any]:
         "model": model.model_dump(mode="json"),
         "workload": workload.model_dump(mode="json"),
         "planning_bundle": bundle.model_dump(mode="json"),
+        "mock_execution_bridge": {
+            "schema_version": bridge["schema_version"],
+            "compatibility": bridge["compatibility"],
+            "runtime_identity": bridge["runtime_identity"],
+            "effective_config": bridge["effective_config"],
+            "effective_config_digest": bridge["effective_config_digest"],
+            "accepted_outcome": bridge["accepted_outcome"],
+            "service_acceptance": bridge["service_acceptance"],
+            "semantic_non_regression": bridge["semantic_non_regression"],
+        },
         "event_count": len(events),
         "frames": frames,
-        "actual_execution": {
-            "runtime_starts": 0,
-            "model_calls": 0,
-            "provider_calls": 0,
-        },
+        "actual_execution": bridge["actual_execution"],
     }
 
 
@@ -286,6 +188,10 @@ def project_studio_hero_events(events: list[HeroEvent]) -> list[dict[str, Any]]:
     profiles_visible = False
     outputs: dict[str, str] = {}
     reason = ""
+    adapter_state = "not_started"
+    adapter_attempt: int | None = None
+    runtime_identity: dict[str, Any] | None = None
+    failures: list[dict[str, Any]] = []
     for event in events:
         if event.evidence_level != "fixture":
             raise ValueError("Studio fixture playback rejects non-fixture events")
@@ -296,12 +202,29 @@ def project_studio_hero_events(events: list[HeroEvent]) -> list[dict[str, Any]]:
             candidates_visible = True
         if event.event_type == "task.completed" and event.task_id:
             outputs[event.task_id] = str(event.payload.get("result", ""))
+        if event.event_type.startswith("adapter."):
+            adapter_state = str(event.payload.get("state", adapter_state))
+            adapter_attempt = event.attempt
+            identity = event.payload.get("runtime_identity")
+            if isinstance(identity, dict):
+                runtime_identity = identity
+        if event.event_type in {"task.failed", "run.replanned"}:
+            failures.append(
+                {
+                    "event_id": event.event_id,
+                    "task_id": event.task_id,
+                    "attempt": event.attempt,
+                    "reason_code": event.payload.get("reason_code"),
+                }
+            )
         if event.event_type == "merge.completed":
             answer = str(event.payload.get("answer", ""))
         if event.event_type.startswith("verification."):
             service = str(event.payload.get("service_acceptance", "pending"))
             structural = str(event.payload.get("structural_acceptance", "pending"))
-        reason = str(event.payload.get("reason", reason))
+        reason = str(
+            event.payload.get("reason") or event.payload.get("reason_code") or reason
+        )
         accepted = (
             state.accepted_outcome
             and state.run_state == "completed"
@@ -330,6 +253,15 @@ def project_studio_hero_events(events: list[HeroEvent]) -> list[dict[str, Any]]:
                     "answer": answer,
                     "reason": reason,
                     "outputs": dict(outputs),
+                    "mock_execution_bridge": {
+                        "adapter_state": adapter_state,
+                        "attempt": adapter_attempt,
+                        "runtime_identity": deepcopy(runtime_identity),
+                        "failures": deepcopy(failures),
+                        "accepted_outcome": False,
+                        "service_acceptance": "not_measured",
+                        "semantic_non_regression": "not_measured",
+                    },
                     "A_workload_control": {
                         "fixture_completed_tasks": counts,
                         "actual_model_calls": 0,
