@@ -5,7 +5,7 @@ Status: current public project breadcrumb.
 Last updated by: Task036.
 
 - branch: `feat/task036-studio-mock-lifecycle`
-- PR: pending creation
+- PR: https://github.com/Krako-Labs/KORA/pull/305
 
 Task036 adds an opt-in mock adapter lifecycle review with canonical replay, failure/cleanup history and no service acceptance promotion: [Task036 report](docs/reports/task036_studio_mock_lifecycle.md).
 

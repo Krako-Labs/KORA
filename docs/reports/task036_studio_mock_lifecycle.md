@@ -1,6 +1,7 @@
 # Task036 — Hero Studio mock lifecycle replay
 
 - branch: `feat/task036-studio-mock-lifecycle`
+- PR: https://github.com/Krako-Labs/KORA/pull/305
 - base: `aab7958f5a55912276ef522e6e17992d5aa1c26d`
 - risk level: medium
 - final status classification: `needs-cto-review`
@@ -61,6 +62,8 @@ model or event inputs.
 - Automated Visual QC: desktop cleanup failure and mobile reduced-motion captures
   inspected directly; fixture labels, A/B separation and readable state retained.
 - Human Visual Review and semantic/human grading: not performed.
+
+Report/PR URL and required audit wording were finalized after draft PR creation.
 
 Two implementation/self-review rounds: import formatting and a dictionary style
 diagnostic were corrected; self-review enforced mandatory scripted failure and
