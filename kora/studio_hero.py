@@ -285,6 +285,9 @@ def hero_asset(name: str) -> str:
     if name not in {
         "hero.html",
         "hero-adapter.html",
+        "hero-hybrid.html",
+        "hero-hybrid.css",
+        "hero-hybrid.js",
         "hero-live.html",
         "hero-live.js",
         "hero.css",

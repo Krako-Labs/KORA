@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Callable
 from urllib.parse import parse_qs, unquote, urlparse
 
+from kora.hero_hybrid_evidence import hybrid_payload
 from kora.studio_drawer_render import render_right_details_drawer
 from kora.studio_execution_fixture import get_execution_viewer_fixture_summary, get_standard_vs_kora_status_fields
 from kora.studio_harness_comparison import get_local_harness_comparison_status_fields
@@ -1124,6 +1125,15 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
         def do_GET(self) -> None:
             parsed_path = urlparse(self.path)
             path = parsed_path.path
+            if path == "/hero/hybrid":
+                self._write_html(hero_asset("hero-hybrid.html"))
+                return
+            if path == "/api/hero/hybrid":
+                try:
+                    self._write_json(hybrid_payload())
+                except (ValueError, KeyError, TypeError, OSError):
+                    self._write_json({"ok": False, "error": "invalid_hybrid_evidence"}, status_code=422)
+                return
             if path == "/hero/live":
                 self._write_html(hero_asset("hero-live.html"))
                 return
@@ -1164,6 +1174,8 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
                 "/hero-assets/hero.css",
                 "/hero-assets/hero.js",
                 "/hero-assets/hero-live.js",
+                "/hero-assets/hero-hybrid.js",
+                "/hero-assets/hero-hybrid.css",
             }:
                 name = path.rsplit("/", 1)[-1]
                 writer = self._write_css if name.endswith(".css") else self._write_javascript
