@@ -1,0 +1,5 @@
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.65}
+.evidence{grid-template-columns:repeat(2,minmax(0,1fr))}.evidence article{min-width:0}
+.topbar{flex-wrap:wrap}.topbar>a:not(:first-child){font-size:13px}.topbar>strong{margin-left:auto;font-size:10px}
+#tasks{padding-left:22px}#tasks li{padding:6px 0}
+@media(max-width:700px){.evidence{grid-template-columns:1fr}.topbar{gap:14px}.topbar>strong{width:100%;margin:0}}

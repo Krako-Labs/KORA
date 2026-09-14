@@ -2,10 +2,12 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task038.
+Last updated by: Task039.
 
-- branch: `feat/hero-s02-bounded-mac-live-slice`
-- PR: https://github.com/Krako-Labs/KORA/pull/307
+- branch: `feat/hero-s02-h100-integration`
+- PR: not created; validated working tree awaits approval
+
+Task039 adds bounded owned-H100 execution, verified borrowed-service restoration, preserved failed attempts and a read-only Mac/H100 evidence replay: [Task039 report](docs/reports/task039_hero_s02_h100_integration.md). Sequential evidence integration does not establish simultaneous multi-device execution or semantic quality.
 
 Task038 adds one claim-bounded Mac-local Qwen execution slice with exact runtime/model identity, loopback-only execution, objective structured-output checks, cleanup evidence, canonical replay, and an opt-in read-only Studio evidence view: [Task038 report](docs/reports/task038_hero_s02_bounded_mac_live_slice.md).
 
