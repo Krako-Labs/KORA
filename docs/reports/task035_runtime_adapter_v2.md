@@ -1,7 +1,7 @@
 # Task035 — Runtime Adapter v2 inert/mock contract
 
 - branch: `feat/task035-runtime-adapter-v2`
-- PR: pending creation
+- PR: https://github.com/Krako-Labs/KORA/pull/304
 - base: `00a65f665c192631c8a9e425c78389c75a50c850`
 - risk level: medium
 - final status classification: `needs-cto-review`
@@ -88,7 +88,7 @@ remain intact. No combined A/B improvement multiplier is calculated.
 - Desktop accepted and mobile reduced-motion screenshots inspected directly:
   fixture labels, readable state and A/B separation retained.
 - Human Visual Review and semantic/human grading: not performed.
-- Markdown links and report/breadcrumb consistency: finalized after PR creation.
+- Markdown links and report/breadcrumb consistency: passed with two breadcrumbs.
 
 Validation/repair rounds: two. The initial 57 behavioral checks passed.
 Two test-style diagnostics were repaired (import formatting and dictionary

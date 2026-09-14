@@ -5,7 +5,7 @@ Status: current public project breadcrumb.
 Last updated by: Task035.
 
 - branch: `feat/task035-runtime-adapter-v2`
-- PR: pending creation
+- PR: https://github.com/Krako-Labs/KORA/pull/304
 
 Task035 adds an opt-in inert/mock runtime adapter contract with integrity-bound plans, lifecycle cleanup and fixture-only events: [Task035 report](docs/reports/task035_runtime_adapter_v2.md).
 
