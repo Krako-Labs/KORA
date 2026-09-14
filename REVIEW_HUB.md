@@ -2,10 +2,12 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task035.
+Last updated by: Task036.
 
-- branch: `feat/task035-runtime-adapter-v2`
-- PR: https://github.com/Krako-Labs/KORA/pull/304
+- branch: `feat/task036-studio-mock-lifecycle`
+- PR: https://github.com/Krako-Labs/KORA/pull/305
+
+Task036 adds an opt-in mock adapter lifecycle review with canonical replay, failure/cleanup history and no service acceptance promotion: [Task036 report](docs/reports/task036_studio_mock_lifecycle.md).
 
 Task035 adds an opt-in inert/mock runtime adapter contract with integrity-bound plans, lifecycle cleanup and fixture-only events: [Task035 report](docs/reports/task035_runtime_adapter_v2.md).
 

@@ -40,6 +40,7 @@ from kora.studio_hero import (
     hero_event_payload,
     hero_sse,
 )
+from kora.studio_hero_adapter import adapter_event_payload, build_adapter_review_fixture
 from kora.studio_legacy_render import render_legacy_preview_opening
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_model_runtime_render import (
@@ -1122,6 +1123,27 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
         def do_GET(self) -> None:
             parsed_path = urlparse(self.path)
             path = parsed_path.path
+            if path == "/hero/adapter":
+                self._write_html(hero_asset("hero-adapter.html"))
+                return
+            if path in {"/api/hero/adapter/fixture", "/api/hero/adapter/events", "/api/hero/adapter/sse"}:
+                query = parse_qs(parsed_path.query)
+                scenario = query.get("scenario", ["success"])[0]
+                try:
+                    if path.endswith("/fixture"):
+                        fixture = build_adapter_review_fixture(scenario)
+                        fixture.pop("frames")
+                        self._write_json(fixture)
+                    else:
+                        cursor = query.get("after", [self.headers.get("Last-Event-ID", "-1")])[0]
+                        payload = adapter_event_payload(scenario, int(cursor))
+                        if path.endswith("/sse"):
+                            self._write_sse(hero_sse(payload))
+                        else:
+                            self._write_json(payload)
+                except (ValueError, TypeError):
+                    self._write_json({"ok": False, "error": "invalid_adapter_fixture_or_cursor"}, 400)
+                return
             if path == "/hero":
                 self._write_html(hero_asset("hero.html"))
                 return
