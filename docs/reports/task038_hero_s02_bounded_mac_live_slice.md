@@ -60,24 +60,11 @@ The JSON schema constrains every value to the supplied allowlists. Independent
 deterministic validation repeats those checks and rejects prohibited claims.
 This is grounding and schema evidence, not semantic grading.
 
-The one observed output was:
-
-```json
-{
-  "headline": "Private AI, visible evidence",
-  "audience": "Teams operating AI on owned hardware",
-  "promise": "Run one bounded local draft with traceable evidence.",
-  "proof_points": [
-    "Runs on user-owned hardware.",
-    "Uses a loopback-only model endpoint.",
-    "Records configuration, calls, timing, memory sampling, and cleanup."
-  ],
-  "caveats": [
-    "Semantic quality was not measured.",
-    "Production behavior was not measured."
-  ]
-}
-```
+The accepted local output digest is
+`2fa5a9f8cc92101c7912a94bb1d081ac7e0fb42152a860d9fc8e4b2aa8d7f82e`.
+The raw model output remains in local-only retained evidence and is not copied
+into this public report. The objective result records that it matched the
+supplied allowlists and preserved the required caveats.
 
 ## Observed execution
 
