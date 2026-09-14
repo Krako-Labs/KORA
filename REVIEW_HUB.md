@@ -2,10 +2,12 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task034.
+Last updated by: Task035.
 
-- branch: `feat/task034-hero-studio`
-- PR: https://github.com/Krako-Labs/KORA/pull/303
+- branch: `feat/task035-runtime-adapter-v2`
+- PR: pending creation
+
+Task035 adds an opt-in inert/mock runtime adapter contract with integrity-bound plans, lifecycle cleanup and fixture-only events: [Task035 report](docs/reports/task035_runtime_adapter_v2.md).
 
 Task034 adds a fixture-only Hero Studio planning/task graph with canonical event replay, service-coupled acceptance and separate A/B evidence: [Task034 report](docs/reports/task034_hero_studio_planning_and_task_graph.md).
 
