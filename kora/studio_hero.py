@@ -284,6 +284,9 @@ def hero_asset(name: str) -> str:
     """Load only package-controlled Hero assets."""
     if name not in {
         "hero.html",
+        "hero-festa.html",
+        "hero-festa.css",
+        "hero-festa.js",
         "hero-adapter.html",
         "hero-hybrid.html",
         "hero-hybrid.css",
