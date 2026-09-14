@@ -2,12 +2,14 @@
 
 Status: current public review and continuation hub.
 
-Last updated by: Task037.
+Last updated by: Task038.
 
-- branch: `feat/hero-s01-mock-execution-bridge`
-- PR: https://github.com/Krako-Labs/KORA/pull/306
+- branch: `feat/hero-s02-bounded-mac-live-slice`
+- PR: https://github.com/Krako-Labs/KORA/pull/307
 
-Task037 joins the planner, exact effective configuration, mock adapter lifecycle and task/service fixture events in one canonical replay, including failure, cancellation, cleanup retry, bounded replan and pre-task hybrid rejection: [Task037 report](docs/reports/task037_hero_s01_mock_execution_bridge.md).
+Task038 adds one claim-bounded Mac-local Qwen execution slice with exact runtime/model identity, loopback-only execution, objective structured-output checks, cleanup evidence, canonical replay, and an opt-in read-only Studio evidence view: [Task038 report](docs/reports/task038_hero_s02_bounded_mac_live_slice.md).
+
+Task037 joined the planner, exact effective configuration, mock adapter lifecycle and task/service fixture events in one canonical replay and was merged in [PR #306](https://github.com/Krako-Labs/KORA/pull/306) at `da0d8481a147a9d2a86a1721f7cb076761a1bc26`: [Task037 report](docs/reports/task037_hero_s01_mock_execution_bridge.md).
 
 Task036 added an opt-in mock adapter lifecycle review with canonical replay, failure/cleanup history and no service acceptance promotion; it was merged in [PR #305](https://github.com/Krako-Labs/KORA/pull/305) at `681fcdfebc49cef85c1fa432c5feb6a983753998`: [Task036 report](docs/reports/task036_studio_mock_lifecycle.md).
 

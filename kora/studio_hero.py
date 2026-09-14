@@ -282,7 +282,14 @@ def project_studio_hero_events(events: list[HeroEvent]) -> list[dict[str, Any]]:
 
 def hero_asset(name: str) -> str:
     """Load only package-controlled Hero assets."""
-    if name not in {"hero.html", "hero-adapter.html", "hero.css", "hero.js"}:
+    if name not in {
+        "hero.html",
+        "hero-adapter.html",
+        "hero-live.html",
+        "hero-live.js",
+        "hero.css",
+        "hero.js",
+    }:
         raise ValueError("unknown Hero asset")
     return (
         resources.files("kora")

@@ -88,6 +88,14 @@ class OpenAICompatibleLocalAdapter(BaseAdapter):
         if self.timeout_s <= 0:
             raise LocalOpenAICompatibleError("KORA_LOCAL_OPENAI_TIMEOUT_S must be positive")
 
+        disable_thinking = self._environ.get(
+            "KORA_LOCAL_OPENAI_DISABLE_THINKING", "false"
+        ).strip().lower()
+        if disable_thinking not in {"true", "false"}:
+            raise LocalOpenAICompatibleError(
+                "KORA_LOCAL_OPENAI_DISABLE_THINKING must be true or false"
+            )
+        self.disable_thinking = disable_thinking == "true"
 
     def cache_identity(self) -> dict[str, Any]:
         """Return non-secret execution identity used to bind exact-result reuse."""
@@ -146,6 +154,8 @@ class OpenAICompatibleLocalAdapter(BaseAdapter):
                 },
             },
         }
+        if self.disable_thinking:
+            body["chat_template_kwargs"] = {"enable_thinking": False}
         headers = {"Content-Type": "application/json"}
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"

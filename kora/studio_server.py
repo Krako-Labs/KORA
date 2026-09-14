@@ -41,6 +41,7 @@ from kora.studio_hero import (
     hero_sse,
 )
 from kora.studio_hero_adapter import adapter_event_payload, build_adapter_review_fixture
+from kora.studio_hero_live import StudioLiveEvidenceError, live_evidence_payload
 from kora.studio_legacy_render import render_legacy_preview_opening
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_model_runtime_render import (
@@ -1123,6 +1124,18 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
         def do_GET(self) -> None:
             parsed_path = urlparse(self.path)
             path = parsed_path.path
+            if path == "/hero/live":
+                self._write_html(hero_asset("hero-live.html"))
+                return
+            if path == "/api/hero/live":
+                try:
+                    self._write_json(live_evidence_payload())
+                except StudioLiveEvidenceError:
+                    self._write_json(
+                        {"ok": False, "error": "invalid_live_evidence"},
+                        status_code=422,
+                    )
+                return
             if path == "/hero/adapter":
                 self._write_html(hero_asset("hero-adapter.html"))
                 return
@@ -1147,7 +1160,11 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
             if path == "/hero":
                 self._write_html(hero_asset("hero.html"))
                 return
-            if path in {"/hero-assets/hero.css", "/hero-assets/hero.js"}:
+            if path in {
+                "/hero-assets/hero.css",
+                "/hero-assets/hero.js",
+                "/hero-assets/hero-live.js",
+            }:
                 name = path.rsplit("/", 1)[-1]
                 writer = self._write_css if name.endswith(".css") else self._write_javascript
                 writer(hero_asset(name))
