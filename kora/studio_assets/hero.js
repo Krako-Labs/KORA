@@ -4,11 +4,14 @@
   const $ = (id) => document.getElementById(id);
   const names = {deterministic:"Deterministic",exact_reuse:"Exact Reuse",local_ai:"Local AI",frontier_ai:"Frontier AI"};
   const runtimeNames = {"mlx-lm":"MLX-LM","llama.cpp":"llama.cpp",freetoken:"FreeToken",ktransformers:"KTransformers"};
-  const key = "kora.hero.fixture.cursor.v1";
+  const adapterMode = document.body.dataset.heroMode === "adapter";
+  const api = adapterMode ? "/api/hero/adapter" : "/api/hero";
+  const key = adapterMode ? "kora.hero.adapter.cursor.v1" : "kora.hero.fixture.cursor.v1";
+  const fixtureDigest = data => data.event_digest || data.planning_bundle.evidence_digest;
   let fixture, cursor = -1, queue = [], source = null, epoch = 0, timer = null, playing = false;
   let history = [], recovering = false;
   function readSaved() { try { return JSON.parse(sessionStorage.getItem(key) || "null"); } catch { return null; } }
-  function save() { try { sessionStorage.setItem(key, JSON.stringify({scenario:fixture.scenario,cursor,digest:fixture.planning_bundle.evidence_digest})); } catch { /* Playback works without persistence. */ } }
+  function save() { try { sessionStorage.setItem(key, JSON.stringify({scenario:fixture.scenario,cursor,digest:fixtureDigest(fixture)})); } catch { /* Playback works without persistence. */ } }
   function text(id, value) { $(id).textContent = value; }
   function element(tag, content, className) { const node=document.createElement(tag); if(content !== undefined) node.textContent=content; if(className) node.className=className; return node; }
   async function get(url) { const response=await fetch(url,{cache:"no-store"}); if(!response.ok) throw new Error("Fixture request failed ("+response.status+")."); return response.json(); }
@@ -21,6 +24,15 @@
   }
   function stop() { playing=false; clearTimeout(timer); timer=null; controls(); }
   function clearScreen() {
+    if(adapterMode) {
+      history=[]; $("history").replaceChildren(); $("lifecycle").replaceChildren();
+      text("adapter-state","Awaiting plan");$("adapter-state").dataset.state="awaiting_plan";text("mock-outcome","None");text("adapter-accepted","Not accepted");
+      text("allocation","No mock allocation");text("adapter-reason","");text("adapter-output","No mock response yet.");
+      text("adapter-identity","Identity appears after the plan is sealed.");
+      $("adapter-telemetry").replaceChildren(element("dt","Telemetry"),element("dd","Not supplied yet"));
+      text("phase","Intake");text("event-position","No events played");text("event-kind","");
+      $("error").hidden=true;window.koraHeroState=null;return;
+    }
     document.querySelectorAll(".task").forEach(node=>node.remove());
     $("candidates").replaceChildren(element("p","Waiting for the plan event."));
     $("history").replaceChildren(); history=[];
@@ -34,7 +46,35 @@
     text("reason",""); text("counts","No task completions yet.");
     $("error").hidden=true; window.koraHeroState=null;
   }
+  function renderAdapter(frame, record) {
+    const {event,view:v}=frame;
+    if(event.run_id!==fixture.run_id || event.evidence_level!=="fixture" ||
+       v.accepted_outcome!==false || v.B_local_execution.execution_performed!==false ||
+       v.A_workload_control.actual_model_calls!==0 || v.A_workload_control.actual_provider_calls!==0)
+      throw new Error("Invalid mock review frame.");
+    cursor=event.sequence;
+    text("phase",event.phase);text("event-position",(cursor+1)+" / "+fixture.event_count+" fixture events");text("event-kind",event.event_type);
+    text("adapter-state",v.adapter_state.replaceAll("_"," "));
+    $("adapter-state").dataset.state=v.adapter_state;
+    text("mock-outcome",v.mock_outcome || "None");
+    text("allocation",v.mock_allocation_retained?"Mock allocation retained · cleanup required":"No mock allocation");
+    text("adapter-reason",v.compatibility && !v.compatibility.compatible ? v.compatibility.reason_codes.join(" · ") : v.failures.map(f=>f.reason_code).join(" → "));
+    text("adapter-output",v.output ?? "No mock response yet.");
+    text("adapter-identity",v.runtime_identity?JSON.stringify(v.runtime_identity,null,2):"No identity bound.");
+    const labels={input_tokens:"Input tokens",output_tokens:"Output tokens",peak_host_bytes:"Peak host bytes",peak_gpu_bytes:"Peak GPU bytes",load_ms:"Load ms",ttft_ms:"TTFT ms",end_to_end_ms:"End-to-end ms"};
+    $("adapter-telemetry").replaceChildren(...Object.entries(labels).flatMap(([name,label])=>[
+      element("dt",label),element("dd",v.telemetry ? v.telemetry[name]===null?"Unavailable":String(v.telemetry[name])+" · fixture":"Not supplied yet")
+    ]));
+    if(record)history.push(event);
+    $("lifecycle").replaceChildren(...history.filter(e=>e.event_type.startsWith("adapter.")).map(e=>{
+      const node=element("li",e.sequence+" · "+e.event_type+" · "+(e.payload.state || "extension"));
+      node.dataset.status=e.status;return node;
+    }));
+    $("history").replaceChildren(...history.map(e=>element("li",e.sequence+" · "+e.event_type+" · fixture")));
+    window.koraHeroState=frame;save();controls();
+  }
   function render(frame, record=true) {
+    if(adapterMode){renderAdapter(frame,record);return;}
     const {event,projection:p,view:v} = frame;
     if(event.run_id !== fixture.run_id || event.evidence_level !== "fixture") throw new Error("Unexpected event identity.");
     cursor=event.sequence;
@@ -117,7 +157,7 @@
     if(recovering || token!==epoch) return;
     recovering=true; source?.close();
     try {
-      const payload=await get("/api/hero/events?scenario="+fixture.scenario+"&after="+cursor);
+      const payload=await get(api+"/events?scenario="+fixture.scenario+"&after="+cursor);
       if(token!==epoch) return;
       queue=[]; payload.frames.forEach(enqueue);
       text("transport","Recovered ordered events · fixture");
@@ -126,7 +166,7 @@
   }
   function connect(token) {
     text("transport","Connecting fixture event stream…");
-    source=new EventSource("/api/hero/sse?scenario="+fixture.scenario+"&after="+cursor);
+    source=new EventSource(api+"/sse?scenario="+fixture.scenario+"&after="+cursor);
     source.addEventListener("hero",message=>{
       if(token!==epoch) return;
       try { enqueue(JSON.parse(message.data)); text("transport","Fixture events ready · SSE"); }
@@ -144,14 +184,14 @@
     stop(); source?.close(); queue=[]; fixture=null; cursor=-1; recovering=false; controls();clearScreen();
     text("transport","Loading fixture…");
     try {
-      const data=await get("/api/hero/fixture?scenario="+scenario);
+      const data=await get(api+"/fixture?scenario="+scenario);
       if(token!==epoch) return;
-      fixture=data; text("request",data.request); text("digest","Planning SHA-256 · "+data.planning_bundle.evidence_digest);
-      $("evidence-link").href="/api/hero/fixture?scenario="+scenario;
+      fixture=data; if(!adapterMode)text("request",data.request); text("digest",(adapterMode?"Event log SHA-256 · ":"Planning SHA-256 · ")+fixtureDigest(data));
+      $("evidence-link").href=api+"/fixture?scenario="+scenario;
       const saved=restore ? readSaved() : null;
-      if(saved && saved.scenario===scenario && saved.digest===data.planning_bundle.evidence_digest &&
+      if(saved && saved.scenario===scenario && saved.digest===fixtureDigest(data) &&
           Number.isInteger(saved.cursor) && saved.cursor>=0 && saved.cursor<data.event_count) {
-        const payload=await get("/api/hero/events?scenario="+scenario);
+        const payload=await get(api+"/events?scenario="+scenario);
         if(token!==epoch) return;
         for(const frame of payload.frames.slice(0,saved.cursor+1)) accept(frame);
         text("transport","Restored identical fixture state · paused");

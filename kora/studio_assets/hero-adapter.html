@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KORA Studio · Mock adapter review</title>
+<link rel="stylesheet" href="/hero-assets/hero.css">
+<script src="/hero-assets/hero.js" defer></script>
+</head>
+<body data-hero-mode="adapter">
+<header class="topbar"><a href="/">KORA <span>STUDIO</span></a><a href="/hero">Hero task graph</a><strong class="fixture">MOCK FIXTURE REPLAY</strong></header>
+<main>
+<section class="intro"><div><p class="eyebrow">RUNTIME ADAPTER / CONTRACT REVIEW</p><h1>Follow the lifecycle.<br>Keep the evidence.</h1><p>Inspect preparation, completion, failure and cleanup from ordered mock events.</p></div><p class="boundary">No model, runtime or provider execution.<br>Mock completion does not establish service acceptance.<br>All values and outputs are supplied fixtures.</p></section>
+<section class="composer"><div><h2>One scenario. One event log.</h2><p>Step through the contract, or replay it. Reload restores the same event and state.</p><p id="transport" role="status">Loading fixture…</p></div><div class="scenario"><label for="scenario">Mock lifecycle scenario</label><select id="scenario"><option value="success">Success · mock only</option><option value="cancelled">Cancellation</option><option value="load_failed">Load failure</option><option value="execute_failed">Execute failure</option><option value="finish_failed">Finish failure</option><option value="cleanup_failed_then_retried">Cleanup failure → retry</option><option value="placement_unresolved">Hybrid placement · blocked</option></select><div class="controls"><button id="play" disabled>Play fixture</button><button id="step" disabled>Next event</button><button id="reset" disabled>Replay</button></div></div></section>
+<section class="graph-section" aria-label="Mock adapter lifecycle">
+<div class="section-title"><h2>Adapter lifecycle <span class="fixture">MOCK</span></h2><span id="event-position">No events played</span></div>
+<div class="stage-line"><strong id="phase">Intake</strong><span id="event-kind"></span></div>
+<div class="adapter-summary"><article><p class="eyebrow">SESSION STATE</p><h2 id="adapter-state" aria-live="polite">Awaiting plan</h2><p id="allocation">No mock allocation</p></article><article><p class="eyebrow">MOCK OUTCOME</p><h2 id="mock-outcome">None</h2><p>Independent of service acceptance</p></article><article><p class="eyebrow">ACCEPTED OUTCOME</p><h2 id="adapter-accepted">Not accepted</h2><p>Service quality: not measured</p></article></div>
+<p id="adapter-reason" role="status"></p><ol id="lifecycle" class="lifecycle" aria-label="Ordered lifecycle history"></ol>
+</section>
+<section class="evidence"><article><h2>A. Workload-control effect</h2><p>Actual model calls: <strong>0</strong> · Actual provider calls: <strong>0</strong></p><p>No task completions, acceptance or savings are inferred from this mock session.</p></article><article><h2>B. Local-execution effect</h2><p>Runtime execution: <strong>not performed</strong></p><p>Physical memory, latency, throughput and quality: <strong>not measured</strong></p><p>Semantic non-regression: <strong>not measured</strong></p></article></section>
+<section class="evidence"><article><h2>Supplied telemetry <span class="fixture">FIXTURE</span></h2><dl id="adapter-telemetry" class="adapter-values"><dt>Telemetry</dt><dd>Not supplied yet</dd></dl></article><article><h2>Supplied response <span class="fixture">MOCK</span></h2><p id="adapter-output">No mock response yet.</p><p class="boundary">A supplied string, not generated model text.</p></article></section>
+<details class="details"><summary>Bound identity & canonical event history</summary><pre id="adapter-identity">Identity appears after the plan is sealed.</pre><p id="digest"></p><a id="evidence-link" href="/api/hero/adapter/fixture">Open mock fixture JSON</a><ol id="history"></ol></details>
+<p id="error" role="alert" hidden></p>
+<footer>Fixture pacing only. State changes come from ordered events. Failed attempts remain in history. Reduced-motion preferences are respected.</footer>
+</main></body></html>
