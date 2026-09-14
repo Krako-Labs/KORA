@@ -114,3 +114,29 @@ def test_cache_identity_versions_local_json_schema_contract():
         "KORA_LOCAL_OPENAI_RUNTIME_ID":"runtime-test",
     })
     assert adapter.cache_identity()["contract_version"]=="openai-compatible-local/v2-json-schema"
+
+
+def test_optional_disable_thinking_is_explicit_and_forwarded(monkeypatch):
+    captured = {}
+    payload = {"choices":[{"message":{"content":json.dumps({"answer":"ok"})},"finish_reason":"stop"}],"usage":{}}
+    def fake_urlopen(req, timeout):
+        captured.update(json.loads(req.data.decode()))
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self,*args): return False
+            def read(self): return json.dumps(payload).encode()
+        return Response()
+    monkeypatch.setattr(request,"urlopen",fake_urlopen)
+    adapter=OpenAICompatibleLocalAdapter(environ={
+        "KORA_LOCAL_OPENAI_ENDPOINT":"http://127.0.0.1:9999",
+        "KORA_LOCAL_OPENAI_MODEL":"qwen",
+        "KORA_LOCAL_OPENAI_DISABLE_THINKING":"true",
+    })
+    adapter.run(task_id="n",input={"x":1},budget={"max_tokens":8},output_schema={"type":"object","required":["answer"]})
+    assert captured["chat_template_kwargs"]=={"enable_thinking":False}
+    with pytest.raises(LocalOpenAICompatibleError,match="DISABLE_THINKING"):
+        OpenAICompatibleLocalAdapter(environ={
+            "KORA_LOCAL_OPENAI_ENDPOINT":"http://127.0.0.1:9999",
+            "KORA_LOCAL_OPENAI_MODEL":"qwen",
+            "KORA_LOCAL_OPENAI_DISABLE_THINKING":"sometimes",
+        })
