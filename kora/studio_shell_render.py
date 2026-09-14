@@ -26,6 +26,7 @@ def render_shell_layout(
         <button class=\"rail-close-button\" type=\"button\" id=\"kora-left-rail-close\" aria-label=\"Close left rail\" data-kora-keyboard-contract=\"mobile-rail-close\" data-kora-rail-close=\"true\">x</button>
       </div>
       <div class=\"rail-list\">
+        <a class=\"rail-action\" href=\"/hero\">Hero planning · fixture</a>
         <div class=\"rail-action\"><span class=\"rail-icon\">+</span>New task</div>
         <div class=\"rail-action\"><span class=\"rail-icon\">⌕</span>Search tasks</div>
       </div>

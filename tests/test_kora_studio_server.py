@@ -1103,6 +1103,7 @@ def test_package_data_includes_only_reviewed_protocol_and_studio_assets() -> Non
 
     assert pyproject["tool"]["setuptools"]["package-data"]["kora"] == [
         "solution/schemas/*.json",
+        "studio_assets/*.html",
         "studio_assets/*.css",
         "studio_assets/*.js",
         "benchmarks/assets/*.html",
