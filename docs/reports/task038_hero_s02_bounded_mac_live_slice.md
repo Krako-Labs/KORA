@@ -5,7 +5,7 @@
 - Goal / Sprint: G1 / HERO-S02
 - Branch: `feat/hero-s02-bounded-mac-live-slice`
 - Base: `da0d8481a147a9d2a86a1721f7cb076761a1bc26`
-- PR: pending at report commit
+- PR: https://github.com/Krako-Labs/KORA/pull/307
 - Classification: `needs-cto-review`
 - Risk: medium
 

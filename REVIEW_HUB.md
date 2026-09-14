@@ -5,7 +5,7 @@ Status: current public review and continuation hub.
 Last updated by: Task038.
 
 - branch: `feat/hero-s02-bounded-mac-live-slice`
-- PR: pending
+- PR: https://github.com/Krako-Labs/KORA/pull/307
 
 Task038 adds one claim-bounded Mac-local Qwen execution slice with exact runtime/model identity, loopback-only execution, objective structured-output checks, cleanup evidence, canonical replay, and an opt-in read-only Studio evidence view: [Task038 report](docs/reports/task038_hero_s02_bounded_mac_live_slice.md).
 
