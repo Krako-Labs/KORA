@@ -34,6 +34,12 @@ from kora.studio_harness_runs import (
     get_local_harness_run_store_status,
     trigger_local_harness_run,
 )
+from kora.studio_hero import (
+    build_studio_hero_fixture,
+    hero_asset,
+    hero_event_payload,
+    hero_sse,
+)
 from kora.studio_legacy_render import render_legacy_preview_opening
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_model_runtime_render import (
@@ -1116,6 +1122,32 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
         def do_GET(self) -> None:
             parsed_path = urlparse(self.path)
             path = parsed_path.path
+            if path == "/hero":
+                self._write_html(hero_asset("hero.html"))
+                return
+            if path in {"/hero-assets/hero.css", "/hero-assets/hero.js"}:
+                name = path.rsplit("/", 1)[-1]
+                writer = self._write_css if name.endswith(".css") else self._write_javascript
+                writer(hero_asset(name))
+                return
+            if path in {"/api/hero/fixture", "/api/hero/events", "/api/hero/sse"}:
+                query = parse_qs(parsed_path.query)
+                scenario = query.get("scenario", ["apple"])[0]
+                try:
+                    if path == "/api/hero/fixture":
+                        fixture = build_studio_hero_fixture(scenario)
+                        fixture.pop("frames")
+                        self._write_json(fixture)
+                    else:
+                        cursor = query.get("after", [self.headers.get("Last-Event-ID", "-1")])[0]
+                        payload = hero_event_payload(scenario, int(cursor))
+                        if path.endswith("/sse"):
+                            self._write_sse(hero_sse(payload))
+                        else:
+                            self._write_json(payload)
+                except (ValueError, TypeError):
+                    self._write_json({"ok": False, "error": "invalid_hero_fixture_or_cursor"}, 400)
+                return
             status = provider()
             if path.startswith("/studio-assets"):
                 asset_key, asset_status = get_studio_asset_path_status(path)
