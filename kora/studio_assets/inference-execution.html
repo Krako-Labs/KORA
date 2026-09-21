@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KORA Studio · Inference to Execution</title>
+<link rel="stylesheet" href="/hero-assets/hero.css">
+<script src="/hero-assets/inference-execution.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a href="/">KORA <span>STUDIO</span></a><a href="/hero">Hero task graph</a><a href="/hero/live">Local evidence</a><strong>OBSERVED EVIDENCE · READ ONLY</strong></header>
+<main>
+<section class="intro"><div><p class="eyebrow">INFERENCE → EXECUTION</p><h1>Infer when novel.<br>Execute when known.</h1><p>Studio reads one explicitly configured scrubbed evidence file. It cannot start a model, runtime, compiler, benchmark, or provider.</p></div><p class="boundary" id="boundary">Loading evidence boundary…</p></section>
+
+<section class="adapter-summary">
+<article><p class="eyebrow">EVIDENCE STATUS</p><h2 id="status">Loading</h2><p id="recorded">—</p></article>
+<article><p class="eyebrow">MODEL INFERENCES</p><h2 id="model-calls">—</h2><p><span id="tokens">—</span></p></article>
+<article><p class="eyebrow">KORA EXECUTIONS</p><h2 id="compiled">—</h2><p>Exact reuse hits: <strong id="reuse">—</strong></p></article>
+</section>
+
+<section class="graph-section">
+<div class="section-title"><h2>Execution lanes</h2><span>Projected only from recorded events</span></div>
+<div class="lanes" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+<article class="lane" data-lane="frontier_ai"><h3><i></i>MODEL INTELLIGENCE</h3><p class="lane-note">Novel or uncertain work uses configured intelligence.</p><p id="lane-model">Waiting</p></article>
+<article class="lane" data-lane="deterministic"><h3><i></i>KORA EXECUTION</h3><p class="lane-note">Validated known work executes through the compiled path.</p><p id="lane-kora">Waiting</p></article>
+<article class="lane" data-lane="exact_reuse"><h3><i></i>ESCALATION / SAFE PAUSE</h3><p class="lane-note">Out-of-boundary work does not silently use the compiled path.</p><p id="lane-ood">Waiting</p></article>
+</div>
+</section>
+
+<section class="answer-section">
+<div class="section-title"><h2>Observed lifecycle</h2><span id="event-count">—</span></div>
+<ol id="states" class="lifecycle"><li>Waiting for evidence</li></ol>
+</section>
+
+<section class="evidence">
+<article><h2>Candidate / activation</h2><dl id="candidate" class="adapter-values"><dt>Status</dt><dd>Waiting</dd></dl></article>
+<article><h2>Safety counters</h2><dl id="safety" class="adapter-values"><dt>Status</dt><dd>Waiting</dd></dl></article>
+</section>
+
+<section class="evidence">
+<article><h2>Measured timing samples</h2><pre id="timings">—</pre></article>
+<article><h2>Model identity</h2><pre id="identity">—</pre></article>
+</section>
+
+<details class="details"><summary>Evidence identity</summary><p id="event-digest"></p><a href="/api/inference-execution">Open path-free evidence view JSON</a></details>
+<p id="error" role="alert" hidden></p>
+<footer>Measured values remain bound to the configured evidence record. This view does not claim production savings, broad model replacement, hardware superiority, or an unmeasured speedup multiple.</footer>
+</main>
+</body></html>

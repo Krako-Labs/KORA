@@ -44,6 +44,10 @@ from kora.studio_hero import (
 )
 from kora.studio_hero_adapter import adapter_event_payload, build_adapter_review_fixture
 from kora.studio_hero_live import StudioLiveEvidenceError, live_evidence_payload
+from kora.studio_inference_execution import (
+    StudioInferenceExecutionEvidenceError,
+    inference_execution_payload,
+)
 from kora.studio_legacy_render import render_legacy_preview_opening
 from kora.studio_model_catalog import MODEL_CATALOG_CLAIM_BOUNDARY, SETUP_GUIDANCE_PATH, recommend_catalog_models
 from kora.studio_model_runtime_render import (
@@ -1156,6 +1160,18 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
                         status_code=422,
                     )
                 return
+            if path == "/inference-execution":
+                self._write_html(hero_asset("inference-execution.html"))
+                return
+            if path == "/api/inference-execution":
+                try:
+                    self._write_json(inference_execution_payload())
+                except StudioInferenceExecutionEvidenceError:
+                    self._write_json(
+                        {"ok": False, "error": "invalid_inference_execution_evidence"},
+                        status_code=422,
+                    )
+                return
             if path == "/hero/adapter":
                 self._write_html(hero_asset("hero-adapter.html"))
                 return
@@ -1188,6 +1204,7 @@ def create_studio_request_handler(status_provider: StatusProvider | None = None)
                 "/hero-assets/hero-live.js",
                 "/hero-assets/hero-hybrid.js",
                 "/hero-assets/hero-hybrid.css",
+                "/hero-assets/inference-execution.js",
             }:
                 name = path.rsplit("/", 1)[-1]
                 writer = self._write_css if name.endswith(".css") else self._write_javascript
