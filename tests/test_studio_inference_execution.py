@@ -137,6 +137,16 @@ def test_valid_evidence_loads_and_path_is_not_exposed(tmp_path):
     assert view["counters"]["exact_reuse_hits"] == 0
     assert "KNOWN — KORA EXECUTION" in view["studio_states"]
     assert "OOD / UNKNOWN — MODEL REQUIRED" in view["studio_states"]
+    assert view["event_timeline"][0] == {
+        "sequence": 1,
+        "event": "workload.classified",
+        "state": "NEW",
+    }
+    assert any(item["state"] == "KNOWN" for item in view["event_timeline"])
+    assert all(
+        set(item) == {"sequence", "event", "state"} for item in view["event_timeline"]
+    )
+    assert "payload" not in json.dumps(view["event_timeline"])
     assert str(target) not in json.dumps(view)
 
 
@@ -219,11 +229,20 @@ def test_http_page_asset_and_evidence_route(server):
     with urlopen(server + "/hero-assets/inference-execution.js") as response:
         javascript = response.read()
         assert b"/api/inference-execution" in javascript
+        assert b"replay-next" in javascript
+        assert b"evidence-reload" in javascript
+        assert b"setTimeout" not in javascript
+        assert b"setInterval" not in javascript
     with urlopen(server + "/api/inference-execution") as response:
         payload = json.load(response)
     assert payload["available"] is True
     assert payload["model_accounting"]["calls"] == 4
     assert payload["counters"]["compiled_executions"] == 3
+    assert payload["event_timeline"][-1] == {
+        "sequence": 15,
+        "event": "run.paused.safely",
+        "state": "MODEL OFFLINE — TASK PAUSED SAFELY",
+    }
 
 
 def test_invalid_configured_evidence_returns_422(monkeypatch, tmp_path):

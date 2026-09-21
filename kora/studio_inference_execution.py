@@ -115,8 +115,8 @@ def _bounded_ms_list(value: Any, name: str) -> list[float]:
     return result
 
 
-def _project_states(events: list[dict[str, Any]]) -> list[str]:
-    states: list[str] = []
+def _project_timeline(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    timeline: list[dict[str, Any]] = []
     expected_sequence = 1
     for event in events:
         if not isinstance(event, dict):
@@ -131,17 +131,28 @@ def _project_states(events: list[dict[str, Any]]) -> list[str]:
         expected_sequence += 1
         if name not in _ALLOWED_EVENT_NAMES or not isinstance(payload, dict):
             raise StudioInferenceExecutionEvidenceError("unsupported event")
+        state = None
         if name == "workload.classified":
             classification = payload.get("classification")
             if classification == "NEW":
-                states.append("NEW")
+                state = "NEW"
+            elif classification == "KNOWN":
+                state = "KNOWN"
             elif classification == "UNKNOWN":
-                states.append("OOD / UNKNOWN — MODEL REQUIRED")
-            elif classification != "KNOWN":
+                state = "OOD / UNKNOWN — MODEL REQUIRED"
+            else:
                 raise StudioInferenceExecutionEvidenceError("invalid workload classification")
         elif name in _EVENT_STATES:
-            states.append(_EVENT_STATES[name])
-    return states
+            state = _EVENT_STATES[name]
+        if state is not None:
+            timeline.append(
+                {"sequence": sequence, "event": name, "state": state}
+            )
+    return timeline
+
+
+def _project_states(events: list[dict[str, Any]]) -> list[str]:
+    return [item["state"] for item in _project_timeline(events)]
 
 
 def load_inference_execution_evidence(
@@ -348,7 +359,8 @@ def inference_execution_payload(
     if not configured:
         return _disabled()
     evidence = load_inference_execution_evidence(configured)
-    states = _project_states(evidence["events"])
+    timeline = _project_timeline(evidence["events"])
+    states = [item["state"] for item in timeline]
     return {
         "schema_version": "kora.inference-execution-studio-view.v1",
         "available": True,
@@ -364,6 +376,7 @@ def inference_execution_payload(
         "event_count": len(evidence["events"]),
         "event_digest": evidence["event_digest"],
         "studio_states": states,
+        "event_timeline": timeline,
     }
 
 
