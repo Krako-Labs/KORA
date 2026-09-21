@@ -293,6 +293,8 @@ def hero_asset(name: str) -> str:
         "hero-hybrid.js",
         "hero-live.html",
         "hero-live.js",
+        "inference-execution.html",
+        "inference-execution.js",
         "hero.css",
         "hero.js",
     }:
