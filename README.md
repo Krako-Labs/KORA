@@ -6,12 +6,10 @@
 
 <br />
 
-<p align="center">
-  <img src="docs/assets/readme-v2/kora-label-open-source.png" alt="Open Source" width="165" />
-  <img src="docs/assets/readme-v2/kora-label-execution-control.png" alt="Execution Control" width="165" />
-  <img src="docs/assets/readme-v2/kora-label-local-examples.png" alt="Local Examples" width="165" />
-  <img src="docs/assets/readme-v2/kora-label-research-preprint.png" alt="Research Preprint" width="165" />
-</p>
+[![CI](https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-%3E%3D3.10-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![arXiv: 2610.35869](https://img.shields.io/badge/arXiv-2610.35869-b31b1b)](https://arxiv.org/abs/2610.35869)
 
 <br />
 
