@@ -1,12 +1,12 @@
-# KORA Workload Control Layer
+# KORA Execution Control Layer
 
-KORA is an **AI Workload Control Layer**.
+KORA is an **AI Execution Control Layer**. It inspects and routes work before model inference, using validated deterministic execution when the task permits.
 
 It is based on a simple observation: not every AI-system task should immediately become a model invocation.
 
 Many useful AI workflows contain work that can be classified, reused, routed, retrieved, validated, or handled by tools before a provider/model call is needed.
 
-![KORA Workload Control Layer Architecture](../assets/kora_workload_control_layer_architecture.svg)
+![KORA Execution Control Layer Architecture](../assets/kora_workload_control_layer_architecture.svg)
 
 [View the architecture diagram](../assets/kora_workload_control_layer_architecture.svg)
 
@@ -28,7 +28,7 @@ That shape is simple, but it hides several decisions:
 
 KORA makes those decisions explicit.
 
-## Workload-Centric Systems
+## Execution-Control Systems
 
 KORA starts from the workload, not the model.
 

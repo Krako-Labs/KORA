@@ -76,7 +76,7 @@ Supporting detail:
 | government/institution interest claim | Review required | Exploratory discussion or early interest, if true. | Government validation or government-approved KORA. | Written documentation and maintainer approval. | Internal tracking or approved partner/EIC material |
 | partner/LOI claim | Review required | LOI candidate or partner discussion, if true. | Signed partnership unless actually signed. | Signed document or written record, approved wording. | Partner tracker, approved outreach |
 | community adoption claim | Review required | Early community feedback or initial contributors, if documented. | KORA has guaranteed adoption. | Public metrics, issue/discussion activity, contributor evidence. | Community updates with review if numeric |
-| paper/publication claim | Review required | Technical report in preparation. | Peer-reviewed proof or accepted paper unless accepted/published. | Accepted publication, DOI/proceedings link, paper artifact. | Paper roadmap, docs, investor/EIC drafts with review |
+| paper/publication claim | Verified arXiv preprint only | KORA's paper is publicly available as arXiv:2610.35869 (preprint; not peer-reviewed). | Peer-reviewed acceptance, conference publication, independent validation, or formal artifact evaluation. | Peer-review acceptance/venue and evaluation artifacts before stronger wording. | README, docs; external quantitative claims still require review |
 
 ## vLLM Analogy Boundaries
 
@@ -114,6 +114,15 @@ Do not claim:
 - guaranteed future funding
 - EIC approval or grant success
 - investor commitment unless documented
+
+## Research Preprint Status
+
+The paper [*KORA: Deterministic-First Execution Control for AI Workloads*](https://arxiv.org/abs/2610.35869) is publicly available as arXiv:2610.35869.
+
+- Say **"arXiv preprint"** or **"publicly available research paper"**, not "peer-reviewed", "accepted conference paper", or "independently validated."
+- The paper's 100-task deterministic-heavy **simulated** avoided-invocation result is bounded to its documented workload. It must not become a production or billed-API savings claim.
+- The paper's reported 80 deterministic checks and zero mismatches were reproduced against the current synthetic fixture and benchmark runner on 2026-10-28; the older benchmark report is historically dated. This supports only bounded expected-output checking, not general model quality. See [reproducibility notes](../research-paper.md).
+- Do not state a submission date in the README until the public identifier and arXiv metadata chronology have been reconciled.
 
 ## Next Possible Claim
 
