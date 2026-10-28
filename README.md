@@ -138,9 +138,9 @@ The benchmark deliberately favors deterministic work. Its **100 → 20** simulat
 
 | Evaluation | Bounded result |
 | --- | --- |
-| **KECB (2,400 author-designed policy tasks)** | **2,400 → 31 actual model calls (−98.71%)**; **2,400/2,400** specified answers correct; equal-tools baseline **ties** |
-| **Multi-domain offline checks** | **50,000 counted events/checks**, including **40,000/40,000** deterministic output matches (not 50,000 AI answers) |
-| **CacheEval (2,000 public-source items)** | F1 **86.9231%**, false-hit rate **4.5283%**; numerical comparison only against BudCache's published 86.4% / 4.9% |
+| **KECB** | **2,400 → 31 actual model calls (−98.71%)**; 2,400/2,400 specified answers correct; equal-tools router ties |
+| **Offline checks** | **50,000 counted checks**, including 40,000/40,000 deterministic output matches; not AI answers |
+| **CacheEval** | F1 **86.9231%**, false-hit rate **4.5283%** on 2,000 items; unmatched published comparison |
 
 **Important:** KECB used a deliberately favorable known-policy workload; its 31 calls include a historical policy-setup call, and its fourth cache arm failed a strict route check. The 50,000 checks mix distinct operations. CacheEval was not an identical-protocol or independently certified external comparison. None demonstrates production savings or broad SOTA performance.
 
