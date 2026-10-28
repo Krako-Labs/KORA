@@ -74,6 +74,12 @@ Investor/EIC-safe version:
 
 > KORA's current public evidence is a reproducible deterministic-heavy benchmark workload where model invocations were reduced by 80%. The next evidence track is runtime-integrated validation with real model calls.
 
+## Three Additional Bounded Evaluation Summaries (2026-10-28)
+
+Only these three categories may be quoted from the AI Champion 2026 internal research update: **KECB v0.6**, **50,000 counted offline checks/events**, and **CacheEval**. Keep the exact task definition, denominator, baseline parity, and source limitations next to numerical figures.
+
+Use [the detailed evaluation note](../benchmarks/ai-champion-2026-bounded-results.md) and [claim registry](kora-claim-registry.md) before using them in posts or slides. These are author-reported private research results, not independently published and reproduced benchmark artifacts.
+
 ## Prohibited Rewrites
 
 Do not rewrite:

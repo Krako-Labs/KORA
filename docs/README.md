@@ -37,6 +37,7 @@ This documentation index is for readers who want more detail than the root [READ
 ## Evidence and Reports
 
 - [KORA paper (arXiv:2610.35869)](research-paper.md) - deterministic-first execution control and the boundaries of reported evaluation.
+- [AI Champion 2026 bounded evaluation results](benchmarks/ai-champion-2026-bounded-results.md) - KECB, 50,000 offline checks, and CacheEval with comparisons and limitations.
 
 - [Reports](reports/)
 - [Task 022 existing vertical migration readiness](reports/task022-existing-vertical-migration-readiness.md) - Research Foundry inventory, migration gaps, frozen package-local slice, conformance cases, deferrals, and claim boundary.
