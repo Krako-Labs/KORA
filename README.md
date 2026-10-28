@@ -6,16 +6,20 @@
 
 <br />
 
-[![CI](https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml)
-[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-%3E%3D3.10-3776AB?logo=python&logoColor=white)](pyproject.toml)
-[![arXiv: 2610.35869](https://img.shields.io/badge/arXiv-2610.35869-b31b1b)](https://arxiv.org/abs/2610.35869)
+<p align="center">
+  <a href="https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml"><img src="https://github.com/Krako-Labs/KORA/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License: Apache 2.0" /></a>
+  <a href="pyproject.toml"><img src="https://img.shields.io/badge/python-%3E%3D3.10-3776AB?logo=python&amp;logoColor=white" alt="Python 3.10+" /></a>
+  <a href="https://arxiv.org/abs/2610.35869"><img src="https://img.shields.io/badge/arXiv-2610.35869-b31b1b" alt="arXiv: 2610.35869" /></a>
+</p>
 
-[![GitHub Stars](https://img.shields.io/github/stars/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/forks)
-[![Open Issues](https://img.shields.io/github/issues/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/commits/main)
-[![Krako Labs Website](https://img.shields.io/badge/website-krako.xyz-0A84FF?style=flat&logo=googlechrome&logoColor=white)](https://krako.xyz/)
+<p align="center">
+  <a href="https://github.com/Krako-Labs/KORA/stargazers"><img src="https://img.shields.io/github/stars/Krako-Labs/KORA?style=flat&amp;logo=github" alt="GitHub Stars" /></a>
+  <a href="https://github.com/Krako-Labs/KORA/forks"><img src="https://img.shields.io/github/forks/Krako-Labs/KORA?style=flat&amp;logo=github" alt="GitHub Forks" /></a>
+  <a href="https://github.com/Krako-Labs/KORA/issues"><img src="https://img.shields.io/github/issues/Krako-Labs/KORA?style=flat&amp;logo=github" alt="Open Issues" /></a>
+  <a href="https://github.com/Krako-Labs/KORA/commits/main"><img src="https://img.shields.io/github/last-commit/Krako-Labs/KORA?style=flat&amp;logo=github" alt="Last Commit" /></a>
+  <a href="https://krako.xyz/"><img src="https://img.shields.io/badge/website-krako.xyz-0A84FF?style=flat&amp;logo=googlechrome&amp;logoColor=white" alt="Krako Labs Website" /></a>
+</p>
 
 <br />
 
