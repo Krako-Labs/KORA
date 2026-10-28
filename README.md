@@ -134,7 +134,7 @@ The benchmark deliberately favors deterministic work. Its **100 → 20** simulat
 [Benchmark report and commands](docs/benchmarks/kora_benchmark_result_v1_100.md) · [Evidence boundaries](docs/claims/kora-claim-registry.md)
 
 
-### Selected AI Champion 2026 evaluation results
+### Selected Benchmark Results
 
 | Evaluation | Bounded result |
 | --- | --- |
@@ -144,7 +144,7 @@ The benchmark deliberately favors deterministic work. Its **100 → 20** simulat
 
 **Important:** KECB used a deliberately favorable known-policy workload; its 31 calls include a historical policy-setup call, and its fourth cache arm failed a strict route check. The 50,000 checks mix distinct operations. CacheEval was not an identical-protocol or independently certified external comparison. None demonstrates production savings or broad SOTA performance.
 
-[Evaluation methodology and limits](docs/benchmarks/ai-champion-2026-bounded-results.md)
+[Evaluation methodology and limits](docs/benchmarks/kora-bounded-evaluation-results.md)
 
 
 <br />

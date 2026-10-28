@@ -1,10 +1,10 @@
-# AI Champion 2026 — Bounded Evaluation Results
+# KORA — Bounded Benchmark Results
 
 **Evidence cutoff:** 2026-10-22 KST for the experiments below.
 **Publication:** 2026-10-28.
 **Status:** Author-reported, limited benchmark results; **not** an independently certified state-of-the-art result or proof of production savings.
 
-These results summarize three **separate evaluations** from the project's AI Champion 2026 report draft v0.6 and frozen local research records. The raw evaluation receipts and model traces have **not** been published in this repository. Results are not reproducible using the public KORA Core checkout alone. The reproducible [100-task simulated benchmark](kora_benchmark_result_v1_100.md) is a **different** experiment; its 80% simulated figure must not be substituted for the actual-model-call result below.
+These results summarize three **separate evaluations** from KORA's internal evaluation reports and frozen local research records. The raw evaluation receipts and model traces have **not** been published in this repository. Results are not reproducible using the public KORA Core checkout alone. The reproducible [100-task simulated benchmark](kora_benchmark_result_v1_100.md) is a **different** experiment; its 80% simulated figure must not be substituted for the actual-model-call result below.
 
 <br />
 
@@ -80,7 +80,7 @@ The confusion matrix reported for the KORA experiment is **TP 565, FP 60, FN 110
 
 ## Scope and Future Updates
 
-The current public update covers **only KECB v0.6, the 50,000-event offline validation, and CacheEval**. Other reported benchmark work is deliberately out of scope and will require separate reviewed publication.
+The current public summary covers **only KECB v0.6, the 50,000-event offline validation, and CacheEval**. Other reported benchmark work is deliberately out of scope and will require separate reviewed publication.
 
 Before upgrading any result to a broader or production claim, publish an independently reproducible evaluation contract, licensed input artifacts, model/tool parity, frozen splits, output-quality criteria, and a complete audit. Do **not** infer user cost savings or provider replacement from these experiments.
 

@@ -78,9 +78,9 @@ Supporting detail:
 | community adoption claim | Review required | Early community feedback or initial contributors, if documented. | KORA has guaranteed adoption. | Public metrics, issue/discussion activity, contributor evidence. | Community updates with review if numeric |
 | paper/publication claim | Verified arXiv preprint only | KORA's paper is publicly available as arXiv:2610.35869 (preprint; not peer-reviewed). | Peer-reviewed acceptance, conference publication, independent validation, or formal artifact evaluation. | Peer-review acceptance/venue and evaluation artifacts before stronger wording. | README, docs; external quantitative claims still require review |
 
-## Additional Bounded Evaluation Statements — AI Champion 2026
+## Additional Bounded Evaluation Statements
 
-The project owner authorized public documentation of **three** author-reported experimental summaries on 2026-10-28. These are **not** changes to the original 100-task simulation claim, production-readiness status, or an approval to publish other benchmark results. Full methodological limits are in [AI Champion 2026 bounded results](../benchmarks/ai-champion-2026-bounded-results.md).
+This section describes **three** bounded, author-reported experimental summaries. These are **not** changes to the original 100-task simulation claim, production-readiness status, or an approval to publish other benchmark results. Full methodological limits are in [KORA bounded evaluation results](../benchmarks/kora-bounded-evaluation-results.md).
 
 | Evaluation | Allowed bounded wording | Do not claim |
 | --- | --- | --- |
