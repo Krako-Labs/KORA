@@ -37,7 +37,7 @@ This documentation index is for readers who want more detail than the root [READ
 ## Evidence and Reports
 
 - [KORA paper (arXiv:2610.35869)](research-paper.md) - deterministic-first execution control and the boundaries of reported evaluation.
-- [AI Champion 2026 bounded evaluation results](benchmarks/ai-champion-2026-bounded-results.md) - KECB, 50,000 offline checks, and CacheEval with comparisons and limitations.
+- [KORA bounded benchmark results](benchmarks/kora-bounded-evaluation-results.md) - KECB, 50,000 offline checks, and CacheEval with comparisons and limitations.
 
 - [Reports](reports/)
 - [Task 022 existing vertical migration readiness](reports/task022-existing-vertical-migration-readiness.md) - Research Foundry inventory, migration gaps, frozen package-local slice, conformance cases, deferrals, and claim boundary.
@@ -63,7 +63,6 @@ This documentation index is for readers who want more detail than the root [READ
 - [Goal 096 documentation navigation and archive-bucket proposal](reports/goal096_documentation_navigation_archive_bucket_proposal.md) - proposal-only navigation buckets; no files moved.
 - [Group 097 H100 evidence inventory and gap audit](reports/group097_h100_evidence_inventory_gap_audit.md) - bounded H100 evidence inventory; no new H100 benchmark claim.
 - [Goal 098 controlled CPU/GPU evidence regeneration](reports/goal098_controlled_cpu_gpu_evidence_regeneration.md) - server-run packet with local no-CUDA `not_run` status; no fresh H100 execution claim.
-- [Goal 099 AI Champion H100 server run](reports/goal099_ai_champion_h100_server_run.md) - controlled server-run packet execution with aggregate CPU/non-GPU and bounded H100 summaries.
 - [Goal 100 Goal 099 evidence index review](reports/goal100_goal099_evidence_index_review.md) - evidence-index decision after Goal 099; narrow index refresh only.
 - [Goal 102 workload representativeness seed](reports/goal102_workload_representativeness_seed.md) - public-safe fixture-design seed for broader workload coverage planning; not production workload proof.
 - [Goal 103 representativeness route-only evaluator](reports/goal103_representativeness_route_only_evaluator.md) - aggregate route-only counters over the Goal 102 seed; not output-quality or broader representativeness proof.
