@@ -2,6 +2,22 @@
 
 Date: 2026-05-04
 
+## Current Source Replay — 2026-10-28
+
+The original report below is a dated alpha snapshot. A fresh offline replay of public `origin/main` at `40ca43e8e52df953105e546b5bbe0255d5ecae86` verified the committed workload and the current benchmark runner without making model or provider calls.
+
+- Re-generated the 100-task workload using `--count 100 --seed 42 --benchmark-name deterministic_heavy_v1` and compared the file byte-for-byte with the tracked fixture: **match**.
+- Direct baseline: **100 simulated model invocations**.
+- KORA-controlled: **20 simulated model invocations**, **80 avoided** (80% in this selected deterministic-heavy workload).
+- Current runner reports **80 deterministic expected-output checks, zero mismatches**, and **20 fallback/model-candidate outputs skipped**. These are deterministic fixture checks, not LLM quality or production correctness results.
+- Concrete fixture categories: arithmetic, cache lookup, config validation, date normalization, JSON validation, policy rule matching, routing decision, schema checking, string normalization, and unit conversion (10 items each).
+
+The [arXiv preprint](https://arxiv.org/abs/2610.35869) uses broader category-family descriptions such as FAQ/lookup-like and policy checking. Do not assume the paper's prose maps one-to-one to the committed fixture categories without inspecting the actual workload. The original report's statement that correctness scoring was not yet reported belongs to its **2026-05-04 snapshot**, not to this current-run result.
+
+**Limits remain unchanged:** simulated counts, deliberately deterministic-heavy synthetic data, no actual model calls, no API billing, no production performance or broad quality proof.
+
+<br />
+
 ## Benchmark Status
 
 This document records the current simulated benchmark result for KORA's reproducible 100-task deterministic-heavy workload.

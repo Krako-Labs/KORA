@@ -10,7 +10,7 @@ Use it with `docs/claims/kora-claim-registry.md` when drafting README copy, GitH
 
 README:
 
-> Most AI apps call the model too soon. KORA turns AI requests into structured execution paths before inference.
+> Most AI apps call the model too soon. KORA is an open-source AI Execution Control Layer that routes work before model inference.
 
 GitHub Discussions:
 
@@ -119,17 +119,15 @@ Forbidden unless documented and approved:
 
 ## Paper / Publication Language
 
-Allowed:
+Verified public preprint:
 
-- technical report in preparation
-- paper roadmap
-- community benchmark contribution program planned
+> KORA's research paper, *KORA: Deterministic-First Execution Control for AI Workloads*, is available as an [arXiv preprint (2610.35869)](https://arxiv.org/abs/2610.35869).
 
-Forbidden unless actually accepted or published:
+Use **"arXiv preprint"** or **"publicly available research paper"**. The paper reports bounded simulated-invocation reduction on a deterministic-heavy workload and synthetic local/no-network validation; these are not production savings or quality claims.
 
-- published paper
-- accepted conference paper
-- peer-reviewed proof
+Do not say "peer-reviewed", "accepted conference paper", "independently validated", or "formal artifact-evaluated" without separate evidence and approval.
+
+Before quoting the paper's correctness figures as independently replicated by repository benchmark scripts, follow the [evidence alignment notes](../research-paper.md).
 
 ## Example LLM Prompt For Safe KORA Writing
 

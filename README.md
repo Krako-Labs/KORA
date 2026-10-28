@@ -1,158 +1,201 @@
 # KORA
 
-**Deterministic-first execution control before model inference.**
+<br />
 
-KORA is an **AI Workload Control Layer** that inspects and routes deterministic, reusable, retrieval-needed, tool-needed, and provider-needed work before model inference.
+![KORA original logo with a dark execution-control banner.](docs/assets/readme-v2/kora-readme-hero.png)
 
-Most AI systems treat every task as a model task. KORA starts one step earlier: it inspects the workload, chooses a route, and makes provider-needed work explicit.
+<br />
 
-![KORA Workload Control Layer Architecture](docs/assets/kora_workload_control_layer_architecture.svg)
+<p align="center">
+  <img src="docs/assets/readme-v2/kora-label-open-source.png" alt="Open Source" width="165" />
+  <img src="docs/assets/readme-v2/kora-label-execution-control.png" alt="Execution Control" width="165" />
+  <img src="docs/assets/readme-v2/kora-label-local-examples.png" alt="Local Examples" width="165" />
+  <img src="docs/assets/readme-v2/kora-label-research-preprint.png" alt="Research Preprint" width="165" />
+</p>
 
-[View the architecture diagram](docs/assets/kora_workload_control_layer_architecture.svg)
+<br />
 
-## What KORA Does
+**Most AI apps call the model too soon.**
 
-- Inspect workloads before deployment.
-- Route deterministic work without provider calls.
-- Reuse repeated work through cache paths.
-- Separate retrieval-needed and tool-needed work.
-- Mark provider-needed tasks explicitly.
-- Inspect privacy-safe local device and runtime-candidate metadata.
-- Run optional local execution paths through explicitly configured MLX or llama.cpp runtimes.
-- Validate independently packaged AI Solutions before installation or execution.
-- Build and query a deterministic local evidence index from text-layer PDFs.
+KORA is an open-source **AI Execution Control Layer** that inspects work before inference. It routes deterministic tasks, reuses known results, and makes model escalation an explicit decision.
+
+**Structure first. Inference second.**
+
+[Quick Start](#quick-start) · [How It Works](#how-it-works) · [Research Paper](#research-and-evidence) · [KORA Ecosystem](#kora-ecosystem) · [Documentation](#documentation-and-contributing)
+
+## Contents
+
+- [Why execution control?](#why-execution-control) — the problem KORA addresses
+- [How it works](#how-it-works) — model-first versus deterministic-first
+- [Quick start](#quick-start) — run a local, offline example
+- [Research and evidence](#research-and-evidence) — arXiv preprint, benchmark, and limits
+- [What KORA does today](#what-kora-does-today) — implemented capabilities
+- [KORA ecosystem](#kora-ecosystem) — related, separately installed projects
+- [Architecture and advanced guides](#architecture-and-advanced-guides) — protocol, local runtimes, and research workflow
+- [Scope and limitations](#scope-and-limitations) — what the current alpha does not prove
+- [Documentation and contributing](#documentation-and-contributing) — useful entry points
+
+<br />
+
+## Why Execution Control?
+
+Many AI workflows send every request straight to a model—even when the work is a known rule, a repeated result, a structured lookup, or a check that ordinary code can perform.
+
+KORA puts execution control before inference. It separates work that can be resolved or reused from work that genuinely needs model reasoning. **It does not replace models:** uncertain or novel tasks remain candidates for model escalation.
+
+<br />
+
+## How It Works
+
+<br />
+
+![Model-first compared with KORA deterministic-first routing.](docs/assets/readme-v2/kora-execution-control-diagram.png)
+
+<br />
+
+*How KORA Works — model-first versus deterministic-first execution.*
+
+<br />
+
+The diagram illustrates KORA's execution-control design. The included offline examples demonstrate bounded paths, not a production deployment or universal model-call reduction.
+
+[Explore the detailed architecture](docs/assets/kora_workload_control_layer_architecture.svg) · [Read the architecture guide](docs/vision/kora_workload_control_layer.md)
+
+<br />
 
 ## Quick Start
 
-Current latest-feature use is from source:
+**Try KORA locally.** Requires Python **3.10+**; make sure `python3 --version` points to a supported interpreter (the default macOS Python may be older). You do not need an API key or a model download for the first example.
 
 ```bash
 git clone https://github.com/Krako-Labs/KORA.git
 cd KORA
+
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install -e .
+
+python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 ```
 
-Run the first-value paths:
+The bundled *synthetic* customer-support example produces these checked local counters:
+
+| Example metric | Expected |
+| --- | ---: |
+| Total tasks | 6 |
+| Deterministic candidates | 4 |
+| Provider-needed candidates | 2 |
+| External provider calls actually made | 0 |
+
+These are **example counters**, not a production cost or quality benchmark. The Doctor command in this repository is a workload-inspection example; the [standalone KORA Doctor](https://github.com/Krako-Labs/kora-doctor) is a separate CLI for agent execution traces.
+
+**More offline examples:**
 
 ```bash
-python3 -m kora doctor examples/kora_doctor/customer_support_workload.json
 python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json
 python3 examples/cache_reuse/run.py
-```
-
-Inspect the local system without starting a runtime or calling a provider:
-
-```bash
 python3 -m kora system inventory
 ```
 
-### Solution Protocol v0alpha1
+**Package note:** `pip install kora` installs a different project. The planned package name `getkora` is **not published**; install this repository from source as shown above.
 
-Create a deterministic offline Solution scaffold, then run its package-declared conformance suite:
+[First-run example details](examples/kora_doctor/README.md) · [All runnable examples](examples/README.md)
 
-```bash
-python3 -m kora solution scaffold example.my-solution --output ./my-solution --json
-python3 -m kora solution conform ./my-solution --json
-```
+<br />
 
-The scaffold command refuses to overwrite an existing path and generates a manifest, Task Graph, input/output schemas, example input, and an integrity-bound conformance case. The conformance runner uses a fresh isolated Host store and emits a schema-validated report covering install, run, status, result, lifecycle, and offline activity facts.
+## Research and Evidence
 
-Validate the bundled reference Solutions without executing them:
+### Research paper
 
-```bash
-python3 -m kora solution validate examples/solutions/hello-solution --json
-python3 -m kora solution validate examples/solutions/document-transform-fixture --json
-```
+**[KORA: Deterministic-First Execution Control for AI Workloads](https://arxiv.org/abs/2610.35869)**
 
-A bounded reference Host can then install and run either Solution through the same local lifecycle:
+Albert Heekwan Kim · arXiv:2610.35869 · **preprint (not peer-reviewed)**
 
-```bash
-python3 -m kora solution runtimes --store /tmp/kora-host --json
-python3 -m kora solution install examples/solutions/hello-solution --store /tmp/kora-host --json
-python3 -m kora solution run example.hello --store /tmp/kora-host --input examples/solutions/inputs/hello.json --json
-```
+The paper describes pre-inference execution control, deterministic and structured routes, outcome validation, telemetry, and escalation to model-candidate paths when deterministic handling is insufficient.
 
-The input file is a JSON object such as `{"message":"Hello"}`. The Host verifies both the installed snapshot and its local runtime registry, resolves one compatible trusted runtime before every run, records the runtime descriptor digest, and persists schema-validated status and result records. Its reference capabilities are deterministic and offline; stop/resume, provider/model/GPU execution, and production validation remain deferred. See [Solution Protocol v0alpha1](docs/solution-protocol-v0.md), the [SDK and Conformance Kit](docs/solution-sdk-conformance-kit.md), and the [reference Solution guide](examples/solutions/README.md).
+[Read the paper](https://arxiv.org/abs/2610.35869) · [PDF](https://arxiv.org/pdf/2610.35869) · [Research and reproducibility notes](docs/research-paper.md)
 
-### Research Foundry Alpha
+### Reproducible benchmark
 
-Install the optional PDF dependency, ingest your own or public text-layer PDFs, and retrieve an evidence card:
+> In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided **80 of 100 simulated model invocations** versus a naive direct baseline.
 
-```bash
-python3 -m pip install -e '.[research]'
-python3 -m kora research ingest ./papers --state-dir ./.kora-research --json
-python3 -m kora research query ./.kora-research "reflection tokens" --top-k 3 --markdown
-python3 -m kora solution conform examples/solutions/research-foundry-reference --json
-```
+The benchmark deliberately favors deterministic work. Its **100 → 20** simulated-invocation counts do **not** measure live provider calls, production traffic, billed API cost, energy use, or broad workload performance. The paper also describes a separate synthetic customer-support local/no-network validation workload; it is not independent production evidence.
 
-Research Foundry is an implemented reference vertical, not the definition of the KORA platform or a commercial-Solution selection. Its output is deterministic retrieved evidence—not model-generated synthesis. Each result includes a source title, page, stable chunk/evidence ID, and verbatim retrieved excerpt. The standalone CLI uses the state directory you explicitly select; the bounded Solution reference instead rebuilds state inside each isolated run workspace from one integrity-bound synthetic PDF. See [Research Foundry Alpha](docs/research-foundry-alpha.md) and the [Task 022 migration report](docs/reports/task022-existing-vertical-migration-readiness.md) for their Local Only boundaries and limitations.
+[Benchmark report and commands](docs/benchmarks/kora_benchmark_result_v1_100.md) · [Evidence boundaries](docs/claims/kora-claim-registry.md)
 
-### Optional local runtime adapters
+<br />
 
-KORA includes fail-closed adapters named `mlx_local` and `llama_cpp_local`. They use only explicitly configured local runtimes and model files, never download a model or fall back to a remote provider. These are secondary execution adapters rather than a production-serving claim; see their environment-variable validation in the adapter modules and focused tests.
+## What KORA Does Today
 
-## Package Availability
+| Capability | Implemented public surface |
+| --- | --- |
+| **Workload inspection** | Local CLI routes and reports for sample workloads |
+| **Deterministic routing and reuse** | Offline classification, cache, retrieval-needed, tool-needed, and provider-needed example paths |
+| **Solution Protocol v0alpha1** | Schema and integrity validation, local runtime resolution, and a bounded reference Host lifecycle |
+| **Research Foundry Alpha** | Local text-layer PDF ingest, lexical retrieval, and deterministic evidence cards |
+| **Optional local model adapters** | Explicitly configured, fail-closed MLX and llama.cpp execution paths |
 
-`pip install kora` is **not** this project.
+These are different levels of implementation. An example path or bounded reference Host is **not** evidence that the entire platform is production-ready.
 
-The planned future PyPI package name is `getkora`, with CLI command `kora` and Python import package `kora`.
+<br />
 
-`getkora` is not published yet. Use the source install path above for the latest KORA features.
+## KORA Ecosystem
 
-## Flagship Examples
+KORA also has related open-source tools. **They are separate projects with separate install paths**, not a single fully integrated Suite release.
 
-| Example | Shows | Run | Details |
-| --- | --- | --- | --- |
-| KORA Doctor | Workload inspection | `python3 -m kora doctor examples/kora_doctor/customer_support_workload.json` | [README](examples/kora_doctor/README.md) |
-| Deterministic Classification | Rule-routed classification | `python3 examples/deterministic_classification/run.py` | [README](examples/deterministic_classification/README.md) |
-| OpenAI-Compatible Proxy | OpenAI-style request routing | `python3 -m kora proxy-demo examples/openai_compatible_proxy/requests.json` | [README](examples/openai_compatible_proxy/README.md) |
-| RAG Routing | Retrieval-aware control | `python3 examples/rag_routing/run.py` | [README](examples/rag_routing/README.md) |
-| Agent Workflow Optimization | Multi-step workflow routing | `python3 examples/agent_workflow_optimization/run.py` | [README](examples/agent_workflow_optimization/README.md) |
-| Cache Reuse | Repeated-work reuse | `python3 examples/cache_reuse/run.py` | [README](examples/cache_reuse/README.md) |
+| Project | Use it for | Repository |
+| --- | --- | --- |
+| **KORA Core** | Execution-control contracts, task routing, and bounded reference execution | [Krako-Labs/KORA](https://github.com/Krako-Labs/KORA) |
+| **KORA Reach** | Local task automation with conditional frontier-agent escalation | [Krako-Labs/kora-reach](https://github.com/Krako-Labs/kora-reach) |
+| **KORA Doctor** | Inspect AI agent traces for potential execution waste | [Krako-Labs/kora-doctor](https://github.com/Krako-Labs/kora-doctor) |
+| **AgentGate** | Verify declared completion checks and emit execution evidence | [Krako-Labs/kora-agentgate](https://github.com/Krako-Labs/kora-agentgate) |
 
-See the full [example catalog](examples/README.md).
+Follow each repository's README for its actual requirements, supported integrations, and limitations.
 
-## How It Works
+<br />
 
-A workload enters KORA before it reaches a model.
+## Architecture and Advanced Guides
 
-KORA evaluates each unit of work and routes it to one of several paths:
+For deeper use, keep the root README short and follow the focused guides:
 
-- deterministic handling
-- cache reuse
-- retrieval-needed handling
-- tool-needed handling
-- provider-needed fallback
+| Guide | What it covers |
+| --- | --- |
+| [Solution Protocol v0alpha1](docs/solution-protocol-v0.md) | Solution manifests, policies, integrity checks, runtime selection, and Host lifecycle |
+| [Solution SDK and Conformance Kit](docs/solution-sdk-conformance-kit.md) | Scaffold and validate a local Solution package |
+| [Reference Solutions](examples/solutions/README.md) | Bounded local install, run, status, and result examples |
+| [Research Foundry Alpha](docs/research-foundry-alpha.md) | Text-layer PDF ingest and provenance-bearing evidence cards |
+| [Example catalog](examples/README.md) | Deterministic classification, proxy routing, RAG-style routing, agent workflows, and cache reuse |
 
-The included examples are offline and make zero provider calls.
+The optional `mlx_local` and `llama_cpp_local` adapters require explicitly configured local runtimes and model files. They never download a model or silently fall back to a provider.
 
-## Evidence Boundaries
+<br />
 
-In a reproducible 100-task deterministic-heavy benchmark workload, KORA-controlled execution avoided 80 of 100 simulated model invocations versus a naive direct baseline. This is a bounded simulated benchmark result, not production, cost-saving, model-quality, or broader workload evidence. See the [benchmark report](docs/benchmarks/kora_benchmark_result_v1_100.md).
+## Scope and Limitations
 
-The repository does **not** claim:
+KORA's current public alpha evidence does **not** establish:
 
-- production cost reduction proof
-- real API-cost reduction proof beyond the single-domain benchmark above
-- production readiness
-- benchmark superiority
-- full OpenAI API compatibility
-- production RAG, agent, or cache correctness
-- Research Foundry extraction accuracy, retrieval relevance, factuality, or synthesis
-- model replacement
+- production readiness, production reliability, or broad workload superiority;
+- measured real-provider or API-billing savings;
+- general model-output quality, factuality, or correctness of production RAG and agent flows;
+- a fully OpenAI-compatible production proxy or a universal model-serving replacement;
+- Research Foundry semantic retrieval, OCR, synthesis, or factuality verification;
+- that the separate ecosystem tools are one fully integrated product.
 
-See the [claim registry](docs/claims/kora-claim-registry.md) and [public language guide](docs/claims/kora-public-language-guide.md).
+Future runtime-integrated evaluation and wider workload studies require their own protocols and evidence. See the [claim registry](docs/claims/kora-claim-registry.md) and [project roadmap](ROADMAP.md).
 
-## Documentation
+<br />
 
-- [Documentation index](docs/README.md)
-- [Solution Protocol v0alpha1](docs/solution-protocol-v0.md)
-- [Solution SDK and Conformance Kit](docs/solution-sdk-conformance-kit.md)
-- [Vision: AI Workload Control Layer](docs/vision/kora_workload_control_layer.md)
-- [Example catalog](examples/README.md)
-- [Packaging: getkora strategy](docs/packaging/getkora_distribution_strategy.md)
-- [Reports and evidence](docs/reports/)
-- [Contributing](CONTRIBUTING.md)
+## Documentation and Contributing
+
+- [Documentation index](docs/README.md) — technical guides, experiments, and reports
+- [Examples](examples/README.md) — start with a runnable local workload
+- [Contributing](CONTRIBUTING.md) — how to participate
+- [Security](SECURITY.md) — reporting security issues
+- [Governance](GOVERNANCE.md) — how the project is maintained
+
+Start with a small reproducible example and share a **sanitized** workload or issue; do not post API keys, private inputs, or proprietary data.
+
+<br />
 
 ## License
 

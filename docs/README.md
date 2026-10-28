@@ -1,13 +1,14 @@
 # KORA Documentation
 
-KORA is an **AI Workload Control Layer** for inspecting and routing AI workloads before they reach a model.
+KORA is an **AI Execution Control Layer** for structuring and routing AI workloads before unnecessary model inference.
 
 This documentation index is for readers who want more detail than the root [README](../README.md).
 
 ## Start Here
 
-- [Root README](../README.md) - short project landing page.
-- [Vision: KORA Workload Control Layer](vision/kora_workload_control_layer.md) - why workload control matters.
+- [Root README](../README.md) - problem, first run, and current platform scope.
+- [KORA research preprint and reproducibility](research-paper.md) - arXiv paper, bounded evidence, commands, and alignment notes.
+- [Vision: KORA Execution Control Layer](vision/kora_workload_control_layer.md) - why execution control matters.
 - [Example catalog](../examples/README.md) - runnable examples grouped by use case.
 - [Packaging: getkora strategy](packaging/getkora_distribution_strategy.md) - package-name and install-path status.
 - [Research Foundry Alpha](research-foundry-alpha.md) - Local Only text-layer PDF ingest, lexical retrieval, and deterministic evidence cards.
@@ -28,11 +29,13 @@ This documentation index is for readers who want more detail than the root [READ
 
 ## Architecture and Vision
 
-- [KORA Workload Control Layer](vision/kora_workload_control_layer.md)
+- [KORA Execution Control Layer](vision/kora_workload_control_layer.md)
 - [Architecture docs](architecture/)
 - [Claims and public language](claims/)
 
 ## Evidence and Reports
+
+- [KORA paper (arXiv:2610.35869)](research-paper.md) - deterministic-first execution control and the boundaries of reported evaluation.
 
 - [Reports](reports/)
 - [Task 022 existing vertical migration readiness](reports/task022-existing-vertical-migration-readiness.md) - Research Foundry inventory, migration gaps, frozen package-local slice, conformance cases, deferrals, and claim boundary.
