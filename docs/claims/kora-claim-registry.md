@@ -78,6 +78,20 @@ Supporting detail:
 | community adoption claim | Review required | Early community feedback or initial contributors, if documented. | KORA has guaranteed adoption. | Public metrics, issue/discussion activity, contributor evidence. | Community updates with review if numeric |
 | paper/publication claim | Verified arXiv preprint only | KORA's paper is publicly available as arXiv:2610.35869 (preprint; not peer-reviewed). | Peer-reviewed acceptance, conference publication, independent validation, or formal artifact evaluation. | Peer-review acceptance/venue and evaluation artifacts before stronger wording. | README, docs; external quantitative claims still require review |
 
+## Additional Bounded Evaluation Statements — AI Champion 2026
+
+The project owner authorized public documentation of **three** author-reported experimental summaries on 2026-10-28. These are **not** changes to the original 100-task simulation claim, production-readiness status, or an approval to publish other benchmark results. Full methodological limits are in [AI Champion 2026 bounded results](../benchmarks/ai-champion-2026-bounded-results.md).
+
+| Evaluation | Allowed bounded wording | Do not claim |
+| --- | --- | --- |
+| KECB v0.6 | In a favorable, author-designed 2,400-task policy workload, KORA used 31 actual model requests including a historical policy-setup request versus 2,400 Direct requests (98.7083% fewer), with 2,400/2,400 specified outputs correct. A same-tools manually configured router tied KORA; full four-arm acceptance was not achieved. | Production 98.71% savings, automatic general policy learning, superiority to an equal-tools baseline, or a completed four-arm audit |
+| Multi-domain offline | 50,000 counted offline events/checks across deterministic outputs (40,000/40,000 matched), explicit model-needed routing (5,000) and metadata reuse operations (5,000). | 50,000 semantic question answers, 50,000 real model calls, 100% general AI accuracy, production deployment |
+| CacheEval | KORA's exploratory full-2,000 original-data experiment scored F1 86.9231% and FHR 4.5283%, numerically above the BudCache developer-reported F1 86.4% / FHR 4.9%, **without matched independent replication**. | Certified SOTA, a fair identical-protocol victory, production cache safety, or publicly shipped KORA Core classifier |
+
+The raw experiment receipts are maintained separately from this repository and are **not currently public-reproducible through KORA Core**. The KECB measured model calls are a narrow local author-designed experiment, not a general runtime-integrated benchmark acceptance or real-provider billing study.
+
+<br />
+
 ## vLLM Analogy Boundaries
 
 Allowed:
