@@ -7,6 +7,7 @@ This documentation index is for readers who want more detail than the root [READ
 ## Start Here
 
 - [Root README](../README.md) - problem, first run, and current platform scope.
+- [Krako Labs website](https://krako.xyz/) - broader project and team information.
 - [KORA research preprint and reproducibility](research-paper.md) - arXiv paper, bounded evidence, commands, and alignment notes.
 - [Vision: KORA Execution Control Layer](vision/kora_workload_control_layer.md) - why execution control matters.
 - [Example catalog](../examples/README.md) - runnable examples grouped by use case.

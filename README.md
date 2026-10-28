@@ -11,11 +11,19 @@
 [![Python 3.10+](https://img.shields.io/badge/python-%3E%3D3.10-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![arXiv: 2610.35869](https://img.shields.io/badge/arXiv-2610.35869-b31b1b)](https://arxiv.org/abs/2610.35869)
 
+[![GitHub Stars](https://img.shields.io/github/stars/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/forks)
+[![Open Issues](https://img.shields.io/github/issues/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/Krako-Labs/KORA?style=flat&logo=github)](https://github.com/Krako-Labs/KORA/commits/main)
+[![Krako Labs Website](https://img.shields.io/badge/website-krako.xyz-0A84FF?style=flat&logo=googlechrome&logoColor=white)](https://krako.xyz/)
+
 <br />
 
 **Most AI apps call the model too soon.**
 
 KORA is an open-source **AI Execution Control Layer** that inspects work before inference. It routes deterministic tasks, reuses known results, and makes model escalation an explicit decision.
+
+An open-source project from [Krako Labs](https://krako.xyz/).
 
 **Structure first. Inference second.**
 
@@ -139,7 +147,7 @@ These are different levels of implementation. An example path or bounded referen
 
 ## KORA Ecosystem
 
-KORA also has related open-source tools. **They are separate projects with separate install paths**, not a single fully integrated Suite release.
+KORA is part of the [Krako Labs ecosystem](https://krako.xyz/), alongside related open-source tools. **They are separate projects with separate install paths**, not a single fully integrated Suite release.
 
 | Project | Use it for | Repository |
 | --- | --- | --- |
@@ -190,6 +198,7 @@ Future runtime-integrated evaluation and wider workload studies require their ow
 - [Contributing](CONTRIBUTING.md) — how to participate
 - [Security](SECURITY.md) — reporting security issues
 - [Governance](GOVERNANCE.md) — how the project is maintained
+- [Krako Labs website](https://krako.xyz/) — learn about the team and broader work
 
 Start with a small reproducible example and share a **sanitized** workload or issue; do not post API keys, private inputs, or proprietary data.
 

@@ -10,4 +10,4 @@ These are presentation graphics, not benchmark evidence. Documentation claims mu
 
 The PNG assets intentionally avoid SVG dependence in the root README. Keep Markdown captions separate and preserve whitespace around each image block.
 
-The root README uses conventional CI, license, Python and arXiv badges linked to their sources. Badges are not PNG illustrations and are rendered using the official GitHub Actions badge endpoint and Shields.io.
+The root README uses conventional CI, license, Python, arXiv, GitHub Stars/Forks/Issues/Last Commit, and Krako Labs website badges linked to their sources. Dynamic repository badges reflect GitHub data. These are not PNG illustrations; the CI badge uses GitHub Actions and the other badges use Shields.io.
