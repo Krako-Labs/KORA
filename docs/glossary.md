@@ -83,6 +83,20 @@ Ensures:
 
 ---
 
+## Model Escalation
+
+The path used when deterministic handling is not safe or sufficient for a given task.
+
+Model escalation occurs when:
+- A task requires probabilistic reasoning
+- Deterministic rules cannot resolve the request
+- Schema validation fails and the task needs reinterpretation
+
+Escalation is a controlled fallback, not a default behavior. KORA's architecture ensures that escalation only happens after deterministic paths have been exhausted or explicitly bypassed by policy.
+
+Model escalation invokes the reasoning adapter with full budget governance and schema constraints.
+
+---
 ## Inference Reflexivity
 
 Architectural pattern where every request triggers a model invocation without evaluating necessity. KORA exists to eliminate inference reflexivity.
