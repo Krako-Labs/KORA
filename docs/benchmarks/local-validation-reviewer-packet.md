@@ -247,10 +247,29 @@ Safe interpretation of this packet:
 
 - Command not found: confirm you are in the KORA repository and the package is importable with `python3 -m kora --help`.
 - Editable install missing: install the project in editable mode if your environment does not resolve local modules.
-- Example not listed: run `python3 -m kora examples list` from a fresh checkout of `origin/main`.
 - Report path not writable: use `/tmp` or another writable local directory.
 - Stale checkout: run `git fetch origin` and confirm your local branch is current.
 - Expected counters differ: confirm you are running with `--offline` and have not modified the synthetic workload files.
+
+### Example is not listed
+
+If an expected example does not appear when running:
+
+```bash
+python3 -m kora examples list
+```
+
+confirm that you are on the latest `main` branch and that your local checkout is up to date.
+
+Recommended checks:
+
+```bash
+git status --short --branch
+git pull
+python3 -m kora examples list
+```
+
+If the example is still missing, include the command output when opening an issue.
 
 ## Next Validation Step
 
