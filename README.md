@@ -133,6 +133,14 @@ The benchmark deliberately favors deterministic work. Its **100 → 20** simulat
 
 [Benchmark report and commands](docs/benchmarks/kora_benchmark_result_v1_100.md) · [Evidence boundaries](docs/claims/kora-claim-registry.md)
 
+### Try the research on Hugging Face
+
+- [KORA Benchmark dataset](https://huggingface.co/datasets/Krako-Labs/KORA-Benchmark) — inspect and download the original 100-task fixture.
+- [KORA Playground](https://huggingface.co/spaces/Krako-Labs/KORA-Playground) — run individual fixture tasks or replay the original benchmark in your browser, without an API key or model download.
+- [Hugging Face paper page](https://huggingface.co/papers/2610.35869) — paper, linked research artifacts, and community discussion.
+
+The Playground runs the original benchmark code, using fixture routing labels and simulated model-invocation counts. It is not a general-purpose KORA runtime or a live-provider benchmark.
+
 
 ### Selected Benchmark Results
 
