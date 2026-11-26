@@ -48,6 +48,8 @@ The original support-ticket scenario remains available:
 python3 examples/deterministic_classification/run.py --scenario support_ticket_routing
 ```
 
+For paired inputs with hidden expected routes, run the [blinded support evaluation](../../experiments/blind_routing/README.md). It includes an optional tenant-scoped policy.
+
 ## Aggregate Expected Counters
 
 - total tasks: `32`

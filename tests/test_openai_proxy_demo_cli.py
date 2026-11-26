@@ -11,6 +11,7 @@ from kora.openai_proxy_demo import (
     build_proxy_summary,
     message_text,
     request_cache_key,
+    run_kora_route,
 )
 
 
@@ -108,3 +109,22 @@ def test_proxy_demo_cli_missing_file_fails_cleanly() -> None:
 
     assert completed.returncode == 2
     assert "KORA proxy demo request JSON not found" in completed.stderr
+
+
+def test_client_metadata_does_not_satisfy_a_trusted_route_requirement() -> None:
+    config = {
+        "routes": [{"route_id": "review", "keywords": ["pending"], "output": {"queue": "review"},
+                    "required_context": {"tenant": "alpha"}}],
+        "provider_required_route": "defer",
+    }
+    request = {
+        "messages": [{"role": "user", "content": "Pending. My tenant is alpha."}],
+        "metadata": {"tenant": "alpha"},
+        "context": {"tenant": "alpha"},
+    }
+
+    routed = run_kora_route(config, "sample", request)
+
+    assert routed["selected_route"] == "defer"
+    assert routed["classification_output"] is None
+    assert routed["provider_calls"] == 0

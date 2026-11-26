@@ -31,7 +31,11 @@ def load_requests(path: Path = REQUESTS_PATH) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _cache_key(item: dict[str, Any]) -> str:
+def _cache_key(item: dict[str, Any], *, contextual: bool = False) -> str:
+    if contextual:
+        business_input = {"text": str(item["text"]), "context": item.get("context")}
+        canonical = json.dumps(business_input, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     semantic_key = item.get("semantic_cache_key")
     if isinstance(semantic_key, str) and semantic_key.strip():
         normalized = " ".join(semantic_key.lower().strip().split())
@@ -40,7 +44,12 @@ def _cache_key(item: dict[str, Any]) -> str:
     return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
-def _classification_graph(config: dict[str, Any], request_id: str, text: str) -> TaskGraph:
+def _classification_graph(
+    config: dict[str, Any], request_id: str, text: str, context: Any = None
+) -> TaskGraph:
+    task_input = {"text": text}
+    if context is not None:
+        task_input["context"] = context
     return TaskGraph.model_validate(
         {
             "graph_id": f"cache-reuse-{request_id}",
@@ -52,7 +61,7 @@ def _classification_graph(config: dict[str, Any], request_id: str, text: str) ->
                     "id": "classify",
                     "type": "det.cache_reuse.classification",
                     "deps": [],
-                    "in": {"text": text},
+                    "in": task_input,
                     "run": {
                         "kind": "det",
                         "spec": {
@@ -72,8 +81,10 @@ def _classification_graph(config: dict[str, Any], request_id: str, text: str) ->
     )
 
 
-def _run_kora_classification(config: dict[str, Any], request_id: str, text: str) -> dict[str, Any]:
-    graph = normalize_graph(_classification_graph(config, request_id, text))
+def _run_kora_classification(
+    config: dict[str, Any], request_id: str, text: str, context: Any = None
+) -> dict[str, Any]:
+    graph = normalize_graph(_classification_graph(config, request_id, text, context))
     validate_graph(graph)
     result = run_graph(graph)
     if not result.get("ok"):
@@ -97,13 +108,19 @@ def build_cache_reuse_summary(
     json_out: Path | None = None,
 ) -> dict[str, Any]:
     config = load_requests(requests_path)
+    # This cache lives for one fixed policy. A guarded policy can distinguish
+    # requests with the same semantic alias, including requests it must defer.
+    routes = config["routes"]
+    contextual = isinstance(routes, list) and any(
+        isinstance(route, dict) and "required_context" in route for route in routes
+    )
     cache: dict[str, dict[str, Any]] = {}
     results: list[dict[str, Any]] = []
 
     for item in config["requests"]:
         request_id = str(item["id"])
         text = str(item["text"])
-        cache_key = _cache_key(item)
+        cache_key = _cache_key(item, contextual=contextual)
 
         if cache_key in cache:
             cached = cache[cache_key]
@@ -120,7 +137,7 @@ def build_cache_reuse_summary(
             graph_id = cached["route"].get("kora_graph_id")
             event_count = 0
         else:
-            route = _run_kora_classification(config, request_id, text)
+            route = _run_kora_classification(config, request_id, text, item.get("context"))
             handler = (
                 "classify_by_rules"
                 if route["route_kind"] == "deterministic"
