@@ -17,7 +17,7 @@ It requires no provider credentials, no GPU, and no network access after depende
 
 ## Install
 
-From a fresh clone on a macOS/Linux-style shell:
+Use Python 3.10 or later. Check the interpreter with `python3 --version`, then run these commands in a macOS or Linux shell.
 
 ```bash
 git clone https://github.com/Krako-Labs/KORA.git
@@ -119,6 +119,44 @@ The report step reuses the output-fidelity evaluator and summarizes:
 - degraded and failed output counts.
 
 The generated Markdown report is written to the `--md-out` path.
+
+## Replay a support-routing policy change
+
+From the same checkout and activated environment, run two policies against the same 24 public requests. The baseline policy is a historical comparison. The freshness policy requires a valid date for routes that depend on time-sensitive facts.
+
+```bash
+results=$(mktemp -d)
+replay_policy() {
+  python -m experiments.blind_routing.run --split all \
+    --rules "experiments/blind_routing/${1}_rules.json"
+}
+
+replay_policy baseline > "$results/baseline.json" &&
+replay_policy freshness > "$results/freshness.json" &&
+replay_policy baseline > "$results/rollback.json" &&
+cmp "$results/baseline.json" "$results/rollback.json" && echo "Rollback reproduced the baseline"
+
+python - "$results" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+for policy in ("baseline", "freshness"):
+    report = json.loads((Path(sys.argv[1]) / f"{policy}.json").read_text())
+    score = report["summary"]["false_bypass"]
+    print(f"{policy}: {score['count']}/{score['denominator']} answered when deferral was required")
+PY
+```
+
+On the committed cases, the baseline answers 8 of the 10 requests that require deferral. The freshness policy answers 0 of those 10. A successful rollback reproduces the first output byte for byte. The [routing evaluation](../experiments/blind_routing/README.md) defines the metrics and test cases.
+
+To inspect how a read-only lookup handles a change in permission or an expired record, run the separate [support-tier example](../examples/support_tier_shadow/README.md).
+
+```bash
+kora run support_tier_shadow
+```
+
+Read the seven events in `results`. Revoking access yields `denied`, and an expired record yields `refresh_required`. The example calls the original lookup on every event, including the repeat marked `would_reuse`. Expect `origin_calls: 7` and `actual_origin_calls_skipped: 0`. Both exercises run locally with synthetic data.
 
 ## Claim Boundary
 
