@@ -243,7 +243,7 @@ def test_out_of_domain_competing_scope_defers_independent_match(ordered):
     assert result["provider_calls"] == 0
 
 
-@pytest.mark.parametrize("domains", [None, [], {"entity_type": []}, {"entity_type": [""]}])
+@pytest.mark.parametrize("domains", [None, [], {}, {"entity_type": []}, {"entity_type": [""]}])
 def test_context_domains_reject_invalid_configuration(domains):
     example = _load_example_module()
     scenario = {"scenario_id": "support", "scenario_label": "Support", "routes": [{
@@ -274,6 +274,24 @@ def test_context_domains_require_matching_required_context(route):
             "context": {"entity_type": "unknown"}}
     with pytest.raises((RuntimeError, ValueError), match="context_domains"):
         example._run_kora_classification(scenario, item)
+
+
+@pytest.mark.parametrize("required", [
+    {"entity_type": "account", "tenant": "Cedar"},
+    {"tenant": "Cedar", "entity_type": "account"},
+])
+def test_known_context_mismatch_wins_over_out_of_domain_value_in_any_field_order(required):
+    example = _load_example_module()
+    scenario = {"scenario_id": "support", "scenario_label": "Support", "routes": [
+        {"route_id": "alias", "keywords": ["atlas"], "required_context": required,
+         "context_domains": {"entity_type": ["account", "device"]}},
+        {"route_id": "receipt", "keywords": ["receipt"]},
+    ], "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Atlas and receipt", "body": "",
+            "context": {"entity_type": "unknown", "tenant": "Juniper"}}
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "receipt"
+    assert result["provider_calls"] == 0
 
 
 @pytest.mark.parametrize("keywords", [[], [""], ["   "], [None], ["pending", 3], "pending"])
