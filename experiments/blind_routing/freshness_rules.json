@@ -1,15 +1,15 @@
 [
-  {"route_id": "review_queue", "keywords": ["pending"], "required_context": {"tenant": "Cedar"}, "output": {"action": "review_queue"}},
-  {"route_id": "transfer_queue", "keywords": ["pending"], "required_context": {"tenant": "Juniper"}, "output": {"action": "transfer_queue"}},
-  {"route_id": "transfer_queue", "keywords": ["transfer queue"], "output": {"action": "transfer_queue"}},
-  {"route_id": "track_parcel", "keywords": ["track my parcel"], "output": {"action": "track_parcel"}},
-  {"route_id": "cancel_order", "keywords": ["cancel my order"], "output": {"action": "cancel_order"}},
-  {"route_id": "reset_password", "keywords": ["reset my password"], "provider_required_keywords": ["delegated privileges", "delegated admin privileges", "delegated privilege"], "output": {"action": "reset_password"}},
-  {"route_id": "send_receipt", "keywords": ["send my receipt"], "output": {"action": "send_receipt"}},
-  {"route_id": "account_desk", "keywords": ["atlas", "phoenix", "summit"], "required_context": {"entity_type": "account"}, "context_domains": {"entity_type": ["account", "device"]}, "output": {"action": "account_desk"}},
-  {"route_id": "device_desk", "keywords": ["atlas", "phoenix", "summit"], "required_context": {"entity_type": "device"}, "context_domains": {"entity_type": ["account", "device"]}, "output": {"action": "device_desk"}},
-  {"route_id": "device_desk", "keywords": ["device desk"], "output": {"action": "device_desk"}},
-  {"route_id": "inventory_desk", "keywords": ["stock count"], "require_fresh_context": true, "output": {"action": "inventory_desk"}},
-  {"route_id": "address_desk", "keywords": ["billing address"], "require_fresh_context": true, "output": {"action": "address_desk"}},
-  {"route_id": "tier_desk", "keywords": ["support tier"], "require_fresh_context": true, "output": {"action": "tier_desk"}}
+  {"route_id": "review_queue", "keywords": ["pending"], "strict_keyword_matching": true, "required_context": {"tenant": "Cedar"}, "output": {"action": "review_queue"}},
+  {"route_id": "transfer_queue", "keywords": ["pending"], "strict_keyword_matching": true, "required_context": {"tenant": "Juniper"}, "output": {"action": "transfer_queue"}},
+  {"route_id": "transfer_queue", "keywords": ["transfer queue"], "strict_keyword_matching": true, "output": {"action": "transfer_queue"}},
+  {"route_id": "track_parcel", "keywords": ["track my parcel"], "strict_keyword_matching": true, "output": {"action": "track_parcel"}},
+  {"route_id": "cancel_order", "keywords": ["cancel my order"], "strict_keyword_matching": true, "output": {"action": "cancel_order"}},
+  {"route_id": "reset_password", "keywords": ["reset my password"], "strict_keyword_matching": true, "provider_required_keywords": ["delegated privileges", "delegated admin privileges", "delegated privilege"], "output": {"action": "reset_password"}},
+  {"route_id": "send_receipt", "keywords": ["send my receipt"], "strict_keyword_matching": true, "output": {"action": "send_receipt"}},
+  {"route_id": "account_desk", "keywords": ["atlas", "phoenix", "summit"], "strict_keyword_matching": true, "required_context": {"entity_type": "account"}, "context_domains": {"entity_type": ["account", "device"]}, "output": {"action": "account_desk"}},
+  {"route_id": "device_desk", "keywords": ["atlas", "phoenix", "summit"], "strict_keyword_matching": true, "required_context": {"entity_type": "device"}, "context_domains": {"entity_type": ["account", "device"]}, "output": {"action": "device_desk"}},
+  {"route_id": "device_desk", "keywords": ["device desk"], "strict_keyword_matching": true, "output": {"action": "device_desk"}},
+  {"route_id": "inventory_desk", "keywords": ["stock count"], "strict_keyword_matching": true, "require_fresh_context": true, "output": {"action": "inventory_desk"}},
+  {"route_id": "address_desk", "keywords": ["billing address"], "strict_keyword_matching": true, "require_fresh_context": true, "output": {"action": "address_desk"}},
+  {"route_id": "tier_desk", "keywords": ["support tier"], "strict_keyword_matching": true, "require_fresh_context": true, "output": {"action": "tier_desk"}}
 ]
