@@ -13,7 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from kora.executor import run_graph
+from kora.executor import routing_rule_uses_context, run_graph
 from kora.task_ir import TaskGraph, normalize_graph, validate_graph
 
 EXAMPLE_DIR = Path(__file__).resolve().parent
@@ -112,7 +112,7 @@ def build_cache_reuse_summary(
     # requests with the same semantic alias, including requests it must defer.
     routes = config["routes"]
     contextual = isinstance(routes, list) and any(
-        isinstance(route, dict) and "required_context" in route for route in routes
+        isinstance(route, dict) and routing_rule_uses_context(route) for route in routes
     )
     cache: dict[str, dict[str, Any]] = {}
     results: list[dict[str, Any]] = []

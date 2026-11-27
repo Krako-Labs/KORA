@@ -137,3 +137,28 @@ def test_guarded_rules_bind_exact_text_and_context_before_cache_lookup(tmp_path:
     for row, (_, _, kind, queue) in zip(summary["results"], inputs, strict=True):
         assert row["route_kind"] == kind
         assert row["classification_output"] == ({"queue": queue} if queue else None)
+
+
+def test_freshness_only_policy_rechecks_changed_business_dates(tmp_path):
+    module = _load_module()
+    config = module.load_requests()
+    config["routes"] = [{"route_id": "ledger", "keywords": ["balance"], "require_fresh_context": True,
+                         "output": {"desk": "billing"}}]
+    requests = [
+        ({"as_of": "2028-01-01", "valid_until": "2028-01-01"}, "deterministic"),
+        ({"as_of": "2028-01-02", "valid_until": "2028-01-01"}, "provider_required"),
+        ({"as_of": "2028-01-01"}, "provider_required"),
+        ({"as_of": "2028-01-01", "valid_until": "2028-01-01"}, "cache_hit"),
+    ]
+    handlers = {"deterministic": "classify_by_rules", "provider_required": "provider_needed_fallback",
+                "cache_hit": "cache_reuse"}
+    config["requests"] = [
+        {"id": str(i), "text": "Balance", "context": context, "semantic_cache_key": "one",
+         "expected_route_kind": kind, "expected_handler": handlers[kind]}
+        for i, (context, kind) in enumerate(requests)
+    ]
+    path = tmp_path / "freshness.json"
+    path.write_text(json.dumps(config))
+    result = module.build_cache_reuse_summary(requests_path=path)
+    assert [row["route_kind"] for row in result["results"]] == [kind for _, kind in requests]
+    assert all(row["classification_output"] is None for row in result["results"][1:3])

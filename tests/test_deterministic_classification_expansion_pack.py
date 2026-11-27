@@ -229,3 +229,50 @@ def test_scoped_rule_rejects_invalid_keyword_configuration(keywords):
     item = {"id": "request", "subject": "Unrelated", "body": "", "context": {"tenant": "Cedar"}}
     with pytest.raises((RuntimeError, ValueError), match="nonempty string keywords"):
         example._run_kora_classification(scenario, item)
+
+
+@pytest.mark.parametrize("context, expected", [
+    ({"as_of": "2028-02-29", "valid_until": "2028-02-29"}, "desk"),
+    ({"as_of": "2028-02-28", "valid_until": "2028-02-29"}, "desk"),
+    ({"as_of": "2028-03-01", "valid_until": "2028-02-29"}, "defer"),
+    ({"as_of": "2028-02-29"}, "defer"),
+    ({"valid_until": "2028-02-29"}, "defer"),
+    ({"as_of": "2027-02-29", "valid_until": "2028-02-29"}, "defer"),
+    ({"as_of": "20280229", "valid_until": "2028-02-29"}, "defer"),
+    ({"as_of": "2028-02-28", "valid_until": "2028-W09-2"}, "defer"),
+    ({"as_of": "2028-02-28", "valid_until": 20280229}, "defer"),
+    (None, "defer"),
+])
+def test_freshness_requires_two_canonical_business_dates(context, expected):
+    scenario = {"scenario_id": "terms", "scenario_label": "Terms", "provider_required_route": "defer",
+                "routes": [{"route_id": "desk", "keywords": ["terms"], "require_fresh_context": True}]}
+    item = {"id": "sample", "subject": "Terms", "body": "valid_until 2099-12-31", "context": context}
+    result = _load_example_module()._run_kora_classification(scenario, item)
+    assert result["selected_route"] == expected
+    assert result["provider_calls"] == 0
+    if expected == "defer":
+        assert result["classification_output"] is None
+        assert result["provider_needed_reason"]
+
+
+def test_expired_applicable_route_withholds_overlapping_unscoped_answer():
+    scoped = {"route_id": "priced", "keywords": ["quote"], "required_context": {"tenant": "first"},
+              "require_fresh_context": True}
+    unscoped = {"route_id": "other", "keywords": ["quote"]}
+    example = _load_example_module()
+    for routes in ([scoped, unscoped], [unscoped, scoped]):
+        scenario = {"scenario_id": "price", "scenario_label": "Pricing", "provider_required_route": "defer",
+                    "routes": routes}
+        for tenant, expected in (("first", "defer"), ("second", "other")):
+            item = {"id": "sample", "subject": "Quote", "body": "",
+                    "context": {"tenant": tenant, "as_of": "2028-04-10", "valid_until": "2028-04-09"}}
+            result = example._run_kora_classification(scenario, item)
+            assert result["selected_route"] == expected
+
+
+@pytest.mark.parametrize("flag", ["false", 1, None])
+def test_invalid_freshness_option_is_rejected(flag):
+    scenario = {"scenario_id": "terms", "scenario_label": "Terms", "provider_required_route": "defer",
+                "routes": [{"route_id": "desk", "keywords": ["terms"], "require_fresh_context": flag}]}
+    with pytest.raises((RuntimeError, ValueError), match="require_fresh_context must be a boolean"):
+        _load_example_module()._run_kora_classification(scenario, {"id": "one", "subject": "Terms", "body": ""})
