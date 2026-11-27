@@ -159,7 +159,7 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
             raise ValueError("context-scoped routing rules require nonempty string keywords")
         if not isinstance(keywords, list):
             continue
-        if any(str(keyword).lower() in lowered for keyword in keywords):
+        if any(str(keyword).casefold() in lowered for keyword in keywords):
             matches.append(route)
 
     scenario_id = str(args.get("scenario_id", "classification"))

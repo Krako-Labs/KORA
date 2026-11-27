@@ -231,7 +231,12 @@ def test_scoped_rule_rejects_invalid_keyword_configuration(keywords):
         example._run_kora_classification(scenario, item)
 
 
-@pytest.mark.parametrize("companion", ["delegated privileges", "DELEGATED PRIVILEGES"])
+@pytest.mark.parametrize("companion", [
+    "delegated privileges",
+    "DELEGATED PRIVILEGES",
+    "delegated admin privileges",
+    "delegated privilege",
+])
 def test_route_scoped_provider_required_keywords_defer_companion_work(companion):
     example = _load_example_module()
     scenario = {
@@ -240,7 +245,11 @@ def test_route_scoped_provider_required_keywords_defer_companion_work(companion)
         "routes": [{
             "route_id": "reset_password",
             "keywords": ["reset my password"],
-            "provider_required_keywords": ["delegated privileges"],
+            "provider_required_keywords": [
+                "delegated privileges",
+                "delegated admin privileges",
+                "delegated privilege",
+            ],
             "output": {"action": "reset_password"},
         }],
         "provider_required_route": "defer",
@@ -303,6 +312,29 @@ def test_route_scoped_provider_required_keywords_use_unicode_casefold():
     result = example._run_kora_classification(scenario, item)
     assert result["selected_route"] == "defer"
     assert result["classification_output"] is None
+
+
+def test_route_keywords_use_unicode_casefold():
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support",
+        "scenario_label": "Support",
+        "routes": [{
+            "route_id": "street_access",
+            "keywords": ["Straße"],
+            "output": {"action": "street_access"},
+        }],
+        "provider_required_route": "defer",
+    }
+    item = {
+        "id": "request",
+        "subject": "Open STRASSE access.",
+        "body": "",
+        "context": {},
+    }
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "street_access"
+    assert result["classification_output"] == {"action": "street_access"}
 
 
 @pytest.mark.parametrize("context, expected", [
