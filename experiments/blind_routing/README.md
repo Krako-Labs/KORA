@@ -23,7 +23,7 @@ The 24 authored requests form 12 pairs. Each pair stays in one split. Each of fo
 | Ambiguous names | Atlas, Phoenix and Summit can name an account or a device. Direct the request to the relevant desk only when the entity type is known and supported. |
 | Data freshness | For stock counts, billing addresses and support tiers, use a value when both dates are available and the requested date is on or before the validity deadline. Defer otherwise. |
 
-`requests.json` contains the business text and context. `gold.json` contains the pair, split, family and expected action. A null action requires deferral. The runner sends the same graph and task IDs for every request. Only the text and structured business context enter the task input. Only the scorer sees the expected action. The baseline and tenant policies are retained for comparison. The freshness policy adds a date requirement to the three routes that use time-sensitive facts.
+`requests.json` contains the business text and context. `gold.json` contains the pair, split, family and expected action. A null action requires deferral. The runner sends the same graph and task IDs for every request. Only the text and structured business context enter the task input. Only the scorer sees the expected action. The baseline and tenant policies are retained for comparison. The hardened policy adds date requirements to three time-sensitive routes and scopes ambiguous entity aliases to the declared account/device context domain.
 
 ## Read the results
 
@@ -49,6 +49,12 @@ A rule can require exact string values in the application's structured context.
 ```
 
 The caller supplies trusted context in the task input. Source tenant identity from the application's authenticated session if it affects routing. The handler compares strings case-sensitively. Missing context on a potential competitor withholds the decision. A known mismatch rules that competitor out. Multiple eligible rules also cause deferral. Scoped rules require nonempty keywords. Existing unscoped rules retain their keyword behavior.
+
+For a scoped field with a closed set of supported values, `context_domains`
+lists that set. A value outside the set is unresolved and causes deferral;
+another known value in the set is an ordinary mismatch, allowing its competing
+rule to match. Every domain field must exist in `required_context`, and the
+required value must belong to its declared domain.
 
 The tenant policy covers the tenant contract. Keyword matching still uses substrings, so a negated phrase or a word containing a configured keyword can match. A separate test is needed for each additional language or business constraint.
 

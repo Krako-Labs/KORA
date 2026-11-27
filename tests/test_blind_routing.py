@@ -158,13 +158,17 @@ def test_case_and_whitespace_variants_are_duplicate_business_input(tmp_path):
         run.evaluate(requests_path=path)
 
 
-def test_freshness_policy_changes_only_unsafe_direct_answers_on_public_regression_cases():
+def test_hardened_policy_changes_only_declared_public_regression_cases():
     prior = run.evaluate(split="all", rules_path=run.HERE / "tenant_rules.json")
     fresh = run.evaluate(split="all", rules_path=run.HERE / "freshness_rules.json")
     changed = []
     for before, after in zip(prior["rows"], fresh["rows"], strict=True):
         assert before["id"] == after["id"]
-        if before["id"] == "r645":
+        if before["id"] in {"r164", "r263", "r901", "r937"}:
+            assert before["family"] == after["family"] == "entity_collision"
+            assert after["outcome"] in {"correct_direct", "correct_deferral"}
+            changed.append(after["id"])
+        elif before["id"] == "r645":
             assert before["outcome"] == "false_bypass"
             assert after["outcome"] == "correct_deferral"
             assert after["fallback_reason"] == "matched route also requires unsupported provider work"
@@ -176,11 +180,11 @@ def test_freshness_policy_changes_only_unsafe_direct_answers_on_public_regressio
             assert after["outcome"] == "correct_deferral"
             assert after["fallback_reason"]
             changed.append(after["id"])
-    assert changed == ["r400", "r521", "r591", "r645"]
+    assert changed == ["r164", "r263", "r400", "r521", "r591", "r645", "r901", "r937"]
     assert fresh["summary"]["provider_calls"] == 0
 
 
-def test_freshness_policy_preserves_r104_and_keeps_r263_separate():
+def test_freshness_policy_preserves_r104_and_routes_entity_aliases_by_context():
     rows = {
         row["id"]: row
         for row in run.evaluate(split="all", rules_path=run.HERE / "freshness_rules.json")["rows"]
@@ -188,6 +192,82 @@ def test_freshness_policy_preserves_r104_and_keeps_r263_separate():
     assert rows["r104"]["actual_route"] == "deterministic"
     assert rows["r104"]["actual_output"] == {"action": "reset_password"}
     assert rows["r104"]["outcome"] == "correct_direct"
-    assert rows["r263"]["actual_route"] == "deterministic"
-    assert rows["r263"]["actual_output"] == {"action": "account_desk"}
-    assert rows["r263"]["outcome"] == "false_bypass"
+    assert rows["r263"]["actual_route"] == "provider_required"
+    assert rows["r263"]["actual_output"] is None
+    assert rows["r263"]["outcome"] == "correct_deferral"
+
+
+@pytest.mark.parametrize("text,entity,expected", [
+    ("Please route this to the device desk.", None, "device_desk"),
+    ("Please route this to the device desk.", "device", "device_desk"),
+    ("Please route Atlas to the device desk.", "device", "provider_required.support"),
+    ("Please route Atlas to the device desk.", "account", "provider_required.support"),
+    ("I need help with Atlas.", None, "provider_required.support"),
+    ("I need help with Atlas.", "device", "device_desk"),
+    ("I need help with Atlas.", "account", "account_desk"),
+    ("I need help with Atlas.", "unknown", "provider_required.support"),
+])
+def test_original_entity_boundary_controls(text, entity, expected):
+    request = run.Request(text=text, context=run.Context(entity_type=entity))
+    result = run.route(request, json.loads((run.HERE / "freshness_rules.json").read_text()))
+    assert result["selected_route"] == expected
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("entity", [None, "unknown", "account", "device"])
+@pytest.mark.parametrize("alias", ["Atlas", "Phoenix", "Summit"])
+def test_entity_aliases_require_known_compatible_context(entity, alias):
+    request = run.Request(text=f"Please route {alias}.", context=run.Context(entity_type=entity))
+    result = run.route(request, json.loads((run.HERE / "freshness_rules.json").read_text()))
+    expected = {"account": "account_desk", "device": "device_desk"}.get(entity, "provider_required.support")
+    assert result["selected_route"] == expected
+    assert result["provider_calls"] == 0
+
+
+def test_entity_alias_rules_share_keywords_and_context_domain():
+    rules = json.loads((run.HERE / "freshness_rules.json").read_text())
+    aliases = [rule for rule in rules if rule["route_id"] in {"account_desk", "device_desk"}
+               and "required_context" in rule]
+    assert len(aliases) == 2
+    assert aliases[0]["keywords"] == aliases[1]["keywords"]
+    assert aliases[0]["context_domains"] == aliases[1]["context_domains"] == {
+        "entity_type": ["account", "device"]
+    }
+
+
+@pytest.mark.parametrize("entity", [None, "unknown", "account", "device"])
+@pytest.mark.parametrize("text,expected", [
+    ("Please route this to the device desk.", "device_desk"),
+    ("Please route Atlas to the device desk.", "provider_required.support"),
+])
+def test_recovery_type_boundary_controls(entity, text, expected):
+    request = run.Request(text=text, context=run.Context(entity_type=entity))
+    result = run.route(request, json.loads((run.HERE / "freshness_rules.json").read_text()))
+    assert result["selected_route"] == expected
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("text", [
+    "Please reset my password and route Atlas to the right desk.",
+    "Send my receipt and route Summit to the right desk.",
+    "Please track my parcel and route Phoenix to the right desk.",
+    "Please cancel my order and route Phoenix to the right desk.",
+])
+def test_out_of_domain_entity_alias_defers_supported_companion_intent(text):
+    request = run.Request(text=text, context=run.Context(entity_type="unknown"))
+    result = run.route(request, json.loads((run.HERE / "freshness_rules.json").read_text()))
+    assert result["selected_route"] == "provider_required.support"
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("Please reset my password.", "reset_password"),
+    ("Send my receipt.", "send_receipt"),
+    ("Please track my parcel.", "track_parcel"),
+    ("Please cancel my order.", "cancel_order"),
+])
+def test_out_of_domain_entity_context_does_not_block_unrelated_single_intent(text, expected):
+    request = run.Request(text=text, context=run.Context(entity_type="unknown"))
+    result = run.route(request, json.loads((run.HERE / "freshness_rules.json").read_text()))
+    assert result["selected_route"] == expected
+    assert result["provider_calls"] == 0
