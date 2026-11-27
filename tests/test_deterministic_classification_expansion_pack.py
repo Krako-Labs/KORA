@@ -257,6 +257,54 @@ def test_route_scoped_provider_required_keywords_defer_companion_work(companion)
     assert result["provider_needed_reason"] == "matched route also requires unsupported provider work"
 
 
+@pytest.mark.parametrize("keywords", [[], [""], ["   "], [None], ["delegated privileges", 3], "delegated privileges"])
+def test_route_scoped_provider_required_keywords_reject_invalid_configuration(keywords):
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support",
+        "scenario_label": "Support",
+        "routes": [{
+            "route_id": "reset_password",
+            "keywords": ["reset my password"],
+            "provider_required_keywords": keywords,
+            "output": {"action": "reset_password"},
+        }],
+        "provider_required_route": "defer",
+    }
+    item = {
+        "id": "request",
+        "subject": "Reset my password and restore my delegated privileges.",
+        "body": "",
+        "context": {},
+    }
+    with pytest.raises((RuntimeError, ValueError), match="provider_required_keywords must be nonempty strings"):
+        example._run_kora_classification(scenario, item)
+
+
+def test_route_scoped_provider_required_keywords_use_unicode_casefold():
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support",
+        "scenario_label": "Support",
+        "routes": [{
+            "route_id": "reset_password",
+            "keywords": ["reset my password"],
+            "provider_required_keywords": ["STRASSE"],
+            "output": {"action": "reset_password"},
+        }],
+        "provider_required_route": "defer",
+    }
+    item = {
+        "id": "request",
+        "subject": "Reset my password and restore Straße access.",
+        "body": "",
+        "context": {},
+    }
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "defer"
+    assert result["classification_output"] is None
+
+
 @pytest.mark.parametrize("context, expected", [
     ({"as_of": "2028-02-29", "valid_until": "2028-02-29"}, "desk"),
     ({"as_of": "2028-02-28", "valid_until": "2028-02-29"}, "desk"),

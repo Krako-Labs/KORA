@@ -141,7 +141,7 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
     text = task.in_.get("text", args.get("text", ""))
     if not isinstance(text, str):
         text = str(text)
-    lowered = text.lower()
+    lowered = text.casefold()
 
     routes = args.get("routes", [])
     if not isinstance(routes, list):
@@ -186,9 +186,13 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
         if len(eligible) == 1:
             route = eligible[0]
             provider_required_keywords = route.get("provider_required_keywords", [])
-            if not isinstance(provider_required_keywords, list) or any(
-                not isinstance(keyword, str) or not keyword.strip()
-                for keyword in provider_required_keywords
+            if "provider_required_keywords" in route and (
+                not isinstance(provider_required_keywords, list)
+                or not provider_required_keywords
+                or any(
+                    not isinstance(keyword, str) or not keyword.strip()
+                    for keyword in provider_required_keywords
+                )
             ):
                 raise ValueError("provider_required_keywords must be nonempty strings")
             if any(keyword.casefold() in lowered for keyword in provider_required_keywords):
