@@ -39,6 +39,8 @@ python3 examples/agent_workflow_optimization/run.py
 
 ## Additional Examples
 
+[Support-tier shadow observation](support_tier_shadow/) compares a trusted, read-only fixture lookup with a proposed cache decision. Run `kora run support_tier_shadow` to inspect version changes, revocation and rollback.
+
 The root `examples/` directory also contains older basic, validation, benchmark, and fixture examples. They remain in place for continuity and reproducibility. New readers should start with the flagship examples above.
 
 ## Workload Representativeness Seed
