@@ -411,6 +411,64 @@ def test_route_keywords_use_unicode_casefold():
     assert result["classification_output"] == {"action": "street_access"}
 
 
+@pytest.mark.parametrize("text", [
+    "The order is not pending.",
+    "There is an impending delivery issue.",
+    "The customer is spending more this month.",
+    "Please do not cancel my order.",
+    "Please do not, under any circumstances, cancel my order.",
+    "Do not send this to the device desk.",
+    "The message says 'cancel my order', but I only need clarification.",
+    "The message says “cancel my order”, but I only need clarification.",
+    "The message says ‘cancel my order’, but I only need clarification.",
+])
+def test_strict_keyword_matching_defers_non_intent_lexical_matches(text):
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support", "scenario_label": "Support",
+        "routes": [{"route_id": "review", "keywords": ["pending", "cancel my order"],
+                    "strict_keyword_matching": True, "output": {"action": "review"}}],
+        "provider_required_route": "defer",
+    }
+    item = {"id": "request", "subject": text, "body": "", "context": {}}
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "defer"
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("text", [
+    "Pending",
+    "Please cancel my order.",
+    "I don't need tracking; please cancel my order.",
+])
+def test_strict_keyword_matching_preserves_positive_intents(text):
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support", "scenario_label": "Support",
+        "routes": [{"route_id": "review", "keywords": ["pending", "cancel my order"],
+                    "strict_keyword_matching": True, "output": {"action": "review"}}],
+        "provider_required_route": "defer",
+    }
+    item = {"id": "request", "subject": text, "body": "", "context": {}}
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "review"
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("value", [None, 0, "true", [], {}])
+def test_strict_keyword_matching_requires_boolean(value):
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support", "scenario_label": "Support",
+        "routes": [{"route_id": "review", "keywords": ["pending"],
+                    "strict_keyword_matching": value}],
+        "provider_required_route": "defer",
+    }
+    item = {"id": "request", "subject": "Pending", "body": "", "context": {}}
+    with pytest.raises((RuntimeError, ValueError), match="strict_keyword_matching must be a boolean"):
+        example._run_kora_classification(scenario, item)
+
+
 @pytest.mark.parametrize("context, expected", [
     ({"as_of": "2028-02-29", "valid_until": "2028-02-29"}, "desk"),
     ({"as_of": "2028-02-28", "valid_until": "2028-02-29"}, "desk"),

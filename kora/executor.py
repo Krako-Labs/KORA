@@ -147,6 +147,29 @@ def _rule_context_matches(route: dict[str, Any], context: Any) -> bool | None:
     return None if missing else True
 
 
+def _keyword_matches(text: str, keyword: str, *, strict: bool) -> bool:
+    """Match an opt-in lexical intent without substrings, negation, or quotations."""
+    if not strict:
+        return keyword.casefold() in text
+    pattern = re.compile(rf"(?<!\w){re.escape(keyword.casefold())}(?!\w)")
+    for match in pattern.finditer(text):
+        prefix = text[:match.start()]
+        separator = r"[^\w;.!?]+"
+        if re.search(
+            rf"(?:\bdo{separator}not|\bdon't|\bnot|\bnever)(?:{separator}\w+){{0,5}}{separator}?$",
+            prefix,
+        ):
+            continue
+        quote_pairs = (("'", "'"), ('"', '"'), ("‘", "’"), ("“", "”"))
+        quoted_spans = [span.span() for opening, closing in quote_pairs for span in re.finditer(
+            rf"{re.escape(opening)}[^{re.escape(closing)}]*{re.escape(closing)}", text
+        )]
+        if any(start <= match.start() and match.end() <= end for start, end in quoted_spans):
+            continue
+        return True
+    return False
+
+
 def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, Any]:
     del state
     if task.run.kind != "det":
@@ -174,7 +197,10 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
             raise ValueError("context-scoped routing rules require nonempty string keywords")
         if not isinstance(keywords, list):
             continue
-        if any(str(keyword).casefold() in lowered for keyword in keywords):
+        strict = route.get("strict_keyword_matching", False)
+        if not isinstance(strict, bool):
+            raise ValueError("strict_keyword_matching must be a boolean")
+        if any(_keyword_matches(lowered, str(keyword), strict=strict) for keyword in keywords):
             matches.append(route)
 
     scenario_id = str(args.get("scenario_id", "classification"))
