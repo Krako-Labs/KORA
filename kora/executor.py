@@ -185,18 +185,36 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
     else:
         if len(eligible) == 1:
             route = eligible[0]
-            output = route.get("output", {})
-            if not isinstance(output, dict):
-                output = {}
-            return {
-                "status": "ok",
-                "task_id": task.id,
-                "route_kind": "deterministic",
-                "selected_route": str(route.get("route_id", "")),
-                "classification_output": output,
-                "provider_calls": 0,
-                "provider_needed_reason": None,
-            }
+            provider_required_keywords = route.get("provider_required_keywords", [])
+            if not isinstance(provider_required_keywords, list) or any(
+                not isinstance(keyword, str) or not keyword.strip()
+                for keyword in provider_required_keywords
+            ):
+                raise ValueError("provider_required_keywords must be nonempty strings")
+            if any(keyword.casefold() in lowered for keyword in provider_required_keywords):
+                reason = "matched route also requires unsupported provider work"
+                return {
+                    "status": "ok",
+                    "task_id": task.id,
+                    "route_kind": "provider_required",
+                    "selected_route": fallback_route,
+                    "classification_output": None,
+                    "provider_calls": 0,
+                    "provider_needed_reason": reason,
+                }
+            else:
+                output = route.get("output", {})
+                if not isinstance(output, dict):
+                    output = {}
+                return {
+                    "status": "ok",
+                    "task_id": task.id,
+                    "route_kind": "deterministic",
+                    "selected_route": str(route.get("route_id", "")),
+                    "classification_output": output,
+                    "provider_calls": 0,
+                    "provider_needed_reason": None,
+                }
         if eligible:
             reason = "multiple deterministic routes matched"
         elif matches:

@@ -231,6 +231,32 @@ def test_scoped_rule_rejects_invalid_keyword_configuration(keywords):
         example._run_kora_classification(scenario, item)
 
 
+@pytest.mark.parametrize("companion", ["delegated privileges", "DELEGATED PRIVILEGES"])
+def test_route_scoped_provider_required_keywords_defer_companion_work(companion):
+    example = _load_example_module()
+    scenario = {
+        "scenario_id": "support",
+        "scenario_label": "Support",
+        "routes": [{
+            "route_id": "reset_password",
+            "keywords": ["reset my password"],
+            "provider_required_keywords": ["delegated privileges"],
+            "output": {"action": "reset_password"},
+        }],
+        "provider_required_route": "defer",
+    }
+    item = {
+        "id": "request",
+        "subject": f"Reset my password and restore my {companion}.",
+        "body": "",
+        "context": {},
+    }
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "defer"
+    assert result["classification_output"] is None
+    assert result["provider_needed_reason"] == "matched route also requires unsupported provider work"
+
+
 @pytest.mark.parametrize("context, expected", [
     ({"as_of": "2028-02-29", "valid_until": "2028-02-29"}, "desk"),
     ({"as_of": "2028-02-28", "valid_until": "2028-02-29"}, "desk"),

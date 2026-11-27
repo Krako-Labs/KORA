@@ -164,12 +164,30 @@ def test_freshness_policy_changes_only_unsafe_direct_answers_on_public_regressio
     changed = []
     for before, after in zip(prior["rows"], fresh["rows"], strict=True):
         assert before["id"] == after["id"]
-        if before["family"] != "stale_or_missing" or before["expected_action"] is not None:
+        if before["id"] == "r645":
+            assert before["outcome"] == "false_bypass"
+            assert after["outcome"] == "correct_deferral"
+            assert after["fallback_reason"] == "matched route also requires unsupported provider work"
+            changed.append(after["id"])
+        elif before["family"] != "stale_or_missing" or before["expected_action"] is not None:
             assert after == before
         else:
             assert before["outcome"] == "false_bypass"
             assert after["outcome"] == "correct_deferral"
             assert after["fallback_reason"]
             changed.append(after["id"])
-    assert len(changed) == 3
+    assert changed == ["r400", "r521", "r591", "r645"]
     assert fresh["summary"]["provider_calls"] == 0
+
+
+def test_freshness_policy_preserves_r104_and_keeps_r263_separate():
+    rows = {
+        row["id"]: row
+        for row in run.evaluate(split="all", rules_path=run.HERE / "freshness_rules.json")["rows"]
+    }
+    assert rows["r104"]["actual_route"] == "deterministic"
+    assert rows["r104"]["actual_output"] == {"action": "reset_password"}
+    assert rows["r104"]["outcome"] == "correct_direct"
+    assert rows["r263"]["actual_route"] == "deterministic"
+    assert rows["r263"]["actual_output"] == {"action": "account_desk"}
+    assert rows["r263"]["outcome"] == "false_bypass"
