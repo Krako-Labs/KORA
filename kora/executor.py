@@ -81,6 +81,26 @@ def _handle_classify_simple(task: Task, state: dict[str, Any]) -> dict[str, Any]
     }
 
 
+def _rule_context_matches(route: dict[str, Any], context: Any) -> bool | None:
+    """Check declared exact field requirements. None means a decision is unsafe."""
+    if "required_context" not in route:
+        return True
+    required = route["required_context"]
+    if not isinstance(required, dict) or not required or not isinstance(context, dict):
+        return None
+    for key, value in required.items():
+        if not isinstance(key, str) or not key.strip() or not isinstance(value, str) or not value.strip():
+            return None
+    missing = False
+    for key, expected in required.items():
+        actual = context.get(key)
+        if not isinstance(actual, str) or not actual.strip():
+            missing = True
+        elif actual != expected:
+            return False
+    return None if missing else True
+
+
 def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, Any]:
     del state
     if task.run.kind != "det":
@@ -101,6 +121,11 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
         if not isinstance(route, dict):
             continue
         keywords = route.get("keywords", [])
+        if "required_context" in route and (
+            not isinstance(keywords, list) or not keywords
+            or any(not isinstance(word, str) or not word.strip() for word in keywords)
+        ):
+            raise ValueError("context-scoped routing rules require nonempty string keywords")
         if not isinstance(keywords, list):
             continue
         if any(str(keyword).lower() in lowered for keyword in keywords):
@@ -109,22 +134,36 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
     scenario_id = str(args.get("scenario_id", "classification"))
     fallback_route = str(args.get("provider_required_route", f"provider_required.{scenario_id}"))
 
-    if len(matches) == 1:
-        route = matches[0]
-        output = route.get("output", {})
-        if not isinstance(output, dict):
-            output = {}
-        return {
-            "status": "ok",
-            "task_id": task.id,
-            "route_kind": "deterministic",
-            "selected_route": str(route.get("route_id", "")),
-            "classification_output": output,
-            "provider_calls": 0,
-            "provider_needed_reason": None,
-        }
+    reason = "no deterministic keyword route matched"
+    eligible = []
+    for rule in matches:
+        applies = _rule_context_matches(rule, task.in_.get("context"))
+        if applies is None:
+            # An unresolved competitor can make even one eligible rule ambiguous.
+            reason = "deterministic route context is missing or invalid"
+            break
+        if applies:
+            eligible.append(rule)
+    else:
+        if len(eligible) == 1:
+            route = eligible[0]
+            output = route.get("output", {})
+            if not isinstance(output, dict):
+                output = {}
+            return {
+                "status": "ok",
+                "task_id": task.id,
+                "route_kind": "deterministic",
+                "selected_route": str(route.get("route_id", "")),
+                "classification_output": output,
+                "provider_calls": 0,
+                "provider_needed_reason": None,
+            }
+        if eligible:
+            reason = "multiple deterministic routes matched"
+        elif matches:
+            reason = "no deterministic route matched the request context"
 
-    reason = "no deterministic keyword route matched" if not matches else "multiple deterministic routes matched"
     return {
         "status": "ok",
         "task_id": task.id,

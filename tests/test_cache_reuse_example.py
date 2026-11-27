@@ -102,3 +102,38 @@ def test_cache_reuse_appears_in_example_listing() -> None:
 
     assert completed.returncode == 0
     assert "cache_reuse: offline cache reuse routing example" in completed.stdout
+
+
+def test_guarded_rules_bind_exact_text_and_context_before_cache_lookup(tmp_path: Path) -> None:
+    module = _load_module()
+    config = module.load_requests()
+    config["routes"] = [
+        {"route_id": tenant, "keywords": ["pending"], "required_context": {"tenant": tenant},
+         "output": {"queue": queue}}
+        for tenant, queue in [("alpha", "review"), ("beta", "transfer")]
+    ]
+    inputs = [
+        ("pending", {"tenant": "alpha"}, "deterministic", "review"),
+        ("pending", {"tenant": "beta"}, "deterministic", "transfer"),
+        ("pending", {}, "provider_required", None),
+        ("pending", {"tenant": "alpha"}, "cache_hit", "review"),
+        ("unrelated", {"tenant": "alpha"}, "provider_required", None),
+        ("pending", {"tenant": "beta"}, "cache_hit", "transfer"),
+        ("pending now", {"tenant": "alpha"}, "deterministic", "review"),
+    ]
+    handlers = {"deterministic": "classify_by_rules", "provider_required": "provider_needed_fallback",
+                "cache_hit": "cache_reuse"}
+    config["requests"] = [
+        {"id": str(index), "text": text, "context": context, "semantic_cache_key": "shared-alias",
+         "expected_route_kind": kind, "expected_handler": handlers[kind]}
+        for index, (text, context, kind, _) in enumerate(inputs)
+    ]
+    path = tmp_path / "guarded.json"
+    path.write_text(json.dumps(config))
+    summary = module.build_cache_reuse_summary(requests_path=path)
+
+    assert summary["ok"] is True
+    assert summary["provider_calls_actually_made"] == 0
+    for row, (_, _, kind, queue) in zip(summary["results"], inputs, strict=True):
+        assert row["route_kind"] == kind
+        assert row["classification_output"] == ({"queue": queue} if queue else None)

@@ -167,3 +167,65 @@ def test_deterministic_classification_runs_through_kora_example_runner() -> None
     assert '"scenario_ids": [' in completed.stdout
     assert '"document_type_routing"' in completed.stdout
     assert '"provider_calls_actually_made": 0' in completed.stdout
+
+
+@pytest.mark.parametrize("context, action", [
+    ({"tenant": "Cedar"}, "review"), ({"tenant": "Juniper"}, "transfer"),
+    ({}, None), (None, None), ({"tenant": "other"}, None),
+    ({"tenant": "cedar"}, None), ({"tenant": ["Cedar"]}, None),
+])
+def test_classification_uses_explicit_tenant_context(context, action):
+    example = _load_example_module()
+    routes = [
+        {"route_id": name, "keywords": ["pending"], "required_context": {"tenant": tenant},
+         "output": {"category": name}}
+        for tenant, name in [("Cedar", "review"), ("Juniper", "transfer")]
+    ]
+    scenario = {"scenario_id": "claims", "scenario_label": "Claims",
+                "routes": routes, "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Pending", "body": "Text says tenant Cedar.",
+            "context": context}
+    result = example._run_kora_classification(scenario, item)
+    assert result["provider_calls"] == 0
+    if action is None:
+        assert result["selected_route"] == "defer"
+        assert result["provider_needed_reason"]
+        assert result["classification_output"] is None
+    else:
+        assert result["selected_route"] == action
+        assert result["classification_output"] == {"category": action}
+
+
+@pytest.mark.parametrize("first_scope, context, expected", [
+    ({"tenant": "Cedar", "entity": "device"}, {"tenant": "Juniper"}, "juniper"),
+    ({"entity": "device", "tenant": "Cedar"}, {"tenant": "Juniper"}, "juniper"),
+    ({"entity": "device"}, {"tenant": "Juniper"}, "defer"),
+    ({"tenant": "Juniper"}, {"tenant": "Juniper"}, "defer"),
+    ({}, {"tenant": "Juniper"}, "defer"),
+    (None, {"tenant": "Juniper"}, "defer"),
+    ({"tenant": ""}, {"tenant": "Juniper"}, "defer"),
+])
+def test_partial_or_invalid_competing_scope_is_order_independent(first_scope, context, expected):
+    example = _load_example_module()
+    routes = [
+        {"route_id": "other", "keywords": ["pending"], "required_context": first_scope},
+        {"route_id": "juniper", "keywords": ["pending"], "required_context": {"tenant": "Juniper"}},
+    ]
+    for ordered in (routes, routes[::-1]):
+        scenario = {"scenario_id": "claims", "scenario_label": "Claims",
+                    "routes": ordered, "provider_required_route": "defer"}
+        item = {"id": "request", "subject": "Pending", "body": "", "context": context}
+        result = example._run_kora_classification(scenario, item)
+        assert result["selected_route"] == expected
+        assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("keywords", [[], [""], ["   "], [None], ["pending", 3], "pending"])
+def test_scoped_rule_rejects_invalid_keyword_configuration(keywords):
+    example = _load_example_module()
+    scenario = {"scenario_id": "claims", "scenario_label": "Claims",
+                "routes": [{"route_id": "review", "required_context": {"tenant": "Cedar"},
+                            "keywords": keywords}], "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Unrelated", "body": "", "context": {"tenant": "Cedar"}}
+    with pytest.raises((RuntimeError, ValueError), match="nonempty string keywords"):
+        example._run_kora_classification(scenario, item)

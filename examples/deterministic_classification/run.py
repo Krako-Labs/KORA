@@ -54,6 +54,9 @@ def _item_text(item: dict[str, Any]) -> str:
 def _classification_graph(scenario: dict[str, Any], item: dict[str, Any]) -> TaskGraph:
     scenario_id = str(scenario["scenario_id"])
     item_id = str(item["id"])
+    request_input = {"text": _item_text(item)}
+    if "context" in item:
+        request_input["context"] = item["context"]
     return TaskGraph.model_validate(
         {
             "graph_id": f"deterministic-classification-{scenario_id}-{item_id}",
@@ -65,7 +68,7 @@ def _classification_graph(scenario: dict[str, Any], item: dict[str, Any]) -> Tas
                     "id": "classify",
                     "type": f"det.classification.{scenario_id}",
                     "deps": [],
-                    "in": {"text": _item_text(item)},
+                    "in": request_input,
                     "run": {
                         "kind": "det",
                         "spec": {

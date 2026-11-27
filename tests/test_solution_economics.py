@@ -284,3 +284,65 @@ def test_selective_full_context_node_keeps_sources_only_where_declared():
     assert "sources" in a.seen["research"]
     assert "sources" in a.seen["draft"]
     assert "sources" not in a.seen["review"]
+
+
+def test_route_policy_rollback_and_shared_dependency_replay(tmp_path):
+    class PricingAdapter:
+        def run(self, *, task_id, input, budget, output_schema):
+            if task_id == "catalog":
+                output = input["workload"]["catalog"]
+            elif task_id == "quote":
+                output = input["dependencies"]
+            else:
+                catalog = input["dependencies"]["catalog"]
+                units = {"single": 1, "pair": 2, "triple": 3}[input["instruction"]]
+                output = {"revision": catalog["revision"], "price": units * catalog["unit_price"]}
+            return {"ok": True, "output": output}
+
+    def replay(route_a_policy, revision, unit_price):
+        nodes = (
+            EconomicsNode("catalog", "read catalog", "routine"),
+            EconomicsNode("route_a", route_a_policy, "routine", ("catalog",)),
+            EconomicsNode("route_b", "pair", "routine", ("catalog",)),
+            EconomicsNode("quote", "collect quotes", "routine", ("route_a", "route_b"), cacheable=False),
+        )
+        runner = WorkloadEconomicsRunner(
+            nodes=nodes, adapters={"fixture": PricingAdapter()}, cache_directory=tmp_path
+        )
+        policy = ExecutionPolicy(
+            "quotes", {"routine": "fixture"}, exact_reuse=True, context_mode="brief+deps"
+        )
+        # Only the upstream node sees the catalog directly.
+        workload = {"brief": {}, "catalog": {"revision": revision, "unit_price": unit_price}}
+        result = runner.run(workload=workload, policy=policy)
+        reused = {event["node_id"] for event in result["events"] if event["reused"]}
+        return result["output"], reused
+
+    cold, hits = replay("single", "v1", 10)
+    assert hits == set()
+    assert cold == {
+        "route_a": {"revision": "v1", "price": 10},
+        "route_b": {"revision": "v1", "price": 20},
+    }
+
+    changed, hits = replay("triple", "v1", 10)
+    assert hits == {"catalog", "route_b"}
+    assert changed == {"route_a": {"revision": "v1", "price": 30}, "route_b": cold["route_b"]}
+
+    rolled_back, hits = replay("single", "v1", 10)
+    assert hits == {"catalog", "route_a", "route_b"}
+    assert rolled_back == cold
+
+    revised, hits = replay("single", "v2", 10)
+    assert hits == set()
+    assert revised == {
+        "route_a": {"revision": "v2", "price": 10},
+        "route_b": {"revision": "v2", "price": 20},
+    }
+
+    repriced, hits = replay("single", "v3", 12)
+    assert hits == set()
+    assert repriced == {
+        "route_a": {"revision": "v3", "price": 12},
+        "route_b": {"revision": "v3", "price": 24},
+    }
