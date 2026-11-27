@@ -7,6 +7,7 @@ import hashlib
 import os
 import re
 import time
+from datetime import date
 from typing import Any, Callable
 
 from kora.adapters.base import BaseAdapter
@@ -81,6 +82,36 @@ def _handle_classify_simple(task: Task, state: dict[str, Any]) -> dict[str, Any]
     }
 
 
+def routing_rule_uses_context(route: dict[str, Any]) -> bool:
+    """Whether a rule can distinguish otherwise identical requests by their context."""
+    freshness = route.get("require_fresh_context", False)
+    if not isinstance(freshness, bool):
+        raise ValueError("require_fresh_context must be a boolean")
+    return "required_context" in route or freshness
+
+
+def _business_date(value: Any) -> date | None:
+    if not isinstance(value, str) or len(value) != 10:
+        return None
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError:
+        return None
+    # fromisoformat also accepts ISO week dates on newer Python versions.
+    return parsed if parsed.isoformat() == value else None
+
+
+def _freshness_failure(context: Any) -> str | None:
+    fields = context if isinstance(context, dict) else {}
+    as_of = _business_date(fields.get("as_of"))
+    valid_until = _business_date(fields.get("valid_until"))
+    if as_of is None or valid_until is None:
+        return "deterministic route requires valid as_of and valid_until dates"
+    if as_of > valid_until:
+        return "deterministic route data expired before the requested date"
+    return None
+
+
 def _rule_context_matches(route: dict[str, Any], context: Any) -> bool | None:
     """Check declared exact field requirements. None means a decision is unsafe."""
     if "required_context" not in route:
@@ -121,7 +152,7 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
         if not isinstance(route, dict):
             continue
         keywords = route.get("keywords", [])
-        if "required_context" in route and (
+        if routing_rule_uses_context(route) and (
             not isinstance(keywords, list) or not keywords
             or any(not isinstance(word, str) or not word.strip() for word in keywords)
         ):
@@ -136,14 +167,21 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
 
     reason = "no deterministic keyword route matched"
     eligible = []
+    context = task.in_.get("context")
     for rule in matches:
-        applies = _rule_context_matches(rule, task.in_.get("context"))
+        applies = _rule_context_matches(rule, context)
         if applies is None:
             # An unresolved competitor can make even one eligible rule ambiguous.
             reason = "deterministic route context is missing or invalid"
             break
-        if applies:
-            eligible.append(rule)
+        if not applies:
+            continue
+        if rule.get("require_fresh_context"):
+            failure = _freshness_failure(context)
+            if failure is not None:
+                reason = failure
+                break
+        eligible.append(rule)
     else:
         if len(eligible) == 1:
             route = eligible[0]

@@ -1,12 +1,13 @@
 # Blinded support routing evaluation
 
-Can a keyword route safely finish a request when one business fact changes? Run this offline evaluation from the repository root with the project dependencies installed. It sends each request through the public task-graph executor and the `classify_by_rules` handler. Deferral records a decision and stops there. Both policies make zero model calls.
+Can a keyword route safely finish a request when one business fact changes? Run this offline evaluation from the repository root with the project dependencies installed. It sends each request through the public task-graph executor and the `classify_by_rules` handler. Deferral records a decision and stops there. The evaluation makes zero model calls.
 
 ## Run the development cases
 
 ```bash
 python -m experiments.blind_routing.run
 python -m experiments.blind_routing.run --rules experiments/blind_routing/tenant_rules.json
+python -m experiments.blind_routing.run --rules experiments/blind_routing/freshness_rules.json
 ```
 
 By default each command reports the eight development cases. After freezing a candidate, add `--split holdout` to each command to compare the other sixteen. Use `--split all` for regression testing. The fixtures and answer key are public, so future changes evaluated on these rows are same-set regressions. Add `--timing` to measure local graph decision time in nanoseconds. This excludes model service time.
@@ -22,7 +23,7 @@ The 24 authored requests form 12 pairs. Each pair stays in one split. Each of fo
 | Ambiguous names | Atlas, Phoenix and Summit can name an account or a device. Direct the request to the relevant desk only when the entity type is known and supported. |
 | Data freshness | For stock counts, billing addresses and support tiers, use a value when both dates are available and the requested date is on or before the validity deadline. Defer otherwise. |
 
-`requests.json` contains the business text and context. `gold.json` contains the pair, split, family and expected action. A null action requires deferral. The runner sends the same graph and task IDs for every request. Only the text and structured business context enter the task input. Only the scorer sees the expected action. The two policy files use the same vocabulary except for the scoped pending rules.
+`requests.json` contains the business text and context. `gold.json` contains the pair, split, family and expected action. A null action requires deferral. The runner sends the same graph and task IDs for every request. Only the text and structured business context enter the task input. Only the scorer sees the expected action. The baseline and tenant policies are retained for comparison. The freshness policy adds a date requirement to the three routes that use time-sensitive facts.
 
 ## Read the results
 
@@ -49,4 +50,19 @@ A rule can require exact string values in the application's structured context.
 
 The caller supplies trusted context in the task input. Source tenant identity from the application's authenticated session if it affects routing. The handler compares strings case-sensitively. Missing context on a potential competitor withholds the decision. A known mismatch rules that competitor out. Multiple eligible rules also cause deferral. Scoped rules require nonempty keywords. Existing unscoped rules retain their keyword behavior.
 
-The candidate covers the tenant contract. Keyword matching still uses substrings, so a negated phrase or a word containing a configured keyword can match. A separate test is needed for each additional language or business constraint.
+The tenant policy covers the tenant contract. Keyword matching still uses substrings, so a negated phrase or a word containing a configured keyword can match. A separate test is needed for each additional language or business constraint.
+
+## Facts with validity dates
+
+Set `"require_fresh_context": true` on a rule whose answer depends on a dated fact.
+The application supplies the effective request date in `context.as_of` and the
+fact's inclusive expiry date in `context.valid_until`. Supply both as trusted
+calendar dates in `YYYY-MM-DD` form, for example `2028-02-29`. Replay uses
+those dates without consulting the machine clock or interpreting request text.
+The application is responsible for choosing the correct effective date and
+checking that the expiry belongs to the fact being used.
+
+A matching rule with missing, malformed or expired dates defers with a reason.
+An overlapping keyword rule cannot return an answer while the applicable fact
+is unusable. An exact tenant mismatch rules that candidate out before its dates
+are checked. Existing rules without this requirement keep their behavior.

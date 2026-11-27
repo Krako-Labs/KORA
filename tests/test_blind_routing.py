@@ -156,3 +156,20 @@ def test_case_and_whitespace_variants_are_duplicate_business_input(tmp_path):
     path.write_text(json.dumps(raw))
     with pytest.raises(ValueError, match="Duplicate business input"):
         run.evaluate(requests_path=path)
+
+
+def test_freshness_policy_changes_only_unsafe_direct_answers_on_public_regression_cases():
+    prior = run.evaluate(split="all", rules_path=run.HERE / "tenant_rules.json")
+    fresh = run.evaluate(split="all", rules_path=run.HERE / "freshness_rules.json")
+    changed = []
+    for before, after in zip(prior["rows"], fresh["rows"], strict=True):
+        assert before["id"] == after["id"]
+        if before["family"] != "stale_or_missing" or before["expected_action"] is not None:
+            assert after == before
+        else:
+            assert before["outcome"] == "false_bypass"
+            assert after["outcome"] == "correct_deferral"
+            assert after["fallback_reason"]
+            changed.append(after["id"])
+    assert len(changed) == 3
+    assert fresh["summary"]["provider_calls"] == 0
