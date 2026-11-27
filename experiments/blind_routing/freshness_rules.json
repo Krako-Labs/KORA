@@ -4,7 +4,7 @@
   {"route_id": "transfer_queue", "keywords": ["transfer queue"], "output": {"action": "transfer_queue"}},
   {"route_id": "track_parcel", "keywords": ["track my parcel"], "output": {"action": "track_parcel"}},
   {"route_id": "cancel_order", "keywords": ["cancel my order"], "output": {"action": "cancel_order"}},
-  {"route_id": "reset_password", "keywords": ["reset my password"], "output": {"action": "reset_password"}},
+  {"route_id": "reset_password", "keywords": ["reset my password"], "provider_required_keywords": ["delegated privileges", "delegated admin privileges", "delegated privilege"], "output": {"action": "reset_password"}},
   {"route_id": "send_receipt", "keywords": ["send my receipt"], "output": {"action": "send_receipt"}},
   {"route_id": "account_desk", "keywords": ["atlas", "phoenix", "summit"], "output": {"action": "account_desk"}},
   {"route_id": "device_desk", "keywords": ["device desk"], "output": {"action": "device_desk"}},
