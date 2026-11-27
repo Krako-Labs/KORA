@@ -114,7 +114,18 @@ def routing_freshness_failure(context: Any) -> str | None:
 
 def _rule_context_matches(route: dict[str, Any], context: Any) -> bool | None:
     """Check declared exact field requirements. None means a decision is unsafe."""
+    has_domains = "context_domains" in route
+    domains = route.get("context_domains", {})
+    if not isinstance(domains, dict) or (has_domains and not domains) or any(
+        not isinstance(key, str) or not key.strip()
+        or not isinstance(values, list) or not values
+        or any(not isinstance(value, str) or not value.strip() for value in values)
+        for key, values in domains.items()
+    ):
+        raise ValueError("context_domains must map field names to nonempty string lists")
     if "required_context" not in route:
+        if domains:
+            raise ValueError("context_domains requires matching required_context fields")
         return True
     required = route["required_context"]
     if not isinstance(required, dict) or not required or not isinstance(context, dict):
@@ -122,10 +133,14 @@ def _rule_context_matches(route: dict[str, Any], context: Any) -> bool | None:
     for key, value in required.items():
         if not isinstance(key, str) or not key.strip() or not isinstance(value, str) or not value.strip():
             return None
+    if any(key not in required or required[key] not in values for key, values in domains.items()):
+        raise ValueError("context_domains must match required_context and include its expected value")
     missing = False
     for key, expected in required.items():
         actual = context.get(key)
         if not isinstance(actual, str) or not actual.strip():
+            missing = True
+        elif key in domains and actual not in domains[key]:
             missing = True
         elif actual != expected:
             return False

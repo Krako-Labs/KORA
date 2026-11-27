@@ -220,6 +220,80 @@ def test_partial_or_invalid_competing_scope_is_order_independent(first_scope, co
         assert result["provider_calls"] == 0
 
 
+@pytest.mark.parametrize("ordered", [False, True])
+def test_out_of_domain_competing_scope_defers_independent_match(ordered):
+    example = _load_example_module()
+    aliases = [
+        {"route_id": "account", "keywords": ["atlas"],
+         "required_context": {"entity_type": "account"},
+         "context_domains": {"entity_type": ["account", "device"]}},
+        {"route_id": "device", "keywords": ["atlas"],
+         "required_context": {"entity_type": "device"},
+         "context_domains": {"entity_type": ["account", "device"]}},
+    ]
+    if ordered:
+        aliases.reverse()
+    scenario = {"scenario_id": "support", "scenario_label": "Support",
+                "routes": aliases + [{"route_id": "reset", "keywords": ["reset password"]}],
+                "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Reset password and route Atlas", "body": "",
+            "context": {"entity_type": "unknown"}}
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "defer"
+    assert result["provider_calls"] == 0
+
+
+@pytest.mark.parametrize("domains", [None, [], {}, {"entity_type": []}, {"entity_type": [""]}])
+def test_context_domains_reject_invalid_configuration(domains):
+    example = _load_example_module()
+    scenario = {"scenario_id": "support", "scenario_label": "Support", "routes": [{
+        "route_id": "account", "keywords": ["atlas"],
+        "required_context": {"entity_type": "account"}, "context_domains": domains,
+    }], "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Atlas", "body": "",
+            "context": {"entity_type": "unknown"}}
+    with pytest.raises((RuntimeError, ValueError), match="context_domains"):
+        example._run_kora_classification(scenario, item)
+
+
+@pytest.mark.parametrize("route", [
+    {"route_id": "account", "keywords": ["atlas"],
+     "context_domains": {"entity_type": ["account", "device"]}},
+    {"route_id": "account", "keywords": ["atlas"],
+     "required_context": {"entity_type": "account"},
+     "context_domains": {"entity_kind": ["account", "device"]}},
+    {"route_id": "account", "keywords": ["atlas"],
+     "required_context": {"entity_type": "account"},
+     "context_domains": {"entity_type": ["device"]}},
+])
+def test_context_domains_require_matching_required_context(route):
+    example = _load_example_module()
+    scenario = {"scenario_id": "support", "scenario_label": "Support",
+                "routes": [route], "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Atlas", "body": "",
+            "context": {"entity_type": "unknown"}}
+    with pytest.raises((RuntimeError, ValueError), match="context_domains"):
+        example._run_kora_classification(scenario, item)
+
+
+@pytest.mark.parametrize("required", [
+    {"entity_type": "account", "tenant": "Cedar"},
+    {"tenant": "Cedar", "entity_type": "account"},
+])
+def test_known_context_mismatch_wins_over_out_of_domain_value_in_any_field_order(required):
+    example = _load_example_module()
+    scenario = {"scenario_id": "support", "scenario_label": "Support", "routes": [
+        {"route_id": "alias", "keywords": ["atlas"], "required_context": required,
+         "context_domains": {"entity_type": ["account", "device"]}},
+        {"route_id": "receipt", "keywords": ["receipt"]},
+    ], "provider_required_route": "defer"}
+    item = {"id": "request", "subject": "Atlas and receipt", "body": "",
+            "context": {"entity_type": "unknown", "tenant": "Juniper"}}
+    result = example._run_kora_classification(scenario, item)
+    assert result["selected_route"] == "receipt"
+    assert result["provider_calls"] == 0
+
+
 @pytest.mark.parametrize("keywords", [[], [""], ["   "], [None], ["pending", 3], "pending"])
 def test_scoped_rule_rejects_invalid_keyword_configuration(keywords):
     example = _load_example_module()
