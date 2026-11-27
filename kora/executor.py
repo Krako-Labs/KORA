@@ -101,7 +101,7 @@ def _business_date(value: Any) -> date | None:
     return parsed if parsed.isoformat() == value else None
 
 
-def _freshness_failure(context: Any) -> str | None:
+def routing_freshness_failure(context: Any) -> str | None:
     fields = context if isinstance(context, dict) else {}
     as_of = _business_date(fields.get("as_of"))
     valid_until = _business_date(fields.get("valid_until"))
@@ -177,7 +177,7 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
         if not applies:
             continue
         if rule.get("require_fresh_context"):
-            failure = _freshness_failure(context)
+            failure = routing_freshness_failure(context)
             if failure is not None:
                 reason = failure
                 break

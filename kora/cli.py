@@ -90,6 +90,7 @@ def _example_descriptions() -> dict[str, str]:
         "model_call_counter_fixture": "local no-network model-call validation example",
         "runtime_integrated_benchmark": "initial runtime-path benchmark harness",
         "stress_test": "repeated-run stress harness",
+        "support_tier_shadow": "observe a read-only support-tier lookup",
     }
 
 
