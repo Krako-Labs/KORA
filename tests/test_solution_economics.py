@@ -470,3 +470,32 @@ def test_legacy_fallback_enabled_cache_key_is_not_reused(tmp_path):
     assert result["output"] != {"source": "unknown"}
     assert primary.calls == 1 and secondary.calls == 0
     assert runner.run(workload=work, policy=policy)["exact_reuse_hits"] == 1
+
+
+def test_compare_adapter_attempts_preserves_unknown_and_zero_baseline():
+    base = {"model_calls": 7, "adapter_attempts": 11}
+    other = {"model_calls": 7, "adapter_attempts": 7}
+    result = compare_economics(base, other)
+    assert result["baseline_adapter_attempts"] == 11
+    assert result["kora_adapter_attempts"] == 7
+    assert result["adapter_attempt_reduction_percent"] == 36.3636
+    assert result["model_call_reduction_percent"] == 0.0
+    assert compare_economics(base, {"adapter_attempts": 0})["adapter_attempt_reduction_percent"] == 100.0
+    assert compare_economics({"adapter_attempts": 0}, other)["adapter_attempt_reduction_percent"] is None
+    for invalid in (None, True, False, -1, 1.0, "7", [], {}):
+        for left, right in ((base, {"adapter_attempts": invalid}), ({"adapter_attempts": invalid}, other)):
+            assert compare_economics(left, right)["adapter_attempt_reduction_percent"] is None
+    assert compare_economics(base, {})["kora_adapter_attempts"] is None
+    assert compare_economics({}, other)["baseline_adapter_attempts"] is None
+    assert compare_economics({}, {})["adapter_attempt_reduction_percent"] is None
+
+
+def test_unrepresentable_adapter_attempt_percentage_preserves_raw_counters():
+    large = 10**400
+    result = compare_economics({"adapter_attempts": 1}, {"adapter_attempts": large})
+    assert result["baseline_adapter_attempts"] == 1
+    assert result["kora_adapter_attempts"] == large
+    assert result["adapter_attempt_reduction_percent"] is None
+    assert compare_economics({"adapter_attempts": large}, {"adapter_attempts": large * 2})[
+        "adapter_attempt_reduction_percent"
+    ] == -100.0

@@ -358,7 +358,26 @@ def compare_economics(baseline: dict[str, Any], kora: dict[str, Any]) -> dict[st
         if left <= 0:
             return None
         return round((left - right) / left * 100.0, 4)
+
+    # Old receipts do not have this measurement. Never interpret missing or
+    # invalid values as zero dispatches.
+    def attempts(receipt: dict[str, Any]) -> int | None:
+        value = receipt.get("adapter_attempts")
+        return value if type(value) is int and value >= 0 else None
+
+    baseline_attempts = attempts(baseline)
+    kora_attempts = attempts(kora)
+    attempt_reduction = None
+    if baseline_attempts and kora_attempts is not None:
+        try:
+            attempt_reduction = round(100 * (baseline_attempts - kora_attempts) / baseline_attempts, 4)
+        except OverflowError:
+            # Keep the raw counters when the percentage cannot fit in a float.
+            pass
     return {
+        "baseline_adapter_attempts": baseline_attempts,
+        "kora_adapter_attempts": kora_attempts,
+        "adapter_attempt_reduction_percent": attempt_reduction,
         "baseline_policy": baseline.get("policy"),
         "kora_policy": kora.get("policy"),
         "model_call_reduction_percent": reduction("model_calls"),
