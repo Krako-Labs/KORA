@@ -381,3 +381,84 @@ def test_misspelled_full_context_node_is_rejected_before_dispatch_and_cache():
         assert adapter.calls == calls
         assert r.cache.memory == warm_cache
     assert r.run(workload={"brief": {}, "order": {"amount": 5}}, policy=valid)["exact_reuse_hits"] == 2
+
+
+def test_escalation_result_does_not_mask_primary_recovery():
+    class RecoveryAdapter(FakeAdapter):
+        def __init__(self, name, failure):
+            super().__init__(name)
+            self.failure = failure
+
+        def cache_identity(self):
+            return {"name": self.name}
+
+        def run(self, *, task_id, input, budget, output_schema):
+            self.calls += 1
+            if self.failure == "exception":
+                raise RuntimeError("temporary failure")
+            if self.failure == "not_ok":
+                return {"ok": False}
+            return {"ok": True, "output": {"source": self.name}}
+
+    for failure in ("exception", "not_ok"):
+        primary = RecoveryAdapter("primary", failure)
+        secondary = RecoveryAdapter("secondary", None)
+        runner = WorkloadEconomicsRunner(
+            nodes=(EconomicsNode("read", "read", "routine"),),
+            adapters={"primary": primary, "secondary": secondary},
+        )
+        policy = ExecutionPolicy("p", {"routine": "primary"}, exact_reuse=True,
+                                 fallback_routes={"routine": "secondary"})
+        work = {"brief": {"id": "a"}}
+        first = runner.run(workload=work, policy=policy)
+        assert first["output"] == {"source": "secondary"}
+        assert first["events"][0]["route"] == "secondary"
+        assert first["escalations"] == 1
+        assert not runner.cache.memory
+
+        primary.failure = None
+        second = runner.run(workload=work, policy=policy)
+        assert second["output"] == {"source": "primary"}
+        assert second["events"][0]["route"] == "primary"
+        assert second["exact_reuse_hits"] == 0
+        assert primary.calls == 2 and secondary.calls == 1
+
+        third = runner.run(workload=work, policy=policy)
+        assert third["output"] == second["output"]
+        assert third["exact_reuse_hits"] == 1
+        assert primary.calls == 2 and secondary.calls == 1
+
+
+def test_legacy_fallback_enabled_cache_key_is_not_reused(tmp_path):
+    import hashlib
+    from kora.solution.contracts import canonical_json_bytes
+
+    node = EconomicsNode("read", "read", "routine")
+    primary = FakeAdapter("primary")
+    secondary = FakeAdapter("secondary")
+    runner = WorkloadEconomicsRunner(
+        nodes=(node,), adapters={"primary": primary, "secondary": secondary},
+        cache_directory=tmp_path,
+    )
+    work = {"brief": {"topic": "a"}}
+    payload = {"instruction": node.instruction, "quality_contract": {},
+               "workload": work, "dependencies": {}}
+    # The previous key had no result-source discriminator and could contain
+    # either primary or fallback output.
+    old_bound = {
+        "node": {"id": node.id, "instruction": node.instruction, "tier": node.tier,
+                 "deps": [], "max_tokens": node.max_tokens,
+                 "output_schema": {"type": "object"}},
+        "adapter": runner._adapter_identity("primary", primary),
+        "fallback_adapter": runner._adapter_identity("secondary", secondary),
+        "payload": payload,
+    }
+    old_key = hashlib.sha256(canonical_json_bytes(old_bound)).hexdigest()
+    runner.cache.put(old_key, {"source": "unknown"})
+    policy = ExecutionPolicy("p", {"routine": "primary"}, exact_reuse=True,
+                             fallback_routes={"routine": "secondary"})
+    result = runner.run(workload=work, policy=policy)
+    assert result["exact_reuse_hits"] == 0
+    assert result["output"] != {"source": "unknown"}
+    assert primary.calls == 1 and secondary.calls == 0
+    assert runner.run(workload=work, policy=policy)["exact_reuse_hits"] == 1

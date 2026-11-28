@@ -176,6 +176,10 @@ class WorkloadEconomicsRunner:
             "fallback_adapter": copy.deepcopy(fallback_identity),
             "payload": payload,
         }
+        if fallback_identity is not None:
+            # Older fallback-enabled keys did not distinguish the source of
+            # a stored result. Never reuse those entries as primary results.
+            bound["cache_contract"] = "primary-only-v1"
         return hashlib.sha256(canonical_json_bytes(bound)).hexdigest()
 
     def run(self, *, workload: dict[str, Any], policy: ExecutionPolicy) -> dict[str, Any]:
@@ -294,7 +298,7 @@ class WorkloadEconomicsRunner:
             if instance_error_locations(schema, output):
                 raise RuntimeError(f"output schema failed closed at node {node.id}")
             outputs[node.id] = output
-            if cache_key is not None:
+            if cache_key is not None and not escalated:
                 self.cache.put(cache_key, output)
             usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
             meta = result.get("meta") if isinstance(result.get("meta"), dict) else {}
