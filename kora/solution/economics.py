@@ -381,7 +381,19 @@ def compare_economics(baseline: dict[str, Any], kora: dict[str, Any]) -> dict[st
         value = receipt.get(key)
         return value if type(value) is int and value >= 0 else None
 
+    # The runner's model/token counters describe successful results only.
+    # A failed primary may already have incurred usage before fallback.
+    # Keep the raw counters and observed adapter-attempt delta, but do not
+    # present partial model/token metadata as a whole-run reduction.
+    # Legacy receipts without escalation metadata retain arithmetic behavior.
+    incomplete_usage = any(
+        "escalations" in receipt and counter(receipt, "escalations") != 0
+        for receipt in (baseline, kora)
+    )
+
     def reduction(key: str) -> float | None:
+        if incomplete_usage and key != "adapter_attempts":
+            return None
         left = counter(baseline, key)
         right = counter(kora, key)
         if not left or right is None:
