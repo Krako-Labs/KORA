@@ -346,3 +346,38 @@ def test_route_policy_rollback_and_shared_dependency_replay(tmp_path):
         "route_a": {"revision": "v3", "price": 12},
         "route_b": {"revision": "v3", "price": 24},
     }
+
+
+def test_misspelled_full_context_node_is_rejected_before_dispatch_and_cache():
+    import pytest
+
+    class AmountAdapter(FakeAdapter):
+        def run(self, *, task_id, input, budget, output_schema):
+            self.calls += 1
+            output = ({"constant": True} if task_id == "read"
+                      else {"amount": input["workload"].get("order", {}).get("amount", 0)})
+            return {"ok": True, "output": output}
+
+    adapter = AmountAdapter("fixture")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("read", "read constant", "routine"),
+               EconomicsNode("explain", "include amount", "routine", ("read",))),
+        adapters={"fixture": adapter},
+    )
+    def policy(names):
+        return ExecutionPolicy("p", {"routine": "fixture"}, exact_reuse=True,
+                               context_mode="brief+deps", full_context_nodes=names)
+
+    valid = policy(("explain",))
+    for amount in (5, 10):
+        result = r.run(workload={"brief": {}, "order": {"amount": amount}}, policy=valid)
+        assert result["output"] == {"amount": amount}
+        assert result["exact_reuse_hits"] == 0
+    warm_cache = dict(r.cache.memory)
+    calls = adapter.calls
+    for bad in (("exlpain",), ("explain", "missing"), "explain", (None,), ("",)):
+        with pytest.raises(ValueError, match="full_context_nodes"):
+            r.run(workload={"brief": {}, "order": {"amount": 5}}, policy=policy(bad))
+        assert adapter.calls == calls
+        assert r.cache.memory == warm_cache
+    assert r.run(workload={"brief": {}, "order": {"amount": 5}}, policy=valid)["exact_reuse_hits"] == 2

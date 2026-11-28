@@ -184,6 +184,12 @@ class WorkloadEconomicsRunner:
         events: list[dict[str, Any]] = []
         if policy.context_mode not in {"full", "brief+deps"}:
             raise ValueError("policy context_mode must be full or brief+deps")
+        if not isinstance(policy.full_context_nodes, (tuple, list)) or any(
+            not isinstance(node_id, str) or not node_id for node_id in policy.full_context_nodes
+        ):
+            raise ValueError("policy full_context_nodes must contain node IDs")
+        if set(policy.full_context_nodes) - {node.id for node in self.nodes}:
+            raise ValueError("policy full_context_nodes contains unknown node IDs")
         for node in self.nodes:
             adapter_name = policy.routes.get(node.tier)
             if not adapter_name or adapter_name not in self.adapters:
