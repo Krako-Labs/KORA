@@ -306,6 +306,12 @@ class WorkloadEconomicsRunner:
                 self.cache.put(cache_key, output)
             usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
             meta = result.get("meta") if isinstance(result.get("meta"), dict) else {}
+            reported_model_calls = meta.get("model_calls", 1)
+            # Explicit integer zero is valid for deterministic adapters.
+            model_calls = (
+                0 if type(reported_model_calls) is int and reported_model_calls == 0
+                else int(reported_model_calls or 1)
+            )
             events.append(
                 {
                     "node_id": node.id,
@@ -318,7 +324,7 @@ class WorkloadEconomicsRunner:
                     "status": "ok",
                     "reused": False,
                     "adapter_attempts": adapter_attempts,
-                    "model_calls": int(meta.get("model_calls", 1) or 1),
+                    "model_calls": model_calls,
                     "tokens_in": int(usage.get("tokens_in", 0) or 0),
                     "tokens_out": int(usage.get("tokens_out", 0) or 0),
                     "cached_tokens_in": int(usage.get("cached_tokens_in", 0) or 0),
