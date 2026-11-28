@@ -194,10 +194,25 @@ class WorkloadEconomicsRunner:
             raise ValueError("policy full_context_nodes must contain node IDs")
         if set(policy.full_context_nodes) - {node.id for node in self.nodes}:
             raise ValueError("policy full_context_nodes contains unknown node IDs")
+        # Validate every used tier before dispatching or populating the cache.
+        # An invalid later route must not cause partial execution of the graph.
+        route_config: dict[str, tuple[str, str | None]] = {}
         for node in self.nodes:
+            if node.tier in route_config:
+                continue
             adapter_name = policy.routes.get(node.tier)
             if not adapter_name or adapter_name not in self.adapters:
                 raise ValueError(f"policy route for {node.tier!r} is unavailable")
+            fallback_name = None
+            if isinstance(policy.fallback_routes, dict):
+                fallback_name = policy.fallback_routes.get(node.tier)
+                if fallback_name is not None and (
+                    fallback_name == adapter_name or fallback_name not in self.adapters
+                ):
+                    raise ValueError(f"policy fallback route for {node.tier!r} is unavailable")
+            route_config[node.tier] = (adapter_name, fallback_name)
+        for node in self.nodes:
+            adapter_name, fallback_name = route_config[node.tier]
             effective_workload = (
                 copy.deepcopy(workload)
                 if policy.context_mode == "full" or not node.deps or node.id in policy.full_context_nodes
@@ -214,14 +229,9 @@ class WorkloadEconomicsRunner:
                 "dependencies": {dep: copy.deepcopy(outputs[dep]) for dep in node.deps},
             }
             adapter = self.adapters[adapter_name]
-            fallback_name = None
             fallback_identity = None
-            if isinstance(policy.fallback_routes, dict):
-                fallback_name = policy.fallback_routes.get(node.tier)
-                if fallback_name is not None:
-                    if fallback_name == adapter_name or fallback_name not in self.adapters:
-                        raise ValueError(f"policy fallback route for {node.tier!r} is unavailable")
-                    fallback_identity = self._adapter_identity(fallback_name, self.adapters[fallback_name])
+            if fallback_name is not None:
+                fallback_identity = self._adapter_identity(fallback_name, self.adapters[fallback_name])
             cache_key = (
                 self._cache_key(
                     node,

@@ -571,3 +571,27 @@ def test_deterministic_fallback_reports_zero_model_calls_not_zero_attempts():
     assert result["adapter_attempts"] == 2
     assert result["model_calls"] == result["events"][0]["model_calls"] == 0
     assert primary.calls == fallback.calls == 1
+
+
+def test_invalid_later_route_is_rejected_before_any_dispatch_or_cache_write():
+    import pytest
+
+    cases = (
+        ({"routine": "local"}, None, "policy route"),
+        ({"routine": "local", "frontier": "missing"}, None, "policy route"),
+        ({"routine": "local", "frontier": "frontier"}, {"frontier": "missing"}, "policy fallback route"),
+        ({"routine": "local", "frontier": "frontier"}, {"frontier": "frontier"}, "policy fallback route"),
+    )
+    for routes, fallback, message in cases:
+        r = runner()
+        valid = ExecutionPolicy("valid", {"routine": "local", "frontier": "frontier"}, exact_reuse=True)
+        r.run(workload={"topic": "warm"}, policy=valid)
+        before = sum(adapter.calls for adapter in r.adapters.values())
+        cached = dict(r.cache.memory)
+        for reuse in (False, True):
+            invalid = ExecutionPolicy("invalid", routes, exact_reuse=reuse, fallback_routes=fallback)
+            with pytest.raises(ValueError, match=message):
+                r.run(workload={"topic": "cold"}, policy=invalid)
+            assert sum(adapter.calls for adapter in r.adapters.values()) == before
+            assert r.cache.memory == cached
+        assert r.run(workload={"topic": "warm"}, policy=valid)["exact_reuse_hits"] == 2
