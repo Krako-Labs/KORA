@@ -272,9 +272,9 @@ class WorkloadEconomicsRunner:
             try:
                 result = adapter.run(
                     task_id=node.id,
-                    input=node_input,
+                    input=copy.deepcopy(node_input),
                     budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
-                    output_schema=schema,
+                    output_schema=copy.deepcopy(schema),
                 )
             except Exception as exc:
                 if fallback_name is None:
@@ -286,9 +286,9 @@ class WorkloadEconomicsRunner:
                 adapter_attempts += 1
                 result = adapter.run(
                     task_id=node.id,
-                    input=node_input,
+                    input=copy.deepcopy(node_input),
                     budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
-                    output_schema=schema,
+                    output_schema=copy.deepcopy(schema),
                 )
             if (
                 (not isinstance(result, dict) or result.get("ok") is not True or not isinstance(result.get("output"), dict))
@@ -302,9 +302,9 @@ class WorkloadEconomicsRunner:
                 adapter_attempts += 1
                 result = adapter.run(
                     task_id=node.id,
-                    input=node_input,
+                    input=copy.deepcopy(node_input),
                     budget={"max_tokens": node.max_tokens, "max_time_ms": 120000},
-                    output_schema=schema,
+                    output_schema=copy.deepcopy(schema),
                 )
             if not isinstance(result, dict) or result.get("ok") is not True or not isinstance(result.get("output"), dict):
                 raise RuntimeError(f"adapter failed closed at node {node.id}")

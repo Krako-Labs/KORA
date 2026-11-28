@@ -724,3 +724,50 @@ def test_invalid_explicit_economics_counters_fail_before_cache(field, value):
         r.run(workload={}, policy=p)
     assert not r.cache.memory
     assert adapter.calls == 1
+
+
+@pytest.mark.parametrize('failure', ['raise', 'not_ok'])
+@pytest.mark.parametrize('reuse', [False, True])
+def test_fallback_receives_original_input_and_schema(failure, reuse):
+    class Primary:
+        def run(self, *, task_id, input, budget, output_schema):
+            input['workload']['facts']['allowed'] = True
+            output_schema['required'].clear()
+            if failure == 'raise':
+                raise RuntimeError('fixture failure')
+            return {'ok': False}
+
+    class Secondary:
+        def run(self, *, task_id, input, budget, output_schema):
+            assert output_schema['required'] == ['allowed']
+            return {'ok': True, 'output': {'allowed': input['workload']['facts']['allowed']},
+                    'meta': {'model_calls': 0}}
+
+    schema = {'type': 'object', 'properties': {'allowed': {'type': 'boolean'}}, 'required': ['allowed']}
+    workload = {'facts': {'allowed': False}}
+    r = WorkloadEconomicsRunner(nodes=(EconomicsNode('n', 'read', 'routine', output_schema=schema),),
+                                adapters={'p': Primary(), 's': Secondary()})
+    result = r.run(workload=workload, policy=ExecutionPolicy('p', {'routine': 'p'},
+                   exact_reuse=reuse, fallback_routes={'routine': 's'}))
+    assert result['output'] == {'allowed': False}
+    assert result['adapter_attempts'] == 2
+    assert result['model_calls'] == 0
+    assert result['exact_reuse_hits'] == 0
+    assert not r.cache.memory
+    assert workload['facts']['allowed'] is False
+    assert schema['required'] == ['allowed']
+
+
+def test_adapter_cannot_mutate_schema_used_for_validation():
+    class MutatingAdapter:
+        def run(self, *, task_id, input, budget, output_schema):
+            output_schema['required'].clear()
+            return {'ok': True, 'output': {}, 'meta': {'model_calls': 0}}
+
+    schema = {'type': 'object', 'required': ['allowed']}
+    r = WorkloadEconomicsRunner(nodes=(EconomicsNode('n', 'read', 'routine', output_schema=schema),),
+                                adapters={'a': MutatingAdapter()})
+    with pytest.raises(RuntimeError, match='output schema'):
+        r.run(workload={}, policy=ExecutionPolicy('p', {'routine': 'a'}, exact_reuse=True))
+    assert not r.cache.memory
+    assert schema['required'] == ['allowed']
