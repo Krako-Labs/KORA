@@ -109,6 +109,8 @@ python3 -m kora system inventory
 
 **Package note:** `pip install kora` installs a different project. The planned package name `getkora` is **not published**; install this repository from source as shown above.
 
+**Compare reuse with a plain cache:** run `python3 -m examples.document_policy_reuse.run` from the repository root. The offline example compares actual fixture calls across four paths, including an equivalent manual node cache. [Read the comparison and its limits](examples/document_policy_reuse/README.md).
+
 [First-run example details](examples/kora_doctor/README.md) · [All runnable examples](examples/README.md)
 
 <br />

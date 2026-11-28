@@ -43,6 +43,8 @@ python3 examples/agent_workflow_optimization/run.py
 
 [Read-only activation comparison](support_tier_activation/) measures synthetic original-handler calls and metadata probes against an equal-metadata cache. It is an offline experiment, not a production activation path.
 
+[Document-policy reuse comparison](document_policy_reuse/) compares no reuse, whole-request caching, a manual node cache and KORA node reuse. Run `python3 -m examples.document_policy_reuse.run` from the repository root. The same guide includes policy-change and rollback experiments. It uses fabricated inputs and does not measure real model costs.
+
 The root `examples/` directory also contains older basic, validation, benchmark, and fixture examples. They remain in place for continuity and reproducibility. New readers should start with the flagship examples above.
 
 ## Workload Representativeness Seed

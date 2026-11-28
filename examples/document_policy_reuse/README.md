@@ -4,10 +4,16 @@ Compare exact node reuse with a whole-request cache and an equivalent manual nod
 
 ## Run
 
-From the repository root, after installing KORA and its development dependencies:
+From the repository root, after the [source installation](../../README.md#quick-start):
 
 ```bash
 python -m examples.document_policy_reuse.run
+```
+
+The comparison needs only the base installation. To run the regression tests below, install the development extra first:
+
+```bash
+python -m pip install -e ".[dev]"
 python -m pytest -q tests/test_document_policy_reuse_example.py
 ```
 
