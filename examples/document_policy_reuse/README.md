@@ -29,3 +29,32 @@ The fixture classifies a fabricated document, determines the permitted read mode
 The eleven phases exercise policy change, permission revocation and renewal, expiry, rollback, data changes, adapter version and principal/tenant separation. Each phase includes an exact repeat. Every answer is checked against an authored expected action; the first request in every phase must execute all nodes. The runner's dispatch count is checked against an independent adapter counter. Deterministic adapters explicitly report zero model calls.
 
 These are author-defined regression cases, not independent human labels. The fixture supplies complete trusted context; an integration must obtain and validate that context from an authoritative source. Reuse is not an authorization service. No external agent or real model is compared. Local timings are host-dependent; fewer dispatches do not establish lower cost, and the manual cache can match KORA's call count.
+
+## Test a policy change and rollback
+
+Run the separate synthetic maintenance replay:
+
+```bash
+python -m examples.document_policy_reuse.maintenance
+python -m pytest -q tests/test_document_policy_maintenance_example.py
+```
+
+The replay uses the same policy implementation and expected answers for direct execution, the manual node cache, and KORA. A revised policy allows a redacted restricted document for staff with a live grant and explicit redaction permission. Five other cases check unchanged behavior, including revoked and expired grants.
+
+| Stage | What to check |
+| --- | --- |
+| Baseline and repeat | All answers match; the repeat can reuse validated results. |
+| Deliberately omit the version update | Both caches return one stale answer per round. Direct execution returns the new answer. This is an intentional negative control, not an acceptable policy deployment. |
+| Update the adapter identity | Both caches compute the revised answers. |
+| Repeat the revised policy | Both caches can reuse the revised results. |
+| Roll back under a new identity | Both caches compute the original answers and reuse them on the next repeat. |
+
+Policy code and other material dependencies must have trusted identities that change when their behavior changes. The engine cannot discover an undeclared change in an adapter. This example is not an authorization system; it returns action codes for fabricated data only.
+
+### Compare developer effort
+
+For an independent trial, freeze the same base revision, task description, policy requirements and acceptance cases for both implementations. Start each trial from a fresh copy. Ask participants to implement the policy revision, validate it, deliberately detect the missing version update, fix it, and roll back. Use the same tools and assistance rules; vary trial order to reduce learning effects. Do not give one group the solution and the other group only the task.
+
+Record setup time, active implementation time, validation time, diagnosis and recovery time separately. Keep the submitted diff, commands, elapsed times, assistance and outcome. Score every required case, not just the changed answer. A cache that produces a stale answer outside the intentional negative control fails. Report changed files and added/deleted lines separately from time. Do not use execution latency or lines of code as a substitute for measured developer time.
+
+The reference replay is an executable scoring example, not an independent developer trial. It shares policy code across the comparison paths, so it does not establish a reduction in policy editing effort or production cost.
