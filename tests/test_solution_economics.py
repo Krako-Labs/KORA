@@ -771,3 +771,75 @@ def test_adapter_cannot_mutate_schema_used_for_validation():
         r.run(workload={}, policy=ExecutionPolicy('p', {'routine': 'a'}, exact_reuse=True))
     assert not r.cache.memory
     assert schema['required'] == ['allowed']
+
+
+@pytest.mark.parametrize("failure", ["exception", "not_ok"])
+@pytest.mark.parametrize("escalated_arm", ["baseline", "kora"])
+def test_incomplete_failed_attempt_usage_cannot_support_reduction(failure, escalated_arm):
+    class FailedAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            self.calls += 1
+            if failure == "exception":
+                raise RuntimeError("fixture primary unavailable")
+            return {"ok": False, "meta": {"model_calls": 1},
+                    "usage": {"tokens_in": 10, "tokens_out": 4}}
+
+    class SuccessfulFixtureAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            count = 1 if escalated_arm == "baseline" else 0
+            result["meta"]["model_calls"] = count
+            result["usage"].update(tokens_in=count, tokens_out=count)
+            return result
+
+    nodes = (EconomicsNode("lookup", "read", "routine"),)
+    direct = WorkloadEconomicsRunner(nodes=nodes, adapters={"a": FakeAdapter("a")})
+    primary, fallback = FailedAdapter("primary"), SuccessfulFixtureAdapter("fallback")
+    recovered = WorkloadEconomicsRunner(
+        nodes=nodes, adapters={"p": primary, "f": fallback},
+    )
+    workload = {"topic": "same"}
+    normal = direct.run(workload=workload, policy=ExecutionPolicy("direct", {"routine": "a"}))
+    escalated = recovered.run(
+        workload=workload,
+        policy=ExecutionPolicy("recovered", {"routine": "p"}, fallback_routes={"routine": "f"}),
+    )
+    assert normal["output"] == escalated["output"]
+    assert escalated["escalations"] == 1
+    assert escalated["adapter_attempts"] == primary.calls + fallback.calls == 2
+    assert escalated["model_calls"] == (1 if escalated_arm == "baseline" else 0)
+    left, right = (escalated, normal) if escalated_arm == "baseline" else (normal, escalated)
+    comparison = compare_economics(left, right)
+    assert comparison["model_call_reduction_percent"] is None
+    assert comparison["input_token_reduction_percent"] is None
+    assert comparison["output_token_reduction_percent"] is None
+    assert comparison["baseline_model_calls"] == left["model_calls"]
+    assert comparison["kora_model_calls"] == right["model_calls"]
+    assert comparison["adapter_attempt_reduction_percent"] == (
+        50.0 if escalated_arm == "baseline" else -100.0
+    )
+
+
+@pytest.mark.parametrize("escalations", [None, -1, True, 0.5, "0"])
+def test_invalid_explicit_escalation_metadata_cannot_support_reduction(escalations):
+    left = {"model_calls": 10, "tokens_in": 10, "tokens_out": 10,
+            "adapter_attempts": 10, "escalations": 0}
+    right = {"model_calls": 5, "tokens_in": 5, "tokens_out": 5,
+             "adapter_attempts": 5, "escalations": escalations}
+    comparison = compare_economics(left, right)
+    assert comparison["model_call_reduction_percent"] is None
+    assert comparison["input_token_reduction_percent"] is None
+    assert comparison["output_token_reduction_percent"] is None
+    assert comparison["adapter_attempt_reduction_percent"] == 50.0
+
+
+def test_explicit_no_escalations_preserves_comparison():
+    left = {"model_calls": 10, "tokens_in": 10, "tokens_out": 10,
+            "adapter_attempts": 10, "escalations": 0}
+    right = {"model_calls": 0, "tokens_in": 0, "tokens_out": 0,
+             "adapter_attempts": 5, "escalations": 0}
+    comparison = compare_economics(left, right)
+    assert comparison["model_call_reduction_percent"] == 100.0
+    assert comparison["input_token_reduction_percent"] == 100.0
+    assert comparison["output_token_reduction_percent"] == 100.0
+    assert comparison["adapter_attempt_reduction_percent"] == 50.0
