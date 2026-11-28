@@ -51,6 +51,29 @@ The replay uses the same policy implementation and expected answers for direct e
 
 Policy code and other material dependencies must have trusted identities that change when their behavior changes. The engine cannot discover an undeclared change in an adapter. This example is not an authorization system; it returns action codes for fabricated data only.
 
+### Bind the declared policy to its cache identity
+
+If a policy is a declared configuration value, include a deterministic digest of that value in the adapter identity. The [declared-policy example](declared_identity.py) does this for the synthetic redaction flag consumed by the fixture.
+
+```python
+def cache_identity(self):
+    manifest = {"restricted_staff_redaction": self.revised}
+    return dict(
+        super().cache_identity(),
+        declared_policy_sha256=sha256(canonical(manifest).encode("utf-8")).hexdigest(),
+    )
+```
+
+Run the regression from the repository root:
+
+```bash
+python -m pytest -q tests/test_document_policy_declared_identity_example.py
+```
+
+The test exercises both the manual cache and KORA. Changing the declared flag changes the identity even when the version is unchanged. Returning to a previously validated identity can reuse the old result only for the same trusted inputs and retained cache. If rollback must start a new validation epoch, change the version or epoch too.
+
+A digest is not proof that an authorization decision is valid. It covers only the declared fields. Obtain trusted permissions, data versions, time and policy identities from authoritative sources; bind other material dependencies separately. This example changes configuration between requests, not concurrently with execution. It neither detects hidden changes nor grants access to real documents.
+
 ### Compare developer effort
 
 For an independent trial, freeze the same base revision, task description, policy requirements and acceptance cases for both implementations. Start each trial from a fresh copy. Ask participants to implement the policy revision, validate it, deliberately detect the missing version update, fix it, and roll back. Use the same tools and assistance rules; vary trial order to reduce learning effects. Do not give one group the solution and the other group only the task.
