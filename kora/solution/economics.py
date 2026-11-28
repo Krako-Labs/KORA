@@ -229,20 +229,20 @@ class WorkloadEconomicsRunner:
                 "dependencies": {dep: copy.deepcopy(outputs[dep]) for dep in node.deps},
             }
             adapter = self.adapters[adapter_name]
-            fallback_identity = None
-            if fallback_name is not None:
-                fallback_identity = self._adapter_identity(fallback_name, self.adapters[fallback_name])
-            cache_key = (
-                self._cache_key(
+            cache_key = None
+            if policy.exact_reuse and node.cacheable:
+                fallback_identity = (
+                    self._adapter_identity(fallback_name, self.adapters[fallback_name])
+                    if fallback_name is not None
+                    else None
+                )
+                cache_key = self._cache_key(
                     node,
                     adapter_name,
                     adapter,
                     node_input,
                     fallback_identity=fallback_identity,
                 )
-                if policy.exact_reuse and node.cacheable
-                else None
-            )
             cached = self.cache.get(cache_key) if cache_key is not None else None
             schema = node.output_schema or {"type": "object"}
             if cached is not None:
