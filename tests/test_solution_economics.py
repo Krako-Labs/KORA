@@ -499,3 +499,75 @@ def test_unrepresentable_adapter_attempt_percentage_preserves_raw_counters():
     assert compare_economics({"adapter_attempts": large}, {"adapter_attempts": large * 2})[
         "adapter_attempt_reduction_percent"
     ] == -100.0
+
+
+def test_deterministic_adapter_preserves_explicit_zero_model_calls():
+    class DeterministicAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            result["meta"]["model_calls"] = 0
+            return result
+
+    adapter = DeterministicAdapter("deterministic")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("lookup", "read", "routine"),),
+        adapters={"deterministic": adapter},
+    )
+    policy = ExecutionPolicy("test", {"routine": "deterministic"}, exact_reuse=True)
+    first = r.run(workload={"brief": {}}, policy=policy)
+    repeat = r.run(workload={"brief": {}}, policy=policy)
+    assert first["adapter_attempts"] == 1
+    assert first["model_calls"] == first["events"][0]["model_calls"] == 0
+    assert repeat["adapter_attempts"] == repeat["model_calls"] == 0
+    assert repeat["exact_reuse_hits"] == adapter.calls == 1
+
+
+def test_legacy_absent_null_and_false_model_calls_keep_default():
+    class LegacyAdapter(FakeAdapter):
+        def __init__(self, value):
+            super().__init__("legacy")
+            self.value = value
+
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            if self.value == "absent":
+                del result["meta"]["model_calls"]
+            else:
+                result["meta"]["model_calls"] = self.value
+            return result
+
+    for value in ("absent", None, False, 2):
+        r = WorkloadEconomicsRunner(
+            nodes=(EconomicsNode("lookup", "read", "routine"),),
+            adapters={"legacy": LegacyAdapter(value)},
+        )
+        result = r.run(workload={}, policy=ExecutionPolicy("test", {"routine": "legacy"}))
+        assert result["model_calls"] == (2 if value == 2 else 1)
+        assert result["adapter_attempts"] == 1
+
+
+def test_deterministic_fallback_reports_zero_model_calls_not_zero_attempts():
+    class FailedAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            self.calls += 1
+            return {"ok": False}
+
+    class DeterministicAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            result["meta"]["model_calls"] = 0
+            return result
+
+    primary = FailedAdapter("primary")
+    fallback = DeterministicAdapter("fallback")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("lookup", "read", "routine"),),
+        adapters={"primary": primary, "fallback": fallback},
+    )
+    policy = ExecutionPolicy(
+        "test", {"routine": "primary"}, fallback_routes={"routine": "fallback"},
+    )
+    result = r.run(workload={}, policy=policy)
+    assert result["adapter_attempts"] == 2
+    assert result["model_calls"] == result["events"][0]["model_calls"] == 0
+    assert primary.calls == fallback.calls == 1
