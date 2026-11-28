@@ -314,12 +314,17 @@ class WorkloadEconomicsRunner:
             outputs[node.id] = output
             usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
             meta = result.get("meta") if isinstance(result.get("meta"), dict) else {}
-            reported_model_calls = meta.get("model_calls", 1)
-            # Explicit integer zero is valid for deterministic adapters.
-            model_calls = (
-                0 if type(reported_model_calls) is int and reported_model_calls == 0
-                else int(reported_model_calls or 1)
-            )
+            # Do not truncate fractions or accept negative counters. Legacy
+            # missing/null/false model counts retain their historical default.
+            def observed_counter(section: dict[str, Any], field: str, default: int = 0) -> int:
+                value = section.get(field)
+                if value is None or (field == "model_calls" and value is False):
+                    return default
+                if type(value) is not int or value < 0:
+                    raise ValueError(f"{field} must be a nonnegative integer")
+                return value
+
+            model_calls = observed_counter(meta, "model_calls", 1)
             events.append(
                 {
                     "node_id": node.id,
@@ -333,12 +338,12 @@ class WorkloadEconomicsRunner:
                     "reused": False,
                     "adapter_attempts": adapter_attempts,
                     "model_calls": model_calls,
-                    "tokens_in": int(usage.get("tokens_in", 0) or 0),
-                    "tokens_out": int(usage.get("tokens_out", 0) or 0),
-                    "cached_tokens_in": int(usage.get("cached_tokens_in", 0) or 0),
-                    "cache_write_tokens_in": int(usage.get("cache_write_tokens_in", 0) or 0),
-                    "reasoning_tokens_out": int(usage.get("reasoning_tokens_out", 0) or 0),
-                    "time_ms": int(usage.get("time_ms", 0) or 0),
+                    "tokens_in": observed_counter(usage, "tokens_in"),
+                    "tokens_out": observed_counter(usage, "tokens_out"),
+                    "cached_tokens_in": observed_counter(usage, "cached_tokens_in"),
+                    "cache_write_tokens_in": observed_counter(usage, "cache_write_tokens_in"),
+                    "reasoning_tokens_out": observed_counter(usage, "reasoning_tokens_out"),
+                    "time_ms": observed_counter(usage, "time_ms"),
                     "output_digest": hashlib.sha256(canonical_json_bytes(output)).hexdigest(),
                 }
             )
