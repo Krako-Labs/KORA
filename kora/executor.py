@@ -195,11 +195,16 @@ def _handle_classify_by_rules(task: Task, state: dict[str, Any]) -> dict[str, An
             or any(not isinstance(word, str) or not word.strip() for word in keywords)
         ):
             raise ValueError("context-scoped routing rules require nonempty string keywords")
-        if not isinstance(keywords, list):
-            continue
         strict = route.get("strict_keyword_matching", False)
         if not isinstance(strict, bool):
             raise ValueError("strict_keyword_matching must be a boolean")
+        if strict and (
+            not isinstance(keywords, list) or not keywords
+            or any(not isinstance(word, str) or not word.strip() for word in keywords)
+        ):
+            raise ValueError("strict routing rules require nonempty string keywords")
+        if not isinstance(keywords, list):
+            continue
         if any(_keyword_matches(lowered, str(keyword), strict=strict) for keyword in keywords):
             matches.append(route)
 

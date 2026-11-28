@@ -514,3 +514,25 @@ def test_invalid_freshness_option_is_rejected(flag):
                 "routes": [{"route_id": "desk", "keywords": ["terms"], "require_fresh_context": flag}]}
     with pytest.raises((RuntimeError, ValueError), match="require_fresh_context must be a boolean"):
         _load_example_module()._run_kora_classification(scenario, {"id": "one", "subject": "Terms", "body": ""})
+
+
+@pytest.mark.parametrize('keywords,text', [
+    ([''], 'Unrelated request.'),
+    ([' '], 'Unrelated request.'),
+    ([None], 'None'),
+    ([123], '123'),
+    (['pending', ''], 'Unrelated request.'),
+    ('pending', 'Pending'),
+    ([], 'Pending'),
+])
+def test_strict_keyword_rules_reject_malformed_keyword_contracts(keywords, text):
+    example = _load_example_module()
+    scenario = {
+        'scenario_id': 'support', 'scenario_label': 'Support',
+        'routes': [{'route_id': 'review', 'keywords': keywords,
+                    'strict_keyword_matching': True, 'output': {'action': 'review'}}],
+        'provider_required_route': 'defer',
+    }
+    item = {'id': 'request', 'subject': text, 'body': '', 'context': {}}
+    with pytest.raises((RuntimeError, ValueError), match='strict routing rules require nonempty string keywords'):
+        example._run_kora_classification(scenario, item)
