@@ -188,13 +188,19 @@ class OpenAICompatibleLocalAdapter(BaseAdapter):
             raise LocalOpenAICompatibleError("local model JSON output must be an object")
         usage = payload.get("usage") if isinstance(payload, dict) else {}
         usage = usage if isinstance(usage, dict) else {}
+        tokens_in = usage.get("prompt_tokens")
+        tokens_out = usage.get("completion_tokens")
+        tokens_in_observed = type(tokens_in) is int and tokens_in >= 0
+        tokens_out_observed = type(tokens_out) is int and tokens_out >= 0
         return {
             "ok": True,
             "output": output,
             "usage": {
                 "time_ms": round(elapsed_ms),
-                "tokens_in": int(usage.get("prompt_tokens", 0) or 0),
-                "tokens_out": int(usage.get("completion_tokens", 0) or 0),
+                "tokens_in": tokens_in if tokens_in_observed else 0,
+                "tokens_in_observed": tokens_in_observed,
+                "tokens_out": tokens_out if tokens_out_observed else 0,
+                "tokens_out_observed": tokens_out_observed,
             },
             "meta": {
                 "adapter": "openai_compatible_local",

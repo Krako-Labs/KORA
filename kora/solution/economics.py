@@ -340,6 +340,10 @@ class WorkloadEconomicsRunner:
                     "model_calls": model_calls,
                     "tokens_in": observed_counter(usage, "tokens_in"),
                     "tokens_out": observed_counter(usage, "tokens_out"),
+                    # Adapters can explicitly mark unavailable provider usage.
+                    # Legacy numeric counters retain their existing representation.
+                    "tokens_in_observed": usage.get("tokens_in_observed", True) is True,
+                    "tokens_out_observed": usage.get("tokens_out_observed", True) is True,
                     "cached_tokens_in": observed_counter(usage, "cached_tokens_in"),
                     "cache_write_tokens_in": observed_counter(usage, "cache_write_tokens_in"),
                     "reasoning_tokens_out": observed_counter(usage, "reasoning_tokens_out"),
@@ -363,6 +367,8 @@ class WorkloadEconomicsRunner:
             "model_calls": sum(event["model_calls"] for event in events),
             "tokens_in": sum(event["tokens_in"] for event in events),
             "tokens_out": sum(event["tokens_out"] for event in events),
+            "tokens_in_observed": all(event.get("tokens_in_observed", True) for event in events),
+            "tokens_out_observed": all(event.get("tokens_out_observed", True) for event in events),
             "cached_tokens_in": sum(event.get("cached_tokens_in", 0) for event in events),
             "cache_write_tokens_in": sum(event.get("cache_write_tokens_in", 0) for event in events),
             "reasoning_tokens_out": sum(event.get("reasoning_tokens_out", 0) for event in events),
@@ -393,6 +399,10 @@ def compare_economics(baseline: dict[str, Any], kora: dict[str, Any]) -> dict[st
 
     def reduction(key: str) -> float | None:
         if incomplete_usage and key != "adapter_attempts":
+            return None
+        if key in ("tokens_in", "tokens_out") and any(
+            receipt.get(f"{key}_observed", True) is not True for receipt in (baseline, kora)
+        ):
             return None
         left = counter(baseline, key)
         right = counter(kora, key)

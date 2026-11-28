@@ -315,6 +315,10 @@ class OpenAIAdapter(BaseAdapter):
 
             usage = payload.get("usage", {})
             usage = usage if isinstance(usage, dict) else {}
+            tokens_in = usage.get("input_tokens")
+            tokens_out = usage.get("output_tokens")
+            tokens_in_observed = type(tokens_in) is int and tokens_in >= 0
+            tokens_out_observed = type(tokens_out) is int and tokens_out >= 0
             input_details = usage.get("input_tokens_details")
             input_details = input_details if isinstance(input_details, dict) else {}
             output_details = usage.get("output_tokens_details")
@@ -324,8 +328,10 @@ class OpenAIAdapter(BaseAdapter):
                 "output": validated_obj,
                 "usage": {
                     "time_ms": int((time.monotonic() - start) * 1000),
-                    "tokens_in": int(usage.get("input_tokens", 0)),
-                    "tokens_out": int(usage.get("output_tokens", 0)),
+                    "tokens_in": tokens_in if tokens_in_observed else 0,
+                    "tokens_in_observed": tokens_in_observed,
+                    "tokens_out": tokens_out if tokens_out_observed else 0,
+                    "tokens_out_observed": tokens_out_observed,
                     "cached_tokens_in": int(input_details.get("cached_tokens", 0) or 0),
                     "cache_write_tokens_in": int(input_details.get("cache_write_tokens", 0) or 0),
                     "reasoning_tokens_out": int(output_details.get("reasoning_tokens", 0) or 0),
