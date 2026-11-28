@@ -312,8 +312,6 @@ class WorkloadEconomicsRunner:
             if instance_error_locations(schema, output):
                 raise RuntimeError(f"output schema failed closed at node {node.id}")
             outputs[node.id] = output
-            if cache_key is not None and not escalated:
-                self.cache.put(cache_key, output)
             usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
             meta = result.get("meta") if isinstance(result.get("meta"), dict) else {}
             reported_model_calls = meta.get("model_calls", 1)
@@ -344,6 +342,10 @@ class WorkloadEconomicsRunner:
                     "output_digest": hashlib.sha256(canonical_json_bytes(output)).hexdigest(),
                 }
             )
+            # A node whose event cannot be constructed has not completed.
+            # Do not publish it for reuse after a failed execution.
+            if cache_key is not None and not escalated:
+                self.cache.put(cache_key, output)
         total_ms = round((time.perf_counter() - started) * 1000.0)
         return {
             "schema_version": "kora.workload-economics/v1",

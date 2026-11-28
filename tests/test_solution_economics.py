@@ -668,3 +668,36 @@ def test_cached_node_still_requires_fallback_identity_before_dispatch():
               exact_reuse=True, fallback_routes={"routine": "fallback"}))
     assert primary.calls == fallback.calls == 0
     assert not r.cache.memory
+
+
+@pytest.mark.parametrize("persistent", [False, True])
+@pytest.mark.parametrize("field", ["model_calls", "tokens_in", "tokens_out", "time_ms"])
+def test_failed_receipt_does_not_publish_node_cache(tmp_path, persistent, field):
+    class RecoveringAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            result["output"]["attempt"] = self.calls
+            if self.calls == 1:
+                section = "meta" if field == "model_calls" else "usage"
+                result[section][field] = "malformed"
+            return result
+
+    adapter = RecoveringAdapter("fixture")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("n", "read", "routine"),),
+        adapters={"fixture": adapter},
+        cache_directory=tmp_path if persistent else None,
+    )
+    p = ExecutionPolicy("p", {"routine": "fixture"}, exact_reuse=True)
+    with pytest.raises(ValueError):
+        r.run(workload={}, policy=p)
+    assert not r.cache.memory
+    assert not list(tmp_path.glob("*.json"))
+
+    retry = r.run(workload={}, policy=p)
+    repeat = r.run(workload={}, policy=p)
+    assert retry["output"]["attempt"] == repeat["output"]["attempt"] == 2
+    assert retry["adapter_attempts"] == 1
+    assert repeat["adapter_attempts"] == 0
+    assert repeat["exact_reuse_hits"] == 1
+    assert adapter.calls == 2
