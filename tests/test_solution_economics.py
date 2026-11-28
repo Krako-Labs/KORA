@@ -27,6 +27,10 @@ def test_exact_repeat_reuses_cacheable_nodes_but_not_uncacheable_draft():
     assert first["model_calls"]==3
     assert second["model_calls"]==1
     assert second["exact_reuse_hits"]==2
+    assert first["adapter_attempts"] == 3
+    assert second["adapter_attempts"] == 1
+    assert [event["adapter_attempts"] for event in second["events"]] == [0, 1, 0]
+    assert sum(adapter.calls for adapter in r.adapters.values()) == 4
 
 
 def test_changed_input_invalidates_exact_reuse():
@@ -414,6 +418,8 @@ def test_escalation_result_does_not_mask_primary_recovery():
         assert first["output"] == {"source": "secondary"}
         assert first["events"][0]["route"] == "secondary"
         assert first["escalations"] == 1
+        assert first["adapter_attempts"] == first["events"][0]["adapter_attempts"] == 2
+        assert first["model_calls"] == 1
         assert not runner.cache.memory
 
         primary.failure = None
@@ -422,10 +428,12 @@ def test_escalation_result_does_not_mask_primary_recovery():
         assert second["events"][0]["route"] == "primary"
         assert second["exact_reuse_hits"] == 0
         assert primary.calls == 2 and secondary.calls == 1
+        assert second["adapter_attempts"] == second["events"][0]["adapter_attempts"] == 1
 
         third = runner.run(workload=work, policy=policy)
         assert third["output"] == second["output"]
         assert third["exact_reuse_hits"] == 1
+        assert third["adapter_attempts"] == third["events"][0]["adapter_attempts"] == 0
         assert primary.calls == 2 and secondary.calls == 1
 
 
