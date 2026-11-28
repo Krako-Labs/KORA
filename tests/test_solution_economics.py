@@ -1,3 +1,5 @@
+import pytest
+
 from kora.solution.economics import (
     EconomicsNode,
     ExecutionPolicy,
@@ -595,3 +597,20 @@ def test_invalid_later_route_is_rejected_before_any_dispatch_or_cache_write():
             assert sum(adapter.calls for adapter in r.adapters.values()) == before
             assert r.cache.memory == cached
         assert r.run(workload={"topic": "warm"}, policy=valid)["exact_reuse_hits"] == 2
+
+
+@pytest.mark.parametrize("key,metric", [
+    ("model_calls", "model_call_reduction_percent"),
+    ("tokens_in", "input_token_reduction_percent"),
+    ("tokens_out", "output_token_reduction_percent"),
+])
+def test_economics_reductions_require_observed_nonnegative_integer_counters(key, metric):
+    assert compare_economics({key: 10}, {key: 0})[metric] == 100.0
+    assert compare_economics({key: 10}, {key: 4})[metric] == 60.0
+    assert compare_economics({key: 10}, {key: 20})[metric] == -100.0
+    assert compare_economics({key: 0}, {key: 4})[metric] is None
+    for invalid in ({}, *({key: value} for value in (None, True, False, -1, 1.5, "7", [], {}))):
+        assert compare_economics({key: 10}, invalid)[metric] is None
+        assert compare_economics(invalid, {key: 4})[metric] is None
+    assert compare_economics({key: 1}, {key: 10**400})[metric] is None
+    assert compare_economics({key: 10**400}, {key: 2 * 10**400})[metric] == -100.0
