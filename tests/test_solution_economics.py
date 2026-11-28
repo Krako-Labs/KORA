@@ -614,3 +614,57 @@ def test_economics_reductions_require_observed_nonnegative_integer_counters(key,
         assert compare_economics(invalid, {key: 4})[metric] is None
     assert compare_economics({key: 1}, {key: 10**400})[metric] is None
     assert compare_economics({key: 10**400}, {key: 2 * 10**400})[metric] == -100.0
+
+
+@pytest.mark.parametrize("reuse,cacheable", [(False, True), (True, False), (False, False)])
+@pytest.mark.parametrize("primary_fails", [False, True])
+def test_noncached_node_does_not_require_fallback_cache_identity(reuse, cacheable, primary_fails):
+    class Fixture(FakeAdapter):
+        def __init__(self, name, fail=False):
+            super().__init__(name)
+            self.fail = fail
+            self.identity_calls = 0
+
+        def cache_identity(self):
+            self.identity_calls += 1
+            raise RuntimeError("fixture cache identity unavailable")
+
+        def run(self, **kwargs):
+            self.calls += 1
+            return {"ok": not self.fail, "output": {"source": self.name},
+                    "meta": {"model_calls": 0}}
+
+    primary = Fixture("primary", primary_fails)
+    fallback = Fixture("fallback")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("n", "read", "routine", cacheable=cacheable),),
+        adapters={"primary": primary, "fallback": fallback},
+    )
+    policy = ExecutionPolicy("test", {"routine": "primary"}, exact_reuse=reuse,
+                             fallback_routes={"routine": "fallback"})
+    for _ in range(2):
+        result = r.run(workload={}, policy=policy)
+        assert result["output"] == {"source": "fallback" if primary_fails else "primary"}
+        assert result["adapter_attempts"] == (2 if primary_fails else 1)
+        assert result["model_calls"] == result["exact_reuse_hits"] == 0
+    assert primary.calls == 2 and fallback.calls == (2 if primary_fails else 0)
+    assert primary.identity_calls == fallback.identity_calls == 0
+    assert not r.cache.memory
+
+
+def test_cached_node_still_requires_fallback_identity_before_dispatch():
+    class MissingIdentity(FakeAdapter):
+        def cache_identity(self):
+            raise RuntimeError("fixture cache identity unavailable")
+
+    primary = FakeAdapter("primary")
+    fallback = MissingIdentity("fallback")
+    r = WorkloadEconomicsRunner(
+        nodes=(EconomicsNode("n", "read", "routine"),),
+        adapters={"primary": primary, "fallback": fallback},
+    )
+    with pytest.raises(RuntimeError, match="fixture cache identity unavailable"):
+        r.run(workload={}, policy=ExecutionPolicy("test", {"routine": "primary"},
+              exact_reuse=True, fallback_routes={"routine": "fallback"}))
+    assert primary.calls == fallback.calls == 0
+    assert not r.cache.memory
