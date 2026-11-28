@@ -701,3 +701,26 @@ def test_failed_receipt_does_not_publish_node_cache(tmp_path, persistent, field)
     assert repeat["adapter_attempts"] == 0
     assert repeat["exact_reuse_hits"] == 1
     assert adapter.calls == 2
+
+
+@pytest.mark.parametrize("field,value", [
+    ("model_calls", 0.5), ("model_calls", -1), ("model_calls", True),
+    ("tokens_in", 0.5), ("tokens_in", -1), ("tokens_out", True),
+    ("cached_tokens_in", -1), ("cache_write_tokens_in", 0.5),
+    ("reasoning_tokens_out", -1), ("time_ms", -1),
+])
+def test_invalid_explicit_economics_counters_fail_before_cache(field, value):
+    class InvalidCounterAdapter(FakeAdapter):
+        def run(self, **kwargs):
+            result = super().run(**kwargs)
+            result["meta" if field == "model_calls" else "usage"][field] = value
+            return result
+
+    adapter = InvalidCounterAdapter("fixture")
+    r = WorkloadEconomicsRunner(nodes=(EconomicsNode("n", "read", "routine"),),
+                                adapters={"fixture": adapter})
+    p = ExecutionPolicy("p", {"routine": "fixture"}, exact_reuse=True)
+    with pytest.raises(ValueError, match=field):
+        r.run(workload={}, policy=p)
+    assert not r.cache.memory
+    assert adapter.calls == 1
