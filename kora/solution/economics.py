@@ -247,6 +247,7 @@ class WorkloadEconomicsRunner:
                         "status": "ok",
                         "reused": True,
                         "escalated": False,
+                        "adapter_attempts": 0,
                         "model_calls": 0,
                         "tokens_in": 0,
                         "tokens_out": 0,
@@ -257,6 +258,7 @@ class WorkloadEconomicsRunner:
                 continue
             escalated = False
             primary_error_class = None
+            adapter_attempts = 1
             try:
                 result = adapter.run(
                     task_id=node.id,
@@ -271,6 +273,7 @@ class WorkloadEconomicsRunner:
                 primary_error_class = type(exc).__name__
                 adapter_name = fallback_name
                 adapter = self.adapters[fallback_name]
+                adapter_attempts += 1
                 result = adapter.run(
                     task_id=node.id,
                     input=node_input,
@@ -286,6 +289,7 @@ class WorkloadEconomicsRunner:
                 primary_error_class = "AdapterReturnedNotOk"
                 adapter_name = fallback_name
                 adapter = self.adapters[fallback_name]
+                adapter_attempts += 1
                 result = adapter.run(
                     task_id=node.id,
                     input=node_input,
@@ -313,6 +317,7 @@ class WorkloadEconomicsRunner:
                     "model": meta.get("model"),
                     "status": "ok",
                     "reused": False,
+                    "adapter_attempts": adapter_attempts,
                     "model_calls": int(meta.get("model_calls", 1) or 1),
                     "tokens_in": int(usage.get("tokens_in", 0) or 0),
                     "tokens_out": int(usage.get("tokens_out", 0) or 0),
@@ -329,6 +334,9 @@ class WorkloadEconomicsRunner:
             "policy": policy.name,
             "workload_digest": hashlib.sha256(canonical_json_bytes(workload)).hexdigest(),
             "total_time_ms": total_ms,
+            # Adapter invocations include failed primary attempts before fallback.
+            # They are not provider inference or billing measurements.
+            "adapter_attempts": sum(event["adapter_attempts"] for event in events),
             "model_calls": sum(event["model_calls"] for event in events),
             "tokens_in": sum(event["tokens_in"] for event in events),
             "tokens_out": sum(event["tokens_out"] for event in events),
