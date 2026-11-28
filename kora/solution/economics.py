@@ -368,32 +368,29 @@ class WorkloadEconomicsRunner:
 
 def compare_economics(baseline: dict[str, Any], kora: dict[str, Any]) -> dict[str, Any]:
     """Return arithmetic deltas only; callers own any cost/quality interpretation."""
-    def reduction(key: str) -> float | None:
-        left = int(baseline.get(key, 0) or 0)
-        right = int(kora.get(key, 0) or 0)
-        if left <= 0:
-            return None
-        return round((left - right) / left * 100.0, 4)
-
-    # Old receipts do not have this measurement. Never interpret missing or
-    # invalid values as zero dispatches.
-    def attempts(receipt: dict[str, Any]) -> int | None:
-        value = receipt.get("adapter_attempts")
+    # A missing or invalid measurement is not an observed zero. Only
+    # nonnegative integer counters can support a reduction calculation.
+    def counter(receipt: dict[str, Any], key: str) -> int | None:
+        value = receipt.get(key)
         return value if type(value) is int and value >= 0 else None
 
-    baseline_attempts = attempts(baseline)
-    kora_attempts = attempts(kora)
-    attempt_reduction = None
-    if baseline_attempts and kora_attempts is not None:
+    def reduction(key: str) -> float | None:
+        left = counter(baseline, key)
+        right = counter(kora, key)
+        if not left or right is None:
+            return None
         try:
-            attempt_reduction = round(100 * (baseline_attempts - kora_attempts) / baseline_attempts, 4)
+            return round(100 * (left - right) / left, 4)
         except OverflowError:
             # Keep the raw counters when the percentage cannot fit in a float.
-            pass
+            return None
+
+    baseline_attempts = counter(baseline, "adapter_attempts")
+    kora_attempts = counter(kora, "adapter_attempts")
     return {
         "baseline_adapter_attempts": baseline_attempts,
         "kora_adapter_attempts": kora_attempts,
-        "adapter_attempt_reduction_percent": attempt_reduction,
+        "adapter_attempt_reduction_percent": reduction("adapter_attempts"),
         "baseline_policy": baseline.get("policy"),
         "kora_policy": kora.get("policy"),
         "model_call_reduction_percent": reduction("model_calls"),
